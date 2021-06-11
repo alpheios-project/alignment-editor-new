@@ -99,7 +99,7 @@ export default {
       return L10nSingleton
     },
     alignAvailable () {
-      return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$textC.couldStartAlign && this.$textC.checkSize(this.$settingsC.maxCharactersPerTextValue)
+      return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$textC.couldStartAlign && this.$textC.checkSize()
     },
     undoAvailable () {
       return this.alignEditAvailable && this.$historyC.undoAvailable

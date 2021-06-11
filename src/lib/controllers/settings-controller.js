@@ -7,6 +7,7 @@ import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 
 import Langs from '@/lib/data/langs/langs.js'
 
+let _instance
 export default class SettingsController {
   /**
    *
@@ -28,65 +29,97 @@ export default class SettingsController {
     this.valuesClassesList = {
       Langs: Langs.all
     }
+  }
+
+  static create (store) {
+    _instance = new SettingsController(store)
     this.defineSettings()
+    return _instance
+  }
+
+  /**
+   * Loads options from the storageAdapter
+   */
+  static async init (store) {
+    if (!_instance) { this.create(store) }
+    const optionsPromises = Object.values(_instance.options).map(options => options.load())
+
+    await Promise.all(optionsPromises)
+    this.submitEventUpdateTheme()
+  }
+
+  static getStorageAdapter () {
+    return _instance.storageAdapter
+  }
+
+  static getStore () {
+    return _instance.store
   }
 
   /**
    * @returns {String} - theme option value
    */
-  get themeOptionValue () {
-    return this.options.app && this.options.app.items.theme ? this.options.app.items.theme.currentValue : ''
+  static get themeOptionValue () {
+    return _instance.options.app && _instance.options.app.items.theme ? _instance.options.app.items.theme.currentValue : ''
   }
 
   /**
    * @returns {String} - tokenizer option value
    */
-  get tokenizerOptionValue () {
-    return this.options.app && this.options.app.items.tokenizer ? this.options.app.items.tokenizer.currentValue : ''
+  static get tokenizerOptionValue () {
+    return _instance.options.app && _instance.options.app.items.tokenizer ? _instance.options.app.items.tokenizer.currentValue : ''
   }
 
-  get maxCharactersPerTextValue () {
-    return this.options.app && this.options.app.items.maxCharactersPerText ? this.options.app.items.maxCharactersPerText.currentValue : 5000
+  static get maxCharactersPerTextValue () {
+    return _instance.options.app && _instance.options.app.items.maxCharactersPerText ? _instance.options.app.items.maxCharactersPerText.currentValue : 5000
   }
 
-  get useSpecificEnglishTokenizer () {
-    return this.options.app && this.options.app.items.useSpecificEnglishTokenizer ? this.options.app.items.useSpecificEnglishTokenizer.currentValue : false
+  static get useSpecificEnglishTokenizer () {
+    return _instance.options.app && _instance.options.app.items.useSpecificEnglishTokenizer ? _instance.options.app.items.useSpecificEnglishTokenizer.currentValue : false
   }
 
-  get showSummaryPopup () {
-    return this.options.app && this.options.app.items.showSummaryPopup ? this.options.app.items.showSummaryPopup.currentValue : false
+  static get showSummaryPopup () {
+    return _instance.options.app && _instance.options.app.items.showSummaryPopup ? _instance.options.app.items.showSummaryPopup.currentValue : false
+  }
+
+  static get maxCharactersPerPart () {
+    return _instance.options.app && _instance.options.app.items.maxCharactersPerPart ? _instance.options.app.items.maxCharactersPerPart.currentValue : 1000
   }
 
   /**
    * @returns {Boolean} - allowUpdateTokenWord optin value
    */
-  get allowUpdateTokenWordOptionValue () {
-    return this.options.app && this.options.app.items.allowUpdateTokenWord ? this.options.app.items.allowUpdateTokenWord.currentValue : false
+  static get allowUpdateTokenWordOptionValue () {
+    return _instance.options.app && _instance.options.app.items.allowUpdateTokenWord ? _instance.options.app.items.allowUpdateTokenWord.currentValue : false
   }
 
   /**
    * @returns {Boolean} - true - if tokenize options are already defined
    */
-  get tokenizerOptionsLoaded () {
-    return TokenizeController.fullyDefinedOptions(this.tokenizerOptionValue, this.options.tokenize)
+  static get tokenizerOptionsLoaded () {
+    return TokenizeController.fullyDefinedOptions(this.tokenizerOptionValue, _instance.options.tokenize)
   }
 
   /**
    * @returns {Boolean} - true - if sourceText options are already defined
    */
-  get sourceTextOptionsLoaded () {
-    return Boolean(this.options.sourceText)
+  static get sourceTextOptionsLoaded () {
+    return Boolean(_instance.options.sourceText)
+  }
+
+  static get allOptions () {
+    return _instance.options
   }
 
   /**
    * Creates all type of options from default data
    */
-  defineSettings () {
-    Object.keys(this.defaultSettings).forEach(defaultSName => {
-      this.options[defaultSName] = new Options(this.defaultSettings[defaultSName], new this.storageAdapter(this.defaultSettings[defaultSName].domain)) // eslint-disable-line new-cap
+  static defineSettings () {
+    Object.keys(_instance.defaultSettings).forEach(defaultSName => {
+      _instance.options[defaultSName] = new Options(_instance.defaultSettings[defaultSName], new _instance.storageAdapter(_instance.defaultSettings[defaultSName].domain)) // eslint-disable-line new-cap
     })
-    Object.values(this.options).forEach(optionsGroup => {
-      optionsGroup.checkAndUploadValuesFromArray(this.valuesClassesList)
+    Object.values(_instance.options).forEach(optionsGroup => {
+      optionsGroup.checkAndUploadValuesFromArray(_instance.valuesClassesList)
     })
     this.submitEventUpdateTheme()
   }
@@ -94,39 +127,29 @@ export default class SettingsController {
   /**
    * Publish event for change application theme - event subscribers are defined in AppContoller
    */
-  submitEventUpdateTheme () {
+  static submitEventUpdateTheme () {
     SettingsController.evt.SETTINGS_CONTROLLER_THEME_UPDATED.pub({
-      theme: this.options.app.items.theme.currentValue,
-      themesList: this.options.app.items.theme.values.map(val => val.value)
+      theme: _instance.options.app.items.theme.currentValue,
+      themesList: _instance.options.app.items.theme.values.map(val => val.value)
     })
-  }
-
-  /**
-   * Loads options from the storageAdapter
-   */
-  async init () {
-    const optionsPromises = Object.values(this.options).map(options => options.load())
-
-    await Promise.all(optionsPromises)
-    this.submitEventUpdateTheme()
   }
 
   /**
    * Starts upload options for tokenization process,
    * we could need to upload from a remote source
    */
-  async uploadRemoteSettings () {
-    this.options.tokenize = await TokenizeController.uploadOptions(this.storageAdapter)
+  static async uploadRemoteSettings () {
+    _instance.options.tokenize = await TokenizeController.uploadOptions(_instance.storageAdapter)
 
-    if (this.options.tokenize && this.options.tokenize.alpheiosRemoteTokenizer && this.options.tokenize.alpheiosRemoteTokenizer.text) {
-      delete this.options.tokenize.alpheiosRemoteTokenizer.text.items.tbsegstart
-      delete this.options.tokenize.alpheiosRemoteTokenizer.text.defaults.items.tbsegstart // it is deleted because treebank support would be developed later
+    if (_instance.options.tokenize && _instance.options.tokenize.alpheiosRemoteTokenizer && _instance.options.tokenize.alpheiosRemoteTokenizer.text) {
+      delete _instance.options.tokenize.alpheiosRemoteTokenizer.text.items.tbsegstart
+      delete _instance.options.tokenize.alpheiosRemoteTokenizer.text.defaults.items.tbsegstart // it is deleted because treebank support would be developed later
     }
-    if (this.options.tokenize && this.options.tokenize.alpheiosRemoteTokenizer && this.options.tokenize.alpheiosRemoteTokenizer.tei) {
-      delete this.options.tokenize.alpheiosRemoteTokenizer.tei.items.tbsegstart
-      delete this.options.tokenize.alpheiosRemoteTokenizer.tei.defaults.items.tbsegstart // it is deleted because treebank support would be developed later
+    if (_instance.options.tokenize && _instance.options.tokenize.alpheiosRemoteTokenizer && _instance.options.tokenize.alpheiosRemoteTokenizer.tei) {
+      delete _instance.options.tokenize.alpheiosRemoteTokenizer.tei.items.tbsegstart
+      delete _instance.options.tokenize.alpheiosRemoteTokenizer.tei.defaults.items.tbsegstart // it is deleted because treebank support would be developed later
     }
-    this.store.commit('incrementOptionsUpdated')
+    _instance.store.commit('incrementOptionsUpdated')
   }
 
   /**
@@ -137,20 +160,22 @@ export default class SettingsController {
    * if (group) { key = `${key}__${group}` }
    * @param {OptionItem} optionItem
    */
-  changeOption (optionItem) {
+  static changeOption (optionItem) {
     const optionNameParts = optionItem.name.split('__')
 
     if (optionNameParts[2] === 'theme') {
       this.submitEventUpdateTheme()
+    } else if (optionNameParts[2] === 'maxCharactersPerPart') {
+      _instance.store.commit('incrementRedefineAllPartNums')
     }
-    this.store.commit('incrementOptionsUpdated')
+    _instance.store.commit('incrementOptionsUpdated')
   }
 
   /**
    * @returns {Boolean} - true if tokenizer options for the current tokenizer is already defined
    */
-  get hasTokenizerOptions () {
-    return Boolean(this.options.tokenize) && Boolean(this.options.tokenize[this.tokenizerOptionValue])
+  static get hasTokenizerOptions () {
+    return Boolean(_instance.options.tokenize) && Boolean(_instance.options.tokenize[this.tokenizerOptionValue])
   }
 
   /**
@@ -159,14 +184,14 @@ export default class SettingsController {
    * @param {Number} indexText - the number of the text with the type (used for targets)
    * @returns {Options}
    */
-  cloneTextEditorOptions (typeText, indexText) {
+  static cloneTextEditorOptions (typeText, indexText) {
     const clonedOpts = {
-      sourceText: this.options.sourceText.clone(`${typeText}-${indexText}`, this.textPropsStorageAdapter)
+      sourceText: _instance.options.sourceText.clone(`${typeText}-${indexText}`, _instance.textPropsStorageAdapter)
     }
 
     if (this.hasTokenizerOptions) {
-      Object.keys(this.options.tokenize[this.tokenizerOptionValue]).forEach(sourceType => {
-        clonedOpts[sourceType] = this.options.tokenize[this.tokenizerOptionValue][sourceType].clone(`${typeText}-${indexText}`, this.textPropsStorageAdapter)
+      Object.keys(_instance.options.tokenize[this.tokenizerOptionValue]).forEach(sourceType => {
+        clonedOpts[sourceType] = _instance.options.tokenize[this.tokenizerOptionValue][sourceType].clone(`${typeText}-${indexText}`, _instance.textPropsStorageAdapter)
       })
     }
     return clonedOpts
@@ -181,7 +206,7 @@ export default class SettingsController {
    *        {String} sourceTextData.direction
    *        {String} sourceTextData.sourceType
    */
-  updateLocalTextEditorOptions (localTextEditorOptions, sourceTextData) {
+  static updateLocalTextEditorOptions (localTextEditorOptions, sourceTextData) {
     if (sourceTextData.lang) {
       localTextEditorOptions.sourceText.items.language.setValue(sourceTextData.lang)
     }
@@ -199,7 +224,7 @@ export default class SettingsController {
         }
       })
     }
-    this.store.commit('incrementOptionsUpdated')
+    _instance.store.commit('incrementOptionsUpdated')
   }
 
   /**
@@ -207,24 +232,24 @@ export default class SettingsController {
    * @param {Object} localTextEditorOptions
    *        {Options} localTextEditorOptions.sourceText
    */
-  resetLocalTextEditorOptions (textType, textId) {
+  static resetLocalTextEditorOptions (textType, textId) {
     const clonedOpts = this.cloneTextEditorOptions(textType, textId)
-    this.store.commit('incrementOptionsUpdated')
+    _instance.store.commit('incrementOptionsUpdated')
     return clonedOpts
   }
 
   /**
    * Resets global options
    */
-  async resetAllOptions () {
-    await this.options.app.reset()
-    Object.values(this.options.app.items).forEach(optionItem => this.changeOption(optionItem))
+  static async resetAllOptions () {
+    await _instance.options.app.reset()
+    Object.values(_instance.options.app.items).forEach(optionItem => this.changeOption(optionItem))
 
-    await this.options.sourceText.reset()
-    this.options.sourceText.checkAndUploadValuesFromArray(this.valuesClassesList)
-    Object.values(this.options.sourceText.items).forEach(optionItem => this.changeOption(optionItem))
+    await _instance.options.sourceText.reset()
+    _instance.options.sourceText.checkAndUploadValuesFromArray(_instance.valuesClassesList)
+    Object.values(_instance.options.sourceText.items).forEach(optionItem => this.changeOption(optionItem))
 
-    this.store.commit('incrementResetOptions')
+    _instance.store.commit('incrementResetOptions')
   }
 }
 

@@ -1,7 +1,7 @@
 import HistoryStep from '@/lib/data/history/history-step.js'
 
 export default class Token {
-  constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak, sentenceIndex, tokenIndex } = {}, segmentIndex, docSourceId) {
+  constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak, sentenceIndex, tokenIndex, partNum } = {}, segmentIndex, docSourceId) {
     this.textType = textType
     this.idWord = idWord
     this.word = word
@@ -13,6 +13,8 @@ export default class Token {
     this.segmentIndex = segmentIndex
     this.docSourceId = docSourceId
     this.tokenIndex = tokenIndex
+    this.len = this.word ? this.word.length : 0
+    this.partNum = partNum
   }
 
   /**
@@ -35,9 +37,10 @@ export default class Token {
    * @param {String} word - new word
    * @param {String} idWord - new idWord
    */
-  update ({ word, idWord, segmentIndex, hasLineBreak }) {
+  update ({ word, idWord, segmentIndex, hasLineBreak, partNum }) {
     if (word !== undefined) {
       this.word = word
+      this.len = this.word.length
     }
 
     if (idWord !== undefined) {
@@ -50,6 +53,10 @@ export default class Token {
 
     if (hasLineBreak !== undefined) {
       this.hasLineBreak = hasLineBreak
+    }
+
+    if (partNum !== undefined) {
+      this.partNum = partNum
     }
 
     return true
@@ -136,6 +143,36 @@ export default class Token {
       afterWord: this.afterWord,
       hasLineBreak: this.hasLineBreak,
       sentenceIndex: this.sentenceIndex
+    }
+  }
+
+  static convertFromIndexedDB (data) {
+    return new Token({
+      textType: data.textType,
+      idWord: data.idWord,
+      word: data.word,
+      beforeWord: data.beforeWord,
+      afterWord: data.afterWord,
+      hasLineBreak: data.hasLineBreak,
+      sentenceIndex: data.sentenceIndex,
+      tokenIndex: data.tokenIndex,
+      partNum: data.partNum
+    }, data.segmentIndex, data.docSourceId)
+  }
+
+  convertToIndexedDB (tokenIndex) {
+    return {
+      textType: this.textType,
+      idWord: this.idWord,
+      word: this.word,
+      beforeWord: this.beforeWord,
+      afterWord: this.afterWord,
+      hasLineBreak: this.hasLineBreak,
+      segmentIndex: this.segmentIndex,
+      docSourceId: this.docSourceId,
+      sentenceIndex: this.sentenceIndex,
+      partNum: this.partNum,
+      tokenIndex
     }
   }
 }

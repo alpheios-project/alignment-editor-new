@@ -6,6 +6,7 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 import StorageController from '@/lib/controllers/storage-controller.js'
+import SettingsController from '@/lib/controllers/settings-controller.js'
 
 export default class TextsController {
   constructor (store) {
@@ -29,8 +30,8 @@ export default class TextsController {
     return Boolean(this.alignment) && this.alignment.readyForTokenize
   }
 
-  checkSize (maxCharactersPerTextValue) {
-    return Boolean(this.alignment) && this.alignment.checkSize(maxCharactersPerTextValue)
+  checkSize () {
+    return Boolean(this.alignment) && this.alignment.checkSize(SettingsController.maxCharactersPerTextValue)
   }
 
   /**
@@ -291,16 +292,16 @@ export default class TextsController {
    * Prepares and download source data
    * @returns {Boolean} - true - download was successful, false - was not
    */
-  downloadData (downloadType, additional = {}) {
+  async downloadData (downloadType, additional = {}) {
     const downloadPrepareMethods = {
       plainSourceDownloadAll: this.downloadShortData.bind(this),
       jsonSimpleDownloadAll: this.downloadFullData.bind(this),
       htmlDownloadAll: this.htmlDownloadAll.bind(this)
     }
 
-    const result = downloadPrepareMethods[downloadType](downloadType, additional)
-
-    return DownloadController.download(result.downloadType, result.data)
+    const result = await downloadPrepareMethods[downloadType](downloadType, additional)
+    await DownloadController.download(result.downloadType, result.data)
+    return true
   }
 
   downloadShortData (downloadType) {
@@ -313,8 +314,11 @@ export default class TextsController {
     }
   }
 
-  downloadFullData (downloadType) {
-    const data = this.alignment.convertToJSON()
+  async downloadFullData (downloadType) {
+    const dbData = await StorageController.select({ alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+    const alignment = await Alignment.convertFromIndexedDB(dbData)
+
+    const data = alignment.convertToJSON()
     return {
       downloadType, data
     }
@@ -473,5 +477,47 @@ export default class TextsController {
 
     const result = await StorageController.select(data)
     return result
+  }
+
+  async defineAllPartNumsForTexts () {
+    const allPartsAlreadyUploaded = this.alignment.hasAllPartsUploaded
+
+    if (!allPartsAlreadyUploaded) {
+      const dbData = await StorageController.select({ alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+      this.alignment = await Alignment.convertFromIndexedDB(dbData)
+    }
+    this.alignment.defineAllPartNumsForTexts()
+    await StorageController.update(this.alignment, true)
+    if (!allPartsAlreadyUploaded) {
+      this.alignment.limitTokensToPartNumAllTexts(1)
+    }
+    this.store.commit('incrementReuploadTextsParts')
+  }
+
+  async checkAndUploadSegmentsFromDB (textType, textId, segmentIndex, partNums) {
+    this.alignment.limitTokensToPartNumSegment(textType, textId, segmentIndex, partNums)
+
+    for (let i = 0; i < partNums.length; i++) {
+      if (!this.alignment.partIsUploaded(textType, textId, segmentIndex, partNums[i])) {
+        const selectParams = {
+          alignmentID: this.alignment.id,
+          textId,
+          segmentIndex,
+          partNum: partNums[i]
+        }
+        const dbData = await StorageController.select(selectParams, 'tokensByPartNum')
+
+        this.alignment.uploadSegmentTokensFromDB(textType, textId, segmentIndex, dbData)
+      }
+    }
+    this.store.commit('incrementUploadPartNum')
+  }
+
+  getSegmentPart (textType, textId, segmentIndex, partNums) {
+    return this.alignment.getSegmentPart(textType, textId, segmentIndex, partNums)
+  }
+
+  getSegment (textType, textId, segmentIndex) {
+    return this.alignment.getSegment(textType, textId, segmentIndex)
   }
 }

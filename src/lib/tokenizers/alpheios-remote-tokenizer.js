@@ -8,7 +8,7 @@ export default class AlpheiosRemoteTokenizer {
      * @param {String} idPrefix - prefix for creating tokens idWord
      * @returns {[Objects]} - array of token-like objects, would be converted to Tokens outside
      */
-  static async tokenize (docSource, idPrefix, useSpecificEnglishTokenizer = false) {
+  static async tokenize (docSource, idPrefix, useSpecificEnglishTokenizer) {
     const textFormatted = docSource.text.split(/[ \r\t\f]*\n[ \r\t\f]*/).join('\n')
 
     let lang = docSource.lang

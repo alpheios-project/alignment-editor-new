@@ -33,6 +33,7 @@
 
       <summary-popup :showModal="showSummaryModal" :showOnlyWaiting = "showOnlyWaitingSummary" @closeModal = "showSummaryModal = false" @start-align = "alignTexts"
       />
+      <waiting-popup :showModal="showWaitingModal" @closeModal = "showWaitingModal = false" />
   </div>
 </template>
 <script>
@@ -44,6 +45,8 @@ import InitialScreen from '@/vue/initial-screen.vue'
 import MainMenu from '@/vue/main-menu.vue'
 import SummaryPopup from '@/vue/summary-popup.vue'
 
+import WaitingPopup from '@/vue/common/waiting-popup.vue'
+
 import NotificationBar from '@/vue/notification-bar.vue'
 import TextEditor from '@/vue/text-editor/text-editor.vue'
 import AlignEditor from '@/vue/align-editor/align-editor.vue'
@@ -52,6 +55,8 @@ import TokensEditor from '@/vue/tokens-editor/tokens-editor.vue'
 import OptionsBlock from '@/vue/options/options-block.vue'
 
 import NavbarIcon from '@/inline-icons/navbar.svg'
+
+import SettingsController from '@/lib/controllers/settings-controller.js'
 
 export default {
   name: 'App',
@@ -64,7 +69,9 @@ export default {
     optionsBlock: OptionsBlock,
     navbarIcon: NavbarIcon,
     initialScreen: InitialScreen,
-    summaryPopup: SummaryPopup
+    summaryPopup: SummaryPopup,
+    waitingPopup: WaitingPopup
+
   },
   data () {
     return {     
@@ -80,7 +87,16 @@ export default {
       updateCurrentPage: 'initial-screen',
 
       showSummaryModal: false,
-      showOnlyWaitingSummary: false
+      showOnlyWaitingSummary: false,
+
+      showWaitingModal: false
+    }
+  },
+  watch: {
+    async '$store.state.redefineAllPartNums' () {
+      this.showWaitingModal = true
+      await this.$textC.defineAllPartNumsForTexts()
+      this.showWaitingModal = false
     }
   },
   computed: {
@@ -92,14 +108,14 @@ export default {
     /**
      * Starts download workflow
      */
-    downloadData (downloadType) {
+    async downloadData (downloadType) {
       let additional = {}
       if (downloadType === 'htmlDownloadAll') {
         additional = {
-          theme: this.$settingsC.themeOptionValue
+          theme: SettingsController.themeOptionValue
         }
       }
-      this.$textC.downloadData(downloadType, additional)
+      await this.$textC.downloadData(downloadType, additional)
     },
 
     /**
@@ -107,7 +123,7 @@ export default {
     */
     uploadDataFromFile (fileData, extension) {
       if (fileData) {
-        const alignment = this.$textC.uploadDataFromFile(fileData, this.$settingsC.tokenizerOptionValue, extension)
+        const alignment = this.$textC.uploadDataFromFile(fileData, SettingsController.tokenizerOptionValue, extension)
 
         if (alignment instanceof Alignment) {
           return this.startOver(alignment)
@@ -139,16 +155,20 @@ export default {
       this.$historyC.undo()
     },
 
-    showSummaryPopup () {
-      this.showOnlyWaitingSummary = !this.$settingsC.showSummaryPopup
-      this.showSummaryModal = true
+    async showSummaryPopup () {
+      if (!SettingsController.showSummaryPopup) {
+        await this.alignTexts()
+      } else {
+        this.showSummaryModal = true
+      }
     },
     /**
      * Starts align workflow
      */
     async alignTexts () {
-      const result = await this.$alignedGC.createAlignedTexts(this.$textC.alignment, this.$settingsC.useSpecificEnglishTokenizer)
-      this.showSummaryModal = false
+      this.showWaitingModal = true
+      const result = await this.$alignedGC.createAlignedTexts(this.$textC.alignment)
+      this.showWaitingModal = false
       if (result) {
         this.$tokensEC.loadAlignment(this.$textC.alignment)
         this.showAlignmentGroupsEditor()

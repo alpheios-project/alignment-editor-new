@@ -64,13 +64,14 @@ describe('tokens-edit-actions.test.js', () => {
     }
   }
 
-  beforeAll(() => {
+  beforeAll(async () => {
     const appC = new AppController({
       appidWord: 'alpheios-alignment-editor'
     })
     appC.defineStore()
     appC.defineL10Support()
     appC.defineNotificationSupport(appC.store)
+    await appC.defineSettingsController(appC.store)
   })
 
   beforeEach(() => {

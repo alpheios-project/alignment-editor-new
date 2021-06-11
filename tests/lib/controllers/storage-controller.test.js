@@ -1,7 +1,10 @@
 /* eslint-env jest */
 /* eslint-disable no-unused-vars */
 
+import AppController from '@/lib/controllers/app-controller.js'
 import StorageController from '@/lib/controllers/storage-controller.js'
+import SettingsController from '@/lib/controllers/settings-controller.js'
+
 import Alignment from '@/lib/data/alignment.js'
 import SourceText from '@/lib/data/source-text.js'
 import MetadataTerm from '@/lib/data/metadata-term.js'
@@ -18,11 +21,21 @@ describe('storage-controller.test.js', () => {
   let alignment1
   let userID
   beforeAll(async () => {
+    const appC = new AppController({
+      appId:'alpheios-alignment-editor'
+    })
+    
+    appC.defineStore()
+    appC.defineL10Support()
+    appC.defineNotificationSupport(appC.store)
+    await appC.defineSettingsController(appC.store)
+
     alignment1 = Alignment.convertFromJSON(GrcEngKat)
     userID = Alignment.defaultUserID
 
     window.indexedDB = IndexedDB
     window.IDBKeyRange = IDBKeyRange
+
   })
   beforeEach(() => {
     jest.clearAllMocks()
@@ -73,6 +86,7 @@ describe('storage-controller.test.js', () => {
     })]))
 
     await StorageController.clear()
+
   })
 
   it('2 StorageController - use case - update existed docSource in IndexedDB', async () => {

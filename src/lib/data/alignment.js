@@ -11,6 +11,8 @@ import TokensEditHistory from '@/lib/data/history/tokens-edit-history.js'
 
 import TokensEditActions from '@/lib/data/actions/tokens-edit-actions.js'
 import DetectTextController from '@/lib/controllers/detect-text-controller.js'
+import SettingsController from '@/lib/controllers/settings-controller.js'
+
 import ConvertUtility from '@/lib/utility/convert-utility.js'
 
 export default class Alignment {
@@ -259,7 +261,7 @@ export default class Alignment {
    * @param {String} tokenizer - method's name
    * @returns {Boolean}
    */
-  async createAlignedTexts (useSpecificEnglishTokenizer = false) {
+  async createAlignedTexts () {
     if (!this.readyForTokenize) {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
       NotificationSingleton.addNotification({
@@ -270,14 +272,14 @@ export default class Alignment {
     }
 
     if (!this.origin.alignedText) {
-      const originResult = await this.createOriginAlignedText(useSpecificEnglishTokenizer)
+      const originResult = await this.createOriginAlignedText(SettingsController.useSpecificEnglishTokenizer)
       if (!originResult) { return false }
     }
 
     for (let i = 0; i < Object.keys(this.targets).length; i++) {
       const id = Object.keys(this.targets)[i]
       if (!this.targets[id].alignedText) {
-        const targetResult = await this.createTargetAlignedText(id, i, useSpecificEnglishTokenizer)
+        const targetResult = await this.createTargetAlignedText(id, i, SettingsController.useSpecificEnglishTokenizer)
         if (!targetResult) { return false }
       }
     }
@@ -285,7 +287,7 @@ export default class Alignment {
     return true
   }
 
-  async createOriginAlignedText (useSpecificEnglishTokenizer = false) {
+  async createOriginAlignedText (useSpecificEnglishTokenizer) {
     this.origin.alignedText = new AlignedText({
       docSource: this.origin.docSource,
       tokenPrefix: '1'
@@ -304,7 +306,7 @@ export default class Alignment {
     return true
   }
 
-  async createTargetAlignedText (targetId, index, useSpecificEnglishTokenizer = false) {
+  async createTargetAlignedText (targetId, index, useSpecificEnglishTokenizer) {
     this.targets[targetId].alignedText = new AlignedText({
       docSource: this.targets[targetId].docSource,
       tokenPrefix: (index + 2)
@@ -740,6 +742,7 @@ export default class Alignment {
     if (limitByTargetId) {
       this.hoveredGroups = this.hoveredGroups.filter(alGroup => alGroup.targetId === limitByTargetId)
     }
+    console.info('this.alignmentGroups - ', this.alignmentGroups)
     return this.hoveredGroups
   }
 
@@ -1182,7 +1185,7 @@ export default class Alignment {
 
     if (dbData.alignedText) {
       for (const alignedTextData of dbData.alignedText) {
-        const alignedText = await AlignedText.convertFromIndexedDB(alignedTextData, dbData.segments, dbData.tokens)
+        const alignedText = await AlignedText.convertFromIndexedDB(alignedTextData, dbData.segments, dbData.tokens, dbData.partNums)
         if (alignedText.textType === 'origin') {
           alignment.origin.alignedText = alignedText
         } else {
@@ -1220,5 +1223,53 @@ export default class Alignment {
   checkDetectedProps (textType, docSourceId) {
     const sourceText = this.getDocSource(textType, docSourceId)
     return Boolean(sourceText && sourceText.detectedLang)
+  }
+
+  defineAllPartNumsForTexts () {
+    this.origin.alignedText.segments.forEach(segment => segment.defineAllPartNums())
+    Object.values(this.targets).forEach(target => {
+      target.alignedText.segments.forEach(segment => segment.defineAllPartNums())
+    })
+  }
+
+  getAlignedText (textType, textId) {
+    if (textType === 'origin') { return this.origin.alignedText }
+    return this.targets[textId].alignedText
+  }
+
+  getSegment (textType, textId, segmentIndex) {
+    const alignedText = this.getAlignedText(textType, textId)
+    return alignedText.segments[segmentIndex - 1]
+  }
+
+  partIsUploaded (textType, textId, segmentIndex, partNum) {
+    return this.getSegment(textType, textId, segmentIndex).partIsUploaded(partNum)
+  }
+
+  getSegmentPart (textType, textId, segmentIndex, partNum) {
+    return this.getSegment(textType, textId, segmentIndex).partsTokens(partNum)
+  }
+
+  uploadSegmentTokensFromDB (textType, textId, segmentIndex, dbData) {
+    const alignedText = this.getAlignedText(textType, textId)
+    alignedText.uploadSegmentTokensFromDB(segmentIndex, dbData)
+  }
+
+  limitTokensToPartNumAllTexts (partNum) {
+    if (this.origin.alignedText) {
+      this.origin.alignedText.limitTokensToPartNum(partNum)
+    }
+
+    this.allTargetTextsIds.forEach(targetId => {
+      this.targets[targetId].alignedText.limitTokensToPartNum(partNum)
+    })
+  }
+
+  limitTokensToPartNumSegment (textType, textId, segmentIndex, partNums) {
+    return this.getSegment(textType, textId, segmentIndex).limitTokensToPartNum(partNums)
+  }
+
+  get hasAllPartsUploaded () {
+    return this.origin.alignedText.hasAllPartsUploaded && Object.values(this.targets).every(target => target.alignedText.hasAllPartsUploaded)
   }
 }

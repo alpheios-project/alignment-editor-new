@@ -58,14 +58,17 @@ export default class AlignedText {
     const result = await tokenizeMethod(docSource, this.tokenPrefix, useSpecificEnglishTokenizer)
 
     if (result && result.segments) {
-      this.segments = result.segments.map(segment => new Segment({
-        index: segment.index,
-        tokens: segment.tokens,
-        textType: docSource.textType,
-        lang: docSource.lang,
-        direction: docSource.direction,
-        docSourceId: docSource.id
-      }))
+      this.segments = result.segments.map(segment => {
+        return new Segment({
+          index: segment.index,
+          tokens: segment.tokens,
+          textType: docSource.textType,
+          lang: docSource.lang,
+          direction: docSource.direction,
+          docSourceId: docSource.id
+        })
+      }
+      )
       return true
     }
     return false
@@ -150,11 +153,11 @@ export default class AlignedText {
       sourceType: this.sourceType,
       tokenPrefix: this.tokenPrefix,
       tokenization: this.tokenization,
-      segments: this.segments.map(seg => seg.convertToJSON())
+      segments: this.segments.map(seg => seg.convertToIndexedDB())
     }
   }
 
-  static convertFromIndexedDB (dbData, dbSegments, dbTokens) {
+  static convertFromIndexedDB (dbData, dbSegments, dbTokens, dbAllPartNums) {
     const alignedText = new AlignedText({
       docSource: {
         id: dbData.textId,
@@ -168,8 +171,21 @@ export default class AlignedText {
     })
     const segmentsDbDataFiltered = dbSegments.filter(segmentItem => segmentItem.docSourceId === dbData.textId)
 
-    alignedText.segments = segmentsDbDataFiltered.map(seg => Segment.convertFromIndexedDB(seg, dbTokens))
+    alignedText.segments = segmentsDbDataFiltered.map(seg => Segment.convertFromIndexedDB(seg, dbTokens, dbAllPartNums))
 
     return alignedText
+  }
+
+  limitTokensToPartNum (partNum) {
+    this.segments.forEach(segment => segment.limitTokensToPartNum(partNum))
+  }
+
+  uploadSegmentTokensFromDB (segmentIndex, dbData) {
+    const segment = this.segments[segmentIndex - 1]
+    segment.uploadSegmentTokensFromDB(dbData)
+  }
+
+  get hasAllPartsUploaded () {
+    return this.segments.every(segment => segment.hasAllPartsUploaded)
   }
 }

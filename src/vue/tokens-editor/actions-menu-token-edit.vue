@@ -79,6 +79,7 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 import HistoryStep from '@/lib/data/history/history-step.js'
 import ActionsButtonTokenEdit from '@/vue/tokens-editor/actions-button-token-edit.vue'
+import SettingsController from '@/lib/controllers/settings-controller'
 
 export default {
   name: 'ActionsMenuTokenEdit',
@@ -140,7 +141,7 @@ export default {
       }
     }, 
     allowedUpdateTokenWord () {
-      return this.$store.state.optionsUpdated && this.$settingsC.allowUpdateTokenWordOptionValue
+      return this.$store.state.optionsUpdated && SettingsController.allowUpdateTokenWordOptionValue
     },
     allowedMergePrev () {
       return this.$store.state.optionsUpdated && this.$tokensEC.allowedMergePrev(this.token)

@@ -1,7 +1,7 @@
 <template>
   <modal v-if="showModal" @close="$emit('closeModal')" class="alpheios-alignment-editor-modal-source-type">
     <template v-slot:body >
-      <tokenize-options-block v-if="$settingsC.hasTokenizerOptions" 
+      <tokenize-options-block v-if="hasTokenizerOptions" 
         @updateText = "$emit('updateText')" :localOptions = "localOptions" :disabled="!docSourceEditAvailable"  
       />
     </template>
@@ -10,6 +10,9 @@
 <script>
 import Modal from '@/vue/common/modal.vue'
 import TokenizeOptionsBlock from '@/vue/text-editor/tokenize-options-block.vue'
+
+import SettingsController from '@/lib/controllers/settings-controller'
+
 export default {
   name: 'SourceTypeBlock',
   props: {
@@ -43,6 +46,9 @@ export default {
     docSourceEditAvailable () {
       return Boolean(this.$store.state.docSourceUpdated) && 
              !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
+    },
+    hasTokenizerOptions () {
+      return this.$store.state.optionsUpdated && SettingsController.hasTokenizerOptions
     }
   }
 }

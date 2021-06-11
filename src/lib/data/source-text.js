@@ -158,7 +158,7 @@ export default class SourceText {
   }
 
   checkSize (maxCharactersPerTextValue) {
-    return this.text && (this.text.length <= maxCharactersPerTextValue)
+    return this.text && (this.text.length > 0) && (this.isTei || (this.text.length <= maxCharactersPerTextValue))
   }
 
   /**
@@ -190,7 +190,7 @@ export default class SourceText {
     if (jsonData.textId) {
       sourceText.id = jsonData.textId
     }
-
+    sourceText.skipDetected = true
     return sourceText
   }
 
@@ -238,6 +238,7 @@ export default class SourceText {
     }
 
     const sourceText = new SourceText(dbData.textType, textParams, dbData.textId, dbData.lang !== null)
+    sourceText.skipDetected = true
     return sourceText
   }
 }

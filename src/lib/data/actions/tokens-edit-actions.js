@@ -60,7 +60,7 @@ export default class TokensEditActions {
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
 
-    const check = (direction === HistoryStep.directions.PREV) ? (!segment.isFirstTokenInSegment(tokenIndex)) : (!segment.isLastTokenInSegment(tokenIndex))
+    const check = (direction === HistoryStep.directions.PREV) ? (!segment.isFirstTokenInSegment(token)) : (!segment.isLastTokenInSegment(token))
 
     if (check) {
       return {

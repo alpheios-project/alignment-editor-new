@@ -81,6 +81,7 @@ import NoLangDetectedIcon from '@/inline-icons/no-lang-detected.svg'
 import PlusIcon from '@/inline-icons/plus.svg'
 
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
+import SettingsController from '@/lib/controllers/settings-controller.js'
 
 import OptionItemBlock from '@/vue/options/option-item-block.vue'
 
@@ -153,7 +154,7 @@ export default {
    * Clone options (sourceText and tokenize options) for the cuurent instance of a sourceText
    */
   async mounted () {
-    if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
+    if (!this.localTextEditorOptions.ready && SettingsController.tokenizerOptionsLoaded) {
       this.prepareDefaultTextEditorOptions()
     }
     this.initDataProps()
@@ -161,7 +162,7 @@ export default {
   },
   watch: {
     async '$store.state.optionsUpdated' () {
-      if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
+      if (!this.localTextEditorOptions.ready && SettingsController.tokenizerOptionsLoaded) {
         this.prepareDefaultTextEditorOptions()
       }
     },
@@ -177,7 +178,7 @@ export default {
       this.restartTextEditor()
     },
     async '$store.state.resetOptions' () {
-      this.localTextEditorOptions = this.$settingsC.resetLocalTextEditorOptions(this.textType, this.textId)
+      this.localTextEditorOptions = SettingsController.resetLocalTextEditorOptions(this.textType, this.textId)
       await this.updateText()
     }
   },
@@ -198,7 +199,7 @@ export default {
      * checks if  localOptions is not yet uploaded
      */
     dataUpdated () {
-      if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
+      if (!this.localTextEditorOptions.ready && SettingsController.tokenizerOptionsLoaded) {
         this.prepareDefaultTextEditorOptions()
       }
       return this.$store.state.docSourceUpdated
@@ -273,19 +274,19 @@ export default {
       return this.$store.state.optionsUpdated && this.$store.state.docSourceUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.sourceType.currentValue
     },
     tokenization () {
-      return TokenizeController.defineTextTokenizationOptions(this.$settingsC.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
+      return TokenizeController.defineTextTokenizationOptions(SettingsController.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
     },
     charactersClasses () {
       return {
         'alpheios-alignment-editor-hidden' : (this.textCharactersAmount === 0),
-        'alpheios-alignment-editor-red' : this.textCharactersAmount > this.maxCharactersForTheText
+        'alpheios-alignment-editor-red' : this.sourceType === 'text' && (this.textCharactersAmount > this.maxCharactersForTheText)
       }
     },
     textCharactersAmount () {
       return this.text ? this.text.length : 0
     },
     maxCharactersForTheText () {
-      return this.$store.state.optionsUpdated && this.$settingsC.maxCharactersPerTextValue
+      return this.$store.state.optionsUpdated && SettingsController.maxCharactersPerTextValue
     },
     charactersText () {
       return `Characters count - ${this.textCharactersAmount} (max - ${this.maxCharactersForTheText})`
@@ -300,7 +301,7 @@ export default {
     },
     showLangNotDetected () {
       const docSource = this.$textC.getDocSource(this.textType, this.textId)
-      return this.$store.state.docSourceLangDetected && docSource && (!docSource.detectedLang && docSource.text.length > 0)
+      return this.$store.state.docSourceLangDetected && docSource && (!docSource.skipDetected && !docSource.detectedLang && docSource.text.length > 0)
     },
     showAddTranslation () {
       return this.$store.state.docSourceUpdated && (this.textType === 'target') && (this.index === (this.$textC.allTargetTextsIds.length - 1)) && (this.text.length > 0)
@@ -309,7 +310,7 @@ export default {
       return this.$store.state.docSourceUpdated && (this.showUploadMenu || this.showTextProps)
     },
     alignAvailable () {
-      return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.$textC.couldStartAlign && this.$textC.checkSize(this.$settingsC.maxCharactersPerTextValue)
+      return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.$textC.couldStartAlign && this.$textC.checkSize()
     },
     describeButtonId () {
       return `alpheios-actions-menu-button__describe-${this.textType}-${this.textId}-id`
@@ -330,7 +331,7 @@ export default {
       const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
       if (sourceTextData && sourceTextData.text) {
         this.text = sourceTextData.text
-        this.$settingsC.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
+        SettingsController.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
         await this.updateText()
 
         this.showTypeUploadButtons = false
@@ -435,7 +436,8 @@ export default {
      * Reloads local options
      */
     prepareDefaultTextEditorOptions () {
-      this.localTextEditorOptions = this.$settingsC.cloneTextEditorOptions(this.textType, this.index)
+      this.localTextEditorOptions = SettingsController.cloneTextEditorOptions(this.textType, this.index)
+
       this.localTextEditorOptions.ready = true
       this.$store.commit('incrementOptionsUpdated')
     },

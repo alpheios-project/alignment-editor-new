@@ -131,6 +131,16 @@
 
 /***/ }),
 
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/waiting-popup.vue?vue&type=style&index=0&lang=scss&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/waiting-popup.vue?vue&type=style&index=0&lang=scss& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (() => {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/waiting.vue?vue&type=style&index=0&lang=scss&":
 /*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/waiting.vue?vue&type=style&index=0&lang=scss& ***!
@@ -26119,7 +26129,7 @@ originalMessage) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* @license
 Papa Parse
-v5.3.0
+v5.3.1
 https://github.com/mholt/PapaParse
 License: MIT
 */
@@ -26408,7 +26418,7 @@ License: MIT
 			if (!_input.length || Array.isArray(_input[0]))
 				return serialize(null, _input, _skipEmptyLines);
 			else if (typeof _input[0] === 'object')
-				return serialize(_columns || objectKeys(_input[0]), _input, _skipEmptyLines);
+				return serialize(_columns || Object.keys(_input[0]), _input, _skipEmptyLines);
 		}
 		else if (typeof _input === 'object')
 		{
@@ -26423,7 +26433,9 @@ License: MIT
 				if (!_input.fields)
 					_input.fields =  Array.isArray(_input.data[0])
 						? _input.fields
-						: objectKeys(_input.data[0]);
+						: typeof _input.data[0] === 'object'
+							? Object.keys(_input.data[0])
+							: [];
 
 				if (!(Array.isArray(_input.data[0])) && typeof _input.data[0] !== 'object')
 					_input.data = [_input.data];	// handles input like [1,2,3] or ['asdf']
@@ -26480,17 +26492,6 @@ License: MIT
 				_escapeFormulae = _config.escapeFormulae;
 		}
 
-
-		/** Turns an object's keys into an array */
-		function objectKeys(obj)
-		{
-			if (typeof obj !== 'object')
-				return [];
-			var keys = [];
-			for (var key in obj)
-				keys.push(key);
-			return keys;
-		}
 
 		/** The double for loop that iterates the data and writes out a CSV string including header row */
 		function serialize(fields, data, skipEmptyLines)
@@ -27127,8 +27128,8 @@ License: MIT
 		// One goal is to minimize the use of regular expressions...
 		var MAX_FLOAT = Math.pow(2, 53);
 		var MIN_FLOAT = -MAX_FLOAT;
-		var FLOAT = /^\s*-?(\d+\.?|\.\d+|\d+\.\d+)(e[-+]?\d+)?\s*$/;
-		var ISO_DATE = /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/;
+		var FLOAT = /^\s*-?(\d+\.?|\.\d+|\d+\.\d+)([eE][-+]?\d+)?\s*$/;
+		var ISO_DATE = /^(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))$/;
 		var self = this;
 		var _stepCounter = 0;	// Number of times step was called (number of rows parsed)
 		var _rowCounter = 0;	// Number of rows that have been parsed so far
@@ -27745,27 +27746,11 @@ License: MIT
 				// Next delimiter comes before next newline, so we've reached end of field
 				if (nextDelim !== -1 && (nextDelim < nextNewline || nextNewline === -1))
 				{
-					// we check, if we have quotes, because delimiter char may be part of field enclosed in quotes
-					if (quoteSearch > nextDelim) {
-						// we have quotes, so we try to find the next delimiter not enclosed in quotes and also next starting quote char
-						var nextDelimObj = getNextUnquotedDelimiter(nextDelim, quoteSearch, nextNewline);
-
-						// if we have next delimiter char which is not enclosed in quotes
-						if (nextDelimObj && typeof nextDelimObj.nextDelim !== 'undefined') {
-							nextDelim = nextDelimObj.nextDelim;
-							quoteSearch = nextDelimObj.quoteSearch;
-							row.push(input.substring(cursor, nextDelim));
-							cursor = nextDelim + delimLen;
-							// we look for next delimiter char
-							nextDelim = input.indexOf(delim, cursor);
-							continue;
-						}
-					} else {
-						row.push(input.substring(cursor, nextDelim));
-						cursor = nextDelim + delimLen;
-						nextDelim = input.indexOf(delim, cursor);
-						continue;
-					}
+					row.push(input.substring(cursor, nextDelim));
+					cursor = nextDelim + delimLen;
+					// we look for next delimiter char
+					nextDelim = input.indexOf(delim, cursor);
+					continue;
 				}
 
 				// End of row
@@ -27869,40 +27854,6 @@ License: MIT
 				step(returnable());
 				data = [];
 				errors = [];
-			}
-
-			/** Gets the delimiter character, which is not inside the quoted field */
-			function getNextUnquotedDelimiter(nextDelim, quoteSearch, newLine) {
-				var result = {
-					nextDelim: undefined,
-					quoteSearch: undefined
-				};
-				// get the next closing quote character
-				var nextQuoteSearch = input.indexOf(quoteChar, quoteSearch + 1);
-
-				// if next delimiter is part of a field enclosed in quotes
-				if (nextDelim > quoteSearch && nextDelim < nextQuoteSearch && (nextQuoteSearch < newLine || newLine === -1)) {
-					// get the next delimiter character after this one
-					var nextNextDelim = input.indexOf(delim, nextQuoteSearch);
-
-					// if there is no next delimiter, return default result
-					if (nextNextDelim === -1) {
-						return result;
-					}
-					// find the next opening quote char position
-					if (nextNextDelim > nextQuoteSearch) {
-						nextQuoteSearch = input.indexOf(quoteChar, nextQuoteSearch + 1);
-					}
-					// try to get the next delimiter position
-					result = getNextUnquotedDelimiter(nextNextDelim, nextQuoteSearch, newLine);
-				} else {
-					result = {
-						nextDelim: nextDelim,
-						quoteSearch: quoteSearch
-					};
-				}
-
-				return result;
 			}
 		};
 
@@ -28836,8 +28787,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /*!
- * Vue.js v2.6.12
- * (c) 2014-2020 Evan You
+ * Vue.js v2.6.14
+ * (c) 2014-2021 Evan You
  * Released under the MIT License.
  */
 /*  */
@@ -30530,13 +30481,14 @@ function assertProp (
       type = [type];
     }
     for (var i = 0; i < type.length && !valid; i++) {
-      var assertedType = assertType(value, type[i]);
+      var assertedType = assertType(value, type[i], vm);
       expectedTypes.push(assertedType.expectedType || '');
       valid = assertedType.valid;
     }
   }
 
-  if (!valid) {
+  var haveExpectedTypes = expectedTypes.some(function (t) { return t; });
+  if (!valid && haveExpectedTypes) {
     warn(
       getInvalidTypeMessage(name, value, expectedTypes),
       vm
@@ -30554,9 +30506,9 @@ function assertProp (
   }
 }
 
-var simpleCheckRE = /^(String|Number|Boolean|Function|Symbol)$/;
+var simpleCheckRE = /^(String|Number|Boolean|Function|Symbol|BigInt)$/;
 
-function assertType (value, type) {
+function assertType (value, type, vm) {
   var valid;
   var expectedType = getType(type);
   if (simpleCheckRE.test(expectedType)) {
@@ -30571,7 +30523,12 @@ function assertType (value, type) {
   } else if (expectedType === 'Array') {
     valid = Array.isArray(value);
   } else {
-    valid = value instanceof type;
+    try {
+      valid = value instanceof type;
+    } catch (e) {
+      warn('Invalid prop type: "' + String(type) + '" is not a constructor', vm);
+      valid = false;
+    }
   }
   return {
     valid: valid,
@@ -30579,13 +30536,15 @@ function assertType (value, type) {
   }
 }
 
+var functionTypeCheckRE = /^\s*function (\w+)/;
+
 /**
  * Use function string name to check built-in types,
  * because a simple equality check will fail when running
  * across different vms / iframes.
  */
 function getType (fn) {
-  var match = fn && fn.toString().match(/^\s*function (\w+)/);
+  var match = fn && fn.toString().match(functionTypeCheckRE);
   return match ? match[1] : ''
 }
 
@@ -30610,18 +30569,19 @@ function getInvalidTypeMessage (name, value, expectedTypes) {
     " Expected " + (expectedTypes.map(capitalize).join(', '));
   var expectedType = expectedTypes[0];
   var receivedType = toRawType(value);
-  var expectedValue = styleValue(value, expectedType);
-  var receivedValue = styleValue(value, receivedType);
   // check if we need to specify expected value
-  if (expectedTypes.length === 1 &&
-      isExplicable(expectedType) &&
-      !isBoolean(expectedType, receivedType)) {
-    message += " with value " + expectedValue;
+  if (
+    expectedTypes.length === 1 &&
+    isExplicable(expectedType) &&
+    isExplicable(typeof value) &&
+    !isBoolean(expectedType, receivedType)
+  ) {
+    message += " with value " + (styleValue(value, expectedType));
   }
   message += ", got " + receivedType + " ";
   // check if we need to specify received value
   if (isExplicable(receivedType)) {
-    message += "with value " + receivedValue + ".";
+    message += "with value " + (styleValue(value, receivedType)) + ".";
   }
   return message
 }
@@ -30636,9 +30596,9 @@ function styleValue (value, type) {
   }
 }
 
+var EXPLICABLE_TYPES = ['string', 'number', 'boolean'];
 function isExplicable (value) {
-  var explicitTypes = ['string', 'number', 'boolean'];
-  return explicitTypes.some(function (elem) { return value.toLowerCase() === elem; })
+  return EXPLICABLE_TYPES.some(function (elem) { return value.toLowerCase() === elem; })
 }
 
 function isBoolean () {
@@ -30842,7 +30802,7 @@ if (true) {
   var allowedGlobals = makeMap(
     'Infinity,undefined,NaN,isFinite,isNaN,' +
     'parseFloat,parseInt,decodeURI,decodeURIComponent,encodeURI,encodeURIComponent,' +
-    'Math,Number,Date,Array,Object,Boolean,String,RegExp,Map,Set,JSON,Intl,' +
+    'Math,Number,Date,Array,Object,Boolean,String,RegExp,Map,Set,JSON,Intl,BigInt,' +
     'require' // for Webpack/Browserify
   );
 
@@ -31368,6 +31328,12 @@ function isWhitespace (node) {
 
 /*  */
 
+function isAsyncPlaceholder (node) {
+  return node.isComment && node.asyncFactory
+}
+
+/*  */
+
 function normalizeScopedSlots (
   slots,
   normalSlots,
@@ -31424,9 +31390,10 @@ function normalizeScopedSlot(normalSlots, key, fn) {
     res = res && typeof res === 'object' && !Array.isArray(res)
       ? [res] // single vnode
       : normalizeChildren(res);
+    var vnode = res && res[0];
     return res && (
-      res.length === 0 ||
-      (res.length === 1 && res[0].isComment) // #9658
+      !vnode ||
+      (res.length === 1 && vnode.isComment && !isAsyncPlaceholder(vnode)) // #9658, #10391
     ) ? undefined
       : res
   };
@@ -31499,26 +31466,28 @@ function renderList (
  */
 function renderSlot (
   name,
-  fallback,
+  fallbackRender,
   props,
   bindObject
 ) {
   var scopedSlotFn = this.$scopedSlots[name];
   var nodes;
-  if (scopedSlotFn) { // scoped slot
+  if (scopedSlotFn) {
+    // scoped slot
     props = props || {};
     if (bindObject) {
       if ( true && !isObject(bindObject)) {
-        warn(
-          'slot v-bind without argument expects an Object',
-          this
-        );
+        warn('slot v-bind without argument expects an Object', this);
       }
       props = extend(extend({}, bindObject), props);
     }
-    nodes = scopedSlotFn(props) || fallback;
+    nodes =
+      scopedSlotFn(props) ||
+      (typeof fallbackRender === 'function' ? fallbackRender() : fallbackRender);
   } else {
-    nodes = this.$slots[name] || fallback;
+    nodes =
+      this.$slots[name] ||
+      (typeof fallbackRender === 'function' ? fallbackRender() : fallbackRender);
   }
 
   var target = props && props.slot;
@@ -31568,6 +31537,7 @@ function checkKeyCodes (
   } else if (eventKeyName) {
     return hyphenate(eventKeyName) !== key
   }
+  return eventKeyCode === undefined
 }
 
 /*  */
@@ -32099,8 +32069,10 @@ function createComponent (
 }
 
 function createComponentInstanceForVnode (
-  vnode, // we know it's MountedComponentVNode but flow doesn't
-  parent // activeInstance in lifecycle state
+  // we know it's MountedComponentVNode but flow doesn't
+  vnode,
+  // activeInstance in lifecycle state
+  parent
 ) {
   var options = {
     _isComponent: true,
@@ -32240,7 +32212,7 @@ function _createElement (
     ns = (context.$vnode && context.$vnode.ns) || config.getTagNamespace(tag);
     if (config.isReservedTag(tag)) {
       // platform built-in elements
-      if ( true && isDef(data) && isDef(data.nativeOn)) {
+      if ( true && isDef(data) && isDef(data.nativeOn) && data.tag !== 'component') {
         warn(
           ("The .native modifier for v-on is only valid on components but it was used on <" + tag + ">."),
           context
@@ -32564,12 +32536,6 @@ function resolveAsyncComponent (
       ? factory.loadingComp
       : factory.resolved
   }
-}
-
-/*  */
-
-function isAsyncPlaceholder (node) {
-  return node.isComment && node.asyncFactory
 }
 
 /*  */
@@ -32940,7 +32906,8 @@ function updateChildComponent (
   var hasDynamicScopedSlot = !!(
     (newScopedSlots && !newScopedSlots.$stable) ||
     (oldScopedSlots !== emptyObject && !oldScopedSlots.$stable) ||
-    (newScopedSlots && vm.$scopedSlots.$key !== newScopedSlots.$key)
+    (newScopedSlots && vm.$scopedSlots.$key !== newScopedSlots.$key) ||
+    (!newScopedSlots && vm.$scopedSlots.$key)
   );
 
   // Any static slot children from the parent may have changed during parent's
@@ -33394,11 +33361,8 @@ Watcher.prototype.run = function run () {
       var oldValue = this.value;
       this.value = value;
       if (this.user) {
-        try {
-          this.cb.call(this.vm, value, oldValue);
-        } catch (e) {
-          handleError(e, this.vm, ("callback for watcher \"" + (this.expression) + "\""));
-        }
+        var info = "callback for watcher \"" + (this.expression) + "\"";
+        invokeWithErrorHandling(this.cb, this.vm, [value, oldValue], this.vm, info);
       } else {
         this.cb.call(this.vm, value, oldValue);
       }
@@ -33620,6 +33584,8 @@ function initComputed (vm, computed) {
         warn(("The computed property \"" + key + "\" is already defined in data."), vm);
       } else if (vm.$options.props && key in vm.$options.props) {
         warn(("The computed property \"" + key + "\" is already defined as a prop."), vm);
+      } else if (vm.$options.methods && key in vm.$options.methods) {
+        warn(("The computed property \"" + key + "\" is already defined as a method."), vm);
       }
     }
   }
@@ -33773,11 +33739,10 @@ function stateMixin (Vue) {
     options.user = true;
     var watcher = new Watcher(vm, expOrFn, cb, options);
     if (options.immediate) {
-      try {
-        cb.call(vm, watcher.value);
-      } catch (error) {
-        handleError(error, vm, ("callback for immediate watcher \"" + (watcher.expression) + "\""));
-      }
+      var info = "callback for immediate watcher \"" + (watcher.expression) + "\"";
+      pushTarget();
+      invokeWithErrorHandling(cb, vm, [watcher.value], vm, info);
+      popTarget();
     }
     return function unwatchFn () {
       watcher.teardown();
@@ -34076,6 +34041,8 @@ function initAssetRegisters (Vue) {
 
 
 
+
+
 function getComponentName (opts) {
   return opts && (opts.Ctor.options.name || opts.tag)
 }
@@ -34097,9 +34064,9 @@ function pruneCache (keepAliveInstance, filter) {
   var keys = keepAliveInstance.keys;
   var _vnode = keepAliveInstance._vnode;
   for (var key in cache) {
-    var cachedNode = cache[key];
-    if (cachedNode) {
-      var name = getComponentName(cachedNode.componentOptions);
+    var entry = cache[key];
+    if (entry) {
+      var name = entry.name;
       if (name && !filter(name)) {
         pruneCacheEntry(cache, key, keys, _vnode);
       }
@@ -34113,9 +34080,9 @@ function pruneCacheEntry (
   keys,
   current
 ) {
-  var cached$$1 = cache[key];
-  if (cached$$1 && (!current || cached$$1.tag !== current.tag)) {
-    cached$$1.componentInstance.$destroy();
+  var entry = cache[key];
+  if (entry && (!current || entry.tag !== current.tag)) {
+    entry.componentInstance.$destroy();
   }
   cache[key] = null;
   remove(keys, key);
@@ -34133,6 +34100,32 @@ var KeepAlive = {
     max: [String, Number]
   },
 
+  methods: {
+    cacheVNode: function cacheVNode() {
+      var ref = this;
+      var cache = ref.cache;
+      var keys = ref.keys;
+      var vnodeToCache = ref.vnodeToCache;
+      var keyToCache = ref.keyToCache;
+      if (vnodeToCache) {
+        var tag = vnodeToCache.tag;
+        var componentInstance = vnodeToCache.componentInstance;
+        var componentOptions = vnodeToCache.componentOptions;
+        cache[keyToCache] = {
+          name: getComponentName(componentOptions),
+          tag: tag,
+          componentInstance: componentInstance,
+        };
+        keys.push(keyToCache);
+        // prune oldest entry
+        if (this.max && keys.length > parseInt(this.max)) {
+          pruneCacheEntry(cache, keys[0], keys, this._vnode);
+        }
+        this.vnodeToCache = null;
+      }
+    }
+  },
+
   created: function created () {
     this.cache = Object.create(null);
     this.keys = [];
@@ -34147,12 +34140,17 @@ var KeepAlive = {
   mounted: function mounted () {
     var this$1 = this;
 
+    this.cacheVNode();
     this.$watch('include', function (val) {
       pruneCache(this$1, function (name) { return matches(val, name); });
     });
     this.$watch('exclude', function (val) {
       pruneCache(this$1, function (name) { return !matches(val, name); });
     });
+  },
+
+  updated: function updated () {
+    this.cacheVNode();
   },
 
   render: function render () {
@@ -34188,12 +34186,9 @@ var KeepAlive = {
         remove(keys, key);
         keys.push(key);
       } else {
-        cache[key] = vnode;
-        keys.push(key);
-        // prune oldest entry
-        if (this.max && keys.length > parseInt(this.max)) {
-          pruneCacheEntry(cache, keys[0], keys, this._vnode);
-        }
+        // delay setting the cache until update
+        this.vnodeToCache = vnode;
+        this.keyToCache = key;
       }
 
       vnode.data.keepAlive = true;
@@ -34276,7 +34271,7 @@ Object.defineProperty(Vue, 'FunctionalRenderContext', {
   value: FunctionalRenderContext
 });
 
-Vue.version = '2.6.12';
+Vue.version = '2.6.14';
 
 /*  */
 
@@ -34313,7 +34308,7 @@ var isBooleanAttr = makeMap(
   'default,defaultchecked,defaultmuted,defaultselected,defer,disabled,' +
   'enabled,formnovalidate,hidden,indeterminate,inert,ismap,itemscope,loop,multiple,' +
   'muted,nohref,noresize,noshade,novalidate,nowrap,open,pauseonexit,readonly,' +
-  'required,reversed,scoped,seamless,selected,sortable,translate,' +
+  'required,reversed,scoped,seamless,selected,sortable,' +
   'truespeed,typemustmatch,visible'
 );
 
@@ -34437,7 +34432,7 @@ var isHTMLTag = makeMap(
 // contain child elements.
 var isSVG = makeMap(
   'svg,animate,circle,clippath,cursor,defs,desc,ellipse,filter,font-face,' +
-  'foreignObject,g,glyph,image,line,marker,mask,missing-glyph,path,pattern,' +
+  'foreignobject,g,glyph,image,line,marker,mask,missing-glyph,path,pattern,' +
   'polygon,polyline,rect,switch,symbol,text,textpath,tspan,use,view',
   true
 );
@@ -34640,7 +34635,8 @@ var hooks = ['create', 'activate', 'update', 'remove', 'destroy'];
 
 function sameVnode (a, b) {
   return (
-    a.key === b.key && (
+    a.key === b.key &&
+    a.asyncFactory === b.asyncFactory && (
       (
         a.tag === b.tag &&
         a.isComment === b.isComment &&
@@ -34648,7 +34644,6 @@ function sameVnode (a, b) {
         sameInputType(a, b)
       ) || (
         isTrue(a.isAsyncPlaceholder) &&
-        a.asyncFactory === b.asyncFactory &&
         isUndef(b.asyncFactory.error)
       )
     )
@@ -35538,7 +35533,7 @@ function updateAttrs (oldVnode, vnode) {
     cur = attrs[key];
     old = oldAttrs[key];
     if (old !== cur) {
-      setAttr(elm, key, cur);
+      setAttr(elm, key, cur, vnode.data.pre);
     }
   }
   // #4391: in IE9, setting type can reset value for input[type=radio]
@@ -35558,8 +35553,8 @@ function updateAttrs (oldVnode, vnode) {
   }
 }
 
-function setAttr (el, key, value) {
-  if (el.tagName.indexOf('-') > -1) {
+function setAttr (el, key, value, isInPre) {
+  if (isInPre || el.tagName.indexOf('-') > -1) {
     baseSetAttr(el, key, value);
   } else if (isBooleanAttr(key)) {
     // set attribute for blank value
@@ -38574,7 +38569,7 @@ class AlignedGroupsController {
    * @param {Alignment} alignment
    * @return {Boolean} result, true - aligned texts were created, false - were not
    */
-  async createAlignedTexts (alignment, useSpecificEnglishTokenizer = false) {
+  async createAlignedTexts (alignment) {
     if (!alignment || !alignment.readyForTokenize) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
@@ -38586,7 +38581,7 @@ class AlignedGroupsController {
 
     this.alignment = alignment
 
-    const resultAlignment = await this.alignment.createAlignedTexts(useSpecificEnglishTokenizer)
+    const resultAlignment = await this.alignment.createAlignedTexts()
 
     if (!resultAlignment) {
       this.alignment.clearAlignedTexts() // notification is alredy published
@@ -38611,6 +38606,7 @@ class AlignedGroupsController {
     _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
 
     document.dispatchEvent(new Event('AlpheiosAlignmentGroupsWorkflowStarted'))
+    this.alignment.limitTokensToPartNumAllTexts(1)
     return resultAlignment
   }
 
@@ -38903,6 +38899,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 class AppController {
   /**
    *
@@ -38929,8 +38926,8 @@ class AppController {
 
     await this.defineSettingsController()
 
-    if (this.settingsC.themeOptionValue) {
-      this.defineColorTheme({ theme: this.settingsC.themeOptionValue, themesList: [] })
+    if (_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.themeOptionValue) {
+      this.defineColorTheme({ theme: _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.themeOptionValue, themesList: [] })
     }
     if (this.pageSettings && this.pageSettings.appId) {
       this.attachVueComponents()
@@ -38993,11 +38990,9 @@ class AppController {
    * Creates SettingsController and attaches to Vue components
    */
   async defineSettingsController () {
-    this.settingsC = new _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__.default(this.store)
-    await this.settingsC.init()
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$settingsC = this.settingsC
+    await _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.init(this.store)
 
-    this.settingsC.uploadRemoteSettings()
+    _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.uploadRemoteSettings()
   }
 
   /**
@@ -39507,6 +39502,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+let _instance
 class SettingsController {
   /**
    *
@@ -39528,65 +39524,97 @@ class SettingsController {
     this.valuesClassesList = {
       Langs: _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_4__.default.all
     }
+  }
+
+  static create (store) {
+    _instance = new SettingsController(store)
     this.defineSettings()
+    return _instance
+  }
+
+  /**
+   * Loads options from the storageAdapter
+   */
+  static async init (store) {
+    if (!_instance) { this.create(store) }
+    const optionsPromises = Object.values(_instance.options).map(options => options.load())
+
+    await Promise.all(optionsPromises)
+    this.submitEventUpdateTheme()
+  }
+
+  static getStorageAdapter () {
+    return _instance.storageAdapter
+  }
+
+  static getStore () {
+    return _instance.store
   }
 
   /**
    * @returns {String} - theme option value
    */
-  get themeOptionValue () {
-    return this.options.app && this.options.app.items.theme ? this.options.app.items.theme.currentValue : ''
+  static get themeOptionValue () {
+    return _instance.options.app && _instance.options.app.items.theme ? _instance.options.app.items.theme.currentValue : ''
   }
 
   /**
    * @returns {String} - tokenizer option value
    */
-  get tokenizerOptionValue () {
-    return this.options.app && this.options.app.items.tokenizer ? this.options.app.items.tokenizer.currentValue : ''
+  static get tokenizerOptionValue () {
+    return _instance.options.app && _instance.options.app.items.tokenizer ? _instance.options.app.items.tokenizer.currentValue : ''
   }
 
-  get maxCharactersPerTextValue () {
-    return this.options.app && this.options.app.items.maxCharactersPerText ? this.options.app.items.maxCharactersPerText.currentValue : 5000
+  static get maxCharactersPerTextValue () {
+    return _instance.options.app && _instance.options.app.items.maxCharactersPerText ? _instance.options.app.items.maxCharactersPerText.currentValue : 5000
   }
 
-  get useSpecificEnglishTokenizer () {
-    return this.options.app && this.options.app.items.useSpecificEnglishTokenizer ? this.options.app.items.useSpecificEnglishTokenizer.currentValue : false
+  static get useSpecificEnglishTokenizer () {
+    return _instance.options.app && _instance.options.app.items.useSpecificEnglishTokenizer ? _instance.options.app.items.useSpecificEnglishTokenizer.currentValue : false
   }
 
-  get showSummaryPopup () {
-    return this.options.app && this.options.app.items.showSummaryPopup ? this.options.app.items.showSummaryPopup.currentValue : false
+  static get showSummaryPopup () {
+    return _instance.options.app && _instance.options.app.items.showSummaryPopup ? _instance.options.app.items.showSummaryPopup.currentValue : false
+  }
+
+  static get maxCharactersPerPart () {
+    return _instance.options.app && _instance.options.app.items.maxCharactersPerPart ? _instance.options.app.items.maxCharactersPerPart.currentValue : 1000
   }
 
   /**
    * @returns {Boolean} - allowUpdateTokenWord optin value
    */
-  get allowUpdateTokenWordOptionValue () {
-    return this.options.app && this.options.app.items.allowUpdateTokenWord ? this.options.app.items.allowUpdateTokenWord.currentValue : false
+  static get allowUpdateTokenWordOptionValue () {
+    return _instance.options.app && _instance.options.app.items.allowUpdateTokenWord ? _instance.options.app.items.allowUpdateTokenWord.currentValue : false
   }
 
   /**
    * @returns {Boolean} - true - if tokenize options are already defined
    */
-  get tokenizerOptionsLoaded () {
-    return _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.fullyDefinedOptions(this.tokenizerOptionValue, this.options.tokenize)
+  static get tokenizerOptionsLoaded () {
+    return _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.fullyDefinedOptions(this.tokenizerOptionValue, _instance.options.tokenize)
   }
 
   /**
    * @returns {Boolean} - true - if sourceText options are already defined
    */
-  get sourceTextOptionsLoaded () {
-    return Boolean(this.options.sourceText)
+  static get sourceTextOptionsLoaded () {
+    return Boolean(_instance.options.sourceText)
+  }
+
+  static get allOptions () {
+    return _instance.options
   }
 
   /**
    * Creates all type of options from default data
    */
-  defineSettings () {
-    Object.keys(this.defaultSettings).forEach(defaultSName => {
-      this.options[defaultSName] = new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.Options(this.defaultSettings[defaultSName], new this.storageAdapter(this.defaultSettings[defaultSName].domain)) // eslint-disable-line new-cap
+  static defineSettings () {
+    Object.keys(_instance.defaultSettings).forEach(defaultSName => {
+      _instance.options[defaultSName] = new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.Options(_instance.defaultSettings[defaultSName], new _instance.storageAdapter(_instance.defaultSettings[defaultSName].domain)) // eslint-disable-line new-cap
     })
-    Object.values(this.options).forEach(optionsGroup => {
-      optionsGroup.checkAndUploadValuesFromArray(this.valuesClassesList)
+    Object.values(_instance.options).forEach(optionsGroup => {
+      optionsGroup.checkAndUploadValuesFromArray(_instance.valuesClassesList)
     })
     this.submitEventUpdateTheme()
   }
@@ -39594,39 +39622,29 @@ class SettingsController {
   /**
    * Publish event for change application theme - event subscribers are defined in AppContoller
    */
-  submitEventUpdateTheme () {
+  static submitEventUpdateTheme () {
     SettingsController.evt.SETTINGS_CONTROLLER_THEME_UPDATED.pub({
-      theme: this.options.app.items.theme.currentValue,
-      themesList: this.options.app.items.theme.values.map(val => val.value)
+      theme: _instance.options.app.items.theme.currentValue,
+      themesList: _instance.options.app.items.theme.values.map(val => val.value)
     })
-  }
-
-  /**
-   * Loads options from the storageAdapter
-   */
-  async init () {
-    const optionsPromises = Object.values(this.options).map(options => options.load())
-
-    await Promise.all(optionsPromises)
-    this.submitEventUpdateTheme()
   }
 
   /**
    * Starts upload options for tokenization process,
    * we could need to upload from a remote source
    */
-  async uploadRemoteSettings () {
-    this.options.tokenize = await _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.uploadOptions(this.storageAdapter)
+  static async uploadRemoteSettings () {
+    _instance.options.tokenize = await _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.uploadOptions(_instance.storageAdapter)
 
-    if (this.options.tokenize && this.options.tokenize.alpheiosRemoteTokenizer && this.options.tokenize.alpheiosRemoteTokenizer.text) {
-      delete this.options.tokenize.alpheiosRemoteTokenizer.text.items.tbsegstart
-      delete this.options.tokenize.alpheiosRemoteTokenizer.text.defaults.items.tbsegstart // it is deleted because treebank support would be developed later
+    if (_instance.options.tokenize && _instance.options.tokenize.alpheiosRemoteTokenizer && _instance.options.tokenize.alpheiosRemoteTokenizer.text) {
+      delete _instance.options.tokenize.alpheiosRemoteTokenizer.text.items.tbsegstart
+      delete _instance.options.tokenize.alpheiosRemoteTokenizer.text.defaults.items.tbsegstart // it is deleted because treebank support would be developed later
     }
-    if (this.options.tokenize && this.options.tokenize.alpheiosRemoteTokenizer && this.options.tokenize.alpheiosRemoteTokenizer.tei) {
-      delete this.options.tokenize.alpheiosRemoteTokenizer.tei.items.tbsegstart
-      delete this.options.tokenize.alpheiosRemoteTokenizer.tei.defaults.items.tbsegstart // it is deleted because treebank support would be developed later
+    if (_instance.options.tokenize && _instance.options.tokenize.alpheiosRemoteTokenizer && _instance.options.tokenize.alpheiosRemoteTokenizer.tei) {
+      delete _instance.options.tokenize.alpheiosRemoteTokenizer.tei.items.tbsegstart
+      delete _instance.options.tokenize.alpheiosRemoteTokenizer.tei.defaults.items.tbsegstart // it is deleted because treebank support would be developed later
     }
-    this.store.commit('incrementOptionsUpdated')
+    _instance.store.commit('incrementOptionsUpdated')
   }
 
   /**
@@ -39637,20 +39655,22 @@ class SettingsController {
    * if (group) { key = `${key}__${group}` }
    * @param {OptionItem} optionItem
    */
-  changeOption (optionItem) {
+  static changeOption (optionItem) {
     const optionNameParts = optionItem.name.split('__')
 
     if (optionNameParts[2] === 'theme') {
       this.submitEventUpdateTheme()
+    } else if (optionNameParts[2] === 'maxCharactersPerPart') {
+      _instance.store.commit('incrementRedefineAllPartNums')
     }
-    this.store.commit('incrementOptionsUpdated')
+    _instance.store.commit('incrementOptionsUpdated')
   }
 
   /**
    * @returns {Boolean} - true if tokenizer options for the current tokenizer is already defined
    */
-  get hasTokenizerOptions () {
-    return Boolean(this.options.tokenize) && Boolean(this.options.tokenize[this.tokenizerOptionValue])
+  static get hasTokenizerOptions () {
+    return Boolean(_instance.options.tokenize) && Boolean(_instance.options.tokenize[this.tokenizerOptionValue])
   }
 
   /**
@@ -39659,14 +39679,14 @@ class SettingsController {
    * @param {Number} indexText - the number of the text with the type (used for targets)
    * @returns {Options}
    */
-  cloneTextEditorOptions (typeText, indexText) {
+  static cloneTextEditorOptions (typeText, indexText) {
     const clonedOpts = {
-      sourceText: this.options.sourceText.clone(`${typeText}-${indexText}`, this.textPropsStorageAdapter)
+      sourceText: _instance.options.sourceText.clone(`${typeText}-${indexText}`, _instance.textPropsStorageAdapter)
     }
 
     if (this.hasTokenizerOptions) {
-      Object.keys(this.options.tokenize[this.tokenizerOptionValue]).forEach(sourceType => {
-        clonedOpts[sourceType] = this.options.tokenize[this.tokenizerOptionValue][sourceType].clone(`${typeText}-${indexText}`, this.textPropsStorageAdapter)
+      Object.keys(_instance.options.tokenize[this.tokenizerOptionValue]).forEach(sourceType => {
+        clonedOpts[sourceType] = _instance.options.tokenize[this.tokenizerOptionValue][sourceType].clone(`${typeText}-${indexText}`, _instance.textPropsStorageAdapter)
       })
     }
     return clonedOpts
@@ -39681,7 +39701,7 @@ class SettingsController {
    *        {String} sourceTextData.direction
    *        {String} sourceTextData.sourceType
    */
-  updateLocalTextEditorOptions (localTextEditorOptions, sourceTextData) {
+  static updateLocalTextEditorOptions (localTextEditorOptions, sourceTextData) {
     if (sourceTextData.lang) {
       localTextEditorOptions.sourceText.items.language.setValue(sourceTextData.lang)
     }
@@ -39699,7 +39719,7 @@ class SettingsController {
         }
       })
     }
-    this.store.commit('incrementOptionsUpdated')
+    _instance.store.commit('incrementOptionsUpdated')
   }
 
   /**
@@ -39707,24 +39727,24 @@ class SettingsController {
    * @param {Object} localTextEditorOptions
    *        {Options} localTextEditorOptions.sourceText
    */
-  resetLocalTextEditorOptions (textType, textId) {
+  static resetLocalTextEditorOptions (textType, textId) {
     const clonedOpts = this.cloneTextEditorOptions(textType, textId)
-    this.store.commit('incrementOptionsUpdated')
+    _instance.store.commit('incrementOptionsUpdated')
     return clonedOpts
   }
 
   /**
    * Resets global options
    */
-  async resetAllOptions () {
-    await this.options.app.reset()
-    Object.values(this.options.app.items).forEach(optionItem => this.changeOption(optionItem))
+  static async resetAllOptions () {
+    await _instance.options.app.reset()
+    Object.values(_instance.options.app.items).forEach(optionItem => this.changeOption(optionItem))
 
-    await this.options.sourceText.reset()
-    this.options.sourceText.checkAndUploadValuesFromArray(this.valuesClassesList)
-    Object.values(this.options.sourceText.items).forEach(optionItem => this.changeOption(optionItem))
+    await _instance.options.sourceText.reset()
+    _instance.options.sourceText.checkAndUploadValuesFromArray(_instance.valuesClassesList)
+    Object.values(_instance.options.sourceText.items).forEach(optionItem => this.changeOption(optionItem))
 
-    this.store.commit('incrementResetOptions')
+    _instance.store.commit('incrementResetOptions')
   }
 }
 
@@ -39819,6 +39839,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
 /* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
 /* harmony import */ var _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/controllers/storage-controller.js */ "./lib/controllers/storage-controller.js");
+/* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
+
 
 
 
@@ -39850,8 +39872,8 @@ class TextsController {
     return Boolean(this.alignment) && this.alignment.readyForTokenize
   }
 
-  checkSize (maxCharactersPerTextValue) {
-    return Boolean(this.alignment) && this.alignment.checkSize(maxCharactersPerTextValue)
+  checkSize () {
+    return Boolean(this.alignment) && this.alignment.checkSize(_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__.default.maxCharactersPerTextValue)
   }
 
   /**
@@ -40112,16 +40134,16 @@ class TextsController {
    * Prepares and download source data
    * @returns {Boolean} - true - download was successful, false - was not
    */
-  downloadData (downloadType, additional = {}) {
+  async downloadData (downloadType, additional = {}) {
     const downloadPrepareMethods = {
       plainSourceDownloadAll: this.downloadShortData.bind(this),
       jsonSimpleDownloadAll: this.downloadFullData.bind(this),
       htmlDownloadAll: this.htmlDownloadAll.bind(this)
     }
 
-    const result = downloadPrepareMethods[downloadType](downloadType, additional)
-
-    return _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(result.downloadType, result.data)
+    const result = await downloadPrepareMethods[downloadType](downloadType, additional)
+    await _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(result.downloadType, result.data)
+    return true
   }
 
   downloadShortData (downloadType) {
@@ -40134,8 +40156,11 @@ class TextsController {
     }
   }
 
-  downloadFullData (downloadType) {
-    const data = this.alignment.convertToJSON()
+  async downloadFullData (downloadType) {
+    const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select({ alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+    const alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default.convertFromIndexedDB(dbData)
+
+    const data = alignment.convertToJSON()
     return {
       downloadType, data
     }
@@ -40294,6 +40319,48 @@ class TextsController {
 
     const result = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select(data)
     return result
+  }
+
+  async defineAllPartNumsForTexts () {
+    const allPartsAlreadyUploaded = this.alignment.hasAllPartsUploaded
+
+    if (!allPartsAlreadyUploaded) {
+      const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select({ alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+      this.alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default.convertFromIndexedDB(dbData)
+    }
+    this.alignment.defineAllPartNumsForTexts()
+    await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment, true)
+    if (!allPartsAlreadyUploaded) {
+      this.alignment.limitTokensToPartNumAllTexts(1)
+    }
+    this.store.commit('incrementReuploadTextsParts')
+  }
+
+  async checkAndUploadSegmentsFromDB (textType, textId, segmentIndex, partNums) {
+    this.alignment.limitTokensToPartNumSegment(textType, textId, segmentIndex, partNums)
+
+    for (let i = 0; i < partNums.length; i++) {
+      if (!this.alignment.partIsUploaded(textType, textId, segmentIndex, partNums[i])) {
+        const selectParams = {
+          alignmentID: this.alignment.id,
+          textId,
+          segmentIndex,
+          partNum: partNums[i]
+        }
+        const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select(selectParams, 'tokensByPartNum')
+
+        this.alignment.uploadSegmentTokensFromDB(textType, textId, segmentIndex, dbData)
+      }
+    }
+    this.store.commit('incrementUploadPartNum')
+  }
+
+  getSegmentPart (textType, textId, segmentIndex, partNums) {
+    return this.alignment.getSegmentPart(textType, textId, segmentIndex, partNums)
+  }
+
+  getSegment (textType, textId, segmentIndex) {
+    return this.alignment.getSegment(textType, textId, segmentIndex)
   }
 }
 
@@ -40542,6 +40609,7 @@ class TokenizeController {
         sentenceIndex++
       }
     }
+    segment.defineAllPartNums()
   }
 }
 
@@ -41075,6 +41143,8 @@ class AlignmentGroupActions {
     this.origin = []
     this.target = []
     this.alignmentGroupHistory = alignmentGroupHistory
+    this.originPartNums = []
+    this.targetPartNums = []
   }
 
   // calculated props
@@ -41188,6 +41258,7 @@ class AlignmentGroupActions {
     this.alignmentGroupHistory.truncateSteps()
     this.alignmentGroupHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.ADD)
 
+    this.checkAndUpdatePartNums(token.textType)
     this.defineFirstStepToken()
     return true
   }
@@ -41208,6 +41279,7 @@ class AlignmentGroupActions {
 
     if (tokenIndex >= 0) {
       this[token.textType].splice(tokenIndex, 1)
+      this.checkAndUpdatePartNums(token.textType)
 
       this.alignmentGroupHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.REMOVE)
       this.defineFirstStepToken()
@@ -41224,6 +41296,9 @@ class AlignmentGroupActions {
   merge (tokensGroup, indexDeleted) {
     this.origin.push(...tokensGroup.origin)
     this.target.push(...tokensGroup.target)
+
+    this.checkAndUpdatePartNums('origin')
+    this.checkAndUpdatePartNums('target')
 
     this.alignmentGroupHistory.addStep(tokensGroup, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.MERGE, { indexDeleted })
   }
@@ -41253,6 +41328,8 @@ class AlignmentGroupActions {
         this.target.splice(tokenIndex, 1)
       }
     }
+    this.checkAndUpdatePartNums('origin')
+    this.checkAndUpdatePartNums('target')
     this.defineFirstStepToken()
     return {
       tokensGroup,
@@ -41260,6 +41337,9 @@ class AlignmentGroupActions {
     }
   }
 
+  checkAndUpdatePartNums (textType) {
+    console.info('al-group-actions - ', textType, this)
+  }
   // step actions
 
   removeStepAdd (step) {
@@ -41407,7 +41487,7 @@ class TokensEditActions {
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
 
-    const check = (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? (!segment.isFirstTokenInSegment(tokenIndex)) : (!segment.isLastTokenInSegment(tokenIndex))
+    const check = (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? (!segment.isFirstTokenInSegment(token)) : (!segment.isLastTokenInSegment(token))
 
     if (check) {
       return {
@@ -41998,14 +42078,17 @@ class AlignedText {
     const result = await tokenizeMethod(docSource, this.tokenPrefix, useSpecificEnglishTokenizer)
 
     if (result && result.segments) {
-      this.segments = result.segments.map(segment => new _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default({
-        index: segment.index,
-        tokens: segment.tokens,
-        textType: docSource.textType,
-        lang: docSource.lang,
-        direction: docSource.direction,
-        docSourceId: docSource.id
-      }))
+      this.segments = result.segments.map(segment => {
+        return new _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default({
+          index: segment.index,
+          tokens: segment.tokens,
+          textType: docSource.textType,
+          lang: docSource.lang,
+          direction: docSource.direction,
+          docSourceId: docSource.id
+        })
+      }
+      )
       return true
     }
     return false
@@ -42090,11 +42173,11 @@ class AlignedText {
       sourceType: this.sourceType,
       tokenPrefix: this.tokenPrefix,
       tokenization: this.tokenization,
-      segments: this.segments.map(seg => seg.convertToJSON())
+      segments: this.segments.map(seg => seg.convertToIndexedDB())
     }
   }
 
-  static convertFromIndexedDB (dbData, dbSegments, dbTokens) {
+  static convertFromIndexedDB (dbData, dbSegments, dbTokens, dbAllPartNums) {
     const alignedText = new AlignedText({
       docSource: {
         id: dbData.textId,
@@ -42108,9 +42191,22 @@ class AlignedText {
     })
     const segmentsDbDataFiltered = dbSegments.filter(segmentItem => segmentItem.docSourceId === dbData.textId)
 
-    alignedText.segments = segmentsDbDataFiltered.map(seg => _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default.convertFromIndexedDB(seg, dbTokens))
+    alignedText.segments = segmentsDbDataFiltered.map(seg => _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default.convertFromIndexedDB(seg, dbTokens, dbAllPartNums))
 
     return alignedText
+  }
+
+  limitTokensToPartNum (partNum) {
+    this.segments.forEach(segment => segment.limitTokensToPartNum(partNum))
+  }
+
+  uploadSegmentTokensFromDB (segmentIndex, dbData) {
+    const segment = this.segments[segmentIndex - 1]
+    segment.uploadSegmentTokensFromDB(dbData)
+  }
+
+  get hasAllPartsUploaded () {
+    return this.segments.every(segment => segment.hasAllPartsUploaded)
   }
 }
 
@@ -42167,6 +42263,14 @@ class AlignmentGroup {
 
   get target () {
     return this.alignmentGroupActions.target
+  }
+
+  get originPartNums () {
+    return this.alignmentGroupActions.originPartNums
+  }
+
+  get targetPartNums () {
+    return this.alignmentGroupActions.targetPartNums
   }
 
   /**
@@ -42400,7 +42504,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_data_history_tokens_edit_history_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/data/history/tokens-edit-history.js */ "./lib/data/history/tokens-edit-history.js");
 /* harmony import */ var _lib_data_actions_tokens_edit_actions_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/lib/data/actions/tokens-edit-actions.js */ "./lib/data/actions/tokens-edit-actions.js");
 /* harmony import */ var _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/lib/controllers/detect-text-controller.js */ "./lib/controllers/detect-text-controller.js");
-/* harmony import */ var _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/lib/utility/convert-utility.js */ "./lib/utility/convert-utility.js");
+/* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
+/* harmony import */ var _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/lib/utility/convert-utility.js */ "./lib/utility/convert-utility.js");
+
+
 
 
 
@@ -42662,7 +42769,7 @@ class Alignment {
    * @param {String} tokenizer - method's name
    * @returns {Boolean}
    */
-  async createAlignedTexts (useSpecificEnglishTokenizer = false) {
+  async createAlignedTexts () {
     if (!this.readyForTokenize) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
@@ -42673,14 +42780,14 @@ class Alignment {
     }
 
     if (!this.origin.alignedText) {
-      const originResult = await this.createOriginAlignedText(useSpecificEnglishTokenizer)
+      const originResult = await this.createOriginAlignedText(_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_10__.default.useSpecificEnglishTokenizer)
       if (!originResult) { return false }
     }
 
     for (let i = 0; i < Object.keys(this.targets).length; i++) {
       const id = Object.keys(this.targets)[i]
       if (!this.targets[id].alignedText) {
-        const targetResult = await this.createTargetAlignedText(id, i, useSpecificEnglishTokenizer)
+        const targetResult = await this.createTargetAlignedText(id, i, _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_10__.default.useSpecificEnglishTokenizer)
         if (!targetResult) { return false }
       }
     }
@@ -42688,7 +42795,7 @@ class Alignment {
     return true
   }
 
-  async createOriginAlignedText (useSpecificEnglishTokenizer = false) {
+  async createOriginAlignedText (useSpecificEnglishTokenizer) {
     this.origin.alignedText = new _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default({
       docSource: this.origin.docSource,
       tokenPrefix: '1'
@@ -42707,7 +42814,7 @@ class Alignment {
     return true
   }
 
-  async createTargetAlignedText (targetId, index, useSpecificEnglishTokenizer = false) {
+  async createTargetAlignedText (targetId, index, useSpecificEnglishTokenizer) {
     this.targets[targetId].alignedText = new _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default({
       docSource: this.targets[targetId].docSource,
       tokenPrefix: (index + 2)
@@ -43143,6 +43250,7 @@ class Alignment {
     if (limitByTargetId) {
       this.hoveredGroups = this.hoveredGroups.filter(alGroup => alGroup.targetId === limitByTargetId)
     }
+    console.info('this.alignmentGroups - ', this.alignmentGroups)
     return this.hoveredGroups
   }
 
@@ -43486,8 +43594,8 @@ class Alignment {
 
     return {
       id: this.id,
-      createdDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__.default.convertDateToString(this.createdDT),
-      updatedDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__.default.convertDateToString(this.updatedDT),
+      createdDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_11__.default.convertDateToString(this.createdDT),
+      updatedDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_11__.default.convertDateToString(this.updatedDT),
       userID: this.userID,
       origin,
       targets,
@@ -43497,8 +43605,8 @@ class Alignment {
   }
 
   static convertFromJSON (data) {
-    const createdDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__.default.convertStringToDate(data.createdDT)
-    const updatedDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__.default.convertStringToDate(data.updatedDT)
+    const createdDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_11__.default.convertStringToDate(data.createdDT)
+    const updatedDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_11__.default.convertStringToDate(data.updatedDT)
     const alignment = new Alignment({
       id: data.id, createdDT, updatedDT, userID: data.userID
     })
@@ -43555,8 +43663,8 @@ class Alignment {
 
     return {
       id: this.id,
-      createdDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__.default.convertDateToString(this.createdDT),
-      updatedDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__.default.convertDateToString(this.updatedDT),
+      createdDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_11__.default.convertDateToString(this.createdDT),
+      updatedDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_11__.default.convertDateToString(this.updatedDT),
       userID: this.userID,
       langsList: this.langsList,
       origin,
@@ -43566,8 +43674,8 @@ class Alignment {
   }
 
   static async convertFromIndexedDB (dbData) {
-    const createdDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__.default.convertStringToDate(dbData.createdDT)
-    const updatedDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__.default.convertStringToDate(dbData.updatedDT)
+    const createdDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_11__.default.convertStringToDate(dbData.createdDT)
+    const updatedDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_11__.default.convertStringToDate(dbData.updatedDT)
     const alignment = new Alignment({
       id: dbData.alignmentID, createdDT, updatedDT, userID: dbData.userID
     })
@@ -43585,7 +43693,7 @@ class Alignment {
 
     if (dbData.alignedText) {
       for (const alignedTextData of dbData.alignedText) {
-        const alignedText = await _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default.convertFromIndexedDB(alignedTextData, dbData.segments, dbData.tokens)
+        const alignedText = await _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default.convertFromIndexedDB(alignedTextData, dbData.segments, dbData.tokens, dbData.partNums)
         if (alignedText.textType === 'origin') {
           alignment.origin.alignedText = alignedText
         } else {
@@ -43623,6 +43731,54 @@ class Alignment {
   checkDetectedProps (textType, docSourceId) {
     const sourceText = this.getDocSource(textType, docSourceId)
     return Boolean(sourceText && sourceText.detectedLang)
+  }
+
+  defineAllPartNumsForTexts () {
+    this.origin.alignedText.segments.forEach(segment => segment.defineAllPartNums())
+    Object.values(this.targets).forEach(target => {
+      target.alignedText.segments.forEach(segment => segment.defineAllPartNums())
+    })
+  }
+
+  getAlignedText (textType, textId) {
+    if (textType === 'origin') { return this.origin.alignedText }
+    return this.targets[textId].alignedText
+  }
+
+  getSegment (textType, textId, segmentIndex) {
+    const alignedText = this.getAlignedText(textType, textId)
+    return alignedText.segments[segmentIndex - 1]
+  }
+
+  partIsUploaded (textType, textId, segmentIndex, partNum) {
+    return this.getSegment(textType, textId, segmentIndex).partIsUploaded(partNum)
+  }
+
+  getSegmentPart (textType, textId, segmentIndex, partNum) {
+    return this.getSegment(textType, textId, segmentIndex).partsTokens(partNum)
+  }
+
+  uploadSegmentTokensFromDB (textType, textId, segmentIndex, dbData) {
+    const alignedText = this.getAlignedText(textType, textId)
+    alignedText.uploadSegmentTokensFromDB(segmentIndex, dbData)
+  }
+
+  limitTokensToPartNumAllTexts (partNum) {
+    if (this.origin.alignedText) {
+      this.origin.alignedText.limitTokensToPartNum(partNum)
+    }
+
+    this.allTargetTextsIds.forEach(targetId => {
+      this.targets[targetId].alignedText.limitTokensToPartNum(partNum)
+    })
+  }
+
+  limitTokensToPartNumSegment (textType, textId, segmentIndex, partNums) {
+    return this.getSegment(textType, textId, segmentIndex).limitTokensToPartNum(partNums)
+  }
+
+  get hasAllPartsUploaded () {
+    return this.origin.alignedText.hasAllPartsUploaded && Object.values(this.targets).every(target => target.alignedText.hasAllPartsUploaded)
   }
 }
 
@@ -44370,13 +44526,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _lib_data_token__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/token */ "./lib/data/token.js");
 /* harmony import */ var _lib_data_langs_langs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/data/langs/langs */ "./lib/data/langs/langs.js");
+/* harmony import */ var _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/settings-controller */ "./lib/controllers/settings-controller.js");
+
 
 
 
 
 
 class Segment {
-  constructor ({ id, index, textType, lang, direction, tokens, docSourceId } = {}) {
+  constructor ({ id, index, textType, lang, direction, tokens, docSourceId, allPartNums } = {}) {
     this.id = id || (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
     this.index = index
     this.textType = textType
@@ -44388,14 +44546,27 @@ class Segment {
     if (tokens) {
       this.checkAndUpdateTokens(tokens)
     }
+
+    if (allPartNums) {
+      this.allPartNums = allPartNums
+      this.getCurrentPartNums()
+    } else {
+      this.defineAllPartNums()
+    }
   }
 
+  /**
+   * @returns {String} - language name or language code if there is no such code in the Langs list
+   */
   defineLangName () {
     const langData = _lib_data_langs_langs__WEBPACK_IMPORTED_MODULE_2__.default.all.find(langData => langData.value === this.lang)
     const res = langData ? langData.text : this.lang
     return res
   }
 
+  /**
+   * @param {String} lang - language code
+   */
   updateLanguage (lang) {
     this.lang = lang
     this.langName = this.defineLangName()
@@ -44411,6 +44582,70 @@ class Segment {
   }
 
   /**
+   * Extracts current partNums from tokens
+   */
+  getCurrentPartNums () {
+    const partNumsSet = new Set(this.tokens.map(token => token.partNum))
+    this.currentPartNums = [...partNumsSet]
+  }
+
+  /**
+   * Divides segment tokens to parts based on SettingsController.maxCharactersPerPart,
+   * updates partNum for each token,
+   * updates allPartNums
+   */
+  defineAllPartNums () {
+    const charMax = _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__.default.maxCharactersPerPart
+    const parts = {}
+    const allPartNums = []
+    let partNum = 1
+    this.tokens.forEach((token, tokenIndex) => {
+      if (!parts[partNum]) {
+        parts[partNum] = { sentences: [], tokens: [], tokensIdWord: [], len: 0 }
+        allPartNums.push(partNum)
+      }
+
+      if (!parts[partNum].sentences.includes(token.sentenceIndex)) {
+        parts[partNum].sentences.push(token.sentenceIndex)
+      }
+
+      parts[partNum].tokens.push(token)
+      parts[partNum].tokensIdWord.push(token.idWord)
+      parts[partNum].len += token.len
+
+      token.update({ partNum })
+      if ((parts[partNum].len > charMax) && (tokenIndex < (this.tokens.length - 5))) {
+        if (this.tokens[tokenIndex + 1].sentenceIndex !== token.sentenceIndex) {
+          partNum++
+        } else if ((parts[partNum].len > (2 * charMax)) && (this.tokens[tokenIndex + 1].sentenceIndex === token.sentenceIndex)) {
+          if (this.tokens[tokenIndex + 2] && (this.tokens[tokenIndex + 2].sentenceIndex === token.sentenceIndex) && (tokenIndex < (this.tokens.length - 1))) {
+            partNum++
+          }
+        }
+      }
+    })
+    this.allPartNums = allPartNums
+    this.getCurrentPartNums()
+  }
+
+  /**
+   * Retrieves tokens for the given partNum
+   * @param {Array|Number} partNum
+   * @returns {Array[Token]}
+   */
+  partsTokens (partNum) {
+    return this.tokens.filter(token => Array.isArray(partNum) ? partNum.includes(token.partNum) : token.partNum === partNum)
+  }
+
+  /**
+   * @param {Number} partNum
+   * @returns {Boolean}
+   */
+  partIsUploaded (partNum) {
+    return this.currentPartNums.includes(partNum)
+  }
+
+  /**
    *
    * @param {Token} token
    * @returns {Number}
@@ -44423,7 +44658,8 @@ class Segment {
    * @param {Number} tokenIndex
    * @returns {Boolean}
    */
-  isFirstTokenInSegment (tokenIndex) {
+  isFirstTokenInSegment (token) {
+    const tokenIndex = this.getTokenIndex(token)
     return (tokenIndex === 0)
   }
 
@@ -44431,7 +44667,8 @@ class Segment {
    * @param {Number} tokenIndex
    * @returns {Boolean}
    */
-  isLastTokenInSegment (tokenIndex) {
+  isLastTokenInSegment (token) {
+    const tokenIndex = this.getTokenIndex(token)
     return (tokenIndex === (this.tokens.length - 1))
   }
 
@@ -44464,12 +44701,15 @@ class Segment {
     const newToken = new _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default({
       textType: this.textType,
       idWord: newIdWord,
-      word: word
+      word: word,
+      partNum: 1
     }, this.index, this.docSourceId)
 
     if (updateLastToken) { this.lastTokenIdWord = newIdWord }
 
     if (this.insertToken(newToken, tokenIndex + 1)) {
+      const tokenForDefinePart = (tokenIndex === -1) ? this.tokens[0] : this.tokens[tokenIndex]
+      newToken.update({ partNum: tokenForDefinePart.partNum })
       return newToken
     }
     return false
@@ -44524,7 +44764,19 @@ class Segment {
     })
   }
 
-  static convertFromIndexedDB (data, dbTokens) {
+  convertToIndexedDB () {
+    return {
+      index: this.index,
+      textType: this.textType,
+      lang: this.lang,
+      direction: this.direction,
+      docSourceId: this.docSourceId,
+      tokens: this.tokens.map((token, tokenIndex) => token.convertToIndexedDB(tokenIndex)),
+      partNums: this.allPartNums ? this.allPartNums.map(partNum => { return { partNum, segmentIndex: this.index } }) : []
+    }
+  }
+
+  static convertFromIndexedDB (data, dbTokens, dbAllPartNums) {
     const tokensDbDataFiltered = dbTokens.filter(tokenItem => (data.docSourceId === tokenItem.textId) && (data.index === tokenItem.segmentIndex))
 
     return new Segment({
@@ -44533,8 +44785,35 @@ class Segment {
       lang: data.lang,
       direction: data.direction,
       docSourceId: data.docSourceId,
-      tokens: tokensDbDataFiltered.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(token)).sort((a, b) => a.tokenIndex - b.tokenIndex)
+      tokens: tokensDbDataFiltered.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default.convertFromIndexedDB(token)).sort((a, b) => a.tokenIndex - b.tokenIndex),
+      allPartNums: dbAllPartNums.filter(partNum => (data.docSourceId === partNum.textId) && (data.index === partNum.segmentIndex)).map(partNum => parseInt(partNum.partNum)).sort((a, b) => a - b)
     })
+  }
+
+  uploadSegmentTokensFromDB (dbData) {
+    const newTokens = dbData.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default.convertFromIndexedDB(token))
+    this.tokens.push(...newTokens)
+    this.tokens.sort((a, b) => {
+      if (a.partNum === b.partNum) {
+        return a.tokenIndex - b.tokenIndex
+      } else {
+        return a.partNum - b.partNum
+      }
+    })
+
+    this.getCurrentPartNums()
+    return true
+  }
+
+  limitTokensToPartNum (partNum) {
+    this.tokens = this.partsTokens(partNum)
+    this.getCurrentPartNums()
+    return true
+  }
+
+  get hasAllPartsUploaded () {
+    return this.allPartNums.length === this.currentPartNums.length &&
+           this.allPartNums.every(partNum => this.currentPartNums.includes(partNum))
   }
 }
 
@@ -44720,7 +44999,7 @@ class SourceText {
   }
 
   checkSize (maxCharactersPerTextValue) {
-    return this.text && (this.text.length <= maxCharactersPerTextValue)
+    return this.text && (this.text.length > 0) && (this.isTei || (this.text.length <= maxCharactersPerTextValue))
   }
 
   /**
@@ -44752,7 +45031,7 @@ class SourceText {
     if (jsonData.textId) {
       sourceText.id = jsonData.textId
     }
-
+    sourceText.skipDetected = true
     return sourceText
   }
 
@@ -44800,6 +45079,7 @@ class SourceText {
     }
 
     const sourceText = new SourceText(dbData.textType, textParams, dbData.textId, dbData.lang !== null)
+    sourceText.skipDetected = true
     return sourceText
   }
 }
@@ -44822,7 +45102,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class Token {
-  constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak, sentenceIndex, tokenIndex } = {}, segmentIndex, docSourceId) {
+  constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak, sentenceIndex, tokenIndex, partNum } = {}, segmentIndex, docSourceId) {
     this.textType = textType
     this.idWord = idWord
     this.word = word
@@ -44834,6 +45114,8 @@ class Token {
     this.segmentIndex = segmentIndex
     this.docSourceId = docSourceId
     this.tokenIndex = tokenIndex
+    this.len = this.word ? this.word.length : 0
+    this.partNum = partNum
   }
 
   /**
@@ -44856,9 +45138,10 @@ class Token {
    * @param {String} word - new word
    * @param {String} idWord - new idWord
    */
-  update ({ word, idWord, segmentIndex, hasLineBreak }) {
+  update ({ word, idWord, segmentIndex, hasLineBreak, partNum }) {
     if (word !== undefined) {
       this.word = word
+      this.len = this.word.length
     }
 
     if (idWord !== undefined) {
@@ -44871,6 +45154,10 @@ class Token {
 
     if (hasLineBreak !== undefined) {
       this.hasLineBreak = hasLineBreak
+    }
+
+    if (partNum !== undefined) {
+      this.partNum = partNum
     }
 
     return true
@@ -44957,6 +45244,36 @@ class Token {
       afterWord: this.afterWord,
       hasLineBreak: this.hasLineBreak,
       sentenceIndex: this.sentenceIndex
+    }
+  }
+
+  static convertFromIndexedDB (data) {
+    return new Token({
+      textType: data.textType,
+      idWord: data.idWord,
+      word: data.word,
+      beforeWord: data.beforeWord,
+      afterWord: data.afterWord,
+      hasLineBreak: data.hasLineBreak,
+      sentenceIndex: data.sentenceIndex,
+      tokenIndex: data.tokenIndex,
+      partNum: data.partNum
+    }, data.segmentIndex, data.docSourceId)
+  }
+
+  convertToIndexedDB (tokenIndex) {
+    return {
+      textType: this.textType,
+      idWord: this.idWord,
+      word: this.word,
+      beforeWord: this.beforeWord,
+      afterWord: this.afterWord,
+      hasLineBreak: this.hasLineBreak,
+      segmentIndex: this.segmentIndex,
+      docSourceId: this.docSourceId,
+      sentenceIndex: this.sentenceIndex,
+      partNum: this.partNum,
+      tokenIndex
     }
   }
 }
@@ -45950,7 +46267,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 class IndexedDBStructure {
   static get dbVersion () {
-    return 2
+    return 5
   }
 
   static get dbName () {
@@ -45964,6 +46281,7 @@ class IndexedDBStructure {
       metadata: this.metadataStructure,
       alignedText: this.alignedTextStructure,
       segments: this.segmentsStructure,
+      partNums: this.partNumsStructure,
       tokens: this.tokensStructure,
       alGroups: this.alGroupsStructure
     }
@@ -46048,6 +46366,22 @@ class IndexedDBStructure {
     }
   }
 
+  static get partNumsStructure () {
+    return {
+      name: 'ALEditorPartNums',
+      structure: {
+        keyPath: 'ID',
+        indexes: [
+          { indexName: 'ID', keyPath: 'ID', unique: true },
+          { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
+          { indexName: 'userID', keyPath: 'userID', unique: false },
+          { indexName: 'alTextIdSegId', keyPath: 'alTextIdSegId', unique: false }
+        ]
+      },
+      serialize: this.serializePartNums.bind(this)
+    }
+  }
+
   static get tokensStructure () {
     return {
       name: 'ALEditorTokens',
@@ -46057,7 +46391,9 @@ class IndexedDBStructure {
           { indexName: 'ID', keyPath: 'ID', unique: true },
           { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
           { indexName: 'userID', keyPath: 'userID', unique: false },
-          { indexName: 'alTextIdSegId', keyPath: 'alTextIdSegId', unique: false }
+          { indexName: 'alTextIdSegId', keyPath: 'alTextIdSegId', unique: false },
+          { indexName: 'alTextIdSegIdPartNum', keyPath: 'alTextIdSegIdPartNum', unique: false },
+          { indexName: 'alIDPartNum', keyPath: 'alIDPartNum', unique: false }
         ]
       },
       serialize: this.serializeTokens.bind(this)
@@ -46201,6 +46537,36 @@ class IndexedDBStructure {
     return finalData
   }
 
+  static serializePartNums (data) {
+    const finalData = []
+
+    if (data.origin.alignedText) {
+      const dataItems = Object.values(data.targets).map(target => target.alignedText)
+      dataItems.unshift(data.origin.alignedText)
+
+      for (const dataItem of dataItems) {
+        if (dataItem.segments && dataItem.segments.length > 0) {
+          for (const segmentItem of dataItem.segments) {
+            for (const partNumItem of segmentItem.partNums) {
+              const uniqueID = `${data.userID}-${data.id}-${dataItem.textId}-${segmentItem.index}-${partNumItem.partNum}`
+
+              finalData.push({
+                ID: uniqueID,
+                alignmentID: data.id,
+                userID: data.userID,
+                alTextIdSegId: `${data.id}-${dataItem.textId}-${segmentItem.index}`,
+                textId: dataItem.textId,
+                segmentIndex: partNumItem.segmentIndex,
+                partNum: partNumItem.partNum
+              })
+            }
+          }
+        }
+      }
+      return finalData
+    }
+  }
+
   static serializeTokens (data) {
     const finalData = []
 
@@ -46218,6 +46584,8 @@ class IndexedDBStructure {
                 alignmentID: data.id,
                 userID: data.userID,
                 alTextIdSegIndex: `${data.id}-${dataItem.textId}-${tokenItem.segmentIndex}`,
+                alTextIdSegIdPartNum: `${data.id}-${dataItem.textId}-${tokenItem.segmentIndex}-${tokenItem.partNum}`,
+                alIDPartNum: `${data.id}-${tokenItem.partNum}`,
                 textId: dataItem.textId,
 
                 textType: tokenItem.textType,
@@ -46227,6 +46595,7 @@ class IndexedDBStructure {
                 docSourceId: segmentItem.docSourceId,
                 sentenceIndex: tokenItem.sentenceIndex,
                 tokenIndex: tokenItem.tokenIndex,
+                partNum: tokenItem.partNum,
 
                 beforeWord: tokenItem.beforeWord,
                 afterWord: tokenItem.afterWord,
@@ -46277,7 +46646,10 @@ class IndexedDBStructure {
   static prepareSelectQuery (typeQuery, indexData) {
     const typeQueryList = {
       allAlignmentsByUserID: this.prepareAllAlignmentsByUserIDQuery.bind(this),
-      alignmentByAlIDQuery: this.prepareAlignmentByAlIDQuery.bind(this)
+      alignmentByAlIDQueryAllTokens: this.prepareAlignmentByAlIDQueryAllTokens.bind(this),
+      alignmentByAlIDQuery: this.prepareAlignmentByAlIDQuery.bind(this),
+      tokensByPartNum: this.prepareTokensByPartNumQuery.bind(this),
+      allTokensByAlIDQuery: this.prepareAllTokensByAlIDQueryQuery.bind(this)
     }
     return typeQueryList[typeQuery](indexData)
   }
@@ -46297,6 +46669,24 @@ class IndexedDBStructure {
   }
 
   static prepareAlignmentByAlIDQuery (indexData) {
+    return this.prepareAlignmentByAlIDQueryTemp(indexData, 1)
+  }
+
+  static prepareAlignmentByAlIDQueryAllTokens (indexData) {
+    return this.prepareAlignmentByAlIDQueryTemp(indexData)
+  }
+
+  static prepareAlignmentByAlIDQueryTemp (indexData, partNum) {
+    const tokensCondition = partNum ? {
+      indexName: 'alIDPartNum',
+      value: `${indexData.alignmentID}-1`,
+      type: 'only'
+    } : {
+      indexName: 'alignmentID',
+      value: indexData.alignmentID,
+      type: 'only'
+    }
+
     return [
       {
         objectStoreName: this.allObjectStoreData.common.name,
@@ -46360,12 +46750,21 @@ class IndexedDBStructure {
         }
       },
       {
-        objectStoreName: this.allObjectStoreData.tokens.name,
+        objectStoreName: this.allObjectStoreData.partNums.name,
         condition: {
           indexName: 'alignmentID',
           value: indexData.alignmentID,
           type: 'only'
         },
+        resultType: 'multiple',
+        mergeData: {
+          mergeBy: ['alignmentID', 'textId'],
+          uploadTo: 'partNums'
+        }
+      },
+      {
+        objectStoreName: this.allObjectStoreData.tokens.name,
+        condition: tokensCondition,
         resultType: 'multiple',
         mergeData: {
           mergeBy: ['alignmentID', 'textId'],
@@ -46388,6 +46787,35 @@ class IndexedDBStructure {
     ]
   }
 
+  static prepareTokensByPartNumQuery (indexData) {
+    return [
+      {
+        objectStoreName: this.allObjectStoreData.tokens.name,
+        condition: {
+          indexName: 'alTextIdSegIdPartNum',
+          value: `${indexData.alignmentID}-${indexData.textId}-${indexData.segmentIndex}-${indexData.partNum}`,
+          type: 'only'
+        },
+        resultType: 'multiple'
+      }
+    ]
+  }
+
+  static prepareAllTokensByAlIDQueryQuery (indexData) {
+    return [
+      {
+        objectStoreName: this.allObjectStoreData.tokens.name,
+        condition: {
+          indexName: 'alignmentID',
+          value: indexData.alignmentID,
+          type: 'only'
+        },
+        resultType: 'multiple'
+      }
+    ]
+  }
+
+  /** ** Delete queries */
   static prepareDeleteQuery (typeQuery, indexData) {
     const typeQueryList = {
       alignmentDataByID: this.prepareDeleteAlignmentDataByID.bind(this)
@@ -46422,6 +46850,14 @@ class IndexedDBStructure {
     },
     {
       objectStoreName: this.allObjectStoreData.segments.name,
+      condition: {
+        indexName: 'alignmentID',
+        value: alignmentID,
+        type: 'only'
+      }
+    },
+    {
+      objectStoreName: this.allObjectStoreData.partNums.name,
       condition: {
         indexName: 'alignmentID',
         value: alignmentID,
@@ -46469,7 +46905,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i395-overlapping-x.20210528587" : 0
+    return  true ? "i353-upload-by-part.20210611373" : 0
   }
 
   static get libName () {
@@ -46507,6 +46943,9 @@ class StoreDefinition {
         resetOptions: 1,
         tokenUpdated: 1,
         maxCharactersUpdated: 1,
+        redefineAllPartNums: 1,
+        reuploadTextsParts: 1,
+        uploadPartNum: 1,
 
         docSourceUpdated: 1,
         docSourceLangDetected: 1,
@@ -46560,6 +46999,15 @@ class StoreDefinition {
         },
         incrementDocSourceLangDetected (state) {
           state.docSourceLangDetected++
+        },
+        incrementRedefineAllPartNums (state) {
+          state.redefineAllPartNums++
+        },
+        incrementReuploadTextsParts (state) {
+          state.reuploadTextsParts++
+        },
+        incrementUploadPartNum (state) {
+          state.uploadPartNum++
         }
       }
     }
@@ -46602,7 +47050,7 @@ class AlpheiosRemoteTokenizer {
      * @param {String} idPrefix - prefix for creating tokens idWord
      * @returns {[Objects]} - array of token-like objects, would be converted to Tokens outside
      */
-  static async tokenize (docSource, idPrefix, useSpecificEnglishTokenizer = false) {
+  static async tokenize (docSource, idPrefix, useSpecificEnglishTokenizer) {
     const textFormatted = docSource.text.split(/[ \r\t\f]*\n[ \r\t\f]*/).join('\n')
 
     let lang = docSource.lang
@@ -47337,6 +47785,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -47609,6 +48059,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -47636,9 +48105,19 @@ __webpack_require__.r(__webpack_exports__);
       required: false
     },
 
-    segment: {
-      type: Object,
+    segmentIndex: {
+      type: Number,
       required: true
+    },
+
+    textType: {
+      type: String,
+      required: false
+    },
+
+    textId: {
+      type: String,
+      required: false
     },
 
     isLast : {
@@ -47669,10 +48148,14 @@ __webpack_require__.r(__webpack_exports__);
       heightUpdated: 1,
       showUpDown: false,
       minMaxHeight: 500,
-      showModalMetadata: false
+      showModalMetadata: false,
+      currentPartIndexes: [ 1 ]
     }
   },
   watch: {
+    '$store.state.reuploadTextsParts' () {
+      this.currentPartIndexes = [ 1 ]
+    }
   },
   computed: {
     l10n () {
@@ -47681,8 +48164,8 @@ __webpack_require__.r(__webpack_exports__);
     /**
      * @returns {String} - origin/target
      */
-    textType () {
-      return this.segment.textType
+    segment () {
+      return this.$store.state.reuploadTextsParts && this.$textC.getSegment(this.textType, this.textId, this.segmentIndex)
     },
     /**
      * @returns {String} - ltr/rtl
@@ -47700,7 +48183,7 @@ __webpack_require__.r(__webpack_exports__);
      * @returns {String} css id for html layout
      */
     cssId () {
-      return this.getCssId(this.textType, this.targetId, this.segment.index)
+      return this.getCssId(this.textType, this.textId, this.segmentIndex)
     },
     /**
      * Styles for creating a html table layout with different background-colors for different targetIds
@@ -47716,9 +48199,9 @@ __webpack_require__.r(__webpack_exports__);
     cssStyle () {
       let result 
       if (this.textType === 'target') {
-        result = `order: ${this.segment.index};`
+        result = `order: ${this.segmentIndex};`
       } else {
-        result = `order: ${this.segment.index};`
+        result = `order: ${this.segmentIndex};`
       }
       return result
     },
@@ -47752,19 +48235,13 @@ __webpack_require__.r(__webpack_exports__);
      * @returns {Number | Null} - if it is a target segment, then it returns targetId order index, otherwise - null
      */
     targetIdIndex () {
-      return this.targetId ? this.allTargetTextsIds.indexOf(this.targetId) : null
-    },
-    /**
-     * @returns {String | Null} - if it is a target segment, returns targetId otherwise null
-     */
-    targetId () {
-      return (this.segment.textType === 'target') ? this.segment.docSourceId : null
+      return this.textType === 'target' ? this.allTargetTextsIds.indexOf(this.textId) : null
     },
     alignmentGroupsWorkflowAvailable () {
       return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowAvailable
     },
-    allTokens () {
-      return  this.$store.state.tokenUpdated ? this.segment.tokens : []
+    allPartsKeys () {
+      return  this.$store.state.tokenUpdated && this.$store.state.reuploadTextsParts && this.segment.allPartNums ? this.segment.allPartNums : []
     },
     amountOfSegments () {
       return this.$store.state.alignmentUpdated ? this.$alignedGC.getAmountOfSegments(this.segment) : 1
@@ -47789,6 +48266,23 @@ __webpack_require__.r(__webpack_exports__);
     hasMetadata () {
       const docSource = this.$textC.getDocSource(this.textType, this.segment.docSourceId)
       return this.$store.state.docSourceUpdated && docSource && !docSource.hasEmptyMetadata
+    },
+
+    allTokens () {
+      let result
+
+      if (this.segment.allPartNums) {
+        result = this.$textC.getSegmentPart(this.textType, this.segment.docSourceId, this.segment.index, this.currentPartIndexes)
+      }
+      return  this.$store.state.tokenUpdated && this.$store.state.uploadPartNum && this.$store.state.reuploadTextsParts ? result : []
+    },
+
+    showPrev () {
+      return Math.min(...this.currentPartIndexes) > this.allPartsKeys[0]
+    },
+
+    showNext () {
+      return Math.max(...this.currentPartIndexes) < this.allPartsKeys[this.allPartsKeys.length-1]
     }
   },
   methods: {
@@ -47822,7 +48316,7 @@ __webpack_require__.r(__webpack_exports__);
         const textTypeSeg = (token.textType === 'target') ? 'origin' : 'target'
         
         for (let i = 0; i < scrollData.length; i++) {
-          const segId = this.getCssId(textTypeSeg, scrollData[i].targetId, this.segment.index)
+          const segId = this.getCssId(textTypeSeg, scrollData[i].targetId, this.segmentIndex)
           const tokId = `token-${scrollData[i].minOpositeTokenId}`
 
           _lib_utility_scroll_utility_js__WEBPACK_IMPORTED_MODULE_2__.default.makeScrollTo(tokId, segId)
@@ -47863,13 +48357,25 @@ __webpack_require__.r(__webpack_exports__);
     isFirstInActiveGroup (token) {
       return this.$alignedGC.isFirstInActiveGroup(token, this.currentTargetId)
     },
-    reduceHeight () {
-      this.heightDelta = this.heightDelta - this.heightStep
-      this.heightUpdated++
+
+    async uploadPrevPart () {
+      let partNums = []
+      partNums.push(this.currentPartIndexes[0]-1)
+      partNums.push(this.currentPartIndexes[0])
+      await this.uploadPartByNum(partNums)
+      this.currentPartIndexes = partNums
     },
-    increaseHeight () {
-      this.heightDelta = this.heightDelta + this.heightStep
-      this.heightUpdated++
+    
+    async uploadNextPart () {
+      let partNums = []
+      partNums.push(this.currentPartIndexes[this.currentPartIndexes.length - 1])
+      partNums.push(this.currentPartIndexes[this.currentPartIndexes.length - 1]+1)
+      await this.uploadPartByNum(partNums)
+      this.currentPartIndexes = partNums
+    },
+
+    async uploadPartByNum (partNums) {
+      await this.$textC.checkAndUploadSegmentsFromDB(this.textType, this.textId, this.segmentIndex, partNums)
     }
   }
 
@@ -48043,13 +48549,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_initial_screen_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/initial-screen.vue */ "./vue/initial-screen.vue");
 /* harmony import */ var _vue_main_menu_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/main-menu.vue */ "./vue/main-menu.vue");
 /* harmony import */ var _vue_summary_popup_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/summary-popup.vue */ "./vue/summary-popup.vue");
-/* harmony import */ var _vue_notification_bar_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/notification-bar.vue */ "./vue/notification-bar.vue");
-/* harmony import */ var _vue_text_editor_text_editor_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/text-editor/text-editor.vue */ "./vue/text-editor/text-editor.vue");
-/* harmony import */ var _vue_align_editor_align_editor_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/align-editor/align-editor.vue */ "./vue/align-editor/align-editor.vue");
-/* harmony import */ var _vue_tokens_editor_tokens_editor_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/tokens-editor/tokens-editor.vue */ "./vue/tokens-editor/tokens-editor.vue");
-/* harmony import */ var _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/vue/options/options-block.vue */ "./vue/options/options-block.vue");
-/* harmony import */ var _inline_icons_navbar_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/inline-icons/navbar.svg */ "./inline-icons/navbar.svg");
-/* harmony import */ var _inline_icons_navbar_svg__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_navbar_svg__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _vue_common_waiting_popup_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/common/waiting-popup.vue */ "./vue/common/waiting-popup.vue");
+/* harmony import */ var _vue_notification_bar_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/notification-bar.vue */ "./vue/notification-bar.vue");
+/* harmony import */ var _vue_text_editor_text_editor_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/text-editor/text-editor.vue */ "./vue/text-editor/text-editor.vue");
+/* harmony import */ var _vue_align_editor_align_editor_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/align-editor/align-editor.vue */ "./vue/align-editor/align-editor.vue");
+/* harmony import */ var _vue_tokens_editor_tokens_editor_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/vue/tokens-editor/tokens-editor.vue */ "./vue/tokens-editor/tokens-editor.vue");
+/* harmony import */ var _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/vue/options/options-block.vue */ "./vue/options/options-block.vue");
+/* harmony import */ var _inline_icons_navbar_svg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/inline-icons/navbar.svg */ "./inline-icons/navbar.svg");
+/* harmony import */ var _inline_icons_navbar_svg__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_navbar_svg__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
 //
 //
 //
@@ -48087,6 +48595,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
+
+
+
 
 
 
@@ -48109,14 +48622,16 @@ __webpack_require__.r(__webpack_exports__);
   name: 'App',
   components: {
     mainMenu: _vue_main_menu_vue__WEBPACK_IMPORTED_MODULE_3__.default,
-    textEditor: _vue_text_editor_text_editor_vue__WEBPACK_IMPORTED_MODULE_6__.default,
-    alignEditor: _vue_align_editor_align_editor_vue__WEBPACK_IMPORTED_MODULE_7__.default,
-    tokensEditor: _vue_tokens_editor_tokens_editor_vue__WEBPACK_IMPORTED_MODULE_8__.default,
-    notificationBar: _vue_notification_bar_vue__WEBPACK_IMPORTED_MODULE_5__.default,
-    optionsBlock: _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_9__.default,
-    navbarIcon: (_inline_icons_navbar_svg__WEBPACK_IMPORTED_MODULE_10___default()),
+    textEditor: _vue_text_editor_text_editor_vue__WEBPACK_IMPORTED_MODULE_7__.default,
+    alignEditor: _vue_align_editor_align_editor_vue__WEBPACK_IMPORTED_MODULE_8__.default,
+    tokensEditor: _vue_tokens_editor_tokens_editor_vue__WEBPACK_IMPORTED_MODULE_9__.default,
+    notificationBar: _vue_notification_bar_vue__WEBPACK_IMPORTED_MODULE_6__.default,
+    optionsBlock: _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_10__.default,
+    navbarIcon: (_inline_icons_navbar_svg__WEBPACK_IMPORTED_MODULE_11___default()),
     initialScreen: _vue_initial_screen_vue__WEBPACK_IMPORTED_MODULE_2__.default,
-    summaryPopup: _vue_summary_popup_vue__WEBPACK_IMPORTED_MODULE_4__.default
+    summaryPopup: _vue_summary_popup_vue__WEBPACK_IMPORTED_MODULE_4__.default,
+    waitingPopup: _vue_common_waiting_popup_vue__WEBPACK_IMPORTED_MODULE_5__.default
+
   },
   data () {
     return {     
@@ -48132,7 +48647,16 @@ __webpack_require__.r(__webpack_exports__);
       updateCurrentPage: 'initial-screen',
 
       showSummaryModal: false,
-      showOnlyWaitingSummary: false
+      showOnlyWaitingSummary: false,
+
+      showWaitingModal: false
+    }
+  },
+  watch: {
+    async '$store.state.redefineAllPartNums' () {
+      this.showWaitingModal = true
+      await this.$textC.defineAllPartNumsForTexts()
+      this.showWaitingModal = false
     }
   },
   computed: {
@@ -48144,14 +48668,14 @@ __webpack_require__.r(__webpack_exports__);
     /**
      * Starts download workflow
      */
-    downloadData (downloadType) {
+    async downloadData (downloadType) {
       let additional = {}
       if (downloadType === 'htmlDownloadAll') {
         additional = {
-          theme: this.$settingsC.themeOptionValue
+          theme: _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_12__.default.themeOptionValue
         }
       }
-      this.$textC.downloadData(downloadType, additional)
+      await this.$textC.downloadData(downloadType, additional)
     },
 
     /**
@@ -48159,7 +48683,7 @@ __webpack_require__.r(__webpack_exports__);
     */
     uploadDataFromFile (fileData, extension) {
       if (fileData) {
-        const alignment = this.$textC.uploadDataFromFile(fileData, this.$settingsC.tokenizerOptionValue, extension)
+        const alignment = this.$textC.uploadDataFromFile(fileData, _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_12__.default.tokenizerOptionValue, extension)
 
         if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
           return this.startOver(alignment)
@@ -48191,16 +48715,20 @@ __webpack_require__.r(__webpack_exports__);
       this.$historyC.undo()
     },
 
-    showSummaryPopup () {
-      this.showOnlyWaitingSummary = !this.$settingsC.showSummaryPopup
-      this.showSummaryModal = true
+    async showSummaryPopup () {
+      if (!_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_12__.default.showSummaryPopup) {
+        await this.alignTexts()
+      } else {
+        this.showSummaryModal = true
+      }
     },
     /**
      * Starts align workflow
      */
     async alignTexts () {
-      const result = await this.$alignedGC.createAlignedTexts(this.$textC.alignment, this.$settingsC.useSpecificEnglishTokenizer)
-      this.showSummaryModal = false
+      this.showWaitingModal = true
+      const result = await this.$alignedGC.createAlignedTexts(this.$textC.alignment)
+      this.showWaitingModal = false
       if (result) {
         this.$tokensEC.loadAlignment(this.$textC.alignment)
         this.showAlignmentGroupsEditor()
@@ -48623,6 +49151,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/common/modal.vue */ "./vue/common/modal.vue");
 /* harmony import */ var _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/download-controller.js */ "./lib/controllers/download-controller.js");
 /* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
+/* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
 //
 //
 //
@@ -48644,6 +49173,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 
 
 
@@ -48690,15 +49221,15 @@ __webpack_require__.r(__webpack_exports__);
     downloadTypeId (dTypeName) {
       return `alpheios-save-popup-download-block__radio_${dTypeName}`
     },
-    downloadData () {
+    async downloadData () {
       this.$emit('closeModal')
       let additional = {}
       if (this.currentDownloadType === 'htmlDownloadAll') {
         additional = {
-          theme: this.$settingsC.themeOptionValue
+          theme: _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_4__.default.themeOptionValue
         }
       }
-      this.$textC.downloadData(this.currentDownloadType, additional)
+      await this.$textC.downloadData(this.currentDownloadType, additional)
       
     }
   }
@@ -48779,6 +49310,48 @@ __webpack_require__.r(__webpack_exports__);
         default:
           return { 'alpheios-tooltip-bottom': true }
       }
+    }
+  }
+});
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/waiting-popup.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/waiting-popup.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/common/modal.vue */ "./vue/common/modal.vue");
+/* harmony import */ var _vue_common_waiting_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/common/waiting.vue */ "./vue/common/waiting.vue");
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'WaitingPopup',
+  components: {
+    modal: _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_0__.default,
+    waiting: _vue_common_waiting_vue__WEBPACK_IMPORTED_MODULE_1__.default
+  },
+  props: {
+    showModal: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   }
 });
@@ -49225,7 +49798,7 @@ __webpack_require__.r(__webpack_exports__);
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
     },
     alignAvailable () {
-      return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$textC.couldStartAlign && this.$textC.checkSize(this.$settingsC.maxCharactersPerTextValue)
+      return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$textC.couldStartAlign && this.$textC.checkSize()
     },
     undoAvailable () {
       return this.alignEditAvailable && this.$historyC.undoAvailable
@@ -49437,6 +50010,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/settings-controller */ "./lib/controllers/settings-controller.js");
 //
 //
 //
@@ -49507,6 +50081,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -49575,7 +50150,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.optionItem.labelText
     },
     checkboxLabel () {
-      return (this.$store.state.optionsUpdated && (this.optionItem && this.optionItem.boolean && this.optionItem.values)) ? this.optionItem.textValues()[0].text : null
+      return (this.showCheckboxTitle && this.$store.state.optionsUpdated && (this.optionItem && this.optionItem.boolean && Boolean(this.optionItem.values))) ? this.optionItem.textValues()[0] : null
     },
     optionType () {
       if (this.optionItem.boolean) { return 'boolean' }
@@ -49634,9 +50209,9 @@ __webpack_require__.r(__webpack_exports__);
       if (this.optionItem.selectInput) {
         this.selected = this.selectedSI
       }
-
       this.optionItem.setValue(this.selected)
-      this.$settingsC.changeOption(this.optionItem)
+      
+      _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_1__.default.changeOption(this.optionItem)
       if (this.emitUpdateData) {
         this.$emit('updateData')
       }
@@ -49667,6 +50242,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/settings-controller */ "./lib/controllers/settings-controller.js");
 //
 //
 //
@@ -49693,6 +50269,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 
 
 
@@ -49713,7 +50291,7 @@ __webpack_require__.r(__webpack_exports__);
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
     },
     appOptionItems () {
-      return this.$store.state.optionsUpdated && this.$settingsC.options.app.items
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_2__.default.allOptions.app.items
     },
     versionData () {
       return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`
@@ -49721,7 +50299,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     async resetOptions () {
-      await this.$settingsC.resetAllOptions()
+      await _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_2__.default.resetAllOptions()
     }
   }
 });
@@ -49743,6 +50321,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
 /* harmony import */ var _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/common/modal.vue */ "./vue/common/modal.vue");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/settings-controller */ "./lib/controllers/settings-controller.js");
 //
 //
 //
@@ -49768,6 +50347,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
+
 
 
 
@@ -49792,11 +50374,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     versionData () {
       return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`
+    },
+    maxCharactersPerPart () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.maxCharactersPerPart
     }
   },
   methods: {
     async resetOptions () {
-      await this.$settingsC.resetAllOptions()
+      await _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__.default.resetAllOptions()
     }
   }
 });
@@ -49818,6 +50403,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
 /* harmony import */ var _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/common/modal.vue */ "./vue/common/modal.vue");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/settings-controller */ "./lib/controllers/settings-controller.js");
 //
 //
 //
@@ -49844,6 +50430,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 
 
 
@@ -49870,12 +50458,12 @@ __webpack_require__.r(__webpack_exports__);
       return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`
     },
     allowUpdateTokenOptionItem () {
-      return this.$store.state.optionsUpdated && this.$settingsC.options.app.items.allowUpdateTokenWord
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.allowUpdateTokenWord
     }
   },
   methods: {
     async resetOptions () {
-      await this.$settingsC.resetAllOptions()
+      await _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__.default.resetAllOptions()
     }
   }
 });
@@ -49897,6 +50485,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
 /* harmony import */ var _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/common/modal.vue */ "./vue/common/modal.vue");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
 //
 //
 //
@@ -49927,6 +50516,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 
 
 
@@ -49950,19 +50541,19 @@ __webpack_require__.r(__webpack_exports__);
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default
     },
     themeOptionItem () {
-      return this.$store.state.optionsUpdated && this.$settingsC.options.app.items.theme
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.theme
     },
     tokenizerOptionItem () {
-      return this.$store.state.optionsUpdated && this.$settingsC.options.app.items.tokenizer
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.tokenizer
     },
     maxCharactersOptionItem () {
-      return this.$store.state.optionsUpdated && this.$settingsC.options.app.items.maxCharactersPerText
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.maxCharactersPerText
     },
     useSpecificEnglishTokenizerOptionItem () {
-      return this.$store.state.optionsUpdated && this.$settingsC.options.app.items.useSpecificEnglishTokenizer
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.useSpecificEnglishTokenizer
     },
     showSummaryPopupOptionItem () {
-      return this.$store.state.optionsUpdated && this.$settingsC.options.app.items.showSummaryPopup
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.showSummaryPopup
     },
     versionData () {
       return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`
@@ -49970,7 +50561,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     async resetOptions () {
-      await this.$settingsC.resetAllOptions()
+      await _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.resetAllOptions()
     }
   }
 });
@@ -49991,10 +50582,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/common/modal.vue */ "./vue/common/modal.vue");
-/* harmony import */ var _vue_common_waiting_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/common/waiting.vue */ "./vue/common/waiting.vue");
-/* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
-/* harmony import */ var _inline_icons_check_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/inline-icons/check.svg */ "./inline-icons/check.svg");
-/* harmony import */ var _inline_icons_check_svg__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_check_svg__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
+/* harmony import */ var _inline_icons_check_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/inline-icons/check.svg */ "./inline-icons/check.svg");
+/* harmony import */ var _inline_icons_check_svg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_check_svg__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
 //
 //
 //
@@ -50055,7 +50646,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
+
 
 
 
@@ -50067,17 +50658,11 @@ __webpack_require__.r(__webpack_exports__);
   name: 'SummaryPopup',
   components: {
     modal: _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_1__.default,
-    waiting: _vue_common_waiting_vue__WEBPACK_IMPORTED_MODULE_2__.default,
-    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_3__.default,
-    checkIcon: (_inline_icons_check_svg__WEBPACK_IMPORTED_MODULE_4___default())
+    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_2__.default,
+    checkIcon: (_inline_icons_check_svg__WEBPACK_IMPORTED_MODULE_3___default())
   },
   props: {
     showModal: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-    showOnlyWaiting: {
       type: Boolean,
       required: false,
       default: false
@@ -50086,17 +50671,7 @@ __webpack_require__.r(__webpack_exports__);
   data () {
     return {
       contentAvailable: true,
-      showWaiting: false,
       showLabelTextOpt: false
-    }
-  },
-  watch: {
-    showModal () {
-      if (!this.showModal) {
-        this.showWaiting = false
-      } else if (this.showOnlyWaiting) {
-        this.startAlign()
-      }
     }
   },
   computed: {
@@ -50110,13 +50685,13 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$textC.targetsLangData
     },
     showSummaryPopupOpt () {
-      return this.$store.state.optionsUpdated && this.$settingsC.options.app.items.showSummaryPopup
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_4__.default.allOptions.app.items.showSummaryPopup
     }
   },
   methods: {
     startAlign () {
-      this.showWaiting = true
       this.$emit('start-align')
+      this.$emit('closeModal')
     }
   }
 });
@@ -50136,6 +50711,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
+/* harmony import */ var _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/settings-controller */ "./lib/controllers/settings-controller.js");
 //
 //
 //
@@ -50147,6 +50723,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -50175,7 +50752,7 @@ __webpack_require__.r(__webpack_exports__);
      * @returns {Boolean} - true if sourceText options are loaded
      */
     showOptions () {
-      return this.$store.state.optionsUpdated && this.localOptions.ready && this.$settingsC.sourceTextOptionsLoaded
+      return this.$store.state.optionsUpdated && this.localOptions.ready && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_1__.default.sourceTextOptionsLoaded
     }
   },
   methods: {
@@ -50381,6 +50958,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
+/* harmony import */ var _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/settings-controller */ "./lib/controllers/settings-controller.js");
 //
 //
 //
@@ -50393,6 +50971,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -50423,7 +51002,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     showOptions () {
-      return this.$store.state.optionsUpdated && this.localOptions.ready && this.$settingsC.sourceTextOptionsLoaded
+      return this.$store.state.optionsUpdated && this.localOptions.ready && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_1__.default.sourceTextOptionsLoaded
     },
     optionItem () {
       return this.$store.state.optionsUpdated && this.localOptions.sourceText.items.language
@@ -50704,6 +51283,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/common/modal.vue */ "./vue/common/modal.vue");
 /* harmony import */ var _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/text-editor/tokenize-options-block.vue */ "./vue/text-editor/tokenize-options-block.vue");
+/* harmony import */ var _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/settings-controller */ "./lib/controllers/settings-controller.js");
 //
 //
 //
@@ -50713,6 +51293,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
+
 
 
 
@@ -50749,6 +51332,9 @@ __webpack_require__.r(__webpack_exports__);
     docSourceEditAvailable () {
       return Boolean(this.$store.state.docSourceUpdated) && 
              !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
+    },
+    hasTokenizerOptions () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_2__.default.hasTokenizerOptions
     }
   }
 });
@@ -50780,14 +51366,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inline_icons_plus_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/inline-icons/plus.svg */ "./inline-icons/plus.svg");
 /* harmony import */ var _inline_icons_plus_svg__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_plus_svg__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
-/* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
-/* harmony import */ var _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/text-editor/metadata-block.vue */ "./vue/text-editor/metadata-block.vue");
-/* harmony import */ var _vue_text_editor_language_block_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/vue/text-editor/language-block.vue */ "./vue/text-editor/language-block.vue");
-/* harmony import */ var _vue_text_editor_source_type_block_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/vue/text-editor/source-type-block.vue */ "./vue/text-editor/source-type-block.vue");
-/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
-/* harmony import */ var _vue_common_metadata_icons_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/vue/common/metadata-icons.vue */ "./vue/common/metadata-icons.vue");
-/* harmony import */ var _vue_text_editor_upload_dtsapi_block_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/vue/text-editor/upload-dtsapi-block.vue */ "./vue/text-editor/upload-dtsapi-block.vue");
-/* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
+/* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
+/* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
+/* harmony import */ var _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/vue/text-editor/metadata-block.vue */ "./vue/text-editor/metadata-block.vue");
+/* harmony import */ var _vue_text_editor_language_block_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/vue/text-editor/language-block.vue */ "./vue/text-editor/language-block.vue");
+/* harmony import */ var _vue_text_editor_source_type_block_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/vue/text-editor/source-type-block.vue */ "./vue/text-editor/source-type-block.vue");
+/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
+/* harmony import */ var _vue_common_metadata_icons_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/vue/common/metadata-icons.vue */ "./vue/common/metadata-icons.vue");
+/* harmony import */ var _vue_text_editor_upload_dtsapi_block_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/vue/text-editor/upload-dtsapi-block.vue */ "./vue/text-editor/upload-dtsapi-block.vue");
+/* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
 //
 //
 //
@@ -50862,6 +51449,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -50911,13 +51499,13 @@ __webpack_require__.r(__webpack_exports__);
     hasMetadataIcon: (_inline_icons_has_metadata_svg__WEBPACK_IMPORTED_MODULE_3___default()),
     noLangDetectedIcon: (_inline_icons_no_lang_detected_svg__WEBPACK_IMPORTED_MODULE_4___default()),
     plusIcon: (_inline_icons_plus_svg__WEBPACK_IMPORTED_MODULE_5___default()),
-    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_7__.default,
-    metadataBlock: _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_8__.default,
-    sourceTypeBlock: _vue_text_editor_source_type_block_vue__WEBPACK_IMPORTED_MODULE_10__.default,
-    languageBlock: _vue_text_editor_language_block_vue__WEBPACK_IMPORTED_MODULE_9__.default,
-    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_11__.default,
-    uploadDtsapiBlock: _vue_text_editor_upload_dtsapi_block_vue__WEBPACK_IMPORTED_MODULE_13__.default,
-    metadataIcons: _vue_common_metadata_icons_vue__WEBPACK_IMPORTED_MODULE_12__.default
+    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_8__.default,
+    metadataBlock: _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_9__.default,
+    sourceTypeBlock: _vue_text_editor_source_type_block_vue__WEBPACK_IMPORTED_MODULE_11__.default,
+    languageBlock: _vue_text_editor_language_block_vue__WEBPACK_IMPORTED_MODULE_10__.default,
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_12__.default,
+    uploadDtsapiBlock: _vue_text_editor_upload_dtsapi_block_vue__WEBPACK_IMPORTED_MODULE_14__.default,
+    metadataIcons: _vue_common_metadata_icons_vue__WEBPACK_IMPORTED_MODULE_13__.default
   },
   data () {
     return {
@@ -50943,7 +51531,7 @@ __webpack_require__.r(__webpack_exports__);
    * Clone options (sourceText and tokenize options) for the cuurent instance of a sourceText
    */
   async mounted () {
-    if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
+    if (!this.localTextEditorOptions.ready && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__.default.tokenizerOptionsLoaded) {
       this.prepareDefaultTextEditorOptions()
     }
     this.initDataProps()
@@ -50951,7 +51539,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     async '$store.state.optionsUpdated' () {
-      if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
+      if (!this.localTextEditorOptions.ready && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__.default.tokenizerOptionsLoaded) {
         this.prepareDefaultTextEditorOptions()
       }
     },
@@ -50967,7 +51555,7 @@ __webpack_require__.r(__webpack_exports__);
       this.restartTextEditor()
     },
     async '$store.state.resetOptions' () {
-      this.localTextEditorOptions = this.$settingsC.resetLocalTextEditorOptions(this.textType, this.textId)
+      this.localTextEditorOptions = _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__.default.resetLocalTextEditorOptions(this.textType, this.textId)
       await this.updateText()
     }
   },
@@ -50988,7 +51576,7 @@ __webpack_require__.r(__webpack_exports__);
      * checks if  localOptions is not yet uploaded
      */
     dataUpdated () {
-      if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
+      if (!this.localTextEditorOptions.ready && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__.default.tokenizerOptionsLoaded) {
         this.prepareDefaultTextEditorOptions()
       }
       return this.$store.state.docSourceUpdated
@@ -51063,19 +51651,19 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.optionsUpdated && this.$store.state.docSourceUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.sourceType.currentValue
     },
     tokenization () {
-      return _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.defineTextTokenizationOptions(this.$settingsC.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
+      return _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.defineTextTokenizationOptions(_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__.default.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
     },
     charactersClasses () {
       return {
         'alpheios-alignment-editor-hidden' : (this.textCharactersAmount === 0),
-        'alpheios-alignment-editor-red' : this.textCharactersAmount > this.maxCharactersForTheText
+        'alpheios-alignment-editor-red' : this.sourceType === 'text' && (this.textCharactersAmount > this.maxCharactersForTheText)
       }
     },
     textCharactersAmount () {
       return this.text ? this.text.length : 0
     },
     maxCharactersForTheText () {
-      return this.$store.state.optionsUpdated && this.$settingsC.maxCharactersPerTextValue
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__.default.maxCharactersPerTextValue
     },
     charactersText () {
       return `Characters count - ${this.textCharactersAmount} (max - ${this.maxCharactersForTheText})`
@@ -51090,7 +51678,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     showLangNotDetected () {
       const docSource = this.$textC.getDocSource(this.textType, this.textId)
-      return this.$store.state.docSourceLangDetected && docSource && (!docSource.detectedLang && docSource.text.length > 0)
+      return this.$store.state.docSourceLangDetected && docSource && (!docSource.skipDetected && !docSource.detectedLang && docSource.text.length > 0)
     },
     showAddTranslation () {
       return this.$store.state.docSourceUpdated && (this.textType === 'target') && (this.index === (this.$textC.allTargetTextsIds.length - 1)) && (this.text.length > 0)
@@ -51099,7 +51687,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.docSourceUpdated && (this.showUploadMenu || this.showTextProps)
     },
     alignAvailable () {
-      return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.$textC.couldStartAlign && this.$textC.checkSize(this.$settingsC.maxCharactersPerTextValue)
+      return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.$textC.couldStartAlign && this.$textC.checkSize()
     },
     describeButtonId () {
       return `alpheios-actions-menu-button__describe-${this.textType}-${this.textId}-id`
@@ -51120,7 +51708,7 @@ __webpack_require__.r(__webpack_exports__);
       const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
       if (sourceTextData && sourceTextData.text) {
         this.text = sourceTextData.text
-        this.$settingsC.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
+        _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__.default.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
         await this.updateText()
 
         this.showTypeUploadButtons = false
@@ -51206,7 +51794,7 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     updateDirection () {
-      this.localTextEditorOptions.sourceText.items.direction.currentValue = _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_14__.default.defineDirection(this.localTextEditorOptions.sourceText.items.language.currentValue)
+      this.localTextEditorOptions.sourceText.items.direction.currentValue = _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_15__.default.defineDirection(this.localTextEditorOptions.sourceText.items.language.currentValue)
       this.$store.commit('incrementOptionsUpdated')
     },
 
@@ -51225,7 +51813,8 @@ __webpack_require__.r(__webpack_exports__);
      * Reloads local options
      */
     prepareDefaultTextEditorOptions () {
-      this.localTextEditorOptions = this.$settingsC.cloneTextEditorOptions(this.textType, this.index)
+      this.localTextEditorOptions = _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__.default.cloneTextEditorOptions(this.textType, this.index)
+
       this.localTextEditorOptions.ready = true
       this.$store.commit('incrementOptionsUpdated')
     },
@@ -51441,6 +52030,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
+/* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
 //
 //
 //
@@ -51475,6 +52065,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -51504,7 +52095,7 @@ __webpack_require__.r(__webpack_exports__);
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
     },
     showOptions () {
-      return this.$store.state.optionsUpdated && this.localOptions.ready && this.$settingsC.tokenizerOptionsLoaded
+      return this.$store.state.optionsUpdated && this.localOptions.ready && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.tokenizerOptionsLoaded
     },
     sourceType () {
       return this.$store.state.optionsUpdated && this.localOptions.sourceText.items.sourceType.currentValue
@@ -51963,6 +52554,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/lib/data/history/history-step.js */ "./lib/data/history/history-step.js");
 /* harmony import */ var _vue_tokens_editor_actions_button_token_edit_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/vue/tokens-editor/actions-button-token-edit.vue */ "./vue/tokens-editor/actions-button-token-edit.vue");
+/* harmony import */ var _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/lib/controllers/settings-controller */ "./lib/controllers/settings-controller.js");
 //
 //
 //
@@ -52024,6 +52616,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -52105,7 +52698,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     }, 
     allowedUpdateTokenWord () {
-      return this.$store.state.optionsUpdated && this.$settingsC.allowUpdateTokenWordOptionValue
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_13__.default.allowUpdateTokenWordOptionValue
     },
     allowedMergePrev () {
       return this.$store.state.optionsUpdated && this.$tokensEC.allowedMergePrev(this.token)
@@ -52576,10 +53169,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
+/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
 /* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/data/history/history-step.js */ "./lib/data/history/history-step.js");
+/* harmony import */ var _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/settings-controller */ "./lib/controllers/settings-controller.js");
 //
 //
 //
@@ -52605,6 +53199,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -52724,7 +53319,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.alignmentUpdated && this.$tokensEC.isEditableToken(this.token)
     }, 
     allowedUpdateTokenWord () {
-      return this.$store.state.optionsUpdated && this.$settingsC.allowUpdateTokenWordOptionValue
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__.default.allowUpdateTokenWordOptionValue
     }
   },
   methods: {
@@ -52753,7 +53348,7 @@ __webpack_require__.r(__webpack_exports__);
     async showActionsMenu () {
       this.$emit('removeAllActivated')
 
-      await _vue_runtime__WEBPACK_IMPORTED_MODULE_3__.default.nextTick()
+      await _vue_runtime__WEBPACK_IMPORTED_MODULE_4__.default.nextTick()
 
       this.activated = true
       this.$emit('showActionsMenu', {
@@ -53583,6 +54178,47 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "vue/common/tooltip.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./vue/common/waiting-popup.vue":
+/*!**************************************!*\
+  !*** ./vue/common/waiting-popup.vue ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _waiting_popup_vue_vue_type_template_id_52772402___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./waiting-popup.vue?vue&type=template&id=52772402& */ "./vue/common/waiting-popup.vue?vue&type=template&id=52772402&");
+/* harmony import */ var _waiting_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./waiting-popup.vue?vue&type=script&lang=js& */ "./vue/common/waiting-popup.vue?vue&type=script&lang=js&");
+/* harmony import */ var _waiting_popup_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./waiting-popup.vue?vue&type=style&index=0&lang=scss& */ "./vue/common/waiting-popup.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _waiting_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _waiting_popup_vue_vue_type_template_id_52772402___WEBPACK_IMPORTED_MODULE_0__.render,
+  _waiting_popup_vue_vue_type_template_id_52772402___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/common/waiting-popup.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
@@ -55138,6 +55774,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./vue/common/waiting-popup.vue?vue&type=style&index=0&lang=scss&":
+/*!************************************************************************!*\
+  !*** ./vue/common/waiting-popup.vue?vue&type=style&index=0&lang=scss& ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_waiting_popup_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./waiting-popup.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/waiting-popup.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_waiting_popup_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_waiting_popup_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_waiting_popup_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_waiting_popup_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
+
+/***/ }),
+
 /***/ "./vue/common/waiting.vue?vue&type=style&index=0&lang=scss&":
 /*!******************************************************************!*\
   !*** ./vue/common/waiting.vue?vue&type=style&index=0&lang=scss& ***!
@@ -55853,6 +56506,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tooltip_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./tooltip.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/tooltip.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tooltip_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./vue/common/waiting-popup.vue?vue&type=script&lang=js&":
+/*!***************************************************************!*\
+  !*** ./vue/common/waiting-popup.vue?vue&type=script&lang=js& ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_waiting_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./waiting-popup.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/waiting-popup.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_waiting_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -56605,6 +57274,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./vue/common/waiting-popup.vue?vue&type=template&id=52772402&":
+/*!*********************************************************************!*\
+  !*** ./vue/common/waiting-popup.vue?vue&type=template&id=52772402& ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_waiting_popup_vue_vue_type_template_id_52772402___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_waiting_popup_vue_vue_type_template_id_52772402___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_waiting_popup_vue_vue_type_template_id_52772402___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./waiting-popup.vue?vue&type=template&id=52772402& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/waiting-popup.vue?vue&type=template&id=52772402&");
+
+
+/***/ }),
+
 /***/ "./vue/common/waiting.vue?vue&type=template&id=3a83a6e0&":
 /*!***************************************************************!*\
   !*** ./vue/common/waiting.vue?vue&type=template&id=3a83a6e0& ***!
@@ -57297,10 +57983,12 @@ var render = function() {
                 [
                   _c("segment-block", {
                     attrs: {
-                      segment: segmentData.origin,
                       currentTargetId: _vm.currentTargetId,
                       amountOfShownTabs: _vm.amountOfShownTabs,
-                      isFirst: segmentData.isFirst
+                      isFirst: segmentData.isFirst,
+                      segmentIndex: segmentData.origin.index,
+                      textType: "origin",
+                      textId: segmentData.origin.docSourceId
                     }
                   })
                 ],
@@ -57325,8 +58013,10 @@ var render = function() {
                     ],
                     key: _vm.getIndex("target", segmentData.index, targetId),
                     attrs: {
-                      segment: segmentTarget,
                       isFirst: segmentData.isFirst,
+                      segmentIndex: segmentTarget.index,
+                      textType: "target",
+                      textId: segmentTarget.docSourceId,
                       isLast: _vm.lastTargetId && targetId === _vm.lastTargetId,
                       currentTargetId: _vm.currentTargetId,
                       amountOfShownTabs: _vm.amountOfShownTabs
@@ -57590,6 +58280,27 @@ var render = function() {
           attrs: { id: _vm.cssId, dir: _vm.direction, lang: _vm.lang }
         },
         [
+          _vm.showPrev
+            ? _c(
+                "p",
+                {
+                  staticClass:
+                    "alpheios-alignment-editor-align-text-single-link"
+                },
+                [
+                  _c(
+                    "span",
+                    {
+                      staticClass:
+                        "alpheios-alignment-editor-align-text-parts-link",
+                      on: { click: _vm.uploadPrevPart }
+                    },
+                    [_vm._v("prev")]
+                  )
+                ]
+              )
+            : _vm._e(),
+          _vm._v(" "),
           _vm._l(_vm.allTokens, function(token, tokenIndex) {
             return [
               token.word
@@ -57622,7 +58333,28 @@ var render = function() {
                 ? _c("br")
                 : _vm._e()
             ]
-          })
+          }),
+          _vm._v(" "),
+          _vm.showNext
+            ? _c(
+                "p",
+                {
+                  staticClass:
+                    "alpheios-alignment-editor-align-text-single-link"
+                },
+                [
+                  _c(
+                    "span",
+                    {
+                      staticClass:
+                        "alpheios-alignment-editor-align-text-parts-link",
+                      on: { click: _vm.uploadNextPart }
+                    },
+                    [_vm._v("next")]
+                  )
+                ]
+              )
+            : _vm._e()
         ],
         2
       ),
@@ -57685,7 +58417,7 @@ var render = function() {
             return null
           }
           $event.preventDefault()
-          return _vm.clickToken($event)
+          return _vm.clickToken.apply(null, arguments)
         },
         mouseover: _vm.addHoverToken,
         mouseleave: _vm.removeHoverToken
@@ -57917,6 +58649,15 @@ var render = function() {
             _vm.showSummaryModal = false
           },
           "start-align": _vm.alignTexts
+        }
+      }),
+      _vm._v(" "),
+      _c("waiting-popup", {
+        attrs: { showModal: _vm.showWaitingModal },
+        on: {
+          closeModal: function($event) {
+            _vm.showWaitingModal = false
+          }
         }
       })
     ],
@@ -58443,6 +59184,54 @@ var render = function() {
     ],
     2
   )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/waiting-popup.vue?vue&type=template&id=52772402&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/waiting-popup.vue?vue&type=template&id=52772402& ***!
+  \**************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.showModal
+    ? _c("modal", {
+        staticClass: "alpheios-alignment-editor-modal-waiting",
+        on: {
+          close: function($event) {
+            return _vm.$emit("closeModal")
+          }
+        },
+        scopedSlots: _vm._u(
+          [
+            {
+              key: "body",
+              fn: function() {
+                return [_c("waiting")]
+              },
+              proxy: true
+            }
+          ],
+          null,
+          false,
+          4053691859
+        )
+      })
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -59842,9 +60631,19 @@ var render = function() {
               key: "body",
               fn: function() {
                 return [
-                  _c("div", {
-                    staticClass: "alpheios-alignment-editor-modal-options-block"
-                  })
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "alpheios-alignment-editor-modal-options-block"
+                    },
+                    [
+                      _c("option-item-block", {
+                        attrs: { optionItem: _vm.maxCharactersPerPart }
+                      })
+                    ],
+                    1
+                  )
                 ]
               },
               proxy: true
@@ -59907,7 +60706,7 @@ var render = function() {
           ],
           null,
           false,
-          479970768
+          947226833
         )
       })
     : _vm._e()
@@ -60236,14 +61035,6 @@ var render = function() {
               fn: function() {
                 return [
                   _c("p", {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: !_vm.showWaiting,
-                        expression: "!showWaiting"
-                      }
-                    ],
                     staticClass: "alpheios-editor-summary-header",
                     domProps: {
                       innerHTML: _vm._s(
@@ -60260,30 +61051,9 @@ var render = function() {
                   key: "body",
                   fn: function() {
                     return [
-                      _c("waiting", {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.showWaiting,
-                            expression: "showWaiting"
-                          }
-                        ]
-                      }),
-                      _vm._v(" "),
                       _c(
                         "div",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: !_vm.showWaiting,
-                              expression: "!showWaiting"
-                            }
-                          ],
-                          staticClass: "alpheios-editor-summary-content"
-                        },
+                        { staticClass: "alpheios-editor-summary-content" },
                         [
                           _c(
                             "table",
@@ -60509,7 +61279,8 @@ var render = function() {
                                   _c("option-item-block", {
                                     attrs: {
                                       optionItem: _vm.showSummaryPopupOpt,
-                                      showLabelText: _vm.showLabelTextOpt
+                                      showLabelText: _vm.showLabelTextOpt,
+                                      showCheckboxTitle: _vm.showLabelTextOpt
                                     }
                                   })
                                 ],
@@ -60545,57 +61316,41 @@ var render = function() {
               key: "footer",
               fn: function() {
                 return [
-                  _c(
-                    "div",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: !_vm.showWaiting,
-                          expression: "!showWaiting"
-                        }
-                      ],
-                      staticClass: "alpheios-editor-summary-footer"
-                    },
-                    [
-                      _c(
-                        "button",
-                        {
-                          staticClass:
-                            "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-                          attrs: { disabled: _vm.showWaiting },
-                          on: { click: _vm.startAlign }
-                        },
-                        [
-                          _vm._v(
-                            _vm._s(_vm.l10n.getMsgS("SUMMARY_POPUP_OK_BUTTON"))
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass:
-                            "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-                          attrs: { disabled: _vm.showWaiting },
-                          on: {
-                            click: function($event) {
-                              return _vm.$emit("closeModal")
-                            }
+                  _c("div", { staticClass: "alpheios-editor-summary-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+                        on: { click: _vm.startAlign }
+                      },
+                      [
+                        _vm._v(
+                          _vm._s(_vm.l10n.getMsgS("SUMMARY_POPUP_OK_BUTTON"))
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+                        on: {
+                          click: function($event) {
+                            return _vm.$emit("closeModal")
                           }
-                        },
-                        [
-                          _vm._v(
-                            _vm._s(
-                              _vm.l10n.getMsgS("SUMMARY_POPUP_CANCEL_BUTTON")
-                            )
+                        }
+                      },
+                      [
+                        _vm._v(
+                          _vm._s(
+                            _vm.l10n.getMsgS("SUMMARY_POPUP_CANCEL_BUTTON")
                           )
-                        ]
-                      )
-                    ]
-                  )
+                        )
+                      ]
+                    )
+                  ])
                 ]
               },
               proxy: true
@@ -60818,7 +61573,7 @@ var render = function() {
               ) {
                 return null
               }
-              return _vm.goToPage($event)
+              return _vm.goToPage.apply(null, arguments)
             },
             input: function($event) {
               if ($event.target.composing) {
@@ -61279,7 +62034,7 @@ var render = function() {
               key: "body",
               fn: function() {
                 return [
-                  _vm.$settingsC.hasTokenizerOptions
+                  _vm.hasTokenizerOptions
                     ? _c("tokenize-options-block", {
                         attrs: {
                           localOptions: _vm.localOptions,
@@ -61299,7 +62054,7 @@ var render = function() {
           ],
           null,
           false,
-          2909937421
+          888962049
         )
       })
     : _vm._e()
@@ -63085,7 +63840,7 @@ var render = function() {
             ) {
               return null
             }
-            return _vm.insertTokens($event)
+            return _vm.insertTokens.apply(null, arguments)
           },
           input: function($event) {
             if ($event.target.composing) {
@@ -64321,7 +65076,7 @@ render._withStripped = true
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/storage-controller.test.js","test-b":"jest tests/vue/text-editor/text-editor-single-block.test.js --coverage","test-c":"jest tests/lib/storage/indexed-db-adapter.test.js --coverage","test-d":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.3.0","@babel/core":"^7.14.3","@babel/plugin-proposal-object-rest-spread":"^7.14.2","@babel/plugin-transform-modules-commonjs":"^7.14.0","@babel/plugin-transform-runtime":"^7.14.3","@babel/preset-env":"^7.14.2","@babel/register":"^7.13.16","@babel/runtime":"^7.14.0","@vue/test-utils":"^1.2.0","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.27.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.23.3","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.2","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.6.16","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.6","papaparse":"^5.3.0","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.34.0","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.12","vue-eslint-parser":"^7.6.0","vue-jest":"^3.0.7","vue-loader":"^15.9.7","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.12","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.37.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
+module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/data/segment.test.js --coverage","test-b":"jest tests/vue/align-editor/segment-block.test.js --coverage","test-c":"jest tests/lib/storage/indexed-db-adapter.test.js --coverage","test-d":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.3.0","@babel/core":"^7.14.3","@babel/plugin-proposal-object-rest-spread":"^7.14.4","@babel/plugin-transform-modules-commonjs":"^7.14.0","@babel/plugin-transform-runtime":"^7.14.3","@babel/preset-env":"^7.14.4","@babel/register":"^7.13.16","@babel/runtime":"^7.14.0","@vue/test-utils":"^1.2.0","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.28.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.23.4","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.2","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.6.18","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.6","papaparse":"^5.3.1","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.34.1","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.14","vue-eslint-parser":"^7.6.0","vue-jest":"^3.0.7","vue-loader":"^15.9.7","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.14","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.38.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
 
 /***/ }),
 
@@ -64475,7 +65230,7 @@ module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit text","de
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"1","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":false,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":true,"labelText":"Show language check before text would be prepared","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]}}}');
+module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"1","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":false,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":true,"labelText":"Show language check before text would be prepared","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerPart":{"defaultValue":1000,"labelText":"Max characters per part (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]}}}');
 
 /***/ }),
 

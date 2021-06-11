@@ -12,6 +12,7 @@
 </template>
 <script>
 import OptionItemBlock from '@/vue/options/option-item-block.vue'
+import SettingsController from '@/lib/controllers/settings-controller'
 
 export default {
   name: 'LanguageOptionsBlock',
@@ -40,7 +41,7 @@ export default {
   },
   computed: {
     showOptions () {
-      return this.$store.state.optionsUpdated && this.localOptions.ready && this.$settingsC.sourceTextOptionsLoaded
+      return this.$store.state.optionsUpdated && this.localOptions.ready && SettingsController.sourceTextOptionsLoaded
     },
     optionItem () {
       return this.$store.state.optionsUpdated && this.localOptions.sourceText.items.language

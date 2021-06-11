@@ -26,6 +26,8 @@ import Modal from '@/vue/common/modal.vue'
 import DownloadController from '@/lib/controllers/download-controller.js'
 import Tooltip from '@/vue/common/tooltip.vue'
 
+import SettingsController from '@/lib/controllers/settings-controller.js'
+
 export default {
   name: 'SavePopup',
   components: {
@@ -65,15 +67,15 @@ export default {
     downloadTypeId (dTypeName) {
       return `alpheios-save-popup-download-block__radio_${dTypeName}`
     },
-    downloadData () {
+    async downloadData () {
       this.$emit('closeModal')
       let additional = {}
       if (this.currentDownloadType === 'htmlDownloadAll') {
         additional = {
-          theme: this.$settingsC.themeOptionValue
+          theme: SettingsController.themeOptionValue
         }
       }
-      this.$textC.downloadData(this.currentDownloadType, additional)
+      await this.$textC.downloadData(this.currentDownloadType, additional)
       
     }
   }

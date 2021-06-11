@@ -1231,19 +1231,6 @@ button.alpheios-app-menu-link:-moz-focusring {
   display: block;
   fill: #c6c6c6;
 }
-.alpheios-editor__waiting {
-  text-align: center;
-}
-.alpheios-editor__waiting .alpheios-editor__waiting-gif {
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-}
-.alpheios-editor__waiting .alpheios-editor__waiting-gif img {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
 .alpheios-alignment-option-item {
   display: inline-block;
   width: 100%;
@@ -1340,6 +1327,23 @@ button.alpheios-app-menu-link:-moz-focusring {
   fill: #000;
 }
 .alpheios-alignment-editor-modal-summary .alpheios-modal-body {
+  border: 0;
+  padding: 10px 0;
+}
+.alpheios-editor__waiting {
+  text-align: center;
+}
+.alpheios-editor__waiting .alpheios-editor__waiting-gif {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+}
+.alpheios-editor__waiting .alpheios-editor__waiting-gif img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.alpheios-alignment-editor-modal-waiting .alpheios-modal-body {
   border: 0;
   padding: 10px 0;
 }
@@ -1936,6 +1940,23 @@ span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-edit
 }
 span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-editor-text-blocks-single__metadata_icon_has_data svg {
   stroke: #2a9900;
+}
+.alpheios-alignment-editor-align-text-parts-link {
+  cursor: pointer;
+  display: inline-block;
+  padding: 3px;
+  text-decoration: underline;
+}
+.alpheios-alignment-editor-align-text-parts-link.alpheios-alignment-editor-align-text-parts-link-current {
+  cursor: initial;
+  text-decoration: none;
+}
+.alpheios-alignment-editor-align-text-parts,
+.alpheios-alignment-editor-align-text-single-link {
+  margin: 0;
+  text-align: center;
+  color: #000;
+  font-weight: bold;
 }
 .alpheios-alignment-editor-align-target-tabs {
   display: inline-block;

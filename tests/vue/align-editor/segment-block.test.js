@@ -7,7 +7,12 @@ import SegmentBlock from '@/vue/align-editor/segment-block.vue'
 import TokenBlock from '@/vue/align-editor/token-block.vue'
 import Token from '@/lib/data/token'
 import SourceText from '@/lib/data/source-text'
+import Alignment from '@/lib/data/alignment'
 import Vue from '@vue-runtime'
+
+import SettingsController from '@/lib/controllers/settings-controller'
+import IndexedDB from 'fake-indexeddb'
+import IDBKeyRange from 'fake-indexeddb/lib/FDBKeyRange'
 
 import Vuex from "vuex"
 
@@ -19,8 +24,15 @@ describe('segment-block.test.js', () => {
   console.log = function () {}
   console.warn = function () {}
 
-  let appC, originSegment, allTargetTextsIds, targetSegment, targetSegment1, createAlignmentGroup
-    
+  let appC, originSegment, allTargetTextsIds, targetSegment, targetSegment1, createAlignmentGroup, userID
+  beforeAll(async () => {
+    userID = Alignment.defaultUserID
+
+    window.indexedDB = IndexedDB
+    window.IDBKeyRange = IDBKeyRange
+
+  })
+
   beforeEach(async () => {
     jest.spyOn(console, 'error')
     jest.spyOn(console, 'log')
@@ -33,8 +45,9 @@ describe('segment-block.test.js', () => {
     appC.defineStore()
     appC.defineL10Support()
     appC.defineNotificationSupport(appC.store)
+    appC.defineStorageController()
 
-    await appC.defineSettingsController()
+    await appC.defineSettingsController(appC.store)
     appC.defineTextController(appC.store)
     appC.defineAlignedGroupsController(appC.store)
     appC.defineTokensEditController(appC.store)
@@ -44,19 +57,19 @@ describe('segment-block.test.js', () => {
     appC.historyC.startTracking(appC.textC.alignment)
 
     const originDocSource = new SourceText('origin', {
-      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: {
+      text: '“Ein ziemlich unauffälliges Tier.\n“Vor rund 13,5 Milliarden Jahren entstanden Materie, Energie, Raum und Zeit in einem Ereignis namens Urknall.', direction: 'ltr', lang: 'deu', sourceType: 'text', tokenization: {
         tokenizer: 'simpleLocalTokenizer'
       }
     })
 
     const targetDocSource1 = new SourceText('target', {
-      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: {
+      text: 'Un animal insignifiant\n“Il y a environ 13,5 milliards d’années, la matière, l’énergie, le temps et l’espace apparaissaient à l’occasion du Big Bang.', direction: 'ltr', lang: 'fra', sourceType: 'text', tokenization: {
         tokenizer: 'simpleLocalTokenizer'
       }
     })
 
     const targetDocSource2 = new SourceText('target', {
-      text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: {
+      text: '“Un animale di nessuna importanza\n“Circa tredici miliardi e mezzo di anni fa, materia, energia, tempo e spazio scaturirono da quello che è noto come il Big Bang.', direction: 'ltr', lang: 'ita', sourceType: 'text', tokenization: {
         tokenizer: 'simpleLocalTokenizer'
       }
     })
@@ -92,31 +105,22 @@ describe('segment-block.test.js', () => {
       store: appC.store,
       localVue,
       propsData: {
-        segment: originSegment
+        segmentIndex: originSegment.index,
+        textId: originSegment.docSourceId,
+        textType: 'origin'
       }
     })
     expect(cmp.isVueInstance()).toBeTruthy()
   })
 
-  it('2 SegmentBlock - should contain Tokens components for each token in alignTextData', () => {
+  it('2 SegmentBlock - textType, direction, lang - retrieves from segment', async () => {
     let cmp = shallowMount(SegmentBlock, {
       store: appC.store,
       localVue,
       propsData: {
-        segment: originSegment
-      }
-    })
-
-    expect(cmp.findAllComponents(TokenBlock)).toHaveLength(originSegment.tokens.length)
-  })
-
-
-  it('4 SegmentBlock - textType, direction, lang - retrieves from segment', async () => {
-    let cmp = shallowMount(SegmentBlock, {
-      store: appC.store,
-      localVue,
-      propsData: {
-        segment: originSegment
+        segmentIndex: originSegment.index,
+        textId: originSegment.docSourceId,
+        textType: 'origin'
       }
     })
 
@@ -125,37 +129,45 @@ describe('segment-block.test.js', () => {
     expect(cmp.vm.lang).toEqual(originSegment.lang)
   })
 
-  it('5 SegmentBlock - cssId - defines unique id for HTML layout', async () => {
+  it('3 SegmentBlock - cssId - defines unique id for HTML layout', async () => {
     let cmp = shallowMount(SegmentBlock, {
       store: appC.store,
       localVue,
       propsData: {
-        segment: originSegment // index 1
+        segmentIndex: originSegment.index,
+        textId: originSegment.docSourceId,
+        textType: 'origin'
       }
     })
 
     expect(cmp.vm.cssId).toEqual('alpheios-align-text-segment-origin-1')
     cmp.setProps({
-      segment: targetSegment // index 2, targetId[1]
+      segmentIndex: targetSegment.index,
+      textId: targetSegment.docSourceId,
+      textType: 'target'
     })
 
     await Vue.nextTick()
     expect(cmp.vm.cssId).toEqual(`alpheios-align-text-segment-target-${allTargetTextsIds[1]}-2`)
   })
 
-  it('6 SegmentBlock - cssStyle - defines direct css styles by properties', async () => {
+  it('4 SegmentBlock - cssStyle - defines direct css styles by properties', async () => {
     let cmp = shallowMount(SegmentBlock, {
       store: appC.store,
       localVue,
       propsData: {
-        segment: originSegment // index 1
+        segmentIndex: originSegment.index,
+        textId: originSegment.docSourceId,
+        textType: 'origin'
       }
     })
 
     expect(cmp.vm.cssStyle).toEqual(expect.stringContaining(`order: 1;`))
     expect(cmp.vm.cssStyleSeg).toEqual(expect.stringContaining(`background: ${cmp.vm.originColor};`))
     cmp.setProps({
-      segment: targetSegment // index 2, targetId[0]
+      segmentIndex: targetSegment.index,
+      textId: targetSegment.docSourceId,
+      textType: 'target'
     })
 
     await Vue.nextTick()
@@ -163,12 +175,14 @@ describe('segment-block.test.js', () => {
     expect(cmp.vm.cssStyleSeg).toEqual(expect.stringContaining(`background: ${cmp.vm.colors[1]};`)) // color for the second target
   })
 
-  it('7 SegmentBlock - cssClass - contains class alpheios-align-text-segment-${segment.textType} and contains alpheios-align-text-segment-${segment.textType}-last if it is the last', async () => {
+  it('5 SegmentBlock - cssClass - contains class alpheios-align-text-segment-${segment.textType} and contains alpheios-align-text-segment-${segment.textType}-last if it is the last', async () => {
     let cmp = shallowMount(SegmentBlock, {
       store: appC.store,
       localVue,
       propsData: {
-        segment: originSegment,
+        segmentIndex: originSegment.index,
+        textId: originSegment.docSourceId,
+        textType: 'origin',
         isLast: false
       }
     })
@@ -177,44 +191,50 @@ describe('segment-block.test.js', () => {
     expect(cmp.vm.cssClass).toHaveProperty('alpheios-align-text-segment-origin-last', false)
 
     cmp.setProps({
-      segment: targetSegment,
+      segmentIndex: targetSegment.index,
+      textId: targetSegment.docSourceId,
+      textType: 'target',
       isLast: true
     })
     await Vue.nextTick()
     expect(cmp.vm.cssClass).toHaveProperty('alpheios-align-text-segment-target-last', true)
   })    
 
-  it('8 SegmentBlock - allTargetTextsIds, targetIdIndex, targetId defines targetId data', async () => {
+  it('6 SegmentBlock - allTargetTextsIds, targetIdIndex, targetId defines targetId data', async () => {
     let cmp = shallowMount(SegmentBlock, {
       store: appC.store,
       localVue,
       propsData: {
-        segment: originSegment
+        segmentIndex: originSegment.index,
+        textId: originSegment.docSourceId,
+        textType: 'origin'
       }
     })
 
     // we have an origin segment
     expect(cmp.vm.allTargetTextsIds).toEqual(allTargetTextsIds)
     expect(cmp.vm.targetIdIndex).toBeNull()
-    expect(cmp.vm.targetId).toBeNull()
 
     cmp.setProps({
-      segment: targetSegment
+      segmentIndex: targetSegment.index,
+      textId: targetSegment.docSourceId,
+      textType: 'target'
     })
     await Vue.nextTick()
     // we have a target segment
     expect(cmp.vm.allTargetTextsIds).toEqual(allTargetTextsIds)
     expect(cmp.vm.targetIdIndex).toEqual(1)
-    expect(cmp.vm.targetId).toEqual(allTargetTextsIds[1])
   })    
 
 
-  it('9 SegmentBlock - clickToken - starts click workflow we we have only one tab active', async () => {
+  it('7 SegmentBlock - clickToken - starts click workflow we we have only one tab active', async () => {
     let cmp = shallowMount(SegmentBlock, {
       store: appC.store,
       localVue,
       propsData: {
-        segment: originSegment,
+        segmentIndex: originSegment.index,
+        textId: originSegment.docSourceId,
+        textType: 'origin',
         currentTargetId: allTargetTextsIds[0]
       }
     })
@@ -237,7 +257,9 @@ describe('segment-block.test.js', () => {
     expect(cmp.vm.$alignedGC.clickToken).not.toHaveBeenLastCalledWith(originToken, null)
 
     cmp.setProps({
-      segment: targetSegment,
+      segmentIndex: targetSegment.index,
+      textId: targetSegment.docSourceId,
+      textType: 'target',
       currentTargetId: allTargetTextsIds[1]
     })
     await Vue.nextTick()
@@ -250,12 +272,14 @@ describe('segment-block.test.js', () => {
   })
 
 
-  it('10 SegmentBlock - addHoverToken - starts hover workflow', async () => {
+  it('8 SegmentBlock - addHoverToken - starts hover workflow', async () => {
     let cmp = shallowMount(SegmentBlock, {
       store: appC.store,
       localVue,
       propsData: {
-        segment: originSegment,
+        segmentIndex: originSegment.index,
+        textId: originSegment.docSourceId,
+        textType: 'origin',
         currentTargetId: allTargetTextsIds[0]
       }
     })
@@ -280,12 +304,14 @@ describe('segment-block.test.js', () => {
 
   })
 
-  it('11 SegmentBlock - removeHoverToken - ends hover workflow, current targetId doesn\'t influence', async () => {
+  it('9 SegmentBlock - removeHoverToken - ends hover workflow, current targetId doesn\'t influence', async () => {
     let cmp = shallowMount(SegmentBlock, {
       store: appC.store,
       localVue,
       propsData: {
-        segment: originSegment,
+        segmentIndex: originSegment.index,
+        textId: originSegment.docSourceId,
+        textType: 'origin',
         currentTargetId: allTargetTextsIds[0]
       }
     })
@@ -298,12 +324,14 @@ describe('segment-block.test.js', () => {
     expect(cmp.vm.$alignedGC.clearHoverOnAlignmentGroups).toHaveBeenCalled()
   })
 
-  it('12 SegmentBlock - selectedToken - defines if token is hovered', async () => {
+  it('10 SegmentBlock - selectedToken - defines if token is hovered', async () => {
     let cmp = shallowMount(SegmentBlock, {
       store: appC.store,
       localVue,
       propsData: {
-        segment: originSegment,
+        segmentIndex: originSegment.index,
+        textId: originSegment.docSourceId,
+        textType: 'origin',
         currentTargetId: allTargetTextsIds[1]
       }
     })
@@ -321,12 +349,14 @@ describe('segment-block.test.js', () => {
     expect(cmp.vm.selectedToken(alGroup.steps[1].token, allTargetTextsIds[1])).toBeTruthy() // target token
   })
 
-  it('13 SegmentBlock - groupedToken - defines if token is grouped', async () => {
+  it('11 SegmentBlock - groupedToken - defines if token is grouped', async () => {
     let cmp = shallowMount(SegmentBlock, {
       store: appC.store,
       localVue,
       propsData: {
-        segment: originSegment,
+        segmentIndex: originSegment.index,
+        textId: originSegment.docSourceId,
+        textType: 'origin',
         currentTargetId: allTargetTextsIds[1]
       }
     })
@@ -339,12 +369,14 @@ describe('segment-block.test.js', () => {
     expect(cmp.vm.groupedToken(originSegment.tokens[1], allTargetTextsIds[1])).toBeFalsy() // was not added to the group
   })
 
-  it('14 SegmentBlock - inActiveGroup, isFirstInActiveGroup - defines if token is in active group', async () => {
+  it('12 SegmentBlock - inActiveGroup, isFirstInActiveGroup - defines if token is in active group', async () => {
     let cmp = shallowMount(SegmentBlock, {
       store: appC.store,
       localVue,
       propsData: {
-        segment: originSegment,
+        segmentIndex: originSegment.index,
+        textId: originSegment.docSourceId,
+        textType: 'origin',
         currentTargetId: allTargetTextsIds[1]
       }
     })
@@ -360,4 +392,54 @@ describe('segment-block.test.js', () => {
     expect(cmp.vm.isFirstInActiveGroup(alGroup.steps[1].token, allTargetTextsIds[1])).toBeFalsy() // target token
   })
 
+  it('13 SegmentBlock - allPartsKeys, currentPartIndexes, allTokens, click next, click prev', async () => {
+    let cmp = shallowMount(SegmentBlock, {
+      store: appC.store,
+      localVue,
+      propsData: {
+        segmentIndex: 2,
+        textId: originSegment.docSourceId,
+        textType: 'origin',
+        currentTargetId: allTargetTextsIds[1]
+      }
+    })
+
+    expect(cmp.vm.allPartsKeys).toEqual([ 1 ])
+    SettingsController.allOptions.app.items.maxCharactersPerPart.currentValue = 5
+    await cmp.vm.$textC.defineAllPartNumsForTexts()
+
+    expect(cmp.vm.allPartsKeys).toEqual([ 1, 2, 3, 4, 5 ])
+    expect(cmp.vm.currentPartIndexes).toEqual([ 1 ])
+    
+    expect(cmp.vm.allTokens.length).toEqual(5)
+    expect(cmp.vm.allTokens.map(token => token.word)).toEqual([ 'Vor', 'rund', '13', '5', 'Milliarden'])
+
+    expect(cmp.vm.showPrev).toBeFalsy()
+    expect(cmp.vm.showNext).toBeTruthy()
+
+    // click next
+    await cmp.vm.uploadNextPart()
+
+    expect(cmp.vm.currentPartIndexes).toEqual([ 1, 2 ])
+    expect(cmp.vm.allTokens.length).toEqual(7)
+    expect(cmp.vm.allTokens.map(token => token.word)).toEqual([ 'Vor', 'rund', '13', '5', 'Milliarden', 'Jahren', 'entstanden'])
+
+    expect(cmp.vm.showPrev).toBeFalsy()
+    expect(cmp.vm.showNext).toBeTruthy()
+
+    // click next
+    await cmp.vm.uploadNextPart()
+
+    expect(cmp.vm.currentPartIndexes).toEqual([ 2, 3 ])
+    // console.info('tokens', cmp.vm.allTokens)
+    expect(cmp.vm.allTokens.length).toEqual(4)
+    expect(cmp.vm.allTokens.map(token => token.word)).toEqual([ 'Jahren', 'entstanden', 'Materie', 'Energie' ])
+
+    // click prev
+    await cmp.vm.uploadPrevPart()
+
+    expect(cmp.vm.currentPartIndexes).toEqual([ 1, 2 ])
+    expect(cmp.vm.allTokens.length).toEqual(7)
+    expect(cmp.vm.allTokens.map(token => token.word)).toEqual([ 'Vor', 'rund', '13', '5', 'Milliarden', 'Jahren', 'entstanden'])
+  })
 })

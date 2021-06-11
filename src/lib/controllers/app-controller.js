@@ -1,5 +1,6 @@
 import App from '@/vue/app.vue'
 import Vue from '@vue-runtime'
+
 import Vuex from 'vuex'
 
 import TextsController from '@/lib/controllers/texts-controller.js'
@@ -41,8 +42,8 @@ export default class AppController {
 
     await this.defineSettingsController()
 
-    if (this.settingsC.themeOptionValue) {
-      this.defineColorTheme({ theme: this.settingsC.themeOptionValue, themesList: [] })
+    if (SettingsController.themeOptionValue) {
+      this.defineColorTheme({ theme: SettingsController.themeOptionValue, themesList: [] })
     }
     if (this.pageSettings && this.pageSettings.appId) {
       this.attachVueComponents()
@@ -105,11 +106,9 @@ export default class AppController {
    * Creates SettingsController and attaches to Vue components
    */
   async defineSettingsController () {
-    this.settingsC = new SettingsController(this.store)
-    await this.settingsC.init()
-    Vue.prototype.$settingsC = this.settingsC
+    await SettingsController.init(this.store)
 
-    this.settingsC.uploadRemoteSettings()
+    SettingsController.uploadRemoteSettings()
   }
 
   /**
