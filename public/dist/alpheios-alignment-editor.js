@@ -41258,7 +41258,6 @@ class AlignmentGroupActions {
     this.alignmentGroupHistory.truncateSteps()
     this.alignmentGroupHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.ADD)
 
-    this.checkAndUpdatePartNums(token.textType)
     this.defineFirstStepToken()
     return true
   }
@@ -41279,7 +41278,6 @@ class AlignmentGroupActions {
 
     if (tokenIndex >= 0) {
       this[token.textType].splice(tokenIndex, 1)
-      this.checkAndUpdatePartNums(token.textType)
 
       this.alignmentGroupHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.REMOVE)
       this.defineFirstStepToken()
@@ -41296,9 +41294,6 @@ class AlignmentGroupActions {
   merge (tokensGroup, indexDeleted) {
     this.origin.push(...tokensGroup.origin)
     this.target.push(...tokensGroup.target)
-
-    this.checkAndUpdatePartNums('origin')
-    this.checkAndUpdatePartNums('target')
 
     this.alignmentGroupHistory.addStep(tokensGroup, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.MERGE, { indexDeleted })
   }
@@ -41328,8 +41323,6 @@ class AlignmentGroupActions {
         this.target.splice(tokenIndex, 1)
       }
     }
-    this.checkAndUpdatePartNums('origin')
-    this.checkAndUpdatePartNums('target')
     this.defineFirstStepToken()
     return {
       tokensGroup,
@@ -41337,9 +41330,6 @@ class AlignmentGroupActions {
     }
   }
 
-  checkAndUpdatePartNums (textType) {
-    console.info('al-group-actions - ', textType, this)
-  }
   // step actions
 
   removeStepAdd (step) {
@@ -43250,7 +43240,6 @@ class Alignment {
     if (limitByTargetId) {
       this.hoveredGroups = this.hoveredGroups.filter(alGroup => alGroup.targetId === limitByTargetId)
     }
-    console.info('this.alignmentGroups - ', this.alignmentGroups)
     return this.hoveredGroups
   }
 
@@ -44618,7 +44607,7 @@ class Segment {
         if (this.tokens[tokenIndex + 1].sentenceIndex !== token.sentenceIndex) {
           partNum++
         } else if ((parts[partNum].len > (2 * charMax)) && (this.tokens[tokenIndex + 1].sentenceIndex === token.sentenceIndex)) {
-          if (this.tokens[tokenIndex + 2] && (this.tokens[tokenIndex + 2].sentenceIndex === token.sentenceIndex) && (tokenIndex < (this.tokens.length - 1))) {
+          if (this.tokens[tokenIndex + 2] && (this.tokens[tokenIndex + 2].sentenceIndex === token.sentenceIndex)) {
             partNum++
           }
         }
@@ -46905,7 +46894,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i353-upload-by-part.20210611373" : 0
+    return  true ? "i53-upload-by-part-fix.20210611673" : 0
   }
 
   static get libName () {

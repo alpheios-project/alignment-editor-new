@@ -742,7 +742,6 @@ export default class Alignment {
     if (limitByTargetId) {
       this.hoveredGroups = this.hoveredGroups.filter(alGroup => alGroup.targetId === limitByTargetId)
     }
-    console.info('this.alignmentGroups - ', this.alignmentGroups)
     return this.hoveredGroups
   }
 

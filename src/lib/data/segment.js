@@ -89,7 +89,7 @@ export default class Segment {
         if (this.tokens[tokenIndex + 1].sentenceIndex !== token.sentenceIndex) {
           partNum++
         } else if ((parts[partNum].len > (2 * charMax)) && (this.tokens[tokenIndex + 1].sentenceIndex === token.sentenceIndex)) {
-          if (this.tokens[tokenIndex + 2] && (this.tokens[tokenIndex + 2].sentenceIndex === token.sentenceIndex) && (tokenIndex < (this.tokens.length - 1))) {
+          if (this.tokens[tokenIndex + 2] && (this.tokens[tokenIndex + 2].sentenceIndex === token.sentenceIndex)) {
             partNum++
           }
         }
