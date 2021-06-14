@@ -335,13 +335,14 @@ export default class TextsController {
     return DownloadController.download(downloadType, { docSource })
   }
 
-  htmlDownloadAll (downloadType, additional) {
+  async htmlDownloadAll (downloadType, additional) {
+    const fullData = await this.prepareFullDataForHTMLOutput()
     return {
       downloadType,
       data: {
         theme: `alpheios-${additional.theme}`,
         langs: this.collectLangsForFileName(),
-        fullData: this.prepareFullDataForHTMLOutput()
+        fullData
       }
     }
   }
@@ -354,56 +355,11 @@ export default class TextsController {
     return langs
   }
 
-  prepareFullDataForHTMLOutput () {
-    let targets = {} // eslint-disable-line prefer-const
-    this.alignment.allTargetTextsIds.forEach(targetId => {
-      targets[targetId] = this.alignment.targets[targetId].alignedText.convertForHTMLOutput()
+  async prepareFullDataForHTMLOutput () {
+    const dbData = await StorageController.select({ alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+    const alignment = await Alignment.convertFromIndexedDB(dbData)
 
-      targets[targetId].metadata = this.alignment.targets[targetId].docSource.metadata.convertToJSONLine()
-      targets[targetId].metadataShort = this.alignment.targets[targetId].docSource.metadata.convertToShortJSONLine()
-    })
-
-    let origin = this.alignment.origin.alignedText.convertForHTMLOutput() // eslint-disable-line prefer-const
-    origin.metadata = this.alignment.origin.docSource.metadata.convertToJSONLine()
-    origin.metadataShort = this.alignment.origin.docSource.metadata.convertToShortJSONLine()
-
-    origin.segments.forEach(seg => {
-      seg.tokens.forEach(token => {
-        token.grouped = this.alignment.tokenIsGrouped(token)
-
-        if (token.grouped) {
-          const tokenGroups = this.alignment.findAllAlignmentGroups(token)
-          if (!token.groupData) { token.groupData = [] }
-
-          tokenGroups.forEach(tokenGroup => {
-            token.groupData.push({
-              groupId: tokenGroup.id,
-              targetId: tokenGroup.targetId
-            })
-          })
-        }
-      })
-    })
-
-    this.alignment.allTargetTextsIds.forEach(targetId => {
-      targets[targetId].segments.forEach(seg => {
-        seg.tokens.forEach(token => {
-          token.grouped = this.alignment.tokenIsGrouped(token)
-          if (token.grouped) {
-            const tokenGroups = this.alignment.findAllAlignmentGroups(token)
-            if (!token.groupData) { token.groupData = [] }
-            tokenGroups.forEach(tokenGroup => {
-              token.groupData.push({
-                groupId: tokenGroup.id,
-                targetId: tokenGroup.targetId
-              })
-            })
-          }
-        })
-      })
-    })
-
-    return JSON.stringify({ origin, targets })
+    return alignment.convertToHTML()
   }
 
   /**

@@ -122,7 +122,6 @@ export default class AlignmentGroupActions {
     this.alignmentGroupHistory.truncateSteps()
     this.alignmentGroupHistory.addStep(token, HistoryStep.types.ADD)
 
-    this.checkAndUpdatePartNums(token.textType)
     this.defineFirstStepToken()
     return true
   }
@@ -143,7 +142,6 @@ export default class AlignmentGroupActions {
 
     if (tokenIndex >= 0) {
       this[token.textType].splice(tokenIndex, 1)
-      this.checkAndUpdatePartNums(token.textType)
 
       this.alignmentGroupHistory.addStep(token, HistoryStep.types.REMOVE)
       this.defineFirstStepToken()
@@ -160,9 +158,6 @@ export default class AlignmentGroupActions {
   merge (tokensGroup, indexDeleted) {
     this.origin.push(...tokensGroup.origin)
     this.target.push(...tokensGroup.target)
-
-    this.checkAndUpdatePartNums('origin')
-    this.checkAndUpdatePartNums('target')
 
     this.alignmentGroupHistory.addStep(tokensGroup, HistoryStep.types.MERGE, { indexDeleted })
   }
@@ -192,8 +187,6 @@ export default class AlignmentGroupActions {
         this.target.splice(tokenIndex, 1)
       }
     }
-    this.checkAndUpdatePartNums('origin')
-    this.checkAndUpdatePartNums('target')
     this.defineFirstStepToken()
     return {
       tokensGroup,
@@ -201,9 +194,6 @@ export default class AlignmentGroupActions {
     }
   }
 
-  checkAndUpdatePartNums (textType) {
-    console.info('al-group-actions - ', textType, this)
-  }
   // step actions
 
   removeStepAdd (step) {
