@@ -1198,6 +1198,58 @@ export default class Alignment {
     return alignment
   }
 
+  convertToHTML () {
+    let targets = {} // eslint-disable-line prefer-const
+    this.allTargetTextsIds.forEach(targetId => {
+      targets[targetId] = this.targets[targetId].alignedText.convertForHTMLOutput()
+
+      targets[targetId].metadata = this.targets[targetId].docSource.metadata.convertToJSONLine()
+      targets[targetId].metadataShort = this.targets[targetId].docSource.metadata.convertToShortJSONLine()
+    })
+
+    let origin = this.origin.alignedText.convertForHTMLOutput() // eslint-disable-line prefer-const
+    origin.metadata = this.origin.docSource.metadata.convertToJSONLine()
+    origin.metadataShort = this.origin.docSource.metadata.convertToShortJSONLine()
+
+    origin.segments.forEach(seg => {
+      seg.tokens.forEach(token => {
+        token.grouped = this.tokenIsGrouped(token)
+
+        if (token.grouped) {
+          const tokenGroups = this.findAllAlignmentGroups(token)
+          if (!token.groupData) { token.groupData = [] }
+
+          tokenGroups.forEach(tokenGroup => {
+            token.groupData.push({
+              groupId: tokenGroup.id,
+              targetId: tokenGroup.targetId
+            })
+          })
+        }
+      })
+    })
+
+    this.allTargetTextsIds.forEach(targetId => {
+      targets[targetId].segments.forEach(seg => {
+        seg.tokens.forEach(token => {
+          token.grouped = this.tokenIsGrouped(token)
+          if (token.grouped) {
+            const tokenGroups = this.findAllAlignmentGroups(token)
+            if (!token.groupData) { token.groupData = [] }
+            tokenGroups.forEach(tokenGroup => {
+              token.groupData.push({
+                groupId: tokenGroup.id,
+                targetId: tokenGroup.targetId
+              })
+            })
+          }
+        })
+      })
+    })
+
+    return JSON.stringify({ origin, targets })
+  }
+
   changeMetadataTerm (metadataTermData, value, textType, textId) {
     const docSource = this.getDocSource(textType, textId)
 

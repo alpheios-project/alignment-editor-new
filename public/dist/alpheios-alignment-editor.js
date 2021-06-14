@@ -40177,13 +40177,14 @@ class TextsController {
     return _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(downloadType, { docSource })
   }
 
-  htmlDownloadAll (downloadType, additional) {
+  async htmlDownloadAll (downloadType, additional) {
+    const fullData = await this.prepareFullDataForHTMLOutput()
     return {
       downloadType,
       data: {
         theme: `alpheios-${additional.theme}`,
         langs: this.collectLangsForFileName(),
-        fullData: this.prepareFullDataForHTMLOutput()
+        fullData
       }
     }
   }
@@ -40196,56 +40197,11 @@ class TextsController {
     return langs
   }
 
-  prepareFullDataForHTMLOutput () {
-    let targets = {} // eslint-disable-line prefer-const
-    this.alignment.allTargetTextsIds.forEach(targetId => {
-      targets[targetId] = this.alignment.targets[targetId].alignedText.convertForHTMLOutput()
+  async prepareFullDataForHTMLOutput () {
+    const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select({ alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+    const alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default.convertFromIndexedDB(dbData)
 
-      targets[targetId].metadata = this.alignment.targets[targetId].docSource.metadata.convertToJSONLine()
-      targets[targetId].metadataShort = this.alignment.targets[targetId].docSource.metadata.convertToShortJSONLine()
-    })
-
-    let origin = this.alignment.origin.alignedText.convertForHTMLOutput() // eslint-disable-line prefer-const
-    origin.metadata = this.alignment.origin.docSource.metadata.convertToJSONLine()
-    origin.metadataShort = this.alignment.origin.docSource.metadata.convertToShortJSONLine()
-
-    origin.segments.forEach(seg => {
-      seg.tokens.forEach(token => {
-        token.grouped = this.alignment.tokenIsGrouped(token)
-
-        if (token.grouped) {
-          const tokenGroups = this.alignment.findAllAlignmentGroups(token)
-          if (!token.groupData) { token.groupData = [] }
-
-          tokenGroups.forEach(tokenGroup => {
-            token.groupData.push({
-              groupId: tokenGroup.id,
-              targetId: tokenGroup.targetId
-            })
-          })
-        }
-      })
-    })
-
-    this.alignment.allTargetTextsIds.forEach(targetId => {
-      targets[targetId].segments.forEach(seg => {
-        seg.tokens.forEach(token => {
-          token.grouped = this.alignment.tokenIsGrouped(token)
-          if (token.grouped) {
-            const tokenGroups = this.alignment.findAllAlignmentGroups(token)
-            if (!token.groupData) { token.groupData = [] }
-            tokenGroups.forEach(tokenGroup => {
-              token.groupData.push({
-                groupId: tokenGroup.id,
-                targetId: tokenGroup.targetId
-              })
-            })
-          }
-        })
-      })
-    })
-
-    return JSON.stringify({ origin, targets })
+    return alignment.convertToHTML()
   }
 
   /**
@@ -43696,6 +43652,58 @@ class Alignment {
     return alignment
   }
 
+  convertToHTML () {
+    let targets = {} // eslint-disable-line prefer-const
+    this.allTargetTextsIds.forEach(targetId => {
+      targets[targetId] = this.targets[targetId].alignedText.convertForHTMLOutput()
+
+      targets[targetId].metadata = this.targets[targetId].docSource.metadata.convertToJSONLine()
+      targets[targetId].metadataShort = this.targets[targetId].docSource.metadata.convertToShortJSONLine()
+    })
+
+    let origin = this.origin.alignedText.convertForHTMLOutput() // eslint-disable-line prefer-const
+    origin.metadata = this.origin.docSource.metadata.convertToJSONLine()
+    origin.metadataShort = this.origin.docSource.metadata.convertToShortJSONLine()
+
+    origin.segments.forEach(seg => {
+      seg.tokens.forEach(token => {
+        token.grouped = this.tokenIsGrouped(token)
+
+        if (token.grouped) {
+          const tokenGroups = this.findAllAlignmentGroups(token)
+          if (!token.groupData) { token.groupData = [] }
+
+          tokenGroups.forEach(tokenGroup => {
+            token.groupData.push({
+              groupId: tokenGroup.id,
+              targetId: tokenGroup.targetId
+            })
+          })
+        }
+      })
+    })
+
+    this.allTargetTextsIds.forEach(targetId => {
+      targets[targetId].segments.forEach(seg => {
+        seg.tokens.forEach(token => {
+          token.grouped = this.tokenIsGrouped(token)
+          if (token.grouped) {
+            const tokenGroups = this.findAllAlignmentGroups(token)
+            if (!token.groupData) { token.groupData = [] }
+            tokenGroups.forEach(tokenGroup => {
+              token.groupData.push({
+                groupId: tokenGroup.id,
+                targetId: tokenGroup.targetId
+              })
+            })
+          }
+        })
+      })
+    })
+
+    return JSON.stringify({ origin, targets })
+  }
+
   changeMetadataTerm (metadataTermData, value, textType, textId) {
     const docSource = this.getDocSource(textType, textId)
 
@@ -46894,7 +46902,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i53-upload-by-part-fix.20210611673" : 0
+    return  true ? "i353-html-output-indexed.20210614456" : 0
   }
 
   static get libName () {
