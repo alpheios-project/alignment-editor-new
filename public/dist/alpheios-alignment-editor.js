@@ -44615,7 +44615,7 @@ class Segment {
         if (this.tokens[tokenIndex + 1].sentenceIndex !== token.sentenceIndex) {
           partNum++
         } else if ((parts[partNum].len > (2 * charMax)) && (this.tokens[tokenIndex + 1].sentenceIndex === token.sentenceIndex)) {
-          if (this.tokens[tokenIndex + 2] && (this.tokens[tokenIndex + 2].sentenceIndex === token.sentenceIndex) && (tokenIndex < (this.tokens.length - 1))) {
+          if (this.tokens[tokenIndex + 2] && (this.tokens[tokenIndex + 2].sentenceIndex === token.sentenceIndex)) {
             partNum++
           }
         }
@@ -46902,7 +46902,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i353-html-output-indexed.20210614407" : 0
+    return  true ? "i353-html-output-indexed.20210614456" : 0
   }
 
   static get libName () {
