@@ -196,6 +196,11 @@ export default {
       if (this.optionItem.selectInput) {
         this.selected = this.selectedSI
       }
+      if (this.optionItem.minValue && (this.optionItem.minValue > this.selected)) {
+        this.selected = this.optionItem.minValue
+      } else if (this.optionItem.maxValue && (this.optionItem.maxValue < this.selected)) {
+        this.selected = this.optionItem.maxValue
+      }
       this.optionItem.setValue(this.selected)
       
       SettingsController.changeOption(this.optionItem)

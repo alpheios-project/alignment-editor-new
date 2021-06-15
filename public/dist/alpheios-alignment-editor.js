@@ -46902,7 +46902,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i353-html-output-indexed.20210614456" : 0
+    return  true ? "i423-min-max-characters-per-part.20210615512" : 0
   }
 
   static get libName () {
@@ -50205,6 +50205,11 @@ __webpack_require__.r(__webpack_exports__);
     changeOption () {
       if (this.optionItem.selectInput) {
         this.selected = this.selectedSI
+      }
+      if (this.optionItem.minValue && (this.optionItem.minValue > this.selected)) {
+        this.selected = this.optionItem.minValue
+      } else if (this.optionItem.maxValue && (this.optionItem.maxValue < this.selected)) {
+        this.selected = this.optionItem.maxValue
       }
       this.optionItem.setValue(this.selected)
       
