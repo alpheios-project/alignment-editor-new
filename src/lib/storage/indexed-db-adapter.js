@@ -75,6 +75,7 @@ export default class IndexedDBAdapter {
       for (const query of queries) {
         const queryResult = await this._deleteFromStore(query)
       }
+      return true
     } catch (error) {
       if (error) {
         this.errors.push(error)

@@ -435,6 +435,33 @@ export default class TextsController {
     return result
   }
 
+  async deleteDataFromDB (alData) {
+    if (!alData) {
+      console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'),
+        type: NotificationSingleton.types.ERROR
+      })
+      return
+    }
+
+    const result = await StorageController.deleteMany(alData.alignmentID, 'fullAlignmentByID')
+
+    if (result) {
+      this.store.commit('incremetReloadAlignmentsList')
+    }
+    return result
+  }
+
+  async clearAllAlignmentsFromDB () {
+    const result = await StorageController.clear()
+
+    if (result) {
+      this.store.commit('incremetReloadAlignmentsList')
+    }
+    return result
+  }
+
   async defineAllPartNumsForTexts () {
     const allPartsAlreadyUploaded = this.alignment.hasAllPartsUploaded
 

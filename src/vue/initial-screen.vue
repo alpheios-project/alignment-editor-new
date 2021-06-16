@@ -35,7 +35,10 @@
                 </div>
 
                 <div class="alpheios-alignment-editor-initial-screen__alignments-container" v-show="showUploadBlock" >
-                    <alignments-list v-show="showUploadBlock" @upload-data-from-db="uploadDataFromDB"/>
+                    <alignments-list v-show="showUploadBlock" 
+                        @upload-data-from-db="uploadDataFromDB" @delete-data-from-db="deleteDataFromDB"
+                        @clear-all-alignments="$emit('clear-all-alignments')"
+                    />
                 </div>
             </div>
             
@@ -113,6 +116,10 @@ export default {
     uploadDataFromDB (alData) {
       this.$emit('upload-data-from-db', alData)
       this.showUploadBlock = false
+    },
+
+    deleteDataFromDB (alData) {
+      this.$emit('delete-data-from-db', alData)
     }
   }
 }

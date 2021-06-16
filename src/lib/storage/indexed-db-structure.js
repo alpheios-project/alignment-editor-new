@@ -551,9 +551,23 @@ export default class IndexedDBStructure {
   /** ** Delete queries */
   static prepareDeleteQuery (typeQuery, indexData) {
     const typeQueryList = {
-      alignmentDataByID: this.prepareDeleteAlignmentDataByID.bind(this)
+      alignmentDataByID: this.prepareDeleteAlignmentDataByID.bind(this),
+      fullAlignmentByID: this.prepareDeleteFullAlignmentByID.bind(this)
     }
     return typeQueryList[typeQuery](indexData)
+  }
+
+  static prepareDeleteFullAlignmentByID (alignmentID) {
+    const queries = this.prepareDeleteAlignmentDataByID(alignmentID)
+    queries.push({
+      objectStoreName: this.allObjectStoreData.common.name,
+      condition: {
+        indexName: 'alignmentID',
+        value: alignmentID,
+        type: 'only'
+      }
+    })
+    return queries
   }
 
   static prepareDeleteAlignmentDataByID (alignmentID) {

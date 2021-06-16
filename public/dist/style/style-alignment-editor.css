@@ -885,6 +885,17 @@ body.alpheios-initial-page .alpheios-alignment-app-menu-open-icon svg {
   min-width: 144px;
   text-decoration: underline;
 }
+.alpheios-alignment-editor-alignments-table_delete-icon_span {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+.alpheios-alignment-editor-alignments-table_delete-icon_span svg {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
 .alpheios-alignment-editor-initial-screen__intro {
   background-repeat: repeat-y;
   background-position: 98% 20%;
