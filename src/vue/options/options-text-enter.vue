@@ -102,5 +102,9 @@ export default {
   .alpheios-alignment-editor-modal-header {
     margin-bottom: 10px;
   }
+
+  .alpheios-alignment-options__buttons {
+    margin: 0;
+  }
 }
 </style>
