@@ -40277,6 +40277,12 @@ class TextsController {
     return result
   }
 
+  /**
+   * Deletes all data about Alignment from IndexedDB
+   * @param {Object} alData
+   *        {String} alData.alignmentID - unique ID of the alignment that should be deleted
+   * @returns {Boolean}
+   */
   async deleteDataFromDB (alData) {
     if (!alData) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'))
@@ -40295,6 +40301,10 @@ class TextsController {
     return result
   }
 
+  /**
+   * Removes all data from IndexedDB
+   * @returns {Boolean}
+   */
   async clearAllAlignmentsFromDB () {
     const result = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.clear()
 
@@ -46944,7 +46954,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i427-clear-indexed-db.20210616397" : 0
+    return  true ? "i427-clear-indexed-db.20210616401" : 0
   }
 
   static get libName () {
