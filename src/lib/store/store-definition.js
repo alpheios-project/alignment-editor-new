@@ -46,6 +46,8 @@ export default class StoreDefinition {
         reuploadTextsParts: 1,
         uploadPartNum: 1,
 
+        reloadAlignmentsList: 1,
+
         docSourceUpdated: 1,
         docSourceLangDetected: 1,
 
@@ -107,6 +109,9 @@ export default class StoreDefinition {
         },
         incrementUploadPartNum (state) {
           state.uploadPartNum++
+        },
+        incremetReloadAlignmentsList (state) {
+          state.reloadAlignmentsList++
         }
       }
     }

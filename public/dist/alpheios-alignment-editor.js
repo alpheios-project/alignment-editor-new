@@ -40277,6 +40277,43 @@ class TextsController {
     return result
   }
 
+  /**
+   * Deletes all data about Alignment from IndexedDB
+   * @param {Object} alData
+   *        {String} alData.alignmentID - unique ID of the alignment that should be deleted
+   * @returns {Boolean}
+   */
+  async deleteDataFromDB (alData) {
+    if (!alData) {
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.types.ERROR
+      })
+      return
+    }
+
+    const result = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.deleteMany(alData.alignmentID, 'fullAlignmentByID')
+
+    if (result) {
+      this.store.commit('incremetReloadAlignmentsList')
+    }
+    return result
+  }
+
+  /**
+   * Removes all data from IndexedDB
+   * @returns {Boolean}
+   */
+  async clearAllAlignmentsFromDB () {
+    const result = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.clear()
+
+    if (result) {
+      this.store.commit('incremetReloadAlignmentsList')
+    }
+    return result
+  }
+
   async defineAllPartNumsForTexts () {
     const allPartsAlreadyUploaded = this.alignment.hasAllPartsUploaded
 
@@ -45989,6 +46026,7 @@ class IndexedDBAdapter {
       for (const query of queries) {
         const queryResult = await this._deleteFromStore(query)
       }
+      return true
     } catch (error) {
       if (error) {
         this.errors.push(error)
@@ -46815,9 +46853,23 @@ class IndexedDBStructure {
   /** ** Delete queries */
   static prepareDeleteQuery (typeQuery, indexData) {
     const typeQueryList = {
-      alignmentDataByID: this.prepareDeleteAlignmentDataByID.bind(this)
+      alignmentDataByID: this.prepareDeleteAlignmentDataByID.bind(this),
+      fullAlignmentByID: this.prepareDeleteFullAlignmentByID.bind(this)
     }
     return typeQueryList[typeQuery](indexData)
+  }
+
+  static prepareDeleteFullAlignmentByID (alignmentID) {
+    const queries = this.prepareDeleteAlignmentDataByID(alignmentID)
+    queries.push({
+      objectStoreName: this.allObjectStoreData.common.name,
+      condition: {
+        indexName: 'alignmentID',
+        value: alignmentID,
+        type: 'only'
+      }
+    })
+    return queries
   }
 
   static prepareDeleteAlignmentDataByID (alignmentID) {
@@ -46902,7 +46954,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i423-min-max-characters-per-part.20210615512" : 0
+    return  true ? "i427-clear-indexed-db.20210616401" : 0
   }
 
   static get libName () {
@@ -46943,6 +46995,8 @@ class StoreDefinition {
         redefineAllPartNums: 1,
         reuploadTextsParts: 1,
         uploadPartNum: 1,
+
+        reloadAlignmentsList: 1,
 
         docSourceUpdated: 1,
         docSourceLangDetected: 1,
@@ -47005,6 +47059,9 @@ class StoreDefinition {
         },
         incrementUploadPartNum (state) {
           state.uploadPartNum++
+        },
+        incremetReloadAlignmentsList (state) {
+          state.reloadAlignmentsList++
         }
       }
     }
@@ -48486,6 +48543,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/inline-icons/delete.svg */ "./inline-icons/delete.svg");
+/* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -48496,11 +48555,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AlignmentsList',
+  components: {
+    deleteIcon: (_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1___default())
+  },
   props: {
   },
   data () {
@@ -48508,8 +48581,13 @@ __webpack_require__.r(__webpack_exports__);
       alignments: []
     }
   },
+  watch: {
+    async '$store.state.reloadAlignmentsList' () {
+      await this.uploadAlignmentsFromDB()
+    }
+  },
   async mounted () {
-    this.alignments = await this.$textC.uploadFromAllAlignmentsDB()
+    await this.uploadAlignmentsFromDB()
   },
   computed: {
     l10n () {
@@ -48520,8 +48598,20 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    async uploadAlignmentsFromDB () {
+      this.alignments = await this.$textC.uploadFromAllAlignmentsDB()
+    },
+    removeId (alData) {
+      return `alpheios-delete-id-${alData.alignmentID}`
+    },
     uploadAlignmentFromDB (alData) {
       this.$emit('upload-data-from-db', alData)
+    },
+    deleteAlignmentFromDB (alData) {
+      this.$emit('delete-data-from-db', alData)
+    },
+    clearAllAlignments () {
+      this.$emit('clear-all-alignments')
     }
   }
 });
@@ -48698,6 +48788,22 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
       this.showSourceTextEditor()
+    },
+
+    async deleteDataFromDB (alData) {
+      if (alData) {
+        this.showWaitingModal = true
+        const result = await this.$textC.deleteDataFromDB(alData)
+        this.showWaitingModal = false
+        return result
+      }
+    },
+
+    async clearAllAlignmentsFromDB () {
+      this.showWaitingModal = true
+      const result = await this.$textC.clearAllAlignmentsFromDB()
+      this.showWaitingModal = false
+      return result
     },
     /**
      * Starts redo action
@@ -49601,6 +49707,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -49667,6 +49776,10 @@ vue__WEBPACK_IMPORTED_MODULE_3__.default.use((v_video_embed__WEBPACK_IMPORTED_MO
     uploadDataFromDB (alData) {
       this.$emit('upload-data-from-db', alData)
       this.showUploadBlock = false
+    },
+
+    deleteDataFromDB (alData) {
+      this.$emit('delete-data-from-db', alData)
     }
   }
 });
@@ -58503,11 +58616,54 @@ var render = function() {
                 }
               },
               [_vm._v(_vm._s(alData.langsList))]
+            ),
+            _vm._v(" "),
+            _c(
+              "td",
+              {
+                staticClass:
+                  "alpheios-alignment-editor-alignments-table_delete-icon"
+              },
+              [
+                _c(
+                  "span",
+                  {
+                    staticClass:
+                      "alpheios-alignment-editor-alignments-table_delete-icon_span",
+                    attrs: { id: _vm.removeId(alData) },
+                    on: {
+                      click: function($event) {
+                        return _vm.deleteAlignmentFromDB(alData)
+                      }
+                    }
+                  },
+                  [_c("delete-icon")],
+                  1
+                )
+              ]
             )
           ])
         }),
         0
-      )
+      ),
+      _vm._v(" "),
+      _vm.alignments.length > 0
+        ? _c(
+            "p",
+            { staticClass: "alpheios-alignment-editor-alignments-clear-all" },
+            [
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+                  on: { click: _vm.clearAllAlignments }
+                },
+                [_vm._v("Clear Alignments")]
+              )
+            ]
+          )
+        : _vm._e()
     ]
   )
 }
@@ -58589,7 +58745,9 @@ var render = function() {
         on: {
           "upload-data-from-file": _vm.uploadDataFromFile,
           "upload-data-from-db": _vm.uploadDataFromDB,
-          "new-initial-alignment": _vm.startNewInitialAlignment
+          "delete-data-from-db": _vm.deleteDataFromDB,
+          "new-initial-alignment": _vm.startNewInitialAlignment,
+          "clear-all-alignments": _vm.clearAllAlignmentsFromDB
         }
       }),
       _vm._v(" "),
@@ -59759,7 +59917,13 @@ var render = function() {
                             expression: "showUploadBlock"
                           }
                         ],
-                        on: { "upload-data-from-db": _vm.uploadDataFromDB }
+                        on: {
+                          "upload-data-from-db": _vm.uploadDataFromDB,
+                          "delete-data-from-db": _vm.deleteDataFromDB,
+                          "clear-all-alignments": function($event) {
+                            return _vm.$emit("clear-all-alignments")
+                          }
+                        }
                       })
                     ],
                     1

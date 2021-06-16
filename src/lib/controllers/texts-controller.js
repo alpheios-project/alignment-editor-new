@@ -435,6 +435,43 @@ export default class TextsController {
     return result
   }
 
+  /**
+   * Deletes all data about Alignment from IndexedDB
+   * @param {Object} alData
+   *        {String} alData.alignmentID - unique ID of the alignment that should be deleted
+   * @returns {Boolean}
+   */
+  async deleteDataFromDB (alData) {
+    if (!alData) {
+      console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'),
+        type: NotificationSingleton.types.ERROR
+      })
+      return
+    }
+
+    const result = await StorageController.deleteMany(alData.alignmentID, 'fullAlignmentByID')
+
+    if (result) {
+      this.store.commit('incremetReloadAlignmentsList')
+    }
+    return result
+  }
+
+  /**
+   * Removes all data from IndexedDB
+   * @returns {Boolean}
+   */
+  async clearAllAlignmentsFromDB () {
+    const result = await StorageController.clear()
+
+    if (result) {
+      this.store.commit('incremetReloadAlignmentsList')
+    }
+    return result
+  }
+
   async defineAllPartNumsForTexts () {
     const allPartsAlreadyUploaded = this.alignment.hasAllPartsUploaded
 

@@ -22,8 +22,8 @@
       />
       <notification-bar />
       <initial-screen v-show="showInitialScreenBlock"
-        @upload-data-from-file = "uploadDataFromFile" @upload-data-from-db = "uploadDataFromDB"
-        @new-initial-alignment="startNewInitialAlignment"/>
+        @upload-data-from-file = "uploadDataFromFile" @upload-data-from-db = "uploadDataFromDB" @delete-data-from-db = "deleteDataFromDB"
+        @new-initial-alignment="startNewInitialAlignment" @clear-all-alignments="clearAllAlignmentsFromDB"/>
       <text-editor v-show="showSourceTextEditorBlock" @add-translation="addTarget" @align-text="showSummaryPopup" @showAlignmentGroupsEditor = "showAlignmentGroupsEditor" @showTokensEditor = "showTokensEditor"
       />
       <align-editor v-show="showAlignmentGroupsEditorBlock" @showSourceTextEditor = "showSourceTextEditor" @showTokensEditor = "showTokensEditor"
@@ -141,6 +141,22 @@ export default {
         }
       }
       this.showSourceTextEditor()
+    },
+
+    async deleteDataFromDB (alData) {
+      if (alData) {
+        this.showWaitingModal = true
+        const result = await this.$textC.deleteDataFromDB(alData)
+        this.showWaitingModal = false
+        return result
+      }
+    },
+
+    async clearAllAlignmentsFromDB () {
+      this.showWaitingModal = true
+      const result = await this.$textC.clearAllAlignmentsFromDB()
+      this.showWaitingModal = false
+      return result
     },
     /**
      * Starts redo action
