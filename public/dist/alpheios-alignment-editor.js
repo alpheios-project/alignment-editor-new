@@ -46944,7 +46944,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i427-clear-indexed-db.20210616393" : 0
+    return  true ? "i427-clear-indexed-db.20210616397" : 0
   }
 
   static get libName () {
@@ -48535,6 +48535,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/inline-icons/delete.svg */ "./inline-icons/delete.svg");
 /* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
 //
 //
 //
@@ -58574,24 +58576,6 @@ var render = function() {
       staticClass: "alpheios-alignment-editor-alignments"
     },
     [
-      _vm.alignments.length > 0
-        ? _c(
-            "p",
-            { staticClass: "alpheios-alignment-editor-alignments-clear-all" },
-            [
-              _c(
-                "button",
-                {
-                  staticClass:
-                    "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-                  on: { click: _vm.clearAllAlignments }
-                },
-                [_vm._v("Clear Alignments")]
-              )
-            ]
-          )
-        : _vm._e(),
-      _vm._v(" "),
       _c(
         "table",
         { staticClass: "alpheios-alignment-editor-alignments-table" },
@@ -58651,7 +58635,25 @@ var render = function() {
           ])
         }),
         0
-      )
+      ),
+      _vm._v(" "),
+      _vm.alignments.length > 0
+        ? _c(
+            "p",
+            { staticClass: "alpheios-alignment-editor-alignments-clear-all" },
+            [
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+                  on: { click: _vm.clearAllAlignments }
+                },
+                [_vm._v("Clear Alignments")]
+              )
+            ]
+          )
+        : _vm._e()
     ]
   )
 }
