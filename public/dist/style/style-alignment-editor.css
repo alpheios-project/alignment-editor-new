@@ -1819,6 +1819,9 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 .alpheios-alignment-editor-modal-options .alpheios-alignment-editor-modal-header {
   margin-bottom: 10px;
 }
+.alpheios-alignment-editor-modal-options .alpheios-alignment-options__buttons {
+  margin: 0;
+}
 .alpheios-editor-help-content {
   text-indent: 10px;
   text-align: justify;
