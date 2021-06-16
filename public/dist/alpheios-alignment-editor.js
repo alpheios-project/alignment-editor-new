@@ -39660,9 +39660,7 @@ class SettingsController {
 
     if (optionNameParts[2] === 'theme') {
       this.submitEventUpdateTheme()
-    } /* else if (optionNameParts[2] === 'maxCharactersPerPart') {
-      _instance.store.commit('incrementRedefineAllPartNums')
-    } */
+    }
     _instance.store.commit('incrementOptionsUpdated')
   }
 
@@ -46954,7 +46952,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i429-move-max-characters.20210616587" : 0
+    return  true ? "i429-move-max-characters.20210616591" : 0
   }
 
   static get libName () {

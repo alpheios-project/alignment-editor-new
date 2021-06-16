@@ -165,9 +165,7 @@ export default class SettingsController {
 
     if (optionNameParts[2] === 'theme') {
       this.submitEventUpdateTheme()
-    } /* else if (optionNameParts[2] === 'maxCharactersPerPart') {
-      _instance.store.commit('incrementRedefineAllPartNums')
-    } */
+    }
     _instance.store.commit('incrementOptionsUpdated')
   }
 
