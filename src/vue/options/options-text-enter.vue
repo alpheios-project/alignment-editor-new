@@ -10,6 +10,7 @@
             <option-item-block :optionItem = "maxCharactersOptionItem" />
             <option-item-block :optionItem = "useSpecificEnglishTokenizerOptionItem" />
             <option-item-block :optionItem = "showSummaryPopupOptionItem" />
+            <option-item-block :optionItem = "maxCharactersPerPart" />
         </div>
     </template>
     <template v-slot:footer>
@@ -66,6 +67,9 @@ export default {
     },
     showSummaryPopupOptionItem () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.showSummaryPopup
+    },
+    maxCharactersPerPart () {
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.maxCharactersPerPart
     },
     versionData () {
       return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`

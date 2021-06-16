@@ -39660,8 +39660,6 @@ class SettingsController {
 
     if (optionNameParts[2] === 'theme') {
       this.submitEventUpdateTheme()
-    } else if (optionNameParts[2] === 'maxCharactersPerPart') {
-      _instance.store.commit('incrementRedefineAllPartNums')
     }
     _instance.store.commit('incrementOptionsUpdated')
   }
@@ -46954,7 +46952,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i427-clear-indexed-db.20210616401" : 0
+    return  true ? "i429-move-max-characters.20210616591" : 0
   }
 
   static get libName () {
@@ -48740,11 +48738,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   watch: {
-    async '$store.state.redefineAllPartNums' () {
-      this.showWaitingModal = true
-      await this.$textC.defineAllPartNumsForTexts()
-      this.showWaitingModal = false
-    }
   },
   computed: {
   },
@@ -48923,13 +48916,6 @@ __webpack_require__.r(__webpack_exports__);
      */
 
     startOver (alignment) {
-      /*
-      this.$alignedGC.alignment = null
-      this.$textC.alignment = null
-      this.$historyC.alignment = null
-      this.$tokensEC.alignment = null
-      */
-
       if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
         this.$textC.alignment = alignment
         this.$alignedGC.alignment = alignment
@@ -50461,8 +50447,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 
@@ -50489,9 +50473,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     versionData () {
       return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`
-    },
-    maxCharactersPerPart () {
-      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.maxCharactersPerPart
     }
   },
   methods: {
@@ -50631,6 +50612,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -50669,6 +50651,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     showSummaryPopupOptionItem () {
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.showSummaryPopup
+    },
+    maxCharactersPerPart () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.maxCharactersPerPart
     },
     versionData () {
       return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`
@@ -60796,21 +60781,7 @@ var render = function() {
             {
               key: "body",
               fn: function() {
-                return [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "alpheios-alignment-editor-modal-options-block"
-                    },
-                    [
-                      _c("option-item-block", {
-                        attrs: { optionItem: _vm.maxCharactersPerPart }
-                      })
-                    ],
-                    1
-                  )
-                ]
+                return undefined
               },
               proxy: true
             },
@@ -60872,7 +60843,7 @@ var render = function() {
           ],
           null,
           false,
-          947226833
+          512660360
         )
       })
     : _vm._e()
@@ -61092,6 +61063,10 @@ var render = function() {
                       _vm._v(" "),
                       _c("option-item-block", {
                         attrs: { optionItem: _vm.showSummaryPopupOptionItem }
+                      }),
+                      _vm._v(" "),
+                      _c("option-item-block", {
+                        attrs: { optionItem: _vm.maxCharactersPerPart }
                       })
                     ],
                     1
@@ -61158,7 +61133,7 @@ var render = function() {
           ],
           null,
           false,
-          2751059575
+          2329462729
         )
       })
     : _vm._e()

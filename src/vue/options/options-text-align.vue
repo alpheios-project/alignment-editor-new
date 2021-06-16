@@ -4,9 +4,7 @@
         <h2 class="alpheios-alignment-editor-modal-header">{{ l10n.getMsgS('OPTIONS_TITLE_TEXT_ALIGN') }}</h2>
     </template>
     <template v-slot:body >
-        <div class="alpheios-alignment-editor-modal-options-block">
-          <option-item-block :optionItem = "maxCharactersPerPart" />
-        </div>
+
     </template>
     <template v-slot:footer>
       <p class="alpheios-alignment-options__buttons">
@@ -50,9 +48,6 @@ export default {
     },
     versionData () {
       return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`
-    },
-    maxCharactersPerPart () {
-      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.maxCharactersPerPart
     }
   },
   methods: {
