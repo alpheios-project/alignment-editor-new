@@ -93,11 +93,6 @@ export default {
     }
   },
   watch: {
-    async '$store.state.redefineAllPartNums' () {
-      this.showWaitingModal = true
-      await this.$textC.defineAllPartNumsForTexts()
-      this.showWaitingModal = false
-    }
   },
   computed: {
   },
@@ -276,13 +271,6 @@ export default {
      */
 
     startOver (alignment) {
-      /*
-      this.$alignedGC.alignment = null
-      this.$textC.alignment = null
-      this.$historyC.alignment = null
-      this.$tokensEC.alignment = null
-      */
-
       if (alignment instanceof Alignment) {
         this.$textC.alignment = alignment
         this.$alignedGC.alignment = alignment
