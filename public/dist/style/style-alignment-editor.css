@@ -900,8 +900,7 @@ body.alpheios-initial-page .alpheios-alignment-app-menu-open-icon svg {
   background-repeat: repeat-y;
   background-position: 98% 20%;
   background-size: 20% auto;
-  overflow: hidden;
-  height: 100vh;
+  min-height: 100vh;
 }
 .alpheios-alignment-editor-initial-screen__heading {
   display: none;
@@ -923,7 +922,7 @@ body.alpheios-initial-page .alpheios-alignment-app-menu-open-icon svg {
 }
 .alpheios-header-logo {
   text-align: center;
-  margin-top: 80px;
+  padding-top: 80px;
   height: 60px;
 }
 .alpheios-header-logo .alpheios-logo {
