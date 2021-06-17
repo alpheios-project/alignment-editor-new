@@ -73,7 +73,9 @@ export default class IndexedDBAdapter {
     try {
       const queries = IndexedDBStructure.prepareDeleteQuery(typeQuery, data)
       for (const query of queries) {
+        console.info('********deleteMany - objectStoreName', query.objectStoreName)
         const queryResult = await this._deleteFromStore(query)
+        console.info('deleteMany - queryResult', queryResult)
       }
       return true
     } catch (error) {

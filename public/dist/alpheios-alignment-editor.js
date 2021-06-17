@@ -39790,6 +39790,7 @@ class StorageController {
       }
 
       const result = await dbAdapter.update(alignment.convertToIndexedDB({ textAsBlob }))
+      this.printErrors()
       return result
     }
   }
@@ -39797,6 +39798,7 @@ class StorageController {
   static async select (data, typeQuery = 'allAlignmentsByUserID') {
     if (this.dbAdapterAvailable) {
       const result = await dbAdapter.select(data, typeQuery)
+      this.printErrors()
       return result
     }
   }
@@ -39804,6 +39806,7 @@ class StorageController {
   static async deleteMany (alignmentID, typeQuery) {
     if (this.dbAdapterAvailable) {
       const result = await dbAdapter.deleteMany(alignmentID, typeQuery)
+      this.printErrors()
       return result
     }
   }
@@ -39811,7 +39814,15 @@ class StorageController {
   static async clear () {
     if (this.dbAdapterAvailable) {
       const result = await dbAdapter.clear()
+      this.printErrors()
       return result
+    }
+  }
+
+  static printErrors () {
+    if (dbAdapter.errors && dbAdapter.errors.length > 0) {
+      dbAdapter.errors.forEach(err => console.error(err))
+      dbAdapter.errors = []
     }
   }
 }
@@ -46022,7 +46033,9 @@ class IndexedDBAdapter {
     try {
       const queries = _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.prepareDeleteQuery(typeQuery, data)
       for (const query of queries) {
+        console.info('********deleteMany - objectStoreName', query.objectStoreName)
         const queryResult = await this._deleteFromStore(query)
+        console.info('deleteMany - queryResult', queryResult)
       }
       return true
     } catch (error) {
@@ -46952,7 +46965,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i427-fix-layout-initial-screen.20210617324" : 0
+    return  true ? "i427-indexedDB-log.20210617341" : 0
   }
 
   static get libName () {

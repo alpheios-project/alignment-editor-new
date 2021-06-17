@@ -20,6 +20,7 @@ export default class StorageController {
       }
 
       const result = await dbAdapter.update(alignment.convertToIndexedDB({ textAsBlob }))
+      this.printErrors()
       return result
     }
   }
@@ -27,6 +28,7 @@ export default class StorageController {
   static async select (data, typeQuery = 'allAlignmentsByUserID') {
     if (this.dbAdapterAvailable) {
       const result = await dbAdapter.select(data, typeQuery)
+      this.printErrors()
       return result
     }
   }
@@ -34,6 +36,7 @@ export default class StorageController {
   static async deleteMany (alignmentID, typeQuery) {
     if (this.dbAdapterAvailable) {
       const result = await dbAdapter.deleteMany(alignmentID, typeQuery)
+      this.printErrors()
       return result
     }
   }
@@ -41,7 +44,15 @@ export default class StorageController {
   static async clear () {
     if (this.dbAdapterAvailable) {
       const result = await dbAdapter.clear()
+      this.printErrors()
       return result
+    }
+  }
+
+  static printErrors () {
+    if (dbAdapter.errors && dbAdapter.errors.length > 0) {
+      dbAdapter.errors.forEach(err => console.error(err))
+      dbAdapter.errors = []
     }
   }
 }
