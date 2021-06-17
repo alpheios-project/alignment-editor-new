@@ -130,8 +130,8 @@ export default {
     background-repeat: repeat-y;
     background-position: 98% 20%;
     background-size: 20% auto;
-    overflow: hidden;
-    height: 100vh;
+    // overflow: hidden;
+    min-height: 100vh;
 }
 
 .alpheios-alignment-editor-initial-screen__heading {
@@ -159,7 +159,7 @@ export default {
 
 .alpheios-header-logo {
     text-align: center;
-    margin-top: 80px;
+    padding-top: 80px;
     height: 60px;
 
     .alpheios-logo {
