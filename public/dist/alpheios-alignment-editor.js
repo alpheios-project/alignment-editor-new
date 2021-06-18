@@ -45958,6 +45958,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ IndexedDBAdapter)
 /* harmony export */ });
 /* harmony import */ var _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/storage/indexed-db-structure.js */ "./lib/storage/indexed-db-structure.js");
+/* harmony import */ var _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/download-controller.js */ "./lib/controllers/download-controller.js");
 /* eslint-disable no-unused-vars */
 
 
@@ -46033,9 +46034,11 @@ class IndexedDBAdapter {
     try {
       const queries = _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.prepareDeleteQuery(typeQuery, data)
       for (const query of queries) {
-        console.info('********deleteMany - objectStoreName', query.objectStoreName)
+        const now1 = _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.timeNow.bind(new Date())()
+        console.info('********deleteMany - objectStoreName', now1, query.objectStoreName)
         const queryResult = await this._deleteFromStore(query)
-        console.info('deleteMany - queryResult', queryResult)
+        const now2 = _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.timeNow.bind(new Date())()
+        console.info('deleteMany - queryResult', now2, queryResult)
       }
       return true
     } catch (error) {
@@ -46965,7 +46968,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i427-indexedDB-log.20210617341" : 0
+    return  true ? "i427-indexedDB-log.20210618313" : 0
   }
 
   static get libName () {

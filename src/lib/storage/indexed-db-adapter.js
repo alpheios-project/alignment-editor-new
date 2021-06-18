@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import IndexedDBStructure from '@/lib/storage/indexed-db-structure.js'
-
+import DownloadController from '@/lib/controllers/download-controller.js'
 /**
  * An interface to IndexedDB Storage
  */
@@ -73,9 +73,11 @@ export default class IndexedDBAdapter {
     try {
       const queries = IndexedDBStructure.prepareDeleteQuery(typeQuery, data)
       for (const query of queries) {
-        console.info('********deleteMany - objectStoreName', query.objectStoreName)
+        const now1 = DownloadController.timeNow.bind(new Date())()
+        console.info('********deleteMany - objectStoreName', now1, query.objectStoreName)
         const queryResult = await this._deleteFromStore(query)
-        console.info('deleteMany - queryResult', queryResult)
+        const now2 = DownloadController.timeNow.bind(new Date())()
+        console.info('deleteMany - queryResult', now2, queryResult)
       }
       return true
     } catch (error) {
