@@ -1616,6 +1616,9 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   padding: 0 20px 0;
   border-bottom: 2px solid #ddd;
 }
+.alpheios-alignment-editor-modal-dts-api .alpheios-modal-body {
+  max-height: 370px;
+}
 .alpheios-alignment-editor-hidden {
   visibility: hidden;
 }

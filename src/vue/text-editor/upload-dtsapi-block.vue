@@ -1,5 +1,5 @@
 <template>
-    <modal v-if="showModal" @close="$emit('closeModal')">
+    <modal v-if="showModal" @close="$emit('closeModal')" class="alpheios-alignment-editor-modal-dts-api">
         <template v-slot:header>
           <p class="alpheios-editor-content-title">{{ title }}</p>
           <ul class="alpheios-editor-content-breadcrumbs" v-show="showBreadcrumbs">
@@ -393,6 +393,12 @@ export default {
     margin: 0 0 10px;
     padding: 0 20px 0;
     border-bottom: 2px solid #ddd;
+  }
+}
+
+.alpheios-alignment-editor-modal-dts-api {
+  .alpheios-modal-body {
+      max-height: 370px;
   }
 }
 </style>

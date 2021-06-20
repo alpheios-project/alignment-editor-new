@@ -46968,7 +46968,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i413-upload-button.20210620531" : 0
+    return  true ? "i412-html-ara-header-dir.20210620540" : 0
   }
 
   static get libName () {
@@ -63149,6 +63149,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _vm.showModal
     ? _c("modal", {
+        staticClass: "alpheios-alignment-editor-modal-dts-api",
         on: {
           close: function($event) {
             return _vm.$emit("closeModal")
