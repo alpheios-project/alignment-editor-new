@@ -219,13 +219,20 @@ export default {
       return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 350
     },
     maxHeight () {
+      if (this.amountOfSegments === 1) {
+        return this.containerHeight + this.heightDelta
+      }
+      // return 'auto'
+      /*
       const minHeight = this.minMaxHeight * (this.textType === 'origin') ? this.amountOfShownTabs : 1
+      console.info('minHeight - ', minHeight)
       if (this.amountOfSegments === 1) {
         return this.containerHeight + this.heightDelta
       } 
 
       const heightCalculated = (this.textType === 'origin') ? this.containerHeight * this.amountOfShownTabs/this.amountOfSegments : this.containerHeight/this.amountOfSegments
       return Math.round(Math.max(minHeight, heightCalculated)) + this.heightDelta
+      */
     },
     isEmptyMetadata () {
       const docSource = this.$textC.getDocSource(this.textType, this.segment.docSourceId)
