@@ -46968,7 +46968,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i427-indexedDB-log.20210618313" : 0
+    return  true ? "i234-segment-min-height.20210620509" : 0
   }
 
   static get libName () {
@@ -48318,13 +48318,20 @@ __webpack_require__.r(__webpack_exports__);
       return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 350
     },
     maxHeight () {
+      if (this.amountOfSegments === 1) {
+        return this.containerHeight + this.heightDelta
+      }
+      // return 'auto'
+      /*
       const minHeight = this.minMaxHeight * (this.textType === 'origin') ? this.amountOfShownTabs : 1
+      console.info('minHeight - ', minHeight)
       if (this.amountOfSegments === 1) {
         return this.containerHeight + this.heightDelta
       } 
 
       const heightCalculated = (this.textType === 'origin') ? this.containerHeight * this.amountOfShownTabs/this.amountOfSegments : this.containerHeight/this.amountOfSegments
       return Math.round(Math.max(minHeight, heightCalculated)) + this.heightDelta
+      */
     },
     isEmptyMetadata () {
       const docSource = this.$textC.getDocSource(this.textType, this.segment.docSourceId)
