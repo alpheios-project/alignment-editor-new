@@ -46968,7 +46968,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i234-segment-min-height.20210620509" : 0
+    return  true ? "i413-upload-button.20210620527" : 0
   }
 
   static get libName () {
@@ -51873,7 +51873,7 @@ __webpack_require__.r(__webpack_exports__);
         this.text = ''
       }
 
-      if (result.resultUpdate && this.showTypeUploadButtons) {
+      if (result.resultUpdate && this.showTypeUploadButtons && (this.text.length !== 0)) {
 
         setTimeout(() => {
           this.showTypeUploadButtons = false

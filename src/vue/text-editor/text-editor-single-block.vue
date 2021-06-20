@@ -373,7 +373,7 @@ export default {
         this.text = ''
       }
 
-      if (result.resultUpdate && this.showTypeUploadButtons) {
+      if (result.resultUpdate && this.showTypeUploadButtons && (this.text.length !== 0)) {
 
         setTimeout(() => {
           this.showTypeUploadButtons = false
