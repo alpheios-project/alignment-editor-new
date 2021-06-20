@@ -15973,7 +15973,10 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "p",
-    { staticClass: "alpheios-al-editor-segment-cell-target-row__bar" },
+    {
+      staticClass: "alpheios-al-editor-segment-cell-target-row__bar",
+      attrs: { dir: "ltr" }
+    },
     [
       _c(
         "span",

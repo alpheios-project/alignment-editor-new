@@ -1,5 +1,5 @@
 <template>
-    <p class="alpheios-al-editor-segment-cell-target-row__bar">
+    <p class="alpheios-al-editor-segment-cell-target-row__bar" dir="ltr">
       <span class="alpheios-al-editor-segment-cell-target-row__metadata"
             :class = "{ 'alpheios-al-editor-segment-cell-target-row__metadata-full': showFullMetadata }"
             @click = "toggleMetadata"
