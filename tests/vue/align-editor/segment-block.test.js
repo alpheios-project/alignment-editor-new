@@ -441,5 +441,5 @@ describe('segment-block.test.js', () => {
     expect(cmp.vm.currentPartIndexes).toEqual([ 1, 2 ])
     expect(cmp.vm.allTokens.length).toEqual(7)
     expect(cmp.vm.allTokens.map(token => token.word)).toEqual([ 'Vor', 'rund', '13', '5', 'Milliarden', 'Jahren', 'entstanden'])
-  })
+  }, 50000)
 })

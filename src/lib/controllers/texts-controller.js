@@ -491,7 +491,8 @@ export default class TextsController {
     this.alignment.limitTokensToPartNumSegment(textType, textId, segmentIndex, partNums)
 
     for (let i = 0; i < partNums.length; i++) {
-      if (!this.alignment.partIsUploaded(textType, textId, segmentIndex, partNums[i])) {
+      const uploaded = this.alignment.partIsUploaded(textType, textId, segmentIndex, partNums[i])
+      if (!uploaded) {
         const selectParams = {
           alignmentID: this.alignment.id,
           textId,
@@ -499,7 +500,6 @@ export default class TextsController {
           partNum: partNums[i]
         }
         const dbData = await StorageController.select(selectParams, 'tokensByPartNum')
-
         this.alignment.uploadSegmentTokensFromDB(textType, textId, segmentIndex, dbData)
       }
     }

@@ -33,9 +33,9 @@ export default class StorageController {
     }
   }
 
-  static async deleteMany (alignmentID, typeQuery) {
+  static async deleteMany (indexData, typeQuery) {
     if (this.dbAdapterAvailable) {
-      const result = await dbAdapter.deleteMany(alignmentID, typeQuery)
+      const result = await dbAdapter.deleteMany(indexData, typeQuery)
       this.printErrors()
       return result
     }

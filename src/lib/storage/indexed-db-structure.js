@@ -552,9 +552,21 @@ export default class IndexedDBStructure {
   static prepareDeleteQuery (typeQuery, indexData) {
     const typeQueryList = {
       alignmentDataByID: this.prepareDeleteAlignmentDataByID.bind(this),
-      fullAlignmentByID: this.prepareDeleteFullAlignmentByID.bind(this)
+      fullAlignmentByID: this.prepareDeleteFullAlignmentByID.bind(this),
+      alignmentGroupByID: this.prepareDeleteAlignmentGroupByID.bind(this)
     }
     return typeQueryList[typeQuery](indexData)
+  }
+
+  static prepareDeleteAlignmentGroupByID (indexData) {
+    return [{
+      objectStoreName: this.allObjectStoreData.alGroups.name,
+      condition: {
+        indexName: 'ID',
+        value: `${indexData.userID}-${indexData.alignmentID}-${indexData.alGroupItemID}`,
+        type: 'only'
+      }
+    }]
   }
 
   static prepareDeleteFullAlignmentByID (alignmentID) {
