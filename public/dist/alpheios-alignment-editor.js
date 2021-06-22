@@ -38664,8 +38664,12 @@ class AlignedGroupsController {
   clickToken (token, limitByTargetId = null) {
     if (!this.hasActiveAlignmentGroup) {
       if (this.tokenIsGrouped(token, limitByTargetId)) {
-        this.activateGroupByToken(token, limitByTargetId)
-        _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
+        const alGroupItemID = this.activateGroupByToken(token, limitByTargetId)
+        _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.deleteMany({
+          userID: this.alignment.userID,
+          alignmentID: this.alignment.id,
+          alGroupItemID
+        }, 'alignmentGroupByID')
       } else {
         this.startNewAlignmentGroup(token, limitByTargetId)
       }
@@ -39803,9 +39807,9 @@ class StorageController {
     }
   }
 
-  static async deleteMany (alignmentID, typeQuery) {
+  static async deleteMany (indexData, typeQuery) {
     if (this.dbAdapterAvailable) {
-      const result = await dbAdapter.deleteMany(alignmentID, typeQuery)
+      const result = await dbAdapter.deleteMany(indexData, typeQuery)
       this.printErrors()
       return result
     }
@@ -40342,7 +40346,8 @@ class TextsController {
     this.alignment.limitTokensToPartNumSegment(textType, textId, segmentIndex, partNums)
 
     for (let i = 0; i < partNums.length; i++) {
-      if (!this.alignment.partIsUploaded(textType, textId, segmentIndex, partNums[i])) {
+      const uploaded = this.alignment.partIsUploaded(textType, textId, segmentIndex, partNums[i])
+      if (!uploaded) {
         const selectParams = {
           alignmentID: this.alignment.id,
           textId,
@@ -40350,7 +40355,6 @@ class TextsController {
           partNum: partNums[i]
         }
         const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select(selectParams, 'tokensByPartNum')
-
         this.alignment.uploadSegmentTokensFromDB(textType, textId, segmentIndex, dbData)
       }
     }
@@ -43145,7 +43149,7 @@ class Alignment {
       this.removeGroupFromAlignmentGroups(tokensGroup)
       if (token) { this.activeAlignmentGroup.updateFirstStepToken(token) }
       this.setUpdated()
-      return true
+      return tokensGroup.id
     }
     return false
   }
@@ -45998,7 +46002,7 @@ class IndexedDBAdapter {
       const queries = _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.prepareSelectQuery(typeQuery, data)
       for (const query of queries) {
         const queryResult = await this._getFromStore(query)
-        finalResult = this.merge(finalResult, queryResult, query.mergeData)
+        finalResult = query.mergeData ? this.merge(finalResult, queryResult, query.mergeData) : queryResult
       }
 
       return finalResult
@@ -46868,9 +46872,21 @@ class IndexedDBStructure {
   static prepareDeleteQuery (typeQuery, indexData) {
     const typeQueryList = {
       alignmentDataByID: this.prepareDeleteAlignmentDataByID.bind(this),
-      fullAlignmentByID: this.prepareDeleteFullAlignmentByID.bind(this)
+      fullAlignmentByID: this.prepareDeleteFullAlignmentByID.bind(this),
+      alignmentGroupByID: this.prepareDeleteAlignmentGroupByID.bind(this)
     }
     return typeQueryList[typeQuery](indexData)
+  }
+
+  static prepareDeleteAlignmentGroupByID (indexData) {
+    return [{
+      objectStoreName: this.allObjectStoreData.alGroups.name,
+      condition: {
+        indexName: 'ID',
+        value: `${indexData.userID}-${indexData.alignmentID}-${indexData.alGroupItemID}`,
+        type: 'only'
+      }
+    }]
   }
 
   static prepareDeleteFullAlignmentByID (alignmentID) {
@@ -46968,7 +46984,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i412-html-ara-header-dir.20210620540" : 0
+    return  true ? "i424-text-bug.20210622332" : 0
   }
 
   static get libName () {

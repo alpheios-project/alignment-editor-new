@@ -645,7 +645,7 @@ export default class Alignment {
       this.removeGroupFromAlignmentGroups(tokensGroup)
       if (token) { this.activeAlignmentGroup.updateFirstStepToken(token) }
       this.setUpdated()
-      return true
+      return tokensGroup.id
     }
     return false
   }

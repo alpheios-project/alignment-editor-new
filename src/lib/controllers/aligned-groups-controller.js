@@ -110,8 +110,12 @@ export default class AlignedGroupsController {
   clickToken (token, limitByTargetId = null) {
     if (!this.hasActiveAlignmentGroup) {
       if (this.tokenIsGrouped(token, limitByTargetId)) {
-        this.activateGroupByToken(token, limitByTargetId)
-        StorageController.update(this.alignment, true)
+        const alGroupItemID = this.activateGroupByToken(token, limitByTargetId)
+        StorageController.deleteMany({
+          userID: this.alignment.userID,
+          alignmentID: this.alignment.id,
+          alGroupItemID
+        }, 'alignmentGroupByID')
       } else {
         this.startNewAlignmentGroup(token, limitByTargetId)
       }

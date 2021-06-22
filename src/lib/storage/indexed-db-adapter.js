@@ -37,7 +37,7 @@ export default class IndexedDBAdapter {
       const queries = IndexedDBStructure.prepareSelectQuery(typeQuery, data)
       for (const query of queries) {
         const queryResult = await this._getFromStore(query)
-        finalResult = this.merge(finalResult, queryResult, query.mergeData)
+        finalResult = query.mergeData ? this.merge(finalResult, queryResult, query.mergeData) : queryResult
       }
 
       return finalResult
