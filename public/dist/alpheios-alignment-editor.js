@@ -38665,11 +38665,7 @@ class AlignedGroupsController {
     if (!this.hasActiveAlignmentGroup) {
       if (this.tokenIsGrouped(token, limitByTargetId)) {
         const alGroupItemID = this.activateGroupByToken(token, limitByTargetId)
-        _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.deleteMany({
-          userID: this.alignment.userID,
-          alignmentID: this.alignment.id,
-          alGroupItemID
-        }, 'alignmentGroupByID')
+        this.deleteAlGroupFromStorage(alGroupItemID)
       } else {
         this.startNewAlignmentGroup(token, limitByTargetId)
       }
@@ -38680,13 +38676,23 @@ class AlignedGroupsController {
       } else if (this.shouldRemoveFromAlignmentGroup(token, limitByTargetId)) {
         this.removeFromAlignmentGroup(token, limitByTargetId)
       } else if (this.tokenIsGrouped(token, limitByTargetId)) {
-        this.mergeActiveGroupWithAnotherByToken(token, limitByTargetId)
-        _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
+        const alGroupItemID = this.mergeActiveGroupWithAnotherByToken(token, limitByTargetId)
+
+        this.deleteAlGroupFromStorage(alGroupItemID)
+        _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
       } else {
         this.addToAlignmentGroup(token, limitByTargetId)
       }
     }
     this.store.commit('incrementAlignmentUpdated')
+  }
+
+  deleteAlGroupFromStorage (alGroupItemID) {
+    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.deleteMany({
+      userID: this.alignment.userID,
+      alignmentID: this.alignment.id,
+      alGroupItemID
+    }, 'alignmentGroupByID')
   }
 
   /**
@@ -43169,7 +43175,7 @@ class Alignment {
       const indexDeleted = this.removeGroupFromAlignmentGroups(tokensGroup)
       this.activeAlignmentGroup.merge(tokensGroup, indexDeleted)
       this.setUpdated()
-      return true
+      return tokensGroup.id
     }
     return false
   }
@@ -46984,7 +46990,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i424-text-bug.20210622332" : 0
+    return  true ? "i424-text-bug.20210622334" : 0
   }
 
   static get libName () {

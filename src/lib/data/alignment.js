@@ -665,7 +665,7 @@ export default class Alignment {
       const indexDeleted = this.removeGroupFromAlignmentGroups(tokensGroup)
       this.activeAlignmentGroup.merge(tokensGroup, indexDeleted)
       this.setUpdated()
-      return true
+      return tokensGroup.id
     }
     return false
   }

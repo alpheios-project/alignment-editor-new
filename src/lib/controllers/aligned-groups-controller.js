@@ -111,11 +111,7 @@ export default class AlignedGroupsController {
     if (!this.hasActiveAlignmentGroup) {
       if (this.tokenIsGrouped(token, limitByTargetId)) {
         const alGroupItemID = this.activateGroupByToken(token, limitByTargetId)
-        StorageController.deleteMany({
-          userID: this.alignment.userID,
-          alignmentID: this.alignment.id,
-          alGroupItemID
-        }, 'alignmentGroupByID')
+        this.deleteAlGroupFromStorage(alGroupItemID)
       } else {
         this.startNewAlignmentGroup(token, limitByTargetId)
       }
@@ -126,13 +122,23 @@ export default class AlignedGroupsController {
       } else if (this.shouldRemoveFromAlignmentGroup(token, limitByTargetId)) {
         this.removeFromAlignmentGroup(token, limitByTargetId)
       } else if (this.tokenIsGrouped(token, limitByTargetId)) {
-        this.mergeActiveGroupWithAnotherByToken(token, limitByTargetId)
-        StorageController.update(this.alignment, true)
+        const alGroupItemID = this.mergeActiveGroupWithAnotherByToken(token, limitByTargetId)
+
+        this.deleteAlGroupFromStorage(alGroupItemID)
+        StorageController.update(this.alignment)
       } else {
         this.addToAlignmentGroup(token, limitByTargetId)
       }
     }
     this.store.commit('incrementAlignmentUpdated')
+  }
+
+  deleteAlGroupFromStorage (alGroupItemID) {
+    StorageController.deleteMany({
+      userID: this.alignment.userID,
+      alignmentID: this.alignment.id,
+      alGroupItemID
+    }, 'alignmentGroupByID')
   }
 
   /**
