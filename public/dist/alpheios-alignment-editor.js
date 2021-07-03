@@ -43705,6 +43705,9 @@ class Alignment {
     if (dbData.alignmentGroups) {
       dbData.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(_lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default.convertFromIndexedDB(alGroup)))
     }
+    if (alignment.origin.alignedText) {
+      document.dispatchEvent(new Event('AlpheiosAlignmentGroupsWorkflowStarted'))
+    }
     return alignment
   }
 
@@ -46990,7 +46993,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i424-text-bug.20210622334" : 0
+    return  true ? "i446-missing-tools.20210703310" : 0
   }
 
   static get libName () {
