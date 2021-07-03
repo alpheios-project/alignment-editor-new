@@ -87,7 +87,7 @@
     },
     "maxCharactersPerPart": {
       "defaultValue": 1000,
-      "labelText": "Max characters per part (recommended for performance)",
+      "labelText": "Max characters per part (recommended for performance), to be used in Align Text",
       "number": true,
       "minValue": 1,
       "maxValue": 50000,
