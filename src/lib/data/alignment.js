@@ -1195,6 +1195,9 @@ export default class Alignment {
     if (dbData.alignmentGroups) {
       dbData.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(AlignmentGroup.convertFromIndexedDB(alGroup)))
     }
+    if (alignment.origin.alignedText) {
+      document.dispatchEvent(new Event('AlpheiosAlignmentGroupsWorkflowStarted'))
+    }
     return alignment
   }
 
