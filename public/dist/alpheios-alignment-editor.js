@@ -40077,7 +40077,6 @@ class TextsController {
     }
 
     const uploadType = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.defineUploadTypeByExtension(extension)
-
     const uploadPrepareMethods = {
       plainSourceUploadAll: this.uploadDocSourceFromFileAll.bind(this),
       jsonSimpleUploadAll: this.uploadFullDataJSON.bind(this)
@@ -40103,13 +40102,14 @@ class TextsController {
 
     const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, { fileData, tokenization })
     if (result) {
-      this.updateOriginDocSource(result.originDocSource)
+      const alignment = new _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default()
+      alignment.updateOriginDocSource(result.originDocSource)
       result.targetDocSources.forEach(targetDocSource => {
-        this.updateTargetDocSource(targetDocSource)
+        alignment.updateTargetDocSource(targetDocSource)
       })
 
       this.store.commit('incrementUploadCheck')
-      return true
+      return alignment
     }
     return false
   }
@@ -46993,7 +46993,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i429-max-per-part.20210703338" : 0
+    return  true ? "i411-resume-alignment.20210705546" : 0
   }
 
   static get libName () {
