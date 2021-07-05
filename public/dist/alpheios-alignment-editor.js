@@ -40077,14 +40077,12 @@ class TextsController {
     }
 
     const uploadType = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.defineUploadTypeByExtension(extension)
-    console.info('uploadType ', uploadType, extension)
     const uploadPrepareMethods = {
       plainSourceUploadAll: this.uploadDocSourceFromFileAll.bind(this),
       jsonSimpleUploadAll: this.uploadFullDataJSON.bind(this)
     }
 
     const alignment = uploadPrepareMethods[uploadType](fileData, tokenizerOptionValue, uploadType)
-    console.info('alignment - ', alignment)
     _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(alignment, true)
     return alignment
   }
@@ -40104,12 +40102,6 @@ class TextsController {
 
     const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, { fileData, tokenization })
     if (result) {
-      /*
-      this.updateOriginDocSource(result.originDocSource)
-      result.targetDocSources.forEach(targetDocSource => {
-        this.updateTargetDocSource(targetDocSource)
-      })
-      */
       const alignment = new _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default()
       alignment.updateOriginDocSource(result.originDocSource)
       result.targetDocSources.forEach(targetDocSource => {
@@ -41077,7 +41069,6 @@ class UploadController {
         finalResult.targetDocSources.push(_lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON('target', { tokenization, text: result[i].text, direction: result[i].direction, lang: result[i].lang, sourceType: result[i].sourceType }))
       }
 
-      console.info('finalResult - ', finalResult)
       return finalResult
     }
     return false
@@ -47002,7 +46993,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "development.20210705533" : 0
+    return  true ? "i411-resume-alignment.20210705546" : 0
   }
 
   static get libName () {
