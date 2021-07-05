@@ -108,6 +108,7 @@ export default class UploadController {
         finalResult.targetDocSources.push(SourceText.convertFromJSON('target', { tokenization, text: result[i].text, direction: result[i].direction, lang: result[i].lang, sourceType: result[i].sourceType }))
       }
 
+      console.info('finalResult - ', finalResult)
       return finalResult
     }
     return false

@@ -216,13 +216,14 @@ export default class TextsController {
     }
 
     const uploadType = UploadController.defineUploadTypeByExtension(extension)
-
+    console.info('uploadType ', uploadType, extension)
     const uploadPrepareMethods = {
       plainSourceUploadAll: this.uploadDocSourceFromFileAll.bind(this),
       jsonSimpleUploadAll: this.uploadFullDataJSON.bind(this)
     }
 
     const alignment = uploadPrepareMethods[uploadType](fileData, tokenizerOptionValue, uploadType)
+    console.info('alignment - ', alignment)
     StorageController.update(alignment, true)
     return alignment
   }
@@ -242,13 +243,14 @@ export default class TextsController {
 
     const result = UploadController.upload(uploadType, { fileData, tokenization })
     if (result) {
-      this.updateOriginDocSource(result.originDocSource)
+      const alignment = new Alignment()
+      alignment.updateOriginDocSource(result.originDocSource)
       result.targetDocSources.forEach(targetDocSource => {
-        this.updateTargetDocSource(targetDocSource)
+        alignment.updateTargetDocSource(targetDocSource)
       })
 
       this.store.commit('incrementUploadCheck')
-      return true
+      return alignment
     }
     return false
   }
