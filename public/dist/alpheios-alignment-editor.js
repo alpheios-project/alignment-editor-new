@@ -46998,7 +46998,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i450-resume-align-list.20210706605" : 0
+    return  true ? "i450-resume-align-list.20210706609" : 0
   }
 
   static get libName () {
@@ -48673,9 +48673,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     formatHasTokens (hasTokens) {
       if (hasTokens === false) {
-        return 'no tokens'
+        return this.l10n.getMsgS('INITIAL_NO_TOKENS')
       } else if (hasTokens === true) {
-        return 'has tokens'
+        return this.l10n.getMsgS('INITIAL_HAS_TOKENS')
       } else {
         return ''
       }
@@ -65383,7 +65383,7 @@ module.exports = JSON.parse('{"DOWNLOAD_CONTROLLER_ERROR_TYPE":{"message":"Downl
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"INITIAL_NEW_ALIGNMENT":{"message":"Start a new alignment","description":"Button on initial screen","component":"InitialScreen"},"INITIAL_RESUME_ALIGNMENT":{"message":"Resume previous alignment","description":"Button on initial screen","component":"InitialScreen"},"INITIAL_CHOOSE_FILE":{"message":"Choose a file","description":"Button on initial screen","component":"InitialScreen"}}');
+module.exports = JSON.parse('{"INITIAL_NEW_ALIGNMENT":{"message":"Start a new alignment","description":"Button on initial screen","component":"InitialScreen"},"INITIAL_RESUME_ALIGNMENT":{"message":"Resume previous alignment","description":"Button on initial screen","component":"InitialScreen"},"INITIAL_CHOOSE_FILE":{"message":"Choose a file","description":"Button on initial screen","component":"InitialScreen"},"INITIAL_HAS_TOKENS":{"message":"has tokens","description":"Column in alignment\'s list","component":"InitialScreen"},"INITIAL_NO_TOKENS":{"message":"no tokens","description":"Column in alignment\'s list","component":"InitialScreen"}}');
 
 /***/ }),
 

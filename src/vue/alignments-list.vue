@@ -75,9 +75,9 @@ export default {
     },
     formatHasTokens (hasTokens) {
       if (hasTokens === false) {
-        return 'no tokens'
+        return this.l10n.getMsgS('INITIAL_NO_TOKENS')
       } else if (hasTokens === true) {
-        return 'has tokens'
+        return this.l10n.getMsgS('INITIAL_HAS_TOKENS')
       } else {
         return ''
       }
