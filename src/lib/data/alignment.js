@@ -1134,9 +1134,10 @@ export default class Alignment {
     const origin = {
       docSource: this.origin.docSource.convertToIndexedDB(textAsBlob)
     }
-
+    let hasTokens = false
     if (this.origin.alignedText) {
       origin.alignedText = this.origin.alignedText.convertToIndexedDB()
+      hasTokens = true
     }
 
     const targets = {}
@@ -1158,6 +1159,7 @@ export default class Alignment {
       updatedDT: ConvertUtility.convertDateToString(this.updatedDT),
       userID: this.userID,
       langsList: this.langsList,
+      hasTokens,
       origin,
       targets,
       alignmentGroups

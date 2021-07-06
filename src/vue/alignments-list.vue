@@ -3,8 +3,15 @@
 
     <table class="alpheios-alignment-editor-alignments-table">
         <tr v-for="(alData, alIndex) in alignments" :key="alIndex">
-          <td class="alpheios-alignment-editor-alignments-table_link alpheios-alignment-editor-alignments-table_dt" @click="uploadAlignmentFromDB(alData)">{{ alData.updatedDT }}</td>
-          <td class="alpheios-alignment-editor-alignments-table_link" @click="uploadAlignmentFromDB(alData)">{{ alData.langsList }}</td>
+          <td class="alpheios-alignment-editor-alignments-table_link alpheios-alignment-editor-alignments-table_dt" @click="uploadAlignmentFromDB(alData)">
+            {{ alData.updatedDT }}
+          </td>
+          <td class="alpheios-alignment-editor-alignments-table_link" @click="uploadAlignmentFromDB(alData)">
+            {{ alData.langsList }}
+          </td>
+          <td class="alpheios-alignment-editor-alignments-table_link" @click="uploadAlignmentFromDB(alData)">
+            {{ formatHasTokens(alData.hasTokens) }}
+          </td>
           <td class="alpheios-alignment-editor-alignments-table_delete-icon">
             <span :id="removeId(alData)" class="alpheios-alignment-editor-alignments-table_delete-icon_span" @click="deleteAlignmentFromDB(alData)">
               <delete-icon />
@@ -65,6 +72,15 @@ export default {
     },
     clearAllAlignments () {
       this.$emit('clear-all-alignments')
+    },
+    formatHasTokens (hasTokens) {
+      if (hasTokens === false) {
+        return 'no tokens'
+      } else if (hasTokens === true) {
+        return 'has tokens'
+      } else {
+        return ''
+      }
     }
   }
 }
