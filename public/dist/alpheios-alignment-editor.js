@@ -40292,8 +40292,10 @@ class TextsController {
   async uploadFromAllAlignmentsDB () {
     const data = { userID: _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default.defaultUserID }
 
-    const result = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select(data)
-    return result
+    const alignmentList = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select(data)
+
+    alignmentList.sort((a, b) => Date.parse(a.updatedDT) - Date.parse(b.updatedDT)).reverse()
+    return alignmentList
   }
 
   /**
@@ -43644,9 +43646,10 @@ class Alignment {
     const origin = {
       docSource: this.origin.docSource.convertToIndexedDB(textAsBlob)
     }
-
+    let hasTokens = false
     if (this.origin.alignedText) {
       origin.alignedText = this.origin.alignedText.convertToIndexedDB()
+      hasTokens = true
     }
 
     const targets = {}
@@ -43668,6 +43671,7 @@ class Alignment {
       updatedDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_11__.default.convertDateToString(this.updatedDT),
       userID: this.userID,
       langsList: this.langsList,
+      hasTokens,
       origin,
       targets,
       alignmentGroups
@@ -46048,10 +46052,10 @@ class IndexedDBAdapter {
       const queries = _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.prepareDeleteQuery(typeQuery, data)
       for (const query of queries) {
         const now1 = _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.timeNow.bind(new Date())()
-        console.info('********deleteMany - objectStoreName', now1, query.objectStoreName)
+        // console.info('********deleteMany - objectStoreName', now1, query.objectStoreName)
         const queryResult = await this._deleteFromStore(query)
         const now2 = _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.timeNow.bind(new Date())()
-        console.info('deleteMany - queryResult', now2, queryResult)
+        // console.info('deleteMany - queryResult', now2, queryResult)
       }
       return true
     } catch (error) {
@@ -46485,7 +46489,8 @@ class IndexedDBStructure {
       userID: data.userID,
       createdDT: data.createdDT,
       updatedDT: data.updatedDT,
-      langsList: data.langsList
+      langsList: data.langsList,
+      hasTokens: data.hasTokens
     }]
   }
 
@@ -46993,7 +46998,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i411-resume-alignment.20210705546" : 0
+    return  true ? "i450-resume-align-list.20210706609" : 0
   }
 
   static get libName () {
@@ -48611,6 +48616,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -48658,6 +48670,15 @@ __webpack_require__.r(__webpack_exports__);
     },
     clearAllAlignments () {
       this.$emit('clear-all-alignments')
+    },
+    formatHasTokens (hasTokens) {
+      if (hasTokens === false) {
+        return this.l10n.getMsgS('INITIAL_NO_TOKENS')
+      } else if (hasTokens === true) {
+        return this.l10n.getMsgS('INITIAL_HAS_TOKENS')
+      } else {
+        return ''
+      }
     }
   }
 });
@@ -58635,7 +58656,7 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v(_vm._s(alData.updatedDT))]
+              [_vm._v("\n          " + _vm._s(alData.updatedDT) + "\n        ")]
             ),
             _vm._v(" "),
             _c(
@@ -58648,7 +58669,26 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v(_vm._s(alData.langsList))]
+              [_vm._v("\n          " + _vm._s(alData.langsList) + "\n        ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "td",
+              {
+                staticClass: "alpheios-alignment-editor-alignments-table_link",
+                on: {
+                  click: function($event) {
+                    return _vm.uploadAlignmentFromDB(alData)
+                  }
+                }
+              },
+              [
+                _vm._v(
+                  "\n          " +
+                    _vm._s(_vm.formatHasTokens(alData.hasTokens)) +
+                    "\n        "
+                )
+              ]
             ),
             _vm._v(" "),
             _c(
@@ -65343,7 +65383,7 @@ module.exports = JSON.parse('{"DOWNLOAD_CONTROLLER_ERROR_TYPE":{"message":"Downl
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"INITIAL_NEW_ALIGNMENT":{"message":"Start a new alignment","description":"Button on initial screen","component":"InitialScreen"},"INITIAL_RESUME_ALIGNMENT":{"message":"Resume previous alignment","description":"Button on initial screen","component":"InitialScreen"},"INITIAL_CHOOSE_FILE":{"message":"Choose a file","description":"Button on initial screen","component":"InitialScreen"}}');
+module.exports = JSON.parse('{"INITIAL_NEW_ALIGNMENT":{"message":"Start a new alignment","description":"Button on initial screen","component":"InitialScreen"},"INITIAL_RESUME_ALIGNMENT":{"message":"Resume previous alignment","description":"Button on initial screen","component":"InitialScreen"},"INITIAL_CHOOSE_FILE":{"message":"Choose a file","description":"Button on initial screen","component":"InitialScreen"},"INITIAL_HAS_TOKENS":{"message":"has tokens","description":"Column in alignment\'s list","component":"InitialScreen"},"INITIAL_NO_TOKENS":{"message":"no tokens","description":"Column in alignment\'s list","component":"InitialScreen"}}');
 
 /***/ }),
 
