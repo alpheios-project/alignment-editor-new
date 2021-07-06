@@ -434,7 +434,6 @@ export default class TextsController {
     const alignmentList = await StorageController.select(data)
 
     alignmentList.sort((a, b) => Date.parse(a.updatedDT) - Date.parse(b.updatedDT)).reverse()
-    console.info('uploadFromAllAlignmentsDB - ', alignmentList)
     return alignmentList
   }
 

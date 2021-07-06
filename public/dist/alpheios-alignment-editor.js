@@ -40295,7 +40295,6 @@ class TextsController {
     const alignmentList = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select(data)
 
     alignmentList.sort((a, b) => Date.parse(a.updatedDT) - Date.parse(b.updatedDT)).reverse()
-    console.info('uploadFromAllAlignmentsDB - ', alignmentList)
     return alignmentList
   }
 
@@ -46999,7 +46998,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i450-resume-align-list.20210706599" : 0
+    return  true ? "i450-resume-align-list.20210706605" : 0
   }
 
   static get libName () {
