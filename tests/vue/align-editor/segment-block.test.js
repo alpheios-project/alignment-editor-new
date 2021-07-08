@@ -100,6 +100,15 @@ describe('segment-block.test.js', () => {
     }
   })
 
+  const prepareParts = (amount) => {
+    let arr = []
+    for (let i = 1; i<=amount; i++) {
+      arr.push({ partNum: i, len: expect.any(Number), segmentIndex: expect.any(Number) })
+    }
+    return arr
+  }
+
+
   it('1 SegmentBlock - renders a vue instance (min requirements)', () => {
     let cmp = shallowMount(SegmentBlock, {
       store: appC.store,
@@ -403,12 +412,13 @@ describe('segment-block.test.js', () => {
         currentTargetId: allTargetTextsIds[1]
       }
     })
-
-    expect(cmp.vm.allPartsKeys).toEqual([ 1 ])
+    
+    expect(cmp.vm.allPartsKeys).toEqual(prepareParts(1))
     SettingsController.allOptions.app.items.maxCharactersPerPart.currentValue = 5
     await cmp.vm.$textC.defineAllPartNumsForTexts()
 
-    expect(cmp.vm.allPartsKeys).toEqual([ 1, 2, 3, 4, 5 ])
+
+    expect(cmp.vm.allPartsKeys).toEqual(prepareParts(5))
     expect(cmp.vm.currentPartIndexes).toEqual([ 1 ])
     
     expect(cmp.vm.allTokens.length).toEqual(5)
@@ -441,5 +451,6 @@ describe('segment-block.test.js', () => {
     expect(cmp.vm.currentPartIndexes).toEqual([ 1, 2 ])
     expect(cmp.vm.allTokens.length).toEqual(7)
     expect(cmp.vm.allTokens.map(token => token.word)).toEqual([ 'Vor', 'rund', '13', '5', 'Milliarden', 'Jahren', 'entstanden'])
+
   }, 50000)
 })

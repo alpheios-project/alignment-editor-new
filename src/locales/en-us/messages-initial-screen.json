@@ -15,7 +15,7 @@
       "component": "InitialScreen"
     },
     "INITIAL_HAS_TOKENS": {
-      "message": "has tokens",
+      "message": "with tokens",
       "description": "Column in alignment's list",
       "component": "InitialScreen"
     },

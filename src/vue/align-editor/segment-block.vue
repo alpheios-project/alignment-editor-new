@@ -8,20 +8,20 @@
 
             <metadata-icons :text-type = "textType" :text-id = "segment.docSourceId" @showModalMetadata = "showModalMetadata = true" />
           </p>
-          <!--
+
           <p class="alpheios-alignment-editor-align-text-parts" v-if="allPartsKeys.length > 1">
             <span class="alpheios-alignment-editor-align-text-parts-link" 
-                  :class = "{ 'alpheios-alignment-editor-align-text-parts-link-current': currentPartIndex === parseInt(partKey) }"
-                  v-for = "partKey in allPartsKeys" :key="partKey"
-                  @click="clickPart(partKey)"
+                  :class = "{ 'alpheios-alignment-editor-align-text-parts-link-current': currentPartIndexes.includes(parseInt(partData.partNum)) }"
+                  v-for = "partData in allPartsKeys" :key="partData.partNum"
+                  :style = partBlockStyle(partData.len)
             >
-                  {{ partKey }}
+                  {{ 1 }}
             </span>
           </p>
-          -->
+
           <div class="alpheios-alignment-editor-align-text-segment-tokens" :id = "cssId" :style="cssStyleSeg" :dir = "direction" :lang = "lang" >
             <p class="alpheios-alignment-editor-align-text-single-link" v-if="showPrev">
-              <span class="alpheios-alignment-editor-align-text-parts-link" @click="uploadPrevPart">prev</span>
+              <span class="alpheios-alignment-editor-align-text-parts-link-text" @click="uploadPrevPart">prev</span>
             </p>
 
             <template v-for = "(token, tokenIndex) in allTokens">
@@ -40,7 +40,7 @@
             </template>
             
             <p class="alpheios-alignment-editor-align-text-single-link" v-if="showNext">
-              <span class="alpheios-alignment-editor-align-text-parts-link" @click="uploadNextPart">next</span>  
+              <span class="alpheios-alignment-editor-align-text-parts-link-text" @click="uploadNextPart">next</span>  
             </p>
           </div>
 
@@ -212,6 +212,10 @@ export default {
     allPartsKeys () {
       return  this.$store.state.tokenUpdated && this.$store.state.reuploadTextsParts && this.segment.allPartNums ? this.segment.allPartNums : []
     },
+    allPartKeysLen () {
+      const sumArr = (total, partData) => total + partData.len
+      return this.allPartsKeys.length > 1 ? this.allPartsKeys.reduce(sumArr, 0) : 0
+    },
     amountOfSegments () {
       return this.$store.state.alignmentUpdated ? this.$alignedGC.getAmountOfSegments(this.segment) : 1
     },
@@ -254,14 +258,18 @@ export default {
     },
 
     showPrev () {
-      return Math.min(...this.currentPartIndexes) > this.allPartsKeys[0]
+      return this.allPartsKeys.length > 0 && (Math.min(...this.currentPartIndexes) > this.allPartsKeys[0].partNum)
     },
 
     showNext () {
-      return Math.max(...this.currentPartIndexes) < this.allPartsKeys[this.allPartsKeys.length-1]
+      return this.allPartsKeys.length > 0 && (Math.max(...this.currentPartIndexes) < this.allPartsKeys[this.allPartsKeys.length-1].partNum)
     }
   },
   methods: {
+    partBlockStyle (len) {
+      const percentLen = Math.floor(len*100/this.allPartKeysLen)
+      return `width: ${percentLen}%;`
+    },
     getCssId (textType, targetId, segmentIndex) {
       if (textType === 'target') {
         return `alpheios-align-text-segment-${textType}-${targetId}-${segmentIndex}`
@@ -429,16 +437,27 @@ export default {
             }
           }
         }
-
-  .alpheios-alignment-editor-align-text-parts-link {
+  .alpheios-alignment-editor-align-text-parts-link-text {
     cursor: pointer;
     display: inline-block;
     padding: 3px;
     text-decoration: underline;
+  }
+
+  .alpheios-alignment-editor-align-text-parts-link {
+    // cursor: pointer;
+    display: inline-block;
+    padding: 3px;
+    // text-decoration: underline;
+    font-size: 0;
+    background: #c6c6c6;
+    border: 1px solid #fff;
+    min-width: 8px;
 
     &.alpheios-alignment-editor-align-text-parts-link-current {
       cursor: initial;
-      text-decoration: none;
+      // text-decoration: none;
+      background: #6e6e6e;
     }
   }
 
@@ -448,5 +467,9 @@ export default {
     text-align: center;
     color: #000;
     font-weight: bold;
+  }
+
+  .alpheios-alignment-editor-align-text-parts {
+    padding: 0 25px;
   }
 </style>

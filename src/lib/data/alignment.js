@@ -1282,6 +1282,7 @@ export default class Alignment {
   }
 
   defineAllPartNumsForTexts () {
+    console.info('alignment', this)
     this.origin.alignedText.segments.forEach(segment => segment.defineAllPartNums())
     Object.values(this.targets).forEach(target => {
       target.alignedText.segments.forEach(segment => segment.defineAllPartNums())
