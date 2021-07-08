@@ -47020,7 +47020,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i397-line-counter.20210708419" : 0
+    return  true ? "i397-line-counter.20210708425" : 0
   }
 
   static get libName () {
@@ -48418,7 +48418,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     partBlockStyle (len) {
-      const percentLen = Math.round(len*100/this.allPartKeysLen)
+      const percentLen = Math.ceil(len*100/this.allPartKeysLen)
       return `width: ${percentLen}%;`
     },
     getCssId (textType, targetId, segmentIndex) {
