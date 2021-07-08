@@ -291,7 +291,8 @@ export default class IndexedDBStructure {
                 alTextIdSegId: `${data.id}-${dataItem.textId}-${segmentItem.index}`,
                 textId: dataItem.textId,
                 segmentIndex: partNumItem.segmentIndex,
-                partNum: partNumItem.partNum
+                partNum: partNumItem.partNum,
+                len: partNumItem.len
               })
             }
           }

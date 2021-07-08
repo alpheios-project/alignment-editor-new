@@ -12,7 +12,7 @@
     "test": "jest tests --coverage",
     "test-lib": "jest tests/lib --coverage",
     "test-vue": "jest tests/vue --coverage",
-    "test-a": "jest tests/lib/data/segment.test.js --coverage",
+    "test-a": "jest tests/lib/data/segment.test.js",
     "test-b": "jest tests/vue/align-editor/segment-block.test.js --coverage",
     "test-c": "jest tests/lib/storage/indexed-db-adapter.test.js --coverage",
     "test-d": "jest tests/_output/vue/app.test.js --coverage",

@@ -30,6 +30,15 @@ describe('token.test.js', () => {
     jest.spyOn(console, 'warn')
   })
 
+  const prepareParts = (amount) => {
+    let arr = []
+    for (let i = 1; i<=amount; i++) {
+      arr.push({ partNum: i, len: expect.any(Number) })
+    }
+    return arr
+  }
+
+
   it('1 Segment - constructor uploads the following fields - index, textType, lang, direction, tokens, docSourceId ', () => {
     const token = new Token({
       textType: 'origin', idWord: '1-0-0', word: 'male', beforeWord: '(', afterWord: ')', hasLineBreak: true
@@ -176,29 +185,30 @@ describe('token.test.js', () => {
     SettingsController.allOptions.app.items.maxCharactersPerPart.currentValue = 1000
 
     const segment = Segment.convertFromJSON(OriginSegment)
-    expect(segment.allPartNums).toEqual([1])
+
+    expect(segment.allPartNums).toEqual(prepareParts(1))
     expect(segment.currentPartNums).toEqual([1])
 
     SettingsController.allOptions.app.items.maxCharactersPerPart.currentValue = 200
     segment.defineAllPartNums()
 
-    expect(segment.allPartNums).toEqual([1, 2])
+    expect(segment.allPartNums).toEqual(prepareParts(2))
     expect(segment.currentPartNums).toEqual([1, 2])
 
     SettingsController.allOptions.app.items.maxCharactersPerPart.currentValue = 100
     segment.defineAllPartNums()
     
-    expect(segment.allPartNums).toEqual([1, 2, 3])
+    expect(segment.allPartNums).toEqual(prepareParts(3))
     expect(segment.currentPartNums).toEqual([1, 2, 3])
 
     SettingsController.allOptions.app.items.maxCharactersPerPart.currentValue = 10
     segment.defineAllPartNums()
 
-    expect(segment.allPartNums).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15])
+    expect(segment.allPartNums).toEqual(prepareParts(15))
     expect(segment.currentPartNums).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15])
 
     segment.limitTokensToPartNum(1)
-    expect(segment.allPartNums).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15])
+    expect(segment.allPartNums).toEqual(prepareParts(15))
     expect(segment.currentPartNums).toEqual([1])
 
     // console.info(segment)
@@ -208,7 +218,7 @@ describe('token.test.js', () => {
     SettingsController.allOptions.app.items.maxCharactersPerPart.currentValue = 100
     const segment = Segment.convertFromJSON(OriginSegment)
 
-    expect(segment.allPartNums).toEqual([1, 2, 3])
+    expect(segment.allPartNums).toEqual(prepareParts(3))
     expect(segment.currentPartNums).toEqual([1, 2, 3])
 
     const tokens1 = segment.partsTokens(1)
@@ -388,7 +398,7 @@ describe('token.test.js', () => {
     expect(segment.getTokenIndex(token3)).toEqual(2)
 
     segment.addNewToken(-1, '1-0-3', '"')
-    console.info(segment.tokens)
+
     expect(segment.tokens.length).toEqual(4)
     expect(segment.getTokenIndex(token1)).toEqual(1)
     expect(segment.getTokenIndex(token2)).toEqual(2)
@@ -479,15 +489,15 @@ describe('token.test.js', () => {
       "lang": "deu",
       "direction": "ltr",
       "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
-      allPartNums: [ 1, 2 ],
+      allPartNums: [ { partNum: 1, len: 50 }, { partNum: 2, len: 50 } ],
       tokens: [token1, token2, token3]
     })
 
-    expect(segment.allPartNums).toEqual([1, 2])
+    expect(segment.allPartNums).toEqual(prepareParts(2))
     expect(segment.currentPartNums).toEqual([2])
 
     segment.uploadSegmentTokensFromDB(dbData)
-    expect(segment.allPartNums).toEqual([1, 2])
+    expect(segment.allPartNums).toEqual(prepareParts(2))
     expect(segment.currentPartNums).toEqual([1, 2])
 
     expect(segment.tokens.length).toEqual(7)

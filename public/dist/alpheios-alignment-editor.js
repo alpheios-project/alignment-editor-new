@@ -43794,6 +43794,7 @@ class Alignment {
   }
 
   defineAllPartNumsForTexts () {
+    console.info('alignment', this)
     this.origin.alignedText.segments.forEach(segment => segment.defineAllPartNums())
     Object.values(this.targets).forEach(target => {
       target.alignedText.segments.forEach(segment => segment.defineAllPartNums())
@@ -44656,13 +44657,13 @@ class Segment {
    */
   defineAllPartNums () {
     const charMax = _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__.default.maxCharactersPerPart
+    // console.info('******defineAllPartNums - starts', charMax)
     const parts = {}
     const allPartNums = []
     let partNum = 1
     this.tokens.forEach((token, tokenIndex) => {
       if (!parts[partNum]) {
         parts[partNum] = { sentences: [], tokens: [], tokensIdWord: [], len: 0 }
-        allPartNums.push(partNum)
       }
 
       if (!parts[partNum].sentences.includes(token.sentenceIndex)) {
@@ -44676,15 +44677,25 @@ class Segment {
       token.update({ partNum })
       if ((parts[partNum].len > charMax) && (tokenIndex < (this.tokens.length - 5))) {
         if (this.tokens[tokenIndex + 1].sentenceIndex !== token.sentenceIndex) {
+          allPartNums.push({ partNum, len: parts[partNum].len })
           partNum++
         } else if ((parts[partNum].len > (2 * charMax)) && (this.tokens[tokenIndex + 1].sentenceIndex === token.sentenceIndex)) {
           if (this.tokens[tokenIndex + 2] && (this.tokens[tokenIndex + 2].sentenceIndex === token.sentenceIndex)) {
+            allPartNums.push({ partNum, len: parts[partNum].len })
             partNum++
           }
         }
       }
     })
+
+    // console.info('allPartNums - ', allPartNums)
+    // console.info('parts - ', partNum, parts[partNum].len)
+
+    if (allPartNums.length < Object.values(parts).length) {
+      allPartNums.push({ partNum, len: parts[partNum].len })
+    }
     this.allPartNums = allPartNums
+    // console.info('this.allPartNums - ', this.allPartNums)
     this.getCurrentPartNums()
   }
 
@@ -44832,7 +44843,10 @@ class Segment {
       direction: this.direction,
       docSourceId: this.docSourceId,
       tokens: this.tokens.map((token, tokenIndex) => token.convertToIndexedDB(tokenIndex)),
-      partNums: this.allPartNums ? this.allPartNums.map(partNum => { return { partNum, segmentIndex: this.index } }) : []
+      partNums: this.allPartNums ? this.allPartNums.map(partData => {
+        partData.segmentIndex = this.index
+        return partData
+      }) : []
     }
   }
 
@@ -44846,7 +44860,14 @@ class Segment {
       direction: data.direction,
       docSourceId: data.docSourceId,
       tokens: tokensDbDataFiltered.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default.convertFromIndexedDB(token)).sort((a, b) => a.tokenIndex - b.tokenIndex),
-      allPartNums: dbAllPartNums.filter(partNum => (data.docSourceId === partNum.textId) && (data.index === partNum.segmentIndex)).map(partNum => parseInt(partNum.partNum)).sort((a, b) => a - b)
+      allPartNums: dbAllPartNums.filter(partNum => (data.docSourceId === partNum.textId) && (data.index === partNum.segmentIndex))
+        .map(partData => {
+          return {
+            partNum: partData.partNum,
+            len: partData.len ? parseInt(partData.len) : 1
+          }
+        })
+        .sort((a, b) => a.partNum - b.partNum)
     })
   }
 
@@ -44873,7 +44894,7 @@ class Segment {
 
   get hasAllPartsUploaded () {
     return this.allPartNums.length === this.currentPartNums.length &&
-           this.allPartNums.every(partNum => this.currentPartNums.includes(partNum))
+           this.allPartNums.every(partData => this.currentPartNums.includes(partData.partNum))
   }
 }
 
@@ -46624,7 +46645,8 @@ class IndexedDBStructure {
                 alTextIdSegId: `${data.id}-${dataItem.textId}-${segmentItem.index}`,
                 textId: dataItem.textId,
                 segmentIndex: partNumItem.segmentIndex,
-                partNum: partNumItem.partNum
+                partNum: partNumItem.partNum,
+                len: partNumItem.len
               })
             }
           }
@@ -46998,7 +47020,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i450-resume-align-list.20210706609" : 0
+    return  true ? "i397-line-counter.20210708419" : 0
   }
 
   static get libName () {
@@ -48341,6 +48363,10 @@ __webpack_require__.r(__webpack_exports__);
     allPartsKeys () {
       return  this.$store.state.tokenUpdated && this.$store.state.reuploadTextsParts && this.segment.allPartNums ? this.segment.allPartNums : []
     },
+    allPartKeysLen () {
+      const sumArr = (total, partData) => total + partData.len
+      return this.allPartsKeys.length > 1 ? this.allPartsKeys.reduce(sumArr, 0) : 0
+    },
     amountOfSegments () {
       return this.$store.state.alignmentUpdated ? this.$alignedGC.getAmountOfSegments(this.segment) : 1
     },
@@ -48383,14 +48409,18 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     showPrev () {
-      return Math.min(...this.currentPartIndexes) > this.allPartsKeys[0]
+      return this.allPartsKeys.length > 0 && (Math.min(...this.currentPartIndexes) > this.allPartsKeys[0].partNum)
     },
 
     showNext () {
-      return Math.max(...this.currentPartIndexes) < this.allPartsKeys[this.allPartsKeys.length-1]
+      return this.allPartsKeys.length > 0 && (Math.max(...this.currentPartIndexes) < this.allPartsKeys[this.allPartsKeys.length-1].partNum)
     }
   },
   methods: {
+    partBlockStyle (len) {
+      const percentLen = Math.round(len*100/this.allPartKeysLen)
+      return `width: ${percentLen}%;`
+    },
     getCssId (textType, targetId, segmentIndex) {
       if (textType === 'target') {
         return `alpheios-align-text-segment-${textType}-${targetId}-${segmentIndex}`
@@ -48546,11 +48576,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     tokenClasses () {
+      // console.info('token', this.token)
       return { 
         'alpheios-token-selected': this.selected, 
         'alpheios-token-grouped': this.grouped ,
         'alpheios-token-clicked': this.inActiveGroup,
-        'alpheios-token-clicked-first': this.firstInActiveGroup
+        'alpheios-token-clicked-first': this.firstInActiveGroup,
+        'alpheios-token-part-shadowed': (this.token.partNum % 2 === 0)
       }
     }, 
     tokenWord () {
@@ -58441,6 +58473,31 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
+      _vm.allPartsKeys.length > 1
+        ? _c(
+            "p",
+            { staticClass: "alpheios-alignment-editor-align-text-parts" },
+            _vm._l(_vm.allPartsKeys, function(partData) {
+              return _c(
+                "span",
+                {
+                  key: partData.partNum,
+                  staticClass:
+                    "alpheios-alignment-editor-align-text-parts-link",
+                  class: {
+                    "alpheios-alignment-editor-align-text-parts-link-current": _vm.currentPartIndexes.includes(
+                      parseInt(partData.partNum)
+                    )
+                  },
+                  style: _vm.partBlockStyle(partData.len)
+                },
+                [_vm._v("\n              " + _vm._s(1) + "\n        ")]
+              )
+            }),
+            0
+          )
+        : _vm._e(),
+      _vm._v(" "),
       _c(
         "div",
         {
@@ -58461,7 +58518,7 @@ var render = function() {
                     "span",
                     {
                       staticClass:
-                        "alpheios-alignment-editor-align-text-parts-link",
+                        "alpheios-alignment-editor-align-text-parts-link-text",
                       on: { click: _vm.uploadPrevPart }
                     },
                     [_vm._v("prev")]
@@ -58516,7 +58573,7 @@ var render = function() {
                     "span",
                     {
                       staticClass:
-                        "alpheios-alignment-editor-align-text-parts-link",
+                        "alpheios-alignment-editor-align-text-parts-link-text",
                       on: { click: _vm.uploadNextPart }
                     },
                     [_vm._v("next")]
@@ -65306,7 +65363,7 @@ render._withStripped = true
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/data/segment.test.js --coverage","test-b":"jest tests/vue/align-editor/segment-block.test.js --coverage","test-c":"jest tests/lib/storage/indexed-db-adapter.test.js --coverage","test-d":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.3.0","@babel/core":"^7.14.3","@babel/plugin-proposal-object-rest-spread":"^7.14.4","@babel/plugin-transform-modules-commonjs":"^7.14.0","@babel/plugin-transform-runtime":"^7.14.3","@babel/preset-env":"^7.14.4","@babel/register":"^7.13.16","@babel/runtime":"^7.14.0","@vue/test-utils":"^1.2.0","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.28.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.23.4","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.2","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.6.18","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.6","papaparse":"^5.3.1","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.34.1","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.14","vue-eslint-parser":"^7.6.0","vue-jest":"^3.0.7","vue-loader":"^15.9.7","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.14","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.38.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
+module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/data/segment.test.js","test-b":"jest tests/vue/align-editor/segment-block.test.js --coverage","test-c":"jest tests/lib/storage/indexed-db-adapter.test.js --coverage","test-d":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.3.0","@babel/core":"^7.14.3","@babel/plugin-proposal-object-rest-spread":"^7.14.4","@babel/plugin-transform-modules-commonjs":"^7.14.0","@babel/plugin-transform-runtime":"^7.14.3","@babel/preset-env":"^7.14.4","@babel/register":"^7.13.16","@babel/runtime":"^7.14.0","@vue/test-utils":"^1.2.0","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.28.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.23.4","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.2","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.6.18","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.6","papaparse":"^5.3.1","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.34.1","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.14","vue-eslint-parser":"^7.6.0","vue-jest":"^3.0.7","vue-loader":"^15.9.7","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.14","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.38.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
 
 /***/ }),
 
@@ -65383,7 +65440,7 @@ module.exports = JSON.parse('{"DOWNLOAD_CONTROLLER_ERROR_TYPE":{"message":"Downl
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"INITIAL_NEW_ALIGNMENT":{"message":"Start a new alignment","description":"Button on initial screen","component":"InitialScreen"},"INITIAL_RESUME_ALIGNMENT":{"message":"Resume previous alignment","description":"Button on initial screen","component":"InitialScreen"},"INITIAL_CHOOSE_FILE":{"message":"Choose a file","description":"Button on initial screen","component":"InitialScreen"},"INITIAL_HAS_TOKENS":{"message":"has tokens","description":"Column in alignment\'s list","component":"InitialScreen"},"INITIAL_NO_TOKENS":{"message":"no tokens","description":"Column in alignment\'s list","component":"InitialScreen"}}');
+module.exports = JSON.parse('{"INITIAL_NEW_ALIGNMENT":{"message":"Start a new alignment","description":"Button on initial screen","component":"InitialScreen"},"INITIAL_RESUME_ALIGNMENT":{"message":"Resume previous alignment","description":"Button on initial screen","component":"InitialScreen"},"INITIAL_CHOOSE_FILE":{"message":"Choose a file","description":"Button on initial screen","component":"InitialScreen"},"INITIAL_HAS_TOKENS":{"message":"with tokens","description":"Column in alignment\'s list","component":"InitialScreen"},"INITIAL_NO_TOKENS":{"message":"no tokens","description":"Column in alignment\'s list","component":"InitialScreen"}}');
 
 /***/ }),
 

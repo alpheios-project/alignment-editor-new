@@ -44,11 +44,13 @@ export default {
   },
   computed: {
     tokenClasses () {
+      // console.info('token', this.token)
       return { 
         'alpheios-token-selected': this.selected, 
         'alpheios-token-grouped': this.grouped ,
         'alpheios-token-clicked': this.inActiveGroup,
-        'alpheios-token-clicked-first': this.firstInActiveGroup
+        'alpheios-token-clicked-first': this.firstInActiveGroup,
+        'alpheios-token-part-shadowed': (this.token.partNum % 2 === 0)
       }
     }, 
     tokenWord () {
@@ -85,6 +87,10 @@ export default {
             border: 1px solid transparent;
             display: inline-block;
             vertical-align: top;
+            
+            &.alpheios-token-part-shadowed {
+              font-weight: bold;
+            }
 
             &:hover {
                 border-color: #FFC24F;

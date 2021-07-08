@@ -1889,6 +1889,9 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   display: inline-block;
   vertical-align: top;
 }
+.alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-part-shadowed {
+  font-weight: bold;
+}
 .alpheios-alignment-editor-align-text-segment span.alpheios-token:hover {
   border-color: #FFC24F;
   background: #FFD27D;
@@ -1957,15 +1960,23 @@ span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-edit
 span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-editor-text-blocks-single__metadata_icon_has_data svg {
   stroke: #2a9900;
 }
-.alpheios-alignment-editor-align-text-parts-link {
+.alpheios-alignment-editor-align-text-parts-link-text {
   cursor: pointer;
   display: inline-block;
   padding: 3px;
   text-decoration: underline;
 }
+.alpheios-alignment-editor-align-text-parts-link {
+  display: inline-block;
+  padding: 3px;
+  font-size: 0;
+  background: #c6c6c6;
+  border: 1px solid #fff;
+  min-width: 8px;
+}
 .alpheios-alignment-editor-align-text-parts-link.alpheios-alignment-editor-align-text-parts-link-current {
   cursor: initial;
-  text-decoration: none;
+  background: #6e6e6e;
 }
 .alpheios-alignment-editor-align-text-parts,
 .alpheios-alignment-editor-align-text-single-link {
@@ -1973,6 +1984,9 @@ span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-edit
   text-align: center;
   color: #000;
   font-weight: bold;
+}
+.alpheios-alignment-editor-align-text-parts {
+  padding: 0 25px;
 }
 .alpheios-alignment-editor-align-target-tabs {
   display: inline-block;

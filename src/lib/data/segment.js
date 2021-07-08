@@ -67,13 +67,13 @@ export default class Segment {
    */
   defineAllPartNums () {
     const charMax = SettingsController.maxCharactersPerPart
+    // console.info('******defineAllPartNums - starts', charMax)
     const parts = {}
     const allPartNums = []
     let partNum = 1
     this.tokens.forEach((token, tokenIndex) => {
       if (!parts[partNum]) {
         parts[partNum] = { sentences: [], tokens: [], tokensIdWord: [], len: 0 }
-        allPartNums.push(partNum)
       }
 
       if (!parts[partNum].sentences.includes(token.sentenceIndex)) {
@@ -87,15 +87,25 @@ export default class Segment {
       token.update({ partNum })
       if ((parts[partNum].len > charMax) && (tokenIndex < (this.tokens.length - 5))) {
         if (this.tokens[tokenIndex + 1].sentenceIndex !== token.sentenceIndex) {
+          allPartNums.push({ partNum, len: parts[partNum].len })
           partNum++
         } else if ((parts[partNum].len > (2 * charMax)) && (this.tokens[tokenIndex + 1].sentenceIndex === token.sentenceIndex)) {
           if (this.tokens[tokenIndex + 2] && (this.tokens[tokenIndex + 2].sentenceIndex === token.sentenceIndex)) {
+            allPartNums.push({ partNum, len: parts[partNum].len })
             partNum++
           }
         }
       }
     })
+
+    // console.info('allPartNums - ', allPartNums)
+    // console.info('parts - ', partNum, parts[partNum].len)
+
+    if (allPartNums.length < Object.values(parts).length) {
+      allPartNums.push({ partNum, len: parts[partNum].len })
+    }
     this.allPartNums = allPartNums
+    // console.info('this.allPartNums - ', this.allPartNums)
     this.getCurrentPartNums()
   }
 
@@ -243,7 +253,10 @@ export default class Segment {
       direction: this.direction,
       docSourceId: this.docSourceId,
       tokens: this.tokens.map((token, tokenIndex) => token.convertToIndexedDB(tokenIndex)),
-      partNums: this.allPartNums ? this.allPartNums.map(partNum => { return { partNum, segmentIndex: this.index } }) : []
+      partNums: this.allPartNums ? this.allPartNums.map(partData => {
+        partData.segmentIndex = this.index
+        return partData
+      }) : []
     }
   }
 
@@ -257,7 +270,14 @@ export default class Segment {
       direction: data.direction,
       docSourceId: data.docSourceId,
       tokens: tokensDbDataFiltered.map(token => Token.convertFromIndexedDB(token)).sort((a, b) => a.tokenIndex - b.tokenIndex),
-      allPartNums: dbAllPartNums.filter(partNum => (data.docSourceId === partNum.textId) && (data.index === partNum.segmentIndex)).map(partNum => parseInt(partNum.partNum)).sort((a, b) => a - b)
+      allPartNums: dbAllPartNums.filter(partNum => (data.docSourceId === partNum.textId) && (data.index === partNum.segmentIndex))
+        .map(partData => {
+          return {
+            partNum: partData.partNum,
+            len: partData.len ? parseInt(partData.len) : 1
+          }
+        })
+        .sort((a, b) => a.partNum - b.partNum)
     })
   }
 
@@ -284,6 +304,6 @@ export default class Segment {
 
   get hasAllPartsUploaded () {
     return this.allPartNums.length === this.currentPartNums.length &&
-           this.allPartNums.every(partNum => this.currentPartNums.includes(partNum))
+           this.allPartNums.every(partData => this.currentPartNums.includes(partData.partNum))
   }
 }
