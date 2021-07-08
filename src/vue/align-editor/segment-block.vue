@@ -267,7 +267,7 @@ export default {
   },
   methods: {
     partBlockStyle (len) {
-      const percentLen = Math.ceil(len*100/this.allPartKeysLen)
+      const percentLen = Math.floor(len*100/this.allPartKeysLen)
       return `width: ${percentLen}%;`
     },
     getCssId (textType, targetId, segmentIndex) {
