@@ -74,10 +74,8 @@ export default class IndexedDBAdapter {
       const queries = IndexedDBStructure.prepareDeleteQuery(typeQuery, data)
       for (const query of queries) {
         const now1 = DownloadController.timeNow.bind(new Date())()
-        // console.info('********deleteMany - objectStoreName', now1, query.objectStoreName)
         const queryResult = await this._deleteFromStore(query)
         const now2 = DownloadController.timeNow.bind(new Date())()
-        // console.info('deleteMany - queryResult', now2, queryResult)
       }
       return true
     } catch (error) {

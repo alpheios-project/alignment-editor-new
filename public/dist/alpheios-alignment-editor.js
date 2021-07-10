@@ -40176,7 +40176,7 @@ class TextsController {
   }
 
   async downloadFullData (downloadType) {
-    const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select({ alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+    const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
     const alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default.convertFromIndexedDB(dbData)
 
     const data = alignment.convertToJSON()
@@ -40217,7 +40217,7 @@ class TextsController {
   }
 
   async prepareFullDataForHTMLOutput () {
-    const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select({ alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+    const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
     const alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default.convertFromIndexedDB(dbData)
 
     return alignment.convertToHTML()
@@ -40339,7 +40339,7 @@ class TextsController {
     const allPartsAlreadyUploaded = this.alignment.hasAllPartsUploaded
 
     if (!allPartsAlreadyUploaded) {
-      const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select({ alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+      const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
       this.alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default.convertFromIndexedDB(dbData)
     }
     this.alignment.defineAllPartNumsForTexts()
@@ -40357,6 +40357,7 @@ class TextsController {
       const uploaded = this.alignment.partIsUploaded(textType, textId, segmentIndex, partNums[i])
       if (!uploaded) {
         const selectParams = {
+          userID: this.alignment.userID,
           alignmentID: this.alignment.id,
           textId,
           segmentIndex,
@@ -40678,8 +40679,10 @@ class TokensEditController {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.updateTokenWord(token, word)) {
+      this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
       this.store.commit('incrementTokenUpdated')
-      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
+
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
       return true
     }
     return false
@@ -40695,8 +40698,9 @@ class TokensEditController {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.mergeToken(token, direction)) {
+      this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
       this.store.commit('incrementTokenUpdated')
-      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
       return true
     }
     return false
@@ -40728,7 +40732,8 @@ class TokensEditController {
     }
 
     if (this.alignment.splitToken(token, tokenWord)) {
-      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
+      this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
       this.store.commit('incrementTokenUpdated')
       return true
     }
@@ -40744,7 +40749,8 @@ class TokensEditController {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.addLineBreakAfterToken(token)) {
-      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
+      this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
       this.store.commit('incrementTokenUpdated')
       return true
     }
@@ -40760,7 +40766,8 @@ class TokensEditController {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.removeLineBreakAfterToken(token)) {
-      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
+      this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
       this.store.commit('incrementTokenUpdated')
       return true
     }
@@ -40776,8 +40783,12 @@ class TokensEditController {
   moveToSegment (token, direction) {
     if (!this.checkEditable(token)) { return false }
 
-    if (this.alignment.moveToSegment(token, direction)) {
-      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
+    const data = this.alignment.moveToSegment(token, direction)
+    if (data.result) {
+      this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+      this.deleteAllPartFromStorage(token.docSourceId, data.newSegmentIndex, token.partNum)
+
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
       this.store.commit('incrementTokenUpdated')
       return true
     }
@@ -40889,9 +40900,11 @@ class TokensEditController {
    * @param {String} insertType - start (insert to the start of the first segment), end (insert to the end of the last segment)
    */
   insertTokens (tokensText, textType, textId, insertType) {
-    if (this.alignment.insertTokens(tokensText, textType, textId, insertType)) {
+    const data = this.alignment.insertTokens(tokensText, textType, textId, insertType)
+    if (data.result) {
       this.store.commit('incrementTokenUpdated')
-      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
+      this.deleteAllPartFromStorage(textId, data.segmentIndex, data.partNum)
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
       return true
     }
     return false
@@ -40907,7 +40920,8 @@ class TokensEditController {
 
     if (this.alignment.deleteToken(token)) {
       this.store.commit('incrementTokenUpdated')
-      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
+      this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
       return true
     }
     return false
@@ -40916,7 +40930,8 @@ class TokensEditController {
   undoTokensEditStep () {
     if (this.alignment.undoTokensEditStep()) {
       this.store.commit('incrementTokenUpdated')
-      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
+      // add deleteAllPartFromStorage
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
       return true
     }
     return false
@@ -40925,7 +40940,8 @@ class TokensEditController {
   redoTokensEditStep () {
     if (this.alignment.redoTokensEditStep()) {
       this.store.commit('incrementTokenUpdated')
-      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
+      // add deleteAllPartFromStorage
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
       return true
     }
     return false
@@ -40938,6 +40954,20 @@ class TokensEditController {
   get redoTokensEditAvailable () {
     return this.alignment.redoTokensEditAvailable
   }
+
+  // ${data.id}-${dataItem.textId}-${tokenItem.segmentIndex}-${tokenItem.partNum}
+
+  deleteAllPartFromStorage (textId, segmentIndex, partNum) {
+    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.deleteMany({
+      userID: this.alignment.userID,
+      alignmentID: this.alignment.id,
+      textId,
+      segmentIndex,
+      partNum
+    }, 'allPartNum')
+  }
+
+  // this.deleteAllPartFromStorage(alGroupItemID)
 }
 
 
@@ -41659,11 +41689,13 @@ class TokensEditActions {
       wasTokenIndex: tokenIndex
     }
 
+    const newPartNum = (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? newSegment.allPartNums[newSegment.allPartNums.length - 1].partNum : 1
     token.update({
       idWord: newIdWord,
-      segmentIndex: newSegment.index
+      segmentIndex: newSegment.index,
+      partNum: newPartNum
     })
-
+    // update part num
     const insertPosition = (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? newSegment.tokens.length : 0
 
     stepParams.newTokenIndex = insertPosition
@@ -41675,7 +41707,10 @@ class TokensEditActions {
 
     this.reIndexSentence(segment)
     this.reIndexSentence(newSegment)
-    return true
+    return {
+      result: true,
+      newSegmentIndex: newSegment.index
+    }
   }
 
   /**
@@ -41769,6 +41804,8 @@ class TokensEditActions {
     const alignedText = (textType === 'origin') ? this.origin.alignedText : this.targets[textId].alignedText
     const segmentToInsert = (insertType === 'start') ? alignedText.segments[0] : alignedText.segments[alignedText.segments.length - 1]
 
+    const partNum = (insertType === 'start') ? 1 : segmentToInsert.allPartNums[segmentToInsert.allPartNums.length - 1].partNum
+
     let words = tokensText.split(' ')
     if (insertType === 'start') { words = words.reverse() }
 
@@ -41795,7 +41832,12 @@ class TokensEditActions {
     })
 
     this.reIndexSentence(segmentToInsert)
-    return true
+    // add new partNum
+    return {
+      result: true,
+      segmentIndex: segmentToInsert.index,
+      partNum
+    }
   }
 
   reIndexSentence (segment) {
@@ -44656,7 +44698,6 @@ class Segment {
    */
   defineAllPartNums () {
     const charMax = _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__.default.maxCharactersPerPart
-    // console.info('******defineAllPartNums - starts', charMax)
     const parts = {}
     const allPartNums = []
     let partNum = 1
@@ -44687,14 +44728,10 @@ class Segment {
       }
     })
 
-    // console.info('allPartNums - ', allPartNums)
-    // console.info('parts - ', partNum, parts[partNum].len)
-
     if (allPartNums.length < Object.values(parts).length) {
       allPartNums.push({ partNum, len: parts[partNum].len })
     }
     this.allPartNums = allPartNums
-    // console.info('this.allPartNums - ', this.allPartNums)
     this.getCurrentPartNums()
   }
 
@@ -46072,10 +46109,8 @@ class IndexedDBAdapter {
       const queries = _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.prepareDeleteQuery(typeQuery, data)
       for (const query of queries) {
         const now1 = _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.timeNow.bind(new Date())()
-        // console.info('********deleteMany - objectStoreName', now1, query.objectStoreName)
         const queryResult = await this._deleteFromStore(query)
         const now2 = _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.timeNow.bind(new Date())()
-        // console.info('deleteMany - queryResult', now2, queryResult)
       }
       return true
     } catch (error) {
@@ -46671,9 +46706,9 @@ class IndexedDBStructure {
                 ID: uniqueID,
                 alignmentID: data.id,
                 userID: data.userID,
-                alTextIdSegIndex: `${data.id}-${dataItem.textId}-${tokenItem.segmentIndex}`,
-                alTextIdSegIdPartNum: `${data.id}-${dataItem.textId}-${tokenItem.segmentIndex}-${tokenItem.partNum}`,
-                alIDPartNum: `${data.id}-${tokenItem.partNum}`,
+                alTextIdSegIndex: `${data.userID}-${data.id}-${dataItem.textId}-${tokenItem.segmentIndex}`,
+                alTextIdSegIdPartNum: `${data.userID}-${data.id}-${dataItem.textId}-${tokenItem.segmentIndex}-${tokenItem.partNum}`,
+                alIDPartNum: `${data.userID}-${data.id}-${tokenItem.partNum}`,
                 textId: dataItem.textId,
 
                 textType: tokenItem.textType,
@@ -46767,7 +46802,7 @@ class IndexedDBStructure {
   static prepareAlignmentByAlIDQueryTemp (indexData, partNum) {
     const tokensCondition = partNum ? {
       indexName: 'alIDPartNum',
-      value: `${indexData.alignmentID}-1`,
+      value: `${indexData.userID}-${indexData.alignmentID}-1`,
       type: 'only'
     } : {
       indexName: 'alignmentID',
@@ -46881,7 +46916,7 @@ class IndexedDBStructure {
         objectStoreName: this.allObjectStoreData.tokens.name,
         condition: {
           indexName: 'alTextIdSegIdPartNum',
-          value: `${indexData.alignmentID}-${indexData.textId}-${indexData.segmentIndex}-${indexData.partNum}`,
+          value: `${indexData.userID}-${indexData.alignmentID}-${indexData.textId}-${indexData.segmentIndex}-${indexData.partNum}`,
           type: 'only'
         },
         resultType: 'multiple'
@@ -46908,9 +46943,22 @@ class IndexedDBStructure {
     const typeQueryList = {
       alignmentDataByID: this.prepareDeleteAlignmentDataByID.bind(this),
       fullAlignmentByID: this.prepareDeleteFullAlignmentByID.bind(this),
-      alignmentGroupByID: this.prepareDeleteAlignmentGroupByID.bind(this)
+      alignmentGroupByID: this.prepareDeleteAlignmentGroupByID.bind(this),
+      allPartNum: this.prepareDeleteAllPartNum.bind(this)
     }
     return typeQueryList[typeQuery](indexData)
+  }
+
+  static prepareDeleteAllPartNum (indexData) {
+    return [{
+      objectStoreName: this.allObjectStoreData.tokens.name,
+      condition: {
+        indexName: 'alTextIdSegIdPartNum',
+        // ${data.id}-${dataItem.textId}-${tokenItem.segmentIndex}-${tokenItem.partNum}
+        value: `${indexData.userID}-${indexData.alignmentID}-${indexData.textId}-${indexData.segmentIndex}-${indexData.partNum}`,
+        type: 'only'
+      }
+    }]
   }
 
   static prepareDeleteAlignmentGroupByID (indexData) {
@@ -47019,7 +47067,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i453-edit-text-Indexeddb.20210710416" : 0
+    return  true ? "i453-edit-text-Indexeddb.20210710444" : 0
   }
 
   static get libName () {
@@ -48404,6 +48452,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.segment.allPartNums) {
         result = this.$textC.getSegmentPart(this.textType, this.segment.docSourceId, this.segment.index, this.currentPartIndexes)
       }
+      console.info('allTokens - ', this.segment.allPartNums)
       return  this.$store.state.tokenUpdated && this.$store.state.uploadPartNum && this.$store.state.reuploadTextsParts ? result : []
     },
 
@@ -48575,7 +48624,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     tokenClasses () {
-      // console.info('token', this.token)
       return { 
         'alpheios-token-selected': this.selected, 
         'alpheios-token-grouped': this.grouped ,

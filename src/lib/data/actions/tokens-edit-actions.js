@@ -228,11 +228,13 @@ export default class TokensEditActions {
       wasTokenIndex: tokenIndex
     }
 
+    const newPartNum = (direction === HistoryStep.directions.PREV) ? newSegment.allPartNums[newSegment.allPartNums.length - 1].partNum : 1
     token.update({
       idWord: newIdWord,
-      segmentIndex: newSegment.index
+      segmentIndex: newSegment.index,
+      partNum: newPartNum
     })
-
+    // update part num
     const insertPosition = (direction === HistoryStep.directions.PREV) ? newSegment.tokens.length : 0
 
     stepParams.newTokenIndex = insertPosition
@@ -244,7 +246,10 @@ export default class TokensEditActions {
 
     this.reIndexSentence(segment)
     this.reIndexSentence(newSegment)
-    return true
+    return {
+      result: true,
+      newSegmentIndex: newSegment.index
+    }
   }
 
   /**
@@ -338,6 +343,8 @@ export default class TokensEditActions {
     const alignedText = (textType === 'origin') ? this.origin.alignedText : this.targets[textId].alignedText
     const segmentToInsert = (insertType === 'start') ? alignedText.segments[0] : alignedText.segments[alignedText.segments.length - 1]
 
+    const partNum = (insertType === 'start') ? 1 : segmentToInsert.allPartNums[segmentToInsert.allPartNums.length - 1].partNum
+
     let words = tokensText.split(' ')
     if (insertType === 'start') { words = words.reverse() }
 
@@ -364,7 +371,12 @@ export default class TokensEditActions {
     })
 
     this.reIndexSentence(segmentToInsert)
-    return true
+    // add new partNum
+    return {
+      result: true,
+      segmentIndex: segmentToInsert.index,
+      partNum
+    }
   }
 
   reIndexSentence (segment) {

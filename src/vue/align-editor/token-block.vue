@@ -44,7 +44,6 @@ export default {
   },
   computed: {
     tokenClasses () {
-      // console.info('token', this.token)
       return { 
         'alpheios-token-selected': this.selected, 
         'alpheios-token-grouped': this.grouped ,

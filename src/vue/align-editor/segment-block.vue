@@ -254,6 +254,7 @@ export default {
       if (this.segment.allPartNums) {
         result = this.$textC.getSegmentPart(this.textType, this.segment.docSourceId, this.segment.index, this.currentPartIndexes)
       }
+      console.info('allTokens - ', this.segment.allPartNums)
       return  this.$store.state.tokenUpdated && this.$store.state.uploadPartNum && this.$store.state.reuploadTextsParts ? result : []
     },
 

@@ -67,7 +67,6 @@ export default class Segment {
    */
   defineAllPartNums () {
     const charMax = SettingsController.maxCharactersPerPart
-    // console.info('******defineAllPartNums - starts', charMax)
     const parts = {}
     const allPartNums = []
     let partNum = 1
@@ -98,14 +97,10 @@ export default class Segment {
       }
     })
 
-    // console.info('allPartNums - ', allPartNums)
-    // console.info('parts - ', partNum, parts[partNum].len)
-
     if (allPartNums.length < Object.values(parts).length) {
       allPartNums.push({ partNum, len: parts[partNum].len })
     }
     this.allPartNums = allPartNums
-    // console.info('this.allPartNums - ', this.allPartNums)
     this.getCurrentPartNums()
   }
 
