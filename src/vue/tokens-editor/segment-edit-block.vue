@@ -1,8 +1,15 @@
 <template>
-    <div class="alpheios-alignment-editor-align-text-segment-edit" 
-         :id = "cssId" :style="cssStyle"
-         :class = "cssClass" :dir = "direction" :lang = "lang" 
-          >
+    <div class="alpheios-alignment-editor-align-text-segment-edit" >
+          <p class="alpheios-alignment-editor-align-text-parts" v-if="allPartsKeys.length > 1">
+            <span class="alpheios-alignment-editor-align-text-parts-link" 
+                  :class = "{ 'alpheios-alignment-editor-align-text-parts-link-current': currentPartIndexes.includes(parseInt(partData.partNum)) }"
+                  v-for = "partData in allPartsKeys" :key="partData.partNum"
+                  :style = partBlockStyle(partData.len)
+            >
+                  {{ 1 }}
+            </span>
+          </p>
+
         <actions-menu-token-edit 
             :token = "actionsToken" v-show="showActionsMenuFlag"
             :leftPos = "actionsMenuLeft" :topPos = "actionsMenuTop"
@@ -17,28 +24,30 @@
             @moveToPrevSegment = "moveToPrevSegment"
             @deleteToken = "deleteToken"
         />
-        <empty-tokens-input :text-type = "textType" :textId="targetId" input-type="start" v-if="segment.index === 1"/>
+        <empty-tokens-input :text-type = "textType" :textId="targetId" input-type="start" v-if="showEmptyTokensStart"/>
 
-        <template v-for = "(token, tokenIndex) in allTokens">
-          <token-edit-block
-            v-if ="token.word"
-            :token = "token" :key = "tokenIndex" :deactivated = "deactivated"
-            :updateTokenIdWord = "updateTokenIdWord === token.idWord ? updateTokenIdWord : null"
-            :mergeTokenPrevIdWord = "mergeTokenPrevIdWord === token.idWord ? mergeTokenPrevIdWord : null"
-            :mergeTokenNextIdWord = "mergeTokenNextIdWord === token.idWord ? mergeTokenNextIdWord : null"
-            :splitTokenIdWord = "splitTokenIdWord === token.idWord ? splitTokenIdWord : null"
-            :addLineBreakIdWord = "addLineBreakIdWord === token.idWord ? addLineBreakIdWord : null"
-            :removeLineBreakIdWord = "removeLineBreakIdWord === token.idWord ? removeLineBreakIdWord : null"
+      <div class="alpheios-alignment-editor-align-text-segment-tokens" :id = "cssId" :dir = "direction" :lang = "lang" >
 
-            @hideActionsMenu = "hideActionsMenu" 
-            @showActionsMenu = "showActionsMenu"
-            @removeAllActivated = "removeAllActivatedEvent"
+          <template v-for = "(token, tokenIndex) in allTokens">
+            <token-edit-block
+              v-if ="token.word"
+              :token = "token" :key = "token.idWord" :deactivated = "deactivated"
+              :updateTokenIdWord = "updateTokenIdWord === token.idWord ? updateTokenIdWord : null"
+              :mergeTokenPrevIdWord = "mergeTokenPrevIdWord === token.idWord ? mergeTokenPrevIdWord : null"
+              :mergeTokenNextIdWord = "mergeTokenNextIdWord === token.idWord ? mergeTokenNextIdWord : null"
+              :splitTokenIdWord = "splitTokenIdWord === token.idWord ? splitTokenIdWord : null"
+              :addLineBreakIdWord = "addLineBreakIdWord === token.idWord ? addLineBreakIdWord : null"
+              :removeLineBreakIdWord = "removeLineBreakIdWord === token.idWord ? removeLineBreakIdWord : null"
 
-          />
-          <br v-if="$store.state.tokenUpdated && token.hasLineBreak" />
-        </template>
+              @hideActionsMenu = "hideActionsMenu" 
+              @showActionsMenu = "showActionsMenu"
+              @removeAllActivated = "removeAllActivatedEvent"
 
-        <empty-tokens-input :text-type = "textType" :textId="targetId" input-type="end" v-if="segment.index === amountOfSegments"/>
+            />
+            <br v-if="$store.state.tokenUpdated && token.hasLineBreak" />
+          </template>
+        </div>
+        <empty-tokens-input :text-type = "textType" :textId="targetId" input-type="end" v-if="showEmptyTokensEnd"/>
     </div>
 </template>
 <script>
@@ -62,9 +71,19 @@ export default {
       required: false
     },
 
-    segment: {
-      type: Object,
+    segmentIndex: {
+      type: Number,
       required: true
+    },
+
+    textType: {
+      type: String,
+      required: false
+    },
+
+    textId: {
+      type: String,
+      required: false
     },
 
     isLast: {
@@ -105,11 +124,8 @@ export default {
     }
   },
   computed: {
-    /**
-     * @returns {String} - origin/target
-     */
-    textType () {
-      return this.segment.textType
+    segment () {
+      return this.$store.state.uploadPartNum && this.$store.state.reuploadTextsParts && this.$textC.getSegment(this.textType, this.textId, this.segmentIndex)
     },
     /**
      * @returns {String} - ltr/rtl
@@ -175,14 +191,48 @@ export default {
     alignmentGroupsWorkflowAvailable () {
       return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowAvailable
     },
+    /*
     allTokens () {
       return  this.$store.state.tokenUpdated ? this.segment.tokens : []
     },
+    */
+    currentPartIndexes () {
+      return this.$store.state.uploadPartNum && this.$store.state.reuploadTextsParts ? this.segment.currentPartNums : []
+    },
+    allTokens () {
+      return  this.$store.state.tokenUpdated && this.$store.state.uploadPartNum && this.$store.state.reuploadTextsParts ? this.segment.tokens : []
+    },
     amountOfSegments () {
       return this.$alignedGC.getAmountOfSegments(this.segment)
+    },
+    showPrev () {
+      return this.allPartsKeys.length > 0 && (Math.min(...this.currentPartIndexes) > this.allPartsKeys[0].partNum)
+    },
+
+    showNext () {
+      return this.allPartsKeys.length > 0 && (Math.max(...this.currentPartIndexes) < this.allPartsKeys[this.allPartsKeys.length-1].partNum)
+    },
+    allPartKeysLen () {
+      const sumArr = (total, partData) => total + partData.len
+      return this.allPartsKeys.length > 1 ? this.allPartsKeys.reduce(sumArr, 0) : 0
+    },
+    allPartsKeys () {
+      return  this.$store.state.tokenUpdated && this.$store.state.reuploadTextsParts && this.segment.allPartNums ? this.segment.allPartNums : []
+    },
+
+    showEmptyTokensStart () {
+      return (this.segment.index === 1) && !this.showPrev
+    },
+
+    showEmptyTokensEnd () {
+      return (this.segment.index === this.amountOfSegments) && !this.showNext
     }
   },
   methods: {
+    partBlockStyle (len) {
+      const percentLen = Math.floor(len*100/this.allPartKeysLen)
+      return `width: ${percentLen}%;`
+    },
     hideActionsMenu () {
       this.showActionsMenuFlag = false
     },

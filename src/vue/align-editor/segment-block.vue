@@ -27,7 +27,7 @@
             <template v-for = "(token, tokenIndex) in allTokens">
               <token
                 v-if ="token.word"
-                :token = "token" :key = "tokenIndex"
+                :token = "token" :key = "token.idWord"
                 @click-token = "clickToken"
                 @add-hover-token = "addHoverToken"
                 @remove-hover-token = "removeHoverToken"
@@ -447,6 +447,7 @@ export default {
   .alpheios-alignment-editor-align-text-parts-link {
     // cursor: pointer;
     display: inline-block;
+    vertical-align: middle;
     padding: 3px;
     // text-decoration: underline;
     font-size: 0;

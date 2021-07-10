@@ -43794,7 +43794,6 @@ class Alignment {
   }
 
   defineAllPartNumsForTexts () {
-    console.info('alignment', this)
     this.origin.alignedText.segments.forEach(segment => segment.defineAllPartNums())
     Object.values(this.targets).forEach(target => {
       target.alignedText.segments.forEach(segment => segment.defineAllPartNums())
@@ -47020,7 +47019,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i397-line-counter.20210708430" : 0
+    return  true ? "i453-edit-text-Indexeddb.20210710416" : 0
   }
 
   static get libName () {
@@ -53147,6 +53146,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -53168,9 +53176,19 @@ __webpack_require__.r(__webpack_exports__);
       required: false
     },
 
-    segment: {
-      type: Object,
+    segmentIndex: {
+      type: Number,
       required: true
+    },
+
+    textType: {
+      type: String,
+      required: false
+    },
+
+    textId: {
+      type: String,
+      required: false
     },
 
     isLast: {
@@ -53211,11 +53229,8 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
-    /**
-     * @returns {String} - origin/target
-     */
-    textType () {
-      return this.segment.textType
+    segment () {
+      return this.$store.state.uploadPartNum && this.$store.state.reuploadTextsParts && this.$textC.getSegment(this.textType, this.textId, this.segmentIndex)
     },
     /**
      * @returns {String} - ltr/rtl
@@ -53281,14 +53296,48 @@ __webpack_require__.r(__webpack_exports__);
     alignmentGroupsWorkflowAvailable () {
       return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowAvailable
     },
+    /*
     allTokens () {
       return  this.$store.state.tokenUpdated ? this.segment.tokens : []
     },
+    */
+    currentPartIndexes () {
+      return this.$store.state.uploadPartNum && this.$store.state.reuploadTextsParts ? this.segment.currentPartNums : []
+    },
+    allTokens () {
+      return  this.$store.state.tokenUpdated && this.$store.state.uploadPartNum && this.$store.state.reuploadTextsParts ? this.segment.tokens : []
+    },
     amountOfSegments () {
       return this.$alignedGC.getAmountOfSegments(this.segment)
+    },
+    showPrev () {
+      return this.allPartsKeys.length > 0 && (Math.min(...this.currentPartIndexes) > this.allPartsKeys[0].partNum)
+    },
+
+    showNext () {
+      return this.allPartsKeys.length > 0 && (Math.max(...this.currentPartIndexes) < this.allPartsKeys[this.allPartsKeys.length-1].partNum)
+    },
+    allPartKeysLen () {
+      const sumArr = (total, partData) => total + partData.len
+      return this.allPartsKeys.length > 1 ? this.allPartsKeys.reduce(sumArr, 0) : 0
+    },
+    allPartsKeys () {
+      return  this.$store.state.tokenUpdated && this.$store.state.reuploadTextsParts && this.segment.allPartNums ? this.segment.allPartNums : []
+    },
+
+    showEmptyTokensStart () {
+      return (this.segment.index === 1) && !this.showPrev
+    },
+
+    showEmptyTokensEnd () {
+      return (this.segment.index === this.amountOfSegments) && !this.showNext
     }
   },
   methods: {
+    partBlockStyle (len) {
+      const percentLen = Math.floor(len*100/this.allPartKeysLen)
+      return `width: ${percentLen}%;`
+    },
     hideActionsMenu () {
       this.showActionsMenuFlag = false
     },
@@ -53584,6 +53633,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_tokens_editor_segment_edit_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/tokens-editor/segment-edit-block.vue */ "./vue/tokens-editor/segment-edit-block.vue");
 /* harmony import */ var _vue_tokens_editor_actions_menu_tokens_editor_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/tokens-editor/actions-menu-tokens-editor.vue */ "./vue/tokens-editor/actions-menu-tokens-editor.vue");
 /* harmony import */ var _vue_common_editor_tabs_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/common/editor-tabs.vue */ "./vue/common/editor-tabs.vue");
+//
 //
 //
 //
@@ -58531,7 +58581,7 @@ var render = function() {
             return [
               token.word
                 ? _c("token", {
-                    key: tokenIndex,
+                    key: token.idWord,
                     attrs: {
                       token: token,
                       selected:
@@ -64165,13 +64215,33 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    {
-      staticClass: "alpheios-alignment-editor-align-text-segment-edit",
-      class: _vm.cssClass,
-      style: _vm.cssStyle,
-      attrs: { id: _vm.cssId, dir: _vm.direction, lang: _vm.lang }
-    },
+    { staticClass: "alpheios-alignment-editor-align-text-segment-edit" },
     [
+      _vm.allPartsKeys.length > 1
+        ? _c(
+            "p",
+            { staticClass: "alpheios-alignment-editor-align-text-parts" },
+            _vm._l(_vm.allPartsKeys, function(partData) {
+              return _c(
+                "span",
+                {
+                  key: partData.partNum,
+                  staticClass:
+                    "alpheios-alignment-editor-align-text-parts-link",
+                  class: {
+                    "alpheios-alignment-editor-align-text-parts-link-current": _vm.currentPartIndexes.includes(
+                      parseInt(partData.partNum)
+                    )
+                  },
+                  style: _vm.partBlockStyle(partData.len)
+                },
+                [_vm._v("\n              " + _vm._s(1) + "\n        ")]
+              )
+            }),
+            0
+          )
+        : _vm._e(),
+      _vm._v(" "),
       _c("actions-menu-token-edit", {
         directives: [
           {
@@ -64199,7 +64269,7 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _vm.segment.index === 1
+      _vm.showEmptyTokensStart
         ? _c("empty-tokens-input", {
             attrs: {
               "text-type": _vm.textType,
@@ -64209,54 +64279,64 @@ var render = function() {
           })
         : _vm._e(),
       _vm._v(" "),
-      _vm._l(_vm.allTokens, function(token, tokenIndex) {
-        return [
-          token.word
-            ? _c("token-edit-block", {
-                key: tokenIndex,
-                attrs: {
-                  token: token,
-                  deactivated: _vm.deactivated,
-                  updateTokenIdWord:
-                    _vm.updateTokenIdWord === token.idWord
-                      ? _vm.updateTokenIdWord
-                      : null,
-                  mergeTokenPrevIdWord:
-                    _vm.mergeTokenPrevIdWord === token.idWord
-                      ? _vm.mergeTokenPrevIdWord
-                      : null,
-                  mergeTokenNextIdWord:
-                    _vm.mergeTokenNextIdWord === token.idWord
-                      ? _vm.mergeTokenNextIdWord
-                      : null,
-                  splitTokenIdWord:
-                    _vm.splitTokenIdWord === token.idWord
-                      ? _vm.splitTokenIdWord
-                      : null,
-                  addLineBreakIdWord:
-                    _vm.addLineBreakIdWord === token.idWord
-                      ? _vm.addLineBreakIdWord
-                      : null,
-                  removeLineBreakIdWord:
-                    _vm.removeLineBreakIdWord === token.idWord
-                      ? _vm.removeLineBreakIdWord
-                      : null
-                },
-                on: {
-                  hideActionsMenu: _vm.hideActionsMenu,
-                  showActionsMenu: _vm.showActionsMenu,
-                  removeAllActivated: _vm.removeAllActivatedEvent
-                }
-              })
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.$store.state.tokenUpdated && token.hasLineBreak
-            ? _c("br")
-            : _vm._e()
-        ]
-      }),
+      _c(
+        "div",
+        {
+          staticClass: "alpheios-alignment-editor-align-text-segment-tokens",
+          attrs: { id: _vm.cssId, dir: _vm.direction, lang: _vm.lang }
+        },
+        [
+          _vm._l(_vm.allTokens, function(token, tokenIndex) {
+            return [
+              token.word
+                ? _c("token-edit-block", {
+                    key: token.idWord,
+                    attrs: {
+                      token: token,
+                      deactivated: _vm.deactivated,
+                      updateTokenIdWord:
+                        _vm.updateTokenIdWord === token.idWord
+                          ? _vm.updateTokenIdWord
+                          : null,
+                      mergeTokenPrevIdWord:
+                        _vm.mergeTokenPrevIdWord === token.idWord
+                          ? _vm.mergeTokenPrevIdWord
+                          : null,
+                      mergeTokenNextIdWord:
+                        _vm.mergeTokenNextIdWord === token.idWord
+                          ? _vm.mergeTokenNextIdWord
+                          : null,
+                      splitTokenIdWord:
+                        _vm.splitTokenIdWord === token.idWord
+                          ? _vm.splitTokenIdWord
+                          : null,
+                      addLineBreakIdWord:
+                        _vm.addLineBreakIdWord === token.idWord
+                          ? _vm.addLineBreakIdWord
+                          : null,
+                      removeLineBreakIdWord:
+                        _vm.removeLineBreakIdWord === token.idWord
+                          ? _vm.removeLineBreakIdWord
+                          : null
+                    },
+                    on: {
+                      hideActionsMenu: _vm.hideActionsMenu,
+                      showActionsMenu: _vm.showActionsMenu,
+                      removeAllActivated: _vm.removeAllActivatedEvent
+                    }
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.$store.state.tokenUpdated && token.hasLineBreak
+                ? _c("br")
+                : _vm._e()
+            ]
+          })
+        ],
+        2
+      ),
       _vm._v(" "),
-      _vm.segment.index === _vm.amountOfSegments
+      _vm.showEmptyTokensEnd
         ? _c("empty-tokens-input", {
             attrs: {
               "text-type": _vm.textType,
@@ -64266,7 +64346,7 @@ var render = function() {
           })
         : _vm._e()
     ],
-    2
+    1
   )
 }
 var staticRenderFns = []
@@ -64459,9 +64539,11 @@ var render = function() {
                 [
                   _c("segment-edit-block", {
                     attrs: {
-                      segment: segmentData.origin,
                       currentTargetId: _vm.currentTargetId,
-                      blockTokensActionsFlag: _vm.blockTokensActionsFlag
+                      blockTokensActionsFlag: _vm.blockTokensActionsFlag,
+                      segmentIndex: segmentData.origin.index,
+                      textType: "origin",
+                      textId: segmentData.origin.docSourceId
                     },
                     on: { removeAllActivated: _vm.removeAllActivated }
                   })
@@ -64487,7 +64569,9 @@ var render = function() {
                     ],
                     key: _vm.getIndex("target", segmentData.index, targetId),
                     attrs: {
-                      segment: segmentTarget,
+                      segmentIndex: segmentTarget.index,
+                      textType: "target",
+                      textId: segmentTarget.docSourceId,
                       isLast: _vm.lastTargetId && targetId === _vm.lastTargetId,
                       currentTargetId: _vm.currentTargetId,
                       blockTokensActionsFlag: _vm.blockTokensActionsFlag

@@ -1968,6 +1968,7 @@ span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-edit
 }
 .alpheios-alignment-editor-align-text-parts-link {
   display: inline-block;
+  vertical-align: middle;
   padding: 3px;
   font-size: 0;
   background: #c6c6c6;
