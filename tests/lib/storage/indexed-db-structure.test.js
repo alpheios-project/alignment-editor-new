@@ -217,7 +217,7 @@ describe('indexed-db-structure.test.js', () => {
     expect(result.length).toEqual(949)
 
     expect(result[0].ID).toEqual(`${alignment1.userID}-${alignment1.id}-${alignment1.origin.docSource.id}-${alignment1.origin.alignedText.segments[0].index}-${alignment1.origin.alignedText.segments[0].tokens[0].idWord}`)
-    expect(result[0].alTextIdSegIndex).toEqual(`${alignment1.id}-${alignment1.origin.docSource.id}-${alignment1.origin.alignedText.segments[0].index}`)
+    expect(result[0].alTextIdSegIndex).toEqual(`${alignment1.userID}-${alignment1.id}-${alignment1.origin.docSource.id}-${alignment1.origin.alignedText.segments[0].index}`)
     expect(result[0].textType).toEqual('origin')
     expect(result[0].idWord).toEqual('1-0-0')
     expect(result[0].word).toEqual('[')

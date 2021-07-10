@@ -27,7 +27,7 @@
             <template v-for = "(token, tokenIndex) in allTokens">
               <token
                 v-if ="token.word"
-                :token = "token" :key = "tokenIndex"
+                :token = "token" :key = "token.idWord"
                 @click-token = "clickToken"
                 @add-hover-token = "addHoverToken"
                 @remove-hover-token = "removeHoverToken"
@@ -254,6 +254,7 @@ export default {
       if (this.segment.allPartNums) {
         result = this.$textC.getSegmentPart(this.textType, this.segment.docSourceId, this.segment.index, this.currentPartIndexes)
       }
+      console.info('allTokens - ', this.segment.allPartNums)
       return  this.$store.state.tokenUpdated && this.$store.state.uploadPartNum && this.$store.state.reuploadTextsParts ? result : []
     },
 
@@ -447,6 +448,7 @@ export default {
   .alpheios-alignment-editor-align-text-parts-link {
     // cursor: pointer;
     display: inline-block;
+    vertical-align: middle;
     padding: 3px;
     // text-decoration: underline;
     font-size: 0;

@@ -14,14 +14,15 @@
       >
         <div class="alpheios-alignment-editor-align-segment-edit-data-item alpheios-alignment-editor-align-segment-data-origin">
           <segment-edit-block 
-                  :segment = "segmentData.origin" :currentTargetId = "currentTargetId" :blockTokensActionsFlag = "blockTokensActionsFlag"
+                  :currentTargetId = "currentTargetId" :blockTokensActionsFlag = "blockTokensActionsFlag"
+                  :segmentIndex = "segmentData.origin.index" textType = "origin" :textId = "segmentData.origin.docSourceId"
                    @removeAllActivated = "removeAllActivated"
           />
         </div>
 
         <div class="alpheios-alignment-editor-align-segment-edit-data-item alpheios-alignment-editor-align-segment-data-target">
           <segment-edit-block v-for="(segmentTarget, targetId) in segmentData.targets" :key="getIndex('target',segmentData.index, targetId)"
-                  :segment = "segmentTarget" 
+                  :segmentIndex = "segmentTarget.index" textType = "target" :textId = "segmentTarget.docSourceId"
                   :isLast = "lastTargetId && (targetId === lastTargetId)" :currentTargetId = "currentTargetId"
                   v-show="isShownTab(targetId)"
                   :blockTokensActionsFlag = "blockTokensActionsFlag"

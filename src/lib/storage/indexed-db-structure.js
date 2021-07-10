@@ -318,9 +318,9 @@ export default class IndexedDBStructure {
                 ID: uniqueID,
                 alignmentID: data.id,
                 userID: data.userID,
-                alTextIdSegIndex: `${data.id}-${dataItem.textId}-${tokenItem.segmentIndex}`,
-                alTextIdSegIdPartNum: `${data.id}-${dataItem.textId}-${tokenItem.segmentIndex}-${tokenItem.partNum}`,
-                alIDPartNum: `${data.id}-${tokenItem.partNum}`,
+                alTextIdSegIndex: `${data.userID}-${data.id}-${dataItem.textId}-${tokenItem.segmentIndex}`,
+                alTextIdSegIdPartNum: `${data.userID}-${data.id}-${dataItem.textId}-${tokenItem.segmentIndex}-${tokenItem.partNum}`,
+                alIDPartNum: `${data.userID}-${data.id}-${tokenItem.partNum}`,
                 textId: dataItem.textId,
 
                 textType: tokenItem.textType,
@@ -414,7 +414,7 @@ export default class IndexedDBStructure {
   static prepareAlignmentByAlIDQueryTemp (indexData, partNum) {
     const tokensCondition = partNum ? {
       indexName: 'alIDPartNum',
-      value: `${indexData.alignmentID}-1`,
+      value: `${indexData.userID}-${indexData.alignmentID}-1`,
       type: 'only'
     } : {
       indexName: 'alignmentID',
@@ -528,7 +528,7 @@ export default class IndexedDBStructure {
         objectStoreName: this.allObjectStoreData.tokens.name,
         condition: {
           indexName: 'alTextIdSegIdPartNum',
-          value: `${indexData.alignmentID}-${indexData.textId}-${indexData.segmentIndex}-${indexData.partNum}`,
+          value: `${indexData.userID}-${indexData.alignmentID}-${indexData.textId}-${indexData.segmentIndex}-${indexData.partNum}`,
           type: 'only'
         },
         resultType: 'multiple'
@@ -555,9 +555,22 @@ export default class IndexedDBStructure {
     const typeQueryList = {
       alignmentDataByID: this.prepareDeleteAlignmentDataByID.bind(this),
       fullAlignmentByID: this.prepareDeleteFullAlignmentByID.bind(this),
-      alignmentGroupByID: this.prepareDeleteAlignmentGroupByID.bind(this)
+      alignmentGroupByID: this.prepareDeleteAlignmentGroupByID.bind(this),
+      allPartNum: this.prepareDeleteAllPartNum.bind(this)
     }
     return typeQueryList[typeQuery](indexData)
+  }
+
+  static prepareDeleteAllPartNum (indexData) {
+    return [{
+      objectStoreName: this.allObjectStoreData.tokens.name,
+      condition: {
+        indexName: 'alTextIdSegIdPartNum',
+        // ${data.id}-${dataItem.textId}-${tokenItem.segmentIndex}-${tokenItem.partNum}
+        value: `${indexData.userID}-${indexData.alignmentID}-${indexData.textId}-${indexData.segmentIndex}-${indexData.partNum}`,
+        type: 'only'
+      }
+    }]
   }
 
   static prepareDeleteAlignmentGroupByID (indexData) {

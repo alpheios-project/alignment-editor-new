@@ -32,8 +32,10 @@ export default class TokensEditController {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.updateTokenWord(token, word)) {
+      this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
       this.store.commit('incrementTokenUpdated')
-      StorageController.update(this.alignment, true)
+
+      StorageController.update(this.alignment)
       return true
     }
     return false
@@ -49,8 +51,9 @@ export default class TokensEditController {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.mergeToken(token, direction)) {
+      this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
       this.store.commit('incrementTokenUpdated')
-      StorageController.update(this.alignment, true)
+      StorageController.update(this.alignment)
       return true
     }
     return false
@@ -82,7 +85,8 @@ export default class TokensEditController {
     }
 
     if (this.alignment.splitToken(token, tokenWord)) {
-      StorageController.update(this.alignment, true)
+      this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+      StorageController.update(this.alignment)
       this.store.commit('incrementTokenUpdated')
       return true
     }
@@ -98,7 +102,8 @@ export default class TokensEditController {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.addLineBreakAfterToken(token)) {
-      StorageController.update(this.alignment, true)
+      this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+      StorageController.update(this.alignment)
       this.store.commit('incrementTokenUpdated')
       return true
     }
@@ -114,7 +119,8 @@ export default class TokensEditController {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.removeLineBreakAfterToken(token)) {
-      StorageController.update(this.alignment, true)
+      this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+      StorageController.update(this.alignment)
       this.store.commit('incrementTokenUpdated')
       return true
     }
@@ -130,8 +136,12 @@ export default class TokensEditController {
   moveToSegment (token, direction) {
     if (!this.checkEditable(token)) { return false }
 
-    if (this.alignment.moveToSegment(token, direction)) {
-      StorageController.update(this.alignment, true)
+    const data = this.alignment.moveToSegment(token, direction)
+    if (data.result) {
+      this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+      this.deleteAllPartFromStorage(token.docSourceId, data.newSegmentIndex, token.partNum)
+
+      StorageController.update(this.alignment)
       this.store.commit('incrementTokenUpdated')
       return true
     }
@@ -243,9 +253,11 @@ export default class TokensEditController {
    * @param {String} insertType - start (insert to the start of the first segment), end (insert to the end of the last segment)
    */
   insertTokens (tokensText, textType, textId, insertType) {
-    if (this.alignment.insertTokens(tokensText, textType, textId, insertType)) {
+    const data = this.alignment.insertTokens(tokensText, textType, textId, insertType)
+    if (data.result) {
       this.store.commit('incrementTokenUpdated')
-      StorageController.update(this.alignment, true)
+      this.deleteAllPartFromStorage(textId, data.segmentIndex, data.partNum)
+      StorageController.update(this.alignment)
       return true
     }
     return false
@@ -261,7 +273,8 @@ export default class TokensEditController {
 
     if (this.alignment.deleteToken(token)) {
       this.store.commit('incrementTokenUpdated')
-      StorageController.update(this.alignment, true)
+      this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+      StorageController.update(this.alignment)
       return true
     }
     return false
@@ -270,7 +283,8 @@ export default class TokensEditController {
   undoTokensEditStep () {
     if (this.alignment.undoTokensEditStep()) {
       this.store.commit('incrementTokenUpdated')
-      StorageController.update(this.alignment, true)
+      // add deleteAllPartFromStorage
+      StorageController.update(this.alignment)
       return true
     }
     return false
@@ -279,7 +293,8 @@ export default class TokensEditController {
   redoTokensEditStep () {
     if (this.alignment.redoTokensEditStep()) {
       this.store.commit('incrementTokenUpdated')
-      StorageController.update(this.alignment, true)
+      // add deleteAllPartFromStorage
+      StorageController.update(this.alignment)
       return true
     }
     return false
@@ -292,4 +307,18 @@ export default class TokensEditController {
   get redoTokensEditAvailable () {
     return this.alignment.redoTokensEditAvailable
   }
+
+  // ${data.id}-${dataItem.textId}-${tokenItem.segmentIndex}-${tokenItem.partNum}
+
+  deleteAllPartFromStorage (textId, segmentIndex, partNum) {
+    StorageController.deleteMany({
+      userID: this.alignment.userID,
+      alignmentID: this.alignment.id,
+      textId,
+      segmentIndex,
+      partNum
+    }, 'allPartNum')
+  }
+
+  // this.deleteAllPartFromStorage(alGroupItemID)
 }

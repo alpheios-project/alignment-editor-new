@@ -315,7 +315,7 @@ export default class TextsController {
   }
 
   async downloadFullData (downloadType) {
-    const dbData = await StorageController.select({ alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+    const dbData = await StorageController.select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
     const alignment = await Alignment.convertFromIndexedDB(dbData)
 
     const data = alignment.convertToJSON()
@@ -356,7 +356,7 @@ export default class TextsController {
   }
 
   async prepareFullDataForHTMLOutput () {
-    const dbData = await StorageController.select({ alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+    const dbData = await StorageController.select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
     const alignment = await Alignment.convertFromIndexedDB(dbData)
 
     return alignment.convertToHTML()
@@ -478,7 +478,7 @@ export default class TextsController {
     const allPartsAlreadyUploaded = this.alignment.hasAllPartsUploaded
 
     if (!allPartsAlreadyUploaded) {
-      const dbData = await StorageController.select({ alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+      const dbData = await StorageController.select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
       this.alignment = await Alignment.convertFromIndexedDB(dbData)
     }
     this.alignment.defineAllPartNumsForTexts()
@@ -496,6 +496,7 @@ export default class TextsController {
       const uploaded = this.alignment.partIsUploaded(textType, textId, segmentIndex, partNums[i])
       if (!uploaded) {
         const selectParams = {
+          userID: this.alignment.userID,
           alignmentID: this.alignment.id,
           textId,
           segmentIndex,
