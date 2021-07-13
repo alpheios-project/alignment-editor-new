@@ -75,24 +75,27 @@ export default class EditorHistory {
 
     let data = [] // eslint-disable-line prefer-const
     let result = true
+    let dataIndexedDB = []
 
     if (this.currentStepIndex > stepIndex) {
       for (let i = this.currentStepIndex; i > stepIndex; i--) {
         const dataResult = this.doStepAction(i, 'remove')
         result = result && dataResult.result
         if (dataResult.data) { data.push(dataResult.data) }
+        dataIndexedDB.push(dataResult.dataIndexedDB)
       }
     } else if (this.currentStepIndex < stepIndex) {
       for (let i = this.currentStepIndex + 1; i <= stepIndex; i++) {
         const dataResult = this.doStepAction(i, 'apply')
         result = result && dataResult.result
         if (dataResult.data) { data.push(dataResult.data) }
+        dataIndexedDB.push(dataResult.dataIndexedDB)
       }
     }
 
     this.currentStepIndex = stepIndex
     return {
-      result, data
+      result, data, dataIndexedDB
     }
   }
 
@@ -117,13 +120,18 @@ export default class EditorHistory {
     let finalResult
     try {
       finalResult = actions[typeAction][step.type](step)
+      
     } catch (e) {
       console.error(e)
       finalResult = {
         result: false
       }
     }
-
+    finalResult.dataIndexedDB = this.prepareDataForIndexedDBCorrect(step)
     return finalResult
+  }
+
+  prepareDataForIndexedDBCorrect () {
+    return {}
   }
 }

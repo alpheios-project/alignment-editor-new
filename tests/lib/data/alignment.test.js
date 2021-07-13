@@ -1191,7 +1191,6 @@ describe('alignment.test.js', () => {
 
   })
 
-
   it('31 Alignment - undoInActiveGroup executes undo for the active alignment group and executes insertUnmergedGroup if it was a merge step', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }

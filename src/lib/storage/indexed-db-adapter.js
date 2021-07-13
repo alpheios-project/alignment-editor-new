@@ -73,9 +73,9 @@ export default class IndexedDBAdapter {
     try {
       const queries = IndexedDBStructure.prepareDeleteQuery(typeQuery, data)
       for (const query of queries) {
-        const now1 = DownloadController.timeNow.bind(new Date())()
+        // const now1 = DownloadController.timeNow.bind(new Date())()
         const queryResult = await this._deleteFromStore(query)
-        const now2 = DownloadController.timeNow.bind(new Date())()
+        // const now2 = DownloadController.timeNow.bind(new Date())()
       }
       return true
     } catch (error) {

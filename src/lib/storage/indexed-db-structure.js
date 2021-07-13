@@ -1,6 +1,6 @@
 export default class IndexedDBStructure {
   static get dbVersion () {
-    return 5
+    return 6
   }
 
   static get dbName () {
@@ -124,7 +124,7 @@ export default class IndexedDBStructure {
           { indexName: 'ID', keyPath: 'ID', unique: true },
           { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
           { indexName: 'userID', keyPath: 'userID', unique: false },
-          { indexName: 'alTextIdSegId', keyPath: 'alTextIdSegId', unique: false },
+          { indexName: 'alTextIdSegIndex', keyPath: 'alTextIdSegId', unique: false },
           { indexName: 'alTextIdSegIdPartNum', keyPath: 'alTextIdSegIdPartNum', unique: false },
           { indexName: 'alIDPartNum', keyPath: 'alIDPartNum', unique: false }
         ]
