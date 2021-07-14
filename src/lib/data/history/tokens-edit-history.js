@@ -9,12 +9,12 @@ export default class TokensEditHistory extends EditorHistory {
   }
 
   prepareDataForIndexedDBCorrect (step) {
-    const onlyToken = [ HistoryStep.types.UPDATE, HistoryStep.types.SPLIT, HistoryStep.types.ADD_LINE_BREAK, HistoryStep.types.REMOVE_LINE_BREAK ]
+    const onlyToken = [HistoryStep.types.UPDATE, HistoryStep.types.SPLIT, HistoryStep.types.ADD_LINE_BREAK, HistoryStep.types.REMOVE_LINE_BREAK]
 
     if (onlyToken.includes(step.type)) {
-      return { type: step.type, token: step.token}
+      return { type: step.type, token: step.token }
     } else if (step.type === HistoryStep.types.MERGE) {
-      let data = { type: step.type, token: step.token }
+      const data = { type: step.type, token: step.token }
       if (step.params.mergedToken && (step.params.mergedToken.partNum !== step.token.partNum)) {
         data.mergedToken = step.params.mergedToken
       }
@@ -31,11 +31,10 @@ export default class TokensEditHistory extends EditorHistory {
 
       return { type: step.type, token: step.token, newSegmentIndex, newPartNum }
     } else if (step.type === HistoryStep.types.NEW) {
-      const checkToken = (step.params.insertType === 'start') ? step.params.segmentToInsert.tokens[0] : step.params.segmentToInsert.tokens[step.params.segmentToInsert.tokens.length-1]
+      const checkToken = (step.params.insertType === 'start') ? step.params.segmentToInsert.tokens[0] : step.params.segmentToInsert.tokens[step.params.segmentToInsert.tokens.length - 1]
       return { type: step.type, token: checkToken }
     } else if (step.type === HistoryStep.types.DELETE) {
-      return { type: step.type, token: step.params.deletedToken}
+      return { type: step.type, token: step.params.deletedToken }
     }
-
   }
 }

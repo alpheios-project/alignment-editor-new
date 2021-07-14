@@ -199,6 +199,10 @@ export default class AlignmentGroup {
     return this.alignmentGroupHistory.redo()
   }
 
+  get undoAvailable () {
+    return this.alignmentGroupHistory.undoAvailable
+  }
+
   /**
    * The full list with undo/redo actions - removeStepAction, applyStepAction for all step types
    * used in doStepAction
