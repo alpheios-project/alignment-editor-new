@@ -75,7 +75,7 @@ export default class EditorHistory {
 
     let data = [] // eslint-disable-line prefer-const
     let result = true
-    let dataIndexedDB = []
+    const dataIndexedDB = []
 
     if (this.currentStepIndex > stepIndex) {
       for (let i = this.currentStepIndex; i > stepIndex; i--) {
@@ -120,7 +120,6 @@ export default class EditorHistory {
     let finalResult
     try {
       finalResult = actions[typeAction][step.type](step)
-      
     } catch (e) {
       console.error(e)
       finalResult = {

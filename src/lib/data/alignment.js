@@ -681,7 +681,7 @@ export default class Alignment {
 
     const dataResult = this.activeAlignmentGroup.undo()
 
-    if (dataResult.result && dataResult.data.length > 0) {
+    if (dataResult && dataResult.result && dataResult.data.length > 0) {
       for (let i = 0; i < dataResult.data.length; i++) {
         this.insertUnmergedGroup(dataResult.data[i])
       }

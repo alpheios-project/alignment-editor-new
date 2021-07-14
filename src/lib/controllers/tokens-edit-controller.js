@@ -48,7 +48,7 @@ export default class TokensEditController {
    * @param {String} direction
    * @returns {Boolean}
    */
-   async mergeToken (token, direction) {
+  async mergeToken (token, direction) {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.mergeToken(token, direction)) {
@@ -125,7 +125,7 @@ export default class TokensEditController {
 
       await this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
       await StorageController.update(this.alignment)
-      
+
       return true
     }
     return false
@@ -298,7 +298,6 @@ export default class TokensEditController {
       return true
     }
     return false
-
   }
 
   async redoTokensEditStep () {
@@ -322,9 +321,9 @@ export default class TokensEditController {
   }
 
   async prepareDeleteFromStorage (dataIndexedDB) {
-    const onlyToken = [ HistoryStep.types.UPDATE, HistoryStep.types.SPLIT, HistoryStep.types.ADD_LINE_BREAK, HistoryStep.types.REMOVE_LINE_BREAK, HistoryStep.types.NEW, HistoryStep.types.DELETE ]
+    const onlyToken = [HistoryStep.types.UPDATE, HistoryStep.types.SPLIT, HistoryStep.types.ADD_LINE_BREAK, HistoryStep.types.REMOVE_LINE_BREAK, HistoryStep.types.NEW, HistoryStep.types.DELETE]
 
-    for (let i=0; i < dataIndexedDB.length; i++) {
+    for (let i = 0; i < dataIndexedDB.length; i++) {
       const data = dataIndexedDB[i]
       if (onlyToken.includes(data.type)) {
         await this.deleteAllPartFromStorage(data.token.docSourceId, data.token.segmentIndex, data.token.partNum)

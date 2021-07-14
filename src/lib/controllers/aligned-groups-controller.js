@@ -107,25 +107,25 @@ export default class AlignedGroupsController {
    * @param {Token} token
    * @param {String|Null} limitByTargetId - docSource of the current target document
    */
-  clickToken (token, limitByTargetId = null) {
+  async clickToken (token, limitByTargetId = null) {
     if (!this.hasActiveAlignmentGroup) {
       if (this.tokenIsGrouped(token, limitByTargetId)) {
         const alGroupItemID = this.activateGroupByToken(token, limitByTargetId)
-        this.deleteAlGroupFromStorage(alGroupItemID)
+        await this.deleteAlGroupFromStorage(alGroupItemID)
       } else {
         this.startNewAlignmentGroup(token, limitByTargetId)
       }
     } else {
       if (this.shouldFinishAlignmentGroup(token, limitByTargetId)) {
         this.finishActiveAlignmentGroup()
-        StorageController.update(this.alignment)
+        await StorageController.update(this.alignment)
       } else if (this.shouldRemoveFromAlignmentGroup(token, limitByTargetId)) {
         this.removeFromAlignmentGroup(token, limitByTargetId)
       } else if (this.tokenIsGrouped(token, limitByTargetId)) {
         const alGroupItemID = this.mergeActiveGroupWithAnotherByToken(token, limitByTargetId)
 
-        this.deleteAlGroupFromStorage(alGroupItemID)
-        StorageController.update(this.alignment)
+        await this.deleteAlGroupFromStorage(alGroupItemID)
+        await StorageController.update(this.alignment)
       } else {
         this.addToAlignmentGroup(token, limitByTargetId)
       }
