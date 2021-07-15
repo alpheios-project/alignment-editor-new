@@ -92,6 +92,21 @@
       "minValue": 1,
       "maxValue": 50000,
       "values": []
+    },
+    "addIndexedDBSupport": {
+      "defaultValue": true,
+      "labelText": "Add IndexedDB support",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "Yes"
+        },
+        {
+          "value": false,
+          "text": "No"
+        }
+      ]
     }
   }
 }

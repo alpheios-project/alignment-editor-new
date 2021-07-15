@@ -39443,6 +39443,7 @@ class HistoryController {
       result = this.alignment.activateGroupByGroupIndex(this.alignment.alignmentGroups.length - 1)
       await this.deleteAlGroupFromStorage(this.alignment.activeAlignmentGroup.id)
     }
+
     if (result) {
       this.store.commit('incrementAlignmentUpdated')
       this.undoneSteps = this.undoneSteps + 1
@@ -39513,6 +39514,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _settings_default_source_text_settings_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/settings/default-source-text-settings.json */ "./settings/default-source-text-settings.json");
 /* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
 /* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
+/* harmony import */ var _storage_controller__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./storage-controller */ "./lib/controllers/storage-controller.js");
+
 
 
 
@@ -39560,6 +39563,7 @@ class SettingsController {
     const optionsPromises = Object.values(_instance.options).map(options => options.load())
 
     await Promise.all(optionsPromises)
+    Object.values(_instance.options.app.items).forEach(optionItem => this.changeOption(optionItem))
     this.submitEventUpdateTheme()
   }
 
@@ -39599,6 +39603,10 @@ class SettingsController {
 
   static get maxCharactersPerPart () {
     return _instance.options.app && _instance.options.app.items.maxCharactersPerPart ? _instance.options.app.items.maxCharactersPerPart.currentValue : 1000
+  }
+
+  static get addIndexedDBSupport () {
+    return _instance.options.app && _instance.options.app.items.addIndexedDBSupport ? _instance.options.app.items.addIndexedDBSupport.currentValue : 1000
   }
 
   /**
@@ -39677,9 +39685,12 @@ class SettingsController {
    */
   static changeOption (optionItem) {
     const optionNameParts = optionItem.name.split('__')
+    // console.info('changeOption - ', optionNameParts)
 
     if (optionNameParts[2] === 'theme') {
       this.submitEventUpdateTheme()
+    } else if (optionNameParts[2] === 'addIndexedDBSupport') {
+      _storage_controller__WEBPACK_IMPORTED_MODULE_5__.default.changeIndexedDBSupport(optionItem.currentValue)
     }
     _instance.store.commit('incrementOptionsUpdated')
   }
@@ -39790,7 +39801,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_storage_indexed_db_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/storage/indexed-db-adapter.js */ "./lib/storage/indexed-db-adapter.js");
 
 
-let dbAdapter
+let dbAdapter, addIndexedDBSupportValue
 
 class StorageController {
   static definedDBAdapter () {
@@ -39799,8 +39810,12 @@ class StorageController {
     }
   }
 
+  static changeIndexedDBSupport (optionValue) {
+    addIndexedDBSupportValue = optionValue
+  }
+
   static get dbAdapterAvailable () {
-    return dbAdapter && dbAdapter.available
+    return addIndexedDBSupportValue && dbAdapter && dbAdapter.available
   }
 
   static async update (alignment, clearFirst = false, textAsBlob = false) {
@@ -40186,10 +40201,15 @@ class TextsController {
   }
 
   async downloadFullData (downloadType) {
-    const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
-    const alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default.convertFromIndexedDB(dbData)
+    let data
+    if (!this.alignment.hasAllPartsUploaded) {
+      const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+      const alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default.convertFromIndexedDB(dbData)
 
-    const data = alignment.convertToJSON()
+      data = alignment.convertToJSON()
+    } else {
+      data = this.alignment.convertToJSON()
+    }
     return {
       downloadType, data
     }
@@ -40386,6 +40406,10 @@ class TextsController {
 
   getSegment (textType, textId, segmentIndex) {
     return this.alignment.getSegment(textType, textId, segmentIndex)
+  }
+
+  get indexedDBAvailable () {
+    return _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.dbAdapterAvailable
   }
 }
 
@@ -43929,7 +43953,8 @@ class Alignment {
   }
 
   get hasAllPartsUploaded () {
-    return this.origin.alignedText.hasAllPartsUploaded && Object.values(this.targets).every(target => target.alignedText.hasAllPartsUploaded)
+    return !(this.origin.alignedText) ||
+           (this.origin.alignedText.hasAllPartsUploaded && Object.values(this.targets).every(target => target.alignedText.hasAllPartsUploaded))
   }
 }
 
@@ -46425,10 +46450,12 @@ class IndexedDBAdapter {
       request.onsuccess = (event) => {
         try {
           const db = event.target.result
+
           const objectStores = Object.values(_lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.allObjectStoreData)
           let objectStoresRemaining = objectStores.length
 
           for (const store of objectStores) {
+            if (!db.objectStoreNames.includes(store.name)) { continue }
             // open a read/write db transaction, ready for clearing the data
             const transaction = db.transaction([store.name], 'readwrite')
             // create an object store on the transaction
@@ -46690,9 +46717,8 @@ class IndexedDBStructure {
 
   static serializeAlignedText (data) {
     const finalData = []
-
     if (data.origin.alignedText) {
-      const dataItems = Object.values(data.targets).map(target => target.alignedText)
+      const dataItems = Object.values(data.targets).filter(target => target.alignedText).map(target => target.alignedText)
       dataItems.unshift(data.origin.alignedText)
 
       for (const dataItem of dataItems) {
@@ -46719,7 +46745,7 @@ class IndexedDBStructure {
     const finalData = []
 
     if (data.origin.alignedText) {
-      const dataItems = Object.values(data.targets).map(target => target.alignedText)
+      const dataItems = Object.values(data.targets).filter(target => target.alignedText).map(target => target.alignedText)
       dataItems.unshift(data.origin.alignedText)
       for (const dataItem of dataItems) {
         if (dataItem.segments && dataItem.segments.length > 0) {
@@ -46751,7 +46777,7 @@ class IndexedDBStructure {
     const finalData = []
 
     if (data.origin.alignedText) {
-      const dataItems = Object.values(data.targets).map(target => target.alignedText)
+      const dataItems = Object.values(data.targets).filter(target => target.alignedText).map(target => target.alignedText)
       dataItems.unshift(data.origin.alignedText)
 
       for (const dataItem of dataItems) {
@@ -46782,7 +46808,7 @@ class IndexedDBStructure {
     const finalData = []
 
     if (data.origin.alignedText) {
-      const dataItems = Object.values(data.targets).map(target => target.alignedText)
+      const dataItems = Object.values(data.targets).filter(target => target.alignedText).map(target => target.alignedText)
       dataItems.unshift(data.origin.alignedText)
       for (const dataItem of dataItems) {
         if (dataItem.segments && dataItem.segments.length > 0) {
@@ -47155,7 +47181,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i453-undo-redo-indexeddb-2.20210714393" : 0
+    return  true ? "i460-turn-off-indexeddb.20210715550" : 0
   }
 
   static get libName () {
@@ -49965,6 +49991,9 @@ vue__WEBPACK_IMPORTED_MODULE_3__.default.use((v_video_embed__WEBPACK_IMPORTED_MO
     },
     readyAlignments () {
       return this.alignments && this.alignments.length > 0
+    },
+    indexedDBAvailable () {
+      return this.$textC.indexedDBAvailable
     }
   },
   methods: {
@@ -50848,6 +50877,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -50889,6 +50919,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     maxCharactersPerPart () {
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.maxCharactersPerPart
+    },
+    addIndexedDBSupport () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.addIndexedDBSupport
     },
     versionData () {
       return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`
@@ -60208,41 +60241,43 @@ var render = function() {
                     ]
                   ),
                   _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      directives: [
+                  _vm.indexedDBAvailable
+                    ? _c(
+                        "div",
                         {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.showUploadBlock,
-                          expression: "showUploadBlock"
-                        }
-                      ],
-                      staticClass:
-                        "alpheios-alignment-editor-initial-screen__alignments-container"
-                    },
-                    [
-                      _c("alignments-list", {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.showUploadBlock,
-                            expression: "showUploadBlock"
-                          }
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.showUploadBlock,
+                              expression: "showUploadBlock"
+                            }
+                          ],
+                          staticClass:
+                            "alpheios-alignment-editor-initial-screen__alignments-container"
+                        },
+                        [
+                          _c("alignments-list", {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.showUploadBlock,
+                                expression: "showUploadBlock"
+                              }
+                            ],
+                            on: {
+                              "upload-data-from-db": _vm.uploadDataFromDB,
+                              "delete-data-from-db": _vm.deleteDataFromDB,
+                              "clear-all-alignments": function($event) {
+                                return _vm.$emit("clear-all-alignments")
+                              }
+                            }
+                          })
                         ],
-                        on: {
-                          "upload-data-from-db": _vm.uploadDataFromDB,
-                          "delete-data-from-db": _vm.deleteDataFromDB,
-                          "clear-all-alignments": function($event) {
-                            return _vm.$emit("clear-all-alignments")
-                          }
-                        }
-                      })
-                    ],
-                    1
-                  )
+                        1
+                      )
+                    : _vm._e()
                 ]
               )
             ]
@@ -61397,6 +61432,10 @@ var render = function() {
                       _vm._v(" "),
                       _c("option-item-block", {
                         attrs: { optionItem: _vm.maxCharactersPerPart }
+                      }),
+                      _vm._v(" "),
+                      _c("option-item-block", {
+                        attrs: { optionItem: _vm.addIndexedDBSupport }
                       })
                     ],
                     1
@@ -61463,7 +61502,7 @@ var render = function() {
           ],
           null,
           false,
-          2329462729
+          2120531566
         )
       })
     : _vm._e()
@@ -65582,7 +65621,7 @@ render._withStripped = true
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/aligned-groups-indexeddb-controller.test.js","test-b":"jest tests/vue/align-editor/segment-block.test.js --coverage","test-c":"jest tests/lib/data/alignment.test.js --coverage","test-d":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.3.0","@babel/core":"^7.14.3","@babel/plugin-proposal-object-rest-spread":"^7.14.4","@babel/plugin-transform-modules-commonjs":"^7.14.0","@babel/plugin-transform-runtime":"^7.14.3","@babel/preset-env":"^7.14.4","@babel/register":"^7.13.16","@babel/runtime":"^7.14.0","@vue/test-utils":"^1.2.0","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.28.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.23.4","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.2","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.6.18","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.6","papaparse":"^5.3.1","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.34.1","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.14","vue-eslint-parser":"^7.6.0","vue-jest":"^3.0.7","vue-loader":"^15.9.7","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.14","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.38.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
+module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/history-controller.test.js","test-b":"jest tests/vue/align-editor/segment-block.test.js --coverage","test-c":"jest tests/lib/data/alignment.test.js --coverage","test-d":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.3.0","@babel/core":"^7.14.3","@babel/plugin-proposal-object-rest-spread":"^7.14.4","@babel/plugin-transform-modules-commonjs":"^7.14.0","@babel/plugin-transform-runtime":"^7.14.3","@babel/preset-env":"^7.14.4","@babel/register":"^7.13.16","@babel/runtime":"^7.14.0","@vue/test-utils":"^1.2.0","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.28.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.23.4","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.2","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.6.18","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.6","papaparse":"^5.3.1","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.34.1","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.14","vue-eslint-parser":"^7.6.0","vue-jest":"^3.0.7","vue-loader":"^15.9.7","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.14","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.38.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
 
 /***/ }),
 
@@ -65736,7 +65775,7 @@ module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit text","de
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"1","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":false,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":true,"labelText":"Show language check before text would be prepared","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerPart":{"defaultValue":1000,"labelText":"Max characters per part (recommended for performance), to be used in Align Text","number":true,"minValue":1,"maxValue":50000,"values":[]}}}');
+module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"1","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":false,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":true,"labelText":"Show language check before text would be prepared","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerPart":{"defaultValue":1000,"labelText":"Max characters per part (recommended for performance), to be used in Align Text","number":true,"minValue":1,"maxValue":50000,"values":[]},"addIndexedDBSupport":{"defaultValue":true,"labelText":"Add IndexedDB support","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]}}}');
 
 /***/ }),
 

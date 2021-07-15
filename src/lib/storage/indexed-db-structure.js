@@ -214,9 +214,8 @@ export default class IndexedDBStructure {
 
   static serializeAlignedText (data) {
     const finalData = []
-
     if (data.origin.alignedText) {
-      const dataItems = Object.values(data.targets).map(target => target.alignedText)
+      const dataItems = Object.values(data.targets).filter(target => target.alignedText).map(target => target.alignedText)
       dataItems.unshift(data.origin.alignedText)
 
       for (const dataItem of dataItems) {
@@ -243,7 +242,7 @@ export default class IndexedDBStructure {
     const finalData = []
 
     if (data.origin.alignedText) {
-      const dataItems = Object.values(data.targets).map(target => target.alignedText)
+      const dataItems = Object.values(data.targets).filter(target => target.alignedText).map(target => target.alignedText)
       dataItems.unshift(data.origin.alignedText)
       for (const dataItem of dataItems) {
         if (dataItem.segments && dataItem.segments.length > 0) {
@@ -275,7 +274,7 @@ export default class IndexedDBStructure {
     const finalData = []
 
     if (data.origin.alignedText) {
-      const dataItems = Object.values(data.targets).map(target => target.alignedText)
+      const dataItems = Object.values(data.targets).filter(target => target.alignedText).map(target => target.alignedText)
       dataItems.unshift(data.origin.alignedText)
 
       for (const dataItem of dataItems) {
@@ -306,7 +305,7 @@ export default class IndexedDBStructure {
     const finalData = []
 
     if (data.origin.alignedText) {
-      const dataItems = Object.values(data.targets).map(target => target.alignedText)
+      const dataItems = Object.values(data.targets).filter(target => target.alignedText).map(target => target.alignedText)
       dataItems.unshift(data.origin.alignedText)
       for (const dataItem of dataItems) {
         if (dataItem.segments && dataItem.segments.length > 0) {

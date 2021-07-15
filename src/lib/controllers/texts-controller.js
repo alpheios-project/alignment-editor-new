@@ -315,10 +315,15 @@ export default class TextsController {
   }
 
   async downloadFullData (downloadType) {
-    const dbData = await StorageController.select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
-    const alignment = await Alignment.convertFromIndexedDB(dbData)
+    let data
+    if (!this.alignment.hasAllPartsUploaded) {
+      const dbData = await StorageController.select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+      const alignment = await Alignment.convertFromIndexedDB(dbData)
 
-    const data = alignment.convertToJSON()
+      data = alignment.convertToJSON()
+    } else {
+      data = this.alignment.convertToJSON()
+    }
     return {
       downloadType, data
     }
@@ -515,5 +520,9 @@ export default class TextsController {
 
   getSegment (textType, textId, segmentIndex) {
     return this.alignment.getSegment(textType, textId, segmentIndex)
+  }
+
+  get indexedDBAvailable () {
+    return StorageController.dbAdapterAvailable
   }
 }

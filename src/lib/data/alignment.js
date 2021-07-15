@@ -1326,6 +1326,7 @@ export default class Alignment {
   }
 
   get hasAllPartsUploaded () {
-    return this.origin.alignedText.hasAllPartsUploaded && Object.values(this.targets).every(target => target.alignedText.hasAllPartsUploaded)
+    return !(this.origin.alignedText) ||
+           (this.origin.alignedText.hasAllPartsUploaded && Object.values(this.targets).every(target => target.alignedText.hasAllPartsUploaded))
   }
 }
