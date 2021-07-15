@@ -361,10 +361,17 @@ export default class TextsController {
   }
 
   async prepareFullDataForHTMLOutput () {
-    const dbData = await StorageController.select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
-    const alignment = await Alignment.convertFromIndexedDB(dbData)
+    let data
+    if (!this.alignment.hasAllPartsUploaded) {
+      const dbData = await StorageController.select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+      const alignment = await Alignment.convertFromIndexedDB(dbData)
 
-    return alignment.convertToHTML()
+      data = alignment.convertToHTML()
+    } else {
+      data = this.alignment.convertToHTML()
+    }
+
+    return data
   }
 
   /**

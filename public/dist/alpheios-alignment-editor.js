@@ -39685,8 +39685,6 @@ class SettingsController {
    */
   static changeOption (optionItem) {
     const optionNameParts = optionItem.name.split('__')
-    // console.info('changeOption - ', optionNameParts)
-
     if (optionNameParts[2] === 'theme') {
       this.submitEventUpdateTheme()
     } else if (optionNameParts[2] === 'addIndexedDBSupport') {
@@ -40247,10 +40245,17 @@ class TextsController {
   }
 
   async prepareFullDataForHTMLOutput () {
-    const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
-    const alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default.convertFromIndexedDB(dbData)
+    let data
+    if (!this.alignment.hasAllPartsUploaded) {
+      const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+      const alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default.convertFromIndexedDB(dbData)
 
-    return alignment.convertToHTML()
+      data = alignment.convertToHTML()
+    } else {
+      data = this.alignment.convertToHTML()
+    }
+
+    return data
   }
 
   /**
@@ -47181,7 +47186,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i460-turn-off-indexeddb.20210715550" : 0
+    return  true ? "i460-turn-off-indexeddb.20210715555" : 0
   }
 
   static get libName () {

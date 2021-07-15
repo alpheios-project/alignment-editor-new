@@ -168,8 +168,6 @@ export default class SettingsController {
    */
   static changeOption (optionItem) {
     const optionNameParts = optionItem.name.split('__')
-    // console.info('changeOption - ', optionNameParts)
-
     if (optionNameParts[2] === 'theme') {
       this.submitEventUpdateTheme()
     } else if (optionNameParts[2] === 'addIndexedDBSupport') {
