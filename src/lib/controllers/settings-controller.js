@@ -6,6 +6,7 @@ import DefaultSourceTextSettings from '@/settings/default-source-text-settings.j
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 
 import Langs from '@/lib/data/langs/langs.js'
+import StorageController from './storage-controller'
 
 let _instance
 export default class SettingsController {
@@ -45,6 +46,7 @@ export default class SettingsController {
     const optionsPromises = Object.values(_instance.options).map(options => options.load())
 
     await Promise.all(optionsPromises)
+    Object.values(_instance.options.app.items).forEach(optionItem => this.changeOption(optionItem))
     this.submitEventUpdateTheme()
   }
 
@@ -84,6 +86,10 @@ export default class SettingsController {
 
   static get maxCharactersPerPart () {
     return _instance.options.app && _instance.options.app.items.maxCharactersPerPart ? _instance.options.app.items.maxCharactersPerPart.currentValue : 1000
+  }
+
+  static get addIndexedDBSupport () {
+    return _instance.options.app && _instance.options.app.items.addIndexedDBSupport ? _instance.options.app.items.addIndexedDBSupport.currentValue : 1000
   }
 
   /**
@@ -162,9 +168,10 @@ export default class SettingsController {
    */
   static changeOption (optionItem) {
     const optionNameParts = optionItem.name.split('__')
-
     if (optionNameParts[2] === 'theme') {
       this.submitEventUpdateTheme()
+    } else if (optionNameParts[2] === 'addIndexedDBSupport') {
+      StorageController.changeIndexedDBSupport(optionItem.currentValue)
     }
     _instance.store.commit('incrementOptionsUpdated')
   }

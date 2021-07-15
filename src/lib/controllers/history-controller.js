@@ -61,7 +61,7 @@ export default class HistoryController {
       result = this.alignment.activateGroupByGroupIndex(this.alignment.alignmentGroups.length - 1)
       await this.deleteAlGroupFromStorage(this.alignment.activeAlignmentGroup.id)
     }
-    
+
     if (result) {
       this.store.commit('incrementAlignmentUpdated')
       this.undoneSteps = this.undoneSteps + 1

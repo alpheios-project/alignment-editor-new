@@ -1,6 +1,6 @@
 import IndexedDBAdapter from '@/lib/storage/indexed-db-adapter.js'
 
-let dbAdapter
+let dbAdapter, addIndexedDBSupportValue
 
 export default class StorageController {
   static definedDBAdapter () {
@@ -9,8 +9,12 @@ export default class StorageController {
     }
   }
 
+  static changeIndexedDBSupport (optionValue) {
+    addIndexedDBSupportValue = optionValue
+  }
+
   static get dbAdapterAvailable () {
-    return dbAdapter && dbAdapter.available
+    return addIndexedDBSupportValue && dbAdapter && dbAdapter.available
   }
 
   static async update (alignment, clearFirst = false, textAsBlob = false) {

@@ -11,6 +11,7 @@
             <option-item-block :optionItem = "useSpecificEnglishTokenizerOptionItem" />
             <option-item-block :optionItem = "showSummaryPopupOptionItem" />
             <option-item-block :optionItem = "maxCharactersPerPart" />
+            <option-item-block :optionItem = "addIndexedDBSupport" />
         </div>
     </template>
     <template v-slot:footer>
@@ -70,6 +71,9 @@ export default {
     },
     maxCharactersPerPart () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.maxCharactersPerPart
+    },
+    addIndexedDBSupport () {
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.addIndexedDBSupport
     },
     versionData () {
       return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`

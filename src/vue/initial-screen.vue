@@ -34,7 +34,7 @@
                     </span>
                 </div>
 
-                <div class="alpheios-alignment-editor-initial-screen__alignments-container" v-show="showUploadBlock" >
+                <div class="alpheios-alignment-editor-initial-screen__alignments-container" v-show="showUploadBlock" v-if="indexedDBAvailable">
                     <alignments-list v-show="showUploadBlock" 
                         @upload-data-from-db="uploadDataFromDB" @delete-data-from-db="deleteDataFromDB"
                         @clear-all-alignments="$emit('clear-all-alignments')"
@@ -84,6 +84,9 @@ export default {
     },
     readyAlignments () {
       return this.alignments && this.alignments.length > 0
+    },
+    indexedDBAvailable () {
+      return this.$textC.indexedDBAvailable
     }
   },
   methods: {
