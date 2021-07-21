@@ -28,9 +28,12 @@
         <template v-slot:content > <help-block-align /> </template>
       </help-popup>
 
-    <align-editor-view-mode v-if="renderAlignEditor"/>   
+    <align-editor-view-mode v-if="renderAlignEditor" @update-annotation = "updateAnnotation"/>   
     <save-popup :showModal="showModalSave" @closeModal = "showModalSave = false" />
     <options-text-align-popup :showModal="showModalOptions" @closeModal = "showModalOptions = false" />
+    <annotation-block-popup :showModal="showModalAnnotations" @closeModal = "closeAnnotationModal" 
+                            :token = "annotationToken" v-if="annotationToken" @save-annotation = "saveAnnotation"
+    />
   </div>
 </template>
 <script>
@@ -42,6 +45,7 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import HelpPopup from '@/vue/common/help-popup.vue'
 import SavePopup from '@/vue/common/save-popup.vue'
 import OptionsTextAlign from '@/vue/options/options-text-align.vue'
+import AnnotationBlockPopup from '@/vue/align-editor/annotation-block.vue'
 
 import HelpBlockAlign from '@/vue/help-blocks/eng/help-block-align.vue'
 
@@ -52,7 +56,8 @@ export default {
     helpPopup: HelpPopup,
     savePopup: SavePopup,
     helpBlockAlign: HelpBlockAlign,
-    optionsTextAlignPopup: OptionsTextAlign
+    optionsTextAlignPopup: OptionsTextAlign,
+    annotationBlockPopup: AnnotationBlockPopup
   },
   props: {
   },
@@ -60,7 +65,9 @@ export default {
     return {
       showModalHelp: false,
       showModalOptions: false,
-      showModalSave: false
+      showModalSave: false,
+      showModalAnnotations: false,
+      annotationToken: null
     }
   },
   watch: {
@@ -74,6 +81,22 @@ export default {
     }
   },
   methods: {
+    updateAnnotation (token) {
+      this.annotationToken = token
+      this.showModalAnnotations = true
+    },
+    closeAnnotationModal () {
+      this.annotationToken = null
+      this.showModalAnnotations = false
+    },
+    saveAnnotation (token, annotationData) {
+      this.$textC.addAnnotation({
+        token,
+        id: annotationData.id,
+        text: annotationData.text,
+        type: annotationData.type
+      })
+    }
   }
 }
 </script>

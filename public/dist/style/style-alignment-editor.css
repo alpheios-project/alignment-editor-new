@@ -1914,6 +1914,9 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   background: #f06d26;
   color: #fff;
 }
+.alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-has-annotations {
+  text-decoration: underline;
+}
 .alpheios-alignment-editor-align-text-segment .alpheios-alignment-editor-align-text-segment-tokens {
   padding: 10px;
   max-height: 400px;
@@ -2071,6 +2074,63 @@ span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-edit
 }
 .alpheios-alignment-editor-modal-options .alpheios-alignment-editor-modal-header {
   margin-bottom: 10px;
+}
+.alpheios-alignment-editor-modal-annotations .alpheios-modal-body {
+  border: 0;
+  padding: 0;
+}
+.alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-textarea {
+  width: 100%;
+  min-height: 150px;
+  padding: 10px;
+  font-size: inherit;
+}
+.alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-select {
+  margin-bottom: 15px;
+}
+.alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-list {
+  border-collapse: collapse;
+  width: 100%;
+}
+.alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-list td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+.alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-list td.alpheios-alignment-editor-annotation-list-item__type {
+  width: 100px;
+}
+.alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-list td.alpheios-alignment-editor-annotation-list-item__text {
+  max-width: 10vw;
+}
+.alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-list td.alpheios-alignment-editor-annotation-list-item__text span {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+.alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-list .alpheios-alignment-editor-annotation-list-item__full .alpheios-alignment-editor-annotation-list-item__text span {
+  text-overflow: inherit;
+  overflow: inherit;
+  white-space: initial;
+}
+.alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-list tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-list .alpheios-alignment-editor-annotation-list-item__edit {
+  text-align: center;
+  width: 50px;
+}
+.alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-list .alpheios-alignment-editor-annotation-list-item__edit span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+.alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-list .alpheios-alignment-editor-annotation-list-item__edit span svg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 .alpheios-alignment-align-editor-block.alpheios-alignment-editor-container {
   padding: 20px 30px 20px 40px;

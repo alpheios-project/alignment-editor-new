@@ -16,6 +16,7 @@
           <segment-block 
               :currentTargetId = "currentTargetId" :amountOfShownTabs = "amountOfShownTabs" :isFirst = "segmentData.isFirst"
               :segmentIndex = "segmentData.origin.index" textType = "origin" :textId = "segmentData.origin.docSourceId"
+              @update-annotation = "updateAnnotation"
           />
         </div>
 
@@ -24,6 +25,7 @@
                   :isFirst = "segmentData.isFirst"
                   :segmentIndex = "segmentTarget.index" textType = "target" :textId = "segmentTarget.docSourceId"
                   :isLast = "lastTargetId && (targetId === lastTargetId)" :currentTargetId = "currentTargetId" :amountOfShownTabs = "amountOfShownTabs"
+                  @update-annotation = "updateAnnotation"
                   v-show="isShownTab(targetId)"
           />
         </div>
@@ -147,6 +149,10 @@ export default {
         this.shownTabs.push(targetId)
       }  
       this.$historyC.updateMode(this.shownTabs)    
+    },
+
+    updateAnnotation (token) {
+      this.$emit('update-annotation', token)
     }
   } 
 }

@@ -253,7 +253,7 @@ describe('segment-block.test.js', () => {
     const originToken = originSegment.tokens[0]
 
     // we have the first tab activated - we could create groups, click is active
-    cmp.vm.clickToken(originToken)
+    cmp.vm.updateAlignmentGroup(originToken)
 
     expect(cmp.vm.$alignedGC.clickToken).toHaveBeenLastCalledWith(originToken, allTargetTextsIds[0])
 
@@ -262,7 +262,7 @@ describe('segment-block.test.js', () => {
     })
 
     // we have both tabs activated - click should not be active
-    cmp.vm.clickToken(originToken)
+    cmp.vm.updateAlignmentGroup(originToken)
     expect(cmp.vm.$alignedGC.clickToken).not.toHaveBeenLastCalledWith(originToken, null)
 
     cmp.setProps({
@@ -275,7 +275,7 @@ describe('segment-block.test.js', () => {
     // we activated the second tab and we are on a target segment
     const targetToken = targetSegment.tokens[0]
 
-    cmp.vm.clickToken(targetToken)
+    cmp.vm.updateAlignmentGroup(targetToken)
 
     expect(cmp.vm.$alignedGC.clickToken).toHaveBeenLastCalledWith(targetToken, allTargetTextsIds[1])
   })

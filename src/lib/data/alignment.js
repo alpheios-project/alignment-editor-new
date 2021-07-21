@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 import AlignmentGroup from '@/lib/data/alignment-group'
 import AlignedText from '@/lib/data/aligned-text'
 import SourceText from '@/lib/data/source-text'
+import Annotation from '@/lib/data/annotation'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
@@ -34,6 +35,8 @@ export default class Alignment {
 
     this.hoveredGroups = []
     this.undoneGroups = []
+
+    this.annotations = {}
 
     this.tokensEditHistory = new TokensEditHistory()
     this.tokensEditActions = new TokensEditActions({ origin: this.origin, targets: this.targets, tokensEditHistory: this.tokensEditHistory })
@@ -1328,5 +1331,39 @@ export default class Alignment {
   get hasAllPartsUploaded () {
     return !(this.origin.alignedText) ||
            (this.origin.alignedText.hasAllPartsUploaded && Object.values(this.targets).every(target => target.alignedText.hasAllPartsUploaded))
+  }
+
+  addAnnotation ({ id, token, type, text } = {}) {
+    if (!token || !type || !text) { return }
+
+    const existedAnnotation = this.existedAnnotation(token, id)
+    console.info(' addAnnotation ', arguments)
+    console.info(' existedAnnotation ', existedAnnotation)
+    if (existedAnnotation) {
+      return existedAnnotation.update({ type, text })
+    }
+    if (this.equalAnnotation({ token, type, text })) {
+      return
+    }
+
+    const annotation = new Annotation({ token, type, text })
+    if (!this.annotations[token.idWord]) {
+      this.annotations[token.idWord] = []
+    }
+
+    this.annotations[token.idWord].push(annotation)
+    return true
+  }
+
+  getAnnotations (token) {
+    return this.annotations[token.idWord]
+  }
+
+  equalAnnotation ({ token, type, text }) {
+    return this.annotations[token.idWord] && this.annotations[token.idWord].find(annotation => annotation.hasProperties({ type, text }))
+  }
+
+  existedAnnotation (token, id) {
+    return this.annotations[token.idWord] && this.annotations[token.idWord].find(annotation => annotation.id === id)
   }
 }

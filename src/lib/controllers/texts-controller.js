@@ -532,4 +532,23 @@ export default class TextsController {
   get indexedDBAvailable () {
     return StorageController.dbAdapterAvailable
   }
+
+  addAnnotation ({ id, token, type, text } = {}) {
+    console.info('token, type, text - ', token, type, text)
+    if (token && type && text) {
+      this.alignment.addAnnotation({ id, token, type, text })
+      this.store.commit('incrementUpdateAnnotations')
+      console.info('incrementUpdateAnnotations', this.alignment.annotations)
+      return true
+    }
+    console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_DATA_FOR_ANNOTATIONS'))
+    NotificationSingleton.addNotification({
+      text: L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_DATA_FOR_ANNOTATIONS'),
+      type: NotificationSingleton.types.ERROR
+    })
+  }
+
+  getAnnotations (token) {
+    return this.alignment && this.alignment.getAnnotations(token)
+  }
 }

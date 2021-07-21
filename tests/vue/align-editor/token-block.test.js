@@ -98,7 +98,8 @@ describe('token-block.test.js', () => {
       'alpheios-token-grouped': true,
       'alpheios-token-clicked': false,
       "alpheios-token-part-shadowed": false,
-      'alpheios-token-clicked-first': false
+      'alpheios-token-clicked-first': false,
+      'alpheios-token-has-annotations': false
     })
   })
 
@@ -110,9 +111,9 @@ describe('token-block.test.js', () => {
         token: token
       }
     })
-    cmp.vm.clickToken()
-    expect(cmp.emitted()['click-token']).toBeTruthy()
-    expect(cmp.emitted()['click-token'][0]).toEqual([ token ])
+    cmp.vm.updateAlignmentGroup()
+    expect(cmp.emitted()['update-alignment-group']).toBeTruthy()
+    expect(cmp.emitted()['update-alignment-group'][0]).toEqual([ token ])
 
     cmp.vm.addHoverToken()
     expect(cmp.emitted()['add-hover-token']).toBeTruthy()

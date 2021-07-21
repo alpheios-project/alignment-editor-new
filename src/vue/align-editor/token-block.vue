@@ -40,6 +40,7 @@ export default {
   },
   data () {
     return {
+      annotationMode: false
     }
   },
   computed: {
@@ -49,7 +50,8 @@ export default {
         'alpheios-token-grouped': this.grouped ,
         'alpheios-token-clicked': this.inActiveGroup,
         'alpheios-token-clicked-first': this.firstInActiveGroup,
-        'alpheios-token-part-shadowed': (this.token.partNum % 2 === 0)
+        'alpheios-token-part-shadowed': (this.token.partNum % 2 === 0),
+        'alpheios-token-has-annotations': this.hasAnnotations
       }
     }, 
     tokenWord () {
@@ -63,11 +65,20 @@ export default {
     },
     elementId () {
       return `token-${this.token.idWord}`
+    },
+    clickToken () {
+      return this.annotationMode ? this.updateAnnotation : this.updateAlignmentGroup
+    },
+    hasAnnotations () {
+      return this.$store.state.updateAnnotations && Boolean(this.$textC.getAnnotations(this.token))
     }
   },
   methods: {
-    clickToken (event) {
-      this.$emit('click-token', this.token)
+    updateAnnotation () {
+      this.$emit('update-annotation', this.token)
+    },
+    updateAlignmentGroup (event) {
+      this.$emit('update-alignment-group', this.token)
     },
     addHoverToken () {
       this.$emit('add-hover-token', this.token)
@@ -116,6 +127,10 @@ export default {
               border-color: #f06d26;
               background: #f06d26;
               color: #fff;
+            }
+
+            &.alpheios-token-has-annotations {
+              text-decoration: underline;
             }
         }
     }

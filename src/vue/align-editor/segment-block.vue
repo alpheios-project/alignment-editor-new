@@ -28,7 +28,8 @@
               <token
                 v-if ="token.word"
                 :token = "token" :key = "token.idWord"
-                @click-token = "clickToken"
+                @update-annotation = "updateAnnotation"
+                @update-alignment-group = "updateAlignmentGroup"
                 @add-hover-token = "addHoverToken"
                 @remove-hover-token = "removeHoverToken"
                 :selected = "$store.state.alignmentUpdated && selectedToken(token)"
@@ -281,7 +282,7 @@ export default {
      * Starts click token workflow
      * @param {Token}
      */
-    clickToken (token) {
+    updateAlignmentGroup (token) {
       if (this.alignmentGroupsWorkflowAvailable && this.currentTargetId) {
         this.$alignedGC.clickToken(token, this.currentTargetId)
       }
@@ -360,6 +361,10 @@ export default {
 
     async uploadPartByNum (partNums) {
       await this.$textC.checkAndUploadSegmentsFromDB(this.textType, this.textId, this.segmentIndex, partNums)
+    },
+
+    updateAnnotation (token) {
+      this.$emit('update-annotation', token)
     }
   }
 

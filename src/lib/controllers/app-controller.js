@@ -9,6 +9,7 @@ import TokensEditController from '@/lib/controllers/tokens-edit-controller.js'
 import HistoryController from '@/lib/controllers/history-controller.js'
 import SettingsController from '@/lib/controllers/settings-controller.js'
 import StorageController from '@/lib/controllers/storage-controller.js'
+import AnnotationsController from '@/lib/controllers/annotations-controller.js'
 
 import StoreDefinition from '@/lib/store/store-definition'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
@@ -73,6 +74,7 @@ export default class AppController {
     this.defineAlignedGroupsController()
     this.defineTokensEditController()
     this.defineHistoryController()
+    this.defineAnnotationsController()
 
     const rootVi = new Vue({ store: this.store })
     const mountEl = document.getElementById(this.pageSettings.appId)
@@ -141,6 +143,11 @@ export default class AppController {
   defineHistoryController () {
     this.historyC = new HistoryController(this.store)
     Vue.prototype.$historyC = this.historyC
+  }
+
+  defineAnnotationsController () {
+    this.annotationsC = new AnnotationsController(this.store)
+    Vue.prototype.$annotationsC = this.annotationsC
   }
 
   /**
