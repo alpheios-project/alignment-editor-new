@@ -2027,9 +2027,6 @@ span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-edit
   text-align: left;
   display: inline-block;
 }
-.alpheios-alignment-editor-align-groups-editor-container {
-  padding-top: 20px;
-}
 .alpheios-alignment-editor-align-define-container-inner {
   border: 1px solid #ddd;
   border-bottom-color: transparent;
@@ -2134,6 +2131,34 @@ span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-edit
 }
 .alpheios-alignment-align-editor-block.alpheios-alignment-editor-container {
   padding: 20px 30px 20px 40px;
+}
+.alpheios-alignment-text-editor-block__part {
+  min-width: 255px;
+}
+.alpheios-alignment-text-editor-block__part.alpheios-alignment-text-editor-block__part-2 {
+  text-align: center;
+}
+.alpheios-alignment-text-editor-block__part.alpheios-alignment-text-editor-block__part-3 {
+  text-align: right;
+}
+div.alpheios-alignment-annotation-mode-check-container {
+  display: block;
+  line-height: initial;
+  max-width: initial;
+  min-height: initial;
+  padding-top: 5px;
+}
+div.alpheios-alignment-annotation-mode-check-container label {
+  display: block;
+  padding-top: 0;
+  width: auto;
+  line-height: initial;
+  text-align: left;
+  font-weight: normal;
+  font-size: 80%;
+  padding-left: 25px;
+  line-height: 22px;
+  cursor: pointer;
 }
 .alpheios-alignment-editor-token-edit-span {
   display: inline-block;

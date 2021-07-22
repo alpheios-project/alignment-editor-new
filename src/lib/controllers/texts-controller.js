@@ -534,11 +534,9 @@ export default class TextsController {
   }
 
   addAnnotation ({ id, token, type, text } = {}) {
-    console.info('token, type, text - ', token, type, text)
     if (token && type && text) {
       this.alignment.addAnnotation({ id, token, type, text })
       this.store.commit('incrementUpdateAnnotations')
-      console.info('incrementUpdateAnnotations', this.alignment.annotations)
       return true
     }
     console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_DATA_FOR_ANNOTATIONS'))

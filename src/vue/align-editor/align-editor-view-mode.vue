@@ -16,7 +16,7 @@
           <segment-block 
               :currentTargetId = "currentTargetId" :amountOfShownTabs = "amountOfShownTabs" :isFirst = "segmentData.isFirst"
               :segmentIndex = "segmentData.origin.index" textType = "origin" :textId = "segmentData.origin.docSourceId"
-              @update-annotation = "updateAnnotation"
+              @update-annotation = "updateAnnotation" :annotationMode="annotationMode" 
           />
         </div>
 
@@ -25,7 +25,7 @@
                   :isFirst = "segmentData.isFirst"
                   :segmentIndex = "segmentTarget.index" textType = "target" :textId = "segmentTarget.docSourceId"
                   :isLast = "lastTargetId && (targetId === lastTargetId)" :currentTargetId = "currentTargetId" :amountOfShownTabs = "amountOfShownTabs"
-                  @update-annotation = "updateAnnotation"
+                  @update-annotation = "updateAnnotation" :annotationMode="annotationMode"
                   v-show="isShownTab(targetId)"
           />
         </div>
@@ -48,6 +48,11 @@ export default {
     actionsMenuAlignEditor: ActionsMenuAlignEditor
   },
   props: {
+    annotationMode: {
+      type: Boolean,
+      required: false,
+      default: false
+    }
   },
   data () {
     return {
@@ -159,7 +164,7 @@ export default {
 </script>
 <style lang="scss">
   .alpheios-alignment-editor-align-groups-editor-container {
-    padding-top: 20px;
+    // padding-top: 20px;
   }
   .alpheios-alignment-editor-align-define-container-inner {
     border: 1px solid #ddd;

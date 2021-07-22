@@ -1337,8 +1337,6 @@ export default class Alignment {
     if (!token || !type || !text) { return }
 
     const existedAnnotation = this.existedAnnotation(token, id)
-    console.info(' addAnnotation ', arguments)
-    console.info(' existedAnnotation ', existedAnnotation)
     if (existedAnnotation) {
       return existedAnnotation.update({ type, text })
     }

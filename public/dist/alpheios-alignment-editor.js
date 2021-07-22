@@ -40460,11 +40460,9 @@ class TextsController {
   }
 
   addAnnotation ({ id, token, type, text } = {}) {
-    console.info('token, type, text - ', token, type, text)
     if (token && type && text) {
       this.alignment.addAnnotation({ id, token, type, text })
       this.store.commit('incrementUpdateAnnotations')
-      console.info('incrementUpdateAnnotations', this.alignment.annotations)
       return true
     }
     console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_DATA_FOR_ANNOTATIONS'))
@@ -44031,8 +44029,6 @@ class Alignment {
     if (!token || !type || !text) { return }
 
     const existedAnnotation = this.existedAnnotation(token, id)
-    console.info(' addAnnotation ', arguments)
-    console.info(' existedAnnotation ', existedAnnotation)
     if (existedAnnotation) {
       return existedAnnotation.update({ type, text })
     }
@@ -47334,7 +47330,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i462-annotations-1.20210721620" : 0
+    return  true ? "i462-annotations-1.20210722675" : 0
   }
 
   static get libName () {
@@ -48243,6 +48239,11 @@ __webpack_require__.r(__webpack_exports__);
     actionsMenuAlignEditor: _vue_align_editor_actions_menu_align_editor_vue__WEBPACK_IMPORTED_MODULE_2__.default
   },
   props: {
+    annotationMode: {
+      type: Boolean,
+      required: false,
+      default: false
+    }
   },
   data () {
     return {
@@ -48411,6 +48412,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -48442,7 +48449,8 @@ __webpack_require__.r(__webpack_exports__);
       showModalOptions: false,
       showModalSave: false,
       showModalAnnotations: false,
-      annotationToken: null
+      annotationToken: null,
+      annotationMode: false
     }
   },
   watch: {
@@ -48718,6 +48726,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -48773,6 +48782,11 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     isFirst: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    annotationMode: {
       type: Boolean,
       required: false,
       default: false
@@ -48897,17 +48911,6 @@ __webpack_require__.r(__webpack_exports__);
       if (this.amountOfSegments === 1) {
         return this.containerHeight + this.heightDelta
       }
-      // return 'auto'
-      /*
-      const minHeight = this.minMaxHeight * (this.textType === 'origin') ? this.amountOfShownTabs : 1
-      console.info('minHeight - ', minHeight)
-      if (this.amountOfSegments === 1) {
-        return this.containerHeight + this.heightDelta
-      } 
-
-      const heightCalculated = (this.textType === 'origin') ? this.containerHeight * this.amountOfShownTabs/this.amountOfSegments : this.containerHeight/this.amountOfSegments
-      return Math.round(Math.max(minHeight, heightCalculated)) + this.heightDelta
-      */
     },
     isEmptyMetadata () {
       const docSource = this.$textC.getDocSource(this.textType, this.segment.docSourceId)
@@ -49092,11 +49095,15 @@ __webpack_require__.r(__webpack_exports__);
       type: Boolean,
       required: false,
       default: false
+    },
+    annotationMode: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data () {
     return {
-      annotationMode: true
     }
   },
   computed: {
@@ -58872,7 +58879,8 @@ var render = function() {
                       isFirst: segmentData.isFirst,
                       segmentIndex: segmentData.origin.index,
                       textType: "origin",
-                      textId: segmentData.origin.docSourceId
+                      textId: segmentData.origin.docSourceId,
+                      annotationMode: _vm.annotationMode
                     },
                     on: { "update-annotation": _vm.updateAnnotation }
                   })
@@ -58904,7 +58912,8 @@ var render = function() {
                       textId: segmentTarget.docSourceId,
                       isLast: _vm.lastTargetId && targetId === _vm.lastTargetId,
                       currentTargetId: _vm.currentTargetId,
-                      amountOfShownTabs: _vm.amountOfShownTabs
+                      amountOfShownTabs: _vm.amountOfShownTabs,
+                      annotationMode: _vm.annotationMode
                     },
                     on: { "update-annotation": _vm.updateAnnotation }
                   })
@@ -58956,7 +58965,10 @@ var render = function() {
         [
           _c(
             "span",
-            { staticClass: "alpheios-alignment-text-editor-block__part" },
+            {
+              staticClass:
+                "alpheios-alignment-text-editor-block__part alpheios-alignment-text-editor-block__part-1"
+            },
             [
               _c(
                 "span",
@@ -58993,13 +59005,82 @@ var render = function() {
                   }
                 },
                 [_vm._v(_vm._s(_vm.l10n.getMsgS("TOKENS_EDITOR_LINK")))]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "alpheios-alignment-checkbox-block alpheios-alignment-annotation-mode-check-container"
+                },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.annotationMode,
+                        expression: "annotationMode"
+                      }
+                    ],
+                    attrs: {
+                      type: "checkbox",
+                      id: "alpheios-alignment-annotation-mode-check"
+                    },
+                    domProps: {
+                      checked: Array.isArray(_vm.annotationMode)
+                        ? _vm._i(_vm.annotationMode, null) > -1
+                        : _vm.annotationMode
+                    },
+                    on: {
+                      change: function($event) {
+                        var $$a = _vm.annotationMode,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 && (_vm.annotationMode = $$a.concat([$$v]))
+                          } else {
+                            $$i > -1 &&
+                              (_vm.annotationMode = $$a
+                                .slice(0, $$i)
+                                .concat($$a.slice($$i + 1)))
+                          }
+                        } else {
+                          _vm.annotationMode = $$c
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      attrs: { for: "alpheios-alignment-annotation-mode-check" }
+                    },
+                    [
+                      _vm._v(
+                        "\n            " +
+                          _vm._s(
+                            _vm.l10n.getMsgS("ALIGN_EDITOR_ANNOTATION_MODE")
+                          ) +
+                          "\n          "
+                      )
+                    ]
+                  )
+                ]
               )
             ]
           ),
           _vm._v(" "),
           _c(
             "span",
-            { staticClass: "alpheios-alignment-text-editor-block__part" },
+            {
+              staticClass:
+                "alpheios-alignment-text-editor-block__part alpheios-alignment-text-editor-block__part-2"
+            },
             [
               _c(
                 "button",
@@ -59013,7 +59094,13 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("\n            HELP\n        ")]
+                [
+                  _vm._v(
+                    "\n            " +
+                      _vm._s(_vm.l10n.getMsgS("ALIGN_EDITOR_HELP")) +
+                      "\n        "
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -59028,14 +59115,23 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("\n            Options\n        ")]
+                [
+                  _vm._v(
+                    "\n            " +
+                      _vm._s(_vm.l10n.getMsgS("ALIGN_EDITOR_OPTIONS")) +
+                      "\n        "
+                  )
+                ]
               )
             ]
           ),
           _vm._v(" "),
           _c(
             "span",
-            { staticClass: "alpheios-alignment-text-editor-block__part" },
+            {
+              staticClass:
+                "alpheios-alignment-text-editor-block__part alpheios-alignment-text-editor-block__part-3"
+            },
             [
               _c(
                 "button",
@@ -59049,7 +59145,13 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("\n            Save locally\n        ")]
+                [
+                  _vm._v(
+                    "\n            " +
+                      _vm._s(_vm.l10n.getMsgS("ALIGN_EDITOR_SAVE")) +
+                      "\n        "
+                  )
+                ]
               )
             ]
           )
@@ -59076,6 +59178,7 @@ var render = function() {
       _vm._v(" "),
       _vm.renderAlignEditor
         ? _c("align-editor-view-mode", {
+            attrs: { annotationMode: _vm.annotationMode },
             on: { "update-annotation": _vm.updateAnnotation }
           })
         : _vm._e(),
@@ -59628,7 +59731,8 @@ var render = function() {
                         _vm.inActiveGroup(token),
                       firstInActiveGroup:
                         _vm.$store.state.alignmentUpdated &&
-                        _vm.isFirstInActiveGroup(token)
+                        _vm.isFirstInActiveGroup(token),
+                      annotationMode: _vm.annotationMode
                     },
                     on: {
                       "update-annotation": _vm.updateAnnotation,
@@ -66531,7 +66635,7 @@ module.exports = JSON.parse('{"COOKIE_TEST_MESSAGE":{"message":"This is a test m
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"ALIGN_EDITOR_HEADING":{"message":"Align text","description":"A heading for align editor","component":"AlignEditor"},"ALIGN_EDITOR_LINK":{"message":"Align","description":"A heading for align editor","component":"AlignEditor"},"ALIGN_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"AlignEditor"},"ALIGN_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"AlignEditor"}}');
+module.exports = JSON.parse('{"ALIGN_EDITOR_HEADING":{"message":"Align text","description":"A heading for align editor","component":"AlignEditor"},"ALIGN_EDITOR_LINK":{"message":"Align","description":"A heading for align editor","component":"AlignEditor"},"ALIGN_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"AlignEditor"},"ALIGN_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"AlignEditor"},"ALIGN_EDITOR_ANNOTATION_MODE":{"message":"annotation mode","description":"A checkbox for annotation mode","component":"AlignEditor"},"ALIGN_EDITOR_HELP":{"message":"HELP","description":"Button","component":"AlignEditor"},"ALIGN_EDITOR_OPTIONS":{"message":"Options","description":"Button","component":"AlignEditor"},"ALIGN_EDITOR_SAVE":{"message":"Save locally","description":"Button","component":"AlignEditor"}}');
 
 /***/ }),
 

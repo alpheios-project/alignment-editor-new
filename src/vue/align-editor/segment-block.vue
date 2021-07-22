@@ -36,6 +36,7 @@
                 :grouped = "$store.state.alignmentUpdated && groupedToken(token)"
                 :inActiveGroup = "$store.state.alignmentUpdated && inActiveGroup(token)"
                 :firstInActiveGroup = "$store.state.alignmentUpdated && isFirstInActiveGroup(token)"
+                :annotationMode="annotationMode"
               />
               <br v-if="$store.state.tokenUpdated && token.hasLineBreak" />
             </template>
@@ -103,6 +104,11 @@ export default {
     },
 
     isFirst: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    annotationMode: {
       type: Boolean,
       required: false,
       default: false
@@ -227,17 +233,6 @@ export default {
       if (this.amountOfSegments === 1) {
         return this.containerHeight + this.heightDelta
       }
-      // return 'auto'
-      /*
-      const minHeight = this.minMaxHeight * (this.textType === 'origin') ? this.amountOfShownTabs : 1
-      console.info('minHeight - ', minHeight)
-      if (this.amountOfSegments === 1) {
-        return this.containerHeight + this.heightDelta
-      } 
-
-      const heightCalculated = (this.textType === 'origin') ? this.containerHeight * this.amountOfShownTabs/this.amountOfSegments : this.containerHeight/this.amountOfSegments
-      return Math.round(Math.max(minHeight, heightCalculated)) + this.heightDelta
-      */
     },
     isEmptyMetadata () {
       const docSource = this.$textC.getDocSource(this.textType, this.segment.docSourceId)

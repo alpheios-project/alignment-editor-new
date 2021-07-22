@@ -36,11 +36,15 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    annotationMode: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data () {
     return {
-      annotationMode: false
     }
   },
   computed: {
