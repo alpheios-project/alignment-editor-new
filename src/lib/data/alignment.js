@@ -1354,7 +1354,7 @@ export default class Alignment {
   }
 
   getAnnotations (token) {
-    return this.annotations[token.idWord]
+    return this.annotations[token.idWord] ? this.annotations[token.idWord] : []
   }
 
   equalAnnotation ({ token, type, text }) {
@@ -1363,5 +1363,17 @@ export default class Alignment {
 
   existedAnnotation (token, id) {
     return this.annotations[token.idWord] && this.annotations[token.idWord].find(annotation => annotation.id === id)
+  }
+
+  existedAnnotationIndex (token, id) {
+    return this.annotations[token.idWord] && this.annotations[token.idWord].findIndex(annotation => annotation.id === id)
+  }
+
+  removeAnnotation (token, id) {
+    const annotationIndex = this.existedAnnotationIndex(token, id)
+    if (annotationIndex >= 0) {
+      return this.annotations[token.idWord].splice(annotationIndex, 1)
+    }
+    return false
   }
 }

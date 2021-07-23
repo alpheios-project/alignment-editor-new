@@ -40475,6 +40475,14 @@ class TextsController {
   getAnnotations (token) {
     return this.alignment && this.alignment.getAnnotations(token)
   }
+
+  removeAnnotation (token, id) {
+    if (this.alignment && this.alignment.removeAnnotation(token, id)) {
+      this.store.commit('incrementUpdateAnnotations')
+      return true
+    }
+    return false
+  }
 }
 
 
@@ -44046,7 +44054,7 @@ class Alignment {
   }
 
   getAnnotations (token) {
-    return this.annotations[token.idWord]
+    return this.annotations[token.idWord] ? this.annotations[token.idWord] : []
   }
 
   equalAnnotation ({ token, type, text }) {
@@ -44055,6 +44063,18 @@ class Alignment {
 
   existedAnnotation (token, id) {
     return this.annotations[token.idWord] && this.annotations[token.idWord].find(annotation => annotation.id === id)
+  }
+
+  existedAnnotationIndex (token, id) {
+    return this.annotations[token.idWord] && this.annotations[token.idWord].findIndex(annotation => annotation.id === id)
+  }
+
+  removeAnnotation (token, id) {
+    const annotationIndex = this.existedAnnotationIndex(token, id)
+    if (annotationIndex >= 0) {
+      return this.annotations[token.idWord].splice(annotationIndex, 1)
+    }
+    return false
   }
 }
 
@@ -47330,7 +47350,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i462-annotations-1.20210722675" : 0
+    return  true ? "i462-annotations-1.20210723299" : 0
   }
 
   static get libName () {
@@ -48471,14 +48491,6 @@ __webpack_require__.r(__webpack_exports__);
     closeAnnotationModal () {
       this.annotationToken = null
       this.showModalAnnotations = false
-    },
-    saveAnnotation (token, annotationData) {
-      this.$textC.addAnnotation({
-        token,
-        id: annotationData.id,
-        text: annotationData.text,
-        type: annotationData.type
-      })
     }
   }
 });
@@ -48502,6 +48514,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_data_annotation_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/data/annotation.js */ "./lib/data/annotation.js");
 /* harmony import */ var _inline_icons_pen_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/inline-icons/pen.svg */ "./inline-icons/pen.svg");
 /* harmony import */ var _inline_icons_pen_svg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_pen_svg__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/inline-icons/delete.svg */ "./inline-icons/delete.svg");
+/* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_4__);
 //
 //
 //
@@ -48557,6 +48571,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 
 
 
@@ -48568,7 +48584,8 @@ __webpack_require__.r(__webpack_exports__);
   name: 'AnnotationBlock',
   components: {
     modal: _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    penIcon: (_inline_icons_pen_svg__WEBPACK_IMPORTED_MODULE_3___default())
+    penIcon: (_inline_icons_pen_svg__WEBPACK_IMPORTED_MODULE_3___default()),
+    deleteIcon: (_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_4___default())
   },
   props: {
     showModal: {
@@ -48589,6 +48606,13 @@ __webpack_require__.r(__webpack_exports__);
       states: ['new', 'list', 'edit'],
       currentState: 'new',
       fullTextAnnotations: []
+    }
+  },
+  mounted () {
+    if (this.hasAnnotations) {
+      this.currentState = 'list'
+    } else {
+      this.currentState = 'new'
     }
   },
   computed: {
@@ -48616,7 +48640,13 @@ __webpack_require__.r(__webpack_exports__);
       return _lib_data_annotation_js__WEBPACK_IMPORTED_MODULE_2__.default.types[anType]
     },
     saveAnnotation () {
-      this.$emit('save-annotation', this.token, { id: this.annotationId, text: this.annotationText, type: this.annotationType })
+      this.$textC.addAnnotation({
+        token: this.token,
+        id: this.annotationId,
+        text: this.annotationText,
+        type: this.annotationType
+      })
+
       this.showAnnotationsJournal()
     },
     showAnnotationsJournal () {
@@ -48648,6 +48678,9 @@ __webpack_require__.r(__webpack_exports__);
       this.annotationType = annotation.type
       this.annotationText = annotation.text
       this.currentState = 'edit'
+    },
+    deleteAnnotation (annotation) {
+      this.$textC.removeAnnotation(this.token, annotation.id)
     }
   }
 });
@@ -49133,7 +49166,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.annotationMode ? this.updateAnnotation : this.updateAlignmentGroup
     },
     hasAnnotations () {
-      return this.$store.state.updateAnnotations && Boolean(this.$textC.getAnnotations(this.token))
+      return this.$store.state.updateAnnotations && this.$textC.getAnnotations(this.token).length > 0
     }
   },
   methods: {
@@ -59207,10 +59240,7 @@ var render = function() {
               showModal: _vm.showModalAnnotations,
               token: _vm.annotationToken
             },
-            on: {
-              closeModal: _vm.closeAnnotationModal,
-              "save-annotation": _vm.saveAnnotation
-            }
+            on: { closeModal: _vm.closeAnnotationModal }
           })
         : _vm._e()
     ],
@@ -59271,14 +59301,6 @@ var render = function() {
                   _c(
                     "p",
                     {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.hasAnnotations,
-                          expression: "hasAnnotations"
-                        }
-                      ],
                       staticClass:
                         "alpheios-alignment-annotations-header__buttons"
                     },
@@ -59290,8 +59312,11 @@ var render = function() {
                             {
                               name: "show",
                               rawName: "v-show",
-                              value: _vm.currentState !== "list",
-                              expression: "currentState !== 'list'"
+                              value:
+                                _vm.currentState !== "list" &&
+                                _vm.hasAnnotations,
+                              expression:
+                                "currentState !== 'list' && hasAnnotations"
                             }
                           ],
                           staticClass:
@@ -59536,6 +59561,19 @@ var render = function() {
                                 },
                                 [_c("pen-icon")],
                                 1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "span",
+                                {
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deleteAnnotation(annotation)
+                                    }
+                                  }
+                                },
+                                [_c("delete-icon")],
+                                1
                               )
                             ]
                           )
@@ -59593,7 +59631,7 @@ var render = function() {
           ],
           null,
           false,
-          4218318538
+          1718612227
         )
       })
     : _vm._e()

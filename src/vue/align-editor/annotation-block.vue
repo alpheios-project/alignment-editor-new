@@ -2,8 +2,8 @@
   <modal v-if="showModal" @close="$emit('closeModal')" class="alpheios-alignment-editor-modal-annotations">
     <template v-slot:header >
         <h3 class="alpheios-alignment-editor-modal-header">{{ l10n.getMsgS('ANNOTATION_BLOCK_HEADER', { word: token.word }) }}</h3>
-        <p class="alpheios-alignment-annotations-header__buttons" v-show="hasAnnotations">
-          <button class="alpheios-editor-button-tertiary alpheios-annotation-save-button"  v-show="currentState !== 'list'"
+        <p class="alpheios-alignment-annotations-header__buttons" >
+          <button class="alpheios-editor-button-tertiary alpheios-annotation-save-button"  v-show="currentState !== 'list' && hasAnnotations"
               @click="showAnnotationsJournal" >
               {{ l10n.getMsgS('ANNOTATION_BLOCK_SHOW_LIST', { count: countAnnotations }) }}              
           </button>
@@ -39,6 +39,7 @@
           </td>
           <td class="alpheios-alignment-editor-annotation-list-item__edit">
             <span @click = "editAnnotation(annotation)"><pen-icon /></span>
+            <span @click = "deleteAnnotation(annotation)"><delete-icon /></span>
           </td>
         </tr>
       </table>
@@ -59,12 +60,14 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import Annotation from '@/lib/data/annotation.js'
 
 import PenIcon from '@/inline-icons/pen.svg'
+import DeleteIcon from '@/inline-icons/delete.svg'
 
 export default {
   name: 'AnnotationBlock',
   components: {
     modal: Modal,
-    penIcon: PenIcon
+    penIcon: PenIcon,
+    deleteIcon: DeleteIcon
   },
   props: {
     showModal: {
@@ -85,6 +88,13 @@ export default {
       states: ['new', 'list', 'edit'],
       currentState: 'new',
       fullTextAnnotations: []
+    }
+  },
+  mounted () {
+    if (this.hasAnnotations) {
+      this.currentState = 'list'
+    } else {
+      this.currentState = 'new'
     }
   },
   computed: {
@@ -112,7 +122,13 @@ export default {
       return Annotation.types[anType]
     },
     saveAnnotation () {
-      this.$emit('save-annotation', this.token, { id: this.annotationId, text: this.annotationText, type: this.annotationType })
+      this.$textC.addAnnotation({
+        token: this.token,
+        id: this.annotationId,
+        text: this.annotationText,
+        type: this.annotationType
+      })
+
       this.showAnnotationsJournal()
     },
     showAnnotationsJournal () {
@@ -144,6 +160,9 @@ export default {
       this.annotationType = annotation.type
       this.annotationText = annotation.text
       this.currentState = 'edit'
+    },
+    deleteAnnotation (annotation) {
+      this.$textC.removeAnnotation(this.token, annotation.id)
     }
   }
 }
@@ -202,7 +221,7 @@ export default {
 
       .alpheios-alignment-editor-annotation-list-item__edit {
         text-align: center;
-        width: 50px;
+        width: 100px;
         span {
           display: inline-block;
           width: 20px;

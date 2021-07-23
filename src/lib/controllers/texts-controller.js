@@ -549,4 +549,12 @@ export default class TextsController {
   getAnnotations (token) {
     return this.alignment && this.alignment.getAnnotations(token)
   }
+
+  removeAnnotation (token, id) {
+    if (this.alignment && this.alignment.removeAnnotation(token, id)) {
+      this.store.commit('incrementUpdateAnnotations')
+      return true
+    }
+    return false
+  }
 }

@@ -38,7 +38,7 @@
     <save-popup :showModal="showModalSave" @closeModal = "showModalSave = false" />
     <options-text-align-popup :showModal="showModalOptions" @closeModal = "showModalOptions = false" />
     <annotation-block-popup :showModal="showModalAnnotations" @closeModal = "closeAnnotationModal" 
-                            :token = "annotationToken" v-if="annotationToken" @save-annotation = "saveAnnotation"
+                            :token = "annotationToken" v-if="annotationToken" 
     />
   </div>
 </template>
@@ -95,14 +95,6 @@ export default {
     closeAnnotationModal () {
       this.annotationToken = null
       this.showModalAnnotations = false
-    },
-    saveAnnotation (token, annotationData) {
-      this.$textC.addAnnotation({
-        token,
-        id: annotationData.id,
-        text: annotationData.text,
-        type: annotationData.type
-      })
     }
   }
 }

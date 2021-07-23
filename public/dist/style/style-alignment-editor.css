@@ -2116,7 +2116,7 @@ span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-edit
 }
 .alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-list .alpheios-alignment-editor-annotation-list-item__edit {
   text-align: center;
-  width: 50px;
+  width: 100px;
 }
 .alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-list .alpheios-alignment-editor-annotation-list-item__edit span {
   display: inline-block;

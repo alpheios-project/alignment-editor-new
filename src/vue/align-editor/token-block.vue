@@ -74,7 +74,7 @@ export default {
       return this.annotationMode ? this.updateAnnotation : this.updateAlignmentGroup
     },
     hasAnnotations () {
-      return this.$store.state.updateAnnotations && Boolean(this.$textC.getAnnotations(this.token))
+      return this.$store.state.updateAnnotations && this.$textC.getAnnotations(this.token).length > 0
     }
   },
   methods: {
