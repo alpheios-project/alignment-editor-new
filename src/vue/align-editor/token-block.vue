@@ -85,10 +85,14 @@ export default {
       this.$emit('update-alignment-group', this.token)
     },
     addHoverToken () {
-      this.$emit('add-hover-token', this.token)
+      if (!this.annotationMode) {
+        this.$emit('add-hover-token', this.token)
+      }
     },
     removeHoverToken () {
-      this.$emit('remove-hover-token', this.token)
+      if (!this.annotationMode) {
+        this.$emit('remove-hover-token', this.token)
+      }
     }
   }
 }

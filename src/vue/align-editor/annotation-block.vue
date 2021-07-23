@@ -122,14 +122,16 @@ export default {
       return Annotation.types[anType]
     },
     saveAnnotation () {
-      this.$textC.addAnnotation({
+      const result = this.$textC.addAnnotation({
         token: this.token,
         id: this.annotationId,
         text: this.annotationText,
         type: this.annotationType
       })
 
-      this.showAnnotationsJournal()
+      if (result) {
+        this.showAnnotationsJournal()
+      }
     },
     showAnnotationsJournal () {
       this.currentState = 'list'

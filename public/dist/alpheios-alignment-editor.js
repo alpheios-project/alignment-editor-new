@@ -47350,7 +47350,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i462-annotations-1.20210723299" : 0
+    return  true ? "i462-annotations-1.20210723302" : 0
   }
 
   static get libName () {
@@ -48640,14 +48640,16 @@ __webpack_require__.r(__webpack_exports__);
       return _lib_data_annotation_js__WEBPACK_IMPORTED_MODULE_2__.default.types[anType]
     },
     saveAnnotation () {
-      this.$textC.addAnnotation({
+      const result = this.$textC.addAnnotation({
         token: this.token,
         id: this.annotationId,
         text: this.annotationText,
         type: this.annotationType
       })
 
-      this.showAnnotationsJournal()
+      if (result) {
+        this.showAnnotationsJournal()
+      }
     },
     showAnnotationsJournal () {
       this.currentState = 'list'
@@ -49177,10 +49179,14 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit('update-alignment-group', this.token)
     },
     addHoverToken () {
-      this.$emit('add-hover-token', this.token)
+      if (!this.annotationMode) {
+        this.$emit('add-hover-token', this.token)
+      }
     },
     removeHoverToken () {
-      this.$emit('remove-hover-token', this.token)
+      if (!this.annotationMode) {
+        this.$emit('remove-hover-token', this.token)
+      }
     }
   }
 });
