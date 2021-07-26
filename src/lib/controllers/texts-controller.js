@@ -529,12 +529,23 @@ export default class TextsController {
     return this.alignment.getSegment(textType, textId, segmentIndex)
   }
 
+  /**
+   * @returns {Boolean} - IndexedDB support availability
+   */
   get indexedDBAvailable () {
     return StorageController.dbAdapterAvailable
   }
 
+  /**
+   * Add a new attonation (if id is undefined) or update an existed annotation (if id is defined)
+   * @param {String} id - annotation ID
+   * @param {Token} token - to which annotation would be added
+   * @param {String} type - Annotation.types key
+   * @param {String} text - annotation text
+   * @returns {Boolean} - action result
+   */
   addAnnotation ({ id, token, type, text } = {}) {
-    if (token && type && text) {
+    if ((id && token && (type || text)) || (token && type && text)) {
       this.alignment.addAnnotation({ id, token, type, text })
       this.store.commit('incrementUpdateAnnotations')
       return true
@@ -544,14 +555,26 @@ export default class TextsController {
       text: L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_DATA_FOR_ANNOTATIONS'),
       type: NotificationSingleton.types.ERROR
     })
+    return false
   }
 
+  /**
+   * Get annotations, attache to the token
+   * @param {Token} token
+   * @returns {Array[Annotation]}
+   */
   getAnnotations (token) {
     return this.alignment && this.alignment.getAnnotations(token)
   }
 
+  /**
+   * Remove an existed annotation
+   * @param {Token} token
+   * @param {String} id  - annotation ID
+   * @returns {Boolean} - action result
+   */
   removeAnnotation (token, id) {
-    if (this.alignment && this.alignment.removeAnnotation(token, id)) {
+    if (token && id && this.alignment && this.alignment.removeAnnotation(token, id)) {
       this.store.commit('incrementUpdateAnnotations')
       return true
     }

@@ -1334,23 +1334,24 @@ export default class Alignment {
   }
 
   addAnnotation ({ id, token, type, text } = {}) {
-    if (!token || !type || !text) { return }
+    if ((id && token && (type || text)) || (token && type && text)) {
+      const existedAnnotation = this.existedAnnotation(token, id)
+      if (existedAnnotation) {
+        return existedAnnotation.update({ type, text })
+      }
+      if (this.equalAnnotation({ token, type, text })) {
+        return
+      }
 
-    const existedAnnotation = this.existedAnnotation(token, id)
-    if (existedAnnotation) {
-      return existedAnnotation.update({ type, text })
-    }
-    if (this.equalAnnotation({ token, type, text })) {
-      return
-    }
+      const annotation = new Annotation({ token, type, text })
+      if (!this.annotations[token.idWord]) {
+        this.annotations[token.idWord] = []
+      }
 
-    const annotation = new Annotation({ token, type, text })
-    if (!this.annotations[token.idWord]) {
-      this.annotations[token.idWord] = []
+      this.annotations[token.idWord].push(annotation)
+      return true
     }
-
-    this.annotations[token.idWord].push(annotation)
-    return true
+    return false
   }
 
   getAnnotations (token) {

@@ -19,7 +19,9 @@ export default class Annotation {
   }
 
   update ({ type, text }) {
-    this.type = type
+    if (type) {
+      this.type = type
+    }
     this.text = text
     return true
   }
