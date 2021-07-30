@@ -1083,8 +1083,10 @@ export default class Alignment {
     })
 
     const alignmentGroups = this.alignmentGroups.map(alGroup => alGroup.convertToJSON())
-
-    // const activeAlignmentGroup = this.activeAlignmentGroup ? this.activeAlignmentGroup.convertToJSON() : null
+    const annotations = {}
+    Object.keys(this.annotations).forEach(tokenIdWord => {
+      annotations[tokenIdWord] = this.annotations[tokenIdWord].map(annot => annot.convertToJSON())
+    })
 
     return {
       id: this.id,
@@ -1093,8 +1095,8 @@ export default class Alignment {
       userID: this.userID,
       origin,
       targets,
-      alignmentGroups/*,
-      activeAlignmentGroup: null */
+      alignmentGroups,
+      annotations
     }
   }
 
@@ -1121,10 +1123,16 @@ export default class Alignment {
       }
     })
 
-    data.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(AlignmentGroup.convertFromJSON(alGroup)))
-
-    if (data.activeAlignmentGroup) {
-      alignment.activeAlignmentGroup = AlignmentGroup.convertFromJSON(data.activeAlignmentGroup)
+    if (data.alignmentGroups) {
+      data.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(AlignmentGroup.convertFromJSON(alGroup)))
+    }
+    if (data.annotations) {
+      Object.keys(data.annotations).forEach(tokenIdWord => {
+        alignment.annotations[tokenIdWord] = data.annotations[tokenIdWord].map(annotData => {
+          const token = alignment.findTokenByTokenShortJSON(annotData.tokenData)
+          return Annotation.convertFromJSON(annotData, token)
+        })
+      })
     }
 
     if (alignment.origin.alignedText) {
@@ -1156,6 +1164,11 @@ export default class Alignment {
 
     const alignmentGroups = this.alignmentGroups.map(alGroup => alGroup.convertToJSON())
 
+    const annotations = []
+    Object.keys(this.annotations).forEach(tokenIdWord => {
+      annotations.push(...this.annotations[tokenIdWord].map(annot => annot.convertToJSON()))
+    })
+
     return {
       id: this.id,
       createdDT: ConvertUtility.convertDateToString(this.createdDT),
@@ -1165,7 +1178,8 @@ export default class Alignment {
       hasTokens,
       origin,
       targets,
-      alignmentGroups
+      alignmentGroups,
+      annotations
     }
   }
 
@@ -1200,6 +1214,18 @@ export default class Alignment {
     if (dbData.alignmentGroups) {
       dbData.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(AlignmentGroup.convertFromIndexedDB(alGroup)))
     }
+
+    if (dbData.annotations) {
+      dbData.annotations.forEach(annotData => {
+        if (!alignment.annotations[annotData.tokenData.idWord]) {
+          alignment.annotations[annotData.tokenData.idWord] = []
+        }
+        const token = alignment.findTokenByTokenShortJSON(annotData.tokenData)
+
+        alignment.annotations[annotData.tokenData.idWord].push(Annotation.convertFromJSON(annotData, token))
+      })
+    }
+
     if (alignment.origin.alignedText) {
       document.dispatchEvent(new Event('AlpheiosAlignmentGroupsWorkflowStarted'))
     }
@@ -1256,6 +1282,11 @@ export default class Alignment {
     })
 
     return JSON.stringify({ origin, targets })
+  }
+
+  findTokenByTokenShortJSON ({ textType, idWord, segmentIndex, docSourceId }) {
+    const segment = this.getSegment(textType, docSourceId, segmentIndex)
+    return segment.getTokenById(idWord)
   }
 
   changeMetadataTerm (metadataTermData, value, textType, textId) {

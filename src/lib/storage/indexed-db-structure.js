@@ -1,6 +1,6 @@
 export default class IndexedDBStructure {
   static get dbVersion () {
-    return 6
+    return 7
   }
 
   static get dbName () {
@@ -16,7 +16,8 @@ export default class IndexedDBStructure {
       segments: this.segmentsStructure,
       partNums: this.partNumsStructure,
       tokens: this.tokensStructure,
-      alGroups: this.alGroupsStructure
+      alGroups: this.alGroupsStructure,
+      annotations: this.annotationsStructure
     }
   }
 
@@ -145,6 +146,22 @@ export default class IndexedDBStructure {
         ]
       },
       serialize: this.serializeAlGroups.bind(this)
+    }
+  }
+
+  static get annotationsStructure () {
+    return {
+      name: 'ALEditorAnnotations ',
+      structure: {
+        keyPath: 'ID',
+        indexes: [
+          { indexName: 'ID', keyPath: 'ID', unique: true },
+          { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
+          { indexName: 'userID', keyPath: 'userID', unique: false },
+          { indexName: 'fullTokenId', keyPath: 'fullTokenId', unique: false }
+        ]
+      },
+      serialize: this.serializeAnnotations.bind(this)
     }
   }
 
@@ -365,6 +382,26 @@ export default class IndexedDBStructure {
     return finalData
   }
 
+  static serializeAnnotations (data) {
+    const finalData = []
+    for (const annotation of data.annotations) {
+      const uniqueID = `${data.userID}-${data.id}-${annotation.id}`
+
+      finalData.push({
+        ID: uniqueID,
+        alignmentID: data.id,
+        userID: data.userID,
+        fullTokenId: `${data.userID}-${data.id}-${annotation.tokenData.idWord}`,
+
+        annotationId: annotation.id,
+        tokenData: annotation.tokenData,
+        type: annotation.type,
+        text: annotation.text
+      })
+    }
+    return finalData
+  }
+
   static prepareUpdateQuery (objectStoreData, data) {
     const dataItems = objectStoreData.serialize(data)
     if (dataItems && dataItems.length > 0) {
@@ -517,6 +554,19 @@ export default class IndexedDBStructure {
           mergeBy: ['alignmentID'],
           uploadTo: 'alignmentGroups'
         }
+      },
+      {
+        objectStoreName: this.allObjectStoreData.annotations.name,
+        condition: {
+          indexName: 'alignmentID',
+          value: indexData.alignmentID,
+          type: 'only'
+        },
+        resultType: 'multiple',
+        mergeData: {
+          mergeBy: ['alignmentID'],
+          uploadTo: 'annotations'
+        }
       }
     ]
   }
@@ -555,9 +605,21 @@ export default class IndexedDBStructure {
       alignmentDataByID: this.prepareDeleteAlignmentDataByID.bind(this),
       fullAlignmentByID: this.prepareDeleteFullAlignmentByID.bind(this),
       alignmentGroupByID: this.prepareDeleteAlignmentGroupByID.bind(this),
-      allPartNum: this.prepareDeleteAllPartNum.bind(this)
+      allPartNum: this.prepareDeleteAllPartNum.bind(this),
+      annotationByID: this.prepareDeleteAnnotationByID.bind(this)
     }
     return typeQueryList[typeQuery](indexData)
+  }
+
+  static prepareDeleteAnnotationByID (indexData) {
+    return [{
+      objectStoreName: this.allObjectStoreData.annotations.name,
+      condition: {
+        indexName: 'ID',
+        value: `${indexData.userID}-${indexData.alignmentID}-${indexData.annotationId}`,
+        type: 'only'
+      }
+    }]
   }
 
   static prepareDeleteAllPartNum (indexData) {
@@ -565,7 +627,6 @@ export default class IndexedDBStructure {
       objectStoreName: this.allObjectStoreData.tokens.name,
       condition: {
         indexName: 'alTextIdSegIdPartNum',
-        // ${data.id}-${dataItem.textId}-${tokenItem.segmentIndex}-${tokenItem.partNum}
         value: `${indexData.userID}-${indexData.alignmentID}-${indexData.textId}-${indexData.segmentIndex}-${indexData.partNum}`,
         type: 'only'
       }

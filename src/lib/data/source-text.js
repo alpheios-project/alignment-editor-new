@@ -195,16 +195,21 @@ export default class SourceText {
   }
 
   convertToJSON () {
-    return {
+    const result = {
       textId: this.id,
       textType: this.textType,
       text: this.text,
       direction: this.direction,
       lang: this.lang,
       sourceType: this.sourceType,
-      tokenization: this.tokenization,
-      metadata: this.metadata.convertToJSON()
+      tokenization: this.tokenization
     }
+
+    if (!this.metadata.isEmpty) {
+      result.metadata = this.metadata.convertToJSON()
+    }
+
+    return result
   }
 
   convertToIndexedDB (textAsBlob = true) {

@@ -14,7 +14,7 @@
     "test-vue": "jest tests/vue --coverage",
     "test-a": "jest tests/lib/controllers/texts-controller.test.js --coverage",
     "test-b": "jest tests/vue/align-editor/annotation-block.test.js --coverage",
-    "test-c": "jest tests/lib/data/alignment.test.js --coverage",
+    "test-c": "jest tests/lib/data/json-conversion.test.js",
     "test-d": "jest tests/_output/vue/app.test.js --coverage",
     "github-build": "node --experimental-modules --experimental-json-modules ./github-build.mjs",
     "dev": "npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"

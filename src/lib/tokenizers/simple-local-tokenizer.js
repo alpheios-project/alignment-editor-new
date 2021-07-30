@@ -75,10 +75,13 @@ export default class SimpleLocalTokenizer {
    */
   static simpleWordTokenization (textLine, prefix, textType) {
     const formattedText = []
+    const sentenceEnds = /[.;!?:\uff01\uff1f\uff1b\uff1a\u3002]/
 
     if ((/^\s*$/).test(textLine)) { // it is an empty line
       return formattedText
     }
+
+    let sentenceIndex = 1
 
     const textAll = textLine.split(/(?=[.\s]|\b)/)
     let beforeWord = ''
@@ -96,7 +99,7 @@ export default class SimpleLocalTokenizer {
         wordEnded = false
       } else if ((/^\w.*/gi).test(item) && wordEnded) { // it is a word or the first part of it
         word = item
-      } else if ((/^\w.*/gi).test(item) && !wordEnded) { // it is the seconf part of the word
+      } else if ((/^\w.*/gi).test(item) && !wordEnded) { // it is the second part of the word
         word = word + item
       } else { // it is a word diviver
         let beforeNextWord = ''
@@ -116,6 +119,11 @@ export default class SimpleLocalTokenizer {
           afterWord = ''
           word = ''
 
+          resultWord.sentenceIndex = sentenceIndex
+          if (sentenceEnds.test(resultWord.afterWord)) {
+            sentenceIndex++
+          }
+
           formattedText.push(resultWord)
         }
       }
@@ -123,6 +131,8 @@ export default class SimpleLocalTokenizer {
 
     if (!wordEnded || word) {
       const resultWord = this.fillWordObject(indexWord, prefix, textType, word, beforeWord, afterWord)
+      resultWord.sentenceIndex = sentenceIndex
+
       indexWord = indexWord + 1
       formattedText.push(resultWord)
     }

@@ -25,6 +25,24 @@ export default class Annotation {
     this.text = text
     return true
   }
+
+  convertToJSON () {
+    return {
+      id: this.id,
+      tokenData: this.token.convertToShortJSON(),
+      type: this.type,
+      text: this.text
+    }
+  }
+
+  static convertFromJSON (data, token) {
+    return new Annotation({
+      annId: data.id || data.annotationId,
+      token,
+      type: data.type,
+      text: data.text
+    })
+  }
 }
 
 Annotation.types = {

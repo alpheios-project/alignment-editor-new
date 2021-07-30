@@ -548,6 +548,7 @@ export default class TextsController {
     if ((id && token && (type || text)) || (token && type && text)) {
       this.alignment.addAnnotation({ id, token, type, text })
       this.store.commit('incrementUpdateAnnotations')
+      StorageController.update(this.alignment)
       return true
     }
     console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_DATA_FOR_ANNOTATIONS'))
@@ -576,8 +577,17 @@ export default class TextsController {
   removeAnnotation (token, id) {
     if (token && id && this.alignment && this.alignment.removeAnnotation(token, id)) {
       this.store.commit('incrementUpdateAnnotations')
+      this.deleteAnnotationFromStorage(id)
       return true
     }
     return false
+  }
+
+  deleteAnnotationFromStorage (id) {
+    StorageController.deleteMany({
+      userID: this.alignment.userID,
+      alignmentID: this.alignment.id,
+      annotationId: id
+    }, 'annotationByID')
   }
 }
