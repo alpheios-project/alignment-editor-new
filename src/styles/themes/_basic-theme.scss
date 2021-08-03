@@ -134,6 +134,10 @@
                 border-color: map.get($theme, 'align-editor-text-border-color-hover');
                 background: map.get($theme, 'align-editor-text-background-color-hover');
             }
+            &.alpheios-token-annotation-mode:hover {
+                border-color: initial;
+                background: initial;
+            }
 
             &.alpheios-token-grouped {
                 color: map.get($theme, 'align-editor-text-color-grouped');

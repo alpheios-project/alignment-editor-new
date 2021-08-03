@@ -55,7 +55,8 @@ export default {
         'alpheios-token-clicked': this.inActiveGroup,
         'alpheios-token-clicked-first': this.firstInActiveGroup,
         'alpheios-token-part-shadowed': (this.token.partNum % 2 === 0),
-        'alpheios-token-has-annotations': this.hasAnnotations
+        'alpheios-token-has-annotations': this.hasAnnotations,
+        'alpheios-token-annotation-mode': this.annotationMode
       }
     }, 
     tokenWord () {
@@ -113,6 +114,10 @@ export default {
             &:hover {
                 border-color: #FFC24F;
                 background: #FFD27D;
+            }
+            &.alpheios-token-annotation-mode:hover {
+              border-color: initial;
+              background: initial;
             }
 
             &.alpheios-token-grouped {

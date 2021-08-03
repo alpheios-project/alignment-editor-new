@@ -11,7 +11,7 @@ import Vuex from "vuex"
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
-describe('token-block.test.js', () => {
+describe('annotation-block.test.js', () => {
   console.error = function () {}
   console.log = function () {}
   console.warn = function () {}

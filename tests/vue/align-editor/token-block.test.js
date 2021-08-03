@@ -97,9 +97,10 @@ describe('token-block.test.js', () => {
       'alpheios-token-selected': true, 
       'alpheios-token-grouped': true,
       'alpheios-token-clicked': false,
-      "alpheios-token-part-shadowed": false,
+      'alpheios-token-part-shadowed': false,
       'alpheios-token-clicked-first': false,
-      'alpheios-token-has-annotations': false
+      'alpheios-token-has-annotations': false,
+      'alpheios-token-annotation-mode': false
     })
   })
 

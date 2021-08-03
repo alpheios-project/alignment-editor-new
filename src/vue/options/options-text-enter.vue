@@ -12,6 +12,7 @@
             <option-item-block :optionItem = "showSummaryPopupOptionItem" />
             <option-item-block :optionItem = "maxCharactersPerPart" />
             <option-item-block :optionItem = "addIndexedDBSupport" />
+            <option-item-block :optionItem = "availableAnnotationTypes" />
         </div>
     </template>
     <template v-slot:footer>
@@ -74,6 +75,9 @@ export default {
     },
     addIndexedDBSupport () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.addIndexedDBSupport
+    },
+    availableAnnotationTypes () {
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.availableAnnotationTypes
     },
     versionData () {
       return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`

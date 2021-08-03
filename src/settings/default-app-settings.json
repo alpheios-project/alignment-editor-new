@@ -107,6 +107,27 @@
           "text": "No"
         }
       ]
+    },
+    "availableAnnotationTypes": {
+      "defaultValue": [
+        "COMMENT"
+      ],
+      "labelText": "Available annotation's type",
+      "multiValue": true,
+      "values": [
+        {
+          "value": "COMMENT",
+          "text": "comment"
+        },
+        {
+          "value": "LEMMAID",
+          "text": "lemmaID"
+        },
+        {
+          "value": "MORPHOLOGY",
+          "text": "morphology"
+        }
+      ]
     }
   }
 }

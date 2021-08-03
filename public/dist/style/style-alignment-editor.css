@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: "Source Sans Pro";
   font-style: normal;
@@ -290,6 +291,109 @@ div.alpheios-alignment-checkbox-block {
   content: "";
 }
 
+.alpheios-alignment-editor-app-container .multiselect {
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: textsize(10px);
+  border: 1px solid var(--alpheios-border-color);
+}
+.alpheios-alignment-editor-app-container .multiselect__content-wrapper {
+  border: 1px solid var(--alpheios-border-color);
+  border-top: 0;
+  padding: textsize(10px);
+}
+.alpheios-alignment-editor-app-container ul.multiselect__content {
+  padding: 0;
+  margin: 0;
+}
+.alpheios-alignment-editor-app-container .multiselect__tags {
+  font-size: textsize(16px);
+  border-radius: textsize(10px);
+  min-height: textsize(40px);
+  padding: textsize(8px) textsize(40px) 0 textsize(8px);
+}
+.alpheios-alignment-editor-app-container span.multiselect__tag {
+  background-color: var(--alpheios-settings-font-multiselect-bg);
+  display: inline-block;
+  border-radius: textsize(5px);
+  padding: textsize(4px) textsize(26px) textsize(4px) textsize(10px);
+  position: relative;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-height: textsize(24px);
+}
+.alpheios-alignment-editor-app-container span.multiselect__tag span {
+  color: var(--alpheios-settings-font-multiselect-font-color);
+}
+.alpheios-alignment-editor-app-container .multiselect__select {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666666%22%20points%3D%2212%201%209%206%2015%206%22%3E%3C%2Fpolygon%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666666%22%20points%3D%2212%2013%209%208%2015%208%22%3E%3C%2Fpolygon%3E%0A%3C%2Fsvg%3E%0A");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: textsize(28px);
+  height: 100%;
+}
+.alpheios-alignment-editor-app-container .multiselect__select::before {
+  display: none;
+}
+.alpheios-alignment-editor-app-container .multiselect__content {
+  padding: 0;
+}
+.alpheios-alignment-editor-app-container .multiselect__single {
+  display: none;
+}
+.alpheios-alignment-editor-app-container span.multiselect__option {
+  padding: 12px;
+}
+.alpheios-alignment-editor-app-container .multiselect__option::after {
+  display: none;
+}
+.alpheios-alignment-editor-app-container .multiselect__option--highlight,
+.alpheios-alignment-editor-app-container .multiselect__tag,
+.alpheios-alignment-editor-app-container .multiselect__tag-icon:focus,
+.alpheios-alignment-editor-app-container .multiselect__tag-icon:hover {
+  background: var(--alpheios-settings-font-multiselect-bg);
+}
+.alpheios-alignment-editor-app-container .multiselect__option.multiselect__option--highlight {
+  background-color: var(--alpheios-settings-font-multiselect-bg);
+}
+.alpheios-alignment-editor-app-container .multiselect__option.multiselect__option--highlight:after {
+  display: none;
+}
+.alpheios-alignment-editor-app-container .multiselect__option.multiselect__option--highlight span {
+  color: var(--alpheios-settings-font-multiselect-font-color);
+}
+.alpheios-alignment-editor-app-container .multiselect__option--highlight span,
+.alpheios-alignment-editor-app-container .multiselect__tag span,
+.alpheios-alignment-editor-app-container .multiselect__tag-icon:focus span,
+.alpheios-alignment-editor-app-container .multiselect__tag-icon:hover span {
+  color: var(--alpheios-settings-font-multiselect-font-color);
+}
+.alpheios-alignment-editor-app-container .multiselect__tag-icon:after {
+  content: "×";
+  color: var(--alpheios-settings-font-multiselect-font-color);
+  font-size: textsize(24px);
+}
+.alpheios-alignment-editor-app-container .multiselect__tag-icon {
+  border-radius: 5px;
+  bottom: 0;
+  cursor: pointer;
+  font-style: normal;
+  font-weight: bold;
+  line-height: 1;
+  margin-left: 7px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  transition: all 0.2s ease;
+  width: textsize(24px);
+  color: var(--alpheios-settings-font-multiselect-font-color);
+}
+.alpheios-alignment-editor-app-container .multiselect__tag-icon:hover {
+  background-color: var(--alpheios-settings-font-multiselect-bg);
+}
+
 .alpheios-modal-mask {
   position: fixed;
   z-index: 9998;
@@ -560,6 +664,10 @@ div.alpheios-alignment-checkbox-block {
   border-color: #FFC24F;
   background: #FFC24F;
 }
+.alpheios-standard-theme .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-annotation-mode:hover {
+  border-color: initial;
+  background: initial;
+}
 .alpheios-standard-theme .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-grouped {
   color: #212529;
   border-color: #BCE5F0;
@@ -765,6 +873,10 @@ div.alpheios-alignment-checkbox-block {
   color: #810000;
   border-color: gray;
   background: #fffee0;
+}
+.alpheios-v1-theme .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-annotation-mode:hover {
+  border-color: initial;
+  background: initial;
 }
 .alpheios-v1-theme .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-grouped {
   color: #282828;
@@ -1256,7 +1368,8 @@ button.alpheios-app-menu-link:-moz-focusring {
 }
 .alpheios-alignment-option-item input.alpheios-alignment-input,
 .alpheios-alignment-option-item .alpheios-alignment-select,
-.alpheios-alignment-option-item .alpheios-alignment-radio-block {
+.alpheios-alignment-option-item .alpheios-alignment-radio-block,
+.alpheios-alignment-option-item .multiselect.alpheios-alignment-option-item__control {
   display: inline-block;
   width: 50%;
   vertical-align: top;
@@ -1895,6 +2008,10 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 .alpheios-alignment-editor-align-text-segment span.alpheios-token:hover {
   border-color: #FFC24F;
   background: #FFD27D;
+}
+.alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-annotation-mode:hover {
+  border-color: initial;
+  background: initial;
 }
 .alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-grouped {
   border-color: #BCE5F0;
