@@ -13,7 +13,6 @@ export default class Token {
     this.segmentIndex = segmentIndex
     this.docSourceId = docSourceId
     this.tokenIndex = tokenIndex
-    this.len = this.word ? this.word.length : 0
     this.partNum = partNum
   }
 
@@ -22,6 +21,10 @@ export default class Token {
    */
   get isAlignable () {
     return Boolean(this.textType && this.idWord && this.word)
+  }
+
+  get len () {
+    return this.word ? this.word.length : 0
   }
 
   /**
@@ -40,7 +43,6 @@ export default class Token {
   update ({ word, idWord, segmentIndex, hasLineBreak, partNum }) {
     if (word !== undefined) {
       this.word = word
-      this.len = this.word.length
     }
 
     if (idWord !== undefined) {
@@ -104,7 +106,7 @@ export default class Token {
       segmentIndex: this.segmentIndex,
       docSourceId: this.docSourceId,
       sentenceIndex: this.sentenceIndex,
-      tokenIndex
+      tokenIndex: tokenIndex !== undefined ? tokenIndex : this.tokenIndex
     }
   }
 
@@ -173,6 +175,15 @@ export default class Token {
       sentenceIndex: this.sentenceIndex,
       partNum: this.partNum,
       tokenIndex
+    }
+  }
+
+  convertToShortJSON () {
+    return {
+      textType: this.textType,
+      idWord: this.idWord,
+      segmentIndex: this.segmentIndex,
+      docSourceId: this.docSourceId
     }
   }
 }

@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 import AlignmentGroup from '@/lib/data/alignment-group'
 import AlignedText from '@/lib/data/aligned-text'
 import SourceText from '@/lib/data/source-text'
+import Annotation from '@/lib/data/annotation'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
@@ -34,6 +35,8 @@ export default class Alignment {
 
     this.hoveredGroups = []
     this.undoneGroups = []
+
+    this.annotations = {}
 
     this.tokensEditHistory = new TokensEditHistory()
     this.tokensEditActions = new TokensEditActions({ origin: this.origin, targets: this.targets, tokensEditHistory: this.tokensEditHistory })
@@ -1080,8 +1083,10 @@ export default class Alignment {
     })
 
     const alignmentGroups = this.alignmentGroups.map(alGroup => alGroup.convertToJSON())
-
-    // const activeAlignmentGroup = this.activeAlignmentGroup ? this.activeAlignmentGroup.convertToJSON() : null
+    const annotations = {}
+    Object.keys(this.annotations).forEach(tokenIdWord => {
+      annotations[tokenIdWord] = this.annotations[tokenIdWord].map(annot => annot.convertToJSON())
+    })
 
     return {
       id: this.id,
@@ -1090,8 +1095,8 @@ export default class Alignment {
       userID: this.userID,
       origin,
       targets,
-      alignmentGroups/*,
-      activeAlignmentGroup: null */
+      alignmentGroups,
+      annotations
     }
   }
 
@@ -1118,10 +1123,16 @@ export default class Alignment {
       }
     })
 
-    data.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(AlignmentGroup.convertFromJSON(alGroup)))
-
-    if (data.activeAlignmentGroup) {
-      alignment.activeAlignmentGroup = AlignmentGroup.convertFromJSON(data.activeAlignmentGroup)
+    if (data.alignmentGroups) {
+      data.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(AlignmentGroup.convertFromJSON(alGroup)))
+    }
+    if (data.annotations) {
+      Object.keys(data.annotations).forEach(tokenIdWord => {
+        alignment.annotations[tokenIdWord] = data.annotations[tokenIdWord].map(annotData => {
+          const token = alignment.findTokenByTokenShortJSON(annotData.tokenData)
+          return Annotation.convertFromJSON(annotData, token)
+        })
+      })
     }
 
     if (alignment.origin.alignedText) {
@@ -1153,6 +1164,11 @@ export default class Alignment {
 
     const alignmentGroups = this.alignmentGroups.map(alGroup => alGroup.convertToJSON())
 
+    const annotations = []
+    Object.keys(this.annotations).forEach(tokenIdWord => {
+      annotations.push(...this.annotations[tokenIdWord].map(annot => annot.convertToJSON()))
+    })
+
     return {
       id: this.id,
       createdDT: ConvertUtility.convertDateToString(this.createdDT),
@@ -1162,7 +1178,8 @@ export default class Alignment {
       hasTokens,
       origin,
       targets,
-      alignmentGroups
+      alignmentGroups,
+      annotations
     }
   }
 
@@ -1197,6 +1214,18 @@ export default class Alignment {
     if (dbData.alignmentGroups) {
       dbData.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(AlignmentGroup.convertFromIndexedDB(alGroup)))
     }
+
+    if (dbData.annotations) {
+      dbData.annotations.forEach(annotData => {
+        if (!alignment.annotations[annotData.tokenData.idWord]) {
+          alignment.annotations[annotData.tokenData.idWord] = []
+        }
+        const token = alignment.findTokenByTokenShortJSON(annotData.tokenData)
+
+        alignment.annotations[annotData.tokenData.idWord].push(Annotation.convertFromJSON(annotData, token))
+      })
+    }
+
     if (alignment.origin.alignedText) {
       document.dispatchEvent(new Event('AlpheiosAlignmentGroupsWorkflowStarted'))
     }
@@ -1253,6 +1282,11 @@ export default class Alignment {
     })
 
     return JSON.stringify({ origin, targets })
+  }
+
+  findTokenByTokenShortJSON ({ textType, idWord, segmentIndex, docSourceId }) {
+    const segment = this.getSegment(textType, docSourceId, segmentIndex)
+    return segment.getTokenById(idWord)
   }
 
   changeMetadataTerm (metadataTermData, value, textType, textId) {
@@ -1328,5 +1362,66 @@ export default class Alignment {
   get hasAllPartsUploaded () {
     return !(this.origin.alignedText) ||
            (this.origin.alignedText.hasAllPartsUploaded && Object.values(this.targets).every(target => target.alignedText.hasAllPartsUploaded))
+  }
+
+  addAnnotation ({ id, token, type, text } = {}) {
+    if ((id && token && (type || text)) || (token && type && text)) {
+      const existedAnnotation = this.existedAnnotation(token, id)
+      if (existedAnnotation) {
+        return existedAnnotation.update({ type, text })
+      }
+      if (this.equalAnnotation({ token, type, text })) {
+        return
+      }
+
+      const annotation = new Annotation({ token, type, text })
+      if (!this.annotations[token.idWord]) {
+        this.annotations[token.idWord] = []
+      }
+
+      this.annotations[token.idWord].push(annotation)
+      return true
+    }
+    return false
+  }
+
+  get hasAnnotations () {
+    return Object.values(this.annotations).length > 0
+  }
+
+  hasTokenAnnotations (token) {
+    return this.getAnnotations(token).length > 0
+  }
+
+  getAnnotations (token) {
+    return this.annotations[token.idWord] ? this.annotations[token.idWord] : []
+  }
+
+  equalAnnotation ({ token, type, text }) {
+    return this.annotations[token.idWord] && this.annotations[token.idWord].find(annotation => annotation.hasProperties({ type, text }))
+  }
+
+  existedAnnotation (token, id) {
+    return this.annotations[token.idWord] && this.annotations[token.idWord].find(annotation => annotation.id === id)
+  }
+
+  existedAnnotationIndex (token, id) {
+    return this.annotations[token.idWord] && this.annotations[token.idWord].findIndex(annotation => annotation.id === id)
+  }
+
+  removeAnnotation (token, id) {
+    const annotationIndex = this.existedAnnotationIndex(token, id)
+    if (annotationIndex >= 0) {
+      this.annotations[token.idWord].splice(annotationIndex, 1)
+      if (this.annotations[token.idWord].length === 0) {
+        delete this.annotations[token.idWord]
+      }
+      return true
+    }
+    return false
+  }
+
+  annotationIsEditable (annotation, availableTypes) {
+    return annotation.isEditable(availableTypes)
   }
 }

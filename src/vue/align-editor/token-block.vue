@@ -36,6 +36,11 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    annotationMode: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data () {
@@ -49,7 +54,9 @@ export default {
         'alpheios-token-grouped': this.grouped ,
         'alpheios-token-clicked': this.inActiveGroup,
         'alpheios-token-clicked-first': this.firstInActiveGroup,
-        'alpheios-token-part-shadowed': (this.token.partNum % 2 === 0)
+        'alpheios-token-part-shadowed': (this.token.partNum % 2 === 0),
+        'alpheios-token-has-annotations': this.hasAnnotations,
+        'alpheios-token-annotation-mode': this.annotationMode
       }
     }, 
     tokenWord () {
@@ -63,17 +70,30 @@ export default {
     },
     elementId () {
       return `token-${this.token.idWord}`
+    },
+    clickToken () {
+      return this.annotationMode ? this.updateAnnotation : this.updateAlignmentGroup
+    },
+    hasAnnotations () {
+      return this.$store.state.updateAnnotations && this.$textC.getAnnotations(this.token).length > 0
     }
   },
   methods: {
-    clickToken (event) {
-      this.$emit('click-token', this.token)
+    updateAnnotation () {
+      this.$emit('update-annotation', this.token)
+    },
+    updateAlignmentGroup (event) {
+      this.$emit('update-alignment-group', this.token)
     },
     addHoverToken () {
-      this.$emit('add-hover-token', this.token)
+      if (!this.annotationMode) {
+        this.$emit('add-hover-token', this.token)
+      }
     },
     removeHoverToken () {
-      this.$emit('remove-hover-token', this.token)
+      if (!this.annotationMode) {
+        this.$emit('remove-hover-token', this.token)
+      }
     }
   }
 }
@@ -94,6 +114,10 @@ export default {
             &:hover {
                 border-color: #FFC24F;
                 background: #FFD27D;
+            }
+            &.alpheios-token-annotation-mode:hover {
+              border-color: initial;
+              background: initial;
             }
 
             &.alpheios-token-grouped {
@@ -116,6 +140,10 @@ export default {
               border-color: #f06d26;
               background: #f06d26;
               color: #fff;
+            }
+
+            &.alpheios-token-has-annotations {
+              text-decoration: underline;
             }
         }
     }

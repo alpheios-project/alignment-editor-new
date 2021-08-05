@@ -45,6 +45,7 @@ export default class StoreDefinition {
         redefineAllPartNums: 1,
         reuploadTextsParts: 1,
         uploadPartNum: 1,
+        updateAnnotations: 1,
 
         reloadAlignmentsList: 1,
 
@@ -112,6 +113,9 @@ export default class StoreDefinition {
         },
         incremetReloadAlignmentsList (state) {
           state.reloadAlignmentsList++
+        },
+        incrementUpdateAnnotations (state) {
+          state.updateAnnotations++
         }
       }
     }

@@ -97,12 +97,14 @@ describe('token-block.test.js', () => {
       'alpheios-token-selected': true, 
       'alpheios-token-grouped': true,
       'alpheios-token-clicked': false,
-      "alpheios-token-part-shadowed": false,
-      'alpheios-token-clicked-first': false
+      'alpheios-token-part-shadowed': false,
+      'alpheios-token-clicked-first': false,
+      'alpheios-token-has-annotations': false,
+      'alpheios-token-annotation-mode': false
     })
   })
 
-  it('3 TokenBlock - clickToken, addHoverToken, removeHoverToken emit events', () => {
+  it('3 TokenBlock - updateAlignmentGroup, addHoverToken, removeHoverToken emit events', () => {
     let cmp = shallowMount(TokenBlock,{
       store: appC.store,
       localVue,
@@ -110,9 +112,9 @@ describe('token-block.test.js', () => {
         token: token
       }
     })
-    cmp.vm.clickToken()
-    expect(cmp.emitted()['click-token']).toBeTruthy()
-    expect(cmp.emitted()['click-token'][0]).toEqual([ token ])
+    cmp.vm.updateAlignmentGroup()
+    expect(cmp.emitted()['update-alignment-group']).toBeTruthy()
+    expect(cmp.emitted()['update-alignment-group'][0]).toEqual([ token ])
 
     cmp.vm.addHoverToken()
     expect(cmp.emitted()['add-hover-token']).toBeTruthy()
@@ -123,4 +125,52 @@ describe('token-block.test.js', () => {
     expect(cmp.emitted()['remove-hover-token'][0]).toEqual([ token ])
   })
 
+  it('4 TokenBlock - click token executes method according to the annotation mode', async () => {
+    let cmp = shallowMount(TokenBlock,{
+      store: appC.store,
+      localVue,
+      propsData: {
+        token: token,
+        annotationMode: false
+      }
+    })
+
+    await cmp.trigger('click')
+
+    expect(cmp.emitted()['update-alignment-group']).toBeTruthy()
+    expect(cmp.emitted()['update-alignment-group'][0]).toEqual([ token ])
+
+    await cmp.setProps({ annotationMode: true })
+    await cmp.trigger('click')
+    expect(cmp.emitted()['update-annotation']).toBeTruthy()
+    expect(cmp.emitted()['update-annotation'][0]).toEqual([ token ])
+  })
+
+  it('5 TokenBlock - hover token executes event according to the annotation mode', async () => {
+    let cmp = shallowMount(TokenBlock,{
+      store: appC.store,
+      localVue,
+      propsData: {
+        token: token,
+        annotationMode: true
+      }
+    })
+    await cmp.trigger('mouseover')
+    expect(cmp.emitted()['add-hover-token']).toBeFalsy()
+
+    await cmp.trigger('mouseleave')
+    expect(cmp.emitted()['remove-hover-token']).toBeFalsy()
+
+    await cmp.setProps({ annotationMode: false })
+
+    await cmp.trigger('mouseover')
+
+    expect(cmp.emitted()['add-hover-token']).toBeTruthy()
+    expect(cmp.emitted()['add-hover-token'][0]).toEqual([ token ])
+
+    await cmp.trigger('mouseleave')
+
+    expect(cmp.emitted()['remove-hover-token']).toBeTruthy()
+    expect(cmp.emitted()['remove-hover-token'][0]).toEqual([ token ])
+  })
 })

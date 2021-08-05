@@ -41,6 +41,16 @@
 
 /***/ }),
 
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/annotation-block.vue?vue&type=style&index=0&lang=scss&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/annotation-block.vue?vue&type=style&index=0&lang=scss& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (() => {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/segment-block.vue?vue&type=style&index=0&lang=scss&":
 /*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/segment-block.vue?vue&type=style&index=0&lang=scss& ***!
@@ -2616,9 +2626,9 @@ return /******/ (() => { // webpackBootstrap
 /*!********************************************!*\
   !*** ../../../node_modules/axios/index.js ***!
   \********************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_1293__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_1310__) => {
 
-module.exports = __nested_webpack_require_1293__(/*! ./lib/axios */ "../../../node_modules/axios/lib/axios.js");
+module.exports = __nested_webpack_require_1310__(/*! ./lib/axios */ "../../../node_modules/axios/lib/axios.js");
 
 /***/ }),
 
@@ -2626,19 +2636,19 @@ module.exports = __nested_webpack_require_1293__(/*! ./lib/axios */ "../../../no
 /*!*******************************************************!*\
   !*** ../../../node_modules/axios/lib/adapters/xhr.js ***!
   \*******************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_1714__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_1741__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_1714__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
-var settle = __nested_webpack_require_1714__(/*! ./../core/settle */ "../../../node_modules/axios/lib/core/settle.js");
-var cookies = __nested_webpack_require_1714__(/*! ./../helpers/cookies */ "../../../node_modules/axios/lib/helpers/cookies.js");
-var buildURL = __nested_webpack_require_1714__(/*! ./../helpers/buildURL */ "../../../node_modules/axios/lib/helpers/buildURL.js");
-var buildFullPath = __nested_webpack_require_1714__(/*! ../core/buildFullPath */ "../../../node_modules/axios/lib/core/buildFullPath.js");
-var parseHeaders = __nested_webpack_require_1714__(/*! ./../helpers/parseHeaders */ "../../../node_modules/axios/lib/helpers/parseHeaders.js");
-var isURLSameOrigin = __nested_webpack_require_1714__(/*! ./../helpers/isURLSameOrigin */ "../../../node_modules/axios/lib/helpers/isURLSameOrigin.js");
-var createError = __nested_webpack_require_1714__(/*! ../core/createError */ "../../../node_modules/axios/lib/core/createError.js");
+var utils = __nested_webpack_require_1741__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var settle = __nested_webpack_require_1741__(/*! ./../core/settle */ "../../../node_modules/axios/lib/core/settle.js");
+var cookies = __nested_webpack_require_1741__(/*! ./../helpers/cookies */ "../../../node_modules/axios/lib/helpers/cookies.js");
+var buildURL = __nested_webpack_require_1741__(/*! ./../helpers/buildURL */ "../../../node_modules/axios/lib/helpers/buildURL.js");
+var buildFullPath = __nested_webpack_require_1741__(/*! ../core/buildFullPath */ "../../../node_modules/axios/lib/core/buildFullPath.js");
+var parseHeaders = __nested_webpack_require_1741__(/*! ./../helpers/parseHeaders */ "../../../node_modules/axios/lib/helpers/parseHeaders.js");
+var isURLSameOrigin = __nested_webpack_require_1741__(/*! ./../helpers/isURLSameOrigin */ "../../../node_modules/axios/lib/helpers/isURLSameOrigin.js");
+var createError = __nested_webpack_require_1741__(/*! ../core/createError */ "../../../node_modules/axios/lib/core/createError.js");
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -2816,16 +2826,16 @@ module.exports = function xhrAdapter(config) {
 /*!************************************************!*\
   !*** ../../../node_modules/axios/lib/axios.js ***!
   \************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_8441__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_8658__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_8441__(/*! ./utils */ "../../../node_modules/axios/lib/utils.js");
-var bind = __nested_webpack_require_8441__(/*! ./helpers/bind */ "../../../node_modules/axios/lib/helpers/bind.js");
-var Axios = __nested_webpack_require_8441__(/*! ./core/Axios */ "../../../node_modules/axios/lib/core/Axios.js");
-var mergeConfig = __nested_webpack_require_8441__(/*! ./core/mergeConfig */ "../../../node_modules/axios/lib/core/mergeConfig.js");
-var defaults = __nested_webpack_require_8441__(/*! ./defaults */ "../../../node_modules/axios/lib/defaults.js");
+var utils = __nested_webpack_require_8658__(/*! ./utils */ "../../../node_modules/axios/lib/utils.js");
+var bind = __nested_webpack_require_8658__(/*! ./helpers/bind */ "../../../node_modules/axios/lib/helpers/bind.js");
+var Axios = __nested_webpack_require_8658__(/*! ./core/Axios */ "../../../node_modules/axios/lib/core/Axios.js");
+var mergeConfig = __nested_webpack_require_8658__(/*! ./core/mergeConfig */ "../../../node_modules/axios/lib/core/mergeConfig.js");
+var defaults = __nested_webpack_require_8658__(/*! ./defaults */ "../../../node_modules/axios/lib/defaults.js");
 
 /**
  * Create an instance of Axios
@@ -2858,18 +2868,18 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __nested_webpack_require_8441__(/*! ./cancel/Cancel */ "../../../node_modules/axios/lib/cancel/Cancel.js");
-axios.CancelToken = __nested_webpack_require_8441__(/*! ./cancel/CancelToken */ "../../../node_modules/axios/lib/cancel/CancelToken.js");
-axios.isCancel = __nested_webpack_require_8441__(/*! ./cancel/isCancel */ "../../../node_modules/axios/lib/cancel/isCancel.js");
+axios.Cancel = __nested_webpack_require_8658__(/*! ./cancel/Cancel */ "../../../node_modules/axios/lib/cancel/Cancel.js");
+axios.CancelToken = __nested_webpack_require_8658__(/*! ./cancel/CancelToken */ "../../../node_modules/axios/lib/cancel/CancelToken.js");
+axios.isCancel = __nested_webpack_require_8658__(/*! ./cancel/isCancel */ "../../../node_modules/axios/lib/cancel/isCancel.js");
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __nested_webpack_require_8441__(/*! ./helpers/spread */ "../../../node_modules/axios/lib/helpers/spread.js");
+axios.spread = __nested_webpack_require_8658__(/*! ./helpers/spread */ "../../../node_modules/axios/lib/helpers/spread.js");
 
 // Expose isAxiosError
-axios.isAxiosError = __nested_webpack_require_8441__(/*! ./helpers/isAxiosError */ "../../../node_modules/axios/lib/helpers/isAxiosError.js");
+axios.isAxiosError = __nested_webpack_require_8658__(/*! ./helpers/isAxiosError */ "../../../node_modules/axios/lib/helpers/isAxiosError.js");
 
 module.exports = axios;
 
@@ -2913,12 +2923,12 @@ module.exports = Cancel;
 /*!*************************************************************!*\
   !*** ../../../node_modules/axios/lib/cancel/CancelToken.js ***!
   \*************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_11635__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_11949__) => {
 
 "use strict";
 
 
-var Cancel = __nested_webpack_require_11635__(/*! ./Cancel */ "../../../node_modules/axios/lib/cancel/Cancel.js");
+var Cancel = __nested_webpack_require_11949__(/*! ./Cancel */ "../../../node_modules/axios/lib/cancel/Cancel.js");
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -2997,16 +3007,16 @@ module.exports = function isCancel(value) {
 /*!*****************************************************!*\
   !*** ../../../node_modules/axios/lib/core/Axios.js ***!
   \*****************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_13646__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_14044__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_13646__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
-var buildURL = __nested_webpack_require_13646__(/*! ../helpers/buildURL */ "../../../node_modules/axios/lib/helpers/buildURL.js");
-var InterceptorManager = __nested_webpack_require_13646__(/*! ./InterceptorManager */ "../../../node_modules/axios/lib/core/InterceptorManager.js");
-var dispatchRequest = __nested_webpack_require_13646__(/*! ./dispatchRequest */ "../../../node_modules/axios/lib/core/dispatchRequest.js");
-var mergeConfig = __nested_webpack_require_13646__(/*! ./mergeConfig */ "../../../node_modules/axios/lib/core/mergeConfig.js");
+var utils = __nested_webpack_require_14044__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var buildURL = __nested_webpack_require_14044__(/*! ../helpers/buildURL */ "../../../node_modules/axios/lib/helpers/buildURL.js");
+var InterceptorManager = __nested_webpack_require_14044__(/*! ./InterceptorManager */ "../../../node_modules/axios/lib/core/InterceptorManager.js");
+var dispatchRequest = __nested_webpack_require_14044__(/*! ./dispatchRequest */ "../../../node_modules/axios/lib/core/dispatchRequest.js");
+var mergeConfig = __nested_webpack_require_14044__(/*! ./mergeConfig */ "../../../node_modules/axios/lib/core/mergeConfig.js");
 
 /**
  * Create a new instance of Axios
@@ -3103,12 +3113,12 @@ module.exports = Axios;
 /*!******************************************************************!*\
   !*** ../../../node_modules/axios/lib/core/InterceptorManager.js ***!
   \******************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_17015__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_17519__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_17015__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var utils = __nested_webpack_require_17519__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
 
 function InterceptorManager() {
   this.handlers = [];
@@ -3166,13 +3176,13 @@ module.exports = InterceptorManager;
 /*!*************************************************************!*\
   !*** ../../../node_modules/axios/lib/core/buildFullPath.js ***!
   \*************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_18672__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_19239__) => {
 
 "use strict";
 
 
-var isAbsoluteURL = __nested_webpack_require_18672__(/*! ../helpers/isAbsoluteURL */ "../../../node_modules/axios/lib/helpers/isAbsoluteURL.js");
-var combineURLs = __nested_webpack_require_18672__(/*! ../helpers/combineURLs */ "../../../node_modules/axios/lib/helpers/combineURLs.js");
+var isAbsoluteURL = __nested_webpack_require_19239__(/*! ../helpers/isAbsoluteURL */ "../../../node_modules/axios/lib/helpers/isAbsoluteURL.js");
+var combineURLs = __nested_webpack_require_19239__(/*! ../helpers/combineURLs */ "../../../node_modules/axios/lib/helpers/combineURLs.js");
 
 /**
  * Creates a new URL by combining the baseURL with the requestedURL,
@@ -3197,12 +3207,12 @@ module.exports = function buildFullPath(baseURL, requestedURL) {
 /*!***********************************************************!*\
   !*** ../../../node_modules/axios/lib/core/createError.js ***!
   \***********************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_19855__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_20453__) => {
 
 "use strict";
 
 
-var enhanceError = __nested_webpack_require_19855__(/*! ./enhanceError */ "../../../node_modules/axios/lib/core/enhanceError.js");
+var enhanceError = __nested_webpack_require_20453__(/*! ./enhanceError */ "../../../node_modules/axios/lib/core/enhanceError.js");
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -3226,15 +3236,15 @@ module.exports = function createError(message, config, code, request, response) 
 /*!***************************************************************!*\
   !*** ../../../node_modules/axios/lib/core/dispatchRequest.js ***!
   \***************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_20906__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_21533__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_20906__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
-var transformData = __nested_webpack_require_20906__(/*! ./transformData */ "../../../node_modules/axios/lib/core/transformData.js");
-var isCancel = __nested_webpack_require_20906__(/*! ../cancel/isCancel */ "../../../node_modules/axios/lib/cancel/isCancel.js");
-var defaults = __nested_webpack_require_20906__(/*! ../defaults */ "../../../node_modules/axios/lib/defaults.js");
+var utils = __nested_webpack_require_21533__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var transformData = __nested_webpack_require_21533__(/*! ./transformData */ "../../../node_modules/axios/lib/core/transformData.js");
+var isCancel = __nested_webpack_require_21533__(/*! ../cancel/isCancel */ "../../../node_modules/axios/lib/cancel/isCancel.js");
+var defaults = __nested_webpack_require_21533__(/*! ../defaults */ "../../../node_modules/axios/lib/defaults.js");
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -3369,12 +3379,12 @@ module.exports = function enhanceError(error, config, code, request, response) {
 /*!***********************************************************!*\
   !*** ../../../node_modules/axios/lib/core/mergeConfig.js ***!
   \***********************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_24788__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_25558__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_24788__(/*! ../utils */ "../../../node_modules/axios/lib/utils.js");
+var utils = __nested_webpack_require_25558__(/*! ../utils */ "../../../node_modules/axios/lib/utils.js");
 
 /**
  * Config-specific merge-function which creates a new config-object
@@ -3467,12 +3477,12 @@ module.exports = function mergeConfig(config1, config2) {
 /*!******************************************************!*\
   !*** ../../../node_modules/axios/lib/core/settle.js ***!
   \******************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_28061__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_28929__) => {
 
 "use strict";
 
 
-var createError = __nested_webpack_require_28061__(/*! ./createError */ "../../../node_modules/axios/lib/core/createError.js");
+var createError = __nested_webpack_require_28929__(/*! ./createError */ "../../../node_modules/axios/lib/core/createError.js");
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -3503,12 +3513,12 @@ module.exports = function settle(resolve, reject, response) {
 /*!*************************************************************!*\
   !*** ../../../node_modules/axios/lib/core/transformData.js ***!
   \*************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_29184__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_30088__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_29184__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var utils = __nested_webpack_require_30088__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
 
 /**
  * Transform the data for a request or a response
@@ -3534,13 +3544,13 @@ module.exports = function transformData(data, headers, fns) {
 /*!***************************************************!*\
   !*** ../../../node_modules/axios/lib/defaults.js ***!
   \***************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_30100__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_31035__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_30100__(/*! ./utils */ "../../../node_modules/axios/lib/utils.js");
-var normalizeHeaderName = __nested_webpack_require_30100__(/*! ./helpers/normalizeHeaderName */ "../../../node_modules/axios/lib/helpers/normalizeHeaderName.js");
+var utils = __nested_webpack_require_31035__(/*! ./utils */ "../../../node_modules/axios/lib/utils.js");
+var normalizeHeaderName = __nested_webpack_require_31035__(/*! ./helpers/normalizeHeaderName */ "../../../node_modules/axios/lib/helpers/normalizeHeaderName.js");
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -3556,10 +3566,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __nested_webpack_require_30100__(/*! ./adapters/xhr */ "../../../node_modules/axios/lib/adapters/xhr.js");
+    adapter = __nested_webpack_require_31035__(/*! ./adapters/xhr */ "../../../node_modules/axios/lib/adapters/xhr.js");
   } else if (typeof process !== 'undefined' && Object.prototype.toString.call(process) === '[object process]') {
     // For node use HTTP adapter
-    adapter = __nested_webpack_require_30100__(/*! ./adapters/http */ "../../../node_modules/axios/lib/adapters/xhr.js");
+    adapter = __nested_webpack_require_31035__(/*! ./adapters/http */ "../../../node_modules/axios/lib/adapters/xhr.js");
   }
   return adapter;
 }
@@ -3665,12 +3675,12 @@ module.exports = function bind(fn, thisArg) {
 /*!***********************************************************!*\
   !*** ../../../node_modules/axios/lib/helpers/buildURL.js ***!
   \***********************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_33808__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_34874__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_33808__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var utils = __nested_webpack_require_34874__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
 
 function encode(val) {
   return encodeURIComponent(val).
@@ -3771,12 +3781,12 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 /*!**********************************************************!*\
   !*** ../../../node_modules/axios/lib/helpers/cookies.js ***!
   \**********************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_36529__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_37701__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_36529__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var utils = __nested_webpack_require_37701__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -3882,12 +3892,12 @@ module.exports = function isAxiosError(payload) {
 /*!******************************************************************!*\
   !*** ../../../node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
   \******************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_39914__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_41197__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_39914__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var utils = __nested_webpack_require_41197__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -3961,12 +3971,12 @@ module.exports = (
 /*!**********************************************************************!*\
   !*** ../../../node_modules/axios/lib/helpers/normalizeHeaderName.js ***!
   \**********************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_42661__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_44023__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_42661__(/*! ../utils */ "../../../node_modules/axios/lib/utils.js");
+var utils = __nested_webpack_require_44023__(/*! ../utils */ "../../../node_modules/axios/lib/utils.js");
 
 module.exports = function normalizeHeaderName(headers, normalizedName) {
   utils.forEach(headers, function processHeader(value, name) {
@@ -3984,12 +3994,12 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 /*!***************************************************************!*\
   !*** ../../../node_modules/axios/lib/helpers/parseHeaders.js ***!
   \***************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_43432__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_44817__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_43432__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var utils = __nested_webpack_require_44817__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
 
 // Headers whose duplicates are ignored by node
 // c.f. https://nodejs.org/api/http.html#http_message_headers
@@ -4086,12 +4096,12 @@ module.exports = function spread(callback) {
 /*!************************************************!*\
   !*** ../../../node_modules/axios/lib/utils.js ***!
   \************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_46026__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_47513__) => {
 
 "use strict";
 
 
-var bind = __nested_webpack_require_46026__(/*! ./helpers/bind */ "../../../node_modules/axios/lib/helpers/bind.js");
+var bind = __nested_webpack_require_47513__(/*! ./helpers/bind */ "../../../node_modules/axios/lib/helpers/bind.js");
 
 /*global toString:true*/
 
@@ -4448,9 +4458,9 @@ module.exports = {
 /*!********************************************************!*\
   !*** ../../../node_modules/xmltojson/lib/xmlToJSON.js ***!
   \********************************************************/
-/***/ ((module, exports, __nested_webpack_require_55349__) => {
+/***/ ((module, exports, __nested_webpack_require_57198__) => {
 
-/* module decorator */ module = __nested_webpack_require_55349__.nmd(module);
+/* module decorator */ module = __nested_webpack_require_57198__.nmd(module);
 var __WEBPACK_AMD_DEFINE_RESULT__;/* Copyright 2015 William Summers, MetaTribal LLC
  * adapted from https://developer.mozilla.org/en-US/docs/JXON
  *
@@ -4692,7 +4702,7 @@ var xmlToJSON = (function () {
 }).call({});
 
 if (  true && module !== null && module.exports) module.exports = xmlToJSON;
-else if (true) !(__WEBPACK_AMD_DEFINE_RESULT__ = (function () { return xmlToJSON }).call(exports, __nested_webpack_require_55349__, exports, module),
+else if (true) !(__WEBPACK_AMD_DEFINE_RESULT__ = (function () { return xmlToJSON }).call(exports, __nested_webpack_require_57198__, exports, module),
 		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 
@@ -4702,19 +4712,19 @@ else if (true) !(__WEBPACK_AMD_DEFINE_RESULT__ = (function () { return xmlToJSON
 /*!****************************************!*\
   !*** ./adapters/alpheiostb/adapter.js ***!
   \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_64887__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_66990__) => {
 
 "use strict";
-__nested_webpack_require_64887__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_64887__.d(__webpack_exports__, {
+__nested_webpack_require_66990__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_66990__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_64887__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_64887__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_64887__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var _clAdapters_adapters_alpheiostb_config_json__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_64887__(/*! @clAdapters/adapters/alpheiostb/config.json */ "./adapters/alpheiostb/config.json");
-/* harmony import */ var xmltojson__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_64887__(/*! xmltojson */ "../../../node_modules/xmltojson/lib/xmlToJSON.js");
-/* harmony import */ var xmltojson__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__nested_webpack_require_64887__.n(xmltojson__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_66990__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_66990__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_66990__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_adapters_alpheiostb_config_json__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_66990__(/*! @clAdapters/adapters/alpheiostb/config.json */ "./adapters/alpheiostb/config.json");
+/* harmony import */ var xmltojson__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_66990__(/*! xmltojson */ "../../../node_modules/xmltojson/lib/xmlToJSON.js");
+/* harmony import */ var xmltojson__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__nested_webpack_require_66990__.n(xmltojson__WEBPACK_IMPORTED_MODULE_3__);
 
 
 
@@ -4843,21 +4853,21 @@ class AlpheiosTreebankAdapter extends _clAdapters_adapters_base_adapter__WEBPACK
 /*!**************************************!*\
   !*** ./adapters/arethusa/adapter.js ***!
   \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_71650__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_73774__) => {
 
 "use strict";
-__nested_webpack_require_71650__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_71650__.d(__webpack_exports__, {
+__nested_webpack_require_73774__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_73774__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_71650__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var _clAdapters_transformers_alpheios_lexicon_transformer__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_71650__(/*! @clAdapters/transformers/alpheios-lexicon-transformer */ "./transformers/alpheios-lexicon-transformer.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_71650__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_71650__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_71650__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var _clAdapters_adapters_alpheiostb_config_json__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_71650__(/*! @clAdapters/adapters/alpheiostb/config.json */ "./adapters/alpheiostb/config.json");
-/* harmony import */ var alpheios_messaging__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_71650__(/*! alpheios-messaging */ "alpheios-messaging");
-/* harmony import */ var alpheios_messaging__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__nested_webpack_require_71650__.n(alpheios_messaging__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_73774__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_transformers_alpheios_lexicon_transformer__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_73774__(/*! @clAdapters/transformers/alpheios-lexicon-transformer */ "./transformers/alpheios-lexicon-transformer.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_73774__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_73774__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_73774__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var _clAdapters_adapters_alpheiostb_config_json__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_73774__(/*! @clAdapters/adapters/alpheiostb/config.json */ "./adapters/alpheiostb/config.json");
+/* harmony import */ var alpheios_messaging__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_73774__(/*! alpheios-messaging */ "alpheios-messaging");
+/* harmony import */ var alpheios_messaging__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__nested_webpack_require_73774__.n(alpheios_messaging__WEBPACK_IMPORTED_MODULE_5__);
 
 
 
@@ -5037,25 +5047,25 @@ class ArethusaTreebankAdapter extends _clAdapters_adapters_base_adapter__WEBPACK
 /*!**********************************!*\
   !*** ./adapters/base-adapter.js ***!
   \**********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_81783__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_83930__) => {
 
 "use strict";
-__nested_webpack_require_81783__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_81783__.d(__webpack_exports__, {
+__nested_webpack_require_83930__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_83930__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_81783__(/*! axios */ "../../../node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_81783__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_81783__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_81783__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var alpheios_l10n__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_81783__(/*! alpheios-l10n */ "alpheios-l10n");
-/* harmony import */ var alpheios_l10n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_81783__.n(alpheios_l10n__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _clAdapters_errors_adapter_error__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_81783__(/*! @clAdapters/errors/adapter-error */ "./errors/adapter-error.js");
-/* harmony import */ var _clAdapters_errors_adapter_warning_js__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_81783__(/*! @clAdapters/errors/adapter-warning.js */ "./errors/adapter-warning.js");
-/* harmony import */ var _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_81783__(/*! @clAdapters/errors/remote-error.js */ "./errors/remote-error.js");
-/* harmony import */ var _clAdapters_locales_locales_js__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_81783__(/*! @clAdapters/locales/locales.js */ "./locales/locales.js");
-/* harmony import */ var _clAdapters_locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_81783__(/*! @clAdapters/locales/en-us/messages.json */ "./locales/en-us/messages.json");
-/* harmony import */ var _clAdapters_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_81783__(/*! @clAdapters/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_83930__(/*! axios */ "../../../node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_83930__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_83930__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_83930__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var alpheios_l10n__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_83930__(/*! alpheios-l10n */ "alpheios-l10n");
+/* harmony import */ var alpheios_l10n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_83930__.n(alpheios_l10n__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _clAdapters_errors_adapter_error__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_83930__(/*! @clAdapters/errors/adapter-error */ "./errors/adapter-error.js");
+/* harmony import */ var _clAdapters_errors_adapter_warning_js__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_83930__(/*! @clAdapters/errors/adapter-warning.js */ "./errors/adapter-warning.js");
+/* harmony import */ var _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_83930__(/*! @clAdapters/errors/remote-error.js */ "./errors/remote-error.js");
+/* harmony import */ var _clAdapters_locales_locales_js__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_83930__(/*! @clAdapters/locales/locales.js */ "./locales/locales.js");
+/* harmony import */ var _clAdapters_locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_83930__(/*! @clAdapters/locales/en-us/messages.json */ "./locales/en-us/messages.json");
+/* harmony import */ var _clAdapters_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_83930__(/*! @clAdapters/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
 
 
 
@@ -5291,19 +5301,19 @@ class BaseAdapter {
 /*!****************************************!*\
   !*** ./adapters/chineseloc/adapter.js ***!
   \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_92961__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_95135__) => {
 
 "use strict";
-__nested_webpack_require_92961__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_92961__.d(__webpack_exports__, {
+__nested_webpack_require_95135__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_95135__.d(__webpack_exports__, {
 /* harmony export */   "CedictCharacterForms": () => (/* binding */ CedictCharacterForms),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_92961__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_92961__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_92961__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var alpheios_messaging__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_92961__(/*! alpheios-messaging */ "alpheios-messaging");
-/* harmony import */ var alpheios_messaging__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_92961__.n(alpheios_messaging__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_95135__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_95135__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_95135__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var alpheios_messaging__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_95135__(/*! alpheios-messaging */ "alpheios-messaging");
+/* harmony import */ var alpheios_messaging__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_95135__.n(alpheios_messaging__WEBPACK_IMPORTED_MODULE_2__);
 /* eslint-disable no-unused-vars */
 
 
@@ -5476,18 +5486,18 @@ class AlpheiosChineseLocAdapter extends _clAdapters_adapters_base_adapter__WEBPA
 /*!*****************************************!*\
   !*** ./adapters/concordance/adapter.js ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_102371__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_104566__) => {
 
 "use strict";
-__nested_webpack_require_102371__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_102371__.d(__webpack_exports__, {
+__nested_webpack_require_104566__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_104566__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_concordance_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_102371__(/*! @clAdapters/adapters/concordance/config.json */ "./adapters/concordance/config.json");
-/* harmony import */ var _clAdapters_adapters_concordance_author_work_json__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_102371__(/*! @clAdapters/adapters/concordance/author-work.json */ "./adapters/concordance/author-work.json");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_102371__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_102371__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_102371__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_adapters_concordance_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_104566__(/*! @clAdapters/adapters/concordance/config.json */ "./adapters/concordance/config.json");
+/* harmony import */ var _clAdapters_adapters_concordance_author_work_json__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_104566__(/*! @clAdapters/adapters/concordance/author-work.json */ "./adapters/concordance/author-work.json");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_104566__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_104566__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_104566__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
 
 
 
@@ -5804,16 +5814,16 @@ class AlpheiosConcordanceAdapter extends _clAdapters_adapters_base_adapter__WEBP
 /*!****************************************!*\
   !*** ./adapters/detectlang/adapter.js ***!
   \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_116746__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_118961__) => {
 
 "use strict";
-__nested_webpack_require_116746__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_116746__.d(__webpack_exports__, {
+__nested_webpack_require_118961__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_118961__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ DetectLangAdapter)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_116746__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var _clAdapters_adapters_detectlang_config_json__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_116746__(/*! @clAdapters/adapters/detectlang/config.json */ "./adapters/detectlang/config.json");
-/* harmony import */ var _clAdapters_adapters_detectlang_langs_list_json__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_116746__(/*! @clAdapters/adapters/detectlang/langs-list.json */ "./adapters/detectlang/langs-list.json");
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_118961__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_adapters_detectlang_config_json__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_118961__(/*! @clAdapters/adapters/detectlang/config.json */ "./adapters/detectlang/config.json");
+/* harmony import */ var _clAdapters_adapters_detectlang_langs_list_json__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_118961__(/*! @clAdapters/adapters/detectlang/langs-list.json */ "./adapters/detectlang/langs-list.json");
 
 
 
@@ -5910,16 +5920,16 @@ class DetectLangAdapter extends _clAdapters_adapters_base_adapter__WEBPACK_IMPOR
 /*!************************************!*\
   !*** ./adapters/dtsapi/adapter.js ***!
   \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_120547__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_122780__) => {
 
 "use strict";
-__nested_webpack_require_120547__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_120547__.d(__webpack_exports__, {
+__nested_webpack_require_122780__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_122780__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ DTSAPIAdapter)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_120547__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_120547__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_120547__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_122780__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_122780__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_122780__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -6111,19 +6121,19 @@ class DTSAPIAdapter extends _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_
 /*!**************************************!*\
   !*** ./adapters/lexicons/adapter.js ***!
   \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_126990__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_129241__) => {
 
 "use strict";
-__nested_webpack_require_126990__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_126990__.d(__webpack_exports__, {
+__nested_webpack_require_129241__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_129241__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_126990__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_126990__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var papaparse__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_126990__(/*! papaparse */ "papaparse");
-/* harmony import */ var papaparse__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_126990__.n(papaparse__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_126990__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var _clAdapters_adapters_lexicons_config_json__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_126990__(/*! @clAdapters/adapters/lexicons/config.json */ "./adapters/lexicons/config.json");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_129241__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_129241__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var papaparse__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_129241__(/*! papaparse */ "papaparse");
+/* harmony import */ var papaparse__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_129241__.n(papaparse__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_129241__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_adapters_lexicons_config_json__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_129241__(/*! @clAdapters/adapters/lexicons/config.json */ "./adapters/lexicons/config.json");
 
 
 
@@ -6672,17 +6682,17 @@ class AlpheiosLexiconsAdapter extends _clAdapters_adapters_base_adapter__WEBPACK
 /*!*************************************!*\
   !*** ./adapters/logeion/adapter.js ***!
   \*************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_150440__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_152712__) => {
 
 "use strict";
-__nested_webpack_require_150440__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_150440__.d(__webpack_exports__, {
+__nested_webpack_require_152712__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_152712__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_logeion_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_150440__(/*! @clAdapters/adapters/logeion/config.json */ "./adapters/logeion/config.json");
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_150440__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_150440__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_150440__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _clAdapters_adapters_logeion_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_152712__(/*! @clAdapters/adapters/logeion/config.json */ "./adapters/logeion/config.json");
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_152712__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_152712__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_152712__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
 
 
 
@@ -6789,17 +6799,17 @@ class AlpheiosLogeionAdapter extends _clAdapters_adapters_base_adapter__WEBPACK_
 /*!******************************************!*\
   !*** ./adapters/tokenization/adapter.js ***!
   \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_155026__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_157317__) => {
 
 "use strict";
-__nested_webpack_require_155026__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_155026__.d(__webpack_exports__, {
+__nested_webpack_require_157317__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_157317__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_tokenization_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_155026__(/*! @clAdapters/adapters/tokenization/config.json */ "./adapters/tokenization/config.json");
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_155026__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_155026__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_155026__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _clAdapters_adapters_tokenization_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_157317__(/*! @clAdapters/adapters/tokenization/config.json */ "./adapters/tokenization/config.json");
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_157317__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_157317__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_157317__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
 
 
 
@@ -6973,17 +6983,17 @@ class AlpheiosTokenizationAdapter extends _clAdapters_adapters_base_adapter__WEB
 /*!******************************************!*\
   !*** ./adapters/translations/adapter.js ***!
   \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_161274__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_163584__) => {
 
 "use strict";
-__nested_webpack_require_161274__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_161274__.d(__webpack_exports__, {
+__nested_webpack_require_163584__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_163584__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_translations_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_161274__(/*! @clAdapters/adapters/translations/config.json */ "./adapters/translations/config.json");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_161274__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_161274__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_161274__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_adapters_translations_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_163584__(/*! @clAdapters/adapters/translations/config.json */ "./adapters/translations/config.json");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_163584__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_163584__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_163584__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
 
 
 
@@ -7112,19 +7122,19 @@ class AlpheiosLemmaTranslationsAdapter extends _clAdapters_adapters_base_adapter
 /*!***********************************!*\
   !*** ./adapters/tufts/adapter.js ***!
   \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_166854__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_169183__) => {
 
 "use strict";
-__nested_webpack_require_166854__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_166854__.d(__webpack_exports__, {
+__nested_webpack_require_169183__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_169183__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_166854__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_166854__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_166854__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var _clAdapters_transformers_alpheios_lexicon_transformer__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_166854__(/*! @clAdapters/transformers/alpheios-lexicon-transformer */ "./transformers/alpheios-lexicon-transformer.js");
-/* harmony import */ var _clAdapters_adapters_tufts_config_json__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_166854__(/*! @clAdapters/adapters/tufts/config.json */ "./adapters/tufts/config.json");
-/* harmony import */ var _clAdapters_adapters_tufts_engines_set__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_166854__(/*! @clAdapters/adapters/tufts/engines-set */ "./adapters/tufts/engines-set.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_169183__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_169183__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_169183__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_transformers_alpheios_lexicon_transformer__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_169183__(/*! @clAdapters/transformers/alpheios-lexicon-transformer */ "./transformers/alpheios-lexicon-transformer.js");
+/* harmony import */ var _clAdapters_adapters_tufts_config_json__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_169183__(/*! @clAdapters/adapters/tufts/config.json */ "./adapters/tufts/config.json");
+/* harmony import */ var _clAdapters_adapters_tufts_engines_set__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_169183__(/*! @clAdapters/adapters/tufts/engines-set */ "./adapters/tufts/engines-set.js");
 
 
 
@@ -7243,16 +7253,16 @@ class AlpheiosTuftsAdapter extends _clAdapters_adapters_base_adapter__WEBPACK_IM
 /*!*******************************************!*\
   !*** ./adapters/tufts/engine/aramorph.js ***!
   \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_172856__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_175206__) => {
 
 "use strict";
-__nested_webpack_require_172856__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_172856__.d(__webpack_exports__, {
+__nested_webpack_require_175206__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_175206__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_172856__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_172856__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_172856__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_175206__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_175206__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_175206__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -7267,16 +7277,16 @@ const data = new _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED
 /*!***************************************!*\
   !*** ./adapters/tufts/engine/hazm.js ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_174145__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_176513__) => {
 
 "use strict";
-__nested_webpack_require_174145__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_174145__.d(__webpack_exports__, {
+__nested_webpack_require_176513__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_176513__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_174145__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_174145__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_174145__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_176513__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_176513__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_176513__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -7294,16 +7304,16 @@ data.setLexemeFilter(function (lexeme) { return Boolean(lexeme.lemma.word) })
 /*!**********************************************!*\
   !*** ./adapters/tufts/engine/morpheusgrc.js ***!
   \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_175664__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_178050__) => {
 
 "use strict";
-__nested_webpack_require_175664__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_175664__.d(__webpack_exports__, {
+__nested_webpack_require_178050__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_178050__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_175664__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_175664__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_175664__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_178050__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_178050__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_178050__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -7372,16 +7382,16 @@ data.setPropertyParser(function (propertyName, propertyValue, inputElem) {
 /*!****************************************!*\
   !*** ./adapters/tufts/engine/sedra.js ***!
   \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_180657__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_183061__) => {
 
 "use strict";
-__nested_webpack_require_180657__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_180657__.d(__webpack_exports__, {
+__nested_webpack_require_183061__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_183061__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_180657__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_180657__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_180657__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_183061__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_183061__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_183061__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -7424,16 +7434,16 @@ data.setPropertyParser(function (propertyName, propertyValue, inputElem) {
 /*!*****************************************!*\
   !*** ./adapters/tufts/engine/traces.js ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_183139__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_185561__) => {
 
 "use strict";
-__nested_webpack_require_183139__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_183139__.d(__webpack_exports__, {
+__nested_webpack_require_185561__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_185561__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_183139__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_183139__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_183139__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_185561__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_185561__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_185561__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -7448,16 +7458,16 @@ const data = new _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED
 /*!********************************************!*\
   !*** ./adapters/tufts/engine/whitakers.js ***!
   \********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_184444__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_186884__) => {
 
 "use strict";
-__nested_webpack_require_184444__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_184444__.d(__webpack_exports__, {
+__nested_webpack_require_186884__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_186884__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_184444__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_184444__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_184444__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_186884__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_186884__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_186884__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -7581,21 +7591,21 @@ data.setLemmaParser(function (lemma) {
 /*!***************************************!*\
   !*** ./adapters/tufts/engines-set.js ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_190685__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_193144__) => {
 
 "use strict";
-__nested_webpack_require_190685__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_190685__.d(__webpack_exports__, {
+__nested_webpack_require_193144__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_193144__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_tufts_engine_whitakers__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_190685__(/*! @clAdapters/adapters/tufts/engine/whitakers */ "./adapters/tufts/engine/whitakers.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_morpheusgrc__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_190685__(/*! @clAdapters/adapters/tufts/engine/morpheusgrc */ "./adapters/tufts/engine/morpheusgrc.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_aramorph__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_190685__(/*! @clAdapters/adapters/tufts/engine/aramorph */ "./adapters/tufts/engine/aramorph.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_hazm__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_190685__(/*! @clAdapters/adapters/tufts/engine/hazm */ "./adapters/tufts/engine/hazm.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_traces__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_190685__(/*! @clAdapters/adapters/tufts/engine/traces */ "./adapters/tufts/engine/traces.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_sedra__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_190685__(/*! @clAdapters/adapters/tufts/engine/sedra */ "./adapters/tufts/engine/sedra.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_190685__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nested_webpack_require_190685__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _clAdapters_adapters_tufts_engine_whitakers__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_193144__(/*! @clAdapters/adapters/tufts/engine/whitakers */ "./adapters/tufts/engine/whitakers.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_morpheusgrc__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_193144__(/*! @clAdapters/adapters/tufts/engine/morpheusgrc */ "./adapters/tufts/engine/morpheusgrc.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_aramorph__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_193144__(/*! @clAdapters/adapters/tufts/engine/aramorph */ "./adapters/tufts/engine/aramorph.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_hazm__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_193144__(/*! @clAdapters/adapters/tufts/engine/hazm */ "./adapters/tufts/engine/hazm.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_traces__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_193144__(/*! @clAdapters/adapters/tufts/engine/traces */ "./adapters/tufts/engine/traces.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_sedra__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_193144__(/*! @clAdapters/adapters/tufts/engine/sedra */ "./adapters/tufts/engine/sedra.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_193144__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nested_webpack_require_193144__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__);
 
 
 
@@ -7646,27 +7656,27 @@ class EnginesSet {
 /*!****************************!*\
   !*** ./client-adapters.js ***!
   \****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_194239__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_196721__) => {
 
 "use strict";
-__nested_webpack_require_194239__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_194239__.d(__webpack_exports__, {
+__nested_webpack_require_196721__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_196721__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_tufts_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/tufts/adapter */ "./adapters/tufts/adapter.js");
-/* harmony import */ var _clAdapters_adapters_chineseloc_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/chineseloc/adapter */ "./adapters/chineseloc/adapter.js");
-/* harmony import */ var _clAdapters_adapters_alpheiostb_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/alpheiostb/adapter */ "./adapters/alpheiostb/adapter.js");
-/* harmony import */ var _clAdapters_adapters_translations_adapter__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/translations/adapter */ "./adapters/translations/adapter.js");
-/* harmony import */ var _clAdapters_adapters_lexicons_adapter__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/lexicons/adapter */ "./adapters/lexicons/adapter.js");
-/* harmony import */ var _clAdapters_adapters_concordance_adapter__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/concordance/adapter */ "./adapters/concordance/adapter.js");
-/* harmony import */ var _clAdapters_adapters_arethusa_adapter__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/arethusa/adapter */ "./adapters/arethusa/adapter.js");
-/* harmony import */ var _clAdapters_adapters_logeion_adapter__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/logeion/adapter */ "./adapters/logeion/adapter.js");
-/* harmony import */ var _clAdapters_adapters_tokenization_adapter__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/tokenization/adapter */ "./adapters/tokenization/adapter.js");
-/* harmony import */ var _clAdapters_adapters_dtsapi_adapter__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/dtsapi/adapter */ "./adapters/dtsapi/adapter.js");
-/* harmony import */ var _clAdapters_adapters_detectlang_adapter__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/detectlang/adapter */ "./adapters/detectlang/adapter.js");
-/* harmony import */ var _clAdapters_errors_wrong_method_error__WEBPACK_IMPORTED_MODULE_11__ = __nested_webpack_require_194239__(/*! @clAdapters/errors/wrong-method-error */ "./errors/wrong-method-error.js");
-/* harmony import */ var _clAdapters_errors_no_required_param_error__WEBPACK_IMPORTED_MODULE_12__ = __nested_webpack_require_194239__(/*! @clAdapters/errors/no-required-param-error */ "./errors/no-required-param-error.js");
-/* harmony import */ var _clAdapters_adapters_adapters_config_json__WEBPACK_IMPORTED_MODULE_13__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/adapters-config.json */ "./adapters/adapters-config.json");
+/* harmony import */ var _clAdapters_adapters_tufts_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_196721__(/*! @clAdapters/adapters/tufts/adapter */ "./adapters/tufts/adapter.js");
+/* harmony import */ var _clAdapters_adapters_chineseloc_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_196721__(/*! @clAdapters/adapters/chineseloc/adapter */ "./adapters/chineseloc/adapter.js");
+/* harmony import */ var _clAdapters_adapters_alpheiostb_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_196721__(/*! @clAdapters/adapters/alpheiostb/adapter */ "./adapters/alpheiostb/adapter.js");
+/* harmony import */ var _clAdapters_adapters_translations_adapter__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_196721__(/*! @clAdapters/adapters/translations/adapter */ "./adapters/translations/adapter.js");
+/* harmony import */ var _clAdapters_adapters_lexicons_adapter__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_196721__(/*! @clAdapters/adapters/lexicons/adapter */ "./adapters/lexicons/adapter.js");
+/* harmony import */ var _clAdapters_adapters_concordance_adapter__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_196721__(/*! @clAdapters/adapters/concordance/adapter */ "./adapters/concordance/adapter.js");
+/* harmony import */ var _clAdapters_adapters_arethusa_adapter__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_196721__(/*! @clAdapters/adapters/arethusa/adapter */ "./adapters/arethusa/adapter.js");
+/* harmony import */ var _clAdapters_adapters_logeion_adapter__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_196721__(/*! @clAdapters/adapters/logeion/adapter */ "./adapters/logeion/adapter.js");
+/* harmony import */ var _clAdapters_adapters_tokenization_adapter__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_196721__(/*! @clAdapters/adapters/tokenization/adapter */ "./adapters/tokenization/adapter.js");
+/* harmony import */ var _clAdapters_adapters_dtsapi_adapter__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_196721__(/*! @clAdapters/adapters/dtsapi/adapter */ "./adapters/dtsapi/adapter.js");
+/* harmony import */ var _clAdapters_adapters_detectlang_adapter__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_196721__(/*! @clAdapters/adapters/detectlang/adapter */ "./adapters/detectlang/adapter.js");
+/* harmony import */ var _clAdapters_errors_wrong_method_error__WEBPACK_IMPORTED_MODULE_11__ = __nested_webpack_require_196721__(/*! @clAdapters/errors/wrong-method-error */ "./errors/wrong-method-error.js");
+/* harmony import */ var _clAdapters_errors_no_required_param_error__WEBPACK_IMPORTED_MODULE_12__ = __nested_webpack_require_196721__(/*! @clAdapters/errors/no-required-param-error */ "./errors/no-required-param-error.js");
+/* harmony import */ var _clAdapters_adapters_adapters_config_json__WEBPACK_IMPORTED_MODULE_13__ = __nested_webpack_require_196721__(/*! @clAdapters/adapters/adapters-config.json */ "./adapters/adapters-config.json");
 
 
 
@@ -8164,11 +8174,11 @@ class ClientAdapters {
 /*!*********************************!*\
   !*** ./errors/adapter-error.js ***!
   \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_217176__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_219687__) => {
 
 "use strict";
-__nested_webpack_require_217176__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_217176__.d(__webpack_exports__, {
+__nested_webpack_require_219687__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_219687__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 class AdapterError extends Error {
@@ -8211,11 +8221,11 @@ class AdapterError extends Error {
 /*!***********************************!*\
   !*** ./errors/adapter-warning.js ***!
   \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_218696__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_221222__) => {
 
 "use strict";
-__nested_webpack_require_218696__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_218696__.d(__webpack_exports__, {
+__nested_webpack_require_221222__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_221222__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ AdapterWarning)
 /* harmony export */ });
 /**
@@ -8248,11 +8258,11 @@ class AdapterWarning extends Error {
 /*!*******************************************!*\
   !*** ./errors/no-required-param-error.js ***!
   \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_220213__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_222776__) => {
 
 "use strict";
-__nested_webpack_require_220213__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_220213__.d(__webpack_exports__, {
+__nested_webpack_require_222776__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_222776__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 class NoRequiredParamError extends Error {
@@ -8275,11 +8285,11 @@ class NoRequiredParamError extends Error {
 /*!********************************!*\
   !*** ./errors/remote-error.js ***!
   \********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_221187__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_223765__) => {
 
 "use strict";
-__nested_webpack_require_221187__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_221187__.d(__webpack_exports__, {
+__nested_webpack_require_223765__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_223765__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ RemoteError)
 /* harmony export */ });
 class RemoteError extends Error {
@@ -8306,11 +8316,11 @@ class RemoteError extends Error {
 /*!**************************************!*\
   !*** ./errors/wrong-method-error.js ***!
   \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_222155__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_224764__) => {
 
 "use strict";
-__nested_webpack_require_222155__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_222155__.d(__webpack_exports__, {
+__nested_webpack_require_224764__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_224764__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 class WrongMethodError extends Error {
@@ -8332,18 +8342,18 @@ class WrongMethodError extends Error {
 /*!******************!*\
   !*** ./index.js ***!
   \******************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_222981__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_225605__) => {
 
 "use strict";
-__nested_webpack_require_222981__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_222981__.d(__webpack_exports__, {
+__nested_webpack_require_225605__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_225605__.d(__webpack_exports__, {
 /* harmony export */   "ClientAdapters": () => (/* reexport safe */ _clAdapters_client_adapters_js__WEBPACK_IMPORTED_MODULE_0__.default),
 /* harmony export */   "AdapterError": () => (/* reexport safe */ _clAdapters_errors_adapter_error_js__WEBPACK_IMPORTED_MODULE_1__.default),
 /* harmony export */   "RemoteError": () => (/* reexport safe */ _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_2__.default)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_client_adapters_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_222981__(/*! @clAdapters/client-adapters.js */ "./client-adapters.js");
-/* harmony import */ var _clAdapters_errors_adapter_error_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_222981__(/*! @clAdapters/errors/adapter-error.js */ "./errors/adapter-error.js");
-/* harmony import */ var _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_222981__(/*! @clAdapters/errors/remote-error.js */ "./errors/remote-error.js");
+/* harmony import */ var _clAdapters_client_adapters_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_225605__(/*! @clAdapters/client-adapters.js */ "./client-adapters.js");
+/* harmony import */ var _clAdapters_errors_adapter_error_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_225605__(/*! @clAdapters/errors/adapter-error.js */ "./errors/adapter-error.js");
+/* harmony import */ var _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_225605__(/*! @clAdapters/errors/remote-error.js */ "./errors/remote-error.js");
 
 
 
@@ -8357,15 +8367,15 @@ __nested_webpack_require_222981__.r(__webpack_exports__);
 /*!****************************!*\
   !*** ./locales/locales.js ***!
   \****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_224319__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_226963__) => {
 
 "use strict";
-__nested_webpack_require_224319__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_224319__.d(__webpack_exports__, {
+__nested_webpack_require_226963__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_226963__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _en_us_messages_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_224319__(/*! ./en-us/messages.json */ "./locales/en-us/messages.json");
-/* harmony import */ var _en_gb_messages_json__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_224319__(/*! ./en-gb/messages.json */ "./locales/en-gb/messages.json");
+/* harmony import */ var _en_us_messages_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_226963__(/*! ./en-us/messages.json */ "./locales/en-us/messages.json");
+/* harmony import */ var _en_gb_messages_json__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_226963__(/*! ./en-gb/messages.json */ "./locales/en-gb/messages.json");
 
 
 
@@ -8385,15 +8395,15 @@ __nested_webpack_require_224319__.r(__webpack_exports__);
 /*!******************************************************!*\
   !*** ./transformers/alpheios-lexicon-transformer.js ***!
   \******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_225448__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_228109__) => {
 
 "use strict";
-__nested_webpack_require_225448__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_225448__.d(__webpack_exports__, {
+__nested_webpack_require_228109__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_228109__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_225448__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_225448__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_228109__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_228109__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
 
 
 /**
@@ -8711,15 +8721,15 @@ class AlpheiosLexiconTransformer {
 /*!*******************************************!*\
   !*** ./transformers/import-morph-data.js ***!
   \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_239754__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_242432__) => {
 
 "use strict";
-__nested_webpack_require_239754__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_239754__.d(__webpack_exports__, {
+__nested_webpack_require_242432__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_242432__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_239754__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_239754__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_242432__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_242432__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
 /*
 Objects of a morphology analyzer's library
  */
@@ -9199,7 +9209,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	var __webpack_module_cache__ = {};
 /******/ 	
 /******/ 	// The require function
-/******/ 	function __nested_webpack_require_493573__(moduleId) {
+/******/ 	function __nested_webpack_require_496457__(moduleId) {
 /******/ 		// Check if module is in cache
 /******/ 		if(__webpack_module_cache__[moduleId]) {
 /******/ 			return __webpack_module_cache__[moduleId].exports;
@@ -9212,7 +9222,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_493573__);
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_496457__);
 /******/ 	
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
@@ -9225,11 +9235,11 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__nested_webpack_require_493573__.n = (module) => {
+/******/ 		__nested_webpack_require_496457__.n = (module) => {
 /******/ 			var getter = module && module.__esModule ?
 /******/ 				() => (module['default']) :
 /******/ 				() => (module);
-/******/ 			__nested_webpack_require_493573__.d(getter, { a: getter });
+/******/ 			__nested_webpack_require_496457__.d(getter, { a: getter });
 /******/ 			return getter;
 /******/ 		};
 /******/ 	})();
@@ -9237,9 +9247,9 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
-/******/ 		__nested_webpack_require_493573__.d = (exports, definition) => {
+/******/ 		__nested_webpack_require_496457__.d = (exports, definition) => {
 /******/ 			for(var key in definition) {
-/******/ 				if(__nested_webpack_require_493573__.o(definition, key) && !__nested_webpack_require_493573__.o(exports, key)) {
+/******/ 				if(__nested_webpack_require_496457__.o(definition, key) && !__nested_webpack_require_496457__.o(exports, key)) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
@@ -9248,13 +9258,13 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
-/******/ 		__nested_webpack_require_493573__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 		__nested_webpack_require_496457__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
-/******/ 		__nested_webpack_require_493573__.r = (exports) => {
+/******/ 		__nested_webpack_require_496457__.r = (exports) => {
 /******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
@@ -9264,7 +9274,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	
 /******/ 	/* webpack/runtime/node module decorator */
 /******/ 	(() => {
-/******/ 		__nested_webpack_require_493573__.nmd = (module) => {
+/******/ 		__nested_webpack_require_496457__.nmd = (module) => {
 /******/ 			module.paths = [];
 /******/ 			if (!module.children) module.children = [];
 /******/ 			return module;
@@ -9275,7 +9285,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	// module exports must be returned from runtime so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	return __nested_webpack_require_493573__("./index.js");
+/******/ 	return __nested_webpack_require_496457__("./index.js");
 /******/ })()
 ;
 });
@@ -28775,6 +28785,16 @@ function normalizeComponent (
 
 /***/ }),
 
+/***/ "../node_modules/vue-multiselect/dist/vue-multiselect.min.js":
+/*!*******************************************************************!*\
+  !*** ../node_modules/vue-multiselect/dist/vue-multiselect.min.js ***!
+  \*******************************************************************/
+/***/ (function(module) {
+
+!function(t,e){ true?module.exports=e():0}(this,function(){return function(t){function e(i){if(n[i])return n[i].exports;var r=n[i]={i:i,l:!1,exports:{}};return t[i].call(r.exports,r,r.exports,e),r.l=!0,r.exports}var n={};return e.m=t,e.c=n,e.i=function(t){return t},e.d=function(t,n,i){e.o(t,n)||Object.defineProperty(t,n,{configurable:!1,enumerable:!0,get:i})},e.n=function(t){var n=t&&t.__esModule?function(){return t.default}:function(){return t};return e.d(n,"a",n),n},e.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},e.p="/",e(e.s=60)}([function(t,e){var n=t.exports="undefined"!=typeof window&&window.Math==Math?window:"undefined"!=typeof self&&self.Math==Math?self:Function("return this")();"number"==typeof __g&&(__g=n)},function(t,e,n){var i=n(49)("wks"),r=n(30),o=n(0).Symbol,s="function"==typeof o;(t.exports=function(t){return i[t]||(i[t]=s&&o[t]||(s?o:r)("Symbol."+t))}).store=i},function(t,e,n){var i=n(5);t.exports=function(t){if(!i(t))throw TypeError(t+" is not an object!");return t}},function(t,e,n){var i=n(0),r=n(10),o=n(8),s=n(6),u=n(11),a=function(t,e,n){var l,c,f,p,h=t&a.F,d=t&a.G,v=t&a.S,g=t&a.P,y=t&a.B,m=d?i:v?i[e]||(i[e]={}):(i[e]||{}).prototype,b=d?r:r[e]||(r[e]={}),_=b.prototype||(b.prototype={});d&&(n=e);for(l in n)c=!h&&m&&void 0!==m[l],f=(c?m:n)[l],p=y&&c?u(f,i):g&&"function"==typeof f?u(Function.call,f):f,m&&s(m,l,f,t&a.U),b[l]!=f&&o(b,l,p),g&&_[l]!=f&&(_[l]=f)};i.core=r,a.F=1,a.G=2,a.S=4,a.P=8,a.B=16,a.W=32,a.U=64,a.R=128,t.exports=a},function(t,e,n){t.exports=!n(7)(function(){return 7!=Object.defineProperty({},"a",{get:function(){return 7}}).a})},function(t,e){t.exports=function(t){return"object"==typeof t?null!==t:"function"==typeof t}},function(t,e,n){var i=n(0),r=n(8),o=n(12),s=n(30)("src"),u=Function.toString,a=(""+u).split("toString");n(10).inspectSource=function(t){return u.call(t)},(t.exports=function(t,e,n,u){var l="function"==typeof n;l&&(o(n,"name")||r(n,"name",e)),t[e]!==n&&(l&&(o(n,s)||r(n,s,t[e]?""+t[e]:a.join(String(e)))),t===i?t[e]=n:u?t[e]?t[e]=n:r(t,e,n):(delete t[e],r(t,e,n)))})(Function.prototype,"toString",function(){return"function"==typeof this&&this[s]||u.call(this)})},function(t,e){t.exports=function(t){try{return!!t()}catch(t){return!0}}},function(t,e,n){var i=n(13),r=n(25);t.exports=n(4)?function(t,e,n){return i.f(t,e,r(1,n))}:function(t,e,n){return t[e]=n,t}},function(t,e){var n={}.toString;t.exports=function(t){return n.call(t).slice(8,-1)}},function(t,e){var n=t.exports={version:"2.5.7"};"number"==typeof __e&&(__e=n)},function(t,e,n){var i=n(14);t.exports=function(t,e,n){if(i(t),void 0===e)return t;switch(n){case 1:return function(n){return t.call(e,n)};case 2:return function(n,i){return t.call(e,n,i)};case 3:return function(n,i,r){return t.call(e,n,i,r)}}return function(){return t.apply(e,arguments)}}},function(t,e){var n={}.hasOwnProperty;t.exports=function(t,e){return n.call(t,e)}},function(t,e,n){var i=n(2),r=n(41),o=n(29),s=Object.defineProperty;e.f=n(4)?Object.defineProperty:function(t,e,n){if(i(t),e=o(e,!0),i(n),r)try{return s(t,e,n)}catch(t){}if("get"in n||"set"in n)throw TypeError("Accessors not supported!");return"value"in n&&(t[e]=n.value),t}},function(t,e){t.exports=function(t){if("function"!=typeof t)throw TypeError(t+" is not a function!");return t}},function(t,e){t.exports={}},function(t,e){t.exports=function(t){if(void 0==t)throw TypeError("Can't call method on  "+t);return t}},function(t,e,n){"use strict";var i=n(7);t.exports=function(t,e){return!!t&&i(function(){e?t.call(null,function(){},1):t.call(null)})}},function(t,e,n){var i=n(23),r=n(16);t.exports=function(t){return i(r(t))}},function(t,e,n){var i=n(53),r=Math.min;t.exports=function(t){return t>0?r(i(t),9007199254740991):0}},function(t,e,n){var i=n(11),r=n(23),o=n(28),s=n(19),u=n(64);t.exports=function(t,e){var n=1==t,a=2==t,l=3==t,c=4==t,f=6==t,p=5==t||f,h=e||u;return function(e,u,d){for(var v,g,y=o(e),m=r(y),b=i(u,d,3),_=s(m.length),x=0,w=n?h(e,_):a?h(e,0):void 0;_>x;x++)if((p||x in m)&&(v=m[x],g=b(v,x,y),t))if(n)w[x]=g;else if(g)switch(t){case 3:return!0;case 5:return v;case 6:return x;case 2:w.push(v)}else if(c)return!1;return f?-1:l||c?c:w}}},function(t,e,n){var i=n(5),r=n(0).document,o=i(r)&&i(r.createElement);t.exports=function(t){return o?r.createElement(t):{}}},function(t,e){t.exports="constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf".split(",")},function(t,e,n){var i=n(9);t.exports=Object("z").propertyIsEnumerable(0)?Object:function(t){return"String"==i(t)?t.split(""):Object(t)}},function(t,e){t.exports=!1},function(t,e){t.exports=function(t,e){return{enumerable:!(1&t),configurable:!(2&t),writable:!(4&t),value:e}}},function(t,e,n){var i=n(13).f,r=n(12),o=n(1)("toStringTag");t.exports=function(t,e,n){t&&!r(t=n?t:t.prototype,o)&&i(t,o,{configurable:!0,value:e})}},function(t,e,n){var i=n(49)("keys"),r=n(30);t.exports=function(t){return i[t]||(i[t]=r(t))}},function(t,e,n){var i=n(16);t.exports=function(t){return Object(i(t))}},function(t,e,n){var i=n(5);t.exports=function(t,e){if(!i(t))return t;var n,r;if(e&&"function"==typeof(n=t.toString)&&!i(r=n.call(t)))return r;if("function"==typeof(n=t.valueOf)&&!i(r=n.call(t)))return r;if(!e&&"function"==typeof(n=t.toString)&&!i(r=n.call(t)))return r;throw TypeError("Can't convert object to primitive value")}},function(t,e){var n=0,i=Math.random();t.exports=function(t){return"Symbol(".concat(void 0===t?"":t,")_",(++n+i).toString(36))}},function(t,e,n){"use strict";var i=n(0),r=n(12),o=n(9),s=n(67),u=n(29),a=n(7),l=n(77).f,c=n(45).f,f=n(13).f,p=n(51).trim,h=i.Number,d=h,v=h.prototype,g="Number"==o(n(44)(v)),y="trim"in String.prototype,m=function(t){var e=u(t,!1);if("string"==typeof e&&e.length>2){e=y?e.trim():p(e,3);var n,i,r,o=e.charCodeAt(0);if(43===o||45===o){if(88===(n=e.charCodeAt(2))||120===n)return NaN}else if(48===o){switch(e.charCodeAt(1)){case 66:case 98:i=2,r=49;break;case 79:case 111:i=8,r=55;break;default:return+e}for(var s,a=e.slice(2),l=0,c=a.length;l<c;l++)if((s=a.charCodeAt(l))<48||s>r)return NaN;return parseInt(a,i)}}return+e};if(!h(" 0o1")||!h("0b1")||h("+0x1")){h=function(t){var e=arguments.length<1?0:t,n=this;return n instanceof h&&(g?a(function(){v.valueOf.call(n)}):"Number"!=o(n))?s(new d(m(e)),n,h):m(e)};for(var b,_=n(4)?l(d):"MAX_VALUE,MIN_VALUE,NaN,NEGATIVE_INFINITY,POSITIVE_INFINITY,EPSILON,isFinite,isInteger,isNaN,isSafeInteger,MAX_SAFE_INTEGER,MIN_SAFE_INTEGER,parseFloat,parseInt,isInteger".split(","),x=0;_.length>x;x++)r(d,b=_[x])&&!r(h,b)&&f(h,b,c(d,b));h.prototype=v,v.constructor=h,n(6)(i,"Number",h)}},function(t,e,n){"use strict";function i(t){return 0!==t&&(!(!Array.isArray(t)||0!==t.length)||!t)}function r(t){return function(){return!t.apply(void 0,arguments)}}function o(t,e){return void 0===t&&(t="undefined"),null===t&&(t="null"),!1===t&&(t="false"),-1!==t.toString().toLowerCase().indexOf(e.trim())}function s(t,e,n,i){return t.filter(function(t){return o(i(t,n),e)})}function u(t){return t.filter(function(t){return!t.$isLabel})}function a(t,e){return function(n){return n.reduce(function(n,i){return i[t]&&i[t].length?(n.push({$groupLabel:i[e],$isLabel:!0}),n.concat(i[t])):n},[])}}function l(t,e,i,r,o){return function(u){return u.map(function(u){var a;if(!u[i])return console.warn("Options passed to vue-multiselect do not contain groups, despite the config."),[];var l=s(u[i],t,e,o);return l.length?(a={},n.i(d.a)(a,r,u[r]),n.i(d.a)(a,i,l),a):[]})}}var c=n(59),f=n(54),p=(n.n(f),n(95)),h=(n.n(p),n(31)),d=(n.n(h),n(58)),v=n(91),g=(n.n(v),n(98)),y=(n.n(g),n(92)),m=(n.n(y),n(88)),b=(n.n(m),n(97)),_=(n.n(b),n(89)),x=(n.n(_),n(96)),w=(n.n(x),n(93)),S=(n.n(w),n(90)),O=(n.n(S),function(){for(var t=arguments.length,e=new Array(t),n=0;n<t;n++)e[n]=arguments[n];return function(t){return e.reduce(function(t,e){return e(t)},t)}});e.a={data:function(){return{search:"",isOpen:!1,preferredOpenDirection:"below",optimizedHeight:this.maxHeight}},props:{internalSearch:{type:Boolean,default:!0},options:{type:Array,required:!0},multiple:{type:Boolean,default:!1},value:{type:null,default:function(){return[]}},trackBy:{type:String},label:{type:String},searchable:{type:Boolean,default:!0},clearOnSelect:{type:Boolean,default:!0},hideSelected:{type:Boolean,default:!1},placeholder:{type:String,default:"Select option"},allowEmpty:{type:Boolean,default:!0},resetAfter:{type:Boolean,default:!1},closeOnSelect:{type:Boolean,default:!0},customLabel:{type:Function,default:function(t,e){return i(t)?"":e?t[e]:t}},taggable:{type:Boolean,default:!1},tagPlaceholder:{type:String,default:"Press enter to create a tag"},tagPosition:{type:String,default:"top"},max:{type:[Number,Boolean],default:!1},id:{default:null},optionsLimit:{type:Number,default:1e3},groupValues:{type:String},groupLabel:{type:String},groupSelect:{type:Boolean,default:!1},blockKeys:{type:Array,default:function(){return[]}},preserveSearch:{type:Boolean,default:!1},preselectFirst:{type:Boolean,default:!1}},mounted:function(){!this.multiple&&this.max&&console.warn("[Vue-Multiselect warn]: Max prop should not be used when prop Multiple equals false."),this.preselectFirst&&!this.internalValue.length&&this.options.length&&this.select(this.filteredOptions[0])},computed:{internalValue:function(){return this.value||0===this.value?Array.isArray(this.value)?this.value:[this.value]:[]},filteredOptions:function(){var t=this.search||"",e=t.toLowerCase().trim(),n=this.options.concat();return n=this.internalSearch?this.groupValues?this.filterAndFlat(n,e,this.label):s(n,e,this.label,this.customLabel):this.groupValues?a(this.groupValues,this.groupLabel)(n):n,n=this.hideSelected?n.filter(r(this.isSelected)):n,this.taggable&&e.length&&!this.isExistingOption(e)&&("bottom"===this.tagPosition?n.push({isTag:!0,label:t}):n.unshift({isTag:!0,label:t})),n.slice(0,this.optionsLimit)},valueKeys:function(){var t=this;return this.trackBy?this.internalValue.map(function(e){return e[t.trackBy]}):this.internalValue},optionKeys:function(){var t=this;return(this.groupValues?this.flatAndStrip(this.options):this.options).map(function(e){return t.customLabel(e,t.label).toString().toLowerCase()})},currentOptionLabel:function(){return this.multiple?this.searchable?"":this.placeholder:this.internalValue.length?this.getOptionLabel(this.internalValue[0]):this.searchable?"":this.placeholder}},watch:{internalValue:function(){this.resetAfter&&this.internalValue.length&&(this.search="",this.$emit("input",this.multiple?[]:null))},search:function(){this.$emit("search-change",this.search,this.id)}},methods:{getValue:function(){return this.multiple?this.internalValue:0===this.internalValue.length?null:this.internalValue[0]},filterAndFlat:function(t,e,n){return O(l(e,n,this.groupValues,this.groupLabel,this.customLabel),a(this.groupValues,this.groupLabel))(t)},flatAndStrip:function(t){return O(a(this.groupValues,this.groupLabel),u)(t)},updateSearch:function(t){this.search=t},isExistingOption:function(t){return!!this.options&&this.optionKeys.indexOf(t)>-1},isSelected:function(t){var e=this.trackBy?t[this.trackBy]:t;return this.valueKeys.indexOf(e)>-1},isOptionDisabled:function(t){return!!t.$isDisabled},getOptionLabel:function(t){if(i(t))return"";if(t.isTag)return t.label;if(t.$isLabel)return t.$groupLabel;var e=this.customLabel(t,this.label);return i(e)?"":e},select:function(t,e){if(t.$isLabel&&this.groupSelect)return void this.selectGroup(t);if(!(-1!==this.blockKeys.indexOf(e)||this.disabled||t.$isDisabled||t.$isLabel)&&(!this.max||!this.multiple||this.internalValue.length!==this.max)&&("Tab"!==e||this.pointerDirty)){if(t.isTag)this.$emit("tag",t.label,this.id),this.search="",this.closeOnSelect&&!this.multiple&&this.deactivate();else{if(this.isSelected(t))return void("Tab"!==e&&this.removeElement(t));this.$emit("select",t,this.id),this.multiple?this.$emit("input",this.internalValue.concat([t]),this.id):this.$emit("input",t,this.id),this.clearOnSelect&&(this.search="")}this.closeOnSelect&&this.deactivate()}},selectGroup:function(t){var e=this,n=this.options.find(function(n){return n[e.groupLabel]===t.$groupLabel});if(n)if(this.wholeGroupSelected(n)){this.$emit("remove",n[this.groupValues],this.id);var i=this.internalValue.filter(function(t){return-1===n[e.groupValues].indexOf(t)});this.$emit("input",i,this.id)}else{var r=n[this.groupValues].filter(function(t){return!(e.isOptionDisabled(t)||e.isSelected(t))});this.$emit("select",r,this.id),this.$emit("input",this.internalValue.concat(r),this.id)}},wholeGroupSelected:function(t){var e=this;return t[this.groupValues].every(function(t){return e.isSelected(t)||e.isOptionDisabled(t)})},wholeGroupDisabled:function(t){return t[this.groupValues].every(this.isOptionDisabled)},removeElement:function(t){var e=!(arguments.length>1&&void 0!==arguments[1])||arguments[1];if(!this.disabled&&!t.$isDisabled){if(!this.allowEmpty&&this.internalValue.length<=1)return void this.deactivate();var i="object"===n.i(c.a)(t)?this.valueKeys.indexOf(t[this.trackBy]):this.valueKeys.indexOf(t);if(this.$emit("remove",t,this.id),this.multiple){var r=this.internalValue.slice(0,i).concat(this.internalValue.slice(i+1));this.$emit("input",r,this.id)}else this.$emit("input",null,this.id);this.closeOnSelect&&e&&this.deactivate()}},removeLastElement:function(){-1===this.blockKeys.indexOf("Delete")&&0===this.search.length&&Array.isArray(this.internalValue)&&this.internalValue.length&&this.removeElement(this.internalValue[this.internalValue.length-1],!1)},activate:function(){var t=this;this.isOpen||this.disabled||(this.adjustPosition(),this.groupValues&&0===this.pointer&&this.filteredOptions.length&&(this.pointer=1),this.isOpen=!0,this.searchable?(this.preserveSearch||(this.search=""),this.$nextTick(function(){return t.$refs.search.focus()})):this.$el.focus(),this.$emit("open",this.id))},deactivate:function(){this.isOpen&&(this.isOpen=!1,this.searchable?this.$refs.search.blur():this.$el.blur(),this.preserveSearch||(this.search=""),this.$emit("close",this.getValue(),this.id))},toggle:function(){this.isOpen?this.deactivate():this.activate()},adjustPosition:function(){if("undefined"!=typeof window){var t=this.$el.getBoundingClientRect().top,e=window.innerHeight-this.$el.getBoundingClientRect().bottom;e>this.maxHeight||e>t||"below"===this.openDirection||"bottom"===this.openDirection?(this.preferredOpenDirection="below",this.optimizedHeight=Math.min(e-40,this.maxHeight)):(this.preferredOpenDirection="above",this.optimizedHeight=Math.min(t-40,this.maxHeight))}}}}},function(t,e,n){"use strict";var i=n(54),r=(n.n(i),n(31));n.n(r);e.a={data:function(){return{pointer:0,pointerDirty:!1}},props:{showPointer:{type:Boolean,default:!0},optionHeight:{type:Number,default:40}},computed:{pointerPosition:function(){return this.pointer*this.optionHeight},visibleElements:function(){return this.optimizedHeight/this.optionHeight}},watch:{filteredOptions:function(){this.pointerAdjust()},isOpen:function(){this.pointerDirty=!1}},methods:{optionHighlight:function(t,e){return{"multiselect__option--highlight":t===this.pointer&&this.showPointer,"multiselect__option--selected":this.isSelected(e)}},groupHighlight:function(t,e){var n=this;if(!this.groupSelect)return["multiselect__option--group","multiselect__option--disabled"];var i=this.options.find(function(t){return t[n.groupLabel]===e.$groupLabel});return i&&!this.wholeGroupDisabled(i)?["multiselect__option--group",{"multiselect__option--highlight":t===this.pointer&&this.showPointer},{"multiselect__option--group-selected":this.wholeGroupSelected(i)}]:"multiselect__option--disabled"},addPointerElement:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"Enter",e=t.key;this.filteredOptions.length>0&&this.select(this.filteredOptions[this.pointer],e),this.pointerReset()},pointerForward:function(){this.pointer<this.filteredOptions.length-1&&(this.pointer++,this.$refs.list.scrollTop<=this.pointerPosition-(this.visibleElements-1)*this.optionHeight&&(this.$refs.list.scrollTop=this.pointerPosition-(this.visibleElements-1)*this.optionHeight),this.filteredOptions[this.pointer]&&this.filteredOptions[this.pointer].$isLabel&&!this.groupSelect&&this.pointerForward()),this.pointerDirty=!0},pointerBackward:function(){this.pointer>0?(this.pointer--,this.$refs.list.scrollTop>=this.pointerPosition&&(this.$refs.list.scrollTop=this.pointerPosition),this.filteredOptions[this.pointer]&&this.filteredOptions[this.pointer].$isLabel&&!this.groupSelect&&this.pointerBackward()):this.filteredOptions[this.pointer]&&this.filteredOptions[0].$isLabel&&!this.groupSelect&&this.pointerForward(),this.pointerDirty=!0},pointerReset:function(){this.closeOnSelect&&(this.pointer=0,this.$refs.list&&(this.$refs.list.scrollTop=0))},pointerAdjust:function(){this.pointer>=this.filteredOptions.length-1&&(this.pointer=this.filteredOptions.length?this.filteredOptions.length-1:0),this.filteredOptions.length>0&&this.filteredOptions[this.pointer].$isLabel&&!this.groupSelect&&this.pointerForward()},pointerSet:function(t){this.pointer=t,this.pointerDirty=!0}}}},function(t,e,n){"use strict";var i=n(36),r=n(74),o=n(15),s=n(18);t.exports=n(72)(Array,"Array",function(t,e){this._t=s(t),this._i=0,this._k=e},function(){var t=this._t,e=this._k,n=this._i++;return!t||n>=t.length?(this._t=void 0,r(1)):"keys"==e?r(0,n):"values"==e?r(0,t[n]):r(0,[n,t[n]])},"values"),o.Arguments=o.Array,i("keys"),i("values"),i("entries")},function(t,e,n){"use strict";var i=n(31),r=(n.n(i),n(32)),o=n(33);e.a={name:"vue-multiselect",mixins:[r.a,o.a],props:{name:{type:String,default:""},selectLabel:{type:String,default:"Press enter to select"},selectGroupLabel:{type:String,default:"Press enter to select group"},selectedLabel:{type:String,default:"Selected"},deselectLabel:{type:String,default:"Press enter to remove"},deselectGroupLabel:{type:String,default:"Press enter to deselect group"},showLabels:{type:Boolean,default:!0},limit:{type:Number,default:99999},maxHeight:{type:Number,default:300},limitText:{type:Function,default:function(t){return"and ".concat(t," more")}},loading:{type:Boolean,default:!1},disabled:{type:Boolean,default:!1},openDirection:{type:String,default:""},showNoOptions:{type:Boolean,default:!0},showNoResults:{type:Boolean,default:!0},tabindex:{type:Number,default:0}},computed:{isSingleLabelVisible:function(){return(this.singleValue||0===this.singleValue)&&(!this.isOpen||!this.searchable)&&!this.visibleValues.length},isPlaceholderVisible:function(){return!(this.internalValue.length||this.searchable&&this.isOpen)},visibleValues:function(){return this.multiple?this.internalValue.slice(0,this.limit):[]},singleValue:function(){return this.internalValue[0]},deselectLabelText:function(){return this.showLabels?this.deselectLabel:""},deselectGroupLabelText:function(){return this.showLabels?this.deselectGroupLabel:""},selectLabelText:function(){return this.showLabels?this.selectLabel:""},selectGroupLabelText:function(){return this.showLabels?this.selectGroupLabel:""},selectedLabelText:function(){return this.showLabels?this.selectedLabel:""},inputStyle:function(){if(this.searchable||this.multiple&&this.value&&this.value.length)return this.isOpen?{width:"100%"}:{width:"0",position:"absolute",padding:"0"}},contentStyle:function(){return this.options.length?{display:"inline-block"}:{display:"block"}},isAbove:function(){return"above"===this.openDirection||"top"===this.openDirection||"below"!==this.openDirection&&"bottom"!==this.openDirection&&"above"===this.preferredOpenDirection},showSearchInput:function(){return this.searchable&&(!this.hasSingleSelectedSlot||!this.visibleSingleValue&&0!==this.visibleSingleValue||this.isOpen)}}}},function(t,e,n){var i=n(1)("unscopables"),r=Array.prototype;void 0==r[i]&&n(8)(r,i,{}),t.exports=function(t){r[i][t]=!0}},function(t,e,n){var i=n(18),r=n(19),o=n(85);t.exports=function(t){return function(e,n,s){var u,a=i(e),l=r(a.length),c=o(s,l);if(t&&n!=n){for(;l>c;)if((u=a[c++])!=u)return!0}else for(;l>c;c++)if((t||c in a)&&a[c]===n)return t||c||0;return!t&&-1}}},function(t,e,n){var i=n(9),r=n(1)("toStringTag"),o="Arguments"==i(function(){return arguments}()),s=function(t,e){try{return t[e]}catch(t){}};t.exports=function(t){var e,n,u;return void 0===t?"Undefined":null===t?"Null":"string"==typeof(n=s(e=Object(t),r))?n:o?i(e):"Object"==(u=i(e))&&"function"==typeof e.callee?"Arguments":u}},function(t,e,n){"use strict";var i=n(2);t.exports=function(){var t=i(this),e="";return t.global&&(e+="g"),t.ignoreCase&&(e+="i"),t.multiline&&(e+="m"),t.unicode&&(e+="u"),t.sticky&&(e+="y"),e}},function(t,e,n){var i=n(0).document;t.exports=i&&i.documentElement},function(t,e,n){t.exports=!n(4)&&!n(7)(function(){return 7!=Object.defineProperty(n(21)("div"),"a",{get:function(){return 7}}).a})},function(t,e,n){var i=n(9);t.exports=Array.isArray||function(t){return"Array"==i(t)}},function(t,e,n){"use strict";function i(t){var e,n;this.promise=new t(function(t,i){if(void 0!==e||void 0!==n)throw TypeError("Bad Promise constructor");e=t,n=i}),this.resolve=r(e),this.reject=r(n)}var r=n(14);t.exports.f=function(t){return new i(t)}},function(t,e,n){var i=n(2),r=n(76),o=n(22),s=n(27)("IE_PROTO"),u=function(){},a=function(){var t,e=n(21)("iframe"),i=o.length;for(e.style.display="none",n(40).appendChild(e),e.src="javascript:",t=e.contentWindow.document,t.open(),t.write("<script>document.F=Object<\/script>"),t.close(),a=t.F;i--;)delete a.prototype[o[i]];return a()};t.exports=Object.create||function(t,e){var n;return null!==t?(u.prototype=i(t),n=new u,u.prototype=null,n[s]=t):n=a(),void 0===e?n:r(n,e)}},function(t,e,n){var i=n(79),r=n(25),o=n(18),s=n(29),u=n(12),a=n(41),l=Object.getOwnPropertyDescriptor;e.f=n(4)?l:function(t,e){if(t=o(t),e=s(e,!0),a)try{return l(t,e)}catch(t){}if(u(t,e))return r(!i.f.call(t,e),t[e])}},function(t,e,n){var i=n(12),r=n(18),o=n(37)(!1),s=n(27)("IE_PROTO");t.exports=function(t,e){var n,u=r(t),a=0,l=[];for(n in u)n!=s&&i(u,n)&&l.push(n);for(;e.length>a;)i(u,n=e[a++])&&(~o(l,n)||l.push(n));return l}},function(t,e,n){var i=n(46),r=n(22);t.exports=Object.keys||function(t){return i(t,r)}},function(t,e,n){var i=n(2),r=n(5),o=n(43);t.exports=function(t,e){if(i(t),r(e)&&e.constructor===t)return e;var n=o.f(t);return(0,n.resolve)(e),n.promise}},function(t,e,n){var i=n(10),r=n(0),o=r["__core-js_shared__"]||(r["__core-js_shared__"]={});(t.exports=function(t,e){return o[t]||(o[t]=void 0!==e?e:{})})("versions",[]).push({version:i.version,mode:n(24)?"pure":"global",copyright:"© 2018 Denis Pushkarev (zloirock.ru)"})},function(t,e,n){var i=n(2),r=n(14),o=n(1)("species");t.exports=function(t,e){var n,s=i(t).constructor;return void 0===s||void 0==(n=i(s)[o])?e:r(n)}},function(t,e,n){var i=n(3),r=n(16),o=n(7),s=n(84),u="["+s+"]",a="​",l=RegExp("^"+u+u+"*"),c=RegExp(u+u+"*$"),f=function(t,e,n){var r={},u=o(function(){return!!s[t]()||a[t]()!=a}),l=r[t]=u?e(p):s[t];n&&(r[n]=l),i(i.P+i.F*u,"String",r)},p=f.trim=function(t,e){return t=String(r(t)),1&e&&(t=t.replace(l,"")),2&e&&(t=t.replace(c,"")),t};t.exports=f},function(t,e,n){var i,r,o,s=n(11),u=n(68),a=n(40),l=n(21),c=n(0),f=c.process,p=c.setImmediate,h=c.clearImmediate,d=c.MessageChannel,v=c.Dispatch,g=0,y={},m=function(){var t=+this;if(y.hasOwnProperty(t)){var e=y[t];delete y[t],e()}},b=function(t){m.call(t.data)};p&&h||(p=function(t){for(var e=[],n=1;arguments.length>n;)e.push(arguments[n++]);return y[++g]=function(){u("function"==typeof t?t:Function(t),e)},i(g),g},h=function(t){delete y[t]},"process"==n(9)(f)?i=function(t){f.nextTick(s(m,t,1))}:v&&v.now?i=function(t){v.now(s(m,t,1))}:d?(r=new d,o=r.port2,r.port1.onmessage=b,i=s(o.postMessage,o,1)):c.addEventListener&&"function"==typeof postMessage&&!c.importScripts?(i=function(t){c.postMessage(t+"","*")},c.addEventListener("message",b,!1)):i="onreadystatechange"in l("script")?function(t){a.appendChild(l("script")).onreadystatechange=function(){a.removeChild(this),m.call(t)}}:function(t){setTimeout(s(m,t,1),0)}),t.exports={set:p,clear:h}},function(t,e){var n=Math.ceil,i=Math.floor;t.exports=function(t){return isNaN(t=+t)?0:(t>0?i:n)(t)}},function(t,e,n){"use strict";var i=n(3),r=n(20)(5),o=!0;"find"in[]&&Array(1).find(function(){o=!1}),i(i.P+i.F*o,"Array",{find:function(t){return r(this,t,arguments.length>1?arguments[1]:void 0)}}),n(36)("find")},function(t,e,n){"use strict";var i,r,o,s,u=n(24),a=n(0),l=n(11),c=n(38),f=n(3),p=n(5),h=n(14),d=n(61),v=n(66),g=n(50),y=n(52).set,m=n(75)(),b=n(43),_=n(80),x=n(86),w=n(48),S=a.TypeError,O=a.process,L=O&&O.versions,k=L&&L.v8||"",P=a.Promise,T="process"==c(O),V=function(){},E=r=b.f,A=!!function(){try{var t=P.resolve(1),e=(t.constructor={})[n(1)("species")]=function(t){t(V,V)};return(T||"function"==typeof PromiseRejectionEvent)&&t.then(V)instanceof e&&0!==k.indexOf("6.6")&&-1===x.indexOf("Chrome/66")}catch(t){}}(),C=function(t){var e;return!(!p(t)||"function"!=typeof(e=t.then))&&e},D=function(t,e){if(!t._n){t._n=!0;var n=t._c;m(function(){for(var i=t._v,r=1==t._s,o=0;n.length>o;)!function(e){var n,o,s,u=r?e.ok:e.fail,a=e.resolve,l=e.reject,c=e.domain;try{u?(r||(2==t._h&&$(t),t._h=1),!0===u?n=i:(c&&c.enter(),n=u(i),c&&(c.exit(),s=!0)),n===e.promise?l(S("Promise-chain cycle")):(o=C(n))?o.call(n,a,l):a(n)):l(i)}catch(t){c&&!s&&c.exit(),l(t)}}(n[o++]);t._c=[],t._n=!1,e&&!t._h&&j(t)})}},j=function(t){y.call(a,function(){var e,n,i,r=t._v,o=N(t);if(o&&(e=_(function(){T?O.emit("unhandledRejection",r,t):(n=a.onunhandledrejection)?n({promise:t,reason:r}):(i=a.console)&&i.error&&i.error("Unhandled promise rejection",r)}),t._h=T||N(t)?2:1),t._a=void 0,o&&e.e)throw e.v})},N=function(t){return 1!==t._h&&0===(t._a||t._c).length},$=function(t){y.call(a,function(){var e;T?O.emit("rejectionHandled",t):(e=a.onrejectionhandled)&&e({promise:t,reason:t._v})})},F=function(t){var e=this;e._d||(e._d=!0,e=e._w||e,e._v=t,e._s=2,e._a||(e._a=e._c.slice()),D(e,!0))},M=function(t){var e,n=this;if(!n._d){n._d=!0,n=n._w||n;try{if(n===t)throw S("Promise can't be resolved itself");(e=C(t))?m(function(){var i={_w:n,_d:!1};try{e.call(t,l(M,i,1),l(F,i,1))}catch(t){F.call(i,t)}}):(n._v=t,n._s=1,D(n,!1))}catch(t){F.call({_w:n,_d:!1},t)}}};A||(P=function(t){d(this,P,"Promise","_h"),h(t),i.call(this);try{t(l(M,this,1),l(F,this,1))}catch(t){F.call(this,t)}},i=function(t){this._c=[],this._a=void 0,this._s=0,this._d=!1,this._v=void 0,this._h=0,this._n=!1},i.prototype=n(81)(P.prototype,{then:function(t,e){var n=E(g(this,P));return n.ok="function"!=typeof t||t,n.fail="function"==typeof e&&e,n.domain=T?O.domain:void 0,this._c.push(n),this._a&&this._a.push(n),this._s&&D(this,!1),n.promise},catch:function(t){return this.then(void 0,t)}}),o=function(){var t=new i;this.promise=t,this.resolve=l(M,t,1),this.reject=l(F,t,1)},b.f=E=function(t){return t===P||t===s?new o(t):r(t)}),f(f.G+f.W+f.F*!A,{Promise:P}),n(26)(P,"Promise"),n(83)("Promise"),s=n(10).Promise,f(f.S+f.F*!A,"Promise",{reject:function(t){var e=E(this);return(0,e.reject)(t),e.promise}}),f(f.S+f.F*(u||!A),"Promise",{resolve:function(t){return w(u&&this===s?P:this,t)}}),f(f.S+f.F*!(A&&n(73)(function(t){P.all(t).catch(V)})),"Promise",{all:function(t){var e=this,n=E(e),i=n.resolve,r=n.reject,o=_(function(){var n=[],o=0,s=1;v(t,!1,function(t){var u=o++,a=!1;n.push(void 0),s++,e.resolve(t).then(function(t){a||(a=!0,n[u]=t,--s||i(n))},r)}),--s||i(n)});return o.e&&r(o.v),n.promise},race:function(t){var e=this,n=E(e),i=n.reject,r=_(function(){v(t,!1,function(t){e.resolve(t).then(n.resolve,i)})});return r.e&&i(r.v),n.promise}})},function(t,e,n){"use strict";var i=n(3),r=n(10),o=n(0),s=n(50),u=n(48);i(i.P+i.R,"Promise",{finally:function(t){var e=s(this,r.Promise||o.Promise),n="function"==typeof t;return this.then(n?function(n){return u(e,t()).then(function(){return n})}:t,n?function(n){return u(e,t()).then(function(){throw n})}:t)}})},function(t,e,n){"use strict";function i(t){n(99)}var r=n(35),o=n(101),s=n(100),u=i,a=s(r.a,o.a,!1,u,null,null);e.a=a.exports},function(t,e,n){"use strict";function i(t,e,n){return e in t?Object.defineProperty(t,e,{value:n,enumerable:!0,configurable:!0,writable:!0}):t[e]=n,t}e.a=i},function(t,e,n){"use strict";function i(t){return(i="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t})(t)}function r(t){return(r="function"==typeof Symbol&&"symbol"===i(Symbol.iterator)?function(t){return i(t)}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":i(t)})(t)}e.a=r},function(t,e,n){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var i=n(34),r=(n.n(i),n(55)),o=(n.n(r),n(56)),s=(n.n(o),n(57)),u=n(32),a=n(33);n.d(e,"Multiselect",function(){return s.a}),n.d(e,"multiselectMixin",function(){return u.a}),n.d(e,"pointerMixin",function(){return a.a}),e.default=s.a},function(t,e){t.exports=function(t,e,n,i){if(!(t instanceof e)||void 0!==i&&i in t)throw TypeError(n+": incorrect invocation!");return t}},function(t,e,n){var i=n(14),r=n(28),o=n(23),s=n(19);t.exports=function(t,e,n,u,a){i(e);var l=r(t),c=o(l),f=s(l.length),p=a?f-1:0,h=a?-1:1;if(n<2)for(;;){if(p in c){u=c[p],p+=h;break}if(p+=h,a?p<0:f<=p)throw TypeError("Reduce of empty array with no initial value")}for(;a?p>=0:f>p;p+=h)p in c&&(u=e(u,c[p],p,l));return u}},function(t,e,n){var i=n(5),r=n(42),o=n(1)("species");t.exports=function(t){var e;return r(t)&&(e=t.constructor,"function"!=typeof e||e!==Array&&!r(e.prototype)||(e=void 0),i(e)&&null===(e=e[o])&&(e=void 0)),void 0===e?Array:e}},function(t,e,n){var i=n(63);t.exports=function(t,e){return new(i(t))(e)}},function(t,e,n){"use strict";var i=n(8),r=n(6),o=n(7),s=n(16),u=n(1);t.exports=function(t,e,n){var a=u(t),l=n(s,a,""[t]),c=l[0],f=l[1];o(function(){var e={};return e[a]=function(){return 7},7!=""[t](e)})&&(r(String.prototype,t,c),i(RegExp.prototype,a,2==e?function(t,e){return f.call(t,this,e)}:function(t){return f.call(t,this)}))}},function(t,e,n){var i=n(11),r=n(70),o=n(69),s=n(2),u=n(19),a=n(87),l={},c={},e=t.exports=function(t,e,n,f,p){var h,d,v,g,y=p?function(){return t}:a(t),m=i(n,f,e?2:1),b=0;if("function"!=typeof y)throw TypeError(t+" is not iterable!");if(o(y)){for(h=u(t.length);h>b;b++)if((g=e?m(s(d=t[b])[0],d[1]):m(t[b]))===l||g===c)return g}else for(v=y.call(t);!(d=v.next()).done;)if((g=r(v,m,d.value,e))===l||g===c)return g};e.BREAK=l,e.RETURN=c},function(t,e,n){var i=n(5),r=n(82).set;t.exports=function(t,e,n){var o,s=e.constructor;return s!==n&&"function"==typeof s&&(o=s.prototype)!==n.prototype&&i(o)&&r&&r(t,o),t}},function(t,e){t.exports=function(t,e,n){var i=void 0===n;switch(e.length){case 0:return i?t():t.call(n);case 1:return i?t(e[0]):t.call(n,e[0]);case 2:return i?t(e[0],e[1]):t.call(n,e[0],e[1]);case 3:return i?t(e[0],e[1],e[2]):t.call(n,e[0],e[1],e[2]);case 4:return i?t(e[0],e[1],e[2],e[3]):t.call(n,e[0],e[1],e[2],e[3])}return t.apply(n,e)}},function(t,e,n){var i=n(15),r=n(1)("iterator"),o=Array.prototype;t.exports=function(t){return void 0!==t&&(i.Array===t||o[r]===t)}},function(t,e,n){var i=n(2);t.exports=function(t,e,n,r){try{return r?e(i(n)[0],n[1]):e(n)}catch(e){var o=t.return;throw void 0!==o&&i(o.call(t)),e}}},function(t,e,n){"use strict";var i=n(44),r=n(25),o=n(26),s={};n(8)(s,n(1)("iterator"),function(){return this}),t.exports=function(t,e,n){t.prototype=i(s,{next:r(1,n)}),o(t,e+" Iterator")}},function(t,e,n){"use strict";var i=n(24),r=n(3),o=n(6),s=n(8),u=n(15),a=n(71),l=n(26),c=n(78),f=n(1)("iterator"),p=!([].keys&&"next"in[].keys()),h=function(){return this};t.exports=function(t,e,n,d,v,g,y){a(n,e,d);var m,b,_,x=function(t){if(!p&&t in L)return L[t];switch(t){case"keys":case"values":return function(){return new n(this,t)}}return function(){return new n(this,t)}},w=e+" Iterator",S="values"==v,O=!1,L=t.prototype,k=L[f]||L["@@iterator"]||v&&L[v],P=k||x(v),T=v?S?x("entries"):P:void 0,V="Array"==e?L.entries||k:k;if(V&&(_=c(V.call(new t)))!==Object.prototype&&_.next&&(l(_,w,!0),i||"function"==typeof _[f]||s(_,f,h)),S&&k&&"values"!==k.name&&(O=!0,P=function(){return k.call(this)}),i&&!y||!p&&!O&&L[f]||s(L,f,P),u[e]=P,u[w]=h,v)if(m={values:S?P:x("values"),keys:g?P:x("keys"),entries:T},y)for(b in m)b in L||o(L,b,m[b]);else r(r.P+r.F*(p||O),e,m);return m}},function(t,e,n){var i=n(1)("iterator"),r=!1;try{var o=[7][i]();o.return=function(){r=!0},Array.from(o,function(){throw 2})}catch(t){}t.exports=function(t,e){if(!e&&!r)return!1;var n=!1;try{var o=[7],s=o[i]();s.next=function(){return{done:n=!0}},o[i]=function(){return s},t(o)}catch(t){}return n}},function(t,e){t.exports=function(t,e){return{value:e,done:!!t}}},function(t,e,n){var i=n(0),r=n(52).set,o=i.MutationObserver||i.WebKitMutationObserver,s=i.process,u=i.Promise,a="process"==n(9)(s);t.exports=function(){var t,e,n,l=function(){var i,r;for(a&&(i=s.domain)&&i.exit();t;){r=t.fn,t=t.next;try{r()}catch(i){throw t?n():e=void 0,i}}e=void 0,i&&i.enter()};if(a)n=function(){s.nextTick(l)};else if(!o||i.navigator&&i.navigator.standalone)if(u&&u.resolve){var c=u.resolve(void 0);n=function(){c.then(l)}}else n=function(){r.call(i,l)};else{var f=!0,p=document.createTextNode("");new o(l).observe(p,{characterData:!0}),n=function(){p.data=f=!f}}return function(i){var r={fn:i,next:void 0};e&&(e.next=r),t||(t=r,n()),e=r}}},function(t,e,n){var i=n(13),r=n(2),o=n(47);t.exports=n(4)?Object.defineProperties:function(t,e){r(t);for(var n,s=o(e),u=s.length,a=0;u>a;)i.f(t,n=s[a++],e[n]);return t}},function(t,e,n){var i=n(46),r=n(22).concat("length","prototype");e.f=Object.getOwnPropertyNames||function(t){return i(t,r)}},function(t,e,n){var i=n(12),r=n(28),o=n(27)("IE_PROTO"),s=Object.prototype;t.exports=Object.getPrototypeOf||function(t){return t=r(t),i(t,o)?t[o]:"function"==typeof t.constructor&&t instanceof t.constructor?t.constructor.prototype:t instanceof Object?s:null}},function(t,e){e.f={}.propertyIsEnumerable},function(t,e){t.exports=function(t){try{return{e:!1,v:t()}}catch(t){return{e:!0,v:t}}}},function(t,e,n){var i=n(6);t.exports=function(t,e,n){for(var r in e)i(t,r,e[r],n);return t}},function(t,e,n){var i=n(5),r=n(2),o=function(t,e){if(r(t),!i(e)&&null!==e)throw TypeError(e+": can't set as prototype!")};t.exports={set:Object.setPrototypeOf||("__proto__"in{}?function(t,e,i){try{i=n(11)(Function.call,n(45).f(Object.prototype,"__proto__").set,2),i(t,[]),e=!(t instanceof Array)}catch(t){e=!0}return function(t,n){return o(t,n),e?t.__proto__=n:i(t,n),t}}({},!1):void 0),check:o}},function(t,e,n){"use strict";var i=n(0),r=n(13),o=n(4),s=n(1)("species");t.exports=function(t){var e=i[t];o&&e&&!e[s]&&r.f(e,s,{configurable:!0,get:function(){return this}})}},function(t,e){t.exports="\t\n\v\f\r   ᠎             　\u2028\u2029\ufeff"},function(t,e,n){var i=n(53),r=Math.max,o=Math.min;t.exports=function(t,e){return t=i(t),t<0?r(t+e,0):o(t,e)}},function(t,e,n){var i=n(0),r=i.navigator;t.exports=r&&r.userAgent||""},function(t,e,n){var i=n(38),r=n(1)("iterator"),o=n(15);t.exports=n(10).getIteratorMethod=function(t){if(void 0!=t)return t[r]||t["@@iterator"]||o[i(t)]}},function(t,e,n){"use strict";var i=n(3),r=n(20)(2);i(i.P+i.F*!n(17)([].filter,!0),"Array",{filter:function(t){return r(this,t,arguments[1])}})},function(t,e,n){"use strict";var i=n(3),r=n(37)(!1),o=[].indexOf,s=!!o&&1/[1].indexOf(1,-0)<0;i(i.P+i.F*(s||!n(17)(o)),"Array",{indexOf:function(t){return s?o.apply(this,arguments)||0:r(this,t,arguments[1])}})},function(t,e,n){var i=n(3);i(i.S,"Array",{isArray:n(42)})},function(t,e,n){"use strict";var i=n(3),r=n(20)(1);i(i.P+i.F*!n(17)([].map,!0),"Array",{map:function(t){return r(this,t,arguments[1])}})},function(t,e,n){"use strict";var i=n(3),r=n(62);i(i.P+i.F*!n(17)([].reduce,!0),"Array",{reduce:function(t){return r(this,t,arguments.length,arguments[1],!1)}})},function(t,e,n){var i=Date.prototype,r=i.toString,o=i.getTime;new Date(NaN)+""!="Invalid Date"&&n(6)(i,"toString",function(){var t=o.call(this);return t===t?r.call(this):"Invalid Date"})},function(t,e,n){n(4)&&"g"!=/./g.flags&&n(13).f(RegExp.prototype,"flags",{configurable:!0,get:n(39)})},function(t,e,n){n(65)("search",1,function(t,e,n){return[function(n){"use strict";var i=t(this),r=void 0==n?void 0:n[e];return void 0!==r?r.call(n,i):new RegExp(n)[e](String(i))},n]})},function(t,e,n){"use strict";n(94);var i=n(2),r=n(39),o=n(4),s=/./.toString,u=function(t){n(6)(RegExp.prototype,"toString",t,!0)};n(7)(function(){return"/a/b"!=s.call({source:"a",flags:"b"})})?u(function(){var t=i(this);return"/".concat(t.source,"/","flags"in t?t.flags:!o&&t instanceof RegExp?r.call(t):void 0)}):"toString"!=s.name&&u(function(){return s.call(this)})},function(t,e,n){"use strict";n(51)("trim",function(t){return function(){return t(this,3)}})},function(t,e,n){for(var i=n(34),r=n(47),o=n(6),s=n(0),u=n(8),a=n(15),l=n(1),c=l("iterator"),f=l("toStringTag"),p=a.Array,h={CSSRuleList:!0,CSSStyleDeclaration:!1,CSSValueList:!1,ClientRectList:!1,DOMRectList:!1,DOMStringList:!1,DOMTokenList:!0,DataTransferItemList:!1,FileList:!1,HTMLAllCollection:!1,HTMLCollection:!1,HTMLFormElement:!1,HTMLSelectElement:!1,MediaList:!0,MimeTypeArray:!1,NamedNodeMap:!1,NodeList:!0,PaintRequestList:!1,Plugin:!1,PluginArray:!1,SVGLengthList:!1,SVGNumberList:!1,SVGPathSegList:!1,SVGPointList:!1,SVGStringList:!1,SVGTransformList:!1,SourceBufferList:!1,StyleSheetList:!0,TextTrackCueList:!1,TextTrackList:!1,TouchList:!1},d=r(h),v=0;v<d.length;v++){var g,y=d[v],m=h[y],b=s[y],_=b&&b.prototype;if(_&&(_[c]||u(_,c,p),_[f]||u(_,f,y),a[y]=p,m))for(g in i)_[g]||o(_,g,i[g],!0)}},function(t,e){},function(t,e){t.exports=function(t,e,n,i,r,o){var s,u=t=t||{},a=typeof t.default;"object"!==a&&"function"!==a||(s=t,u=t.default);var l="function"==typeof u?u.options:u;e&&(l.render=e.render,l.staticRenderFns=e.staticRenderFns,l._compiled=!0),n&&(l.functional=!0),r&&(l._scopeId=r);var c;if(o?(c=function(t){t=t||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext,t||"undefined"==typeof __VUE_SSR_CONTEXT__||(t=__VUE_SSR_CONTEXT__),i&&i.call(this,t),t&&t._registeredComponents&&t._registeredComponents.add(o)},l._ssrRegister=c):i&&(c=i),c){var f=l.functional,p=f?l.render:l.beforeCreate;f?(l._injectStyles=c,l.render=function(t,e){return c.call(e),p(t,e)}):l.beforeCreate=p?[].concat(p,c):[c]}return{esModule:s,exports:u,options:l}}},function(t,e,n){"use strict";var i=function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("div",{staticClass:"multiselect",class:{"multiselect--active":t.isOpen,"multiselect--disabled":t.disabled,"multiselect--above":t.isAbove},attrs:{tabindex:t.searchable?-1:t.tabindex},on:{focus:function(e){t.activate()},blur:function(e){!t.searchable&&t.deactivate()},keydown:[function(e){return"button"in e||!t._k(e.keyCode,"down",40,e.key,["Down","ArrowDown"])?e.target!==e.currentTarget?null:(e.preventDefault(),void t.pointerForward()):null},function(e){return"button"in e||!t._k(e.keyCode,"up",38,e.key,["Up","ArrowUp"])?e.target!==e.currentTarget?null:(e.preventDefault(),void t.pointerBackward()):null}],keypress:function(e){return"button"in e||!t._k(e.keyCode,"enter",13,e.key,"Enter")||!t._k(e.keyCode,"tab",9,e.key,"Tab")?(e.stopPropagation(),e.target!==e.currentTarget?null:void t.addPointerElement(e)):null},keyup:function(e){if(!("button"in e)&&t._k(e.keyCode,"esc",27,e.key,"Escape"))return null;t.deactivate()}}},[t._t("caret",[n("div",{staticClass:"multiselect__select",on:{mousedown:function(e){e.preventDefault(),e.stopPropagation(),t.toggle()}}})],{toggle:t.toggle}),t._v(" "),t._t("clear",null,{search:t.search}),t._v(" "),n("div",{ref:"tags",staticClass:"multiselect__tags"},[t._t("selection",[n("div",{directives:[{name:"show",rawName:"v-show",value:t.visibleValues.length>0,expression:"visibleValues.length > 0"}],staticClass:"multiselect__tags-wrap"},[t._l(t.visibleValues,function(e,i){return[t._t("tag",[n("span",{key:i,staticClass:"multiselect__tag"},[n("span",{domProps:{textContent:t._s(t.getOptionLabel(e))}}),t._v(" "),n("i",{staticClass:"multiselect__tag-icon",attrs:{"aria-hidden":"true",tabindex:"1"},on:{keypress:function(n){if(!("button"in n)&&t._k(n.keyCode,"enter",13,n.key,"Enter"))return null;n.preventDefault(),t.removeElement(e)},mousedown:function(n){n.preventDefault(),t.removeElement(e)}}})])],{option:e,search:t.search,remove:t.removeElement})]})],2),t._v(" "),t.internalValue&&t.internalValue.length>t.limit?[t._t("limit",[n("strong",{staticClass:"multiselect__strong",domProps:{textContent:t._s(t.limitText(t.internalValue.length-t.limit))}})])]:t._e()],{search:t.search,remove:t.removeElement,values:t.visibleValues,isOpen:t.isOpen}),t._v(" "),n("transition",{attrs:{name:"multiselect__loading"}},[t._t("loading",[n("div",{directives:[{name:"show",rawName:"v-show",value:t.loading,expression:"loading"}],staticClass:"multiselect__spinner"})])],2),t._v(" "),t.searchable?n("input",{ref:"search",staticClass:"multiselect__input",style:t.inputStyle,attrs:{name:t.name,id:t.id,type:"text",autocomplete:"nope",placeholder:t.placeholder,disabled:t.disabled,tabindex:t.tabindex},domProps:{value:t.search},on:{input:function(e){t.updateSearch(e.target.value)},focus:function(e){e.preventDefault(),t.activate()},blur:function(e){e.preventDefault(),t.deactivate()},keyup:function(e){if(!("button"in e)&&t._k(e.keyCode,"esc",27,e.key,"Escape"))return null;t.deactivate()},keydown:[function(e){if(!("button"in e)&&t._k(e.keyCode,"down",40,e.key,["Down","ArrowDown"]))return null;e.preventDefault(),t.pointerForward()},function(e){if(!("button"in e)&&t._k(e.keyCode,"up",38,e.key,["Up","ArrowUp"]))return null;e.preventDefault(),t.pointerBackward()},function(e){if(!("button"in e)&&t._k(e.keyCode,"delete",[8,46],e.key,["Backspace","Delete"]))return null;e.stopPropagation(),t.removeLastElement()}],keypress:function(e){return"button"in e||!t._k(e.keyCode,"enter",13,e.key,"Enter")?(e.preventDefault(),e.stopPropagation(),e.target!==e.currentTarget?null:void t.addPointerElement(e)):null}}}):t._e(),t._v(" "),t.isSingleLabelVisible?n("span",{staticClass:"multiselect__single",on:{mousedown:function(e){return e.preventDefault(),t.toggle(e)}}},[t._t("singleLabel",[[t._v(t._s(t.currentOptionLabel))]],{option:t.singleValue})],2):t._e(),t._v(" "),t.isPlaceholderVisible?n("span",{staticClass:"multiselect__placeholder",on:{mousedown:function(e){return e.preventDefault(),t.toggle(e)}}},[t._t("placeholder",[t._v("\n          "+t._s(t.placeholder)+"\n        ")])],2):t._e()],2),t._v(" "),n("transition",{attrs:{name:"multiselect"}},[n("div",{directives:[{name:"show",rawName:"v-show",value:t.isOpen,expression:"isOpen"}],ref:"list",staticClass:"multiselect__content-wrapper",style:{maxHeight:t.optimizedHeight+"px"},attrs:{tabindex:"-1"},on:{focus:t.activate,mousedown:function(t){t.preventDefault()}}},[n("ul",{staticClass:"multiselect__content",style:t.contentStyle},[t._t("beforeList"),t._v(" "),t.multiple&&t.max===t.internalValue.length?n("li",[n("span",{staticClass:"multiselect__option"},[t._t("maxElements",[t._v("Maximum of "+t._s(t.max)+" options selected. First remove a selected option to select another.")])],2)]):t._e(),t._v(" "),!t.max||t.internalValue.length<t.max?t._l(t.filteredOptions,function(e,i){return n("li",{key:i,staticClass:"multiselect__element"},[e&&(e.$isLabel||e.$isDisabled)?t._e():n("span",{staticClass:"multiselect__option",class:t.optionHighlight(i,e),attrs:{"data-select":e&&e.isTag?t.tagPlaceholder:t.selectLabelText,"data-selected":t.selectedLabelText,"data-deselect":t.deselectLabelText},on:{click:function(n){n.stopPropagation(),t.select(e)},mouseenter:function(e){if(e.target!==e.currentTarget)return null;t.pointerSet(i)}}},[t._t("option",[n("span",[t._v(t._s(t.getOptionLabel(e)))])],{option:e,search:t.search})],2),t._v(" "),e&&(e.$isLabel||e.$isDisabled)?n("span",{staticClass:"multiselect__option",class:t.groupHighlight(i,e),attrs:{"data-select":t.groupSelect&&t.selectGroupLabelText,"data-deselect":t.groupSelect&&t.deselectGroupLabelText},on:{mouseenter:function(e){if(e.target!==e.currentTarget)return null;t.groupSelect&&t.pointerSet(i)},mousedown:function(n){n.preventDefault(),t.selectGroup(e)}}},[t._t("option",[n("span",[t._v(t._s(t.getOptionLabel(e)))])],{option:e,search:t.search})],2):t._e()])}):t._e(),t._v(" "),n("li",{directives:[{name:"show",rawName:"v-show",value:t.showNoResults&&0===t.filteredOptions.length&&t.search&&!t.loading,expression:"showNoResults && (filteredOptions.length === 0 && search && !loading)"}]},[n("span",{staticClass:"multiselect__option"},[t._t("noResult",[t._v("No elements found. Consider changing the search query.")],{search:t.search})],2)]),t._v(" "),n("li",{directives:[{name:"show",rawName:"v-show",value:t.showNoOptions&&0===t.options.length&&!t.search&&!t.loading,expression:"showNoOptions && (options.length === 0 && !search && !loading)"}]},[n("span",{staticClass:"multiselect__option"},[t._t("noOptions",[t._v("List is empty.")])],2)]),t._v(" "),t._t("afterList")],2)])])],2)},r=[],o={render:i,staticRenderFns:r};e.a=o}])});
+
+/***/ }),
+
 /***/ "../node_modules/vue/dist/vue.runtime.esm.js":
 /*!***************************************************!*\
   !*** ../node_modules/vue/dist/vue.runtime.esm.js ***!
@@ -38868,6 +38888,30 @@ class AlignedGroupsController {
 
 /***/ }),
 
+/***/ "./lib/controllers/annotations-controller.js":
+/*!***************************************************!*\
+  !*** ./lib/controllers/annotations-controller.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ AnnotationsController)
+/* harmony export */ });
+class AnnotationsController {
+  constructor (store) {
+    this.store = store
+  }
+
+  addAnnotation ({ token, type, text }) {
+    return this.alignment.addAnnotation({ token, type, text })
+  }
+}
+
+
+/***/ }),
+
 /***/ "./lib/controllers/app-controller.js":
 /*!*******************************************!*\
   !*** ./lib/controllers/app-controller.js ***!
@@ -38880,18 +38924,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ AppController)
 /* harmony export */ });
 /* harmony import */ var _vue_app_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/app.vue */ "./vue/app.vue");
-/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuex */ "../node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuex */ "../node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/texts-controller.js */ "./lib/controllers/texts-controller.js");
 /* harmony import */ var _lib_controllers_aligned_groups_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/aligned-groups-controller.js */ "./lib/controllers/aligned-groups-controller.js");
 /* harmony import */ var _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/tokens-edit-controller.js */ "./lib/controllers/tokens-edit-controller.js");
 /* harmony import */ var _lib_controllers_history_controller_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/controllers/history-controller.js */ "./lib/controllers/history-controller.js");
 /* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
 /* harmony import */ var _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/controllers/storage-controller.js */ "./lib/controllers/storage-controller.js");
-/* harmony import */ var _lib_store_store_definition__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/store/store-definition */ "./lib/store/store-definition.js");
-/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
-/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
-/* harmony import */ var _locales_locales_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/locales/locales.js */ "./locales/locales.js");
+/* harmony import */ var _lib_controllers_annotations_controller_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/controllers/annotations-controller.js */ "./lib/controllers/annotations-controller.js");
+/* harmony import */ var _lib_store_store_definition__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/lib/store/store-definition */ "./lib/store/store-definition.js");
+/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _locales_locales_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/locales/locales.js */ "./locales/locales.js");
+
 
 
 
@@ -38967,13 +39013,14 @@ class AppController {
     this.defineAlignedGroupsController()
     this.defineTokensEditController()
     this.defineHistoryController()
+    this.defineAnnotationsController()
 
-    const rootVi = new _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default({ store: this.store })
+    const rootVi = new _vue_runtime__WEBPACK_IMPORTED_MODULE_12__.default({ store: this.store })
     const mountEl = document.getElementById(this.pageSettings.appId)
     const appContainer = document.createElement('div')
 
     const appContainerEl = mountEl.appendChild(appContainer)
-    const AppComponent = _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.extend(_vue_app_vue__WEBPACK_IMPORTED_MODULE_0__.default)
+    const AppComponent = _vue_runtime__WEBPACK_IMPORTED_MODULE_12__.default.extend(_vue_app_vue__WEBPACK_IMPORTED_MODULE_0__.default)
 
     this._viAppComp = new AppComponent({
       parent: rootVi
@@ -38992,8 +39039,8 @@ class AppController {
    * Inits Vuex Store
    */
   defineStore () {
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.use(vuex__WEBPACK_IMPORTED_MODULE_12__.default)
-    this.store = new vuex__WEBPACK_IMPORTED_MODULE_12__.default.Store(_lib_store_store_definition__WEBPACK_IMPORTED_MODULE_7__.default.defaultDefinition)
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_12__.default.use(vuex__WEBPACK_IMPORTED_MODULE_13__.default)
+    this.store = new vuex__WEBPACK_IMPORTED_MODULE_13__.default.Store(_lib_store_store_definition__WEBPACK_IMPORTED_MODULE_8__.default.defaultDefinition)
   }
 
   /**
@@ -39010,7 +39057,7 @@ class AppController {
    */
   defineTextController () {
     this.textC = new _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$textC = this.textC
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_12__.default.prototype.$textC = this.textC
   }
 
   /**
@@ -39018,7 +39065,7 @@ class AppController {
    */
   defineAlignedGroupsController () {
     this.alignedGC = new _lib_controllers_aligned_groups_controller_js__WEBPACK_IMPORTED_MODULE_2__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$alignedGC = this.alignedGC
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_12__.default.prototype.$alignedGC = this.alignedGC
   }
 
   /**
@@ -39026,7 +39073,7 @@ class AppController {
    */
   defineTokensEditController () {
     this.tokensEC = new _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_3__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$tokensEC = this.tokensEC
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_12__.default.prototype.$tokensEC = this.tokensEC
   }
 
   /**
@@ -39034,7 +39081,12 @@ class AppController {
    */
   defineHistoryController () {
     this.historyC = new _lib_controllers_history_controller_js__WEBPACK_IMPORTED_MODULE_4__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$historyC = this.historyC
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_12__.default.prototype.$historyC = this.historyC
+  }
+
+  defineAnnotationsController () {
+    this.annotationsC = new _lib_controllers_annotations_controller_js__WEBPACK_IMPORTED_MODULE_7__.default(this.store)
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_12__.default.prototype.$annotationsC = this.annotationsC
   }
 
   /**
@@ -39042,11 +39094,11 @@ class AppController {
    */
   defineL10Support () {
     const config = {
-      defaultLocale: _locales_locales_js__WEBPACK_IMPORTED_MODULE_10__.default.en_US,
-      messageBundles: _locales_locales_js__WEBPACK_IMPORTED_MODULE_10__.default.bundleArr(_locales_locales_js__WEBPACK_IMPORTED_MODULE_10__.default.predefinedLocales())
+      defaultLocale: _locales_locales_js__WEBPACK_IMPORTED_MODULE_11__.default.en_US,
+      messageBundles: _locales_locales_js__WEBPACK_IMPORTED_MODULE_11__.default.bundleArr(_locales_locales_js__WEBPACK_IMPORTED_MODULE_11__.default.predefinedLocales())
     }
 
-    const l10n = new _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_9__.default()
+    const l10n = new _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_10__.default()
     config.messageBundles.forEach(mb => l10n.addMessageBundle(mb))
     l10n.setLocale(config.defaultLocale)
     return l10n
@@ -39056,7 +39108,7 @@ class AppController {
    * Defines NotificatinSingleton instance
    */
   defineNotificationSupport () {
-    const notificationSingleton = new _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_8__.default(this.store)
+    const notificationSingleton = new _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_9__.default(this.store)
     return notificationSingleton
   }
 
@@ -39614,6 +39666,10 @@ class SettingsController {
    */
   static get allowUpdateTokenWordOptionValue () {
     return _instance.options.app && _instance.options.app.items.allowUpdateTokenWord ? _instance.options.app.items.allowUpdateTokenWord.currentValue : false
+  }
+
+  static get availableAnnotationTypes () {
+    return _instance.options.app && _instance.options.app.items.availableAnnotationTypes ? _instance.options.app.items.availableAnnotationTypes.currentValue : false
   }
 
   /**
@@ -40413,8 +40469,78 @@ class TextsController {
     return this.alignment.getSegment(textType, textId, segmentIndex)
   }
 
+  /**
+   * @returns {Boolean} - IndexedDB support availability
+   */
   get indexedDBAvailable () {
     return _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.dbAdapterAvailable
+  }
+
+  /**
+   * Add a new attonation (if id is undefined) or update an existed annotation (if id is defined)
+   * @param {String} id - annotation ID
+   * @param {Token} token - to which annotation would be added
+   * @param {String} type - Annotation.types key
+   * @param {String} text - annotation text
+   * @returns {Boolean} - action result
+   */
+  addAnnotation ({ id, token, type, text } = {}) {
+    if ((id && token && (type || text)) || (token && type && text)) {
+      this.alignment.addAnnotation({ id, token, type, text })
+      this.store.commit('incrementUpdateAnnotations')
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment)
+      return true
+    }
+    console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_DATA_FOR_ANNOTATIONS'))
+    _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
+      text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_DATA_FOR_ANNOTATIONS'),
+      type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.types.ERROR
+    })
+    return false
+  }
+
+  /**
+   * Get annotations, attache to the token
+   * @param {Token} token
+   * @returns {Array[Annotation]}
+   */
+  getAnnotations (token) {
+    return this.alignment && this.alignment.getAnnotations(token)
+  }
+
+  /**
+   * Remove an existed annotation
+   * @param {Token} token
+   * @param {String} id  - annotation ID
+   * @returns {Boolean} - action result
+   */
+  removeAnnotation (token, id) {
+    if (token && id && this.alignment && this.alignment.removeAnnotation(token, id)) {
+      this.store.commit('incrementUpdateAnnotations')
+      this.deleteAnnotationFromStorage(id)
+      return true
+    }
+    return false
+  }
+
+  deleteAnnotationFromStorage (id) {
+    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.deleteMany({
+      userID: this.alignment.userID,
+      alignmentID: this.alignment.id,
+      annotationId: id
+    }, 'annotationByID')
+  }
+
+  get hasAnnotations () {
+    return this.alignment && this.alignment.hasAnnotations
+  }
+
+  hasTokenAnnotations (token) {
+    return this.alignment && this.alignment.hasTokenAnnotations(token)
+  }
+
+  annotationIsEditable (annotation) {
+    return this.alignment && this.alignment.annotationIsEditable(annotation, _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__.default.availableAnnotationTypes)
   }
 }
 
@@ -42195,8 +42321,8 @@ class AlignedText {
    */
   async tokenize (docSource, useSpecificEnglishTokenizer = false) {
     const tokenizeMethod = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.getTokenizer(docSource.tokenization.tokenizer)
-    const result = await tokenizeMethod(docSource, this.tokenPrefix, useSpecificEnglishTokenizer)
 
+    const result = await tokenizeMethod(docSource, this.tokenPrefix, useSpecificEnglishTokenizer)
     if (result && result.segments) {
       this.segments = result.segments.map(segment => {
         return new _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default({
@@ -42207,8 +42333,8 @@ class AlignedText {
           direction: docSource.direction,
           docSourceId: docSource.id
         })
-      }
-      )
+      })
+
       return true
     }
     return false
@@ -42622,14 +42748,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/alignment-group */ "./lib/data/alignment-group.js");
 /* harmony import */ var _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/data/aligned-text */ "./lib/data/aligned-text.js");
 /* harmony import */ var _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/data/source-text */ "./lib/data/source-text.js");
-/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
-/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
-/* harmony import */ var _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/data/history/history-step.js */ "./lib/data/history/history-step.js");
-/* harmony import */ var _lib_data_history_tokens_edit_history_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/data/history/tokens-edit-history.js */ "./lib/data/history/tokens-edit-history.js");
-/* harmony import */ var _lib_data_actions_tokens_edit_actions_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/lib/data/actions/tokens-edit-actions.js */ "./lib/data/actions/tokens-edit-actions.js");
-/* harmony import */ var _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/lib/controllers/detect-text-controller.js */ "./lib/controllers/detect-text-controller.js");
-/* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
-/* harmony import */ var _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/lib/utility/convert-utility.js */ "./lib/utility/convert-utility.js");
+/* harmony import */ var _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/data/annotation */ "./lib/data/annotation.js");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+/* harmony import */ var _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/data/history/history-step.js */ "./lib/data/history/history-step.js");
+/* harmony import */ var _lib_data_history_tokens_edit_history_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/lib/data/history/tokens-edit-history.js */ "./lib/data/history/tokens-edit-history.js");
+/* harmony import */ var _lib_data_actions_tokens_edit_actions_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/lib/data/actions/tokens-edit-actions.js */ "./lib/data/actions/tokens-edit-actions.js");
+/* harmony import */ var _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/lib/controllers/detect-text-controller.js */ "./lib/controllers/detect-text-controller.js");
+/* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
+/* harmony import */ var _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/lib/utility/convert-utility.js */ "./lib/utility/convert-utility.js");
+
 
 
 
@@ -42667,8 +42795,10 @@ class Alignment {
     this.hoveredGroups = []
     this.undoneGroups = []
 
-    this.tokensEditHistory = new _lib_data_history_tokens_edit_history_js__WEBPACK_IMPORTED_MODULE_7__.default()
-    this.tokensEditActions = new _lib_data_actions_tokens_edit_actions_js__WEBPACK_IMPORTED_MODULE_8__.default({ origin: this.origin, targets: this.targets, tokensEditHistory: this.tokensEditHistory })
+    this.annotations = {}
+
+    this.tokensEditHistory = new _lib_data_history_tokens_edit_history_js__WEBPACK_IMPORTED_MODULE_8__.default()
+    this.tokensEditActions = new _lib_data_actions_tokens_edit_actions_js__WEBPACK_IMPORTED_MODULE_9__.default({ origin: this.origin, targets: this.targets, tokensEditHistory: this.tokensEditHistory })
     this.tokensEditHistory.allStepActions = this.allStepActionsTokensEditor
   }
 
@@ -42750,7 +42880,7 @@ class Alignment {
     const docSource = this.getDocSource(textType, targetId)
 
     if (docSource && docSource.readyForLangDetection) {
-      const langData = await _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_9__.default.detectTextProperties(docSource)
+      const langData = await _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_10__.default.detectTextProperties(docSource)
       docSource.updateDetectedLang(langData)
       return true
     }
@@ -42795,10 +42925,10 @@ class Alignment {
 
     if (!this.origin.docSource) {
       if (docSource) {
-        console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_ADD_TARGET_SOURCE'))
-        _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
-          text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_ADD_TARGET_SOURCE'),
-          type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.types.ERROR
+        console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_ERROR_ADD_TARGET_SOURCE'))
+        _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.addNotification({
+          text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_ERROR_ADD_TARGET_SOURCE'),
+          type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.types.ERROR
         })
       }
       return false
@@ -42895,23 +43025,23 @@ class Alignment {
    */
   async createAlignedTexts () {
     if (!this.readyForTokenize) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.types.ERROR
       })
       return false
     }
 
     if (!this.origin.alignedText) {
-      const originResult = await this.createOriginAlignedText(_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_10__.default.useSpecificEnglishTokenizer)
+      const originResult = await this.createOriginAlignedText(_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_11__.default.useSpecificEnglishTokenizer)
       if (!originResult) { return false }
     }
 
     for (let i = 0; i < Object.keys(this.targets).length; i++) {
       const id = Object.keys(this.targets)[i]
       if (!this.targets[id].alignedText) {
-        const targetResult = await this.createTargetAlignedText(id, i, _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_10__.default.useSpecificEnglishTokenizer)
+        const targetResult = await this.createTargetAlignedText(id, i, _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_11__.default.useSpecificEnglishTokenizer)
         if (!targetResult) { return false }
       }
     }
@@ -42928,10 +43058,10 @@ class Alignment {
     const result = await this.origin.alignedText.tokenize(this.origin.docSource, useSpecificEnglishTokenizer)
 
     if (!result) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ORIGIN_NOT_TOKENIZED'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ORIGIN_NOT_TOKENIZED'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_ORIGIN_NOT_TOKENIZED'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_ORIGIN_NOT_TOKENIZED'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.types.ERROR
       })
       return false
     }
@@ -42947,10 +43077,10 @@ class Alignment {
     const result = await this.targets[targetId].alignedText.tokenize(this.targets[targetId].docSource, useSpecificEnglishTokenizer)
 
     if (!result) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_TARGET_NOT_TOKENIZED', { textnum: (index + 1) }))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_TARGET_NOT_TOKENIZED', { textnum: (index + 1) }),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_TARGET_NOT_TOKENIZED', { textnum: (index + 1) }))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_TARGET_NOT_TOKENIZED', { textnum: (index + 1) }),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.types.ERROR
       })
       return false
     }
@@ -43112,10 +43242,10 @@ class Alignment {
         this.hasTheSameSegmentTargetIdActiveGroup(token.segmentIndex, limitByTargetId)) {
       return this.activeAlignmentGroup.add(token)
     } else {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.types.ERROR
       })
       return false
     }
@@ -43132,10 +43262,10 @@ class Alignment {
       this.activeAlignmentGroup.remove(token)
       return true
     } else {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.types.ERROR
       })
     }
   }
@@ -43254,10 +43384,10 @@ class Alignment {
    */
   activateGroupByGroupIndex (tokensGroupIndex) {
     if (tokensGroupIndex >= this.alignmentGroups.length) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_ACTIVATE_BY_INDEX', { index: tokensGroupIndex }))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_ACTIVATE_BY_INDEX', { index: tokensGroupIndex }),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_ERROR_ACTIVATE_BY_INDEX', { index: tokensGroupIndex }))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_ERROR_ACTIVATE_BY_INDEX', { index: tokensGroupIndex }),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.types.ERROR
       })
       return
     }
@@ -43496,9 +43626,9 @@ class Alignment {
     const { tokenResult } = this.tokensEditActions.getNextPrevToken(token, direction)
 
     if (!this.isEditableToken(tokenResult)) {
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.types.ERROR
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.types.ERROR
       })
       return false
     }
@@ -43674,26 +43804,26 @@ class Alignment {
   get allStepActionsTokensEditor () {
     return {
       remove: {
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.UPDATE]: this.tokensEditActions.removeStepUpdate.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.MERGE]: this.tokensEditActions.removeStepMerge.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.SPLIT]: this.tokensEditActions.removeStepSplit.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.ADD_LINE_BREAK]: this.tokensEditActions.removeStepAddLineBreak.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.REMOVE_LINE_BREAK]: this.tokensEditActions.removeStepRemoveLineBreak.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.TO_PREV_SEGMENT]: this.tokensEditActions.removeStepToOtherSegment.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.TO_NEXT_SEGMENT]: this.tokensEditActions.removeStepToOtherSegment.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.NEW]: this.tokensEditActions.removeStepInsertTokens.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.DELETE]: this.tokensEditActions.removeStepDeleteToken.bind(this.tokensEditActions)
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.UPDATE]: this.tokensEditActions.removeStepUpdate.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.MERGE]: this.tokensEditActions.removeStepMerge.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.SPLIT]: this.tokensEditActions.removeStepSplit.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.ADD_LINE_BREAK]: this.tokensEditActions.removeStepAddLineBreak.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.REMOVE_LINE_BREAK]: this.tokensEditActions.removeStepRemoveLineBreak.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.TO_PREV_SEGMENT]: this.tokensEditActions.removeStepToOtherSegment.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.TO_NEXT_SEGMENT]: this.tokensEditActions.removeStepToOtherSegment.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.NEW]: this.tokensEditActions.removeStepInsertTokens.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.DELETE]: this.tokensEditActions.removeStepDeleteToken.bind(this.tokensEditActions)
       },
       apply: {
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.UPDATE]: this.tokensEditActions.applyStepUpdate.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.MERGE]: this.tokensEditActions.applyStepMerge.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.SPLIT]: this.tokensEditActions.applyStepSplit.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.ADD_LINE_BREAK]: this.tokensEditActions.applyStepAddLineBreak.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.REMOVE_LINE_BREAK]: this.tokensEditActions.applyStepRemoveLineBreak.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.TO_PREV_SEGMENT]: this.tokensEditActions.applyStepToOtherSegment.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.TO_NEXT_SEGMENT]: this.tokensEditActions.applyStepToOtherSegment.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.NEW]: this.tokensEditActions.applyStepInsertTokens.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.DELETE]: this.tokensEditActions.applyStepDeleteToken.bind(this.tokensEditActions)
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.UPDATE]: this.tokensEditActions.applyStepUpdate.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.MERGE]: this.tokensEditActions.applyStepMerge.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.SPLIT]: this.tokensEditActions.applyStepSplit.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.ADD_LINE_BREAK]: this.tokensEditActions.applyStepAddLineBreak.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.REMOVE_LINE_BREAK]: this.tokensEditActions.applyStepRemoveLineBreak.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.TO_PREV_SEGMENT]: this.tokensEditActions.applyStepToOtherSegment.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.TO_NEXT_SEGMENT]: this.tokensEditActions.applyStepToOtherSegment.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.NEW]: this.tokensEditActions.applyStepInsertTokens.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.DELETE]: this.tokensEditActions.applyStepDeleteToken.bind(this.tokensEditActions)
       }
     }
   }
@@ -43712,24 +43842,26 @@ class Alignment {
     })
 
     const alignmentGroups = this.alignmentGroups.map(alGroup => alGroup.convertToJSON())
-
-    // const activeAlignmentGroup = this.activeAlignmentGroup ? this.activeAlignmentGroup.convertToJSON() : null
+    const annotations = {}
+    Object.keys(this.annotations).forEach(tokenIdWord => {
+      annotations[tokenIdWord] = this.annotations[tokenIdWord].map(annot => annot.convertToJSON())
+    })
 
     return {
       id: this.id,
-      createdDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_11__.default.convertDateToString(this.createdDT),
-      updatedDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_11__.default.convertDateToString(this.updatedDT),
+      createdDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_12__.default.convertDateToString(this.createdDT),
+      updatedDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_12__.default.convertDateToString(this.updatedDT),
       userID: this.userID,
       origin,
       targets,
-      alignmentGroups/*,
-      activeAlignmentGroup: null */
+      alignmentGroups,
+      annotations
     }
   }
 
   static convertFromJSON (data) {
-    const createdDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_11__.default.convertStringToDate(data.createdDT)
-    const updatedDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_11__.default.convertStringToDate(data.updatedDT)
+    const createdDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_12__.default.convertStringToDate(data.createdDT)
+    const updatedDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_12__.default.convertStringToDate(data.updatedDT)
     const alignment = new Alignment({
       id: data.id, createdDT, updatedDT, userID: data.userID
     })
@@ -43750,10 +43882,16 @@ class Alignment {
       }
     })
 
-    data.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(_lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(alGroup)))
-
-    if (data.activeAlignmentGroup) {
-      alignment.activeAlignmentGroup = _lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(data.activeAlignmentGroup)
+    if (data.alignmentGroups) {
+      data.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(_lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(alGroup)))
+    }
+    if (data.annotations) {
+      Object.keys(data.annotations).forEach(tokenIdWord => {
+        alignment.annotations[tokenIdWord] = data.annotations[tokenIdWord].map(annotData => {
+          const token = alignment.findTokenByTokenShortJSON(annotData.tokenData)
+          return _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__.default.convertFromJSON(annotData, token)
+        })
+      })
     }
 
     if (alignment.origin.alignedText) {
@@ -43785,22 +43923,28 @@ class Alignment {
 
     const alignmentGroups = this.alignmentGroups.map(alGroup => alGroup.convertToJSON())
 
+    const annotations = []
+    Object.keys(this.annotations).forEach(tokenIdWord => {
+      annotations.push(...this.annotations[tokenIdWord].map(annot => annot.convertToJSON()))
+    })
+
     return {
       id: this.id,
-      createdDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_11__.default.convertDateToString(this.createdDT),
-      updatedDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_11__.default.convertDateToString(this.updatedDT),
+      createdDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_12__.default.convertDateToString(this.createdDT),
+      updatedDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_12__.default.convertDateToString(this.updatedDT),
       userID: this.userID,
       langsList: this.langsList,
       hasTokens,
       origin,
       targets,
-      alignmentGroups
+      alignmentGroups,
+      annotations
     }
   }
 
   static async convertFromIndexedDB (dbData) {
-    const createdDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_11__.default.convertStringToDate(dbData.createdDT)
-    const updatedDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_11__.default.convertStringToDate(dbData.updatedDT)
+    const createdDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_12__.default.convertStringToDate(dbData.createdDT)
+    const updatedDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_12__.default.convertStringToDate(dbData.updatedDT)
     const alignment = new Alignment({
       id: dbData.alignmentID, createdDT, updatedDT, userID: dbData.userID
     })
@@ -43829,6 +43973,18 @@ class Alignment {
     if (dbData.alignmentGroups) {
       dbData.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(_lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default.convertFromIndexedDB(alGroup)))
     }
+
+    if (dbData.annotations) {
+      dbData.annotations.forEach(annotData => {
+        if (!alignment.annotations[annotData.tokenData.idWord]) {
+          alignment.annotations[annotData.tokenData.idWord] = []
+        }
+        const token = alignment.findTokenByTokenShortJSON(annotData.tokenData)
+
+        alignment.annotations[annotData.tokenData.idWord].push(_lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__.default.convertFromJSON(annotData, token))
+      })
+    }
+
     if (alignment.origin.alignedText) {
       document.dispatchEvent(new Event('AlpheiosAlignmentGroupsWorkflowStarted'))
     }
@@ -43885,6 +44041,11 @@ class Alignment {
     })
 
     return JSON.stringify({ origin, targets })
+  }
+
+  findTokenByTokenShortJSON ({ textType, idWord, segmentIndex, docSourceId }) {
+    const segment = this.getSegment(textType, docSourceId, segmentIndex)
+    return segment.getTokenById(idWord)
   }
 
   changeMetadataTerm (metadataTermData, value, textType, textId) {
@@ -43961,6 +44122,140 @@ class Alignment {
     return !(this.origin.alignedText) ||
            (this.origin.alignedText.hasAllPartsUploaded && Object.values(this.targets).every(target => target.alignedText.hasAllPartsUploaded))
   }
+
+  addAnnotation ({ id, token, type, text } = {}) {
+    if ((id && token && (type || text)) || (token && type && text)) {
+      const existedAnnotation = this.existedAnnotation(token, id)
+      if (existedAnnotation) {
+        return existedAnnotation.update({ type, text })
+      }
+      if (this.equalAnnotation({ token, type, text })) {
+        return
+      }
+
+      const annotation = new _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__.default({ token, type, text })
+      if (!this.annotations[token.idWord]) {
+        this.annotations[token.idWord] = []
+      }
+
+      this.annotations[token.idWord].push(annotation)
+      return true
+    }
+    return false
+  }
+
+  get hasAnnotations () {
+    return Object.values(this.annotations).length > 0
+  }
+
+  hasTokenAnnotations (token) {
+    return this.getAnnotations(token).length > 0
+  }
+
+  getAnnotations (token) {
+    return this.annotations[token.idWord] ? this.annotations[token.idWord] : []
+  }
+
+  equalAnnotation ({ token, type, text }) {
+    return this.annotations[token.idWord] && this.annotations[token.idWord].find(annotation => annotation.hasProperties({ type, text }))
+  }
+
+  existedAnnotation (token, id) {
+    return this.annotations[token.idWord] && this.annotations[token.idWord].find(annotation => annotation.id === id)
+  }
+
+  existedAnnotationIndex (token, id) {
+    return this.annotations[token.idWord] && this.annotations[token.idWord].findIndex(annotation => annotation.id === id)
+  }
+
+  removeAnnotation (token, id) {
+    const annotationIndex = this.existedAnnotationIndex(token, id)
+    if (annotationIndex >= 0) {
+      this.annotations[token.idWord].splice(annotationIndex, 1)
+      if (this.annotations[token.idWord].length === 0) {
+        delete this.annotations[token.idWord]
+      }
+      return true
+    }
+    return false
+  }
+
+  annotationIsEditable (annotation, availableTypes) {
+    return annotation.isEditable(availableTypes)
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/data/annotation.js":
+/*!********************************!*\
+  !*** ./lib/data/annotation.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Annotation)
+/* harmony export */ });
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
+
+
+class Annotation {
+  constructor ({ token, type, text, annId } = {}) {
+    this.id = annId || (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
+    this.token = token
+    this.type = type
+    this.text = text
+  }
+
+  static get allTypes () {
+    return Object.keys(Annotation.types)
+  }
+
+  hasProperties ({ type, text } = {}) {
+    let result = !type || this.type === type
+    result &= !text || this.text === text
+    return result
+  }
+
+  update ({ type, text }) {
+    if (type) {
+      this.type = type
+    }
+    this.text = text
+    return true
+  }
+
+  isEditable (availableTypes) {
+    return availableTypes.includes(this.type)
+  }
+
+  convertToJSON () {
+    return {
+      id: this.id,
+      tokenData: this.token.convertToShortJSON(),
+      type: this.type,
+      text: this.text
+    }
+  }
+
+  static convertFromJSON (data, token) {
+    return new Annotation({
+      annId: data.id || data.annotationId,
+      token,
+      type: data.type,
+      text: data.text
+    })
+  }
+}
+
+Annotation.types = {
+  COMMENT: 'comment',
+  LEMMAID: 'lemmaid',
+  MORPHOLOGY: 'morphology'
 }
 
 
@@ -44797,7 +45092,13 @@ class Segment {
    * @param {Array[Object]} tokens
    */
   checkAndUpdateTokens (tokens) {
-    this.tokens = tokens.map(token => (token instanceof _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default) ? token : new _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default(token, this.index, this.docSourceId))
+    this.tokens = tokens.map((token, tokenIndex) => {
+      if (token instanceof _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default) {
+        return token
+      }
+      if (!token.tokenIndex) { token.tokenIndex = tokenIndex }
+      return new _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default(token, this.index, this.docSourceId)
+    })
     this.lastTokenIdWord = this.tokens[this.tokens.length - 1] ? this.tokens[this.tokens.length - 1].idWord : null
   }
 
@@ -44877,6 +45178,10 @@ class Segment {
    */
   getTokenIndex (token) {
     return this.tokens.findIndex(tokenCurrent => tokenCurrent.idWord === token.idWord)
+  }
+
+  getTokenById (tokenIdWord) {
+    return this.tokens.find(tokenCurrent => tokenCurrent.idWord === tokenIdWord)
   }
 
   /**
@@ -44985,7 +45290,10 @@ class Segment {
       lang: data.lang,
       direction: data.direction,
       docSourceId: data.docSourceId,
-      tokens: data.tokens.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(token))
+      tokens: data.tokens.map((token, tokenIndex) => {
+        token.tokenIdex = tokenIndex
+        return _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(token)
+      })
     })
   }
 
@@ -45271,16 +45579,21 @@ class SourceText {
   }
 
   convertToJSON () {
-    return {
+    const result = {
       textId: this.id,
       textType: this.textType,
       text: this.text,
       direction: this.direction,
       lang: this.lang,
       sourceType: this.sourceType,
-      tokenization: this.tokenization,
-      metadata: this.metadata.convertToJSON()
+      tokenization: this.tokenization
     }
+
+    if (!this.metadata.isEmpty) {
+      result.metadata = this.metadata.convertToJSON()
+    }
+
+    return result
   }
 
   convertToIndexedDB (textAsBlob = true) {
@@ -45349,7 +45662,6 @@ class Token {
     this.segmentIndex = segmentIndex
     this.docSourceId = docSourceId
     this.tokenIndex = tokenIndex
-    this.len = this.word ? this.word.length : 0
     this.partNum = partNum
   }
 
@@ -45358,6 +45670,10 @@ class Token {
    */
   get isAlignable () {
     return Boolean(this.textType && this.idWord && this.word)
+  }
+
+  get len () {
+    return this.word ? this.word.length : 0
   }
 
   /**
@@ -45376,7 +45692,6 @@ class Token {
   update ({ word, idWord, segmentIndex, hasLineBreak, partNum }) {
     if (word !== undefined) {
       this.word = word
-      this.len = this.word.length
     }
 
     if (idWord !== undefined) {
@@ -45440,7 +45755,7 @@ class Token {
       segmentIndex: this.segmentIndex,
       docSourceId: this.docSourceId,
       sentenceIndex: this.sentenceIndex,
-      tokenIndex
+      tokenIndex: tokenIndex !== undefined ? tokenIndex : this.tokenIndex
     }
   }
 
@@ -45509,6 +45824,15 @@ class Token {
       sentenceIndex: this.sentenceIndex,
       partNum: this.partNum,
       tokenIndex
+    }
+  }
+
+  convertToShortJSON () {
+    return {
+      textType: this.textType,
+      idWord: this.idWord,
+      segmentIndex: this.segmentIndex,
+      docSourceId: this.docSourceId
     }
   }
 }
@@ -46508,7 +46832,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 class IndexedDBStructure {
   static get dbVersion () {
-    return 6
+    return 7
   }
 
   static get dbName () {
@@ -46524,7 +46848,8 @@ class IndexedDBStructure {
       segments: this.segmentsStructure,
       partNums: this.partNumsStructure,
       tokens: this.tokensStructure,
-      alGroups: this.alGroupsStructure
+      alGroups: this.alGroupsStructure,
+      annotations: this.annotationsStructure
     }
   }
 
@@ -46653,6 +46978,22 @@ class IndexedDBStructure {
         ]
       },
       serialize: this.serializeAlGroups.bind(this)
+    }
+  }
+
+  static get annotationsStructure () {
+    return {
+      name: 'ALEditorAnnotations ',
+      structure: {
+        keyPath: 'ID',
+        indexes: [
+          { indexName: 'ID', keyPath: 'ID', unique: true },
+          { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
+          { indexName: 'userID', keyPath: 'userID', unique: false },
+          { indexName: 'fullTokenId', keyPath: 'fullTokenId', unique: false }
+        ]
+      },
+      serialize: this.serializeAnnotations.bind(this)
     }
   }
 
@@ -46873,6 +47214,26 @@ class IndexedDBStructure {
     return finalData
   }
 
+  static serializeAnnotations (data) {
+    const finalData = []
+    for (const annotation of data.annotations) {
+      const uniqueID = `${data.userID}-${data.id}-${annotation.id}`
+
+      finalData.push({
+        ID: uniqueID,
+        alignmentID: data.id,
+        userID: data.userID,
+        fullTokenId: `${data.userID}-${data.id}-${annotation.tokenData.idWord}`,
+
+        annotationId: annotation.id,
+        tokenData: annotation.tokenData,
+        type: annotation.type,
+        text: annotation.text
+      })
+    }
+    return finalData
+  }
+
   static prepareUpdateQuery (objectStoreData, data) {
     const dataItems = objectStoreData.serialize(data)
     if (dataItems && dataItems.length > 0) {
@@ -47025,6 +47386,19 @@ class IndexedDBStructure {
           mergeBy: ['alignmentID'],
           uploadTo: 'alignmentGroups'
         }
+      },
+      {
+        objectStoreName: this.allObjectStoreData.annotations.name,
+        condition: {
+          indexName: 'alignmentID',
+          value: indexData.alignmentID,
+          type: 'only'
+        },
+        resultType: 'multiple',
+        mergeData: {
+          mergeBy: ['alignmentID'],
+          uploadTo: 'annotations'
+        }
       }
     ]
   }
@@ -47063,9 +47437,21 @@ class IndexedDBStructure {
       alignmentDataByID: this.prepareDeleteAlignmentDataByID.bind(this),
       fullAlignmentByID: this.prepareDeleteFullAlignmentByID.bind(this),
       alignmentGroupByID: this.prepareDeleteAlignmentGroupByID.bind(this),
-      allPartNum: this.prepareDeleteAllPartNum.bind(this)
+      allPartNum: this.prepareDeleteAllPartNum.bind(this),
+      annotationByID: this.prepareDeleteAnnotationByID.bind(this)
     }
     return typeQueryList[typeQuery](indexData)
+  }
+
+  static prepareDeleteAnnotationByID (indexData) {
+    return [{
+      objectStoreName: this.allObjectStoreData.annotations.name,
+      condition: {
+        indexName: 'ID',
+        value: `${indexData.userID}-${indexData.alignmentID}-${indexData.annotationId}`,
+        type: 'only'
+      }
+    }]
   }
 
   static prepareDeleteAllPartNum (indexData) {
@@ -47073,7 +47459,6 @@ class IndexedDBStructure {
       objectStoreName: this.allObjectStoreData.tokens.name,
       condition: {
         indexName: 'alTextIdSegIdPartNum',
-        // ${data.id}-${dataItem.textId}-${tokenItem.segmentIndex}-${tokenItem.partNum}
         value: `${indexData.userID}-${indexData.alignmentID}-${indexData.textId}-${indexData.segmentIndex}-${indexData.partNum}`,
         type: 'only'
       }
@@ -47186,7 +47571,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i460-turn-off-indexeddb.20210715555" : 0
+    return  true ? "i462-annotations-1.20210805655" : 0
   }
 
   static get libName () {
@@ -47227,6 +47612,7 @@ class StoreDefinition {
         redefineAllPartNums: 1,
         reuploadTextsParts: 1,
         uploadPartNum: 1,
+        updateAnnotations: 1,
 
         reloadAlignmentsList: 1,
 
@@ -47294,6 +47680,9 @@ class StoreDefinition {
         },
         incremetReloadAlignmentsList (state) {
           state.reloadAlignmentsList++
+        },
+        incrementUpdateAnnotations (state) {
+          state.updateAnnotations++
         }
       }
     }
@@ -47501,10 +47890,13 @@ class SimpleLocalTokenizer {
    */
   static simpleWordTokenization (textLine, prefix, textType) {
     const formattedText = []
+    const sentenceEnds = /[.;!?:\uff01\uff1f\uff1b\uff1a\u3002]/
 
     if ((/^\s*$/).test(textLine)) { // it is an empty line
       return formattedText
     }
+
+    let sentenceIndex = 1
 
     const textAll = textLine.split(/(?=[.\s]|\b)/)
     let beforeWord = ''
@@ -47522,7 +47914,7 @@ class SimpleLocalTokenizer {
         wordEnded = false
       } else if ((/^\w.*/gi).test(item) && wordEnded) { // it is a word or the first part of it
         word = item
-      } else if ((/^\w.*/gi).test(item) && !wordEnded) { // it is the seconf part of the word
+      } else if ((/^\w.*/gi).test(item) && !wordEnded) { // it is the second part of the word
         word = word + item
       } else { // it is a word diviver
         let beforeNextWord = ''
@@ -47542,6 +47934,11 @@ class SimpleLocalTokenizer {
           afterWord = ''
           word = ''
 
+          resultWord.sentenceIndex = sentenceIndex
+          if (sentenceEnds.test(resultWord.afterWord)) {
+            sentenceIndex++
+          }
+
           formattedText.push(resultWord)
         }
       }
@@ -47549,6 +47946,8 @@ class SimpleLocalTokenizer {
 
     if (!wordEnded || word) {
       const resultWord = this.fillWordObject(indexWord, prefix, textType, word, beforeWord, afterWord)
+      resultWord.sentenceIndex = sentenceIndex
+
       indexWord = indexWord + 1
       formattedText.push(resultWord)
     }
@@ -47887,8 +48286,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _locales_en_us_messages_options_block_json__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/locales/en-us/messages-options-block.json */ "./locales/en-us/messages-options-block.json");
 /* harmony import */ var _locales_en_us_messages_metadata_terms_json__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/locales/en-us/messages-metadata-terms.json */ "./locales/en-us/messages-metadata-terms.json");
 /* harmony import */ var _locales_en_us_messages_initial_screen_json__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/locales/en-us/messages-initial-screen.json */ "./locales/en-us/messages-initial-screen.json");
-/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
-/* harmony import */ var _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/lib/l10n/message-bundle */ "./lib/l10n/message-bundle.js");
+/* harmony import */ var _locales_en_us_messages_annotations_json__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/locales/en-us/messages-annotations.json */ "./locales/en-us/messages-annotations.json");
+/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
+/* harmony import */ var _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/lib/l10n/message-bundle */ "./lib/l10n/message-bundle.js");
+
 
 
 
@@ -47908,8 +48309,8 @@ __webpack_require__.r(__webpack_exports__);
 const localeEnUs = 'en-US'
 const localeEnGb = 'en-GB'
 const availableMessages = {
-  [localeEnUs]: [_locales_en_us_messages_common_json__WEBPACK_IMPORTED_MODULE_0__, _locales_en_us_messages_controllers_json__WEBPACK_IMPORTED_MODULE_1__, _locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_3__, _locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_6__, _locales_en_us_messages_aligned_groups_editor_json__WEBPACK_IMPORTED_MODULE_4__, _locales_en_us_messages_tokens_edit_editor_json__WEBPACK_IMPORTED_MODULE_5__, _locales_en_us_messages_languages_json__WEBPACK_IMPORTED_MODULE_2__, _locales_en_us_messages_options_block_json__WEBPACK_IMPORTED_MODULE_7__, _locales_en_us_messages_metadata_terms_json__WEBPACK_IMPORTED_MODULE_8__, _locales_en_us_messages_initial_screen_json__WEBPACK_IMPORTED_MODULE_9__],
-  [localeEnGb]: [_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_10__]
+  [localeEnUs]: [_locales_en_us_messages_common_json__WEBPACK_IMPORTED_MODULE_0__, _locales_en_us_messages_controllers_json__WEBPACK_IMPORTED_MODULE_1__, _locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_3__, _locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_6__, _locales_en_us_messages_aligned_groups_editor_json__WEBPACK_IMPORTED_MODULE_4__, _locales_en_us_messages_tokens_edit_editor_json__WEBPACK_IMPORTED_MODULE_5__, _locales_en_us_messages_languages_json__WEBPACK_IMPORTED_MODULE_2__, _locales_en_us_messages_options_block_json__WEBPACK_IMPORTED_MODULE_7__, _locales_en_us_messages_metadata_terms_json__WEBPACK_IMPORTED_MODULE_8__, _locales_en_us_messages_initial_screen_json__WEBPACK_IMPORTED_MODULE_9__, _locales_en_us_messages_annotations_json__WEBPACK_IMPORTED_MODULE_10__],
+  [localeEnGb]: [_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_11__]
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -47933,7 +48334,7 @@ const availableMessages = {
    * @return {MessageBundle} A message bundle with messages from JSON.
    */
   createBundle: (messagesJSONorObj, locale) => {
-    return new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_11__.default(messagesJSONorObj, locale)
+    return new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_12__.default(messagesJSONorObj, locale)
   },
   /**
    * Same as above, but creates an array of message bundles out of an array of messages JSONs and a locales.
@@ -47943,7 +48344,7 @@ const availableMessages = {
    * @return {MessageBundle[]} An array of message bundles.
    */
   createBundleArr: (msgArr) => {
-    return msgArr.map((m) => new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_11__.default(...m))
+    return msgArr.map((m) => new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_12__.default(...m))
   },
   /**
    * Creates an array of message bundles out of all availableMessages.
@@ -47952,7 +48353,7 @@ const availableMessages = {
   bundleArr: () => {
     let msgArray = [] // eslint-disable-line prefer-const
     for (const [locale, messages] of Object.entries(availableMessages)) {
-      msgArray.push(...messages.map(m => new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_11__.default(m, locale)))
+      msgArray.push(...messages.map(m => new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_12__.default(m, locale)))
     }
     return msgArray
   }
@@ -48073,6 +48474,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -48087,6 +48490,11 @@ __webpack_require__.r(__webpack_exports__);
     actionsMenuAlignEditor: _vue_align_editor_actions_menu_align_editor_vue__WEBPACK_IMPORTED_MODULE_2__.default
   },
   props: {
+    annotationMode: {
+      type: Boolean,
+      required: false,
+      default: false
+    }
   },
   data () {
     return {
@@ -48188,6 +48596,10 @@ __webpack_require__.r(__webpack_exports__);
         this.shownTabs.push(targetId)
       }  
       this.$historyC.updateMode(this.shownTabs)    
+    },
+
+    updateAnnotation (token) {
+      this.$emit('update-annotation', token)
     }
   } 
 });
@@ -48211,7 +48623,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_common_help_popup_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/common/help-popup.vue */ "./vue/common/help-popup.vue");
 /* harmony import */ var _vue_common_save_popup_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/common/save-popup.vue */ "./vue/common/save-popup.vue");
 /* harmony import */ var _vue_options_options_text_align_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/options/options-text-align.vue */ "./vue/options/options-text-align.vue");
-/* harmony import */ var _vue_help_blocks_eng_help_block_align_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/help-blocks/eng/help-block-align.vue */ "./vue/help-blocks/eng/help-block-align.vue");
+/* harmony import */ var _vue_align_editor_annotation_block_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/align-editor/annotation-block.vue */ "./vue/align-editor/annotation-block.vue");
+/* harmony import */ var _vue_help_blocks_eng_help_block_align_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/help-blocks/eng/help-block-align.vue */ "./vue/help-blocks/eng/help-block-align.vue");
 //
 //
 //
@@ -48247,6 +48660,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -48265,8 +48688,9 @@ __webpack_require__.r(__webpack_exports__);
     alignEditorViewMode: _vue_align_editor_align_editor_view_mode_vue__WEBPACK_IMPORTED_MODULE_0__.default,
     helpPopup: _vue_common_help_popup_vue__WEBPACK_IMPORTED_MODULE_2__.default,
     savePopup: _vue_common_save_popup_vue__WEBPACK_IMPORTED_MODULE_3__.default,
-    helpBlockAlign: _vue_help_blocks_eng_help_block_align_vue__WEBPACK_IMPORTED_MODULE_5__.default,
-    optionsTextAlignPopup: _vue_options_options_text_align_vue__WEBPACK_IMPORTED_MODULE_4__.default
+    helpBlockAlign: _vue_help_blocks_eng_help_block_align_vue__WEBPACK_IMPORTED_MODULE_6__.default,
+    optionsTextAlignPopup: _vue_options_options_text_align_vue__WEBPACK_IMPORTED_MODULE_4__.default,
+    annotationBlockPopup: _vue_align_editor_annotation_block_vue__WEBPACK_IMPORTED_MODULE_5__.default
   },
   props: {
   },
@@ -48274,7 +48698,10 @@ __webpack_require__.r(__webpack_exports__);
     return {
       showModalHelp: false,
       showModalOptions: false,
-      showModalSave: false
+      showModalSave: false,
+      showModalAnnotations: false,
+      annotationToken: null,
+      annotationMode: false
     }
   },
   watch: {
@@ -48288,6 +48715,217 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    updateAnnotation (token) {
+      this.annotationToken = token
+      this.showModalAnnotations = true
+    },
+    closeAnnotationModal () {
+      this.annotationToken = null
+      this.showModalAnnotations = false
+    }
+  }
+});
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/annotation-block.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/annotation-block.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/common/modal.vue */ "./vue/common/modal.vue");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_data_annotation_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/data/annotation.js */ "./lib/data/annotation.js");
+/* harmony import */ var _inline_icons_pen_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/inline-icons/pen.svg */ "./inline-icons/pen.svg");
+/* harmony import */ var _inline_icons_pen_svg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_pen_svg__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/inline-icons/delete.svg */ "./inline-icons/delete.svg");
+/* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'AnnotationBlock',
+  components: {
+    modal: _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_0__.default,
+    penIcon: (_inline_icons_pen_svg__WEBPACK_IMPORTED_MODULE_3___default()),
+    deleteIcon: (_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_4___default())
+  },
+  props: {
+    showModal: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    token: {
+      type: Object,
+      required: true
+    }
+  },
+  data () {
+    return {
+      annotationId: null,
+      annotationText: null,
+      annotationType: 'COMMENT',
+      states: ['new', 'list', 'edit'],
+      currentState: 'new',
+      fullTextAnnotations: []
+    }
+  },
+  mounted () {
+    if (this.hasAnnotations) {
+      this.currentState = 'list'
+    } else {
+      this.currentState = 'new'
+    }
+  },
+  computed: {
+    l10n () {
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
+    },
+    textareaId () {
+      return `alpheios-alignment-editor-annotation-textarea-${this.token.idWord}`
+    },
+    annotationTypes () {
+      this.annotationType = _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.availableAnnotationTypes[0]
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.availableAnnotationTypes
+    },
+    allAnnotations () {
+      return this.$store.state.updateAnnotations && this.$textC.getAnnotations(this.token)
+    },
+    hasAnnotations () {
+      return this.$store.state.updateAnnotations && this.$textC.hasTokenAnnotations(this.token)
+    },
+    countAnnotations () {
+      return this.allAnnotations && this.allAnnotations.length > 0 ? this.allAnnotations.length : 0
+    },
+    isEditable () {
+      return this.$store.state.updateAnnotations && this.$textC.annotationIsEditable(annotation)
+    }
+  },
+  methods: {
+    annotationTypeValue (anType) {
+      return _lib_data_annotation_js__WEBPACK_IMPORTED_MODULE_2__.default.types[anType]
+    },
+    saveAnnotation () {
+      const result = this.$textC.addAnnotation({
+        token: this.token,
+        id: this.annotationId,
+        text: this.annotationText,
+        type: this.annotationType
+      })
+
+      if (result) {
+        this.showAnnotationsJournal()
+      }
+    },
+    showAnnotationsJournal () {
+      this.currentState = 'list'
+      this.annotationId = null
+      this.annotationText = ''
+    },
+    showNewAnnotation () {
+      this.currentState = 'new'
+      this.annotationId = null
+      this.annotationText = ''
+    },
+    isAnnotationEditable (annotation) {
+      return this.$textC.annotationIsEditable(annotation)
+    },
+    annotationClass (annotation) {
+      return {
+        'alpheios-alignment-editor-annotation-list-item__full': this.fullTextAnnotations.includes(annotation.id),
+        'alpheios-alignment-editor-annotation-list-item__disabled': !this.isAnnotationEditable(annotation)
+      }
+    },
+    toggleAnnotationText (id) {
+      const idIndex = this.fullTextAnnotations.indexOf(id)
+
+      if (idIndex >= 0) {
+        this.fullTextAnnotations.splice(idIndex, 1)
+      } else {
+        this.fullTextAnnotations.push(id)
+      }
+    },
+    editAnnotation (annotation) {
+      this.annotationId = annotation.id
+      this.annotationType = annotation.type
+      this.annotationText = annotation.text
+      this.currentState = 'edit'
+    },
+    deleteAnnotation (annotation) {
+      this.$textC.removeAnnotation(this.token, annotation.id)
+    }
   }
 });
 
@@ -48315,6 +48953,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
 /* harmony import */ var _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/text-editor/metadata-block.vue */ "./vue/text-editor/metadata-block.vue");
 /* harmony import */ var _vue_common_metadata_icons_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/common/metadata-icons.vue */ "./vue/common/metadata-icons.vue");
+//
+//
 //
 //
 //
@@ -48419,6 +49059,11 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     isFirst: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    annotationMode: {
       type: Boolean,
       required: false,
       default: false
@@ -48543,17 +49188,6 @@ __webpack_require__.r(__webpack_exports__);
       if (this.amountOfSegments === 1) {
         return this.containerHeight + this.heightDelta
       }
-      // return 'auto'
-      /*
-      const minHeight = this.minMaxHeight * (this.textType === 'origin') ? this.amountOfShownTabs : 1
-      console.info('minHeight - ', minHeight)
-      if (this.amountOfSegments === 1) {
-        return this.containerHeight + this.heightDelta
-      } 
-
-      const heightCalculated = (this.textType === 'origin') ? this.containerHeight * this.amountOfShownTabs/this.amountOfSegments : this.containerHeight/this.amountOfSegments
-      return Math.round(Math.max(minHeight, heightCalculated)) + this.heightDelta
-      */
     },
     isEmptyMetadata () {
       const docSource = this.$textC.getDocSource(this.textType, this.segment.docSourceId)
@@ -48598,7 +49232,7 @@ __webpack_require__.r(__webpack_exports__);
      * Starts click token workflow
      * @param {Token}
      */
-    clickToken (token) {
+    updateAlignmentGroup (token) {
       if (this.alignmentGroupsWorkflowAvailable && this.currentTargetId) {
         this.$alignedGC.clickToken(token, this.currentTargetId)
       }
@@ -48677,6 +49311,10 @@ __webpack_require__.r(__webpack_exports__);
 
     async uploadPartByNum (partNums) {
       await this.$textC.checkAndUploadSegmentsFromDB(this.textType, this.textId, this.segmentIndex, partNums)
+    },
+
+    updateAnnotation (token) {
+      this.$emit('update-annotation', token)
     }
   }
 
@@ -48734,6 +49372,11 @@ __webpack_require__.r(__webpack_exports__);
       type: Boolean,
       required: false,
       default: false
+    },
+    annotationMode: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data () {
@@ -48747,7 +49390,9 @@ __webpack_require__.r(__webpack_exports__);
         'alpheios-token-grouped': this.grouped ,
         'alpheios-token-clicked': this.inActiveGroup,
         'alpheios-token-clicked-first': this.firstInActiveGroup,
-        'alpheios-token-part-shadowed': (this.token.partNum % 2 === 0)
+        'alpheios-token-part-shadowed': (this.token.partNum % 2 === 0),
+        'alpheios-token-has-annotations': this.hasAnnotations,
+        'alpheios-token-annotation-mode': this.annotationMode
       }
     }, 
     tokenWord () {
@@ -48761,17 +49406,30 @@ __webpack_require__.r(__webpack_exports__);
     },
     elementId () {
       return `token-${this.token.idWord}`
+    },
+    clickToken () {
+      return this.annotationMode ? this.updateAnnotation : this.updateAlignmentGroup
+    },
+    hasAnnotations () {
+      return this.$store.state.updateAnnotations && this.$textC.getAnnotations(this.token).length > 0
     }
   },
   methods: {
-    clickToken (event) {
-      this.$emit('click-token', this.token)
+    updateAnnotation () {
+      this.$emit('update-annotation', this.token)
+    },
+    updateAlignmentGroup (event) {
+      this.$emit('update-alignment-group', this.token)
     },
     addHoverToken () {
-      this.$emit('add-hover-token', this.token)
+      if (!this.annotationMode) {
+        this.$emit('add-hover-token', this.token)
+      }
     },
     removeHoverToken () {
-      this.$emit('remove-hover-token', this.token)
+      if (!this.annotationMode) {
+        this.$emit('remove-hover-token', this.token)
+      }
     }
   }
 });
@@ -50376,6 +51034,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/settings-controller */ "./lib/controllers/settings-controller.js");
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect */ "../node_modules/vue-multiselect/dist/vue-multiselect.min.js");
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -50446,12 +51106,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'OptionItemBlock',
+  components: {
+    Multiselect: (vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default())
+  },
   props: {
     optionItem: {
       type: Object,
@@ -50487,7 +51168,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       selected: null,
       selectedI: null,
-      selectedS: null
+      selectedS: null,
+      selectedM: null
     }
   },
   mounted () {
@@ -50505,8 +51187,11 @@ __webpack_require__.r(__webpack_exports__);
     itemId () {
       return `${this.optionItem.name.replace(/\./g, '_')}-id`
     },
+    hasValues () {
+      return this.optionItem.select || this.optionItem.radio || this.optionItem.selectInput || this.optionItem.multiValue
+    },
     values () {
-      return (this.$store.state.optionsUpdated && (this.optionItem.select || this.optionItem.radio || this.optionItem.selectInput)) ? this.optionItem.values : null
+      return (this.$store.state.optionsUpdated && this.hasValues) ? this.optionItem.values : null
     },
     labelText () {
       if (this.optionItem.labelL10n) {
@@ -50518,6 +51203,7 @@ __webpack_require__.r(__webpack_exports__);
       return (this.showCheckboxTitle && this.$store.state.optionsUpdated && (this.optionItem && this.optionItem.boolean && Boolean(this.optionItem.values))) ? this.optionItem.textValues()[0] : null
     },
     optionType () {
+      if (this.optionItem.multiValue) { return 'multiValue' }
       if (this.optionItem.boolean) { return 'boolean' }
       if (this.optionItem.radio) { return 'radio' }
       if (this.optionItem.select) { return 'select' }
@@ -50557,7 +51243,11 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     updateSelectedFromExternal () {
       this.selected = this.optionItem.currentValue
-      
+
+      if (this.optionItem.multiValue) {
+        this.selectedM = this.optionItem.currentItem()
+      }
+
       if (this.optionItem.selectInput && this.values) {
         const valueFromSelect = this.values.find(valueObj => valueObj.value === this.optionItem.currentValue)
 
@@ -50570,7 +51260,11 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
     },
+
     changeOption () {
+      if (this.optionItem.multiValue) {
+        this.selected = this.selectedM.map(valItem => valItem.value)
+      }
       if (this.optionItem.selectInput) {
         this.selected = this.selectedSI
       }
@@ -50883,6 +51577,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -50928,8 +51623,14 @@ __webpack_require__.r(__webpack_exports__);
     addIndexedDBSupport () {
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.addIndexedDBSupport
     },
+    availableAnnotationTypes () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.availableAnnotationTypes
+    },
     versionData () {
       return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`
+    },
+    disableAnnotationsTypes () {
+      return this.$store.state.updateAnnotations && this.$textC.hasAnnotations
     }
   },
   methods: {
@@ -54198,6 +54899,47 @@ component.options.__file = "vue/align-editor/align-editor.vue"
 
 /***/ }),
 
+/***/ "./vue/align-editor/annotation-block.vue":
+/*!***********************************************!*\
+  !*** ./vue/align-editor/annotation-block.vue ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _annotation_block_vue_vue_type_template_id_897c30bc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./annotation-block.vue?vue&type=template&id=897c30bc& */ "./vue/align-editor/annotation-block.vue?vue&type=template&id=897c30bc&");
+/* harmony import */ var _annotation_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./annotation-block.vue?vue&type=script&lang=js& */ "./vue/align-editor/annotation-block.vue?vue&type=script&lang=js&");
+/* harmony import */ var _annotation_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./annotation-block.vue?vue&type=style&index=0&lang=scss& */ "./vue/align-editor/annotation-block.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _annotation_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _annotation_block_vue_vue_type_template_id_897c30bc___WEBPACK_IMPORTED_MODULE_0__.render,
+  _annotation_block_vue_vue_type_template_id_897c30bc___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/align-editor/annotation-block.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./vue/align-editor/segment-block.vue":
 /*!********************************************!*\
   !*** ./vue/align-editor/segment-block.vue ***!
@@ -56045,6 +56787,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./vue/align-editor/annotation-block.vue?vue&type=style&index=0&lang=scss&":
+/*!*********************************************************************************!*\
+  !*** ./vue/align-editor/annotation-block.vue?vue&type=style&index=0&lang=scss& ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_annotation_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./annotation-block.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/annotation-block.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_annotation_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_annotation_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_annotation_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_annotation_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
+
+/***/ }),
+
 /***/ "./vue/align-editor/segment-block.vue?vue&type=style&index=0&lang=scss&":
 /*!******************************************************************************!*\
   !*** ./vue/align-editor/segment-block.vue?vue&type=style&index=0&lang=scss& ***!
@@ -56770,6 +57529,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./align-editor.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./vue/align-editor/annotation-block.vue?vue&type=script&lang=js&":
+/*!************************************************************************!*\
+  !*** ./vue/align-editor/annotation-block.vue?vue&type=script&lang=js& ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_annotation_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./annotation-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/annotation-block.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_annotation_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -57524,6 +58299,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_vue_vue_type_template_id_d51e2a30___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_vue_vue_type_template_id_d51e2a30___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./align-editor.vue?vue&type=template&id=d51e2a30& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor.vue?vue&type=template&id=d51e2a30&");
+
+
+/***/ }),
+
+/***/ "./vue/align-editor/annotation-block.vue?vue&type=template&id=897c30bc&":
+/*!******************************************************************************!*\
+  !*** ./vue/align-editor/annotation-block.vue?vue&type=template&id=897c30bc& ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_annotation_block_vue_vue_type_template_id_897c30bc___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_annotation_block_vue_vue_type_template_id_897c30bc___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_annotation_block_vue_vue_type_template_id_897c30bc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./annotation-block.vue?vue&type=template&id=897c30bc& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/annotation-block.vue?vue&type=template&id=897c30bc&");
 
 
 /***/ }),
@@ -58412,8 +59204,10 @@ var render = function() {
                       isFirst: segmentData.isFirst,
                       segmentIndex: segmentData.origin.index,
                       textType: "origin",
-                      textId: segmentData.origin.docSourceId
-                    }
+                      textId: segmentData.origin.docSourceId,
+                      annotationMode: _vm.annotationMode
+                    },
+                    on: { "update-annotation": _vm.updateAnnotation }
                   })
                 ],
                 1
@@ -58443,8 +59237,10 @@ var render = function() {
                       textId: segmentTarget.docSourceId,
                       isLast: _vm.lastTargetId && targetId === _vm.lastTargetId,
                       currentTargetId: _vm.currentTargetId,
-                      amountOfShownTabs: _vm.amountOfShownTabs
-                    }
+                      amountOfShownTabs: _vm.amountOfShownTabs,
+                      annotationMode: _vm.annotationMode
+                    },
+                    on: { "update-annotation": _vm.updateAnnotation }
                   })
                 }),
                 1
@@ -58494,7 +59290,10 @@ var render = function() {
         [
           _c(
             "span",
-            { staticClass: "alpheios-alignment-text-editor-block__part" },
+            {
+              staticClass:
+                "alpheios-alignment-text-editor-block__part alpheios-alignment-text-editor-block__part-1"
+            },
             [
               _c(
                 "span",
@@ -58531,13 +59330,82 @@ var render = function() {
                   }
                 },
                 [_vm._v(_vm._s(_vm.l10n.getMsgS("TOKENS_EDITOR_LINK")))]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "alpheios-alignment-checkbox-block alpheios-alignment-annotation-mode-check-container"
+                },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.annotationMode,
+                        expression: "annotationMode"
+                      }
+                    ],
+                    attrs: {
+                      type: "checkbox",
+                      id: "alpheios-alignment-annotation-mode-check"
+                    },
+                    domProps: {
+                      checked: Array.isArray(_vm.annotationMode)
+                        ? _vm._i(_vm.annotationMode, null) > -1
+                        : _vm.annotationMode
+                    },
+                    on: {
+                      change: function($event) {
+                        var $$a = _vm.annotationMode,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 && (_vm.annotationMode = $$a.concat([$$v]))
+                          } else {
+                            $$i > -1 &&
+                              (_vm.annotationMode = $$a
+                                .slice(0, $$i)
+                                .concat($$a.slice($$i + 1)))
+                          }
+                        } else {
+                          _vm.annotationMode = $$c
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      attrs: { for: "alpheios-alignment-annotation-mode-check" }
+                    },
+                    [
+                      _vm._v(
+                        "\n            " +
+                          _vm._s(
+                            _vm.l10n.getMsgS("ALIGN_EDITOR_ANNOTATION_MODE")
+                          ) +
+                          "\n          "
+                      )
+                    ]
+                  )
+                ]
               )
             ]
           ),
           _vm._v(" "),
           _c(
             "span",
-            { staticClass: "alpheios-alignment-text-editor-block__part" },
+            {
+              staticClass:
+                "alpheios-alignment-text-editor-block__part alpheios-alignment-text-editor-block__part-2"
+            },
             [
               _c(
                 "button",
@@ -58551,7 +59419,13 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("\n            HELP\n        ")]
+                [
+                  _vm._v(
+                    "\n            " +
+                      _vm._s(_vm.l10n.getMsgS("ALIGN_EDITOR_HELP")) +
+                      "\n        "
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -58566,14 +59440,23 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("\n            Options\n        ")]
+                [
+                  _vm._v(
+                    "\n            " +
+                      _vm._s(_vm.l10n.getMsgS("ALIGN_EDITOR_OPTIONS")) +
+                      "\n        "
+                  )
+                ]
               )
             ]
           ),
           _vm._v(" "),
           _c(
             "span",
-            { staticClass: "alpheios-alignment-text-editor-block__part" },
+            {
+              staticClass:
+                "alpheios-alignment-text-editor-block__part alpheios-alignment-text-editor-block__part-3"
+            },
             [
               _c(
                 "button",
@@ -58587,7 +59470,13 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("\n            Save locally\n        ")]
+                [
+                  _vm._v(
+                    "\n            " +
+                      _vm._s(_vm.l10n.getMsgS("ALIGN_EDITOR_SAVE")) +
+                      "\n        "
+                  )
+                ]
               )
             ]
           )
@@ -58612,7 +59501,12 @@ var render = function() {
         ])
       }),
       _vm._v(" "),
-      _vm.renderAlignEditor ? _c("align-editor-view-mode") : _vm._e(),
+      _vm.renderAlignEditor
+        ? _c("align-editor-view-mode", {
+            attrs: { annotationMode: _vm.annotationMode },
+            on: { "update-annotation": _vm.updateAnnotation }
+          })
+        : _vm._e(),
       _vm._v(" "),
       _c("save-popup", {
         attrs: { showModal: _vm.showModalSave },
@@ -58630,10 +59524,415 @@ var render = function() {
             _vm.showModalOptions = false
           }
         }
-      })
+      }),
+      _vm._v(" "),
+      _vm.annotationToken
+        ? _c("annotation-block-popup", {
+            attrs: {
+              showModal: _vm.showModalAnnotations,
+              token: _vm.annotationToken
+            },
+            on: { closeModal: _vm.closeAnnotationModal }
+          })
+        : _vm._e()
     ],
     1
   )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/annotation-block.vue?vue&type=template&id=897c30bc&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/annotation-block.vue?vue&type=template&id=897c30bc& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.showModal
+    ? _c("modal", {
+        staticClass: "alpheios-alignment-editor-modal-annotations",
+        on: {
+          close: function($event) {
+            return _vm.$emit("closeModal")
+          }
+        },
+        scopedSlots: _vm._u(
+          [
+            {
+              key: "header",
+              fn: function() {
+                return [
+                  _c(
+                    "h3",
+                    { staticClass: "alpheios-alignment-editor-modal-header" },
+                    [
+                      _vm._v(
+                        _vm._s(
+                          _vm.l10n.getMsgS("ANNOTATION_BLOCK_HEADER", {
+                            word: _vm.token.word
+                          })
+                        )
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "p",
+                    {
+                      staticClass:
+                        "alpheios-alignment-annotations-header__buttons"
+                    },
+                    [
+                      _c(
+                        "button",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value:
+                                _vm.currentState !== "list" &&
+                                _vm.hasAnnotations,
+                              expression:
+                                "currentState !== 'list' && hasAnnotations"
+                            }
+                          ],
+                          staticClass:
+                            "alpheios-editor-button-tertiary alpheios-annotation-save-button",
+                          on: { click: _vm.showAnnotationsJournal }
+                        },
+                        [
+                          _vm._v(
+                            "\n            " +
+                              _vm._s(
+                                _vm.l10n.getMsgS("ANNOTATION_BLOCK_SHOW_LIST", {
+                                  count: _vm.countAnnotations
+                                })
+                              ) +
+                              "              \n        "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.currentState !== "new",
+                              expression: "currentState !== 'new'"
+                            }
+                          ],
+                          staticClass:
+                            "alpheios-editor-button-tertiary alpheios-annotation-add-button",
+                          on: { click: _vm.showNewAnnotation }
+                        },
+                        [
+                          _vm._v(
+                            "\n            " +
+                              _vm._s(
+                                _vm.l10n.getMsgS(
+                                  "ANNOTATION_BLOCK_ADD_ANNOTATION"
+                                )
+                              ) +
+                              "              \n        "
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ]
+              },
+              proxy: true
+            },
+            {
+              key: "body",
+              fn: function() {
+                return [
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.currentState !== "list",
+                          expression: "currentState !== 'list'"
+                        }
+                      ],
+                      staticClass: "alpheios-alignment-editor-annotation-new"
+                    },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "alpheios-alignment-editor-annotation-select"
+                        },
+                        [
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.annotationType,
+                                  expression: "annotationType"
+                                }
+                              ],
+                              staticClass: "alpheios-alignment-select",
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.annotationType = $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                }
+                              }
+                            },
+                            _vm._l(_vm.annotationTypes, function(
+                              anType,
+                              anIndex
+                            ) {
+                              return _c(
+                                "option",
+                                { key: anIndex, domProps: { value: anType } },
+                                [
+                                  _vm._v(
+                                    _vm._s(_vm.annotationTypeValue(anType))
+                                  )
+                                ]
+                              )
+                            }),
+                            0
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "alpheios-alignment-editor-annotation-text-block"
+                        },
+                        [
+                          _c(
+                            "textarea",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.annotationText,
+                                  expression: "annotationText"
+                                }
+                              ],
+                              staticClass:
+                                "alpheios-alignment-editor-annotation-textarea",
+                              attrs: { id: _vm.textareaId },
+                              domProps: { value: _vm.annotationText },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.annotationText = $event.target.value
+                                }
+                              }
+                            },
+                            [_vm._v("          >")]
+                          )
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "table",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.currentState === "list",
+                          expression: "currentState === 'list'"
+                        }
+                      ],
+                      staticClass: "alpheios-alignment-editor-annotation-list"
+                    },
+                    _vm._l(_vm.allAnnotations, function(annotation) {
+                      return _c(
+                        "tr",
+                        {
+                          key: annotation.id,
+                          staticClass:
+                            "alpheios-alignment-editor-annotation-list-item",
+                          class: _vm.annotationClass(annotation)
+                        },
+                        [
+                          _c(
+                            "td",
+                            {
+                              staticClass:
+                                "alpheios-alignment-editor-annotation-list-item__type"
+                            },
+                            [
+                              _vm._v(
+                                "\n          " +
+                                  _vm._s(
+                                    _vm.annotationTypeValue(annotation.type)
+                                  ) +
+                                  "\n        "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            {
+                              staticClass:
+                                "alpheios-alignment-editor-annotation-list-item__text"
+                            },
+                            [
+                              _c(
+                                "span",
+                                {
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.toggleAnnotationText(
+                                        annotation.id
+                                      )
+                                    }
+                                  }
+                                },
+                                [_vm._v(_vm._s(annotation.text))]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            {
+                              staticClass:
+                                "alpheios-alignment-editor-annotation-list-item__edit"
+                            },
+                            [
+                              _vm.isAnnotationEditable(annotation)
+                                ? _c(
+                                    "span",
+                                    {
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.editAnnotation(annotation)
+                                        }
+                                      }
+                                    },
+                                    [_c("pen-icon")],
+                                    1
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.isAnnotationEditable(annotation)
+                                ? _c(
+                                    "span",
+                                    {
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.deleteAnnotation(
+                                            annotation
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_c("delete-icon")],
+                                    1
+                                  )
+                                : _vm._e()
+                            ]
+                          )
+                        ]
+                      )
+                    }),
+                    0
+                  )
+                ]
+              },
+              proxy: true
+            },
+            {
+              key: "footer",
+              fn: function() {
+                return [
+                  _c(
+                    "p",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.currentState !== "list",
+                          expression: "currentState !== 'list'"
+                        }
+                      ],
+                      staticClass:
+                        "alpheios-alignment-annotations-footer__buttons"
+                    },
+                    [
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "alpheios-editor-button-tertiary alpheios-annotation-save-button",
+                          on: { click: _vm.saveAnnotation }
+                        },
+                        [
+                          _vm._v(
+                            "\n          " +
+                              _vm._s(
+                                _vm.l10n.getMsgS("ANNOTATION_BLOCK_SAVE_BUTTON")
+                              ) +
+                              "\n      "
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ]
+              },
+              proxy: true
+            }
+          ],
+          null,
+          false,
+          308085504
+        )
+      })
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -58768,10 +60067,12 @@ var render = function() {
                         _vm.inActiveGroup(token),
                       firstInActiveGroup:
                         _vm.$store.state.alignmentUpdated &&
-                        _vm.isFirstInActiveGroup(token)
+                        _vm.isFirstInActiveGroup(token),
+                      annotationMode: _vm.annotationMode
                     },
                     on: {
-                      "click-token": _vm.clickToken,
+                      "update-annotation": _vm.updateAnnotation,
+                      "update-alignment-group": _vm.updateAlignmentGroup,
                       "add-hover-token": _vm.addHoverToken,
                       "remove-hover-token": _vm.removeHoverToken
                     }
@@ -60658,24 +61959,95 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return !_vm.optionItem.hidden
-    ? _c("div", { staticClass: "alpheios-alignment-option-item" }, [
-        _c("label", {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.showLabelText,
-              expression: "showLabelText"
-            }
-          ],
-          staticClass: "alpheios-alignment-option-item__label",
-          domProps: { innerHTML: _vm._s(_vm.labelText) }
-        }),
-        _vm._v(" "),
-        _vm.optionType === "select"
-          ? _c(
-              "select",
+    ? _c(
+        "div",
+        { staticClass: "alpheios-alignment-option-item" },
+        [
+          _c("label", {
+            directives: [
               {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.showLabelText,
+                expression: "showLabelText"
+              }
+            ],
+            staticClass: "alpheios-alignment-option-item__label",
+            domProps: { innerHTML: _vm._s(_vm.labelText) }
+          }),
+          _vm._v(" "),
+          _vm.optionType === "multiValue"
+            ? _c("multiselect", {
+                staticClass: "alpheios-alignment-option-item__control",
+                attrs: {
+                  "hide-selected": true,
+                  multiple: true,
+                  options: _vm.values,
+                  label: "text",
+                  "track-by": "value",
+                  "preserve-search": true,
+                  searchable: false,
+                  placeholder: "Pick some",
+                  disabled: _vm.disabled
+                },
+                on: { input: _vm.changeOption },
+                model: {
+                  value: _vm.selectedM,
+                  callback: function($$v) {
+                    _vm.selectedM = $$v
+                  },
+                  expression: "selectedM"
+                }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.optionType === "select"
+            ? _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.selected,
+                      expression: "selected"
+                    }
+                  ],
+                  staticClass:
+                    "alpheios-alignment-select alpheios-alignment-option-item__control",
+                  attrs: { id: _vm.itemId, disabled: _vm.disabled },
+                  on: {
+                    change: [
+                      function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.selected = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      },
+                      _vm.changeOption
+                    ]
+                  }
+                },
+                _vm._l(_vm.values, function(item) {
+                  return _c(
+                    "option",
+                    { key: item.value, domProps: { value: item.value } },
+                    [_vm._v(_vm._s(item.text))]
+                  )
+                }),
+                0
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.optionType === "text"
+            ? _c("input", {
                 directives: [
                   {
                     name: "model",
@@ -60685,166 +62057,61 @@ var render = function() {
                   }
                 ],
                 staticClass:
-                  "alpheios-alignment-select alpheios-alignment-option-item__control",
-                attrs: { id: _vm.itemId, disabled: _vm.disabled },
+                  "alpheios-alignment-input alpheios-alignment-option-item__control",
+                attrs: { type: "text", id: _vm.itemId, disabled: _vm.disabled },
+                domProps: { value: _vm.selected },
                 on: {
-                  change: [
-                    function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.selected = $event.target.multiple
-                        ? $$selectedVal
-                        : $$selectedVal[0]
-                    },
-                    _vm.changeOption
-                  ]
-                }
-              },
-              _vm._l(_vm.values, function(item) {
-                return _c(
-                  "option",
-                  { key: item.value, domProps: { value: item.value } },
-                  [_vm._v(_vm._s(item.text))]
-                )
-              }),
-              0
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.optionType === "text"
-          ? _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.selected,
-                  expression: "selected"
-                }
-              ],
-              staticClass:
-                "alpheios-alignment-input alpheios-alignment-option-item__control",
-              attrs: { type: "text", id: _vm.itemId, disabled: _vm.disabled },
-              domProps: { value: _vm.selected },
-              on: {
-                change: _vm.changeOption,
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.selected = $event.target.value
-                }
-              }
-            })
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.optionType === "number"
-          ? _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.selected,
-                  expression: "selected"
-                }
-              ],
-              staticClass:
-                "alpheios-alignment-input alpheios-alignment-option-item__control",
-              attrs: {
-                type: "number",
-                min: _vm.optionItem.minValue,
-                max: _vm.optionItem.maxValue,
-                id: _vm.itemId,
-                disabled: _vm.disabled
-              },
-              domProps: { value: _vm.selected },
-              on: {
-                change: _vm.changeOption,
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.selected = $event.target.value
-                }
-              }
-            })
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.optionType === "boolean"
-          ? _c(
-              "div",
-              {
-                staticClass:
-                  "alpheios-alignment-checkbox-block alpheios-alignment-option-item__control"
-              },
-              [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.selected,
-                      expression: "selected"
+                  change: _vm.changeOption,
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
                     }
-                  ],
-                  attrs: { type: "checkbox", id: _vm.itemId },
-                  domProps: {
-                    checked: Array.isArray(_vm.selected)
-                      ? _vm._i(_vm.selected, null) > -1
-                      : _vm.selected
-                  },
-                  on: {
-                    change: [
-                      function($event) {
-                        var $$a = _vm.selected,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 && (_vm.selected = $$a.concat([$$v]))
-                          } else {
-                            $$i > -1 &&
-                              (_vm.selected = $$a
-                                .slice(0, $$i)
-                                .concat($$a.slice($$i + 1)))
-                          }
-                        } else {
-                          _vm.selected = $$c
-                        }
-                      },
-                      _vm.changeOption
-                    ]
+                    _vm.selected = $event.target.value
                   }
-                }),
-                _vm._v(" "),
-                _c("label", { attrs: { for: _vm.itemId } }, [
-                  _vm._v(_vm._s(_vm.checkboxLabel) + "\n      "),
-                  _vm.showCheckboxTitle
-                    ? _c("span", {
-                        domProps: { innerHTML: _vm._s(_vm.labelText) }
-                      })
-                    : _vm._e()
-                ])
-              ]
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.optionType === "radio"
-          ? _c(
-              "p",
-              {
+                }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.optionType === "number"
+            ? _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.selected,
+                    expression: "selected"
+                  }
+                ],
                 staticClass:
-                  "alpheios-alignment-radio-block alpheios-alignment-option-item__control"
-              },
-              _vm._l(_vm.values, function(item) {
-                return _c("span", { key: item.value }, [
+                  "alpheios-alignment-input alpheios-alignment-option-item__control",
+                attrs: {
+                  type: "number",
+                  min: _vm.optionItem.minValue,
+                  max: _vm.optionItem.maxValue,
+                  id: _vm.itemId,
+                  disabled: _vm.disabled
+                },
+                domProps: { value: _vm.selected },
+                on: {
+                  change: _vm.changeOption,
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.selected = $event.target.value
+                  }
+                }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.optionType === "boolean"
+            ? _c(
+                "div",
+                {
+                  staticClass:
+                    "alpheios-alignment-checkbox-block alpheios-alignment-option-item__control"
+                },
+                [
                   _c("input", {
                     directives: [
                       {
@@ -60854,163 +62121,232 @@ var render = function() {
                         expression: "selected"
                       }
                     ],
-                    attrs: {
-                      type: "radio",
-                      id: _vm.itemIdWithValue(item.value),
-                      disabled: _vm.disabled
-                    },
+                    attrs: { type: "checkbox", id: _vm.itemId },
                     domProps: {
-                      value: item.value,
-                      checked: _vm._q(_vm.selected, item.value)
+                      checked: Array.isArray(_vm.selected)
+                        ? _vm._i(_vm.selected, null) > -1
+                        : _vm.selected
                     },
                     on: {
                       change: [
                         function($event) {
-                          _vm.selected = item.value
+                          var $$a = _vm.selected,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = null,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 && (_vm.selected = $$a.concat([$$v]))
+                            } else {
+                              $$i > -1 &&
+                                (_vm.selected = $$a
+                                  .slice(0, $$i)
+                                  .concat($$a.slice($$i + 1)))
+                            }
+                          } else {
+                            _vm.selected = $$c
+                          }
                         },
                         _vm.changeOption
                       ]
                     }
                   }),
                   _vm._v(" "),
-                  _c(
-                    "label",
-                    { attrs: { for: _vm.itemIdWithValue(item.value) } },
-                    [_vm._v(_vm._s(item.text))]
-                  )
-                ])
-              }),
-              0
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.optionType === "selectInput"
-          ? _c(
-              "div",
-              {
-                staticClass:
-                  "alpheios-alignment-select-input alpheios-alignment-option-item__control"
-              },
-              [
-                _c(
-                  "p",
-                  {
-                    staticClass:
-                      "alpheios-alignment-select-input__select-container"
-                  },
-                  [
-                    _c("span", [_vm._v(_vm._s(_vm.selectInputLabelsSelect))]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.selectedS,
-                            expression: "selectedS"
-                          }
-                        ],
-                        staticClass:
-                          "alpheios-alignment-select-input__select alpheios-alignment-select",
-                        attrs: {
-                          disabled: _vm.disabled,
-                          id: _vm.itemId + "-select"
-                        },
-                        on: {
-                          change: [
-                            function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.selectedS = $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            },
-                            _vm.updateSelectSI
-                          ]
+                  _c("label", { attrs: { for: _vm.itemId } }, [
+                    _vm._v(_vm._s(_vm.checkboxLabel) + "\n      "),
+                    _vm.showCheckboxTitle
+                      ? _c("span", {
+                          domProps: { innerHTML: _vm._s(_vm.labelText) }
+                        })
+                      : _vm._e()
+                  ])
+                ]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.optionType === "radio"
+            ? _c(
+                "p",
+                {
+                  staticClass:
+                    "alpheios-alignment-radio-block alpheios-alignment-option-item__control"
+                },
+                _vm._l(_vm.values, function(item) {
+                  return _c("span", { key: item.value }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.selected,
+                          expression: "selected"
                         }
+                      ],
+                      attrs: {
+                        type: "radio",
+                        id: _vm.itemIdWithValue(item.value),
+                        disabled: _vm.disabled
                       },
-                      _vm._l(_vm.values, function(item) {
-                        return _c(
-                          "option",
-                          { key: item.value, domProps: { value: item.value } },
-                          [_vm._v(_vm._s(item.text))]
-                        )
-                      }),
-                      0
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "alpheios-alignment-select-input__input-container"
-                  },
-                  [
-                    _c("span", [_vm._v(_vm._s(_vm.selectInputLabelsInput))]),
+                      domProps: {
+                        value: item.value,
+                        checked: _vm._q(_vm.selected, item.value)
+                      },
+                      on: {
+                        change: [
+                          function($event) {
+                            _vm.selected = item.value
+                          },
+                          _vm.changeOption
+                        ]
+                      }
+                    }),
                     _vm._v(" "),
                     _c(
-                      "div",
-                      { staticClass: "alpheios-alignment-select-input__input" },
-                      [
-                        _c("input", {
+                      "label",
+                      { attrs: { for: _vm.itemIdWithValue(item.value) } },
+                      [_vm._v(_vm._s(item.text))]
+                    )
+                  ])
+                }),
+                0
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.optionType === "selectInput"
+            ? _c(
+                "div",
+                {
+                  staticClass:
+                    "alpheios-alignment-select-input alpheios-alignment-option-item__control"
+                },
+                [
+                  _c(
+                    "p",
+                    {
+                      staticClass:
+                        "alpheios-alignment-select-input__select-container"
+                    },
+                    [
+                      _c("span", [_vm._v(_vm._s(_vm.selectInputLabelsSelect))]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
                           directives: [
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.selectedI,
-                              expression: "selectedI"
+                              value: _vm.selectedS,
+                              expression: "selectedS"
                             }
                           ],
-                          staticClass: "alpheios-alignment-input",
+                          staticClass:
+                            "alpheios-alignment-select-input__select alpheios-alignment-select",
                           attrs: {
-                            type: "text",
                             disabled: _vm.disabled,
-                            id: _vm.itemId + "-input"
+                            id: _vm.itemId + "-select"
                           },
-                          domProps: { value: _vm.selectedI },
                           on: {
-                            change: _vm.changeOption,
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.selectedI = $event.target.value
-                            }
+                            change: [
+                              function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.selectedS = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              },
+                              _vm.updateSelectSI
+                            ]
                           }
+                        },
+                        _vm._l(_vm.values, function(item) {
+                          return _c(
+                            "option",
+                            {
+                              key: item.value,
+                              domProps: { value: item.value }
+                            },
+                            [_vm._v(_vm._s(item.text))]
+                          )
                         }),
-                        _vm._v(" "),
-                        _c(
-                          "p",
-                          {
-                            staticClass:
-                              "alpheios-alignment-select-input__input-description"
-                          },
-                          [
-                            _vm._v(
-                              "\n          " +
-                                _vm._s(_vm.selectInputDescription) +
-                                "\n        "
-                            )
-                          ]
-                        )
-                      ]
-                    )
-                  ]
-                )
-              ]
-            )
-          : _vm._e()
-      ])
+                        0
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "alpheios-alignment-select-input__input-container"
+                    },
+                    [
+                      _c("span", [_vm._v(_vm._s(_vm.selectInputLabelsInput))]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "alpheios-alignment-select-input__input"
+                        },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.selectedI,
+                                expression: "selectedI"
+                              }
+                            ],
+                            staticClass: "alpheios-alignment-input",
+                            attrs: {
+                              type: "text",
+                              disabled: _vm.disabled,
+                              id: _vm.itemId + "-input"
+                            },
+                            domProps: { value: _vm.selectedI },
+                            on: {
+                              change: _vm.changeOption,
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.selectedI = $event.target.value
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "p",
+                            {
+                              staticClass:
+                                "alpheios-alignment-select-input__input-description"
+                            },
+                            [
+                              _vm._v(
+                                "\n          " +
+                                  _vm._s(_vm.selectInputDescription) +
+                                  "\n        "
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ]
+              )
+            : _vm._e()
+        ],
+        1
+      )
     : _vm._e()
 }
 var staticRenderFns = []
@@ -61422,6 +62758,13 @@ var render = function() {
                       }),
                       _vm._v(" "),
                       _c("option-item-block", {
+                        attrs: {
+                          optionItem: _vm.availableAnnotationTypes,
+                          disabled: _vm.disableAnnotationsTypes
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("option-item-block", {
                         attrs: { optionItem: _vm.maxCharactersOptionItem }
                       }),
                       _vm._v(" "),
@@ -61507,7 +62850,7 @@ var render = function() {
           ],
           null,
           false,
-          2120531566
+          631667366
         )
       })
     : _vm._e()
@@ -65626,7 +66969,7 @@ render._withStripped = true
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/history-controller.test.js","test-b":"jest tests/vue/align-editor/segment-block.test.js --coverage","test-c":"jest tests/lib/data/alignment.test.js --coverage","test-d":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.3.0","@babel/core":"^7.14.3","@babel/plugin-proposal-object-rest-spread":"^7.14.4","@babel/plugin-transform-modules-commonjs":"^7.14.0","@babel/plugin-transform-runtime":"^7.14.3","@babel/preset-env":"^7.14.4","@babel/register":"^7.13.16","@babel/runtime":"^7.14.0","@vue/test-utils":"^1.2.0","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.28.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.23.4","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.2","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.6.18","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.6","papaparse":"^5.3.1","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.34.1","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.14","vue-eslint-parser":"^7.6.0","vue-jest":"^3.0.7","vue-loader":"^15.9.7","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.14","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.38.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
+module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/texts-controller.test.js --coverage","test-b":"jest tests/vue/align-editor/annotation-block.test.js --coverage","test-c":"jest tests/lib/data/json-conversion.test.js","test-d":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.3.0","@babel/core":"^7.14.3","@babel/plugin-proposal-object-rest-spread":"^7.14.4","@babel/plugin-transform-modules-commonjs":"^7.14.0","@babel/plugin-transform-runtime":"^7.14.3","@babel/preset-env":"^7.14.4","@babel/register":"^7.13.16","@babel/runtime":"^7.14.0","@vue/test-utils":"^1.2.0","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.28.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.23.4","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.2","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.6.18","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.6","papaparse":"^5.3.1","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.34.1","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.14","vue-eslint-parser":"^7.6.0","vue-jest":"^3.0.7","vue-loader":"^15.9.7","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.14","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.38.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
 
 /***/ }),
 
@@ -65670,7 +67013,18 @@ module.exports = JSON.parse('{"COOKIE_TEST_MESSAGE":{"message":"This is a test m
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"ALIGN_EDITOR_HEADING":{"message":"Align text","description":"A heading for align editor","component":"AlignEditor"},"ALIGN_EDITOR_LINK":{"message":"Align","description":"A heading for align editor","component":"AlignEditor"},"ALIGN_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"AlignEditor"},"ALIGN_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"AlignEditor"}}');
+module.exports = JSON.parse('{"ALIGN_EDITOR_HEADING":{"message":"Align text","description":"A heading for align editor","component":"AlignEditor"},"ALIGN_EDITOR_LINK":{"message":"Align","description":"A heading for align editor","component":"AlignEditor"},"ALIGN_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"AlignEditor"},"ALIGN_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"AlignEditor"},"ALIGN_EDITOR_ANNOTATION_MODE":{"message":"annotation mode","description":"A checkbox for annotation mode","component":"AlignEditor"},"ALIGN_EDITOR_HELP":{"message":"HELP","description":"Button","component":"AlignEditor"},"ALIGN_EDITOR_OPTIONS":{"message":"Options","description":"Button","component":"AlignEditor"},"ALIGN_EDITOR_SAVE":{"message":"Save locally","description":"Button","component":"AlignEditor"}}');
+
+/***/ }),
+
+/***/ "./locales/en-us/messages-annotations.json":
+/*!*************************************************!*\
+  !*** ./locales/en-us/messages-annotations.json ***!
+  \*************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"ANNOTATION_BLOCK_HEADER":{"message":"Annotation for {word}","description":"A header in annotation block","component":"AnnotationBlock","params":["word"]},"ANNOTATION_BLOCK_SAVE_BUTTON":{"message":"Save","description":"A save button","component":"AnnotationBlock"},"TEXTS_CONTROLLER_EMPTY_DATA_FOR_ANNOTATIONS":{"message":"There is not enough information for creating an annotation","description":"A error message for saving annotation","component":"TextController"},"ANNOTATION_BLOCK_SHOW_LIST":{"message":"Show Annotations ({count})","description":"A button in annotation block","component":"AnnotationBlock","params":["count"]},"ANNOTATION_BLOCK_ADD_ANNOTATION":{"message":"Add annotation","description":"A button in annotation block","component":"AnnotationBlock"}}');
 
 /***/ }),
 
@@ -65780,7 +67134,7 @@ module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit text","de
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"1","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":false,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":true,"labelText":"Show language check before text would be prepared","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerPart":{"defaultValue":1000,"labelText":"Max characters per part (recommended for performance), to be used in Align Text","number":true,"minValue":1,"maxValue":50000,"values":[]},"addIndexedDBSupport":{"defaultValue":true,"labelText":"Add IndexedDB support","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]}}}');
+module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"1","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":false,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":true,"labelText":"Show language check before text would be prepared","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerPart":{"defaultValue":1000,"labelText":"Max characters per part (recommended for performance), to be used in Align Text","number":true,"minValue":1,"maxValue":50000,"values":[]},"addIndexedDBSupport":{"defaultValue":true,"labelText":"Add IndexedDB support","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"availableAnnotationTypes":{"defaultValue":["COMMENT"],"labelText":"Available annotation\'s type","multiValue":true,"values":[{"value":"COMMENT","text":"comment"},{"value":"LEMMAID","text":"lemmaID"},{"value":"MORPHOLOGY","text":"morphology"}]}}}');
 
 /***/ }),
 

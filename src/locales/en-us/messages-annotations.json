@@ -1,0 +1,29 @@
+{
+  "ANNOTATION_BLOCK_HEADER": {
+    "message": "Annotation for {word}",
+    "description": "A header in annotation block",
+    "component": "AnnotationBlock",
+    "params": ["word"]
+  },
+  "ANNOTATION_BLOCK_SAVE_BUTTON": {
+    "message": "Save",
+    "description": "A save button",
+    "component": "AnnotationBlock"
+  },
+  "TEXTS_CONTROLLER_EMPTY_DATA_FOR_ANNOTATIONS": {
+    "message": "There is not enough information for creating an annotation",
+    "description": "A error message for saving annotation",
+    "component": "TextController"
+  },
+  "ANNOTATION_BLOCK_SHOW_LIST": {
+    "message": "Show Annotations ({count})",
+    "description": "A button in annotation block",
+    "component": "AnnotationBlock",
+    "params": ["count"]
+  },
+  "ANNOTATION_BLOCK_ADD_ANNOTATION": {
+    "message": "Add annotation",
+    "description": "A button in annotation block",
+    "component": "AnnotationBlock"
+  }
+}

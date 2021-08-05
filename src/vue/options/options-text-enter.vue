@@ -7,11 +7,12 @@
         <div class="alpheios-alignment-editor-modal-options-block">
             <option-item-block :optionItem = "themeOptionItem" />
             <option-item-block :optionItem = "tokenizerOptionItem" />
+            <option-item-block :optionItem = "availableAnnotationTypes"  :disabled = "disableAnnotationsTypes" />
             <option-item-block :optionItem = "maxCharactersOptionItem" />
             <option-item-block :optionItem = "useSpecificEnglishTokenizerOptionItem" />
             <option-item-block :optionItem = "showSummaryPopupOptionItem" />
             <option-item-block :optionItem = "maxCharactersPerPart" />
-            <option-item-block :optionItem = "addIndexedDBSupport" />
+            <option-item-block :optionItem = "addIndexedDBSupport"/>
         </div>
     </template>
     <template v-slot:footer>
@@ -75,8 +76,14 @@ export default {
     addIndexedDBSupport () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.addIndexedDBSupport
     },
+    availableAnnotationTypes () {
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.availableAnnotationTypes
+    },
     versionData () {
       return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`
+    },
+    disableAnnotationsTypes () {
+      return this.$store.state.updateAnnotations && this.$textC.hasAnnotations
     }
   },
   methods: {

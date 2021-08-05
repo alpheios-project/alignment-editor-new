@@ -55,8 +55,8 @@ export default class AlignedText {
    */
   async tokenize (docSource, useSpecificEnglishTokenizer = false) {
     const tokenizeMethod = TokenizeController.getTokenizer(docSource.tokenization.tokenizer)
-    const result = await tokenizeMethod(docSource, this.tokenPrefix, useSpecificEnglishTokenizer)
 
+    const result = await tokenizeMethod(docSource, this.tokenPrefix, useSpecificEnglishTokenizer)
     if (result && result.segments) {
       this.segments = result.segments.map(segment => {
         return new Segment({
@@ -67,8 +67,8 @@ export default class AlignedText {
           direction: docSource.direction,
           docSourceId: docSource.id
         })
-      }
-      )
+      })
+
       return true
     }
     return false

@@ -48,7 +48,13 @@ export default class Segment {
    * @param {Array[Object]} tokens
    */
   checkAndUpdateTokens (tokens) {
-    this.tokens = tokens.map(token => (token instanceof Token) ? token : new Token(token, this.index, this.docSourceId))
+    this.tokens = tokens.map((token, tokenIndex) => {
+      if (token instanceof Token) {
+        return token
+      }
+      if (!token.tokenIndex) { token.tokenIndex = tokenIndex }
+      return new Token(token, this.index, this.docSourceId)
+    })
     this.lastTokenIdWord = this.tokens[this.tokens.length - 1] ? this.tokens[this.tokens.length - 1].idWord : null
   }
 
@@ -128,6 +134,10 @@ export default class Segment {
    */
   getTokenIndex (token) {
     return this.tokens.findIndex(tokenCurrent => tokenCurrent.idWord === token.idWord)
+  }
+
+  getTokenById (tokenIdWord) {
+    return this.tokens.find(tokenCurrent => tokenCurrent.idWord === tokenIdWord)
   }
 
   /**
@@ -236,7 +246,10 @@ export default class Segment {
       lang: data.lang,
       direction: data.direction,
       docSourceId: data.docSourceId,
-      tokens: data.tokens.map(token => Token.convertFromJSON(token))
+      tokens: data.tokens.map((token, tokenIndex) => {
+        token.tokenIdex = tokenIndex
+        return Token.convertFromJSON(token)
+      })
     })
   }
 

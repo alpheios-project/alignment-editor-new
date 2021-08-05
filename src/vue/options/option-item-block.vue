@@ -2,6 +2,23 @@
   <div class="alpheios-alignment-option-item" v-if="!optionItem.hidden">
     <label class="alpheios-alignment-option-item__label" v-show="showLabelText" v-html="labelText"></label>
 
+    <multiselect
+        class="alpheios-alignment-option-item__control"
+        v-if="optionType === 'multiValue'"
+        :hide-selected="true"
+        :multiple="true"
+        :options="values"
+        label = "text"
+        v-model = "selectedM"
+        track-by = "value"
+        :preserve-search="true"
+        :searchable="false"
+        placeholder="Pick some"
+        @input = "changeOption"
+        :disabled="disabled"
+    >
+    </multiselect>
+
     <select
         class="alpheios-alignment-select alpheios-alignment-option-item__control"
         v-if="optionType === 'select'"
@@ -71,9 +88,13 @@
 <script>
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import SettingsController from '@/lib/controllers/settings-controller'
+import Multiselect from 'vue-multiselect'
 
 export default {
   name: 'OptionItemBlock',
+  components: {
+    Multiselect
+  },
   props: {
     optionItem: {
       type: Object,
@@ -109,7 +130,8 @@ export default {
     return {
       selected: null,
       selectedI: null,
-      selectedS: null
+      selectedS: null,
+      selectedM: null
     }
   },
   mounted () {
@@ -127,8 +149,11 @@ export default {
     itemId () {
       return `${this.optionItem.name.replace(/\./g, '_')}-id`
     },
+    hasValues () {
+      return this.optionItem.select || this.optionItem.radio || this.optionItem.selectInput || this.optionItem.multiValue
+    },
     values () {
-      return (this.$store.state.optionsUpdated && (this.optionItem.select || this.optionItem.radio || this.optionItem.selectInput)) ? this.optionItem.values : null
+      return (this.$store.state.optionsUpdated && this.hasValues) ? this.optionItem.values : null
     },
     labelText () {
       if (this.optionItem.labelL10n) {
@@ -140,6 +165,7 @@ export default {
       return (this.showCheckboxTitle && this.$store.state.optionsUpdated && (this.optionItem && this.optionItem.boolean && Boolean(this.optionItem.values))) ? this.optionItem.textValues()[0] : null
     },
     optionType () {
+      if (this.optionItem.multiValue) { return 'multiValue' }
       if (this.optionItem.boolean) { return 'boolean' }
       if (this.optionItem.radio) { return 'radio' }
       if (this.optionItem.select) { return 'select' }
@@ -179,7 +205,11 @@ export default {
   methods: {
     updateSelectedFromExternal () {
       this.selected = this.optionItem.currentValue
-      
+
+      if (this.optionItem.multiValue) {
+        this.selectedM = this.optionItem.currentItem()
+      }
+
       if (this.optionItem.selectInput && this.values) {
         const valueFromSelect = this.values.find(valueObj => valueObj.value === this.optionItem.currentValue)
 
@@ -192,7 +222,11 @@ export default {
         }
       }
     },
+
     changeOption () {
+      if (this.optionItem.multiValue) {
+        this.selected = this.selectedM.map(valItem => valItem.value)
+      }
       if (this.optionItem.selectInput) {
         this.selected = this.selectedSI
       }
@@ -234,7 +268,8 @@ export default {
   }
   input.alpheios-alignment-input, 
   .alpheios-alignment-select, 
-  .alpheios-alignment-radio-block {
+  .alpheios-alignment-radio-block,
+  .multiselect.alpheios-alignment-option-item__control {
     display: inline-block;
     width: 50%;
     vertical-align: top;

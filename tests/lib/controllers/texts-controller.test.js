@@ -4,10 +4,14 @@
 import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
 import TextsController from '@/lib/controllers/texts-controller.js'
 import Alignment from '@/lib/data/alignment'
+import Token from '@/lib/data/token'
 import UploadController from '@/lib/controllers/upload-controller.js'
 import DownloadController from '@/lib/controllers/download-controller.js'
 import SourceText from '@/lib/data/source-text'
 import AppController from '@/lib/controllers/app-controller.js'
+
+import LatEng from '@tests/lib/storage/alignments/lat-eng-short.json'
+import Annotation from '@/lib/data/annotation'
 
 describe('texts-controller.test.js', () => {
 
@@ -331,4 +335,195 @@ describe('texts-controller.test.js', () => {
 
   })
 
+  it('16 TextsController - addAnnotation - adds a new attonation if no id passed', () => {
+    const textsC = new TextsController(appC.store)
+    const alignment = Alignment.convertFromJSON(LatEng)
+    textsC.alignment = alignment
+
+    const tokenOrigin1 = alignment.origin.alignedText.segments[0].tokens[0]
+    expect(alignment.annotations).toEqual({})
+
+    const result = textsC.addAnnotation({
+      token: tokenOrigin1,
+      type: 'COMMENT',
+      text: 'test annotation'
+    })
+    expect(result).toBeTruthy()
+    expect(Object.keys(alignment.annotations)).toEqual([tokenOrigin1.idWord])
+    expect(alignment.annotations[tokenOrigin1.idWord].length).toEqual(1)
+
+    expect(alignment.annotations[tokenOrigin1.idWord][0].type).toEqual('COMMENT')
+    expect(alignment.annotations[tokenOrigin1.idWord][0].text).toEqual('test annotation')
+    expect(alignment.annotations[tokenOrigin1.idWord][0].token).toEqual(expect.any(Token))
+    
+  })
+
+  it('17 TextsController - addAnnotation - doesn\'t add a new attonation if no text or type are passed', () => {
+    const textsC = new TextsController(appC.store)
+    const alignment = Alignment.convertFromJSON(LatEng)
+    textsC.alignment = alignment
+
+    const tokenOrigin1 = alignment.origin.alignedText.segments[0].tokens[0]
+    expect(alignment.annotations).toEqual({})
+
+    // let's try to add an annotation without type
+    let result = textsC.addAnnotation({
+      token: tokenOrigin1,
+      text: 'test annotation'
+    })
+    expect(result).toBeFalsy()
+    expect(Object.keys(alignment.annotations)).toEqual([])
+    
+    // let's try to add an annotation without text
+    result = textsC.addAnnotation({
+      token: tokenOrigin1,
+      type: 'COMMENT',
+    })
+    expect(result).toBeFalsy()
+    expect(Object.keys(alignment.annotations)).toEqual([])
+
+    // let's try to add an annotation without token
+    result = textsC.addAnnotation({
+      text: 'test annotation',
+      type: 'COMMENT',
+    })
+    expect(result).toBeFalsy()
+    expect(Object.keys(alignment.annotations)).toEqual([])
+  })
+
+  it('18 TextsController - addAnnotation - updates an existed annotattion if a correct id is passed', () => {
+    const textsC = new TextsController(appC.store)
+    const alignment = Alignment.convertFromJSON(LatEng)
+    textsC.alignment = alignment
+
+    const tokenOrigin1 = alignment.origin.alignedText.segments[0].tokens[0]
+    
+    // let's create an annotation
+    let result = textsC.addAnnotation({
+      token: tokenOrigin1,
+      type: 'COMMENT',
+      text: 'test annotation'
+    })
+    expect(result).toBeTruthy()
+    expect(Object.keys(alignment.annotations)).toEqual([tokenOrigin1.idWord])
+    expect(alignment.annotations[tokenOrigin1.idWord].length).toEqual(1)
+
+    expect(alignment.annotations[tokenOrigin1.idWord][0].type).toEqual('COMMENT')
+    expect(alignment.annotations[tokenOrigin1.idWord][0].text).toEqual('test annotation')
+
+    // let's update the text of this annotation
+    const annotationId = alignment.annotations[tokenOrigin1.idWord][0].id
+
+    result = textsC.addAnnotation({
+      id: annotationId,
+      token: tokenOrigin1,
+      text: 'updated test annotation'
+    })
+
+    expect(result).toBeTruthy()
+
+    expect(Object.keys(alignment.annotations)).toEqual([tokenOrigin1.idWord])
+    expect(alignment.annotations[tokenOrigin1.idWord].length).toEqual(1)
+
+    expect(alignment.annotations[tokenOrigin1.idWord][0].type).toEqual('COMMENT')
+    expect(alignment.annotations[tokenOrigin1.idWord][0].text).toEqual('updated test annotation')
+
+    // let's update the type and text of this annotation
+    result = textsC.addAnnotation({
+      id: annotationId,
+      token: tokenOrigin1,
+      type: 'LEMMAID',
+      text: 'updated2 test annotation'
+    })
+
+    expect(result).toBeTruthy()
+
+    expect(Object.keys(alignment.annotations)).toEqual([tokenOrigin1.idWord])
+    expect(alignment.annotations[tokenOrigin1.idWord].length).toEqual(1)
+
+    expect(alignment.annotations[tokenOrigin1.idWord][0].type).toEqual('LEMMAID')
+    expect(alignment.annotations[tokenOrigin1.idWord][0].text).toEqual('updated2 test annotation')
+  })
+
+  it('19 TextsController - getAnnotations - returns all annotation attached to token', () => {
+    const textsC = new TextsController(appC.store)
+    const alignment = Alignment.convertFromJSON(LatEng)
+    textsC.alignment = alignment
+
+    const tokenOrigin1 = alignment.origin.alignedText.segments[0].tokens[0]
+    expect(textsC.getAnnotations(tokenOrigin1).length).toEqual(0)
+
+    // let's add the first annotation
+    textsC.addAnnotation({
+      token: tokenOrigin1,
+      type: 'COMMENT',
+      text: 'test annotation'
+    })
+
+    expect(textsC.getAnnotations(tokenOrigin1).length).toEqual(1)
+
+    // let's add the second annotation
+    textsC.addAnnotation({
+      token: tokenOrigin1,
+      type: 'LEMMAID',
+      text: '2 test annotation'
+    })
+
+    expect(textsC.getAnnotations(tokenOrigin1).length).toEqual(2)
+
+    // let's update the first annotation
+    const annotationId = alignment.annotations[tokenOrigin1.idWord][0].id
+    textsC.addAnnotation({
+      id: annotationId,
+      token: tokenOrigin1,
+      type: 'COMMENT',
+      text: '3 test annotation'
+    })
+
+    expect(textsC.getAnnotations(tokenOrigin1).length).toEqual(2)
+  })
+
+  it('20 TextsController - removeAnnotation - removes annotation by id', () => {
+    const textsC = new TextsController(appC.store)
+    const alignment = Alignment.convertFromJSON(LatEng)
+    textsC.alignment = alignment
+
+    const tokenOrigin1 = alignment.origin.alignedText.segments[0].tokens[0]
+    expect(textsC.getAnnotations(tokenOrigin1).length).toEqual(0)
+
+    // let's add an annotation
+    textsC.addAnnotation({
+      token: tokenOrigin1,
+      type: 'COMMENT',
+      text: 'test annotation'
+    })
+
+    expect(textsC.getAnnotations(tokenOrigin1).length).toEqual(1)
+
+    const annotationId = alignment.annotations[tokenOrigin1.idWord][0].id
+
+    // let's remove this annotation
+    let result = textsC.removeAnnotation(tokenOrigin1, annotationId)
+    expect(result).toBeTruthy()
+
+    expect(textsC.getAnnotations(tokenOrigin1).length).toEqual(0)
+
+    // let's again add an annotation
+    textsC.addAnnotation({
+      token: tokenOrigin1,
+      type: 'COMMENT',
+      text: '2test annotation'
+    })
+    expect(textsC.getAnnotations(tokenOrigin1).length).toEqual(1)
+
+    // let's try to remove annotation without token parameter
+    result = textsC.removeAnnotation(null, annotationId)
+    expect(result).toBeFalsy()
+    expect(textsC.getAnnotations(tokenOrigin1).length).toEqual(1)
+
+    // let's try to remove annotation without id parameter
+    result = textsC.removeAnnotation(null, annotationId)
+    expect(result).toBeFalsy()
+    expect(textsC.getAnnotations(tokenOrigin1).length).toEqual(1)
+  })
 })

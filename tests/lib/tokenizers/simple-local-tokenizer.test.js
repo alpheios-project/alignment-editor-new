@@ -67,8 +67,8 @@ describe('simple-local-tokenizer.test.js', () => {
     const result1 = SimpleLocalTokenizer.simpleWordTokenization(linesText1, '1-0', 'origin')
 
     expect(result1.length).toEqual(2)
-    expect(result1[0]).toEqual({ textType: 'origin', idWord: '1-0-0', word: 'some' })
-    expect(result1[1]).toEqual({ textType: 'origin', idWord: '1-0-1', word: 'text' })
+    expect(result1[0]).toEqual({ textType: 'origin', idWord: '1-0-0', word: 'some', sentenceIndex: 1 })
+    expect(result1[1]).toEqual({ textType: 'origin', idWord: '1-0-1', word: 'text', sentenceIndex: 1 })
 
     const linesText2 = 'some, text'
     const result2 = SimpleLocalTokenizer.simpleWordTokenization(linesText2, '1-0', 'origin')
@@ -76,8 +76,8 @@ describe('simple-local-tokenizer.test.js', () => {
     // console.info(result2)
 
     expect(result2.length).toEqual(2)
-    expect(result2[0]).toEqual({ textType: 'origin', idWord: '1-0-0', word: 'some', afterWord: ',' })
-    expect(result2[1]).toEqual({ textType: 'origin', idWord: '1-0-1', word: 'text' })
+    expect(result2[0]).toEqual({ textType: 'origin', idWord: '1-0-0', word: 'some', afterWord: ',', sentenceIndex: 1 })
+    expect(result2[1]).toEqual({ textType: 'origin', idWord: '1-0-1', word: 'text', sentenceIndex: 1 })
 
     const linesText3 = 'some test-text'
     const result3 = SimpleLocalTokenizer.simpleWordTokenization(linesText3, '1-0', 'origin')
@@ -85,8 +85,8 @@ describe('simple-local-tokenizer.test.js', () => {
     // console.info(result3)
 
     expect(result3.length).toEqual(2)
-    expect(result3[0]).toEqual({ textType: 'origin', idWord: '1-0-0', word: 'some' })
-    expect(result3[1]).toEqual({ textType: 'origin', idWord: '1-0-1', word: 'test-text' })
+    expect(result3[0]).toEqual({ textType: 'origin', idWord: '1-0-0', word: 'some', sentenceIndex: 1 })
+    expect(result3[1]).toEqual({ textType: 'origin', idWord: '1-0-1', word: 'test-text', sentenceIndex: 1 })
 
     const linesText4 = 'some (good test) text'
     const result4 = SimpleLocalTokenizer.simpleWordTokenization(linesText4, '1-0', 'origin')
@@ -94,10 +94,10 @@ describe('simple-local-tokenizer.test.js', () => {
     // console.info(result3)
 
     expect(result4.length).toEqual(4)
-    expect(result4[0]).toEqual({ textType: 'origin', idWord: '1-0-0', word: 'some' })
-    expect(result4[1]).toEqual({ textType: 'origin', idWord: '1-0-1', word: 'good', beforeWord: '(' })
-    expect(result4[2]).toEqual({ textType: 'origin', idWord: '1-0-2', word: 'test', afterWord: ')' })
-    expect(result4[3]).toEqual({ textType: 'origin', idWord: '1-0-3', word: 'text' })
+    expect(result4[0]).toEqual({ textType: 'origin', idWord: '1-0-0', word: 'some', sentenceIndex: 1 })
+    expect(result4[1]).toEqual({ textType: 'origin', idWord: '1-0-1', word: 'good', beforeWord: '(', sentenceIndex: 1 })
+    expect(result4[2]).toEqual({ textType: 'origin', idWord: '1-0-2', word: 'test', afterWord: ')', sentenceIndex: 1 })
+    expect(result4[3]).toEqual({ textType: 'origin', idWord: '1-0-3', word: 'text', sentenceIndex: 1 })
 
     const linesText5 = 'some text (good-test)'
     const result5 = SimpleLocalTokenizer.simpleWordTokenization(linesText5, '1-0', 'origin')
@@ -105,9 +105,9 @@ describe('simple-local-tokenizer.test.js', () => {
     // console.info(result3)
 
     expect(result5.length).toEqual(3)
-    expect(result5[0]).toEqual({ textType: 'origin', idWord: '1-0-0', word: 'some' })
-    expect(result5[1]).toEqual({ textType: 'origin', idWord: '1-0-1', word: 'text' })
-    expect(result5[2]).toEqual({ textType: 'origin', idWord: '1-0-2', word: 'good-test', afterWord: ')', beforeWord: '(' })
+    expect(result5[0]).toEqual({ textType: 'origin', idWord: '1-0-0', word: 'some', sentenceIndex: 1 })
+    expect(result5[1]).toEqual({ textType: 'origin', idWord: '1-0-1', word: 'text', sentenceIndex: 1 })
+    expect(result5[2]).toEqual({ textType: 'origin', idWord: '1-0-2', word: 'good-test', afterWord: ')', beforeWord: '(', sentenceIndex: 1 })
   })
 
   it('3 SimpleLocalTokenizer - tokenize executes simpleLineTokenization then simpleWordTokenization for each line', () => {
@@ -132,10 +132,10 @@ describe('simple-local-tokenizer.test.js', () => {
     expect(result.segments[0].tokens.length).toEqual(3)
     expect(result.segments[1].tokens.length).toEqual(1)
 
-    expect(result.segments[0].tokens[0]).toEqual({ textType: 'origin', idWord: '1-0-0', word: 'some' })
-    expect(result.segments[0].tokens[1]).toEqual({ textType: 'origin', idWord: '1-0-1', word: 'good-text', beforeWord: '(', afterWord: ')' })
-    expect(result.segments[0].tokens[2]).toEqual({ textType: 'origin', idWord: '1-0-2', word: 'for', hasLineBreak: true })
-    expect(result.segments[1].tokens[0]).toEqual({ textType: 'origin', idWord: '1-1-0', word: 'test', hasLineBreak: true })
+    expect(result.segments[0].tokens[0]).toEqual({ textType: 'origin', idWord: '1-0-0', word: 'some', sentenceIndex: 1 })
+    expect(result.segments[0].tokens[1]).toEqual({ textType: 'origin', idWord: '1-0-1', word: 'good-text', beforeWord: '(', afterWord: ')', sentenceIndex: 1 })
+    expect(result.segments[0].tokens[2]).toEqual({ textType: 'origin', idWord: '1-0-2', word: 'for', hasLineBreak: true, sentenceIndex: 1 })
+    expect(result.segments[1].tokens[0]).toEqual({ textType: 'origin', idWord: '1-1-0', word: 'test', hasLineBreak: true, sentenceIndex: 1 })
   })
 })
 

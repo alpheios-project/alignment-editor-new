@@ -1,0 +1,129 @@
+.alpheios-alignment-editor-app-container {
+  .multiselect {
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: textsize(10px);
+    border: 1px solid var(--alpheios-border-color);
+  }
+
+  .multiselect__content-wrapper {
+    border: 1px solid var(--alpheios-border-color);
+    border-top: 0;
+    padding: textsize(10px);
+  }
+
+  ul.multiselect__content {
+    padding: 0;
+    margin: 0;
+  }
+
+  .multiselect__tags {
+    font-size: textsize(16px);
+    // Need this to prevent tags element's background to overlap rounded corners of multiselect
+    border-radius: textsize(10px);
+    min-height: textsize(40px);
+    padding: textsize(8px) textsize(40px) 0 textsize(8px);
+  }
+
+  span.multiselect__tag {
+    background-color: var(--alpheios-settings-font-multiselect-bg);
+
+    display: inline-block;
+    border-radius: textsize(5px);
+    padding: textsize(4px) textsize(26px) textsize(4px) textsize(10px);
+
+    position: relative;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    // To match scaling via the --alpheios-base-ui-size
+    min-height: textsize(24px);
+
+    span {
+      color: var(--alpheios-settings-font-multiselect-font-color);
+    }
+  }
+
+  .multiselect__select {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666666%22%20points%3D%2212%201%209%206%2015%206%22%3E%3C%2Fpolygon%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666666%22%20points%3D%2212%2013%209%208%2015%208%22%3E%3C%2Fpolygon%3E%0A%3C%2Fsvg%3E%0A");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+
+    width: textsize(28px);
+    height: 100%;
+  }
+
+  .multiselect__select::before {
+    display: none;
+  }
+
+  .multiselect__content {
+    padding: 0;
+  }
+
+  .multiselect__single {
+    display: none;
+  }
+
+  span.multiselect__option {
+    padding: 12px;
+  }
+
+  .multiselect__option::after {
+    display: none;
+  }
+
+  .multiselect__option--highlight,
+  .multiselect__tag,
+  .multiselect__tag-icon:focus,
+  .multiselect__tag-icon:hover {
+    background: var(--alpheios-settings-font-multiselect-bg);
+  }
+
+  .multiselect__option.multiselect__option--highlight {
+    background-color: var(--alpheios-settings-font-multiselect-bg);
+
+    &:after {
+      display: none;
+    }
+
+    span {
+      color: var(--alpheios-settings-font-multiselect-font-color);
+    }
+  }
+
+  .multiselect__option--highlight span,
+  .multiselect__tag span,
+  .multiselect__tag-icon:focus span,
+  .multiselect__tag-icon:hover span {
+    color: var(--alpheios-settings-font-multiselect-font-color);
+  }
+
+  .multiselect__tag-icon:after {
+    content: "\D7";
+    color: var(--alpheios-settings-font-multiselect-font-color);
+    font-size: textsize(24px);
+  }
+
+  .multiselect__tag-icon {
+    border-radius: 5px;
+    bottom: 0;
+    cursor: pointer;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 1;
+    margin-left: 7px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    transition: all .2s ease;
+    width: textsize(24px);
+    color: var(--alpheios-settings-font-multiselect-font-color);
+
+    &:hover {
+      background-color: var(--alpheios-settings-font-multiselect-bg);
+    }
+  }
+}

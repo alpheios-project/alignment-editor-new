@@ -18,5 +18,25 @@
       "message": "show",
       "description": "A label for hide/show links",
       "component": "AlignEditor"
+    },
+    "ALIGN_EDITOR_ANNOTATION_MODE": {
+      "message": "annotation mode",
+      "description": "A checkbox for annotation mode",
+      "component": "AlignEditor"
+    },
+    "ALIGN_EDITOR_HELP": {
+      "message": "HELP",
+      "description": "Button",
+      "component": "AlignEditor"
+    },
+    "ALIGN_EDITOR_OPTIONS": {
+      "message": "Options",
+      "description": "Button",
+      "component": "AlignEditor"
+    },
+    "ALIGN_EDITOR_SAVE": {
+      "message": "Save locally",
+      "description": "Button",
+      "component": "AlignEditor"
     }
 }
