@@ -114,7 +114,7 @@ export default {
       return this.$store.state.updateAnnotations && this.$textC.getAnnotations(this.token)
     },
     hasAnnotations () {
-      return this.$store.state.updateAnnotations && this.$textC.hasAnnotations
+      return this.$store.state.updateAnnotations && this.$textC.hasTokenAnnotations(this.token)
     },
     countAnnotations () {
       return this.allAnnotations && this.allAnnotations.length > 0 ? this.allAnnotations.length : 0
@@ -225,6 +225,10 @@ export default {
           overflow: inherit;
           white-space: initial;
         }
+      }
+
+      .alpheios-alignment-editor-annotation-list-item__disabled {
+        color: #a6a6a6;
       }
 
       tr:nth-child(even) {

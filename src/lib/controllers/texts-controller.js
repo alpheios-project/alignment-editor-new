@@ -595,6 +595,10 @@ export default class TextsController {
     return this.alignment && this.alignment.hasAnnotations
   }
 
+  hasTokenAnnotations (token) {
+    return this.alignment && this.alignment.hasTokenAnnotations(token)
+  }
+
   annotationIsEditable (annotation) {
     return this.alignment && this.alignment.annotationIsEditable(annotation, SettingsController.availableAnnotationTypes)
   }

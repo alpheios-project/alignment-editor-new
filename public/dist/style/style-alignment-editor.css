@@ -2228,6 +2228,9 @@ span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-edit
   overflow: inherit;
   white-space: initial;
 }
+.alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-list .alpheios-alignment-editor-annotation-list-item__disabled {
+  color: #a6a6a6;
+}
 .alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-list tr:nth-child(even) {
   background-color: #f2f2f2;
 }

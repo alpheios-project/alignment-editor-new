@@ -40535,6 +40535,10 @@ class TextsController {
     return this.alignment && this.alignment.hasAnnotations
   }
 
+  hasTokenAnnotations (token) {
+    return this.alignment && this.alignment.hasTokenAnnotations(token)
+  }
+
   annotationIsEditable (annotation) {
     return this.alignment && this.alignment.annotationIsEditable(annotation, _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__.default.availableAnnotationTypes)
   }
@@ -44144,6 +44148,10 @@ class Alignment {
     return Object.values(this.annotations).length > 0
   }
 
+  hasTokenAnnotations (token) {
+    return this.getAnnotations(token).length > 0
+  }
+
   getAnnotations (token) {
     return this.annotations[token.idWord] ? this.annotations[token.idWord] : []
   }
@@ -47563,7 +47571,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i462-annotations-1.20210805648" : 0
+    return  true ? "i462-annotations-1.20210805655" : 0
   }
 
   static get libName () {
@@ -48856,7 +48864,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.updateAnnotations && this.$textC.getAnnotations(this.token)
     },
     hasAnnotations () {
-      return this.$store.state.updateAnnotations && this.$textC.hasAnnotations
+      return this.$store.state.updateAnnotations && this.$textC.hasTokenAnnotations(this.token)
     },
     countAnnotations () {
       return this.allAnnotations && this.allAnnotations.length > 0 ? this.allAnnotations.length : 0

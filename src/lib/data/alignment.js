@@ -1389,6 +1389,10 @@ export default class Alignment {
     return Object.values(this.annotations).length > 0
   }
 
+  hasTokenAnnotations (token) {
+    return this.getAnnotations(token).length > 0
+  }
+
   getAnnotations (token) {
     return this.annotations[token.idWord] ? this.annotations[token.idWord] : []
   }
