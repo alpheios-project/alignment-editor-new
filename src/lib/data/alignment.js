@@ -1386,7 +1386,6 @@ export default class Alignment {
   }
 
   get hasAnnotations () {
-    console.info('hasAnnotations - ', this.annotations)
     return Object.values(this.annotations).length > 0
   }
 

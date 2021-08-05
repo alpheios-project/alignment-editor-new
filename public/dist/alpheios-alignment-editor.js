@@ -44141,7 +44141,6 @@ class Alignment {
   }
 
   get hasAnnotations () {
-    console.info('hasAnnotations - ', this.annotations)
     return Object.values(this.annotations).length > 0
   }
 
@@ -47564,7 +47563,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i462-annotations-1.20210805645" : 0
+    return  true ? "i462-annotations-1.20210805648" : 0
   }
 
   static get libName () {
