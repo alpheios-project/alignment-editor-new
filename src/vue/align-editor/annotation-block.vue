@@ -29,7 +29,7 @@
       <table class = "alpheios-alignment-editor-annotation-list" v-show="currentState === 'list'">
         <tr class="alpheios-alignment-editor-annotation-list-item" 
             v-for="annotation in allAnnotations" :key="annotation.id"
-            :class = "annotationClass(annotation.id)"
+            :class = "annotationClass(annotation)"
           >
           <td class="alpheios-alignment-editor-annotation-list-item__type">
             {{ annotationTypeValue(annotation.type) }}
@@ -38,8 +38,8 @@
             <span @click = "toggleAnnotationText(annotation.id)">{{ annotation.text }}</span>
           </td>
           <td class="alpheios-alignment-editor-annotation-list-item__edit">
-            <span @click = "editAnnotation(annotation)"><pen-icon /></span>
-            <span @click = "deleteAnnotation(annotation)"><delete-icon /></span>
+            <span @click = "editAnnotation(annotation)" v-if="isAnnotationEditable(annotation)"><pen-icon /></span>
+            <span @click = "deleteAnnotation(annotation)" v-if="isAnnotationEditable(annotation)"><delete-icon /></span>
           </td>
         </tr>
       </table>
@@ -61,6 +61,8 @@ import Annotation from '@/lib/data/annotation.js'
 
 import PenIcon from '@/inline-icons/pen.svg'
 import DeleteIcon from '@/inline-icons/delete.svg'
+
+import SettingsController from '@/lib/controllers/settings-controller.js'
 
 export default {
   name: 'AnnotationBlock',
@@ -105,16 +107,20 @@ export default {
       return `alpheios-alignment-editor-annotation-textarea-${this.token.idWord}`
     },
     annotationTypes () {
-      return Annotation.allTypes
+      this.annotationType = SettingsController.availableAnnotationTypes[0]
+      return this.$store.state.optionsUpdated && SettingsController.availableAnnotationTypes
     },
     allAnnotations () {
       return this.$store.state.updateAnnotations && this.$textC.getAnnotations(this.token)
     },
     hasAnnotations () {
-      return this.allAnnotations && this.allAnnotations.length > 0
+      return this.$store.state.updateAnnotations && this.$textC.hasAnnotations
     },
     countAnnotations () {
       return this.allAnnotations && this.allAnnotations.length > 0 ? this.allAnnotations.length : 0
+    },
+    isEditable () {
+      return this.$store.state.updateAnnotations && this.$textC.annotationIsEditable(annotation)
     }
   },
   methods: {
@@ -143,9 +149,13 @@ export default {
       this.annotationId = null
       this.annotationText = ''
     },
-    annotationClass (id) {
+    isAnnotationEditable (annotation) {
+      return this.$textC.annotationIsEditable(annotation)
+    },
+    annotationClass (annotation) {
       return {
-        'alpheios-alignment-editor-annotation-list-item__full': this.fullTextAnnotations.includes(id)
+        'alpheios-alignment-editor-annotation-list-item__full': this.fullTextAnnotations.includes(annotation.id),
+        'alpheios-alignment-editor-annotation-list-item__disabled': !this.isAnnotationEditable(annotation)
       }
     },
     toggleAnnotationText (id) {

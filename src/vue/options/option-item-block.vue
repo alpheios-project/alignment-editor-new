@@ -15,6 +15,7 @@
         :searchable="false"
         placeholder="Pick some"
         @input = "changeOption"
+        :disabled="disabled"
     >
     </multiselect>
 

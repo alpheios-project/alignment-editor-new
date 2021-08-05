@@ -99,6 +99,10 @@ export default class SettingsController {
     return _instance.options.app && _instance.options.app.items.allowUpdateTokenWord ? _instance.options.app.items.allowUpdateTokenWord.currentValue : false
   }
 
+  static get availableAnnotationTypes () {
+    return _instance.options.app && _instance.options.app.items.availableAnnotationTypes ? _instance.options.app.items.availableAnnotationTypes.currentValue : false
+  }
+
   /**
    * @returns {Boolean} - true - if tokenize options are already defined
    */

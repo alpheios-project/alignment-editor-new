@@ -12,7 +12,7 @@ const localVue = createLocalVue()
 localVue.use(Vuex)
 
 describe('annotation-block.test.js', () => {
-  console.error = function () {}
+  // console.error = function () {}
   console.log = function () {}
   console.warn = function () {}
   
@@ -165,7 +165,7 @@ describe('annotation-block.test.js', () => {
     appC.textC.addAnnotation({
       token,
       text: 'First test annotation',
-      type: 'Comment'
+      type: 'COMMENT'
     })
 
     let cmp = shallowMount(AnnotationBlock, {
@@ -227,4 +227,5 @@ describe('annotation-block.test.js', () => {
     cmp.vm.editAnnotation(annot)
     expect(cmp.vm.currentState).toEqual('edit')
   })
+
 })

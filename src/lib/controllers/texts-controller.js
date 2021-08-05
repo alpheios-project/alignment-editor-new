@@ -590,4 +590,12 @@ export default class TextsController {
       annotationId: id
     }, 'annotationByID')
   }
+
+  get hasAnnotations () {
+    return this.alignment && this.alignment.hasAnnotations
+  }
+
+  annotationIsEditable (annotation) {
+    return this.alignment && this.alignment.annotationIsEditable(annotation, SettingsController.availableAnnotationTypes)
+  }
 }

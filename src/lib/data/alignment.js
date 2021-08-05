@@ -1385,6 +1385,11 @@ export default class Alignment {
     return false
   }
 
+  get hasAnnotations () {
+    console.info('hasAnnotations - ', this.annotations)
+    return Object.values(this.annotations).length > 0
+  }
+
   getAnnotations (token) {
     return this.annotations[token.idWord] ? this.annotations[token.idWord] : []
   }
@@ -1404,8 +1409,16 @@ export default class Alignment {
   removeAnnotation (token, id) {
     const annotationIndex = this.existedAnnotationIndex(token, id)
     if (annotationIndex >= 0) {
-      return this.annotations[token.idWord].splice(annotationIndex, 1)
+      this.annotations[token.idWord].splice(annotationIndex, 1)
+      if (this.annotations[token.idWord].length === 0) {
+        delete this.annotations[token.idWord]
+      }
+      return true
     }
     return false
+  }
+
+  annotationIsEditable (annotation, availableTypes) {
+    return annotation.isEditable(availableTypes)
   }
 }

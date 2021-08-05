@@ -26,6 +26,10 @@ export default class Annotation {
     return true
   }
 
+  isEditable (availableTypes) {
+    return availableTypes.includes(this.type)
+  }
+
   convertToJSON () {
     return {
       id: this.id,

@@ -39668,6 +39668,10 @@ class SettingsController {
     return _instance.options.app && _instance.options.app.items.allowUpdateTokenWord ? _instance.options.app.items.allowUpdateTokenWord.currentValue : false
   }
 
+  static get availableAnnotationTypes () {
+    return _instance.options.app && _instance.options.app.items.availableAnnotationTypes ? _instance.options.app.items.availableAnnotationTypes.currentValue : false
+  }
+
   /**
    * @returns {Boolean} - true - if tokenize options are already defined
    */
@@ -40525,6 +40529,14 @@ class TextsController {
       alignmentID: this.alignment.id,
       annotationId: id
     }, 'annotationByID')
+  }
+
+  get hasAnnotations () {
+    return this.alignment && this.alignment.hasAnnotations
+  }
+
+  annotationIsEditable (annotation) {
+    return this.alignment && this.alignment.annotationIsEditable(annotation, _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__.default.availableAnnotationTypes)
   }
 }
 
@@ -44128,6 +44140,11 @@ class Alignment {
     return false
   }
 
+  get hasAnnotations () {
+    console.info('hasAnnotations - ', this.annotations)
+    return Object.values(this.annotations).length > 0
+  }
+
   getAnnotations (token) {
     return this.annotations[token.idWord] ? this.annotations[token.idWord] : []
   }
@@ -44147,9 +44164,17 @@ class Alignment {
   removeAnnotation (token, id) {
     const annotationIndex = this.existedAnnotationIndex(token, id)
     if (annotationIndex >= 0) {
-      return this.annotations[token.idWord].splice(annotationIndex, 1)
+      this.annotations[token.idWord].splice(annotationIndex, 1)
+      if (this.annotations[token.idWord].length === 0) {
+        delete this.annotations[token.idWord]
+      }
+      return true
     }
     return false
+  }
+
+  annotationIsEditable (annotation, availableTypes) {
+    return annotation.isEditable(availableTypes)
   }
 }
 
@@ -44195,6 +44220,10 @@ class Annotation {
     }
     this.text = text
     return true
+  }
+
+  isEditable (availableTypes) {
+    return availableTypes.includes(this.type)
   }
 
   convertToJSON () {
@@ -47535,7 +47564,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i462-annotations-1.20210803627" : 0
+    return  true ? "i462-annotations-1.20210805617" : 0
   }
 
   static get libName () {
@@ -48711,6 +48740,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inline_icons_pen_svg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_pen_svg__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/inline-icons/delete.svg */ "./inline-icons/delete.svg");
 /* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
 //
 //
 //
@@ -48767,6 +48797,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 
 
 
@@ -48818,16 +48850,20 @@ __webpack_require__.r(__webpack_exports__);
       return `alpheios-alignment-editor-annotation-textarea-${this.token.idWord}`
     },
     annotationTypes () {
-      return _lib_data_annotation_js__WEBPACK_IMPORTED_MODULE_2__.default.allTypes
+      this.annotationType = _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.availableAnnotationTypes[0]
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.availableAnnotationTypes
     },
     allAnnotations () {
       return this.$store.state.updateAnnotations && this.$textC.getAnnotations(this.token)
     },
     hasAnnotations () {
-      return this.allAnnotations && this.allAnnotations.length > 0
+      return this.$store.state.updateAnnotations && this.$textC.hasAnnotations
     },
     countAnnotations () {
       return this.allAnnotations && this.allAnnotations.length > 0 ? this.allAnnotations.length : 0
+    },
+    isEditable () {
+      return this.$store.state.updateAnnotations && this.$textC.annotationIsEditable(annotation)
     }
   },
   methods: {
@@ -48856,9 +48892,13 @@ __webpack_require__.r(__webpack_exports__);
       this.annotationId = null
       this.annotationText = ''
     },
-    annotationClass (id) {
+    isAnnotationEditable (annotation) {
+      return this.$textC.annotationIsEditable(annotation)
+    },
+    annotationClass (annotation) {
       return {
-        'alpheios-alignment-editor-annotation-list-item__full': this.fullTextAnnotations.includes(id)
+        'alpheios-alignment-editor-annotation-list-item__full': this.fullTextAnnotations.includes(annotation.id),
+        'alpheios-alignment-editor-annotation-list-item__disabled': !this.isAnnotationEditable(annotation)
       }
     },
     toggleAnnotationText (id) {
@@ -51075,6 +51115,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -51580,6 +51621,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     versionData () {
       return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`
+    },
+    disableAnnotationsTypes () {
+      return this.$store.state.updateAnnotations && this.$textC.hasAnnotations
     }
   },
   methods: {
@@ -59741,7 +59785,7 @@ var render = function() {
                           key: annotation.id,
                           staticClass:
                             "alpheios-alignment-editor-annotation-list-item",
-                          class: _vm.annotationClass(annotation.id)
+                          class: _vm.annotationClass(annotation)
                         },
                         [
                           _c(
@@ -59791,31 +59835,37 @@ var render = function() {
                                 "alpheios-alignment-editor-annotation-list-item__edit"
                             },
                             [
-                              _c(
-                                "span",
-                                {
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.editAnnotation(annotation)
-                                    }
-                                  }
-                                },
-                                [_c("pen-icon")],
-                                1
-                              ),
+                              _vm.isAnnotationEditable(annotation)
+                                ? _c(
+                                    "span",
+                                    {
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.editAnnotation(annotation)
+                                        }
+                                      }
+                                    },
+                                    [_c("pen-icon")],
+                                    1
+                                  )
+                                : _vm._e(),
                               _vm._v(" "),
-                              _c(
-                                "span",
-                                {
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.deleteAnnotation(annotation)
-                                    }
-                                  }
-                                },
-                                [_c("delete-icon")],
-                                1
-                              )
+                              _vm.isAnnotationEditable(annotation)
+                                ? _c(
+                                    "span",
+                                    {
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.deleteAnnotation(
+                                            annotation
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_c("delete-icon")],
+                                    1
+                                  )
+                                : _vm._e()
                             ]
                           )
                         ]
@@ -59872,7 +59922,7 @@ var render = function() {
           ],
           null,
           false,
-          1718612227
+          308085504
         )
       })
     : _vm._e()
@@ -61930,7 +61980,8 @@ var render = function() {
                   "track-by": "value",
                   "preserve-search": true,
                   searchable: false,
-                  placeholder: "Pick some"
+                  placeholder: "Pick some",
+                  disabled: _vm.disabled
                 },
                 on: { input: _vm.changeOption },
                 model: {
@@ -62700,6 +62751,13 @@ var render = function() {
                       }),
                       _vm._v(" "),
                       _c("option-item-block", {
+                        attrs: {
+                          optionItem: _vm.availableAnnotationTypes,
+                          disabled: _vm.disableAnnotationsTypes
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("option-item-block", {
                         attrs: { optionItem: _vm.maxCharactersOptionItem }
                       }),
                       _vm._v(" "),
@@ -62719,10 +62777,6 @@ var render = function() {
                       _vm._v(" "),
                       _c("option-item-block", {
                         attrs: { optionItem: _vm.addIndexedDBSupport }
-                      }),
-                      _vm._v(" "),
-                      _c("option-item-block", {
-                        attrs: { optionItem: _vm.availableAnnotationTypes }
                       })
                     ],
                     1
@@ -62789,7 +62843,7 @@ var render = function() {
           ],
           null,
           false,
-          770827755
+          631667366
         )
       })
     : _vm._e()
