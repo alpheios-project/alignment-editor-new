@@ -47571,7 +47571,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i462-annotations-1.20210805655" : 0
+    return  true ? "core-i655-not-close-popup.20210806633" : 0
   }
 
   static get libName () {
