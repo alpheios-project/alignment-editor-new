@@ -1,6 +1,5 @@
 <template>
-  <modal v-if="showModal" @close="$emit('closeModal')" class="alpheios-alignment-editor-modal-annotations" 
-         name="alpheios-annotations" :draggable="true">
+  <modal v-if="showModal" @close="$emit('closeModal')" class="alpheios-alignment-editor-modal-annotations" >
     <template v-slot:header >
         <h3 class="alpheios-alignment-editor-modal-header">{{ l10n.getMsgS('ANNOTATION_BLOCK_HEADER', { word: token.word }) }}</h3>
         <p class="alpheios-alignment-annotations-header__buttons" >
