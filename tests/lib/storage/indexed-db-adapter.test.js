@@ -283,7 +283,8 @@ describe('indexed-db-structure.test.js', () => {
       target: [ '3-0-3' ]
     })]))
 
-    await dbAdapter.clear()
+    const queryClearResult = await dbAdapter.clear()
+    expect(queryClearResult).toBeTruthy()
 
     const queryResultClear = await dbAdapter._getFromStore(queryCommon)
     expect(queryResultClear).not.toBeDefined()
