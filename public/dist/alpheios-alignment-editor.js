@@ -46784,7 +46784,7 @@ class IndexedDBAdapter {
           let objectStoresRemaining = objectStores.length
 
           for (const store of objectStores) {
-            if (!db.objectStoreNames.includes(store.name)) { continue }
+            if (!db.objectStoreNames.contains(store.name)) { continue }
             // open a read/write db transaction, ready for clearing the data
             const transaction = db.transaction([store.name], 'readwrite')
             // create an object store on the transaction
@@ -47571,7 +47571,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "core-i655-not-close-popup.20210806652" : 0
+    return  true ? "i464-clear-indexeddb.20210813412" : 0
   }
 
   static get libName () {
