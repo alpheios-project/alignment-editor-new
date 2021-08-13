@@ -307,7 +307,7 @@ export default class IndexedDBAdapter {
           let objectStoresRemaining = objectStores.length
 
           for (const store of objectStores) {
-            if (!db.objectStoreNames.includes(store.name)) { continue }
+            if (!db.objectStoreNames.contains(store.name)) { continue }
             // open a read/write db transaction, ready for clearing the data
             const transaction = db.transaction([store.name], 'readwrite')
             // create an object store on the transaction
