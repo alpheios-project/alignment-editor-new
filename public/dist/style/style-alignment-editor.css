@@ -294,43 +294,44 @@ div.alpheios-alignment-checkbox-block {
 .alpheios-alignment-editor-app-container .multiselect {
   display: inline-block;
   vertical-align: middle;
-  border-radius: textsize(10px);
-  border: 1px solid var(--alpheios-border-color);
+  border-radius: 10px;
+  border: 1px solid #757575;
+  border-radius: 10px;
 }
 .alpheios-alignment-editor-app-container .multiselect__content-wrapper {
-  border: 1px solid var(--alpheios-border-color);
+  border: 1px solid #757575;
   border-top: 0;
-  padding: textsize(10px);
+  padding: 10px;
 }
 .alpheios-alignment-editor-app-container ul.multiselect__content {
   padding: 0;
   margin: 0;
 }
 .alpheios-alignment-editor-app-container .multiselect__tags {
-  font-size: textsize(16px);
-  border-radius: textsize(10px);
-  min-height: textsize(40px);
-  padding: textsize(8px) textsize(40px) 0 textsize(8px);
+  font-size: 16px;
+  border-radius: 10px;
+  min-height: 40px;
+  padding: 8px 40px 0 8px;
 }
 .alpheios-alignment-editor-app-container span.multiselect__tag {
-  background-color: var(--alpheios-settings-font-multiselect-bg);
+  background-color: #C64906;
   display: inline-block;
-  border-radius: textsize(5px);
-  padding: textsize(4px) textsize(26px) textsize(4px) textsize(10px);
+  border-radius: 5px;
+  padding: 4px 26px 4px 10px;
   position: relative;
   text-overflow: ellipsis;
   white-space: nowrap;
-  min-height: textsize(24px);
+  min-height: 24px;
 }
 .alpheios-alignment-editor-app-container span.multiselect__tag span {
-  color: var(--alpheios-settings-font-multiselect-font-color);
+  color: #FFF;
 }
 .alpheios-alignment-editor-app-container .multiselect__select {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666666%22%20points%3D%2212%201%209%206%2015%206%22%3E%3C%2Fpolygon%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666666%22%20points%3D%2212%2013%209%208%2015%208%22%3E%3C%2Fpolygon%3E%0A%3C%2Fsvg%3E%0A");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
-  width: textsize(28px);
+  width: 28px;
   height: 100%;
 }
 .alpheios-alignment-editor-app-container .multiselect__select::before {
@@ -352,27 +353,27 @@ div.alpheios-alignment-checkbox-block {
 .alpheios-alignment-editor-app-container .multiselect__tag,
 .alpheios-alignment-editor-app-container .multiselect__tag-icon:focus,
 .alpheios-alignment-editor-app-container .multiselect__tag-icon:hover {
-  background: var(--alpheios-settings-font-multiselect-bg);
+  background: #C64906;
 }
 .alpheios-alignment-editor-app-container .multiselect__option.multiselect__option--highlight {
-  background-color: var(--alpheios-settings-font-multiselect-bg);
+  background-color: #C64906;
 }
 .alpheios-alignment-editor-app-container .multiselect__option.multiselect__option--highlight:after {
   display: none;
 }
 .alpheios-alignment-editor-app-container .multiselect__option.multiselect__option--highlight span {
-  color: var(--alpheios-settings-font-multiselect-font-color);
+  color: #FFF;
 }
 .alpheios-alignment-editor-app-container .multiselect__option--highlight span,
 .alpheios-alignment-editor-app-container .multiselect__tag span,
 .alpheios-alignment-editor-app-container .multiselect__tag-icon:focus span,
 .alpheios-alignment-editor-app-container .multiselect__tag-icon:hover span {
-  color: var(--alpheios-settings-font-multiselect-font-color);
+  color: #FFF;
 }
 .alpheios-alignment-editor-app-container .multiselect__tag-icon:after {
   content: "×";
-  color: var(--alpheios-settings-font-multiselect-font-color);
-  font-size: textsize(24px);
+  color: #FFF;
+  font-size: 24px;
 }
 .alpheios-alignment-editor-app-container .multiselect__tag-icon {
   border-radius: 5px;
@@ -387,11 +388,11 @@ div.alpheios-alignment-checkbox-block {
   text-align: center;
   top: 0;
   transition: all 0.2s ease;
-  width: textsize(24px);
-  color: var(--alpheios-settings-font-multiselect-font-color);
+  width: 24px;
+  color: #FFF;
 }
 .alpheios-alignment-editor-app-container .multiselect__tag-icon:hover {
-  background-color: var(--alpheios-settings-font-multiselect-bg);
+  background-color: #C64906;
 }
 
 .alpheios-modal-mask {
