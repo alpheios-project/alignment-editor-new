@@ -34,6 +34,9 @@
           <td class="alpheios-alignment-editor-annotation-list-item__type">
             {{ annotationTypeValue(annotation.type) }}
           </td>
+          <td class="alpheios-alignment-editor-annotation-list-item__type">
+            {{ annotation.index }}
+          </td>
           <td class="alpheios-alignment-editor-annotation-list-item__text">
             <span @click = "toggleAnnotationText(annotation.id)">{{ annotation.text }}</span>
           </td>

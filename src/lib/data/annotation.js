@@ -1,11 +1,12 @@
 import { v4 as uuidv4 } from 'uuid'
 
 export default class Annotation {
-  constructor ({ token, type, text, annId } = {}) {
+  constructor ({ token, type, text, annId, index } = {}) {
     this.id = annId || uuidv4()
     this.token = token
     this.type = type
     this.text = text
+    this.index = index
   }
 
   static get allTypes () {
@@ -35,7 +36,8 @@ export default class Annotation {
       id: this.id,
       tokenData: this.token.convertToShortJSON(),
       type: this.type,
-      text: this.text
+      text: this.text,
+      index: this.index
     }
   }
 
@@ -44,7 +46,8 @@ export default class Annotation {
       annId: data.id || data.annotationId,
       token,
       type: data.type,
-      text: data.text
+      text: data.text,
+      index: data.index
     })
   }
 }

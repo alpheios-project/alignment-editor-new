@@ -44133,10 +44133,13 @@ class Alignment {
         return
       }
 
-      const annotation = new _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__.default({ token, type, text })
       if (!this.annotations[token.idWord]) {
         this.annotations[token.idWord] = []
       }
+
+      const newTypeIndex = this.annotations[token.idWord].filter(annotation => annotation.type === type).length + 1
+
+      const annotation = new _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__.default({ token, type, text, index: newTypeIndex })
 
       this.annotations[token.idWord].push(annotation)
       return true
@@ -44204,11 +44207,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class Annotation {
-  constructor ({ token, type, text, annId } = {}) {
+  constructor ({ token, type, text, annId, index } = {}) {
     this.id = annId || (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
     this.token = token
     this.type = type
     this.text = text
+    this.index = index
   }
 
   static get allTypes () {
@@ -44238,7 +44242,8 @@ class Annotation {
       id: this.id,
       tokenData: this.token.convertToShortJSON(),
       type: this.type,
-      text: this.text
+      text: this.text,
+      index: this.index
     }
   }
 
@@ -44247,7 +44252,8 @@ class Annotation {
       annId: data.id || data.annotationId,
       token,
       type: data.type,
-      text: data.text
+      text: data.text,
+      index: data.index
     })
   }
 }
@@ -47228,7 +47234,8 @@ class IndexedDBStructure {
         annotationId: annotation.id,
         tokenData: annotation.tokenData,
         type: annotation.type,
-        text: annotation.text
+        text: annotation.text,
+        index: annotation.index
       })
     }
     return finalData
@@ -47571,7 +47578,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i462-annotations.20210816559" : 0
+    return  true ? "i462-annotations.20210816590" : 0
   }
 
   static get libName () {
@@ -48748,6 +48755,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/inline-icons/delete.svg */ "./inline-icons/delete.svg");
 /* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
+//
+//
+//
 //
 //
 //
@@ -59816,6 +59826,21 @@ var render = function() {
                             "td",
                             {
                               staticClass:
+                                "alpheios-alignment-editor-annotation-list-item__type"
+                            },
+                            [
+                              _vm._v(
+                                "\n          " +
+                                  _vm._s(annotation.index) +
+                                  "\n        "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            {
+                              staticClass:
                                 "alpheios-alignment-editor-annotation-list-item__text"
                             },
                             [
@@ -59929,7 +59954,7 @@ var render = function() {
           ],
           null,
           false,
-          308085504
+          1565483461
         )
       })
     : _vm._e()
