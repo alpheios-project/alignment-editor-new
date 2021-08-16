@@ -1374,10 +1374,13 @@ export default class Alignment {
         return
       }
 
-      const annotation = new Annotation({ token, type, text })
       if (!this.annotations[token.idWord]) {
         this.annotations[token.idWord] = []
       }
+
+      const newTypeIndex = this.annotations[token.idWord].filter(annotation => annotation.type === type).length + 1
+
+      const annotation = new Annotation({ token, type, text, index: newTypeIndex })
 
       this.annotations[token.idWord].push(annotation)
       return true

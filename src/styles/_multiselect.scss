@@ -2,14 +2,15 @@
   .multiselect {
     display: inline-block;
     vertical-align: middle;
-    border-radius: textsize(10px);
-    border: 1px solid var(--alpheios-border-color);
+    border-radius: 10px;
+    border: 1px solid #757575;
+    border-radius: 10px;
   }
 
   .multiselect__content-wrapper {
-    border: 1px solid var(--alpheios-border-color);
+    border: 1px solid #757575;
     border-top: 0;
-    padding: textsize(10px);
+    padding: 10px;
   }
 
   ul.multiselect__content {
@@ -18,29 +19,29 @@
   }
 
   .multiselect__tags {
-    font-size: textsize(16px);
+    font-size: 16px;
     // Need this to prevent tags element's background to overlap rounded corners of multiselect
-    border-radius: textsize(10px);
-    min-height: textsize(40px);
-    padding: textsize(8px) textsize(40px) 0 textsize(8px);
+    border-radius: 10px;
+    min-height: 40px;
+    padding: 8px 40px 0 8px;
   }
 
   span.multiselect__tag {
-    background-color: var(--alpheios-settings-font-multiselect-bg);
+    background-color: #C64906;
 
     display: inline-block;
-    border-radius: textsize(5px);
-    padding: textsize(4px) textsize(26px) textsize(4px) textsize(10px);
+    border-radius: 5px;
+    padding: 4px 26px 4px 10px;
 
     position: relative;
     text-overflow: ellipsis;
     white-space: nowrap;
 
     // To match scaling via the --alpheios-base-ui-size
-    min-height: textsize(24px);
+    min-height: 24px;
 
     span {
-      color: var(--alpheios-settings-font-multiselect-font-color);
+      color: #FFF;
     }
   }
 
@@ -50,7 +51,7 @@
     background-repeat: no-repeat;
     background-position: center center;
 
-    width: textsize(28px);
+    width: 28px;
     height: 100%;
   }
 
@@ -78,18 +79,18 @@
   .multiselect__tag,
   .multiselect__tag-icon:focus,
   .multiselect__tag-icon:hover {
-    background: var(--alpheios-settings-font-multiselect-bg);
+    background: #C64906;
   }
 
   .multiselect__option.multiselect__option--highlight {
-    background-color: var(--alpheios-settings-font-multiselect-bg);
+    background-color: #C64906;
 
     &:after {
       display: none;
     }
 
     span {
-      color: var(--alpheios-settings-font-multiselect-font-color);
+      color: #FFF;
     }
   }
 
@@ -97,13 +98,13 @@
   .multiselect__tag span,
   .multiselect__tag-icon:focus span,
   .multiselect__tag-icon:hover span {
-    color: var(--alpheios-settings-font-multiselect-font-color);
+    color: #FFF;
   }
 
   .multiselect__tag-icon:after {
     content: "\D7";
-    color: var(--alpheios-settings-font-multiselect-font-color);
-    font-size: textsize(24px);
+    color: #FFF;
+    font-size: 24px;
   }
 
   .multiselect__tag-icon {
@@ -119,11 +120,11 @@
     text-align: center;
     top: 0;
     transition: all .2s ease;
-    width: textsize(24px);
-    color: var(--alpheios-settings-font-multiselect-font-color);
+    width: 24px;
+    color: #FFF;
 
     &:hover {
-      background-color: var(--alpheios-settings-font-multiselect-bg);
+      background-color: #C64906;
     }
   }
 }

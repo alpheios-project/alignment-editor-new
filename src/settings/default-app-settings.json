@@ -112,7 +112,7 @@
       "defaultValue": [
         "COMMENT"
       ],
-      "labelText": "Available annotation's type",
+      "labelText": "Available Annotation Types",
       "multiValue": true,
       "values": [
         {

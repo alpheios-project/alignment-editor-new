@@ -396,7 +396,8 @@ export default class IndexedDBStructure {
         annotationId: annotation.id,
         tokenData: annotation.tokenData,
         type: annotation.type,
-        text: annotation.text
+        text: annotation.text,
+        index: annotation.index
       })
     }
     return finalData
