@@ -1,6 +1,10 @@
 <template>
-    <modal v-if="showModal" @close="$emit('closeModal')" class="alpheios-alignment-editor-modal-dts-api">
-        <template v-slot:header>
+    <modal :classes="classes" :name="mname"  :draggable="true" height="auto">
+      <div class="alpheios-modal-header" >
+          <span class="alpheios-alignment-modal-close-icon" @click = "$emit('closeModal')">
+              <x-close-icon />
+          </span>
+
           <p class="alpheios-editor-content-title">{{ title }}</p>
           <ul class="alpheios-editor-content-breadcrumbs" v-show="showBreadcrumbs">
             <li v-for="(crumb, crumbIndex) in breadcrumbs" :key="crumbIndex" 
@@ -10,9 +14,9 @@
               {{ crumb.title }}
             </li>
           </ul>
-        </template>
+      </div>
         
-        <template v-slot:body v-if="contentAvailable">
+      <div class="alpheios-modal-body" v-if="contentAvailable">
           <waiting v-show="showWaiting" />
           <div class = "alpheios-editor-content-description" v-show="showDescription">
             <p class = "alpheios-editor-content-description__title" 
@@ -45,12 +49,12 @@
               </span>
             </li>
           </ul>
-        </template>
+      </div>
 
-        <template v-slot:footer>
+      <div class="alpheios-modal-footer">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click = "getDocument" :disabled="uploadButtonDisabled">Upload</button>
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click="closeModal">Cancel</button>
-        </template>
+      </div>
     </modal>
 </template>
 <script>
@@ -59,22 +63,20 @@ import UploadController from '@/lib/controllers/upload-controller.js'
 
 import UploadDTSAPI from '@/lib/upload/upload-dts-api.js'
 import DtsApiPagination from '@/vue/text-editor/dts-api-pagination.vue'
-import Modal from '@/vue/common/modal.vue'
 import Waiting from '@/vue/common/waiting.vue'
-
+import XCloseIcon from '@/inline-icons/x-close.svg'
 
 export default {
   name: 'UploadDTSAPIBlock',
   components: {
-    modal: Modal,
+    xCloseIcon: XCloseIcon,
     waiting: Waiting,
     dtsApiPagination: DtsApiPagination
   },
   props: {
-    showModal: {
-      type: Boolean,
-      required: false,
-      default: false
+    mname: {
+      type: String,
+      required: true
     }
   },
   data () {
@@ -111,6 +113,9 @@ export default {
     
     contentAvailable () {
       return this.contentUpdated && Boolean(this.content) 
+    },
+    classes () {
+      return `alpheios-alignment-editor-modal-dts-api alpheios-alignment-editor-modal-${this.mname}`
     },
     cssClasses () {
       return {

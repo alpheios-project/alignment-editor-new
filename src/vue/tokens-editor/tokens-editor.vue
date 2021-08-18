@@ -8,28 +8,28 @@
         </span>
         <span class="alpheios-alignment-text-editor-block__part">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-help"
-              @click="showModalHelp = true">
-              HELP
+              @click="$modal.show('help-edit')">
+              {{ l10n.getMsgS('TEXT_EDITOR_HEADER_HELP') }}
           </button>
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-options"
-              @click="showModalOptions = true">
-              Options
+              @click="$modal.show('options-edit')">
+              {{ l10n.getMsgS('TEXT_EDITOR_HEADER_OPTIONS') }}
           </button>
         </span>
         <span class="alpheios-alignment-text-editor-block__part">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-save"
-              @click="showModalSave = true">
-              Save locally
+              @click="$modal.show('save-edit')">
+              {{ l10n.getMsgS('TEXT_EDITOR_HEADER_SAVE') }}
           </button>
         </span>
       </h2>
 
     <tokens-editor-inner-block v-if="renderTokensEditor"/>
-    <help-popup :showModal="showModalHelp" @closeModal = "showModalHelp = false">
+    <help-popup @closeModal = "$modal.hide('help-edit')" mname = "help-edit">
       <template v-slot:content > <help-block-edit /> </template>
     </help-popup>
-    <save-popup :showModal="showModalSave" @closeModal = "showModalSave = false" />
-    <options-text-edit-popup :showModal="showModalOptions" @closeModal = "showModalOptions = false" />
+    <save-popup @closeModal = "$modal.hide('save-edit')" mname = "save-edit"/>
+    <options-text-edit-popup @closeModal = "$modal.hide('options-edit')" />
   </div>
 </template>
 <script>
@@ -61,9 +61,7 @@ export default {
   data () {
     return {
       renderTokensEditor: false,
-      showModalHelp: false,
-      showModalOptions: false,
-      showModalSave: false
+      showModalOptions: false
     }
   },
   watch: {

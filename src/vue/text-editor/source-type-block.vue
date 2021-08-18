@@ -1,21 +1,29 @@
 <template>
-  <modal v-if="showModal" @close="$emit('closeModal')" class="alpheios-alignment-editor-modal-source-type">
-    <template v-slot:body >
+  <modal :classes="classes" :name="mname"  :draggable="true" height="auto">
+    <div class="alpheios-modal-header" >
+        <span class="alpheios-alignment-modal-close-icon" @click = "$emit('closeModal')">
+            <x-close-icon />
+        </span>
+    </div>
+    <div class="alpheios-modal-body">
       <tokenize-options-block v-if="hasTokenizerOptions" 
         @updateText = "$emit('updateText')" :localOptions = "localOptions" :disabled="!docSourceEditAvailable"  
       />
-    </template>
+    </div>
   </modal>
 </template>
 <script>
-import Modal from '@/vue/common/modal.vue'
 import TokenizeOptionsBlock from '@/vue/text-editor/tokenize-options-block.vue'
-
+import XCloseIcon from '@/inline-icons/x-close.svg'
 import SettingsController from '@/lib/controllers/settings-controller'
 
 export default {
   name: 'SourceTypeBlock',
   props: {
+    mname: {
+      type: String,
+      required: true
+    },
     textType: {
       type: String,
       required: true
@@ -24,11 +32,6 @@ export default {
       type: String,
       required: false
     },
-    showModal: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
     localOptions: {
       type: Object,
       required: true
@@ -36,7 +39,7 @@ export default {
   },
   components: {
     tokenizeOptionsBlock: TokenizeOptionsBlock,
-    modal: Modal
+    xCloseIcon: XCloseIcon
   },
   data () {
     return {
@@ -49,6 +52,9 @@ export default {
     },
     hasTokenizerOptions () {
       return this.$store.state.optionsUpdated && SettingsController.hasTokenizerOptions
+    },
+    classes () {
+      return `alpheios-alignment-editor-modal-source-type alpheios-alignment-editor-modal-${this.mname}`
     }
   }
 }

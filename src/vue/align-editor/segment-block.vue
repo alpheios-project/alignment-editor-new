@@ -6,7 +6,7 @@
           <p class="alpheios-alignment-editor-align-text-segment-row" v-if="isFirst">
             <span class="alpheios-alignment-editor-align-text-segment-row__langname" >{{ segment.langName }}</span>
 
-            <metadata-icons :text-type = "textType" :text-id = "segment.docSourceId" @showModalMetadata = "showModalMetadata = true" />
+            <metadata-icons :text-type = "textType" :text-id = "segment.docSourceId" @showModalMetadata = "$modal.show(metadataModalName)" />
           </p>
 
           <p class="alpheios-alignment-editor-align-text-parts" v-if="allPartsKeys.length > 1">
@@ -46,7 +46,9 @@
             </p>
           </div>
 
-          <metadata-block :text-type = "textType" :text-id = "segment.docSourceId" :showModal="showModalMetadata" @closeModal = "showModalMetadata = false"  v-if="isFirst"/>
+          <metadata-block :text-type = "textType" :text-id = "segment.docSourceId"  v-if="isFirst"
+                :mname = "metadataModalName"
+                @closeModal = "$modal.hide(metadataModalName)"  />
     </div>
 </template>
 <script>
@@ -160,6 +162,9 @@ export default {
      */
     cssId () {
       return this.getCssId(this.textType, this.textId, this.segmentIndex)
+    },
+    metadataModalName () {
+      return `metadata-align-${this.textType}-${this.textId}-${this.segment.index}`
     },
     /**
      * Styles for creating a html table layout with different background-colors for different targetIds

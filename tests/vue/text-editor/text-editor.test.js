@@ -9,11 +9,12 @@ import Alignment from '@/lib/data/alignment'
 import AppController from '@/lib/controllers/app-controller.js'
 import TextsController from '@/lib/controllers/texts-controller.js'
 import Vue from '@vue-runtime'
-
+import VModal from 'vue-js-modal'
 import Vuex from "vuex"
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(VModal)
 
 let appC
 

@@ -31,9 +31,9 @@
       <tokens-editor v-show="showTokensEditorBlock" :renderEditor = "renderTokensEditor" @showSourceTextEditor = "showSourceTextEditor"  @showAlignmentGroupsEditor = "showAlignmentGroupsEditor"
       />
 
-      <summary-popup :showModal="showSummaryModal" :showOnlyWaiting = "showOnlyWaitingSummary" @closeModal = "showSummaryModal = false" @start-align = "alignTexts"
+      <summary-popup @closeModal = "$modal.hide('summary')" @start-align = "alignTexts"
       />
-      <waiting-popup :showModal="showWaitingModal" @closeModal = "showWaitingModal = false" />
+      <waiting-popup @closeModal = "$modal.hide('waiting')" />
   </div>
 </template>
 <script>
@@ -84,12 +84,7 @@ export default {
       pageClasses: [ 'initial-page', 'options-page', 'text-editor-page', 'align-editor-page', 'tokens-editor-page' ],
       menuShow: 1,
       renderTokensEditor: 1,
-      updateCurrentPage: 'initial-screen',
-
-      showSummaryModal: false,
-      showOnlyWaitingSummary: false,
-
-      showWaitingModal: false
+      updateCurrentPage: 'initial-screen'
     }
   },
   watch: {
@@ -140,17 +135,17 @@ export default {
 
     async deleteDataFromDB (alData) {
       if (alData) {
-        this.showWaitingModal = true
+        this.$modal.show('waiting')
         const result = await this.$textC.deleteDataFromDB(alData)
-        this.showWaitingModal = false
+        this.$modal.hide('waiting')
         return result
       }
     },
 
     async clearAllAlignmentsFromDB () {
-      this.showWaitingModal = true
+      this.$modal.show('waiting')
       const result = await this.$textC.clearAllAlignmentsFromDB()
-      this.showWaitingModal = false
+      this.$modal.hide('waiting')
       return result
     },
     /**
@@ -170,16 +165,16 @@ export default {
       if (!SettingsController.showSummaryPopup) {
         await this.alignTexts()
       } else {
-        this.showSummaryModal = true
+        this.$modal.show('summary')
       }
     },
     /**
      * Starts align workflow
      */
     async alignTexts () {
-      this.showWaitingModal = true
+      this.$modal.show('waiting')
       const result = await this.$alignedGC.createAlignedTexts(this.$textC.alignment)
-      this.showWaitingModal = false
+      this.$modal.hide('waiting')
       if (result) {
         this.$tokensEC.loadAlignment(this.$textC.alignment)
         this.showAlignmentGroupsEditor()

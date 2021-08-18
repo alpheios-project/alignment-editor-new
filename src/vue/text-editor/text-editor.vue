@@ -8,17 +8,17 @@
         </span>
         <span class="alpheios-alignment-text-editor-block__part">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-help"
-              @click="showModalHelp = true">
+              @click="$modal.show('help-enter')">
               {{ l10n.getMsgS('TEXT_EDITOR_HEADER_HELP') }}
           </button>
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-options"
-              @click="showModalOptions = true">
+              @click="$modal.show('options-enter')">
               {{ l10n.getMsgS('TEXT_EDITOR_HEADER_OPTIONS') }}
           </button>
         </span>
         <span class="alpheios-alignment-text-editor-block__part">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-save"
-              @click="showModalSave = true" :disabled="!downloadAvailable">
+              @click="$modal.show('save-enter')" :disabled="!downloadAvailable">
               {{ l10n.getMsgS('TEXT_EDITOR_HEADER_SAVE') }}
           </button>
         </span>
@@ -48,11 +48,12 @@
         </div>
       </div>
 
-      <help-popup :showModal="showModalHelp" @closeModal = "showModalHelp = false">
+      <help-popup @closeModal = "$modal.hide('help-enter')" mname = "help-enter">
         <template v-slot:content > <help-block-enter /> </template>
       </help-popup>
-      <save-popup :showModal="showModalSave" @closeModal = "showModalSave = false" />
-      <options-text-enter-popup :showModal="showModalOptions" @closeModal = "showModalOptions = false" />
+      <save-popup @closeModal = "$modal.hide('save-enter')" mname = "save-enter" />
+
+      <options-text-enter-popup @closeModal = "$modal.hide('options-enter')" />
   </div>
 </template>
 <script>
@@ -80,9 +81,7 @@ export default {
   },
   data () {
     return {
-      showModalHelp: false,
       showModalOptions: false,
-      showModalSave: false
     }
   },
   watch: {

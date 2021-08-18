@@ -13,11 +13,13 @@ import Vue from '@vue-runtime'
 import SettingsController from '@/lib/controllers/settings-controller'
 import IndexedDB from 'fake-indexeddb'
 import IDBKeyRange from 'fake-indexeddb/lib/FDBKeyRange'
+import VModal from 'vue-js-modal'
 
 import Vuex from "vuex"
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(VModal)
 
 describe('segment-block.test.js', () => {
   console.error = function () {}

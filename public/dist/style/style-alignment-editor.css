@@ -423,6 +423,13 @@ div.alpheios-alignment-checkbox-block {
   transition: all 0.3s ease;
 }
 
+.vm--modal {
+  padding: 20px 30px;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+}
+
 .alpheios-modal-header h3 {
   margin-top: 0;
   color: #42b983;
@@ -463,6 +470,25 @@ div.alpheios-alignment-checkbox-block {
     transform: scale(1.1);
   }
 */
+.alpheios-modal-header {
+  position: relative;
+}
+.alpheios-modal-header .alpheios-alignment-modal-close-icon {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+.alpheios-modal-header .alpheios-alignment-modal-close-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  fill: #c6c6c6;
+}
+
 .alpheios-heading-animated {
   min-height: 120px;
   margin: 20px 60px;
@@ -1335,24 +1361,6 @@ button.alpheios-app-menu-link:-moz-focusring {
   opacity: 0.6;
   background: #000;
   transition: 0.6s;
-}
-.alpheios-modal-header {
-  position: relative;
-}
-.alpheios-modal-header .alpheios-alignment-modal-close-icon {
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
-}
-.alpheios-modal-header .alpheios-alignment-modal-close-icon svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-  fill: #c6c6c6;
 }
 .alpheios-alignment-option-item {
   display: inline-block;

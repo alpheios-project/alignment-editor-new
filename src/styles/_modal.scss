@@ -27,7 +27,14 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
     transition: all 0.3s ease;
   }
-  
+
+  .vm--modal {
+    padding: 20px 30px;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  }
+
   .alpheios-modal-header h3 {
     margin-top: 0;
     color: #42b983;
@@ -69,3 +76,23 @@
     transform: scale(1.1);
   }
 */
+.alpheios-modal-header {
+  position: relative;
+
+  .alpheios-alignment-modal-close-icon {
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 25px;
+      height: 25px;
+      cursor: pointer;
+
+      svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+        fill: #c6c6c6;
+      }
+  }
+}
