@@ -16,6 +16,7 @@ import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import Locales from '@/locales/locales.js'
+import VModal from 'vue-js-modal'
 
 export default class AppController {
   /**
@@ -70,6 +71,8 @@ export default class AppController {
    * Creates and attaches App Vue component, defines additional controllers
    */
   attachVueComponents () {
+    Vue.use(VModal)
+
     this.defineTextController()
     this.defineAlignedGroupsController()
     this.defineTokensEditController()

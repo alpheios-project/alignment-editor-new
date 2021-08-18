@@ -37,8 +37,8 @@
     <align-editor-view-mode v-if="renderAlignEditor" @update-annotation = "updateAnnotation" :annotationMode="annotationMode"/>   
     <save-popup :showModal="showModalSave" @closeModal = "showModalSave = false" />
     <options-text-align-popup :showModal="showModalOptions" @closeModal = "showModalOptions = false" />
-    <annotation-block-popup :showModal="showModalAnnotations" @closeModal = "closeAnnotationModal" 
-                            :token = "annotationToken" v-if="annotationToken" 
+    <annotation-block-popup @closeModal = "closeAnnotationModal" 
+                            :token = "annotationToken" 
     />
   </div>
 </template>
@@ -89,12 +89,16 @@ export default {
   },
   methods: {
     updateAnnotation (token) {
+      console.info('updateAnnotation show')
       this.annotationToken = token
-      this.showModalAnnotations = true
+      this.$modal.show('annotations')
+      // this.showModalAnnotations = true
     },
     closeAnnotationModal () {
+      console.info('closeAnnotationModal show')
       this.annotationToken = null
-      this.showModalAnnotations = false
+      this.$modal.hide('annotations')
+      // this.showModalAnnotations = false
     }
   }
 }

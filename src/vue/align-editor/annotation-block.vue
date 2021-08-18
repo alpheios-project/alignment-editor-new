@@ -1,6 +1,9 @@
 <template>
-  <modal v-if="showModal" @close="$emit('closeModal')" class="alpheios-alignment-editor-modal-annotations" >
-    <template v-slot:header >
+  <modal classes="alpheios-alignment-editor-modal-annotations" name="annotations" :draggable="true" height="auto">
+    <div class="alpheios-modal-header" v-if="token">
+        <span class="alpheios-alignment-modal-close-icon" @click = "$emit('closeModal')">
+            <x-close-icon />
+        </span>
         <h3 class="alpheios-alignment-editor-modal-header">{{ l10n.getMsgS('ANNOTATION_BLOCK_HEADER', { word: token.word }) }}</h3>
         <p class="alpheios-alignment-annotations-header__buttons" >
           <button class="alpheios-editor-button-tertiary alpheios-annotation-save-button"  v-show="currentState !== 'list' && hasAnnotations"
@@ -12,8 +15,8 @@
               {{ l10n.getMsgS('ANNOTATION_BLOCK_ADD_ANNOTATION') }}              
           </button>
         </p>
-    </template>
-    <template v-slot:body >
+    </div>
+    <div class="alpheios-modal-body" v-if="token">
       <div class = "alpheios-alignment-editor-annotation-new" v-show="currentState !== 'list'">
         <div class="alpheios-alignment-editor-annotation-select">
             <select class="alpheios-alignment-select" v-model="annotationType">
@@ -46,19 +49,19 @@
           </td>
         </tr>
       </table>
-    </template>
-    <template v-slot:footer>
+    </div>
+    <div class="alpheios-modal-footer" v-if="token">
       <p class="alpheios-alignment-annotations-footer__buttons" v-show = "currentState !== 'list'">
         <button class="alpheios-editor-button-tertiary alpheios-annotation-save-button" 
             @click="saveAnnotation" >
             {{ l10n.getMsgS('ANNOTATION_BLOCK_SAVE_BUTTON') }}
         </button>
       </p>
-    </template>
+    </div>
   </modal>
 </template>
 <script>
-import Modal from '@/vue/common/modal.vue'
+import XCloseIcon from '@/inline-icons/x-close.svg'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import Annotation from '@/lib/data/annotation.js'
 
@@ -70,19 +73,14 @@ import SettingsController from '@/lib/controllers/settings-controller.js'
 export default {
   name: 'AnnotationBlock',
   components: {
-    modal: Modal,
     penIcon: PenIcon,
-    deleteIcon: DeleteIcon
+    deleteIcon: DeleteIcon,
+    xCloseIcon: XCloseIcon
   },
   props: {
-    showModal: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
     token: {
       type: Object,
-      required: true
+      required: false
     }
   },
   data () {
