@@ -8,9 +8,11 @@ import { LocalStorageArea, Options } from 'alpheios-data-models'
 
 import Vuex from "vuex"
 import SettingsController from '@/lib/controllers/settings-controller'
+import VModal from 'vue-js-modal'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(VModal)
 
 let appC, localTextEditorOptions
 

@@ -232,9 +232,9 @@ export default class Alignment {
 
   get originalLangData () {
     return {
-      langData: this.originDocSource.langData,
+      langData: this.originDocSource && this.originDocSource.langData,
       tokenized: Boolean(this.origin.alignedText),
-      isTei: this.originDocSource.isTei
+      isTei: this.originDocSource && this.originDocSource.isTei
     }
   }
 

@@ -1,28 +1,37 @@
 <template>
-  <modal v-if="showModal" @close="$emit('closeModal')" class="alpheios-alignment-editor-modal-metadata">
-    <template v-slot:body >
+  <modal :classes="classes" :name="mname"  :draggable="true" height="auto">
+    <div class="alpheios-modal-header" >
+        <span class="alpheios-alignment-modal-close-icon" @click = "$emit('closeModal')">
+            <x-close-icon />
+        </span>
+    </div>
+    <div class="alpheios-modal-body" v-if="allMetadata">
       <div class="alpheios-alignment-editor-metadata" >
         <metadata-info />
         <metadata-term-block 
           v-for="(metadataTerm, termIndex) in allMetadata" :key="termIndex"
           :text-type="textType" :text-id="textId" :metadata-term="metadataTerm" />
       </div>
-    </template>
+    </div>
   </modal>
 </template>
 <script>
 import MetadataTermBlock from '@/vue/text-editor/metadata-term-block.vue'
 import MetadataInfo from '@/vue/text-editor/metadata-info.vue'
-import Modal from '@/vue/common/modal.vue'
+import XCloseIcon from '@/inline-icons/x-close.svg'
 
 export default {
   name: 'MetadataBlock',
   components: {
     metadataTermBlock: MetadataTermBlock,
     metadataInfo: MetadataInfo,
-    modal: Modal
+    xCloseIcon: XCloseIcon
   },
   props: {
+    mname: {
+      type: String,
+      required: true
+    },
     textType: {
       type: String,
       required: true
@@ -30,11 +39,6 @@ export default {
     textId: {
       type: String,
       required: false
-    },
-    showModal: {
-      type: Boolean,
-      required: false,
-      default: false
     }
   },
   data () {
@@ -49,7 +53,10 @@ export default {
       return this.$textC.getDocSource(this.textType, this.textId)
     },
     allMetadata () {
-      return this.$store.state.docSourceUpdated && this.docSource.allAvailableMetadata
+      return this.$store.state.docSourceUpdated && this.docSource && this.docSource.allAvailableMetadata
+    },
+    classes () {
+      return `alpheios-alignment-editor-modal-metadata alpheios-alignment-editor-modal-${this.mname}`
     }
   },
   methods: {

@@ -433,11 +433,11 @@ export default class TextsController {
   }
 
   get originalLangData () {
-    return this.alignment.originalLangData
+    return this.alignment && this.alignment.originalLangData
   }
 
   get targetsLangData () {
-    return this.alignment.targetsLangData
+    return this.alignment && this.alignment.targetsLangData
   }
 
   async uploadFromAllAlignmentsDB () {

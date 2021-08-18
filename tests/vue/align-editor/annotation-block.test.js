@@ -7,9 +7,11 @@ import AnnotationBlock from '@/vue/align-editor/annotation-block.vue'
 import LatEng from '@tests/lib/storage/alignments/lat-eng-short.json'
 import Alignment from '@/lib/data/alignment'
 import Vuex from "vuex"
+import VModal from 'vue-js-modal'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(VModal)
 
 describe('annotation-block.test.js', () => {
   // console.error = function () {}

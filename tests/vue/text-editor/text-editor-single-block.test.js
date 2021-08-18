@@ -15,12 +15,13 @@ import DirectionOptionsBlock from '@/vue/text-editor/direction-options-block.vue
 import LanguageOptionsBlock from '@/vue/text-editor/language-options-block.vue'
 
 import SourceText from '@/lib/data/source-text'
-
+import VModal from 'vue-js-modal'
 import Vuex from "vuex"
 import SettingsController from '@/lib/controllers/settings-controller'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(VModal)
 
 let appC
 

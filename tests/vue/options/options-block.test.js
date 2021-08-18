@@ -5,12 +5,13 @@ import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
 import AppController from '@/lib/controllers/app-controller.js'
 import OptionsBlock from '@/vue/options/options-block.vue'
 import OptionItemBlock from '@/vue/options/option-item-block.vue'
-
+import VModal from 'vue-js-modal'
 import Vuex from "vuex"
 import SettingsController from '@/lib/controllers/settings-controller'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(VModal)
 
 let appC, localTextEditorOptions
 

@@ -9,11 +9,12 @@ import TokenBlock from '@/vue/align-editor/token-block.vue'
 import Token from '@/lib/data/token'
 import SourceText from '@/lib/data/source-text'
 import Alignment from '@/lib/data/alignment'
-
+import VModal from 'vue-js-modal'
 import Vuex from "vuex"
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(VModal)
 
 let appC, token
 

@@ -14,29 +14,29 @@
         </span>
         <span class="alpheios-alignment-text-editor-block__part alpheios-alignment-text-editor-block__part-2">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-help"
-              @click="showModalHelp = true">
+              @click="$modal.show('help-align')">
               {{ l10n.getMsgS("ALIGN_EDITOR_HELP") }}
           </button>
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-options"
-              @click="showModalOptions = true">
+              @click="$modal.show('options-align')" :disabled="true">
               {{ l10n.getMsgS("ALIGN_EDITOR_OPTIONS") }}
           </button>
         </span>
         <span class="alpheios-alignment-text-editor-block__part alpheios-alignment-text-editor-block__part-3">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-save"
-              @click="showModalSave = true">
+              @click="$modal.show('save-align')">
               {{ l10n.getMsgS("ALIGN_EDITOR_SAVE") }}
           </button>
         </span>
       </h2>
 
-      <help-popup :showModal="showModalHelp" @closeModal = "showModalHelp = false">
+      <help-popup @closeModal = "$modal.hide('help-align')" mname = "help-align">
         <template v-slot:content > <help-block-align /> </template>
       </help-popup>
 
     <align-editor-view-mode v-if="renderAlignEditor" @update-annotation = "updateAnnotation" :annotationMode="annotationMode"/>   
-    <save-popup :showModal="showModalSave" @closeModal = "showModalSave = false" />
-    <options-text-align-popup :showModal="showModalOptions" @closeModal = "showModalOptions = false" />
+    <save-popup @closeModal = "$modal.hide('save-align')" mname = "save-align" />
+    <options-text-align-popup @closeModal = "$modal.hide('options-align')" />
     <annotation-block-popup @closeModal = "closeAnnotationModal" 
                             :token = "annotationToken" 
     />
@@ -69,10 +69,7 @@ export default {
   },
   data () {
     return {
-      showModalHelp: false,
       showModalOptions: false,
-      showModalSave: false,
-      showModalAnnotations: false,
       annotationToken: null,
       annotationMode: false
     }
@@ -89,16 +86,12 @@ export default {
   },
   methods: {
     updateAnnotation (token) {
-      console.info('updateAnnotation show')
       this.annotationToken = token
       this.$modal.show('annotations')
-      // this.showModalAnnotations = true
     },
     closeAnnotationModal () {
-      console.info('closeAnnotationModal show')
       this.annotationToken = null
       this.$modal.hide('annotations')
-      // this.showModalAnnotations = false
     }
   }
 }

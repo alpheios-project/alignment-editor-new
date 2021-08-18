@@ -110,7 +110,7 @@
     },
     "availableAnnotationTypes": {
       "defaultValue": [
-        "COMMENT"
+        "COMMENT", "LEMMAID", "MORPHOLOGY"
       ],
       "labelText": "Available Annotation Types",
       "multiValue": true,

@@ -17,31 +17,35 @@
       <div class="alpheios-alignment-editor-actions-menu__upload-block" v-show="showUploadMenu" >
           <input type="file" @change="loadTextFromFile" ref="fileupload">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__metadata"
-              @click="showModalDTS = true">
+              @click="$modal.show(uploadDtsModalName)">
               DTSAPI
           </button>
       </div>
-      <upload-dtsapi-block :showModal="showModalDTS" @closeModal = "showModalDTS = false" @uploadFromDTSAPI = "uploadFromDTSAPI"/>
+      <upload-dtsapi-block :mname="uploadDtsModalName" @closeModal = "$modal.hide(uploadDtsModalName)" @uploadFromDTSAPI = "uploadFromDTSAPI"/>
 
-      <metadata-block :text-type = "textType" :text-id = "textId" :showModal="showModalMetadata" @closeModal = "showModalMetadata = false"  />
-      <language-block :text-type = "textType" :text-id = "textId" :localOptions = "localTextEditorOptions" @updateText = "updateText" @updateDirection = "updateDirection"
-                      :showModal="showModalLanguage" @closeModal = "showModalLanguage = false"  />
+      <metadata-block :text-type = "textType" :text-id = "textId" 
+                      :mname = "metadataModalName"
+                      @closeModal = "$modal.hide(metadataModalName)"  />
+      <language-block :text-type = "textType" :text-id = "textId" :localOptions = "localTextEditorOptions" 
+                      :mname = "languageModalName"
+                      @updateText = "updateText" @updateDirection = "updateDirection"
+                       @closeModal = "$modal.hide(languageModalName)"  />
       <source-type-block :text-type = "textType" :text-id = "textId" :localOptions = "localTextEditorOptions" @updateText = "updateText" 
-                :showModal="showModalSourceType" @closeModal = "showModalSourceType = false"  />
+                      :mname = "sourceTypeModalName" @closeModal = "$modal.hide(sourceTypeModalName)"  />
 
       <div v-show="showTypeTextBlock" class="alpheios-alignment-editor-text-blocks-single-text-area-container">
         <p class="alpheios-alignment-editor-text-blocks-info-line">
           <span class="alpheios-alignment-editor-text-blocks-single__characters" :class = "charactersClasses">{{ charactersText }}</span>
 
-          <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="showTextProps" @click="showModalSourceType = true"> {{ sourceType }} </span>
-          <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="showTextProps" @click="showModalLanguage = true"> {{ language }} </span>
+          <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="showTextProps" @click="$modal.show(sourceTypeModalName)"> {{ sourceType }} </span>
+          <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="showTextProps" @click="$modal.show(languageModalName)"> {{ language }} </span>
           <span class="alpheios-alignment-editor-text-blocks-single__icons" v-show="showLangNotDetected">
             <tooltip :tooltipText="l10n.getMsgS('NO_LANG_DETECTED_ICON')" tooltipDirection="top">
               <no-lang-detected-icon />
             </tooltip>
           </span>
 
-          <metadata-icons :text-type = "textType" :text-id = "textId" @showModalMetadata = "showModalMetadata = true" />
+          <metadata-icons :text-type = "textType" :text-id = "textId" @showModalMetadata = "$modal.show(metadataModalName)" />
 
         </p>
         <span :id="removeId" class="alpheios-alignment-editor-text-blocks-single__remove" v-show="showDeleteIcon" @click="deleteText">
@@ -56,7 +60,7 @@
       <div class="alpheios-alignment-editor-text-blocks-single__describe-button" >
         <tooltip :tooltipText="l10n.getMsgS('DESCRIBE_BUTTON_TOOLTIP')" tooltipDirection="top">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  :id="describeButtonId"
-              @click="showModalMetadata = true" :disabled="!isMetadataAvailable" >
+              @click="$modal.show(metadataModalName)" :disabled="!isMetadataAvailable" >
               {{ l10n.getMsgS('DESCRIBE_BUTTON_TITLE') }}
           </button>
         </tooltip>
@@ -141,12 +145,7 @@ export default {
       showTypeTextBlock: true,
       showTextProps: false,
       showUploadMenu: false,
-      showModalDTS: false,
-      showModalMetadata: false,
-      showModalLanguage: false,
-      showModalSourceType: false,
-      showModalHelp: false,
-
+      
       updatedLocalOptionsFlag: 1
     }
   },
@@ -203,6 +202,18 @@ export default {
         this.prepareDefaultTextEditorOptions()
       }
       return this.$store.state.docSourceUpdated
+    },
+    languageModalName () {
+      return `language-${this.textType}-${this.formattedTextId}`
+    },
+    metadataModalName () {
+      return `metadata-enter-${this.textType}-${this.formattedTextId}`
+    },
+    sourceTypeModalName () {
+      return `sourceType-${this.textType}-${this.formattedTextId}`
+    },
+    uploadDtsModalName () {
+      return `upload-dts-${this.textType}-${this.formattedTextId}`
     },
     containerId () {
       return `alpheios-alignment-editor-text-blocks-single__${this.textType}_${this.formattedTextId}`

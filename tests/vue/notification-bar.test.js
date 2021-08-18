@@ -6,11 +6,12 @@ import NotificationBar from '@/vue/notification-bar.vue'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
 import Vue from '@vue-runtime'
-
+import VModal from 'vue-js-modal'
 import Vuex from "vuex"
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(VModal)
 
 let appC
 

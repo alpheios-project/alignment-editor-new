@@ -1,10 +1,13 @@
 <template>
-    <modal v-if="showModal" @close="$emit('closeModal')" class="alpheios-alignment-editor-modal-summary">
-        <template v-slot:header>
+    <modal classes="alpheios-alignment-editor-modal-summary" name="summary" :draggable="true" height="auto">
+        <div class="alpheios-modal-header" >
+            <span class="alpheios-alignment-modal-close-icon" @click = "$emit('closeModal')">
+                <x-close-icon />
+            </span>
             <p class="alpheios-editor-summary-header" v-html="l10n.getMsgS('SUMMARY_POPUP_HEADER')"></p>
-        </template>
+        </div>
 
-        <template v-slot:body v-if="contentAvailable">
+        <div class="alpheios-modal-body" v-if="contentAvailable">
           <div class="alpheios-editor-summary-content" >
             <table class="alpheios-editor-langs-table">
               <tr>
@@ -48,19 +51,19 @@
               <span class="alpheios-editor-summary-show-option-label">{{ l10n.getMsgS('SUMMARY_POPUP_SHOW_OPTION_LABEL') }}</span>
             </div>
           </div>
-        </template>
+        </div>
 
-        <template v-slot:footer>
+        <div class="alpheios-modal-footer" >
           <div class="alpheios-editor-summary-footer" >
             <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click = "startAlign" >{{ l10n.getMsgS('SUMMARY_POPUP_OK_BUTTON') }}</button>
             <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click="$emit('closeModal')" >{{ l10n.getMsgS('SUMMARY_POPUP_CANCEL_BUTTON') }}</button>
           </div>
-        </template>
+        </div>
     </modal>
 </template>
 <script>
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
-import Modal from '@/vue/common/modal.vue'
+import XCloseIcon from '@/inline-icons/x-close.svg'
 import OptionItemBlock from '@/vue/options/option-item-block.vue'
 import CheckIcon from '@/inline-icons/check.svg'
 
@@ -69,20 +72,14 @@ import SettingsController from '@/lib/controllers/settings-controller.js'
 export default {
   name: 'SummaryPopup',
   components: {
-    modal: Modal,
+    xCloseIcon: XCloseIcon,
     optionItemBlock: OptionItemBlock,
     checkIcon: CheckIcon
   },
   props: {
-    showModal: {
-      type: Boolean,
-      required: false,
-      default: false
-    }
   },
   data () {
     return {
-      contentAvailable: true,
       showLabelTextOpt: false
     }
   },
@@ -98,6 +95,9 @@ export default {
     },
     showSummaryPopupOpt () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.showSummaryPopup
+    },
+    contentAvailable () {
+      return this.$store.state.docSourceUpdated && this.originalLangData && this.targetsLangData
     }
   },
   methods: {

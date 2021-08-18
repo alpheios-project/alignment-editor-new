@@ -111,16 +111,6 @@
 
 /***/ }),
 
-/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/modal.vue?vue&type=style&index=0&lang=scss&":
-/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/modal.vue?vue&type=style&index=0&lang=scss& ***!
-  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ (() => {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/save-popup.vue?vue&type=style&index=0&lang=scss&":
 /*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/save-popup.vue?vue&type=style&index=0&lang=scss& ***!
@@ -40389,11 +40379,11 @@ class TextsController {
   }
 
   get originalLangData () {
-    return this.alignment.originalLangData
+    return this.alignment && this.alignment.originalLangData
   }
 
   get targetsLangData () {
-    return this.alignment.targetsLangData
+    return this.alignment && this.alignment.targetsLangData
   }
 
   async uploadFromAllAlignmentsDB () {
@@ -43007,9 +42997,9 @@ class Alignment {
 
   get originalLangData () {
     return {
-      langData: this.originDocSource.langData,
+      langData: this.originDocSource && this.originDocSource.langData,
       tokenized: Boolean(this.origin.alignedText),
-      isTei: this.originDocSource.isTei
+      isTei: this.originDocSource && this.originDocSource.isTei
     }
   }
 
@@ -47594,7 +47584,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i473-modal-draggable.20210818394" : 0
+    return  true ? "i473-modal-draggable.20210818678" : 0
   }
 
   static get libName () {
@@ -48719,10 +48709,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data () {
     return {
-      showModalHelp: false,
       showModalOptions: false,
-      showModalSave: false,
-      showModalAnnotations: false,
       annotationToken: null,
       annotationMode: false
     }
@@ -48739,16 +48726,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     updateAnnotation (token) {
-      console.info('updateAnnotation show')
       this.annotationToken = token
       this.$modal.show('annotations')
-      // this.showModalAnnotations = true
     },
     closeAnnotationModal () {
-      console.info('closeAnnotationModal show')
       this.annotationToken = null
       this.$modal.hide('annotations')
-      // this.showModalAnnotations = false
     }
   }
 });
@@ -49033,6 +49016,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -49144,6 +49129,9 @@ __webpack_require__.r(__webpack_exports__);
      */
     cssId () {
       return this.getCssId(this.textType, this.textId, this.segmentIndex)
+    },
+    metadataModalName () {
+      return `metadata-align-${this.textType}-${this.textId}-${this.segment.index}`
     },
     /**
      * Styles for creating a html table layout with different background-colors for different targetIds
@@ -49682,12 +49670,7 @@ __webpack_require__.r(__webpack_exports__);
       pageClasses: [ 'initial-page', 'options-page', 'text-editor-page', 'align-editor-page', 'tokens-editor-page' ],
       menuShow: 1,
       renderTokensEditor: 1,
-      updateCurrentPage: 'initial-screen',
-
-      showSummaryModal: false,
-      showOnlyWaitingSummary: false,
-
-      showWaitingModal: false
+      updateCurrentPage: 'initial-screen'
     }
   },
   watch: {
@@ -49738,17 +49721,17 @@ __webpack_require__.r(__webpack_exports__);
 
     async deleteDataFromDB (alData) {
       if (alData) {
-        this.showWaitingModal = true
+        this.$modal.show('waiting')
         const result = await this.$textC.deleteDataFromDB(alData)
-        this.showWaitingModal = false
+        this.$modal.hide('waiting')
         return result
       }
     },
 
     async clearAllAlignmentsFromDB () {
-      this.showWaitingModal = true
+      this.$modal.show('waiting')
       const result = await this.$textC.clearAllAlignmentsFromDB()
-      this.showWaitingModal = false
+      this.$modal.hide('waiting')
       return result
     },
     /**
@@ -49768,16 +49751,16 @@ __webpack_require__.r(__webpack_exports__);
       if (!_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_12__.default.showSummaryPopup) {
         await this.alignTexts()
       } else {
-        this.showSummaryModal = true
+        this.$modal.show('summary')
       }
     },
     /**
      * Starts align workflow
      */
     async alignTexts () {
-      this.showWaitingModal = true
+      this.$modal.show('waiting')
       const result = await this.$alignedGC.createAlignedTexts(this.$textC.alignment)
-      this.showWaitingModal = false
+      this.$modal.hide('waiting')
       if (result) {
         this.$tokensEC.loadAlignment(this.$textC.alignment)
         this.showAlignmentGroupsEditor()
@@ -50010,7 +49993,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/common/modal.vue */ "./vue/common/modal.vue");
+/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/inline-icons/x-close.svg */ "./inline-icons/x-close.svg");
+/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
 //
 //
 //
@@ -50027,17 +50014,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'HelpPopup',
   components: {
-    modal: _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_0__.default
+    xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_0___default())
   },
   props: {
-    showModal: {
-      type: Boolean,
-      required: false,
-      default: false
+    mname: {
+      type: String,
+      required: true
     }
   },
   data () {
     return {
+    }
+  },
+  computed: {
+    classes () {
+      return `alpheios-alignment-editor-modal-help alpheios-alignment-editor-modal-${this.mname}`
     }
   }
 });
@@ -50124,59 +50115,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/modal.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/modal.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/inline-icons/x-close.svg */ "./inline-icons/x-close.svg");
-/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_0__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'Modal',
-  components: {
-    xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_0___default())
-  },
-  props: {
-  }
-});
-
-
-/***/ }),
-
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/save-popup.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/save-popup.vue?vue&type=script&lang=js& ***!
@@ -50188,12 +50126,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/inline-icons/download.svg */ "./inline-icons/download.svg");
-/* harmony import */ var _inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/common/modal.vue */ "./vue/common/modal.vue");
+/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/inline-icons/x-close.svg */ "./inline-icons/x-close.svg");
+/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/inline-icons/download.svg */ "./inline-icons/download.svg");
+/* harmony import */ var _inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/download-controller.js */ "./lib/controllers/download-controller.js");
 /* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
 /* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
+//
+//
+//
 //
 //
 //
@@ -50227,15 +50169,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'SavePopup',
   components: {
-    modal: _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_1__.default,
     tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_3__.default,
-    downloadIcon: (_inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_0___default()),
+    downloadIcon: (_inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_1___default()),
+    xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_0___default())
   },
   props: {
-    showModal: {
-      type: Boolean,
-      required: false,
-      default: false
+    mname: {
+      type: String,
+      required: true
     }
   },
   data () {
@@ -50243,13 +50184,7 @@ __webpack_require__.r(__webpack_exports__);
       currentDownloadType: null
     }
   },
-  watch: {
-    showModal () {
-      if (this.showModal && this.downloadTypes.length === 1) {
-        this.downloadData()
-      }
-    }
-  },
+
   mounted () {  
     this.currentDownloadType = this.downloadTypes.length > 0 ? this.downloadTypes[0].name : null
   },
@@ -50257,9 +50192,18 @@ __webpack_require__.r(__webpack_exports__);
     downloadTypes () {
       return Boolean(this.$store.state.alignmentUpdated) && 
              Object.values(_lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.downloadMethods).filter(method => method.allTexts && (!method.alignmentStarted || this.$alignedGC.alignmentGroupsWorkflowAvailable))
+    },
+    classes () {
+      return `alpheios-alignment-editor-modal-${this.mname}`
     }
   },
   methods: {
+    beforeOpen (event) {
+      if (this.downloadTypes.length === 1) {
+        this.downloadData()
+        event.cancel()
+      }
+    },
     downloadTypeId (dTypeName) {
       return `alpheios-save-popup-download-block__radio_${dTypeName}`
     },
@@ -50370,8 +50314,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/common/modal.vue */ "./vue/common/modal.vue");
-/* harmony import */ var _vue_common_waiting_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/common/waiting.vue */ "./vue/common/waiting.vue");
+/* harmony import */ var _vue_common_waiting_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/common/waiting.vue */ "./vue/common/waiting.vue");
 //
 //
 //
@@ -50379,22 +50322,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'WaitingPopup',
   components: {
-    modal: _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    waiting: _vue_common_waiting_vue__WEBPACK_IMPORTED_MODULE_1__.default
+    waiting: _vue_common_waiting_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
   props: {
-    showModal: {
-      type: Boolean,
-      required: false,
-      default: false
-    }
   }
 });
 
@@ -51411,10 +51347,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
-/* harmony import */ var _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/common/modal.vue */ "./vue/common/modal.vue");
+/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/inline-icons/x-close.svg */ "./inline-icons/x-close.svg");
+/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/settings-controller */ "./lib/controllers/settings-controller.js");
+//
 //
 //
 //
@@ -51449,15 +51387,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'OptionsTextAlign',
   components: {
-    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    modal: _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_1__.default
+    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_1__.default,
+    xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_0___default())
   },
   props: {
-    showModal: {
-      type: Boolean,
-      required: false,
-      default: false
-    }
   },
   computed: {
     l10n () {
@@ -51489,9 +51422,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
-/* harmony import */ var _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/common/modal.vue */ "./vue/common/modal.vue");
+/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/inline-icons/x-close.svg */ "./inline-icons/x-close.svg");
+/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/settings-controller */ "./lib/controllers/settings-controller.js");
+//
+//
+//
+//
 //
 //
 //
@@ -51529,7 +51467,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'OptionsTextEdit',
   components: {
     optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    modal: _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_1__.default
+    xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_1___default())
   },
   props: {
     showModal: {
@@ -51571,8 +51509,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
-/* harmony import */ var _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/common/modal.vue */ "./vue/common/modal.vue");
-/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/inline-icons/x-close.svg */ "./inline-icons/x-close.svg");
+/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
 //
 //
@@ -51607,7 +51546,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+//
+//
+//
+//
 
 
 
@@ -51618,18 +51560,13 @@ __webpack_require__.r(__webpack_exports__);
   name: 'OptionsTextEnter',
   components: {
     optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    modal: _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_1__.default
+    xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_2___default())
   },
   props: {
-    showModal: {
-      type: Boolean,
-      required: false,
-      default: false
-    }
   },
   computed: {
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
     },
     themeOptionItem () {
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.theme
@@ -51684,11 +51621,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
-/* harmony import */ var _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/common/modal.vue */ "./vue/common/modal.vue");
+/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/inline-icons/x-close.svg */ "./inline-icons/x-close.svg");
+/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
 /* harmony import */ var _inline_icons_check_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/inline-icons/check.svg */ "./inline-icons/check.svg");
 /* harmony import */ var _inline_icons_check_svg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_check_svg__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
+//
+//
+//
 //
 //
 //
@@ -51760,20 +51701,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'SummaryPopup',
   components: {
-    modal: _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_1__.default,
+    xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_1___default()),
     optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_2__.default,
     checkIcon: (_inline_icons_check_svg__WEBPACK_IMPORTED_MODULE_3___default())
   },
   props: {
-    showModal: {
-      type: Boolean,
-      required: false,
-      default: false
-    }
   },
   data () {
     return {
-      contentAvailable: true,
       showLabelTextOpt: false
     }
   },
@@ -51789,6 +51724,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     showSummaryPopupOpt () {
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_4__.default.allOptions.app.items.showSummaryPopup
+    },
+    contentAvailable () {
+      return this.$store.state.docSourceUpdated && this.originalLangData && this.targetsLangData
     }
   },
   methods: {
@@ -51986,9 +51924,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/common/modal.vue */ "./vue/common/modal.vue");
-/* harmony import */ var _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/text-editor/direction-options-block.vue */ "./vue/text-editor/direction-options-block.vue");
-/* harmony import */ var _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/text-editor/language-options-block.vue */ "./vue/text-editor/language-options-block.vue");
+/* harmony import */ var _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/text-editor/direction-options-block.vue */ "./vue/text-editor/direction-options-block.vue");
+/* harmony import */ var _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/text-editor/language-options-block.vue */ "./vue/text-editor/language-options-block.vue");
+/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/inline-icons/x-close.svg */ "./inline-icons/x-close.svg");
+/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_2__);
+//
+//
+//
+//
+//
 //
 //
 //
@@ -52010,11 +51954,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'LanguageBlock',
   components: {
-    directionOptionsBlock: _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_1__.default,
-    languageOptionsBlock: _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_2__.default,
-    modal: _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_0__.default
+    directionOptionsBlock: _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
+    languageOptionsBlock: _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_1__.default,
+    xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_2___default())
   },
   props: {
+    mname: {
+      type: String,
+      required: true
+    },
     textType: {
       type: String,
       required: true
@@ -52022,11 +51970,6 @@ __webpack_require__.r(__webpack_exports__);
     textId: {
       type: String,
       required: false
-    },
-    showModal: {
-      type: Boolean,
-      required: false,
-      default: false
     },
     localOptions: {
       type: Object,
@@ -52041,6 +51984,9 @@ __webpack_require__.r(__webpack_exports__);
     docSourceEditAvailable () {
       return Boolean(this.$store.state.docSourceUpdated) && 
              !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
+    },
+    classes () {
+      return `alpheios-alignment-editor-modal-language alpheios-alignment-editor-modal-${this.mname}`
     }
   }
 });
@@ -52135,7 +52081,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _vue_text_editor_metadata_term_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/text-editor/metadata-term-block.vue */ "./vue/text-editor/metadata-term-block.vue");
 /* harmony import */ var _vue_text_editor_metadata_info_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/text-editor/metadata-info.vue */ "./vue/text-editor/metadata-info.vue");
-/* harmony import */ var _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/common/modal.vue */ "./vue/common/modal.vue");
+/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/inline-icons/x-close.svg */ "./inline-icons/x-close.svg");
+/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_2__);
+//
+//
+//
+//
+//
 //
 //
 //
@@ -52158,9 +52110,13 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     metadataTermBlock: _vue_text_editor_metadata_term_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
     metadataInfo: _vue_text_editor_metadata_info_vue__WEBPACK_IMPORTED_MODULE_1__.default,
-    modal: _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_2__.default
+    xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_2___default())
   },
   props: {
+    mname: {
+      type: String,
+      required: true
+    },
     textType: {
       type: String,
       required: true
@@ -52168,11 +52124,6 @@ __webpack_require__.r(__webpack_exports__);
     textId: {
       type: String,
       required: false
-    },
-    showModal: {
-      type: Boolean,
-      required: false,
-      default: false
     }
   },
   data () {
@@ -52187,7 +52138,10 @@ __webpack_require__.r(__webpack_exports__);
       return this.$textC.getDocSource(this.textType, this.textId)
     },
     allMetadata () {
-      return this.$store.state.docSourceUpdated && this.docSource.allAvailableMetadata
+      return this.$store.state.docSourceUpdated && this.docSource && this.docSource.allAvailableMetadata
+    },
+    classes () {
+      return `alpheios-alignment-editor-modal-metadata alpheios-alignment-editor-modal-${this.mname}`
     }
   },
   methods: {
@@ -52384,8 +52338,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/common/modal.vue */ "./vue/common/modal.vue");
-/* harmony import */ var _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/text-editor/tokenize-options-block.vue */ "./vue/text-editor/tokenize-options-block.vue");
+/* harmony import */ var _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/text-editor/tokenize-options-block.vue */ "./vue/text-editor/tokenize-options-block.vue");
+/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/inline-icons/x-close.svg */ "./inline-icons/x-close.svg");
+/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/settings-controller */ "./lib/controllers/settings-controller.js");
 //
 //
@@ -52396,7 +52351,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+//
+//
+//
+//
+//
 
 
 
@@ -52405,6 +52364,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'SourceTypeBlock',
   props: {
+    mname: {
+      type: String,
+      required: true
+    },
     textType: {
       type: String,
       required: true
@@ -52413,19 +52376,14 @@ __webpack_require__.r(__webpack_exports__);
       type: String,
       required: false
     },
-    showModal: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
     localOptions: {
       type: Object,
       required: true
     }
   },
   components: {
-    tokenizeOptionsBlock: _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_1__.default,
-    modal: _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_0__.default
+    tokenizeOptionsBlock: _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
+    xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_1___default())
   },
   data () {
     return {
@@ -52438,6 +52396,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     hasTokenizerOptions () {
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_2__.default.hasTokenizerOptions
+    },
+    classes () {
+      return `alpheios-alignment-editor-modal-source-type alpheios-alignment-editor-modal-${this.mname}`
     }
   }
 });
@@ -52478,6 +52439,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_common_metadata_icons_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/vue/common/metadata-icons.vue */ "./vue/common/metadata-icons.vue");
 /* harmony import */ var _vue_text_editor_upload_dtsapi_block_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/vue/text-editor/upload-dtsapi-block.vue */ "./vue/text-editor/upload-dtsapi-block.vue");
 /* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
+//
+//
+//
+//
 //
 //
 //
@@ -52621,12 +52586,7 @@ __webpack_require__.r(__webpack_exports__);
       showTypeTextBlock: true,
       showTextProps: false,
       showUploadMenu: false,
-      showModalDTS: false,
-      showModalMetadata: false,
-      showModalLanguage: false,
-      showModalSourceType: false,
-      showModalHelp: false,
-
+      
       updatedLocalOptionsFlag: 1
     }
   },
@@ -52683,6 +52643,18 @@ __webpack_require__.r(__webpack_exports__);
         this.prepareDefaultTextEditorOptions()
       }
       return this.$store.state.docSourceUpdated
+    },
+    languageModalName () {
+      return `language-${this.textType}-${this.formattedTextId}`
+    },
+    metadataModalName () {
+      return `metadata-enter-${this.textType}-${this.formattedTextId}`
+    },
+    sourceTypeModalName () {
+      return `sourceType-${this.textType}-${this.formattedTextId}`
+    },
+    uploadDtsModalName () {
+      return `upload-dts-${this.textType}-${this.formattedTextId}`
     },
     containerId () {
       return `alpheios-alignment-editor-text-blocks-single__${this.textType}_${this.formattedTextId}`
@@ -53052,6 +53024,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -53077,9 +53050,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data () {
     return {
-      showModalHelp: false,
       showModalOptions: false,
-      showModalSave: false
     }
   },
   watch: {
@@ -53231,8 +53202,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/upload-controller.js */ "./lib/controllers/upload-controller.js");
 /* harmony import */ var _lib_upload_upload_dts_api_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/upload/upload-dts-api.js */ "./lib/upload/upload-dts-api.js");
 /* harmony import */ var _vue_text_editor_dts_api_pagination_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/text-editor/dts-api-pagination.vue */ "./vue/text-editor/dts-api-pagination.vue");
-/* harmony import */ var _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/common/modal.vue */ "./vue/common/modal.vue");
-/* harmony import */ var _vue_common_waiting_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/common/waiting.vue */ "./vue/common/waiting.vue");
+/* harmony import */ var _vue_common_waiting_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/common/waiting.vue */ "./vue/common/waiting.vue");
+/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/inline-icons/x-close.svg */ "./inline-icons/x-close.svg");
+/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_5__);
 //
 //
 //
@@ -53288,7 +53260,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+//
+//
+//
+//
 
 
 
@@ -53301,15 +53276,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'UploadDTSAPIBlock',
   components: {
-    modal: _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_4__.default,
-    waiting: _vue_common_waiting_vue__WEBPACK_IMPORTED_MODULE_5__.default,
+    xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_5___default()),
+    waiting: _vue_common_waiting_vue__WEBPACK_IMPORTED_MODULE_4__.default,
     dtsApiPagination: _vue_text_editor_dts_api_pagination_vue__WEBPACK_IMPORTED_MODULE_3__.default
   },
   props: {
-    showModal: {
-      type: Boolean,
-      required: false,
-      default: false
+    mname: {
+      type: String,
+      required: true
     }
   },
   data () {
@@ -53346,6 +53320,9 @@ __webpack_require__.r(__webpack_exports__);
     
     contentAvailable () {
       return this.contentUpdated && Boolean(this.content) 
+    },
+    classes () {
+      return `alpheios-alignment-editor-modal-dts-api alpheios-alignment-editor-modal-${this.mname}`
     },
     cssClasses () {
       return {
@@ -54777,9 +54754,7 @@ __webpack_require__.r(__webpack_exports__);
   data () {
     return {
       renderTokensEditor: false,
-      showModalHelp: false,
-      showModalOptions: false,
-      showModalSave: false
+      showModalOptions: false
     }
   },
   watch: {
@@ -55250,47 +55225,6 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "vue/common/metadata-icons.vue"
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
-
-/***/ }),
-
-/***/ "./vue/common/modal.vue":
-/*!******************************!*\
-  !*** ./vue/common/modal.vue ***!
-  \******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _modal_vue_vue_type_template_id_4af3be00___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modal.vue?vue&type=template&id=4af3be00& */ "./vue/common/modal.vue?vue&type=template&id=4af3be00&");
-/* harmony import */ var _modal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modal.vue?vue&type=script&lang=js& */ "./vue/common/modal.vue?vue&type=script&lang=js&");
-/* harmony import */ var _modal_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modal.vue?vue&type=style&index=0&lang=scss& */ "./vue/common/modal.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _modal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
-  _modal_vue_vue_type_template_id_4af3be00___WEBPACK_IMPORTED_MODULE_0__.render,
-  _modal_vue_vue_type_template_id_4af3be00___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "vue/common/modal.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
@@ -56935,23 +56869,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./vue/common/modal.vue?vue&type=style&index=0&lang=scss&":
-/*!****************************************************************!*\
-  !*** ./vue/common/modal.vue?vue&type=style&index=0&lang=scss& ***!
-  \****************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_modal_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./modal.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/modal.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_modal_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_modal_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_modal_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_modal_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
-/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
-
-
-/***/ }),
-
 /***/ "./vue/common/save-popup.vue?vue&type=style&index=0&lang=scss&":
 /*!*********************************************************************!*\
   !*** ./vue/common/save-popup.vue?vue&type=style&index=0&lang=scss& ***!
@@ -57686,22 +57603,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_metadata_icons_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./metadata-icons.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/metadata-icons.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_metadata_icons_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
-
-/***/ }),
-
-/***/ "./vue/common/modal.vue?vue&type=script&lang=js&":
-/*!*******************************************************!*\
-  !*** ./vue/common/modal.vue?vue&type=script&lang=js& ***!
-  \*******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_modal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./modal.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/modal.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_modal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -58464,23 +58365,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_icons_vue_vue_type_template_id_665dca8e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_icons_vue_vue_type_template_id_665dca8e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./metadata-icons.vue?vue&type=template&id=665dca8e& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/metadata-icons.vue?vue&type=template&id=665dca8e&");
-
-
-/***/ }),
-
-/***/ "./vue/common/modal.vue?vue&type=template&id=4af3be00&":
-/*!*************************************************************!*\
-  !*** ./vue/common/modal.vue?vue&type=template&id=4af3be00& ***!
-  \*************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_modal_vue_vue_type_template_id_4af3be00___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_modal_vue_vue_type_template_id_4af3be00___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
-/* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_modal_vue_vue_type_template_id_4af3be00___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./modal.vue?vue&type=template&id=4af3be00& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/modal.vue?vue&type=template&id=4af3be00&");
 
 
 /***/ }),
@@ -59444,7 +59328,7 @@ var render = function() {
                   attrs: { id: "alpheios-actions-menu-button__enter-help" },
                   on: {
                     click: function($event) {
-                      _vm.showModalHelp = true
+                      return _vm.$modal.show("help-align")
                     }
                   }
                 },
@@ -59462,10 +59346,13 @@ var render = function() {
                 {
                   staticClass:
                     "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-                  attrs: { id: "alpheios-actions-menu-button__enter-options" },
+                  attrs: {
+                    id: "alpheios-actions-menu-button__enter-options",
+                    disabled: true
+                  },
                   on: {
                     click: function($event) {
-                      _vm.showModalOptions = true
+                      return _vm.$modal.show("options-align")
                     }
                   }
                 },
@@ -59495,7 +59382,7 @@ var render = function() {
                   attrs: { id: "alpheios-actions-menu-button__enter-save" },
                   on: {
                     click: function($event) {
-                      _vm.showModalSave = true
+                      return _vm.$modal.show("save-align")
                     }
                   }
                 },
@@ -59513,10 +59400,10 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("help-popup", {
-        attrs: { showModal: _vm.showModalHelp },
+        attrs: { mname: "help-align" },
         on: {
           closeModal: function($event) {
-            _vm.showModalHelp = false
+            return _vm.$modal.hide("help-align")
           }
         },
         scopedSlots: _vm._u([
@@ -59538,19 +59425,18 @@ var render = function() {
         : _vm._e(),
       _vm._v(" "),
       _c("save-popup", {
-        attrs: { showModal: _vm.showModalSave },
+        attrs: { mname: "save-align" },
         on: {
           closeModal: function($event) {
-            _vm.showModalSave = false
+            return _vm.$modal.hide("save-align")
           }
         }
       }),
       _vm._v(" "),
       _c("options-text-align-popup", {
-        attrs: { showModal: _vm.showModalOptions },
         on: {
           closeModal: function($event) {
-            _vm.showModalOptions = false
+            return _vm.$modal.hide("options-align")
           }
         }
       }),
@@ -60002,7 +59888,7 @@ var render = function() {
                 },
                 on: {
                   showModalMetadata: function($event) {
-                    _vm.showModalMetadata = true
+                    return _vm.$modal.show(_vm.metadataModalName)
                   }
                 }
               })
@@ -60130,11 +60016,11 @@ var render = function() {
             attrs: {
               "text-type": _vm.textType,
               "text-id": _vm.segment.docSourceId,
-              showModal: _vm.showModalMetadata
+              mname: _vm.metadataModalName
             },
             on: {
               closeModal: function($event) {
-                _vm.showModalMetadata = false
+                return _vm.$modal.hide(_vm.metadataModalName)
               }
             }
           })
@@ -60470,23 +60356,18 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("summary-popup", {
-        attrs: {
-          showModal: _vm.showSummaryModal,
-          showOnlyWaiting: _vm.showOnlyWaitingSummary
-        },
         on: {
           closeModal: function($event) {
-            _vm.showSummaryModal = false
+            return _vm.$modal.hide("summary")
           },
           "start-align": _vm.alignTexts
         }
       }),
       _vm._v(" "),
       _c("waiting-popup", {
-        attrs: { showModal: _vm.showWaitingModal },
         on: {
           closeModal: function($event) {
-            _vm.showWaitingModal = false
+            return _vm.$modal.hide("waiting")
           }
         }
       })
@@ -60604,42 +60485,40 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.showModal
-    ? _c("modal", {
-        staticClass: "alpheios-alignment-editor-modal-help",
-        on: {
-          close: function($event) {
-            return _vm.$emit("closeModal")
-          }
-        },
-        scopedSlots: _vm._u(
-          [
-            {
-              key: "header",
-              fn: function() {
-                return [
-                  _c(
-                    "h2",
-                    { staticClass: "alpheios-alignment-editor-modal-header" },
-                    [_vm._v("Help")]
-                  )
-                ]
-              },
-              proxy: true
-            },
-            {
-              key: "body",
-              fn: function() {
-                return [_vm._t("content")]
-              },
-              proxy: true
+  return _c(
+    "modal",
+    {
+      attrs: {
+        classes: _vm.classes,
+        name: _vm.mname,
+        draggable: true,
+        height: "auto"
+      }
+    },
+    [
+      _c("div", { staticClass: "alpheios-modal-header" }, [
+        _c(
+          "span",
+          {
+            staticClass: "alpheios-alignment-modal-close-icon",
+            on: {
+              click: function($event) {
+                return _vm.$emit("closeModal")
+              }
             }
-          ],
-          null,
-          true
-        )
-      })
-    : _vm._e()
+          },
+          [_c("x-close-icon")],
+          1
+        ),
+        _vm._v(" "),
+        _c("h2", { staticClass: "alpheios-alignment-editor-modal-header" }, [
+          _vm._v("Help")
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "alpheios-modal-body" }, [_vm._t("content")], 2)
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -60743,74 +60622,6 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/modal.vue?vue&type=template&id=4af3be00&":
-/*!******************************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/modal.vue?vue&type=template&id=4af3be00& ***!
-  \******************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* binding */ render),
-/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
-/* harmony export */ });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("transition", { attrs: { name: "alpheios-modal" } }, [
-    _c("div", { staticClass: "alpheios-modal-mask" }, [
-      _c("div", { staticClass: "alpheios-modal-wrapper" }, [
-        _c("div", { staticClass: "alpheios-modal-container" }, [
-          _c(
-            "div",
-            { staticClass: "alpheios-modal-header" },
-            [
-              _c(
-                "span",
-                {
-                  staticClass: "alpheios-alignment-modal-close-icon",
-                  on: {
-                    click: function($event) {
-                      return _vm.$emit("close")
-                    }
-                  }
-                },
-                [_c("x-close-icon")],
-                1
-              ),
-              _vm._v(" "),
-              _vm._t("header")
-            ],
-            2
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "alpheios-modal-body" },
-            [_vm._t("body")],
-            2
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "alpheios-modal-footer" },
-            [_vm._t("footer")],
-            2
-          )
-        ])
-      ])
-    ])
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/save-popup.vue?vue&type=template&id=4944b699&":
 /*!***********************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/save-popup.vue?vue&type=template&id=4944b699& ***!
@@ -60827,141 +60638,123 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.showModal
-    ? _c("modal", {
-        staticClass: "alpheios-alignment-editor-modal-save",
-        on: {
-          close: function($event) {
-            return _vm.$emit("closeModal")
-          }
-        },
-        scopedSlots: _vm._u(
-          [
-            {
-              key: "header",
-              fn: function() {
-                return [
-                  _c(
-                    "h2",
-                    { staticClass: "alpheios-alignment-editor-modal-header" },
-                    [_vm._v("Save locally")]
-                  )
-                ]
-              },
-              proxy: true
-            },
-            {
-              key: "body",
-              fn: function() {
-                return [
-                  _c(
-                    "p",
-                    {
-                      staticClass:
-                        "alpheios-main-menu-download-block-radio-block"
-                    },
-                    _vm._l(_vm.downloadTypes, function(dType) {
-                      return _c(
-                        "span",
-                        {
-                          key: dType.name,
-                          staticClass:
-                            "alpheios-main-menu-download-block-radio-block_item"
-                        },
-                        [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.currentDownloadType,
-                                expression: "currentDownloadType"
-                              }
-                            ],
-                            attrs: {
-                              type: "radio",
-                              id: _vm.downloadTypeId(dType.name)
-                            },
-                            domProps: {
-                              value: dType.name,
-                              checked: _vm._q(
-                                _vm.currentDownloadType,
-                                dType.name
-                              )
-                            },
-                            on: {
-                              change: function($event) {
-                                _vm.currentDownloadType = dType.name
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "tooltip",
-                            {
-                              attrs: {
-                                tooltipText: dType.tooltip,
-                                tooltipDirection: "top-right"
-                              }
-                            },
-                            [
-                              _c(
-                                "label",
-                                {
-                                  attrs: { for: _vm.downloadTypeId(dType.name) }
-                                },
-                                [_vm._v(_vm._s(dType.label))]
-                              )
-                            ]
-                          )
-                        ],
-                        1
-                      )
-                    }),
-                    0
-                  )
-                ]
-              },
-              proxy: true
-            },
-            {
-              key: "footer",
-              fn: function() {
-                return [
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-                      on: { click: _vm.downloadData }
-                    },
-                    [_vm._v("Save")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-                      on: {
-                        click: function($event) {
-                          return _vm.$emit("closeModal")
-                        }
-                      }
-                    },
-                    [_vm._v("Close")]
-                  )
-                ]
-              },
-              proxy: true
+  return _c(
+    "modal",
+    {
+      attrs: {
+        classes: _vm.classes,
+        name: _vm.mname,
+        draggable: true,
+        height: "auto"
+      },
+      on: { "before-open": _vm.beforeOpen }
+    },
+    [
+      _c("div", { staticClass: "alpheios-modal-header" }, [
+        _c(
+          "span",
+          {
+            staticClass: "alpheios-alignment-modal-close-icon",
+            on: {
+              click: function($event) {
+                return _vm.$emit("closeModal")
+              }
             }
-          ],
-          null,
-          false,
-          631853004
+          },
+          [_c("x-close-icon")],
+          1
+        ),
+        _vm._v(" "),
+        _c("h2", { staticClass: "alpheios-alignment-editor-modal-header" }, [
+          _vm._v("Save locally")
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "alpheios-modal-body" }, [
+        _c(
+          "p",
+          { staticClass: "alpheios-main-menu-download-block-radio-block" },
+          _vm._l(_vm.downloadTypes, function(dType) {
+            return _c(
+              "span",
+              {
+                key: dType.name,
+                staticClass:
+                  "alpheios-main-menu-download-block-radio-block_item"
+              },
+              [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.currentDownloadType,
+                      expression: "currentDownloadType"
+                    }
+                  ],
+                  attrs: { type: "radio", id: _vm.downloadTypeId(dType.name) },
+                  domProps: {
+                    value: dType.name,
+                    checked: _vm._q(_vm.currentDownloadType, dType.name)
+                  },
+                  on: {
+                    change: function($event) {
+                      _vm.currentDownloadType = dType.name
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "tooltip",
+                  {
+                    attrs: {
+                      tooltipText: dType.tooltip,
+                      tooltipDirection: "top-right"
+                    }
+                  },
+                  [
+                    _c(
+                      "label",
+                      { attrs: { for: _vm.downloadTypeId(dType.name) } },
+                      [_vm._v(_vm._s(dType.label))]
+                    )
+                  ]
+                )
+              ],
+              1
+            )
+          }),
+          0
         )
-      })
-    : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "alpheios-modal-footer" }, [
+        _c(
+          "button",
+          {
+            staticClass:
+              "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+            on: { click: _vm.downloadData }
+          },
+          [_vm._v("Save")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass:
+              "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+            on: {
+              click: function($event) {
+                return _vm.$emit("closeModal")
+              }
+            }
+          },
+          [_vm._v("Close")]
+        )
+      ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -61038,30 +60831,18 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.showModal
-    ? _c("modal", {
-        staticClass: "alpheios-alignment-editor-modal-waiting",
-        on: {
-          close: function($event) {
-            return _vm.$emit("closeModal")
-          }
-        },
-        scopedSlots: _vm._u(
-          [
-            {
-              key: "body",
-              fn: function() {
-                return [_c("waiting")]
-              },
-              proxy: true
-            }
-          ],
-          null,
-          false,
-          4053691859
-        )
-      })
-    : _vm._e()
+  return _c(
+    "modal",
+    {
+      attrs: {
+        classes: "alpheios-alignment-editor-modal-waiting",
+        name: "waiting",
+        draggable: true,
+        height: "auto"
+      }
+    },
+    [_c("div", { staticClass: "alpheios-modal-body" }, [_c("waiting")], 1)]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -62473,102 +62254,71 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.showModal
-    ? _c("modal", {
-        staticClass: "alpheios-alignment-editor-modal-options",
-        on: {
-          close: function($event) {
-            return _vm.$emit("closeModal")
-          }
-        },
-        scopedSlots: _vm._u(
-          [
-            {
-              key: "header",
-              fn: function() {
-                return [
-                  _c(
-                    "h2",
-                    { staticClass: "alpheios-alignment-editor-modal-header" },
-                    [
-                      _vm._v(
-                        _vm._s(_vm.l10n.getMsgS("OPTIONS_TITLE_TEXT_ALIGN"))
-                      )
-                    ]
-                  )
-                ]
-              },
-              proxy: true
-            },
-            {
-              key: "body",
-              fn: function() {
-                return undefined
-              },
-              proxy: true
-            },
-            {
-              key: "footer",
-              fn: function() {
-                return [
-                  _c(
-                    "p",
-                    { staticClass: "alpheios-alignment-options__buttons" },
-                    [
-                      _c(
-                        "button",
-                        {
-                          staticClass:
-                            "alpheios-editor-button-tertiary alpheios-options-button alpheios-options-reset-all",
-                          on: { click: _vm.resetOptions }
-                        },
-                        [
-                          _vm._v(
-                            "\n          " +
-                              _vm._s(
-                                _vm.l10n.getMsgS("OPTIONS_BLOCK_RESET_ALL")
-                              ) +
-                              "\n      "
-                          )
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "alpheios-alignment-options__aboutcont" },
-                    [
-                      _c("h3", [
-                        _vm._v(
-                          _vm._s(_vm.l10n.getMsgS("OPTIONS_BLOCK_INFO_ABOUT"))
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "alpheios-alignment-options__versiontext"
-                        },
-                        [
-                          _vm._v(
-                            "\n        " + _vm._s(_vm.versionData) + "\n      "
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ]
-              },
-              proxy: true
+  return _c(
+    "modal",
+    {
+      attrs: {
+        classes:
+          "alpheios-alignment-editor-modal-options alpheios-alignment-editor-modal-options-align",
+        name: "options-align",
+        draggable: true,
+        height: "auto"
+      }
+    },
+    [
+      _c("div", { staticClass: "alpheios-modal-header" }, [
+        _c(
+          "span",
+          {
+            staticClass: "alpheios-alignment-modal-close-icon",
+            on: {
+              click: function($event) {
+                return _vm.$emit("closeModal")
+              }
             }
-          ],
-          null,
-          false,
-          512660360
-        )
-      })
-    : _vm._e()
+          },
+          [_c("x-close-icon")],
+          1
+        ),
+        _vm._v(" "),
+        _c("h2", { staticClass: "alpheios-alignment-editor-modal-header" }, [
+          _vm._v(_vm._s(_vm.l10n.getMsgS("OPTIONS_TITLE_TEXT_ALIGN")))
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "alpheios-modal-footer" }, [
+        _c("p", { staticClass: "alpheios-alignment-options__buttons" }, [
+          _c(
+            "button",
+            {
+              staticClass:
+                "alpheios-editor-button-tertiary alpheios-options-button alpheios-options-reset-all",
+              on: { click: _vm.resetOptions }
+            },
+            [
+              _vm._v(
+                "\n          " +
+                  _vm._s(_vm.l10n.getMsgS("OPTIONS_BLOCK_RESET_ALL")) +
+                  "\n      "
+              )
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "alpheios-alignment-options__aboutcont" }, [
+          _c("h3", [
+            _vm._v(_vm._s(_vm.l10n.getMsgS("OPTIONS_BLOCK_INFO_ABOUT")))
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "alpheios-alignment-options__versiontext" },
+            [_vm._v("\n        " + _vm._s(_vm.versionData) + "\n      ")]
+          )
+        ])
+      ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -62593,116 +62343,84 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.showModal
-    ? _c("modal", {
-        staticClass: "alpheios-alignment-editor-modal-options",
-        on: {
-          close: function($event) {
-            return _vm.$emit("closeModal")
-          }
-        },
-        scopedSlots: _vm._u(
-          [
-            {
-              key: "header",
-              fn: function() {
-                return [
-                  _c(
-                    "h2",
-                    { staticClass: "alpheios-alignment-editor-modal-header" },
-                    [
-                      _vm._v(
-                        _vm._s(_vm.l10n.getMsgS("OPTIONS_TITLE_TEXT_EDIT"))
-                      )
-                    ]
-                  )
-                ]
-              },
-              proxy: true
-            },
-            {
-              key: "body",
-              fn: function() {
-                return [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "alpheios-alignment-editor-modal-options-block"
-                    },
-                    [
-                      _c("option-item-block", {
-                        attrs: { optionItem: _vm.allowUpdateTokenOptionItem }
-                      })
-                    ],
-                    1
-                  )
-                ]
-              },
-              proxy: true
-            },
-            {
-              key: "footer",
-              fn: function() {
-                return [
-                  _c(
-                    "p",
-                    { staticClass: "alpheios-alignment-options__buttons" },
-                    [
-                      _c(
-                        "button",
-                        {
-                          staticClass:
-                            "alpheios-editor-button-tertiary alpheios-options-button alpheios-options-reset-all",
-                          on: { click: _vm.resetOptions }
-                        },
-                        [
-                          _vm._v(
-                            "\n          " +
-                              _vm._s(
-                                _vm.l10n.getMsgS("OPTIONS_BLOCK_RESET_ALL")
-                              ) +
-                              "\n      "
-                          )
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "alpheios-alignment-options__aboutcont" },
-                    [
-                      _c("h3", [
-                        _vm._v(
-                          _vm._s(_vm.l10n.getMsgS("OPTIONS_BLOCK_INFO_ABOUT"))
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "alpheios-alignment-options__versiontext"
-                        },
-                        [
-                          _vm._v(
-                            "\n        " + _vm._s(_vm.versionData) + "\n      "
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ]
-              },
-              proxy: true
+  return _c(
+    "modal",
+    {
+      attrs: {
+        classes:
+          "alpheios-alignment-editor-modal-options alpheios-alignment-editor-modal-options-edit",
+        name: "options-edit",
+        draggable: true,
+        height: "auto"
+      }
+    },
+    [
+      _c("div", { staticClass: "alpheios-modal-header" }, [
+        _c(
+          "span",
+          {
+            staticClass: "alpheios-alignment-modal-close-icon",
+            on: {
+              click: function($event) {
+                return _vm.$emit("closeModal")
+              }
             }
+          },
+          [_c("x-close-icon")],
+          1
+        ),
+        _vm._v(" "),
+        _c("h2", { staticClass: "alpheios-alignment-editor-modal-header" }, [
+          _vm._v(_vm._s(_vm.l10n.getMsgS("OPTIONS_TITLE_TEXT_EDIT")))
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "alpheios-modal-body" }, [
+        _c(
+          "div",
+          { staticClass: "alpheios-alignment-editor-modal-options-block" },
+          [
+            _c("option-item-block", {
+              attrs: { optionItem: _vm.allowUpdateTokenOptionItem }
+            })
           ],
-          null,
-          false,
-          3604151883
+          1
         )
-      })
-    : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "alpheios-modal-footer" }, [
+        _c("p", { staticClass: "alpheios-alignment-options__buttons" }, [
+          _c(
+            "button",
+            {
+              staticClass:
+                "alpheios-editor-button-tertiary alpheios-options-button alpheios-options-reset-all",
+              on: { click: _vm.resetOptions }
+            },
+            [
+              _vm._v(
+                "\n          " +
+                  _vm._s(_vm.l10n.getMsgS("OPTIONS_BLOCK_RESET_ALL")) +
+                  "\n      "
+              )
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "alpheios-alignment-options__aboutcont" }, [
+          _c("h3", [
+            _vm._v(_vm._s(_vm.l10n.getMsgS("OPTIONS_BLOCK_INFO_ABOUT")))
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "alpheios-alignment-options__versiontext" },
+            [_vm._v("\n        " + _vm._s(_vm.versionData) + "\n      ")]
+          )
+        ])
+      ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -62727,149 +62445,115 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.showModal
-    ? _c("modal", {
-        staticClass: "alpheios-alignment-editor-modal-options",
-        on: {
-          close: function($event) {
-            return _vm.$emit("closeModal")
-          }
-        },
-        scopedSlots: _vm._u(
-          [
-            {
-              key: "header",
-              fn: function() {
-                return [
-                  _c(
-                    "h2",
-                    { staticClass: "alpheios-alignment-editor-modal-header" },
-                    [
-                      _vm._v(
-                        _vm._s(_vm.l10n.getMsgS("OPTIONS_TITLE_TEXT_ENTER"))
-                      )
-                    ]
-                  )
-                ]
-              },
-              proxy: true
-            },
-            {
-              key: "body",
-              fn: function() {
-                return [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "alpheios-alignment-editor-modal-options-block"
-                    },
-                    [
-                      _c("option-item-block", {
-                        attrs: { optionItem: _vm.themeOptionItem }
-                      }),
-                      _vm._v(" "),
-                      _c("option-item-block", {
-                        attrs: { optionItem: _vm.tokenizerOptionItem }
-                      }),
-                      _vm._v(" "),
-                      _c("option-item-block", {
-                        attrs: {
-                          optionItem: _vm.availableAnnotationTypes,
-                          disabled: _vm.disableAnnotationsTypes
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("option-item-block", {
-                        attrs: { optionItem: _vm.maxCharactersOptionItem }
-                      }),
-                      _vm._v(" "),
-                      _c("option-item-block", {
-                        attrs: {
-                          optionItem: _vm.useSpecificEnglishTokenizerOptionItem
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("option-item-block", {
-                        attrs: { optionItem: _vm.showSummaryPopupOptionItem }
-                      }),
-                      _vm._v(" "),
-                      _c("option-item-block", {
-                        attrs: { optionItem: _vm.maxCharactersPerPart }
-                      }),
-                      _vm._v(" "),
-                      _c("option-item-block", {
-                        attrs: { optionItem: _vm.addIndexedDBSupport }
-                      })
-                    ],
-                    1
-                  )
-                ]
-              },
-              proxy: true
-            },
-            {
-              key: "footer",
-              fn: function() {
-                return [
-                  _c(
-                    "p",
-                    { staticClass: "alpheios-alignment-options__buttons" },
-                    [
-                      _c(
-                        "button",
-                        {
-                          staticClass:
-                            "alpheios-editor-button-tertiary alpheios-options-button alpheios-options-reset-all",
-                          on: { click: _vm.resetOptions }
-                        },
-                        [
-                          _vm._v(
-                            "\n          " +
-                              _vm._s(
-                                _vm.l10n.getMsgS("OPTIONS_BLOCK_RESET_ALL")
-                              ) +
-                              "\n      "
-                          )
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "alpheios-alignment-options__aboutcont" },
-                    [
-                      _c("h3", [
-                        _vm._v(
-                          _vm._s(_vm.l10n.getMsgS("OPTIONS_BLOCK_INFO_ABOUT"))
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "alpheios-alignment-options__versiontext"
-                        },
-                        [
-                          _vm._v(
-                            "\n        " + _vm._s(_vm.versionData) + "\n      "
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ]
-              },
-              proxy: true
+  return _c(
+    "modal",
+    {
+      attrs: {
+        classes:
+          "alpheios-alignment-editor-modal-options alpheios-alignment-editor-modal-options-enter",
+        name: "options-enter",
+        draggable: true,
+        height: "auto"
+      }
+    },
+    [
+      _c("div", { staticClass: "alpheios-modal-header" }, [
+        _c(
+          "span",
+          {
+            staticClass: "alpheios-alignment-modal-close-icon",
+            on: {
+              click: function($event) {
+                return _vm.$emit("closeModal")
+              }
             }
+          },
+          [_c("x-close-icon")],
+          1
+        ),
+        _vm._v(" "),
+        _c("h2", { staticClass: "alpheios-alignment-editor-modal-header" }, [
+          _vm._v(_vm._s(_vm.l10n.getMsgS("OPTIONS_TITLE_TEXT_ENTER")))
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "alpheios-modal-body" }, [
+        _c(
+          "div",
+          { staticClass: "alpheios-alignment-editor-modal-options-block" },
+          [
+            _c("option-item-block", {
+              attrs: { optionItem: _vm.themeOptionItem }
+            }),
+            _vm._v(" "),
+            _c("option-item-block", {
+              attrs: { optionItem: _vm.tokenizerOptionItem }
+            }),
+            _vm._v(" "),
+            _c("option-item-block", {
+              attrs: {
+                optionItem: _vm.availableAnnotationTypes,
+                disabled: _vm.disableAnnotationsTypes
+              }
+            }),
+            _vm._v(" "),
+            _c("option-item-block", {
+              attrs: { optionItem: _vm.maxCharactersOptionItem }
+            }),
+            _vm._v(" "),
+            _c("option-item-block", {
+              attrs: { optionItem: _vm.useSpecificEnglishTokenizerOptionItem }
+            }),
+            _vm._v(" "),
+            _c("option-item-block", {
+              attrs: { optionItem: _vm.showSummaryPopupOptionItem }
+            }),
+            _vm._v(" "),
+            _c("option-item-block", {
+              attrs: { optionItem: _vm.maxCharactersPerPart }
+            }),
+            _vm._v(" "),
+            _c("option-item-block", {
+              attrs: { optionItem: _vm.addIndexedDBSupport }
+            })
           ],
-          null,
-          false,
-          631667366
+          1
         )
-      })
-    : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "alpheios-modal-footer" }, [
+        _c("p", { staticClass: "alpheios-alignment-options__buttons" }, [
+          _c(
+            "button",
+            {
+              staticClass:
+                "alpheios-editor-button-tertiary alpheios-options-button alpheios-options-reset-all",
+              on: { click: _vm.resetOptions }
+            },
+            [
+              _vm._v(
+                "\n          " +
+                  _vm._s(_vm.l10n.getMsgS("OPTIONS_BLOCK_RESET_ALL")) +
+                  "\n      "
+              )
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "alpheios-alignment-options__aboutcont" }, [
+          _c("h3", [
+            _vm._v(_vm._s(_vm.l10n.getMsgS("OPTIONS_BLOCK_INFO_ABOUT")))
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "alpheios-alignment-options__versiontext" },
+            [_vm._v("\n        " + _vm._s(_vm.versionData) + "\n      ")]
+          )
+        ])
+      ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -62894,347 +62578,296 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.showModal
-    ? _c("modal", {
-        staticClass: "alpheios-alignment-editor-modal-summary",
-        on: {
-          close: function($event) {
-            return _vm.$emit("closeModal")
+  return _c(
+    "modal",
+    {
+      attrs: {
+        classes: "alpheios-alignment-editor-modal-summary",
+        name: "summary",
+        draggable: true,
+        height: "auto"
+      }
+    },
+    [
+      _c("div", { staticClass: "alpheios-modal-header" }, [
+        _c(
+          "span",
+          {
+            staticClass: "alpheios-alignment-modal-close-icon",
+            on: {
+              click: function($event) {
+                return _vm.$emit("closeModal")
+              }
+            }
+          },
+          [_c("x-close-icon")],
+          1
+        ),
+        _vm._v(" "),
+        _c("p", {
+          staticClass: "alpheios-editor-summary-header",
+          domProps: {
+            innerHTML: _vm._s(_vm.l10n.getMsgS("SUMMARY_POPUP_HEADER"))
           }
-        },
-        scopedSlots: _vm._u(
-          [
-            {
-              key: "header",
-              fn: function() {
-                return [
-                  _c("p", {
-                    staticClass: "alpheios-editor-summary-header",
-                    domProps: {
-                      innerHTML: _vm._s(
-                        _vm.l10n.getMsgS("SUMMARY_POPUP_HEADER")
+        })
+      ]),
+      _vm._v(" "),
+      _vm.contentAvailable
+        ? _c("div", { staticClass: "alpheios-modal-body" }, [
+            _c("div", { staticClass: "alpheios-editor-summary-content" }, [
+              _c(
+                "table",
+                { staticClass: "alpheios-editor-langs-table" },
+                [
+                  _c("tr", [
+                    _c("th", { attrs: { colspan: "2" } }, [
+                      _vm._v(
+                        _vm._s(
+                          _vm.l10n.getMsgS("SUMMARY_POPUP_TABEL_TH_ORIGINAL")
+                        )
                       )
-                    }
-                  })
-                ]
-              },
-              proxy: true
-            },
-            _vm.contentAvailable
-              ? {
-                  key: "body",
-                  fn: function() {
-                    return [
-                      _c(
-                        "div",
-                        { staticClass: "alpheios-editor-summary-content" },
-                        [
-                          _c(
-                            "table",
-                            { staticClass: "alpheios-editor-langs-table" },
-                            [
-                              _c("tr", [
-                                _c("th", { attrs: { colspan: "2" } }, [
-                                  _vm._v(
-                                    _vm._s(
-                                      _vm.l10n.getMsgS(
-                                        "SUMMARY_POPUP_TABEL_TH_ORIGINAL"
-                                      )
-                                    )
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c("th", [
-                                  _vm._v(
-                                    _vm._s(
-                                      _vm.l10n.getMsgS(
-                                        "SUMMARY_POPUP_TABEL_TH_ISTEI"
-                                      )
-                                    )
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c("th", { attrs: { colspan: "2" } }, [
-                                  _vm._v(
-                                    _vm._s(
-                                      _vm.l10n.getMsgS(
-                                        "SUMMARY_POPUP_TABEL_TH_TRANSLATION"
-                                      )
-                                    )
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c("th", [
-                                  _vm._v(
-                                    _vm._s(
-                                      _vm.l10n.getMsgS(
-                                        "SUMMARY_POPUP_TABEL_TH_ISTEI"
-                                      )
-                                    )
-                                  )
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _vm._l(_vm.targetsLangData, function(
-                                targetData,
-                                langIndex
-                              ) {
-                                return _c("tr", { key: langIndex }, [
-                                  langIndex > 0
-                                    ? _c("td", { attrs: { colspan: "3" } })
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  langIndex === 0
-                                    ? _c(
-                                        "td",
-                                        {
-                                          class: {
-                                            "alpheios-editor-langs-table-tokenized":
-                                              _vm.originalLangData.tokenized
-                                          }
-                                        },
-                                        [
-                                          _vm._v(
-                                            "\n              " +
-                                              _vm._s(
-                                                _vm.originalLangData.langData
-                                                  .textPart
-                                              ) +
-                                              "\n            "
-                                          )
-                                        ]
-                                      )
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  langIndex === 0
-                                    ? _c(
-                                        "td",
-                                        {
-                                          staticClass:
-                                            "alpheios-editor-langs-table_lang",
-                                          class: {
-                                            "alpheios-editor-langs-table-tokenized":
-                                              _vm.originalLangData.tokenized
-                                          }
-                                        },
-                                        [
-                                          _vm._v(
-                                            "\n              " +
-                                              _vm._s(
-                                                _vm.originalLangData.langData
-                                                  .langName
-                                              ) +
-                                              "\n            "
-                                          )
-                                        ]
-                                      )
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  langIndex === 0
-                                    ? _c(
-                                        "td",
-                                        {
-                                          staticClass:
-                                            "alpheios-editor-langs-table_teicheck",
-                                          class: {
-                                            "alpheios-editor-langs-table-tokenized":
-                                              _vm.originalLangData.tokenized
-                                          }
-                                        },
-                                        [
-                                          _c(
-                                            "span",
-                                            {
-                                              directives: [
-                                                {
-                                                  name: "show",
-                                                  rawName: "v-show",
-                                                  value:
-                                                    _vm.originalLangData.isTei,
-                                                  expression:
-                                                    "originalLangData.isTei"
-                                                }
-                                              ],
-                                              staticClass:
-                                                "alpheios-alignment-editor-text-blocks-single__icons"
-                                            },
-                                            [_c("check-icon")],
-                                            1
-                                          )
-                                        ]
-                                      )
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  _c(
-                                    "td",
-                                    {
-                                      class: {
-                                        "alpheios-editor-langs-table-tokenized":
-                                          targetData.tokenized
-                                      }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n              " +
-                                          _vm._s(targetData.langData.textPart) +
-                                          "\n            "
-                                      )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "td",
-                                    {
-                                      staticClass:
-                                        "alpheios-editor-langs-table_lang",
-                                      class: {
-                                        "alpheios-editor-langs-table-tokenized":
-                                          targetData.tokenized
-                                      }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n              " +
-                                          _vm._s(targetData.langData.langName) +
-                                          "\n            "
-                                      )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "td",
-                                    {
-                                      staticClass:
-                                        "alpheios-editor-langs-table_teicheck",
-                                      class: {
-                                        "alpheios-editor-langs-table-tokenized":
-                                          targetData.tokenized
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "span",
-                                        {
-                                          directives: [
-                                            {
-                                              name: "show",
-                                              rawName: "v-show",
-                                              value: targetData.isTei,
-                                              expression: "targetData.isTei"
-                                            }
-                                          ],
-                                          staticClass:
-                                            "alpheios-alignment-editor-text-blocks-single__icons"
-                                        },
-                                        [_c("check-icon")],
-                                        1
-                                      )
-                                    ]
-                                  )
-                                ])
-                              })
-                            ],
-                            2
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "div",
+                    ]),
+                    _vm._v(" "),
+                    _c("th", [
+                      _vm._v(
+                        _vm._s(_vm.l10n.getMsgS("SUMMARY_POPUP_TABEL_TH_ISTEI"))
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("th", { attrs: { colspan: "2" } }, [
+                      _vm._v(
+                        _vm._s(
+                          _vm.l10n.getMsgS("SUMMARY_POPUP_TABEL_TH_TRANSLATION")
+                        )
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("th", [
+                      _vm._v(
+                        _vm._s(_vm.l10n.getMsgS("SUMMARY_POPUP_TABEL_TH_ISTEI"))
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.targetsLangData, function(targetData, langIndex) {
+                    return _c("tr", { key: langIndex }, [
+                      langIndex > 0
+                        ? _c("td", { attrs: { colspan: "3" } })
+                        : _vm._e(),
+                      _vm._v(" "),
+                      langIndex === 0
+                        ? _c(
+                            "td",
                             {
-                              staticClass: "alpheios-editor-summary-show-option"
+                              class: {
+                                "alpheios-editor-langs-table-tokenized":
+                                  _vm.originalLangData.tokenized
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n              " +
+                                  _vm._s(
+                                    _vm.originalLangData.langData.textPart
+                                  ) +
+                                  "\n            "
+                              )
+                            ]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      langIndex === 0
+                        ? _c(
+                            "td",
+                            {
+                              staticClass: "alpheios-editor-langs-table_lang",
+                              class: {
+                                "alpheios-editor-langs-table-tokenized":
+                                  _vm.originalLangData.tokenized
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n              " +
+                                  _vm._s(
+                                    _vm.originalLangData.langData.langName
+                                  ) +
+                                  "\n            "
+                              )
+                            ]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      langIndex === 0
+                        ? _c(
+                            "td",
+                            {
+                              staticClass:
+                                "alpheios-editor-langs-table_teicheck",
+                              class: {
+                                "alpheios-editor-langs-table-tokenized":
+                                  _vm.originalLangData.tokenized
+                              }
                             },
                             [
                               _c(
                                 "span",
                                 {
-                                  staticClass:
-                                    "alpheios-editor-summary-show-option-item"
-                                },
-                                [
-                                  _c("option-item-block", {
-                                    attrs: {
-                                      optionItem: _vm.showSummaryPopupOpt,
-                                      showLabelText: _vm.showLabelTextOpt,
-                                      showCheckboxTitle: _vm.showLabelTextOpt
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.originalLangData.isTei,
+                                      expression: "originalLangData.isTei"
                                     }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "span",
-                                {
+                                  ],
                                   staticClass:
-                                    "alpheios-editor-summary-show-option-label"
+                                    "alpheios-alignment-editor-text-blocks-single__icons"
                                 },
-                                [
-                                  _vm._v(
-                                    _vm._s(
-                                      _vm.l10n.getMsgS(
-                                        "SUMMARY_POPUP_SHOW_OPTION_LABEL"
-                                      )
-                                    )
-                                  )
-                                ]
+                                [_c("check-icon")],
+                                1
                               )
                             ]
                           )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        {
+                          class: {
+                            "alpheios-editor-langs-table-tokenized":
+                              targetData.tokenized
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(targetData.langData.textPart) +
+                              "\n            "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        {
+                          staticClass: "alpheios-editor-langs-table_lang",
+                          class: {
+                            "alpheios-editor-langs-table-tokenized":
+                              targetData.tokenized
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(targetData.langData.langName) +
+                              "\n            "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        {
+                          staticClass: "alpheios-editor-langs-table_teicheck",
+                          class: {
+                            "alpheios-editor-langs-table-tokenized":
+                              targetData.tokenized
+                          }
+                        },
+                        [
+                          _c(
+                            "span",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: targetData.isTei,
+                                  expression: "targetData.isTei"
+                                }
+                              ],
+                              staticClass:
+                                "alpheios-alignment-editor-text-blocks-single__icons"
+                            },
+                            [_c("check-icon")],
+                            1
+                          )
                         ]
                       )
-                    ]
-                  },
-                  proxy: true
-                }
-              : null,
-            {
-              key: "footer",
-              fn: function() {
-                return [
-                  _c("div", { staticClass: "alpheios-editor-summary-footer" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-                        on: { click: _vm.startAlign }
-                      },
-                      [
-                        _vm._v(
-                          _vm._s(_vm.l10n.getMsgS("SUMMARY_POPUP_OK_BUTTON"))
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-                        on: {
-                          click: function($event) {
-                            return _vm.$emit("closeModal")
-                          }
+                    ])
+                  })
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "alpheios-editor-summary-show-option" },
+                [
+                  _c(
+                    "span",
+                    { staticClass: "alpheios-editor-summary-show-option-item" },
+                    [
+                      _c("option-item-block", {
+                        attrs: {
+                          optionItem: _vm.showSummaryPopupOpt,
+                          showLabelText: _vm.showLabelTextOpt,
+                          showCheckboxTitle: _vm.showLabelTextOpt
                         }
-                      },
-                      [
-                        _vm._v(
-                          _vm._s(
-                            _vm.l10n.getMsgS("SUMMARY_POPUP_CANCEL_BUTTON")
-                          )
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      staticClass: "alpheios-editor-summary-show-option-label"
+                    },
+                    [
+                      _vm._v(
+                        _vm._s(
+                          _vm.l10n.getMsgS("SUMMARY_POPUP_SHOW_OPTION_LABEL")
                         )
-                      ]
-                    )
-                  ])
+                      )
+                    ]
+                  )
                 ]
-              },
-              proxy: true
-            }
-          ],
-          null,
-          true
-        )
-      })
-    : _vm._e()
+              )
+            ])
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _c("div", { staticClass: "alpheios-modal-footer" }, [
+        _c("div", { staticClass: "alpheios-editor-summary-footer" }, [
+          _c(
+            "button",
+            {
+              staticClass:
+                "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+              on: { click: _vm.startAlign }
+            },
+            [_vm._v(_vm._s(_vm.l10n.getMsgS("SUMMARY_POPUP_OK_BUTTON")))]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass:
+                "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+              on: {
+                click: function($event) {
+                  return _vm.$emit("closeModal")
+                }
+              }
+            },
+            [_vm._v(_vm._s(_vm.l10n.getMsgS("SUMMARY_POPUP_CANCEL_BUTTON")))]
+          )
+        ])
+      ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -63484,57 +63117,65 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.showModal
-    ? _c("modal", {
-        staticClass: "alpheios-alignment-editor-modal-language",
-        on: {
-          close: function($event) {
-            return _vm.$emit("closeModal")
-          }
-        },
-        scopedSlots: _vm._u(
-          [
-            {
-              key: "body",
-              fn: function() {
-                return [
-                  _c("direction-options-block", {
-                    attrs: {
-                      localOptions: _vm.localOptions,
-                      disabled: !_vm.docSourceEditAvailable
-                    },
-                    on: {
-                      updateText: function($event) {
-                        return _vm.$emit("updateText")
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("language-options-block", {
-                    attrs: {
-                      textType: _vm.textType,
-                      localOptions: _vm.localOptions
-                    },
-                    on: {
-                      updateText: function($event) {
-                        return _vm.$emit("updateText")
-                      },
-                      updateDirection: function($event) {
-                        return _vm.$emit("updateDirection")
-                      }
-                    }
-                  })
-                ]
-              },
-              proxy: true
+  return _c(
+    "modal",
+    {
+      attrs: {
+        classes: _vm.classes,
+        name: _vm.mname,
+        draggable: true,
+        height: "auto"
+      }
+    },
+    [
+      _c("div", { staticClass: "alpheios-modal-header" }, [
+        _c(
+          "span",
+          {
+            staticClass: "alpheios-alignment-modal-close-icon",
+            on: {
+              click: function($event) {
+                return _vm.$emit("closeModal")
+              }
             }
-          ],
-          null,
-          false,
-          2108943162
+          },
+          [_c("x-close-icon")],
+          1
         )
-      })
-    : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "alpheios-modal-body" },
+        [
+          _c("direction-options-block", {
+            attrs: {
+              localOptions: _vm.localOptions,
+              disabled: !_vm.docSourceEditAvailable
+            },
+            on: {
+              updateText: function($event) {
+                return _vm.$emit("updateText")
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("language-options-block", {
+            attrs: { textType: _vm.textType, localOptions: _vm.localOptions },
+            on: {
+              updateText: function($event) {
+                return _vm.$emit("updateText")
+              },
+              updateDirection: function($event) {
+                return _vm.$emit("updateDirection")
+              }
+            }
+          })
+        ],
+        1
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -63614,53 +63255,58 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.showModal
-    ? _c("modal", {
-        staticClass: "alpheios-alignment-editor-modal-metadata",
-        on: {
-          close: function($event) {
-            return _vm.$emit("closeModal")
-          }
-        },
-        scopedSlots: _vm._u(
-          [
-            {
-              key: "body",
-              fn: function() {
-                return [
-                  _c(
-                    "div",
-                    { staticClass: "alpheios-alignment-editor-metadata" },
-                    [
-                      _c("metadata-info"),
-                      _vm._v(" "),
-                      _vm._l(_vm.allMetadata, function(
-                        metadataTerm,
-                        termIndex
-                      ) {
-                        return _c("metadata-term-block", {
-                          key: termIndex,
-                          attrs: {
-                            "text-type": _vm.textType,
-                            "text-id": _vm.textId,
-                            "metadata-term": metadataTerm
-                          }
-                        })
-                      })
-                    ],
-                    2
-                  )
-                ]
-              },
-              proxy: true
+  return _c(
+    "modal",
+    {
+      attrs: {
+        classes: _vm.classes,
+        name: _vm.mname,
+        draggable: true,
+        height: "auto"
+      }
+    },
+    [
+      _c("div", { staticClass: "alpheios-modal-header" }, [
+        _c(
+          "span",
+          {
+            staticClass: "alpheios-alignment-modal-close-icon",
+            on: {
+              click: function($event) {
+                return _vm.$emit("closeModal")
+              }
             }
-          ],
-          null,
-          false,
-          2672643253
+          },
+          [_c("x-close-icon")],
+          1
         )
-      })
-    : _vm._e()
+      ]),
+      _vm._v(" "),
+      _vm.allMetadata
+        ? _c("div", { staticClass: "alpheios-modal-body" }, [
+            _c(
+              "div",
+              { staticClass: "alpheios-alignment-editor-metadata" },
+              [
+                _c("metadata-info"),
+                _vm._v(" "),
+                _vm._l(_vm.allMetadata, function(metadataTerm, termIndex) {
+                  return _c("metadata-term-block", {
+                    key: termIndex,
+                    attrs: {
+                      "text-type": _vm.textType,
+                      "text-id": _vm.textId,
+                      "metadata-term": metadataTerm
+                    }
+                  })
+                })
+              ],
+              2
+            )
+          ])
+        : _vm._e()
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -63894,44 +63540,55 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.showModal
-    ? _c("modal", {
-        staticClass: "alpheios-alignment-editor-modal-source-type",
-        on: {
-          close: function($event) {
-            return _vm.$emit("closeModal")
-          }
-        },
-        scopedSlots: _vm._u(
-          [
-            {
-              key: "body",
-              fn: function() {
-                return [
-                  _vm.hasTokenizerOptions
-                    ? _c("tokenize-options-block", {
-                        attrs: {
-                          localOptions: _vm.localOptions,
-                          disabled: !_vm.docSourceEditAvailable
-                        },
-                        on: {
-                          updateText: function($event) {
-                            return _vm.$emit("updateText")
-                          }
-                        }
-                      })
-                    : _vm._e()
-                ]
-              },
-              proxy: true
+  return _c(
+    "modal",
+    {
+      attrs: {
+        classes: _vm.classes,
+        name: _vm.mname,
+        draggable: true,
+        height: "auto"
+      }
+    },
+    [
+      _c("div", { staticClass: "alpheios-modal-header" }, [
+        _c(
+          "span",
+          {
+            staticClass: "alpheios-alignment-modal-close-icon",
+            on: {
+              click: function($event) {
+                return _vm.$emit("closeModal")
+              }
             }
-          ],
-          null,
-          false,
-          888962049
+          },
+          [_c("x-close-icon")],
+          1
         )
-      })
-    : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "alpheios-modal-body" },
+        [
+          _vm.hasTokenizerOptions
+            ? _c("tokenize-options-block", {
+                attrs: {
+                  localOptions: _vm.localOptions,
+                  disabled: !_vm.docSourceEditAvailable
+                },
+                on: {
+                  updateText: function($event) {
+                    return _vm.$emit("updateText")
+                  }
+                }
+              })
+            : _vm._e()
+        ],
+        1
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -64078,7 +63735,7 @@ var render = function() {
               attrs: { id: "alpheios-actions-menu-button__metadata" },
               on: {
                 click: function($event) {
-                  _vm.showModalDTS = true
+                  return _vm.$modal.show(_vm.uploadDtsModalName)
                 }
               }
             },
@@ -64088,10 +63745,10 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("upload-dtsapi-block", {
-        attrs: { showModal: _vm.showModalDTS },
+        attrs: { mname: _vm.uploadDtsModalName },
         on: {
           closeModal: function($event) {
-            _vm.showModalDTS = false
+            return _vm.$modal.hide(_vm.uploadDtsModalName)
           },
           uploadFromDTSAPI: _vm.uploadFromDTSAPI
         }
@@ -64101,11 +63758,11 @@ var render = function() {
         attrs: {
           "text-type": _vm.textType,
           "text-id": _vm.textId,
-          showModal: _vm.showModalMetadata
+          mname: _vm.metadataModalName
         },
         on: {
           closeModal: function($event) {
-            _vm.showModalMetadata = false
+            return _vm.$modal.hide(_vm.metadataModalName)
           }
         }
       }),
@@ -64115,13 +63772,13 @@ var render = function() {
           "text-type": _vm.textType,
           "text-id": _vm.textId,
           localOptions: _vm.localTextEditorOptions,
-          showModal: _vm.showModalLanguage
+          mname: _vm.languageModalName
         },
         on: {
           updateText: _vm.updateText,
           updateDirection: _vm.updateDirection,
           closeModal: function($event) {
-            _vm.showModalLanguage = false
+            return _vm.$modal.hide(_vm.languageModalName)
           }
         }
       }),
@@ -64131,12 +63788,12 @@ var render = function() {
           "text-type": _vm.textType,
           "text-id": _vm.textId,
           localOptions: _vm.localTextEditorOptions,
-          showModal: _vm.showModalSourceType
+          mname: _vm.sourceTypeModalName
         },
         on: {
           updateText: _vm.updateText,
           closeModal: function($event) {
-            _vm.showModalSourceType = false
+            return _vm.$modal.hide(_vm.sourceTypeModalName)
           }
         }
       }),
@@ -64185,7 +63842,7 @@ var render = function() {
                     "alpheios-alignment-editor-text-blocks-single__lang-icon",
                   on: {
                     click: function($event) {
-                      _vm.showModalSourceType = true
+                      return _vm.$modal.show(_vm.sourceTypeModalName)
                     }
                   }
                 },
@@ -64207,7 +63864,7 @@ var render = function() {
                     "alpheios-alignment-editor-text-blocks-single__lang-icon",
                   on: {
                     click: function($event) {
-                      _vm.showModalLanguage = true
+                      return _vm.$modal.show(_vm.languageModalName)
                     }
                   }
                 },
@@ -64248,7 +63905,7 @@ var render = function() {
                 attrs: { "text-type": _vm.textType, "text-id": _vm.textId },
                 on: {
                   showModalMetadata: function($event) {
-                    _vm.showModalMetadata = true
+                    return _vm.$modal.show(_vm.metadataModalName)
                   }
                 }
               })
@@ -64340,7 +63997,7 @@ var render = function() {
                   },
                   on: {
                     click: function($event) {
-                      _vm.showModalMetadata = true
+                      return _vm.$modal.show(_vm.metadataModalName)
                     }
                   }
                 },
@@ -64501,7 +64158,7 @@ var render = function() {
                   attrs: { id: "alpheios-actions-menu-button__enter-help" },
                   on: {
                     click: function($event) {
-                      _vm.showModalHelp = true
+                      return _vm.$modal.show("help-enter")
                     }
                   }
                 },
@@ -64522,7 +64179,7 @@ var render = function() {
                   attrs: { id: "alpheios-actions-menu-button__enter-options" },
                   on: {
                     click: function($event) {
-                      _vm.showModalOptions = true
+                      return _vm.$modal.show("options-enter")
                     }
                   }
                 },
@@ -64552,7 +64209,7 @@ var render = function() {
                   },
                   on: {
                     click: function($event) {
-                      _vm.showModalSave = true
+                      return _vm.$modal.show("save-enter")
                     }
                   }
                 },
@@ -64636,10 +64293,10 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("help-popup", {
-        attrs: { showModal: _vm.showModalHelp },
+        attrs: { mname: "help-enter" },
         on: {
           closeModal: function($event) {
-            _vm.showModalHelp = false
+            return _vm.$modal.hide("help-enter")
           }
         },
         scopedSlots: _vm._u([
@@ -64654,19 +64311,18 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("save-popup", {
-        attrs: { showModal: _vm.showModalSave },
+        attrs: { mname: "save-enter" },
         on: {
           closeModal: function($event) {
-            _vm.showModalSave = false
+            return _vm.$modal.hide("save-enter")
           }
         }
       }),
       _vm._v(" "),
       _c("options-text-enter-popup", {
-        attrs: { showModal: _vm.showModalOptions },
         on: {
           closeModal: function($event) {
-            _vm.showModalOptions = false
+            return _vm.$modal.hide("options-enter")
           }
         }
       })
@@ -64857,353 +64513,325 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.showModal
-    ? _c("modal", {
-        staticClass: "alpheios-alignment-editor-modal-dts-api",
-        on: {
-          close: function($event) {
-            return _vm.$emit("closeModal")
-          }
-        },
-        scopedSlots: _vm._u(
-          [
-            {
-              key: "header",
-              fn: function() {
-                return [
-                  _c("p", { staticClass: "alpheios-editor-content-title" }, [
-                    _vm._v(_vm._s(_vm.title))
-                  ]),
-                  _vm._v(" "),
+  return _c(
+    "modal",
+    {
+      attrs: {
+        classes: _vm.classes,
+        name: _vm.mname,
+        draggable: true,
+        height: "auto"
+      }
+    },
+    [
+      _c("div", { staticClass: "alpheios-modal-header" }, [
+        _c(
+          "span",
+          {
+            staticClass: "alpheios-alignment-modal-close-icon",
+            on: {
+              click: function($event) {
+                return _vm.$emit("closeModal")
+              }
+            }
+          },
+          [_c("x-close-icon")],
+          1
+        ),
+        _vm._v(" "),
+        _c("p", { staticClass: "alpheios-editor-content-title" }, [
+          _vm._v(_vm._s(_vm.title))
+        ]),
+        _vm._v(" "),
+        _c(
+          "ul",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.showBreadcrumbs,
+                expression: "showBreadcrumbs"
+              }
+            ],
+            staticClass: "alpheios-editor-content-breadcrumbs"
+          },
+          _vm._l(_vm.breadcrumbs, function(crumb, crumbIndex) {
+            return _c(
+              "li",
+              {
+                key: crumbIndex,
+                class: _vm.crumbClass(crumb),
+                on: {
+                  click: function($event) {
+                    return _vm.clickCrumb(crumb, crumbIndex)
+                  }
+                }
+              },
+              [_vm._v("\n          " + _vm._s(crumb.title) + "\n        ")]
+            )
+          }),
+          0
+        )
+      ]),
+      _vm._v(" "),
+      _vm.contentAvailable
+        ? _c(
+            "div",
+            { staticClass: "alpheios-modal-body" },
+            [
+              _c("waiting", {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.showWaiting,
+                    expression: "showWaiting"
+                  }
+                ]
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.showDescription,
+                      expression: "showDescription"
+                    }
+                  ],
+                  staticClass: "alpheios-editor-content-description"
+                },
+                [
                   _c(
-                    "ul",
+                    "p",
+                    {
+                      staticClass: "alpheios-editor-content-description__title",
+                      on: {
+                        click: function($event) {
+                          _vm.showDescriptionDetails = !_vm.showDescriptionDetails
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n           " +
+                          _vm._s(_vm.descriptionTitle) +
+                          " \n        "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.showDescriptionDetails,
+                        expression: "showDescriptionDetails"
+                      }
+                    ],
+                    staticClass: "alpheios-editor-content-description__details",
+                    domProps: { innerHTML: _vm._s(_vm.descriptionDetails) }
+                  })
+                ]
+              ),
+              _vm._v(" "),
+              _vm.pagination
+                ? _c("dts-api-pagination", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.showWaiting,
+                        expression: "!showWaiting"
+                      }
+                    ],
+                    attrs: {
+                      first: _vm.pagination.first,
+                      previous: _vm.pagination.previous,
+                      last: _vm.pagination.last,
+                      next: _vm.pagination.next,
+                      current: _vm.pagination.current
+                    },
+                    on: { getPage: _vm.getPage }
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.showEntireDocument
+                ? _c(
+                    "div",
                     {
                       directives: [
                         {
                           name: "show",
                           rawName: "v-show",
-                          value: _vm.showBreadcrumbs,
-                          expression: "showBreadcrumbs"
+                          value: !_vm.showWaiting,
+                          expression: "!showWaiting"
                         }
                       ],
-                      staticClass: "alpheios-editor-content-breadcrumbs"
+                      staticClass: "alpheios-editor-content-link"
                     },
-                    _vm._l(_vm.breadcrumbs, function(crumb, crumbIndex) {
-                      return _c(
-                        "li",
+                    [
+                      _c(
+                        "span",
                         {
-                          key: crumbIndex,
-                          class: _vm.crumbClass(crumb),
-                          on: {
-                            click: function($event) {
-                              return _vm.clickCrumb(crumb, crumbIndex)
-                            }
-                          }
+                          staticClass: "alpheios-editor-content-link__text",
+                          on: { click: _vm.getEntireDocument }
                         },
                         [
                           _vm._v(
-                            "\n          " + _vm._s(crumb.title) + "\n        "
+                            _vm._s(
+                              _vm.l10n.getMsgS("UPLOAD_DTSAPI_ENTIRE_DOCUMENT")
+                            )
                           )
                         ]
-                      )
-                    }),
-                    0
-                  )
-                ]
-              },
-              proxy: true
-            },
-            _vm.contentAvailable
-              ? {
-                  key: "body",
-                  fn: function() {
-                    return [
-                      _c("waiting", {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.showWaiting,
-                            expression: "showWaiting"
-                          }
-                        ]
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.showDescription,
-                              expression: "showDescription"
-                            }
-                          ],
-                          staticClass: "alpheios-editor-content-description"
-                        },
-                        [
-                          _c(
-                            "p",
-                            {
-                              staticClass:
-                                "alpheios-editor-content-description__title",
-                              on: {
-                                click: function($event) {
-                                  _vm.showDescriptionDetails = !_vm.showDescriptionDetails
-                                }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n           " +
-                                  _vm._s(_vm.descriptionTitle) +
-                                  " \n        "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("div", {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value: _vm.showDescriptionDetails,
-                                expression: "showDescriptionDetails"
-                              }
-                            ],
-                            staticClass:
-                              "alpheios-editor-content-description__details",
-                            domProps: {
-                              innerHTML: _vm._s(_vm.descriptionDetails)
-                            }
-                          })
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _vm.pagination
-                        ? _c("dts-api-pagination", {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value: !_vm.showWaiting,
-                                expression: "!showWaiting"
-                              }
-                            ],
-                            attrs: {
-                              first: _vm.pagination.first,
-                              previous: _vm.pagination.previous,
-                              last: _vm.pagination.last,
-                              next: _vm.pagination.next,
-                              current: _vm.pagination.current
-                            },
-                            on: { getPage: _vm.getPage }
-                          })
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.showEntireDocument
-                        ? _c(
-                            "div",
-                            {
-                              directives: [
-                                {
-                                  name: "show",
-                                  rawName: "v-show",
-                                  value: !_vm.showWaiting,
-                                  expression: "!showWaiting"
-                                }
-                              ],
-                              staticClass: "alpheios-editor-content-link"
-                            },
-                            [
-                              _c(
-                                "span",
-                                {
-                                  staticClass:
-                                    "alpheios-editor-content-link__text",
-                                  on: { click: _vm.getEntireDocument }
-                                },
-                                [
-                                  _vm._v(
-                                    _vm._s(
-                                      _vm.l10n.getMsgS(
-                                        "UPLOAD_DTSAPI_ENTIRE_DOCUMENT"
-                                      )
-                                    )
-                                  )
-                                ]
-                              )
-                            ]
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _c(
-                        "ul",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: !_vm.showWaiting,
-                              expression: "!showWaiting"
-                            }
-                          ],
-                          staticClass: "alpheios-editor-content-list",
-                          class: _vm.cssClasses
-                        },
-                        _vm._l(_vm.content, function(linkData, linkIndex) {
-                          return _c(
-                            "li",
-                            {
-                              key: linkIndex,
-                              staticClass: "alpheios-editor-content-link"
-                            },
-                            [
-                              linkData.type === "collection"
-                                ? _c("span", {
-                                    staticClass:
-                                      "alpheios-editor-content-link__text",
-                                    domProps: {
-                                      innerHTML: _vm._s(linkData.title)
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.getCollection(linkData)
-                                      }
-                                    }
-                                  })
-                                : _vm._e(),
-                              _vm._v(" "),
-                              linkData.type === "resource"
-                                ? _c("span", {
-                                    staticClass:
-                                      "alpheios-editor-content-link__text",
-                                    domProps: {
-                                      innerHTML: _vm._s(linkData.title)
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.getNavigation(linkData)
-                                      }
-                                    }
-                                  })
-                                : _vm._e(),
-                              _vm._v(" "),
-                              linkData.type === "document"
-                                ? _c(
-                                    "span",
-                                    {
-                                      staticClass:
-                                        "alpheios-editor-content-link__checkbox"
-                                    },
-                                    [
-                                      _c("input", {
-                                        directives: [
-                                          {
-                                            name: "model",
-                                            rawName: "v-model",
-                                            value: _vm.checkedRefs,
-                                            expression: "checkedRefs"
-                                          }
-                                        ],
-                                        attrs: {
-                                          type: "checkbox",
-                                          id: _vm.contentRefId(linkIndex)
-                                        },
-                                        domProps: {
-                                          value: linkIndex,
-                                          checked: Array.isArray(
-                                            _vm.checkedRefs
-                                          )
-                                            ? _vm._i(
-                                                _vm.checkedRefs,
-                                                linkIndex
-                                              ) > -1
-                                            : _vm.checkedRefs
-                                        },
-                                        on: {
-                                          change: function($event) {
-                                            var $$a = _vm.checkedRefs,
-                                              $$el = $event.target,
-                                              $$c = $$el.checked ? true : false
-                                            if (Array.isArray($$a)) {
-                                              var $$v = linkIndex,
-                                                $$i = _vm._i($$a, $$v)
-                                              if ($$el.checked) {
-                                                $$i < 0 &&
-                                                  (_vm.checkedRefs = $$a.concat(
-                                                    [$$v]
-                                                  ))
-                                              } else {
-                                                $$i > -1 &&
-                                                  (_vm.checkedRefs = $$a
-                                                    .slice(0, $$i)
-                                                    .concat($$a.slice($$i + 1)))
-                                              }
-                                            } else {
-                                              _vm.checkedRefs = $$c
-                                            }
-                                          }
-                                        }
-                                      }),
-                                      _vm._v(" "),
-                                      _c(
-                                        "label",
-                                        {
-                                          attrs: {
-                                            for: _vm.contentRefId(linkIndex)
-                                          }
-                                        },
-                                        [_vm._v(_vm._s(linkData.ref))]
-                                      )
-                                    ]
-                                  )
-                                : _vm._e()
-                            ]
-                          )
-                        }),
-                        0
                       )
                     ]
-                  },
-                  proxy: true
-                }
-              : null,
-            {
-              key: "footer",
-              fn: function() {
-                return [
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-                      attrs: { disabled: _vm.uploadButtonDisabled },
-                      on: { click: _vm.getDocument }
-                    },
-                    [_vm._v("Upload")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-                      on: { click: _vm.closeModal }
-                    },
-                    [_vm._v("Cancel")]
                   )
-                ]
-              },
-              proxy: true
-            }
-          ],
-          null,
-          true
+                : _vm._e(),
+              _vm._v(" "),
+              _c(
+                "ul",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: !_vm.showWaiting,
+                      expression: "!showWaiting"
+                    }
+                  ],
+                  staticClass: "alpheios-editor-content-list",
+                  class: _vm.cssClasses
+                },
+                _vm._l(_vm.content, function(linkData, linkIndex) {
+                  return _c(
+                    "li",
+                    {
+                      key: linkIndex,
+                      staticClass: "alpheios-editor-content-link"
+                    },
+                    [
+                      linkData.type === "collection"
+                        ? _c("span", {
+                            staticClass: "alpheios-editor-content-link__text",
+                            domProps: { innerHTML: _vm._s(linkData.title) },
+                            on: {
+                              click: function($event) {
+                                return _vm.getCollection(linkData)
+                              }
+                            }
+                          })
+                        : _vm._e(),
+                      _vm._v(" "),
+                      linkData.type === "resource"
+                        ? _c("span", {
+                            staticClass: "alpheios-editor-content-link__text",
+                            domProps: { innerHTML: _vm._s(linkData.title) },
+                            on: {
+                              click: function($event) {
+                                return _vm.getNavigation(linkData)
+                              }
+                            }
+                          })
+                        : _vm._e(),
+                      _vm._v(" "),
+                      linkData.type === "document"
+                        ? _c(
+                            "span",
+                            {
+                              staticClass:
+                                "alpheios-editor-content-link__checkbox"
+                            },
+                            [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.checkedRefs,
+                                    expression: "checkedRefs"
+                                  }
+                                ],
+                                attrs: {
+                                  type: "checkbox",
+                                  id: _vm.contentRefId(linkIndex)
+                                },
+                                domProps: {
+                                  value: linkIndex,
+                                  checked: Array.isArray(_vm.checkedRefs)
+                                    ? _vm._i(_vm.checkedRefs, linkIndex) > -1
+                                    : _vm.checkedRefs
+                                },
+                                on: {
+                                  change: function($event) {
+                                    var $$a = _vm.checkedRefs,
+                                      $$el = $event.target,
+                                      $$c = $$el.checked ? true : false
+                                    if (Array.isArray($$a)) {
+                                      var $$v = linkIndex,
+                                        $$i = _vm._i($$a, $$v)
+                                      if ($$el.checked) {
+                                        $$i < 0 &&
+                                          (_vm.checkedRefs = $$a.concat([$$v]))
+                                      } else {
+                                        $$i > -1 &&
+                                          (_vm.checkedRefs = $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1)))
+                                      }
+                                    } else {
+                                      _vm.checkedRefs = $$c
+                                    }
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "label",
+                                { attrs: { for: _vm.contentRefId(linkIndex) } },
+                                [_vm._v(_vm._s(linkData.ref))]
+                              )
+                            ]
+                          )
+                        : _vm._e()
+                    ]
+                  )
+                }),
+                0
+              )
+            ],
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c("div", { staticClass: "alpheios-modal-footer" }, [
+        _c(
+          "button",
+          {
+            staticClass:
+              "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+            attrs: { disabled: _vm.uploadButtonDisabled },
+            on: { click: _vm.getDocument }
+          },
+          [_vm._v("Upload")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass:
+              "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+            on: { click: _vm.closeModal }
+          },
+          [_vm._v("Cancel")]
         )
-      })
-    : _vm._e()
+      ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -66217,11 +65845,17 @@ var render = function() {
                   attrs: { id: "alpheios-actions-menu-button__enter-help" },
                   on: {
                     click: function($event) {
-                      _vm.showModalHelp = true
+                      return _vm.$modal.show("help-edit")
                     }
                   }
                 },
-                [_vm._v("\n            HELP\n        ")]
+                [
+                  _vm._v(
+                    "\n            " +
+                      _vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_HEADER_HELP")) +
+                      "\n        "
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -66232,11 +65866,17 @@ var render = function() {
                   attrs: { id: "alpheios-actions-menu-button__enter-options" },
                   on: {
                     click: function($event) {
-                      _vm.showModalOptions = true
+                      return _vm.$modal.show("options-edit")
                     }
                   }
                 },
-                [_vm._v("\n            Options\n        ")]
+                [
+                  _vm._v(
+                    "\n            " +
+                      _vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_HEADER_OPTIONS")) +
+                      "\n        "
+                  )
+                ]
               )
             ]
           ),
@@ -66253,11 +65893,17 @@ var render = function() {
                   attrs: { id: "alpheios-actions-menu-button__enter-save" },
                   on: {
                     click: function($event) {
-                      _vm.showModalSave = true
+                      return _vm.$modal.show("save-edit")
                     }
                   }
                 },
-                [_vm._v("\n            Save locally\n        ")]
+                [
+                  _vm._v(
+                    "\n            " +
+                      _vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_HEADER_SAVE")) +
+                      "\n        "
+                  )
+                ]
               )
             ]
           )
@@ -66267,10 +65913,10 @@ var render = function() {
       _vm.renderTokensEditor ? _c("tokens-editor-inner-block") : _vm._e(),
       _vm._v(" "),
       _c("help-popup", {
-        attrs: { showModal: _vm.showModalHelp },
+        attrs: { mname: "help-edit" },
         on: {
           closeModal: function($event) {
-            _vm.showModalHelp = false
+            return _vm.$modal.hide("help-edit")
           }
         },
         scopedSlots: _vm._u([
@@ -66285,19 +65931,18 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("save-popup", {
-        attrs: { showModal: _vm.showModalSave },
+        attrs: { mname: "save-edit" },
         on: {
           closeModal: function($event) {
-            _vm.showModalSave = false
+            return _vm.$modal.hide("save-edit")
           }
         }
       }),
       _vm._v(" "),
       _c("options-text-edit-popup", {
-        attrs: { showModal: _vm.showModalOptions },
         on: {
           closeModal: function($event) {
-            _vm.showModalOptions = false
+            return _vm.$modal.hide("options-edit")
           }
         }
       })
@@ -67150,7 +66795,7 @@ module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit text","de
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"1","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":false,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":true,"labelText":"Show language check before text would be prepared","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerPart":{"defaultValue":1000,"labelText":"Max characters per part (recommended for performance), to be used in Align Text","number":true,"minValue":1,"maxValue":50000,"values":[]},"addIndexedDBSupport":{"defaultValue":true,"labelText":"Add IndexedDB support","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"availableAnnotationTypes":{"defaultValue":["COMMENT"],"labelText":"Available Annotation Types","multiValue":true,"values":[{"value":"COMMENT","text":"comment"},{"value":"LEMMAID","text":"lemmaID"},{"value":"MORPHOLOGY","text":"morphology"}]}}}');
+module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"1","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":false,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":true,"labelText":"Show language check before text would be prepared","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerPart":{"defaultValue":1000,"labelText":"Max characters per part (recommended for performance), to be used in Align Text","number":true,"minValue":1,"maxValue":50000,"values":[]},"addIndexedDBSupport":{"defaultValue":true,"labelText":"Add IndexedDB support","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"availableAnnotationTypes":{"defaultValue":["COMMENT","LEMMAID","MORPHOLOGY"],"labelText":"Available Annotation Types","multiValue":true,"values":[{"value":"COMMENT","text":"comment"},{"value":"LEMMAID","text":"lemmaID"},{"value":"MORPHOLOGY","text":"morphology"}]}}}');
 
 /***/ }),
 

@@ -76,3 +76,23 @@
     transform: scale(1.1);
   }
 */
+.alpheios-modal-header {
+  position: relative;
+
+  .alpheios-alignment-modal-close-icon {
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 25px;
+      height: 25px;
+      cursor: pointer;
+
+      svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+        fill: #c6c6c6;
+      }
+  }
+}

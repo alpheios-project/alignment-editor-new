@@ -6,11 +6,12 @@ import AppController from '@/lib/controllers/app-controller.js'
 import DirectionOptionsBlock from '@/vue/text-editor/direction-options-block.vue'
 import OptionItemBlock from '@/vue/options/option-item-block.vue'
 import SettingsController from '@/lib/controllers/settings-controller'
-
+import VModal from 'vue-js-modal'
 import Vuex from "vuex"
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(VModal)
 
 let appC, localTextEditorOptions
 
