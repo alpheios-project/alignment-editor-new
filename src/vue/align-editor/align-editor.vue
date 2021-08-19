@@ -5,12 +5,16 @@
           <span class="alpheios-alignment-text-editor-block__header-link" @click="$emit('showSourceTextEditor')">{{ l10n.getMsgS('TEXT_EDITOR_LINK') }}</span>
           <span class="alpheios-alignment-text-editor-block__header-label">{{ l10n.getMsgS('ALIGN_EDITOR_HEADING') }}</span>
           <span class="alpheios-alignment-text-editor-block__header-link" @click="$emit('showTokensEditor')">{{ l10n.getMsgS('TOKENS_EDITOR_LINK') }}</span>
-          <div class="alpheios-alignment-checkbox-block alpheios-alignment-annotation-mode-check-container">
-            <input type="checkbox" v-model="annotationMode" id="alpheios-alignment-annotation-mode-check">
-            <label for="alpheios-alignment-annotation-mode-check" >
-              {{ l10n.getMsgS("ALIGN_EDITOR_ANNOTATION_MODE") }}
+          
+          <div class="alpheios-alignment-toggle-block alpheios-alignment-annotation-mode-check-container">
+            <label class="alpheios-switch">
+              <input type="checkbox" v-model="annotationMode" id="alpheios-alignment-annotation-mode-check">
+              <span class="alpheios-slider alpheios-round"></span>
             </label>
+            <span class="alpheios-switch-label">{{ l10n.getMsgS("ALIGN_EDITOR_ANNOTATION_MODE") }}</span>
           </div>
+
+
         </span>
         <span class="alpheios-alignment-text-editor-block__part alpheios-alignment-text-editor-block__part-2">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-help"
@@ -120,17 +124,12 @@ export default {
     min-height: initial;
     padding-top: 5px;
 
-    label {
-      display: block;
-      padding-top: 0;
-      width: auto;
-      line-height: initial;
-      text-align: left;
+
+    .alpheios-switch-label {
       font-weight: normal;
       font-size: 80%;
-      padding-left: 25px;
+      padding-left: 5px;
       line-height: 22px;
-      cursor: pointer;
     }
   }
 
