@@ -1128,7 +1128,7 @@ export default class Alignment {
     }
     if (data.annotations) {
       Object.keys(data.annotations).forEach(tokenIdWord => {
-        alignment.annotations[tokenIdWord] = data.annotations[tokenIdWord].map(annotData => {
+        alignment.annotations[tokenIdWord] = data.annotations[tokenIdWord].filter(annotData => annotData.tokenData).map(annotData => {
           const token = alignment.findTokenByTokenShortJSON(annotData.tokenData)
           return Annotation.convertFromJSON(annotData, token)
         })
@@ -1217,12 +1217,14 @@ export default class Alignment {
 
     if (dbData.annotations) {
       dbData.annotations.forEach(annotData => {
-        if (!alignment.annotations[annotData.tokenData.idWord]) {
-          alignment.annotations[annotData.tokenData.idWord] = []
-        }
-        const token = alignment.findTokenByTokenShortJSON(annotData.tokenData)
+        if (annotData.tokenData) {
+          if (!alignment.annotations[annotData.tokenData.idWord]) {
+            alignment.annotations[annotData.tokenData.idWord] = []
+          }
+          const token = alignment.findTokenByTokenShortJSON(annotData.tokenData)
 
-        alignment.annotations[annotData.tokenData.idWord].push(Annotation.convertFromJSON(annotData, token))
+          alignment.annotations[annotData.tokenData.idWord].push(Annotation.convertFromJSON(annotData, token))
+        }
       })
     }
 

@@ -85,6 +85,7 @@ export default {
       return L10nSingleton
     },
     renderAlignEditor ()  {
+      this.annotationMode = false
       return this.$store.state.alignmentUpdated && this.$store.state.uploadCheck &&this.$alignedGC.alignmentGroupsWorkflowStarted
     }
   },
