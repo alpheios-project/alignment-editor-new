@@ -43893,7 +43893,7 @@ class Alignment {
     }
     if (data.annotations) {
       Object.keys(data.annotations).forEach(tokenIdWord => {
-        alignment.annotations[tokenIdWord] = data.annotations[tokenIdWord].map(annotData => {
+        alignment.annotations[tokenIdWord] = data.annotations[tokenIdWord].filter(annotData => annotData.tokenData).map(annotData => {
           const token = alignment.findTokenByTokenShortJSON(annotData.tokenData)
           return _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__.default.convertFromJSON(annotData, token)
         })
@@ -43982,12 +43982,14 @@ class Alignment {
 
     if (dbData.annotations) {
       dbData.annotations.forEach(annotData => {
-        if (!alignment.annotations[annotData.tokenData.idWord]) {
-          alignment.annotations[annotData.tokenData.idWord] = []
-        }
-        const token = alignment.findTokenByTokenShortJSON(annotData.tokenData)
+        if (annotData.tokenData) {
+          if (!alignment.annotations[annotData.tokenData.idWord]) {
+            alignment.annotations[annotData.tokenData.idWord] = []
+          }
+          const token = alignment.findTokenByTokenShortJSON(annotData.tokenData)
 
-        alignment.annotations[annotData.tokenData.idWord].push(_lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__.default.convertFromJSON(annotData, token))
+          alignment.annotations[annotData.tokenData.idWord].push(_lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__.default.convertFromJSON(annotData, token))
+        }
       })
     }
 
@@ -47584,7 +47586,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i477-toggle-annotations-mode.20210819607" : 0
+    return  true ? "i462-annotations-2.20210819628" : 0
   }
 
   static get libName () {
@@ -48725,6 +48727,7 @@ __webpack_require__.r(__webpack_exports__);
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
     },
     renderAlignEditor ()  {
+      this.annotationMode = false
       return this.$store.state.alignmentUpdated && this.$store.state.uploadCheck &&this.$alignedGC.alignmentGroupsWorkflowStarted
     }
   },
