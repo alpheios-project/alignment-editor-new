@@ -47584,7 +47584,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i473-modal-draggable.20210818680" : 0
+    return  true ? "i477-toggle-annotations-mode.20210819607" : 0
   }
 
   static get libName () {
@@ -48638,6 +48638,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_options_options_text_align_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/options/options-text-align.vue */ "./vue/options/options-text-align.vue");
 /* harmony import */ var _vue_align_editor_annotation_block_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/align-editor/annotation-block.vue */ "./vue/align-editor/annotation-block.vue");
 /* harmony import */ var _vue_help_blocks_eng_help_block_align_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/help-blocks/eng/help-block-align.vue */ "./vue/help-blocks/eng/help-block-align.vue");
+//
+//
+//
+//
 //
 //
 //
@@ -59249,65 +59253,62 @@ var render = function() {
                 "div",
                 {
                   staticClass:
-                    "alpheios-alignment-checkbox-block alpheios-alignment-annotation-mode-check-container"
+                    "alpheios-alignment-toggle-block alpheios-alignment-annotation-mode-check-container"
                 },
                 [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.annotationMode,
-                        expression: "annotationMode"
-                      }
-                    ],
-                    attrs: {
-                      type: "checkbox",
-                      id: "alpheios-alignment-annotation-mode-check"
-                    },
-                    domProps: {
-                      checked: Array.isArray(_vm.annotationMode)
-                        ? _vm._i(_vm.annotationMode, null) > -1
-                        : _vm.annotationMode
-                    },
-                    on: {
-                      change: function($event) {
-                        var $$a = _vm.annotationMode,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 && (_vm.annotationMode = $$a.concat([$$v]))
+                  _c("label", { staticClass: "alpheios-switch" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.annotationMode,
+                          expression: "annotationMode"
+                        }
+                      ],
+                      attrs: {
+                        type: "checkbox",
+                        id: "alpheios-alignment-annotation-mode-check"
+                      },
+                      domProps: {
+                        checked: Array.isArray(_vm.annotationMode)
+                          ? _vm._i(_vm.annotationMode, null) > -1
+                          : _vm.annotationMode
+                      },
+                      on: {
+                        change: function($event) {
+                          var $$a = _vm.annotationMode,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = null,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 &&
+                                (_vm.annotationMode = $$a.concat([$$v]))
+                            } else {
+                              $$i > -1 &&
+                                (_vm.annotationMode = $$a
+                                  .slice(0, $$i)
+                                  .concat($$a.slice($$i + 1)))
+                            }
                           } else {
-                            $$i > -1 &&
-                              (_vm.annotationMode = $$a
-                                .slice(0, $$i)
-                                .concat($$a.slice($$i + 1)))
+                            _vm.annotationMode = $$c
                           }
-                        } else {
-                          _vm.annotationMode = $$c
                         }
                       }
-                    }
-                  }),
+                    }),
+                    _vm._v(" "),
+                    _c("span", {
+                      staticClass: "alpheios-slider alpheios-round"
+                    })
+                  ]),
                   _vm._v(" "),
-                  _c(
-                    "label",
-                    {
-                      attrs: { for: "alpheios-alignment-annotation-mode-check" }
-                    },
-                    [
-                      _vm._v(
-                        "\n            " +
-                          _vm._s(
-                            _vm.l10n.getMsgS("ALIGN_EDITOR_ANNOTATION_MODE")
-                          ) +
-                          "\n          "
-                      )
-                    ]
-                  )
+                  _c("span", { staticClass: "alpheios-switch-label" }, [
+                    _vm._v(
+                      _vm._s(_vm.l10n.getMsgS("ALIGN_EDITOR_ANNOTATION_MODE"))
+                    )
+                  ])
                 ]
               )
             ]
