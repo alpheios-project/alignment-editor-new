@@ -103,6 +103,10 @@ export default class SettingsController {
     return _instance.options.app && _instance.options.app.items.availableAnnotationTypes ? _instance.options.app.items.availableAnnotationTypes.currentValue : false
   }
 
+  static get maxCharactersAnnotationText () {
+    return _instance.options.app && _instance.options.app.items.maxCharactersAnnotationText ? _instance.options.app.items.maxCharactersAnnotationText.currentValue : 1000
+  }
+
   /**
    * @returns {Boolean} - true - if tokenize options are already defined
    */

@@ -24,6 +24,9 @@
             </select>
         </div>
         <div class="alpheios-alignment-editor-annotation-text-block">
+            <p class="alpheios-alignment-editor-text-blocks-info-line">
+              <span class="alpheios-alignment-editor-text-blocks-single__characters" :class = "charactersClasses">{{ charactersText }}</span>
+            </p>
             <textarea :id="textareaId" v-model="annotationText" 
                 class="alpheios-alignment-editor-annotation-textarea">
             ></textarea>
@@ -53,7 +56,7 @@
     <div class="alpheios-modal-footer" v-if="token">
       <p class="alpheios-alignment-annotations-footer__buttons" v-show = "currentState !== 'list'">
         <button class="alpheios-editor-button-tertiary alpheios-annotation-save-button" 
-            @click="saveAnnotation" >
+            @click="saveAnnotation" :disabled="textCharactersAmount > maxCharactersForTheText">
             {{ l10n.getMsgS('ANNOTATION_BLOCK_SAVE_BUTTON') }}
         </button>
       </p>
@@ -93,18 +96,12 @@ export default {
       fullTextAnnotations: []
     }
   },
-  mounted () {
-    if (this.hasAnnotations) {
-      this.currentState = 'list'
-    } else {
-      this.currentState = 'new'
-    }
-  },
   computed: {
     l10n () {
       return L10nSingleton
     },
     textareaId () {
+      this.defineCurrentState()
       return `alpheios-alignment-editor-annotation-textarea-${this.token.idWord}`
     },
     annotationTypes () {
@@ -122,9 +119,31 @@ export default {
     },
     isEditable () {
       return this.$store.state.updateAnnotations && this.$textC.annotationIsEditable(annotation)
+    },
+    textCharactersAmount () {
+      return this.annotationText ? this.annotationText.length : 0
+    },
+    maxCharactersForTheText () {
+      return this.$store.state.optionsUpdated && SettingsController.maxCharactersAnnotationText
+    },
+    charactersText () {
+      return `Characters count - ${this.textCharactersAmount} (max - ${this.maxCharactersForTheText})`
+    },
+    charactersClasses () {
+      return {
+        'alpheios-alignment-editor-hidden' : (this.textCharactersAmount === 0),
+        'alpheios-alignment-editor-red' :  (this.textCharactersAmount > this.maxCharactersForTheText)
+      }
     }
   },
   methods: {
+    defineCurrentState () {
+      if (this.hasAnnotations) {
+        this.currentState = 'list'
+      } else {
+        this.currentState = 'new'
+      }
+    },
     annotationTypeValue (anType) {
       return Annotation.types[anType]
     },
@@ -186,6 +205,11 @@ export default {
         border: 0;
         padding: 0;
     }
+
+    span.alpheios-alignment-editor-red {
+      color: #99002a;
+    }
+
     .alpheios-alignment-editor-annotation-textarea {
         width: 100%;
         min-height: 150px;
