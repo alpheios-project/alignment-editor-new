@@ -38884,6 +38884,10 @@ class AlignedGroupsController {
   getOpositeTokenTargetIdForScroll (token) {
     return this.alignment.getOpositeTokenTargetIdForScroll(token)
   }
+
+  get hasAlignmentGroups () {
+    return this.alignment && this.alignment.hasAlignmentGroups
+  }
 }
 
 
@@ -39274,7 +39278,8 @@ class DownloadController {
         name: 'jsonSimpleDownloadAll',
         label: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL'),
         tooltip: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP'),
-        alignmentStarted: false
+        alignmentStarted: false,
+        hasGroups: false
       },
       plainSourceDownloadAll: {
         method: this.plainSourceDownloadAll,
@@ -39282,7 +39287,8 @@ class DownloadController {
         name: 'plainSourceDownloadAll',
         label: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL'),
         tooltip: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP'),
-        alignmentStarted: false
+        alignmentStarted: false,
+        hasGroups: false
       },
       plainSourceDownloadSingle: { method: this.plainSourceDownloadSingle, allTexts: false },
       htmlDownloadAll: {
@@ -39291,7 +39297,8 @@ class DownloadController {
         name: 'htmlDownloadAll',
         label: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_HTML_LABEL'),
         tooltip: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_HTML_TOOLTIP'),
-        alignmentStarted: true
+        alignmentStarted: true,
+        hasGroups: true
       }
     }
   }
@@ -42407,14 +42414,14 @@ class AlignedText {
     return alignedText
   }
 
-  convertForHTMLOutput () {
+  convertToHTML () {
     return {
       dir: this.direction,
       lang: this.lang,
       langName: this.langName,
       segments: this.segments.map(seg => {
         return {
-          tokens: seg.tokens.map(token => token.convertForHTMLOutput())
+          tokens: seg.tokens.map(token => token.convertToHTML())
         }
       })
     }
@@ -44006,13 +44013,13 @@ class Alignment {
   convertToHTML () {
     let targets = {} // eslint-disable-line prefer-const
     this.allTargetTextsIds.forEach(targetId => {
-      targets[targetId] = this.targets[targetId].alignedText.convertForHTMLOutput()
+      targets[targetId] = this.targets[targetId].alignedText.convertToHTML()
 
       targets[targetId].metadata = this.targets[targetId].docSource.metadata.convertToJSONLine()
       targets[targetId].metadataShort = this.targets[targetId].docSource.metadata.convertToShortJSONLine()
     })
 
-    let origin = this.origin.alignedText.convertForHTMLOutput() // eslint-disable-line prefer-const
+    let origin = this.origin.alignedText.convertToHTML() // eslint-disable-line prefer-const
     origin.metadata = this.origin.docSource.metadata.convertToJSONLine()
     origin.metadataShort = this.origin.docSource.metadata.convertToShortJSONLine()
 
@@ -44197,6 +44204,10 @@ class Alignment {
 
   annotationIsEditable (annotation, availableTypes) {
     return annotation.isEditable(availableTypes)
+  }
+
+  get hasAlignmentGroups () {
+    return this.alignmentGroups.length > 0
   }
 }
 
@@ -45803,7 +45814,7 @@ class Token {
     }, data.segmentIndex, data.docSourceId)
   }
 
-  convertForHTMLOutput () {
+  convertToHTML () {
     return {
       textType: this.textType,
       idWord: this.idWord,
@@ -47590,7 +47601,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i480-max-ann-text.20210820532" : 0
+    return  true ? "i482-annotations-html-output.20210820581" : 0
   }
 
   static get libName () {
@@ -50221,7 +50232,8 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     downloadTypes () {
       return Boolean(this.$store.state.alignmentUpdated) && 
-             Object.values(_lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.downloadMethods).filter(method => method.allTexts && (!method.alignmentStarted || this.$alignedGC.alignmentGroupsWorkflowAvailable))
+             Object.values(_lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.downloadMethods)
+             .filter(method => method.allTexts && (!method.alignmentStarted || this.$alignedGC.alignmentGroupsWorkflowAvailable) && (!method.hasGroups || this.$alignedGC.hasAlignmentGroups))
     },
     classes () {
       return `alpheios-alignment-editor-modal-${this.mname}`

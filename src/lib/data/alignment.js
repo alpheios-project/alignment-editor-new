@@ -1237,13 +1237,13 @@ export default class Alignment {
   convertToHTML () {
     let targets = {} // eslint-disable-line prefer-const
     this.allTargetTextsIds.forEach(targetId => {
-      targets[targetId] = this.targets[targetId].alignedText.convertForHTMLOutput()
+      targets[targetId] = this.targets[targetId].alignedText.convertToHTML()
 
       targets[targetId].metadata = this.targets[targetId].docSource.metadata.convertToJSONLine()
       targets[targetId].metadataShort = this.targets[targetId].docSource.metadata.convertToShortJSONLine()
     })
 
-    let origin = this.origin.alignedText.convertForHTMLOutput() // eslint-disable-line prefer-const
+    let origin = this.origin.alignedText.convertToHTML() // eslint-disable-line prefer-const
     origin.metadata = this.origin.docSource.metadata.convertToJSONLine()
     origin.metadataShort = this.origin.docSource.metadata.convertToShortJSONLine()
 
@@ -1428,5 +1428,9 @@ export default class Alignment {
 
   annotationIsEditable (annotation, availableTypes) {
     return annotation.isEditable(availableTypes)
+  }
+
+  get hasAlignmentGroups () {
+    return this.alignmentGroups.length > 0
   }
 }

@@ -136,7 +136,7 @@ export default class Token {
     }, data.segmentIndex, data.docSourceId)
   }
 
-  convertForHTMLOutput () {
+  convertToHTML () {
     return {
       textType: this.textType,
       idWord: this.idWord,

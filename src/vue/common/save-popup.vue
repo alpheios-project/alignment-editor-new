@@ -56,7 +56,8 @@ export default {
   computed: {
     downloadTypes () {
       return Boolean(this.$store.state.alignmentUpdated) && 
-             Object.values(DownloadController.downloadMethods).filter(method => method.allTexts && (!method.alignmentStarted || this.$alignedGC.alignmentGroupsWorkflowAvailable))
+             Object.values(DownloadController.downloadMethods)
+             .filter(method => method.allTexts && (!method.alignmentStarted || this.$alignedGC.alignmentGroupsWorkflowAvailable) && (!method.hasGroups || this.$alignedGC.hasAlignmentGroups))
     },
     classes () {
       return `alpheios-alignment-editor-modal-${this.mname}`
