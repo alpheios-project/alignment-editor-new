@@ -2256,6 +2256,9 @@ span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-edit
   border: 0;
   padding: 0;
 }
+.alpheios-alignment-editor-modal-annotations span.alpheios-alignment-editor-red {
+  color: #99002a;
+}
 .alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-textarea {
   width: 100%;
   min-height: 150px;

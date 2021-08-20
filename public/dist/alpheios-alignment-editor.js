@@ -39678,6 +39678,10 @@ class SettingsController {
     return _instance.options.app && _instance.options.app.items.availableAnnotationTypes ? _instance.options.app.items.availableAnnotationTypes.currentValue : false
   }
 
+  static get maxCharactersAnnotationText () {
+    return _instance.options.app && _instance.options.app.items.maxCharactersAnnotationText ? _instance.options.app.items.maxCharactersAnnotationText.currentValue : 1000
+  }
+
   /**
    * @returns {Boolean} - true - if tokenize options are already defined
    */
@@ -47586,7 +47590,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i462-annotations-2.20210819628" : 0
+    return  true ? "i480-max-ann-text.20210820532" : 0
   }
 
   static get libName () {
@@ -48828,6 +48832,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -48861,18 +48868,12 @@ __webpack_require__.r(__webpack_exports__);
       fullTextAnnotations: []
     }
   },
-  mounted () {
-    if (this.hasAnnotations) {
-      this.currentState = 'list'
-    } else {
-      this.currentState = 'new'
-    }
-  },
   computed: {
     l10n () {
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
     },
     textareaId () {
+      this.defineCurrentState()
       return `alpheios-alignment-editor-annotation-textarea-${this.token.idWord}`
     },
     annotationTypes () {
@@ -48890,9 +48891,31 @@ __webpack_require__.r(__webpack_exports__);
     },
     isEditable () {
       return this.$store.state.updateAnnotations && this.$textC.annotationIsEditable(annotation)
+    },
+    textCharactersAmount () {
+      return this.annotationText ? this.annotationText.length : 0
+    },
+    maxCharactersForTheText () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.maxCharactersAnnotationText
+    },
+    charactersText () {
+      return `Characters count - ${this.textCharactersAmount} (max - ${this.maxCharactersForTheText})`
+    },
+    charactersClasses () {
+      return {
+        'alpheios-alignment-editor-hidden' : (this.textCharactersAmount === 0),
+        'alpheios-alignment-editor-red' :  (this.textCharactersAmount > this.maxCharactersForTheText)
+      }
     }
   },
   methods: {
+    defineCurrentState () {
+      if (this.hasAnnotations) {
+        this.currentState = 'list'
+      } else {
+        this.currentState = 'new'
+      }
+    },
     annotationTypeValue (anType) {
       return _lib_data_annotation_js__WEBPACK_IMPORTED_MODULE_2__.default.types[anType]
     },
@@ -51557,6 +51580,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -51590,14 +51614,16 @@ __webpack_require__.r(__webpack_exports__);
     showSummaryPopupOptionItem () {
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.showSummaryPopup
     },
-    maxCharactersPerPart () {
-      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.maxCharactersPerPart
-    },
-    addIndexedDBSupport () {
+
+    addIndexedDBSupportOptionItem () {
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.addIndexedDBSupport
     },
-    availableAnnotationTypes () {
+    availableAnnotationTypesOptionItem () {
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.availableAnnotationTypes
+    },
+
+    maxCharactersAnnotationTextOptionItem () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.maxCharactersAnnotationText
     },
     versionData () {
       return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`
@@ -59650,6 +59676,25 @@ var render = function() {
                   },
                   [
                     _c(
+                      "p",
+                      {
+                        staticClass:
+                          "alpheios-alignment-editor-text-blocks-info-line"
+                      },
+                      [
+                        _c(
+                          "span",
+                          {
+                            staticClass:
+                              "alpheios-alignment-editor-text-blocks-single__characters",
+                            class: _vm.charactersClasses
+                          },
+                          [_vm._v(_vm._s(_vm.charactersText))]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
                       "textarea",
                       {
                         directives: [
@@ -59821,6 +59866,10 @@ var render = function() {
                   {
                     staticClass:
                       "alpheios-editor-button-tertiary alpheios-annotation-save-button",
+                    attrs: {
+                      disabled:
+                        _vm.textCharactersAmount > _vm.maxCharactersForTheText
+                    },
                     on: { click: _vm.saveAnnotation }
                   },
                   [
@@ -62496,9 +62545,13 @@ var render = function() {
             _vm._v(" "),
             _c("option-item-block", {
               attrs: {
-                optionItem: _vm.availableAnnotationTypes,
+                optionItem: _vm.availableAnnotationTypesOptionItem,
                 disabled: _vm.disableAnnotationsTypes
               }
+            }),
+            _vm._v(" "),
+            _c("option-item-block", {
+              attrs: { optionItem: _vm.maxCharactersAnnotationTextOptionItem }
             }),
             _vm._v(" "),
             _c("option-item-block", {
@@ -62514,11 +62567,7 @@ var render = function() {
             }),
             _vm._v(" "),
             _c("option-item-block", {
-              attrs: { optionItem: _vm.maxCharactersPerPart }
-            }),
-            _vm._v(" "),
-            _c("option-item-block", {
-              attrs: { optionItem: _vm.addIndexedDBSupport }
+              attrs: { optionItem: _vm.addIndexedDBSupportOptionItem }
             })
           ],
           1
@@ -66799,7 +66848,7 @@ module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit text","de
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"1","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":false,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":true,"labelText":"Show language check before text would be prepared","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerPart":{"defaultValue":1000,"labelText":"Max characters per part (recommended for performance), to be used in Align Text","number":true,"minValue":1,"maxValue":50000,"values":[]},"addIndexedDBSupport":{"defaultValue":true,"labelText":"Add IndexedDB support","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"availableAnnotationTypes":{"defaultValue":["COMMENT","LEMMAID","MORPHOLOGY"],"labelText":"Available Annotation Types","multiValue":true,"values":[{"value":"COMMENT","text":"comment"},{"value":"LEMMAID","text":"lemmaID"},{"value":"MORPHOLOGY","text":"morphology"}]}}}');
+module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"1","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":false,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":true,"labelText":"Show language check before text would be prepared","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerPart":{"defaultValue":1000,"labelText":"Max characters per part (recommended for performance), to be used in Align Text","number":true,"minValue":1,"maxValue":50000,"values":[]},"addIndexedDBSupport":{"defaultValue":true,"labelText":"Add IndexedDB support","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"availableAnnotationTypes":{"defaultValue":["COMMENT","LEMMAID","MORPHOLOGY"],"labelText":"Available Annotation Types","multiValue":true,"values":[{"value":"COMMENT","text":"comment"},{"value":"LEMMAID","text":"lemmaID"},{"value":"MORPHOLOGY","text":"morphology"}]},"maxCharactersAnnotationText":{"defaultValue":500,"labelText":"Max characters in annotation text","number":true,"minValue":1,"maxValue":5000,"values":[]}}}');
 
 /***/ }),
 

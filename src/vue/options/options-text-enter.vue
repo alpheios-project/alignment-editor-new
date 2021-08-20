@@ -11,12 +11,13 @@
         <div class="alpheios-alignment-editor-modal-options-block">
             <option-item-block :optionItem = "themeOptionItem" />
             <option-item-block :optionItem = "tokenizerOptionItem" />
-            <option-item-block :optionItem = "availableAnnotationTypes"  :disabled = "disableAnnotationsTypes" />
+            <option-item-block :optionItem = "availableAnnotationTypesOptionItem"  :disabled = "disableAnnotationsTypes" />
+            <option-item-block :optionItem = "maxCharactersAnnotationTextOptionItem" />
+
             <option-item-block :optionItem = "maxCharactersOptionItem" />
             <option-item-block :optionItem = "useSpecificEnglishTokenizerOptionItem" />
             <option-item-block :optionItem = "showSummaryPopupOptionItem" />
-            <option-item-block :optionItem = "maxCharactersPerPart" />
-            <option-item-block :optionItem = "addIndexedDBSupport"/>
+            <option-item-block :optionItem = "addIndexedDBSupportOptionItem"/>
         </div>
     </div>
     <div class="alpheios-modal-footer" >
@@ -68,14 +69,16 @@ export default {
     showSummaryPopupOptionItem () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.showSummaryPopup
     },
-    maxCharactersPerPart () {
-      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.maxCharactersPerPart
-    },
-    addIndexedDBSupport () {
+
+    addIndexedDBSupportOptionItem () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.addIndexedDBSupport
     },
-    availableAnnotationTypes () {
+    availableAnnotationTypesOptionItem () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.availableAnnotationTypes
+    },
+
+    maxCharactersAnnotationTextOptionItem () {
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.maxCharactersAnnotationText
     },
     versionData () {
       return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`
