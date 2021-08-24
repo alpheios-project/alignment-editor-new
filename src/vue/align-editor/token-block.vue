@@ -102,7 +102,8 @@ export default {
     .alpheios-alignment-editor-align-text-segment {
         span.alpheios-token {
             cursor: pointer;
-            padding: 4px;
+            padding: 2px 2px 0 2px;
+            margin-bottom: 2px;
             border: 1px solid transparent;
             display: inline-block;
             vertical-align: top;
@@ -143,7 +144,7 @@ export default {
             }
 
             &.alpheios-token-has-annotations {
-              text-decoration: underline;
+              border-bottom: 1px solid;
             }
         }
     }
