@@ -52,26 +52,15 @@ export default {
     .alpheios-al-editor-container-inner {
       span.alpheios-token {
           cursor: pointer;
-          padding: 4px;
+          padding: 2px 2px 0 2px;
+          margin-bottom: 2px;
           border: 1px solid transparent;
           display: inline-block;
           vertical-align: top;
 
           &.alpheios-token-annotated {
-            text-decoration: underline;
+            border-bottom: 1px solid;
           }
-/*
-          &.alpheios-token-grouped {
-            border-color: #BCE5F0;
-            background: #BCE5F0;
-          }
-
-          &.alpheios-token-selected {
-            border-color: #F27431;
-            background: #F27431;
-            color: #fff;
-          }
-*/
       }
   }
 </style>
