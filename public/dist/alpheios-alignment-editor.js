@@ -44023,38 +44023,39 @@ class Alignment {
     origin.metadata = this.origin.docSource.metadata.convertToJSONLine()
     origin.metadataShort = this.origin.docSource.metadata.convertToShortJSONLine()
 
+    const collectGroupData = (token) => {
+      token.grouped = this.tokenIsGrouped(token)
+      if (token.grouped) {
+        const tokenGroups = this.findAllAlignmentGroups(token)
+        if (!token.groupData) { token.groupData = [] }
+        tokenGroups.forEach(tokenGroup => {
+          token.groupData.push({
+            groupId: tokenGroup.id,
+            targetId: tokenGroup.targetId
+          })
+        })
+      }
+    }
+
+    const collectAnnotationData = (token) => {
+      token.annotated = this.annotations[token.idWord] && this.annotations[token.idWord].length > 0
+      if (token.annotated) {
+        token.annotationData = this.annotations[token.idWord].map(annotation => annotation.convertToHTML())
+      }
+    }
+
     origin.segments.forEach(seg => {
       seg.tokens.forEach(token => {
-        token.grouped = this.tokenIsGrouped(token)
-
-        if (token.grouped) {
-          const tokenGroups = this.findAllAlignmentGroups(token)
-          if (!token.groupData) { token.groupData = [] }
-
-          tokenGroups.forEach(tokenGroup => {
-            token.groupData.push({
-              groupId: tokenGroup.id,
-              targetId: tokenGroup.targetId
-            })
-          })
-        }
+        collectGroupData(token)
+        collectAnnotationData(token)
       })
     })
 
     this.allTargetTextsIds.forEach(targetId => {
       targets[targetId].segments.forEach(seg => {
         seg.tokens.forEach(token => {
-          token.grouped = this.tokenIsGrouped(token)
-          if (token.grouped) {
-            const tokenGroups = this.findAllAlignmentGroups(token)
-            if (!token.groupData) { token.groupData = [] }
-            tokenGroups.forEach(tokenGroup => {
-              token.groupData.push({
-                groupId: tokenGroup.id,
-                targetId: tokenGroup.targetId
-              })
-            })
-          }
+          collectGroupData(token)
+          collectAnnotationData(token)
         })
       })
     })
@@ -44264,6 +44265,15 @@ class Annotation {
     return {
       id: this.id,
       tokenData: this.token.convertToShortJSON(),
+      type: this.type,
+      text: this.text,
+      index: this.index
+    }
+  }
+
+  convertToHTML () {
+    return {
+      id: this.id,
       type: this.type,
       text: this.text,
       index: this.index
@@ -47601,7 +47611,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i482-annotations-html-output.20210820581" : 0
+    return  true ? "i482-annotations-html-output-2.20210824429" : 0
   }
 
   static get libName () {
@@ -66717,7 +66727,7 @@ module.exports = JSON.parse('[{"value":"eng","label":"English"},{"value":"lat","
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"params":["theme","stylePath","jsPath","pageTitle","fullData"],"stylePath":"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/dist/output/style/style-alignment-editor-output.css","jsPath":"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/dist/output/alpheios-alignment-editor-output.js","pageTitle":"Alpheios Alignment Editor|Result","layout":"<!DOCTYPE html> <html class=\\"{{theme}}\\"> <head> <meta charset=\\"UTF-8\\"> <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\"> <title>{{pageTitle}}</title> <link rel=\\"icon\\" type=\\"image/x-icon\\" href=\\"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/logo.ico\\"> <link rel=\\"stylesheet\\" href=\\"{{stylePath}}\\"/> <script src=\\"{{jsPath}}\\"></script> </head> <body class=\\"{{theme}}\\"> <div class=\\"container\\"> <div id=\\"alpheios-alignment-editor-output\\"></div> </div> <script> document.addEventListener(\\"DOMContentLoaded\\", function(event) { new window.AlignmentEditorOutput.Vue({ data: { fullData: {{fullData}} }, render: (h) => h(window.AlignmentEditorOutput.App)}).$mount(\'#alpheios-alignment-editor-output\') }) </script> </body> </html>"}');
+module.exports = JSON.parse('{"params":["theme","stylePath","jsPath","pageTitle","fullData"],"stylePath2":"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/dist/output/style/style-alignment-editor-output.css","stylePath":"C:/_Alpheios/alignment-editor/public/dist/output/style/style-alignment-editor-output.css","jsPath2":"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/dist/output/alpheios-alignment-editor-output.js","jsPath":"C:/_Alpheios/alignment-editor/public/dist/output/alpheios-alignment-editor-output.js","pageTitle":"Alpheios Alignment Editor|Result","layout2":"<!DOCTYPE html> <html class=\\"{{theme}}\\"> <head> <meta charset=\\"UTF-8\\"> <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\"> <title>{{pageTitle}}</title> <link rel=\\"icon\\" type=\\"image/x-icon\\" href=\\"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/logo.ico\\"> <link rel=\\"stylesheet\\" href=\\"{{stylePath}}\\"/> <script src=\\"{{jsPath}}\\"></script> </head> <body class=\\"{{theme}}\\"> <div class=\\"container\\"> <div id=\\"alpheios-alignment-editor-output\\"></div> </div> <script> document.addEventListener(\\"DOMContentLoaded\\", function(event) { new window.AlignmentEditorOutput.Vue({ data: { fullData: {{fullData}} }, render: (h) => h(window.AlignmentEditorOutput.App)}).$mount(\'#alpheios-alignment-editor-output\') }) </script> </body> </html>","layout":"<!DOCTYPE html> <html class=\\"{{theme}}\\"> <head> <meta charset=\\"UTF-8\\"> <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\"> <title>{{pageTitle}}</title> <link rel=\\"icon\\" type=\\"image/x-icon\\" href=\\"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/logo.ico\\"> <link rel=\\"stylesheet\\" href=\\"{{stylePath}}\\"/> <script src=\\"{{jsPath}}\\"></script> </head> <body class=\\"{{theme}}\\"> <div class=\\"container\\"> <div id=\\"alpheios-alignment-editor-output\\"></div> </div> <script> document.addEventListener(\\"DOMContentLoaded\\", function(event) { new window.AlignmentEditorOutput.AppController({{fullData}}) }) </script> </body> </html>"}');
 
 /***/ }),
 

@@ -1247,38 +1247,39 @@ export default class Alignment {
     origin.metadata = this.origin.docSource.metadata.convertToJSONLine()
     origin.metadataShort = this.origin.docSource.metadata.convertToShortJSONLine()
 
+    const collectGroupData = (token) => {
+      token.grouped = this.tokenIsGrouped(token)
+      if (token.grouped) {
+        const tokenGroups = this.findAllAlignmentGroups(token)
+        if (!token.groupData) { token.groupData = [] }
+        tokenGroups.forEach(tokenGroup => {
+          token.groupData.push({
+            groupId: tokenGroup.id,
+            targetId: tokenGroup.targetId
+          })
+        })
+      }
+    }
+
+    const collectAnnotationData = (token) => {
+      token.annotated = this.annotations[token.idWord] && this.annotations[token.idWord].length > 0
+      if (token.annotated) {
+        token.annotationData = this.annotations[token.idWord].map(annotation => annotation.convertToHTML())
+      }
+    }
+
     origin.segments.forEach(seg => {
       seg.tokens.forEach(token => {
-        token.grouped = this.tokenIsGrouped(token)
-
-        if (token.grouped) {
-          const tokenGroups = this.findAllAlignmentGroups(token)
-          if (!token.groupData) { token.groupData = [] }
-
-          tokenGroups.forEach(tokenGroup => {
-            token.groupData.push({
-              groupId: tokenGroup.id,
-              targetId: tokenGroup.targetId
-            })
-          })
-        }
+        collectGroupData(token)
+        collectAnnotationData(token)
       })
     })
 
     this.allTargetTextsIds.forEach(targetId => {
       targets[targetId].segments.forEach(seg => {
         seg.tokens.forEach(token => {
-          token.grouped = this.tokenIsGrouped(token)
-          if (token.grouped) {
-            const tokenGroups = this.findAllAlignmentGroups(token)
-            if (!token.groupData) { token.groupData = [] }
-            tokenGroups.forEach(tokenGroup => {
-              token.groupData.push({
-                groupId: tokenGroup.id,
-                targetId: tokenGroup.targetId
-              })
-            })
-          }
+          collectGroupData(token)
+          collectAnnotationData(token)
         })
       })
     })

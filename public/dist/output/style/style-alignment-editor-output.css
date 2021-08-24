@@ -582,6 +582,9 @@ body, html {
             }
   */
 }
+.alpheios-al-editor-container-inner span.alpheios-token.alpheios-token-annotated {
+  text-decoration: underline;
+}
 .alpheios-al-editor-segment-cell-origin-row {
   position: relative;
   padding: 10px;
