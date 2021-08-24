@@ -131,14 +131,14 @@ export default class AlignedText {
     return alignedText
   }
 
-  convertForHTMLOutput () {
+  convertToHTML () {
     return {
       dir: this.direction,
       lang: this.lang,
       langName: this.langName,
       segments: this.segments.map(seg => {
         return {
-          tokens: seg.tokens.map(token => token.convertForHTMLOutput())
+          tokens: seg.tokens.map(token => token.convertToHTML())
         }
       })
     }

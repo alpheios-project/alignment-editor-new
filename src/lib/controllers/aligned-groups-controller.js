@@ -309,4 +309,8 @@ export default class AlignedGroupsController {
   getOpositeTokenTargetIdForScroll (token) {
     return this.alignment.getOpositeTokenTargetIdForScroll(token)
   }
+
+  get hasAlignmentGroups () {
+    return this.alignment && this.alignment.hasAlignmentGroups
+  }
 }

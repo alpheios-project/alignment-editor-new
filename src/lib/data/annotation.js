@@ -41,6 +41,15 @@ export default class Annotation {
     }
   }
 
+  convertToHTML () {
+    return {
+      id: this.id,
+      type: Annotation.types[this.type],
+      text: this.text,
+      index: this.index
+    }
+  }
+
   static convertFromJSON (data, token) {
     return new Annotation({
       annId: data.id || data.annotationId,
