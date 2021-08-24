@@ -42,7 +42,7 @@ export default {
   methods: {
     checkAnnotations () {
       if (this.token.annotated) {
-        this.$modal.show('annotations')
+        this.$modal.show('annotations', { token: this.token })
       }
     }
   }

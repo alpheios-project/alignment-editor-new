@@ -44,7 +44,7 @@ export default class Annotation {
   convertToHTML () {
     return {
       id: this.id,
-      type: this.type,
+      type: Annotation.types[this.type],
       text: this.text,
       index: this.index
     }

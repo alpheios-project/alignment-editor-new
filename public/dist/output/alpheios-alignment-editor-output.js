@@ -11,6 +11,16 @@
 
 /***/ }),
 
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./_output/vue/annotation-block.vue?vue&type=style&index=0&lang=scss&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./_output/vue/annotation-block.vue?vue&type=style&index=0&lang=scss& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (() => {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./_output/vue/app.vue?vue&type=style&index=0&lang=scss&":
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./_output/vue/app.vue?vue&type=style&index=0&lang=scss& ***!
@@ -13061,6 +13071,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -13068,8 +13098,41 @@ __webpack_require__.r(__webpack_exports__);
   name: 'AnnotationBlock',
   components: {
     xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_0___default())
-  }
+  },
+  data () {
+    return {
+      token: null,
+      fullTextAnnotations: []
+    }
+  },
+  computed: {
+    allAnnotations () {
+      return this.token.annotationData
+    }
+  },
+  methods: {
+    beforeOpen (data) {
+      this.token = data.params.token
+    },
+    beforeClose () {
+      this.token = null
+    },
+    annotationClass (annotation) {
+      return {
+        'alpheios-alignment-editor-annotation-list-item__full': this.fullTextAnnotations.includes(annotation.id)
+      }
+    },
+    toggleAnnotationText (id) {
+      const idIndex = this.fullTextAnnotations.indexOf(id)
 
+      if (idIndex >= 0) {
+        this.fullTextAnnotations.splice(idIndex, 1)
+      } else {
+        this.fullTextAnnotations.push(id)
+      }
+    }
+  }
+  
 });
 
 
@@ -13738,7 +13801,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     checkAnnotations () {
       if (this.token.annotated) {
-        this.$modal.show('annotations')
+        this.$modal.show('annotations', { token: this.token })
       }
     }
   }
@@ -14687,15 +14750,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _annotation_block_vue_vue_type_template_id_2ae97516___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./annotation-block.vue?vue&type=template&id=2ae97516& */ "./_output/vue/annotation-block.vue?vue&type=template&id=2ae97516&");
 /* harmony import */ var _annotation_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./annotation-block.vue?vue&type=script&lang=js& */ "./_output/vue/annotation-block.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _annotation_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./annotation-block.vue?vue&type=style&index=0&lang=scss& */ "./_output/vue/annotation-block.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
+;
 
 
 /* normalize component */
-;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
   _annotation_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
   _annotation_block_vue_vue_type_template_id_2ae97516___WEBPACK_IMPORTED_MODULE_0__.render,
   _annotation_block_vue_vue_type_template_id_2ae97516___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
@@ -15202,6 +15267,23 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 if (false) { var api; }
 component.options.__file = "_output/vue/views/al-groups-view-short.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./_output/vue/annotation-block.vue?vue&type=style&index=0&lang=scss&":
+/*!****************************************************************************!*\
+  !*** ./_output/vue/annotation-block.vue?vue&type=style&index=0&lang=scss& ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_annotation_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./annotation-block.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./_output/vue/annotation-block.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_annotation_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_annotation_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_annotation_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_annotation_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
 
 /***/ }),
 
@@ -15862,28 +15944,106 @@ var render = function() {
         name: "annotations",
         draggable: true,
         height: "auto"
-      }
+      },
+      on: { "before-open": _vm.beforeOpen, "before-close": _vm.beforeClose }
     },
     [
-      _c("div", { staticClass: "alpheios-modal-header" }, [
-        _c(
-          "span",
-          {
-            staticClass: "alpheios-alignment-modal-close-icon",
-            on: {
-              click: function($event) {
-                return _vm.$emit("closeModal")
-              }
-            }
-          },
-          [_c("x-close-icon")],
-          1
-        ),
-        _vm._v(" "),
-        _c("h3", { staticClass: "alpheios-alignment-editor-modal-header" }, [
-          _vm._v("Test annotation")
-        ])
-      ])
+      _vm.token
+        ? _c("div", { staticClass: "alpheios-modal-header" }, [
+            _c(
+              "span",
+              {
+                staticClass: "alpheios-alignment-modal-close-icon",
+                on: {
+                  click: function($event) {
+                    return _vm.$modal.hide("annotations")
+                  }
+                }
+              },
+              [_c("x-close-icon")],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "h3",
+              { staticClass: "alpheios-alignment-editor-modal-header" },
+              [_vm._v(_vm._s(_vm.token.word))]
+            )
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.token
+        ? _c("div", { staticClass: "alpheios-modal-body" }, [
+            _c(
+              "table",
+              { staticClass: "alpheios-alignment-editor-annotation-list" },
+              _vm._l(_vm.allAnnotations, function(annotation) {
+                return _c(
+                  "tr",
+                  {
+                    key: annotation.id,
+                    staticClass:
+                      "alpheios-alignment-editor-annotation-list-item",
+                    class: _vm.annotationClass(annotation)
+                  },
+                  [
+                    _c(
+                      "td",
+                      {
+                        staticClass:
+                          "alpheios-alignment-editor-annotation-list-item__type"
+                      },
+                      [
+                        _vm._v(
+                          "\n          " +
+                            _vm._s(annotation.type) +
+                            "\n        "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      {
+                        staticClass:
+                          "alpheios-alignment-editor-annotation-list-item__type"
+                      },
+                      [
+                        _vm._v(
+                          "\n          " +
+                            _vm._s(annotation.index) +
+                            "\n        "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      {
+                        staticClass:
+                          "alpheios-alignment-editor-annotation-list-item__text"
+                      },
+                      [
+                        _c(
+                          "span",
+                          {
+                            on: {
+                              click: function($event) {
+                                return _vm.toggleAnnotationText(annotation.id)
+                              }
+                            }
+                          },
+                          [_vm._v(_vm._s(annotation.text))]
+                        )
+                      ]
+                    )
+                  ]
+                )
+              }),
+              0
+            )
+          ])
+        : _vm._e()
     ]
   )
 }

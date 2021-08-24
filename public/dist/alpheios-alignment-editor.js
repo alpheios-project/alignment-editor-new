@@ -44274,7 +44274,7 @@ class Annotation {
   convertToHTML () {
     return {
       id: this.id,
-      type: this.type,
+      type: Annotation.types[this.type],
       text: this.text,
       index: this.index
     }
@@ -47611,7 +47611,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i482-annotations-html-output-2.20210824429" : 0
+    return  true ? "i482-annotations-html-output-2.20210824445" : 0
   }
 
   static get libName () {
