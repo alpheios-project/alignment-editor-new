@@ -145,7 +145,6 @@ export default {
 
             &.alpheios-token-has-annotations {
               border-bottom: 1px solid;
-              border-bottom-color: inherit;
             }
         }
     }
