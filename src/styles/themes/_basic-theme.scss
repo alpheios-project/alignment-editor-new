@@ -149,6 +149,10 @@
                     border-color: map.get($theme, 'align-editor-text-border-color-grouped-hover');
                     background: map.get($theme, 'align-editor-text-background-color-grouped-hover');
                 }
+
+                &.alpheios-token-has-annotations {
+                    border-bottom-color: map.get($theme, 'align-editor-text-color-grouped');
+                }
             }
 
             &.alpheios-token-selected {
