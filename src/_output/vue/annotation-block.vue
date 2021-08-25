@@ -6,7 +6,7 @@
         <span class="alpheios-alignment-modal-close-icon" @click = "$modal.hide('annotations')">
             <x-close-icon />
         </span>
-        <h3 class="alpheios-alignment-editor-modal-header">{{ token.word }}</h3>
+        <h3 class="alpheios-alignment-editor-modal-header">Annotation for {{ token.word }}</h3>
     </div>
     <div class="alpheios-modal-body" v-if="token">
       <table class = "alpheios-alignment-editor-annotation-list">

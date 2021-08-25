@@ -15967,7 +15967,7 @@ var render = function() {
             _c(
               "h3",
               { staticClass: "alpheios-alignment-editor-modal-header" },
-              [_vm._v(_vm._s(_vm.token.word))]
+              [_vm._v("Annotation for " + _vm._s(_vm.token.word))]
             )
           ])
         : _vm._e(),
@@ -17723,13 +17723,16 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "OutputStyle": () => (/* reexport default from dynamic */ _output_styles_style_scss__WEBPACK_IMPORTED_MODULE_0___default.a),
-/* harmony export */   "Vue": () => (/* reexport safe */ _vue_runtime__WEBPACK_IMPORTED_MODULE_2__.default),
+/* harmony export */   "Vue": () => (/* reexport safe */ _vue_runtime__WEBPACK_IMPORTED_MODULE_3__.default),
+/* harmony export */   "App": () => (/* reexport safe */ _output_vue_app_vue__WEBPACK_IMPORTED_MODULE_2__.default),
 /* harmony export */   "AppController": () => (/* reexport safe */ _output_controller_app_controller_js__WEBPACK_IMPORTED_MODULE_1__.default)
 /* harmony export */ });
 /* harmony import */ var _output_styles_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/_output/styles/style.scss */ "./_output/styles/style.scss");
 /* harmony import */ var _output_styles_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_output_styles_style_scss__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _output_controller_app_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/_output/controller/app-controller.js */ "./_output/controller/app-controller.js");
-/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
+/* harmony import */ var _output_vue_app_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/_output/vue/app.vue */ "./_output/vue/app.vue");
+/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
+
 
 
 
