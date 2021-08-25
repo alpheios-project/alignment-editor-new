@@ -44144,7 +44144,7 @@ class Alignment {
   }
 
   addAnnotation ({ id, token, type, text } = {}) {
-    if ((id && token && (type || text)) || (token && type && text)) {
+    if (token && type && text) {
       const existedAnnotation = this.existedAnnotation(token, id)
       if (existedAnnotation) {
         return existedAnnotation.update({ type, text })
@@ -47616,7 +47616,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i486-edit-empty-text.20210825606" : 0
+    return  true ? "i482-html-output-annotations.20210825628" : 0
   }
 
   static get libName () {
