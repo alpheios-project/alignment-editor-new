@@ -47611,7 +47611,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i482-annotations-html-output-2.20210824621" : 0
+    return  true ? "i489-annotated-grouped-styles.20210825369" : 0
   }
 
   static get libName () {
