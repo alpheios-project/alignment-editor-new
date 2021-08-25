@@ -47616,7 +47616,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i482-html-output-annotations.20210825628" : 0
+    return  true ? "i482-html-output-annotations-2.20210826295" : 0
   }
 
   static get libName () {
@@ -49464,7 +49464,7 @@ __webpack_require__.r(__webpack_exports__);
         'alpheios-token-clicked': this.inActiveGroup,
         'alpheios-token-clicked-first': this.firstInActiveGroup,
         'alpheios-token-part-shadowed': (this.token.partNum % 2 === 0),
-        'alpheios-token-has-annotations': this.hasAnnotations,
+        'alpheios-token-annotated': this.hasAnnotations,
         'alpheios-token-annotation-mode': this.annotationMode
       }
     }, 

@@ -150,7 +150,7 @@
                     background: map.get($theme, 'align-editor-text-background-color-grouped-hover');
                 }
 
-                &.alpheios-token-has-annotations {
+                &.alpheios-token-annotated {
                     border-bottom-color: map.get($theme, 'align-editor-text-color-grouped');
                 }
             }

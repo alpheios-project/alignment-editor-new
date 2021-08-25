@@ -754,7 +754,7 @@ div.alpheios-alignment-checkbox-block {
   border-color: #BCE5F0;
   background: #BCE5F0;
 }
-.alpheios-standard-theme .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-grouped.alpheios-token-has-annotations {
+.alpheios-standard-theme .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-grouped.alpheios-token-annotated {
   border-bottom-color: #212529;
 }
 .alpheios-standard-theme .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-selected {
@@ -972,7 +972,7 @@ div.alpheios-alignment-checkbox-block {
   border-color: gray;
   background: #ffd740;
 }
-.alpheios-v1-theme .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-grouped.alpheios-token-has-annotations {
+.alpheios-v1-theme .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-grouped.alpheios-token-annotated {
   border-bottom-color: #282828;
 }
 .alpheios-v1-theme .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-selected {
@@ -2101,7 +2101,7 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   background: #f06d26;
   color: #fff;
 }
-.alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-has-annotations {
+.alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-annotated {
   border-bottom: 1px solid;
 }
 .alpheios-alignment-editor-align-text-segment .alpheios-alignment-editor-align-text-segment-tokens {

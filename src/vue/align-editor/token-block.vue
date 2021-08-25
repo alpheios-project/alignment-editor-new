@@ -55,7 +55,7 @@ export default {
         'alpheios-token-clicked': this.inActiveGroup,
         'alpheios-token-clicked-first': this.firstInActiveGroup,
         'alpheios-token-part-shadowed': (this.token.partNum % 2 === 0),
-        'alpheios-token-has-annotations': this.hasAnnotations,
+        'alpheios-token-annotated': this.hasAnnotations,
         'alpheios-token-annotation-mode': this.annotationMode
       }
     }, 
@@ -143,7 +143,7 @@ export default {
               color: #fff;
             }
 
-            &.alpheios-token-has-annotations {
+            &.alpheios-token-annotated {
               border-bottom: 1px solid;
             }
         }
