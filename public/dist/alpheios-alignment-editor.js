@@ -40502,7 +40502,7 @@ class TextsController {
    * @returns {Boolean} - action result
    */
   addAnnotation ({ id, token, type, text } = {}) {
-    if ((id && token && (type || text)) || (token && type && text)) {
+    if (token && type && text) {
       this.alignment.addAnnotation({ id, token, type, text })
       this.store.commit('incrementUpdateAnnotations')
       _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment)
@@ -44157,9 +44157,14 @@ class Alignment {
         this.annotations[token.idWord] = []
       }
 
-      const newTypeIndex = this.annotations[token.idWord].filter(annotation => annotation.type === type).length + 1
+      let lastTypeIndex = 0
+      this.annotations[token.idWord].forEach(annot => {
+        if ((annot.type === type) && (lastTypeIndex < annot.index)) {
+          lastTypeIndex = annot.index
+        }
+      })
 
-      const annotation = new _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__.default({ token, type, text, index: newTypeIndex })
+      const annotation = new _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__.default({ token, type, text, index: lastTypeIndex + 1 })
 
       this.annotations[token.idWord].push(annotation)
       return true
@@ -47611,7 +47616,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i477-reduce-toggle-size.20210825586" : 0
+    return  true ? "i486-edit-empty-text.20210825606" : 0
   }
 
   static get libName () {
@@ -66760,7 +66765,7 @@ module.exports = JSON.parse('{"ALIGN_EDITOR_HEADING":{"message":"Align text","de
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"ANNOTATION_BLOCK_HEADER":{"message":"Annotation for {word}","description":"A header in annotation block","component":"AnnotationBlock","params":["word"]},"ANNOTATION_BLOCK_SAVE_BUTTON":{"message":"Save","description":"A save button","component":"AnnotationBlock"},"TEXTS_CONTROLLER_EMPTY_DATA_FOR_ANNOTATIONS":{"message":"There is not enough information for creating an annotation","description":"A error message for saving annotation","component":"TextController"},"ANNOTATION_BLOCK_SHOW_LIST":{"message":"Show Annotations ({count})","description":"A button in annotation block","component":"AnnotationBlock","params":["count"]},"ANNOTATION_BLOCK_ADD_ANNOTATION":{"message":"Add annotation","description":"A button in annotation block","component":"AnnotationBlock"}}');
+module.exports = JSON.parse('{"ANNOTATION_BLOCK_HEADER":{"message":"Annotation for {word}","description":"A header in annotation block","component":"AnnotationBlock","params":["word"]},"ANNOTATION_BLOCK_SAVE_BUTTON":{"message":"Save","description":"A save button","component":"AnnotationBlock"},"TEXTS_CONTROLLER_EMPTY_DATA_FOR_ANNOTATIONS":{"message":"There is not enough information for saving an annotation","description":"A error message for saving annotation","component":"TextController"},"ANNOTATION_BLOCK_SHOW_LIST":{"message":"Show Annotations ({count})","description":"A button in annotation block","component":"AnnotationBlock","params":["count"]},"ANNOTATION_BLOCK_ADD_ANNOTATION":{"message":"Add annotation","description":"A button in annotation block","component":"AnnotationBlock"}}');
 
 /***/ }),
 

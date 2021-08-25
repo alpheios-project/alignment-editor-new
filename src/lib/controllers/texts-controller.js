@@ -545,7 +545,7 @@ export default class TextsController {
    * @returns {Boolean} - action result
    */
   addAnnotation ({ id, token, type, text } = {}) {
-    if ((id && token && (type || text)) || (token && type && text)) {
+    if (token && type && text) {
       this.alignment.addAnnotation({ id, token, type, text })
       this.store.commit('incrementUpdateAnnotations')
       StorageController.update(this.alignment)
