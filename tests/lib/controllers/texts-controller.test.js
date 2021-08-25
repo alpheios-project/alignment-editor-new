@@ -417,6 +417,7 @@ describe('texts-controller.test.js', () => {
     result = textsC.addAnnotation({
       id: annotationId,
       token: tokenOrigin1,
+      type: 'COMMENT',
       text: 'updated test annotation'
     })
 

@@ -1368,7 +1368,7 @@ export default class Alignment {
   }
 
   addAnnotation ({ id, token, type, text } = {}) {
-    if ((id && token && (type || text)) || (token && type && text)) {
+    if (token && type && text) {
       const existedAnnotation = this.existedAnnotation(token, id)
       if (existedAnnotation) {
         return existedAnnotation.update({ type, text })
@@ -1381,9 +1381,14 @@ export default class Alignment {
         this.annotations[token.idWord] = []
       }
 
-      const newTypeIndex = this.annotations[token.idWord].filter(annotation => annotation.type === type).length + 1
+      let lastTypeIndex = 0
+      this.annotations[token.idWord].forEach(annot => {
+        if ((annot.type === type) && (lastTypeIndex < annot.index)) {
+          lastTypeIndex = annot.index
+        }
+      })
 
-      const annotation = new Annotation({ token, type, text, index: newTypeIndex })
+      const annotation = new Annotation({ token, type, text, index: lastTypeIndex + 1 })
 
       this.annotations[token.idWord].push(annotation)
       return true

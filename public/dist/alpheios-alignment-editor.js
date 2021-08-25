@@ -44157,9 +44157,14 @@ class Alignment {
         this.annotations[token.idWord] = []
       }
 
-      const newTypeIndex = this.annotations[token.idWord].filter(annotation => annotation.type === type).length + 1
+      let lastTypeIndex = 0
+      this.annotations[token.idWord].forEach(annot => {
+        if ((annot.type === type) && (lastTypeIndex < annot.index)) {
+          lastTypeIndex = annot.index
+        }
+      })
 
-      const annotation = new _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__.default({ token, type, text, index: newTypeIndex })
+      const annotation = new _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__.default({ token, type, text, index: lastTypeIndex + 1 })
 
       this.annotations[token.idWord].push(annotation)
       return true
@@ -47611,7 +47616,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i486-edit-empty-text.20210825601" : 0
+    return  true ? "i486-edit-empty-text.20210825606" : 0
   }
 
   static get libName () {
