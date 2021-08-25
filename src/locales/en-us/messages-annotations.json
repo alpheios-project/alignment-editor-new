@@ -11,7 +11,7 @@
     "component": "AnnotationBlock"
   },
   "TEXTS_CONTROLLER_EMPTY_DATA_FOR_ANNOTATIONS": {
-    "message": "There is not enough information for creating an annotation",
+    "message": "There is not enough information for saving an annotation",
     "description": "A error message for saving annotation",
     "component": "TextController"
   },
