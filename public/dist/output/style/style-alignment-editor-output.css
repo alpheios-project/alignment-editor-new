@@ -287,6 +287,9 @@ input.alpheios-alignment-input::-ms-input-placeholder {
   border-color: #F27431;
   background: #F27431;
 }
+.alpheios-standard-theme .alpheios-al-editor-container-inner span.alpheios-token.alpheios-token-annotated {
+  border-bottom-color: #282828;
+}
 .alpheios-standard-theme .alpheios-al-editor-view-equivalence .alpheios-al-editor-container-inner span.alpheios-token.alpheios-token-selected:hover {
   color: #212529;
   border-color: #f59d6e;
@@ -348,6 +351,9 @@ input.alpheios-alignment-input::-ms-input-placeholder {
   color: #000;
   border-color: transparent;
   background: #ffd740;
+}
+.alpheios-v1-theme .alpheios-al-editor-container-inner span.alpheios-token.alpheios-token-annotated {
+  border-bottom-color: #282828;
 }
 .alpheios-v1-theme .alpheios-al-editor-view-equivalence .alpheios-al-editor-container-inner span.alpheios-token.alpheios-token-selected:hover {
   color: #000;

@@ -100,7 +100,7 @@ describe('token-block.test.js', () => {
       'alpheios-token-clicked': false,
       'alpheios-token-part-shadowed': false,
       'alpheios-token-clicked-first': false,
-      'alpheios-token-has-annotations': false,
+      'alpheios-token-annotated': false,
       'alpheios-token-annotation-mode': false
     })
   })

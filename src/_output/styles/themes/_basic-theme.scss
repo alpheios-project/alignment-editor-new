@@ -48,6 +48,10 @@
                 background: map.get($theme, 'align-editor-text-background-color-selected');
             }
 
+            &.alpheios-token-annotated {
+                border-bottom-color: map.get($theme, 'align-editor-text-color-grouped');
+            }
+
         }
     }
 
