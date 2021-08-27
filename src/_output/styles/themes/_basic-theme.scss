@@ -36,10 +36,17 @@
         }
 
         span.alpheios-token {
+            &.alpheios-token-annotated {
+                border-bottom-color: map.get($theme, 'align-editor-text-color');
+            }
             &.alpheios-token-grouped {
                 color: map.get($theme, 'align-editor-text-color-grouped');
                 border-color: map.get($theme, 'align-editor-text-border-color-grouped');
                 background: map.get($theme, 'align-editor-text-background-color-grouped');
+
+                &.alpheios-token-annotated {
+                    border-bottom-color: map.get($theme, 'align-editor-text-color-grouped');
+                }
             }
 
             &.alpheios-token-selected {
@@ -48,9 +55,7 @@
                 background: map.get($theme, 'align-editor-text-background-color-selected');
             }
 
-            &.alpheios-token-annotated {
-                border-bottom-color: map.get($theme, 'align-editor-text-color-grouped');
-            }
+            
 
         }
     }

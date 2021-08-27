@@ -277,18 +277,21 @@ input.alpheios-alignment-input::-ms-input-placeholder {
 .alpheios-standard-theme .alpheios-al-editor-container-inner .alpheios-alignment-editor-align-segment-data-item.alpheios-alignment-editor-align-segment-data-target {
   border-left-color: #ddd;
 }
+.alpheios-standard-theme .alpheios-al-editor-container-inner span.alpheios-token.alpheios-token-annotated {
+  border-bottom-color: #212529;
+}
 .alpheios-standard-theme .alpheios-al-editor-container-inner span.alpheios-token.alpheios-token-grouped {
   color: #282828;
   border-color: transparent;
   background: transparent;
 }
+.alpheios-standard-theme .alpheios-al-editor-container-inner span.alpheios-token.alpheios-token-grouped.alpheios-token-annotated {
+  border-bottom-color: #282828;
+}
 .alpheios-standard-theme .alpheios-al-editor-container-inner span.alpheios-token.alpheios-token-selected {
   color: #fff;
   border-color: #F27431;
   background: #F27431;
-}
-.alpheios-standard-theme .alpheios-al-editor-container-inner span.alpheios-token.alpheios-token-annotated {
-  border-bottom-color: #282828;
 }
 .alpheios-standard-theme .alpheios-al-editor-view-equivalence .alpheios-al-editor-container-inner span.alpheios-token.alpheios-token-selected:hover {
   color: #212529;
@@ -342,18 +345,21 @@ input.alpheios-alignment-input::-ms-input-placeholder {
 .alpheios-v1-theme .alpheios-al-editor-container-inner .alpheios-alignment-editor-align-segment-data-item.alpheios-alignment-editor-align-segment-data-target {
   border-left-color: #000;
 }
+.alpheios-v1-theme .alpheios-al-editor-container-inner span.alpheios-token.alpheios-token-annotated {
+  border-bottom-color: #ae0000;
+}
 .alpheios-v1-theme .alpheios-al-editor-container-inner span.alpheios-token.alpheios-token-grouped {
   color: #282828;
   border-color: transparent;
   background: transparent;
 }
+.alpheios-v1-theme .alpheios-al-editor-container-inner span.alpheios-token.alpheios-token-grouped.alpheios-token-annotated {
+  border-bottom-color: #282828;
+}
 .alpheios-v1-theme .alpheios-al-editor-container-inner span.alpheios-token.alpheios-token-selected {
   color: #000;
   border-color: transparent;
   background: #ffd740;
-}
-.alpheios-v1-theme .alpheios-al-editor-container-inner span.alpheios-token.alpheios-token-annotated {
-  border-bottom-color: #282828;
 }
 .alpheios-v1-theme .alpheios-al-editor-view-equivalence .alpheios-al-editor-container-inner span.alpheios-token.alpheios-token-selected:hover {
   color: #000;
