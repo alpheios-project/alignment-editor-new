@@ -423,6 +423,10 @@ div.alpheios-alignment-checkbox-block {
   transition: all 0.3s ease;
 }
 
+.vm--container {
+  z-index: 99999;
+}
+
 .vm--modal {
   padding: 20px 30px;
   background-color: #fff;
