@@ -184,6 +184,10 @@ input.alpheios-alignment-input::-ms-input-placeholder {
   transition: all 0.3s ease;
 }
 
+.vm--container {
+  z-index: 99999;
+}
+
 .vm--modal {
   padding: 20px 30px;
   background-color: #fff;
