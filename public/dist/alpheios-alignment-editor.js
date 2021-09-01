@@ -47616,7 +47616,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i496-edit-options.20210827592" : 0
+    return  true ? "update-help-screens.20210901674" : 0
   }
 
   static get libName () {
@@ -50474,6 +50474,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'HelpBlockAlign'
@@ -50497,6 +50523,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'HelpBlockEdit'
@@ -50516,6 +50565,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -61001,19 +61071,25 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("p", [
         _vm._v(
-          "To link words in the original text with those in translations, \nfirst select the word or words in in the original that that you want to link to some word or words in the translation. The selected words will turn green.\nThen select the words in the translation that you wish to link to the words in the original. \nThey will turn yellow as you select them."
+          "To link words in the original text with those in translations, first select the word or words in the original \n        that you want to link to some word or words in the translation, \n        One of the selected words will turn green, while any others in the same alignment group will turn amber."
         )
       ]),
       _vm._v(" "),
       _c("p", [
         _vm._v(
-          "To actually establish the link you need to return to the original text and click on one of the\n selected words in green."
+          "Then select the words in the translation that you wish to link to the words in the original. \n         They will turn amber as you select them."
         )
       ]),
       _vm._v(" "),
       _c("p", [
         _vm._v(
-          "They will then all turn yellow and the link will be established."
+          "To actually establish the link you need now to return to the original text and click on the word highlighted in green."
+        )
+      ]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "They will then all turn amber and the link will be established."
         )
       ]),
       _vm._v(" "),
@@ -61025,26 +61101,74 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("p", [
         _vm._v(
-          "The [UNDO] button will break the last link made, and the [REDO] button will reconnect it."
+          "The [UNDO] button will break the last link made, and the [REDO] button will reconnect it. "
         )
       ]),
-      _vm._v(" "),
-      _c("h3", [_vm._v("Entering or modifying a description of your text:")]),
       _vm._v(" "),
       _c("p", [
         _vm._v(
-          "A red icon in the upper right corner of a text box indicates that no desciption of the text has been\nmade. Clicking on it will open the template for adding a description. Subsequently the icon will\nturn green, which indicates that a desciption has been added. Clicking on it now will open the\ntemplate again in case some modification becomes necessary."
+          "To undo previously established links you can click on one of the words on either side until it turns green, \n        then go to the panel on the other side and click on each linked word in turn, \n        only then returning to the side with the green word. Click on any other remnants of the link on this side and \n        then click on the green word itself."
         )
       ]),
       _vm._v(" "),
-      _c("h3", [_vm._v("Exporting Text:")]),
+      _c("p", [_vm._v("OR {special shortcut trick}")]),
       _vm._v(" "),
-      _c("p", [_vm._v("You have two different ways to export text:")]),
+      _c("p", [
+        _vm._v(
+          "You can just click on a word in the phrase to highlight it and then press page reload in the browser.\n     When the page returns the phrases will no longer be linked."
+        )
+      ]),
+      _vm._v(" "),
+      _c("h3", [_vm._v("Entering or modifying a description of your text")]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "A red icon in the upper right corner of a text box indicates that no description of the text has been made. \n        Clicking on it will open the template for adding a description. Subsequently the icon will turn green, \n        which indicates that a description has been added. Clicking on it now will open the template \n        again in case some modification becomes necessary."
+        )
+      ]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "In order to achieve comparable performance with texts of different sizes, only a specific maximum number of characters \n        is available for alignment any one moment. The default value is 1000 characters, but this value can be changed \n        in the Options tab of the Enter Text screen to better accommodate different screen sizes."
+        )
+      ]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          'If your text is larger than the size of this window, the next portion can be loaded with the "next" button \n        at the bottom of the current display. The existence of multiple portions will be shown as small horizontal \n        tiles at the top of the alignment screen, and after moving to the next one, \n        you can also move back with the "previous" button that will appear at the top of the new screen.'
+        )
+      ]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "Note that versions of the most recent alignments that can be resumed (in an alpheios json format) \n        appear when you choose the Resume Alignments option. Do not delete any from this list until you are certain \n        that you have saved them elsewhere or are sure you no longer need them. The deletion of this version cannot be undone.  \n        But pruning it of outdated items occasionally may make it easier to keep track of different alignments.  \n        Their accumulation will not actually affect performance, however, until they start to fill up your hard disk, \n        like any log file. "
+        )
+      ]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "You can add another translation even after you have begun aligning without losing the alignments you have made, \n        but you will have to return to the Enter Text Screen to do so and use the + sign to open a new box for \n        that new translation. You will then have to use the [Prepare Texts for Alignment] button again \n        to return to the alignment screen.  The alignments you have already made will not be lost. "
+        )
+      ]),
+      _vm._v(" "),
+      _c("h3", [_vm._v("SAVING LOCALLY:")]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "You have two different formats for saving alignments on your machine."
+        )
+      ]),
       _vm._v(" "),
       _c("ul", [
         _c("li", [
           _vm._v(
-            "\n            If you are finished with your alignment and just want to save it for subsequent display you can export it as HTML\n You will not be able to make any further changes to the links, but you will have several different ways to display\n them.      "
+            "\n             If you are not finished with your alignment or if you want to let someone else reedit your alignment, \n             you can export it as a json file that can be reuploaded directly into the alignment editor \n             where changes in the alignments can be made as before.\n          "
+          )
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _vm._v(
+            "\n            If you are finished with your alignment and just want to save it for subsequent display you can export it as HTML\n You will not be able to make any further changes to the links, but you will have several different ways to display them: \n "
           ),
           _c("ul", [
             _c("li", [
@@ -61065,16 +61189,10 @@ var staticRenderFns = [
             _vm._v(" "),
             _c("li", [
               _vm._v(
-                "as an aggregation of all the equivalents per translation\n          showing the number of times each different equivalent occurs in each translation"
+                "as an aggregation of all the equivalents per translation showing the \n       number of times each different translation equivalent occurs in each \n       translation. How many times a given word or expression is used to \n       translate the same word or expression."
               )
             ])
           ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _vm._v(
-            "\n              If you are not finished with your alignment or if you want to let someone else reedit your alignment, you can\n export it as a .json file that can be reuploaded directly into the alignment editor where changes in the alignments\n can be made as before.\n          "
-          )
         ])
       ])
     ])
@@ -61102,9 +61220,72 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "alpheios-editor-help-content" })
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "alpheios-editor-help-content" }, [
+      _c("p", [
+        _vm._v(
+          'After texts have been prepared for alignment, which involves their analysis into "tokens", \n    they cannot be edited directly, but can only be modified with the special "Token Editor", \n    which has its own screen. It is therefore advisable to review the texts carefully \n    before preparing them for alignment by tokenization.\n  '
+        )
+      ]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "Furthermore, any words that have already been aligned must be unlinked in the alignment screen \n    before their tokens can be edited in any way in the edit screen. If you try to edit them \n    you will receive a message prompting you to unlink them first. \n  "
+        )
+      ]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "What you can still do: (by clicking on a word to bring up the small options icons)"
+        )
+      ]),
+      _vm._v(" "),
+      _c("ul", [
+        _c("li", [
+          _vm._v(
+            "you can add or delete line breaks (by choosing the appropriate small icon)"
+          )
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _vm._v(
+            "you can correct the spelling of a word (by making the change and then clicking on the pencil icon to save the change)"
+          )
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _vm._v(
+            "you can merge two adjacent words and subsequently split them again (by choosing the appropriate small icon)"
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v('What you cannot do after "tokenization" or during alignment:')
+      ]),
+      _vm._v(" "),
+      _c("ul", [
+        _c("li", [
+          _vm._v(
+            'you cannot add or delete a word except at the beginning or end of whatever text you tokenized \n      If you need to do so you will have to re-enter your text on the Text Enter Screen and retokenize with the \n      "Prepare Texts for Alignment" button.\n    '
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "All successful changes will be immediately visible in the Alignment Screen"
+        )
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -61137,7 +61318,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "alpheios-editor-help-content" }, [
       _c("p", [
         _vm._v(
-          "Alpheios expects you to enter text in the original language in the empty box on the left and translations in the box to the right."
+          "Alpheios expects you to enter text in the original language in the empty box on the left and a translation in the box to the right."
         )
       ]),
       _vm._v(" "),
@@ -61149,12 +61330,14 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("p", [
         _vm._v(
-          "You can either type or cut and paste text into the text box or upload a file from your local machine. \n        Both plain text  and text that has been marked up with "
+          "You can either type or cut and paste text into the text box or upload a file from your local machine.\n       Both plain text and text that has been marked up with "
         ),
         _c("a", { attrs: { href: "https://tei-c.org/", target: "_blank" } }, [
           _vm._v("TEI XML")
         ]),
-        _vm._v(" can be uploaded or pasted into the text entry box.\n    ")
+        _vm._v(
+          " \n       can be uploaded or pasted into the text entry box.  \n    "
+        )
       ]),
       _vm._v(" "),
       _c("p", [
@@ -61173,7 +61356,7 @@ var staticRenderFns = [
         _vm._v(", "),
         _c("b", [_vm._v(".tsv")]),
         _vm._v(
-          ". (Plain text files with no extension will load if you add the .txt extension)"
+          ". \n       (Plain text files with no extension will load if you add the .txt extension)"
         )
       ]),
       _vm._v(" "),
@@ -61191,47 +61374,55 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("p", [
         _vm._v(
-          "The X in the upper right corner of the entry boxes will clear the text and any associated description and prepare the box to receive new text and be associated with a new description."
+          'You can enter quite large files through this screen, if necessary an entire book, but remember that you are storing\neverything on your local computer. Large texts are automatically divided into smaller units for display in an\n"editing window" whose size is intended to optimize performance during alignment. Alignment can only be performed on text\ncurrently visible in this editing window (whose size can be adjusted in the Options tab). Successive portions of the\ntext are loaded with the "Next" button at the bottom of the screen, while previous portions can be recalled with the\n"Previous" button at the top.  You might wish to adjust the size of this window to adapt the display to the size of\nyour screen. Since performance is affected by the total number of characters present in this window, including those\nin all the translations you are aligning simultaneously, you may discover that with large numbers of translations\nperformance can be improved by reducing the size of this window. It is difficult to provide more specific \nguidance here because actual performance depends on the resources available on your local machine, especially the\namount of RAM. In our experience a window of 1000 characters per translation should provide acceptable performance\nwith more than a dozen simultaneously aligned translations on a machine with eight megabytes of RAM.'
         )
       ]),
       _vm._v(" "),
       _c("p", [
         _vm._v(
-          "If you want to clear everything from the current alignment session and return to the start of the text entry screen you can choose the [Start new alignment] button from the MENU."
+          "Previous alignments that have been saved as json files can be uploaded with the Resume Previous Alignment button.\nIt provides the option of choosing the file from your local file system or from a list of recently saved alignments.\nLike any log file this list is most useful when occasionally pruned of items no longer needed. But be careful to\nsave any files you may need elsewhere, because deletion from this list is final."
         )
       ]),
       _vm._v(" "),
       _c("p", [
         _vm._v(
-          'You can make any changes you wish to text in either the original text or translation boxes but after\nthe "Prepare Texts for Alignment" button has been pressed, and you are taken to the "alignment" screen,\nchanging texts will require returning to the Text Enter screen, making the desired changes, and then\npreparing the texts for alignment again.'
+          "The X in the upper right corner of the entry boxes will clear the text and any associated description and \nprepare the box to receive new text and a new description."
         )
       ]),
       _vm._v(" "),
       _c("p", [
         _vm._v(
-          "The amount of text that can be entered in a single session is limited to improve performance. The \noptimal amount will depend on the resources available on your local machine and can be adjusted\nin the enter text OPTIONS tab."
+          "If you want to clear everything from the current alignment session and start over you can choose the\n         [Start new alignment] button from the MENU in the upper left of the screen."
         )
       ]),
       _vm._v(" "),
       _c("p", [
         _vm._v(
-          "You can use the [DESCRIBE] button below the text entry boxes to enter information about the text.\nIf you do not do this on the ENTER TEXT screen a red icon will appear above the text boxes in the \nALIGN TEXT screen to remind you to do so. Clicking on that icon will bring up the same template that\nthe DESCRIBE button provides from this screen and turns the icon green. To modify this information\nsubsequently, click on the green icon to return to the description template for modification.\nThere is no minimum requirement for this information."
+          'You can make any changes you wish to text in either the original text or translation boxes on this Enter screen, \n        but after the "Prepare Texts for Alignment" button has been pressed, and you are taken to the "Align" screen, \n        altering texts will be more difficult. If you only need to make minor changes like correcting the spelling of a word, \n        or adding or deleting line breaks, you can do that with the Edit Text screen. \n        (See Help page for the Edit Text screen.) But if you need to make major changes like adding or deleting words, \n        you will have to re-enter the changed text on the Enter Text screen and use the Prepare Text button again.'
+        )
+      ]),
+      _vm._v(" "),
+      _c("h3", [_vm._v("The [DESCRIBE] button")]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "You can use the [DESCRIBE] button below the text entry boxes to enter information about the text. \n        If you do not do this on the ENTER TEXT screen a red icon will appear above the text boxes in the ALIGN TEXT screen \n        to remind you to do so. Clicking on that icon will bring up the same template that the DESCRIBE button provides \n        from this screen and turns the icon green. To modify this information subsequently, click on the green icon \n        to return to the description template for modification.  There is no minimum requirement for this information."
         )
       ]),
       _vm._v(" "),
       _c("p", [
         _vm._v(
-          "Alpheios will attempt to detect the language of both original text and and translations as well as whether\nthe text has TEI XML markup. It will ask you to confirm or correct this information just before \npreparing the texts for alignment."
+          "Alpheios will attempt to detect the language of both original text and and translations as well \n        as whether the text has TEI XML markup. It will ask you to confirm or correct this information \n        just before preparing the texts for alignment."
         )
       ]),
       _vm._v(" "),
       _c("p", [
         _vm._v(
-          "[SAVE LOCALLY] Allows you to save the texts you have input but not yet prepared for aligment in case\nyou want to continue later on this or another computer. They will be saved in a .json format suitable only for\nreuploading into this application."
+          "[SAVE LOCALLY] button:  Allows you to save the texts you have input but not yet prepared for alignment in case \n         you want to continue later on this or another computer. They will be saved in a jason format suitable only for \n         reuploading into this application."
         )
       ]),
       _vm._v(" "),
-      _c("p", [_vm._v("The [OPTIONS] button:")]),
+      _c("h3", [_vm._v("The [OPTIONS] button:")]),
       _vm._v(" "),
       _c("ul", [
         _c("li", [
@@ -61240,7 +61431,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("li", [
           _vm._v(
-            "Set a limit for the amount of text that the application will accept for each alignment session.\nThe more text you enter the greater the demands on your locale computer and you may notice an effect on\nperformance. Set a lower limit to resolve this problem. "
+            "Set a size limit for the display of text during alignment. The more text in this editing window, \n          the greater the demands on your local computer and you may notice an effect on performance. \n          Set a lower limit to resolve this problem."
           )
         ]),
         _vm._v(" "),
@@ -61251,7 +61442,13 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("li", [
-          _vm._v("If you wish Choose to work entirely offline:\n          "),
+          _vm._v(
+            "The tokenizer that prepares the texts for alignment and the automatic language detection are \n          the only steps requiring internet connectivity. The rest of the application can be used without it.\n      "
+          )
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _vm._v("If you wish to work entirely offline:\n          "),
           _c("ul", [
             _c("li", [
               _vm._v(
@@ -61259,14 +61456,8 @@ var staticRenderFns = [
               )
             ]),
             _vm._v(" "),
-            _c("li", [_vm._v("identifying the language manually")])
+            _c("li", [_vm._v("identify the language manually")])
           ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _vm._v(
-            "The tokenizer that prepares the texts for alignment and the automatic language detection are the\nonly steps requiring internet connectivity. The rest of the application can be used without it."
-          )
         ])
       ])
     ])
@@ -61483,7 +61674,7 @@ var render = function() {
               _c("video-embed", {
                 attrs: {
                   css: "embed-responsive-21by9",
-                  src: "https://youtu.be/TZa86G1uVOU"
+                  src: "https://youtu.be/dWkT-7uYP4E"
                 }
               })
             ],
