@@ -17,31 +17,35 @@
       <div class="alpheios-alignment-editor-actions-menu__upload-block" v-show="showUploadMenu" >
           <input type="file" @change="loadTextFromFile" ref="fileupload">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__metadata"
-              @click="showModalDTS = true">
+              @click="$modal.show(uploadDtsModalName)">
               DTSAPI
           </button>
       </div>
-      <upload-dtsapi-block :showModal="showModalDTS" @closeModal = "showModalDTS = false" @uploadFromDTSAPI = "uploadFromDTSAPI"/>
+      <upload-dtsapi-block :mname="uploadDtsModalName" @closeModal = "$modal.hide(uploadDtsModalName)" @uploadFromDTSAPI = "uploadFromDTSAPI"/>
 
-      <metadata-block :text-type = "textType" :text-id = "textId" :showModal="showModalMetadata" @closeModal = "showModalMetadata = false"  />
-      <language-block :text-type = "textType" :text-id = "textId" :localOptions = "localTextEditorOptions" @updateText = "updateText" @updateDirection = "updateDirection"
-                      :showModal="showModalLanguage" @closeModal = "showModalLanguage = false"  />
+      <metadata-block :text-type = "textType" :text-id = "textId" 
+                      :mname = "metadataModalName"
+                      @closeModal = "$modal.hide(metadataModalName)"  />
+      <language-block :text-type = "textType" :text-id = "textId" :localOptions = "localTextEditorOptions" 
+                      :mname = "languageModalName"
+                      @updateText = "updateText" @updateDirection = "updateDirection"
+                       @closeModal = "$modal.hide(languageModalName)"  />
       <source-type-block :text-type = "textType" :text-id = "textId" :localOptions = "localTextEditorOptions" @updateText = "updateText" 
-                :showModal="showModalSourceType" @closeModal = "showModalSourceType = false"  />
+                      :mname = "sourceTypeModalName" @closeModal = "$modal.hide(sourceTypeModalName)"  />
 
       <div v-show="showTypeTextBlock" class="alpheios-alignment-editor-text-blocks-single-text-area-container">
         <p class="alpheios-alignment-editor-text-blocks-info-line">
           <span class="alpheios-alignment-editor-text-blocks-single__characters" :class = "charactersClasses">{{ charactersText }}</span>
 
-          <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="showTextProps" @click="showModalSourceType = true"> {{ sourceType }} </span>
-          <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="showTextProps" @click="showModalLanguage = true"> {{ language }} </span>
+          <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="showTextProps" @click="$modal.show(sourceTypeModalName)"> {{ sourceType }} </span>
+          <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="showTextProps" @click="$modal.show(languageModalName)"> {{ language }} </span>
           <span class="alpheios-alignment-editor-text-blocks-single__icons" v-show="showLangNotDetected">
             <tooltip :tooltipText="l10n.getMsgS('NO_LANG_DETECTED_ICON')" tooltipDirection="top">
               <no-lang-detected-icon />
             </tooltip>
           </span>
 
-          <metadata-icons :text-type = "textType" :text-id = "textId" @showModalMetadata = "showModalMetadata = true" />
+          <metadata-icons :text-type = "textType" :text-id = "textId" @showModalMetadata = "$modal.show(metadataModalName)" />
 
         </p>
         <span :id="removeId" class="alpheios-alignment-editor-text-blocks-single__remove" v-show="showDeleteIcon" @click="deleteText">
@@ -56,7 +60,7 @@
       <div class="alpheios-alignment-editor-text-blocks-single__describe-button" >
         <tooltip :tooltipText="l10n.getMsgS('DESCRIBE_BUTTON_TOOLTIP')" tooltipDirection="top">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  :id="describeButtonId"
-              @click="showModalMetadata = true" :disabled="!isMetadataAvailable" >
+              @click="$modal.show(metadataModalName)" :disabled="!isMetadataAvailable" >
               {{ l10n.getMsgS('DESCRIBE_BUTTON_TITLE') }}
           </button>
         </tooltip>
@@ -81,6 +85,7 @@ import NoLangDetectedIcon from '@/inline-icons/no-lang-detected.svg'
 import PlusIcon from '@/inline-icons/plus.svg'
 
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
+import SettingsController from '@/lib/controllers/settings-controller.js'
 
 import OptionItemBlock from '@/vue/options/option-item-block.vue'
 
@@ -140,12 +145,7 @@ export default {
       showTypeTextBlock: true,
       showTextProps: false,
       showUploadMenu: false,
-      showModalDTS: false,
-      showModalMetadata: false,
-      showModalLanguage: false,
-      showModalSourceType: false,
-      showModalHelp: false,
-
+      
       updatedLocalOptionsFlag: 1
     }
   },
@@ -153,7 +153,7 @@ export default {
    * Clone options (sourceText and tokenize options) for the cuurent instance of a sourceText
    */
   async mounted () {
-    if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
+    if (!this.localTextEditorOptions.ready && SettingsController.tokenizerOptionsLoaded) {
       this.prepareDefaultTextEditorOptions()
     }
     this.initDataProps()
@@ -161,12 +161,13 @@ export default {
   },
   watch: {
     async '$store.state.optionsUpdated' () {
-      if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
+      if (!this.localTextEditorOptions.ready && SettingsController.tokenizerOptionsLoaded) {
         this.prepareDefaultTextEditorOptions()
       }
     },
     async '$store.state.uploadCheck' () {
       await this.updateFromExternal()
+      this.$refs.fileupload.value = ''
     },
     async '$store.state.docSourceLangDetected' () {
       this.updateLangData()
@@ -176,7 +177,7 @@ export default {
       this.restartTextEditor()
     },
     async '$store.state.resetOptions' () {
-      this.localTextEditorOptions = this.$settingsC.resetLocalTextEditorOptions(this.textType, this.textId)
+      this.localTextEditorOptions = SettingsController.resetLocalTextEditorOptions(this.textType, this.textId)
       await this.updateText()
     }
   },
@@ -197,10 +198,22 @@ export default {
      * checks if  localOptions is not yet uploaded
      */
     dataUpdated () {
-      if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
+      if (!this.localTextEditorOptions.ready && SettingsController.tokenizerOptionsLoaded) {
         this.prepareDefaultTextEditorOptions()
       }
       return this.$store.state.docSourceUpdated
+    },
+    languageModalName () {
+      return `language-${this.textType}-${this.formattedTextId}`
+    },
+    metadataModalName () {
+      return `metadata-enter-${this.textType}-${this.formattedTextId}`
+    },
+    sourceTypeModalName () {
+      return `sourceType-${this.textType}-${this.formattedTextId}`
+    },
+    uploadDtsModalName () {
+      return `upload-dts-${this.textType}-${this.formattedTextId}`
     },
     containerId () {
       return `alpheios-alignment-editor-text-blocks-single__${this.textType}_${this.formattedTextId}`
@@ -272,7 +285,7 @@ export default {
       return this.$store.state.optionsUpdated && this.$store.state.docSourceUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.sourceType.currentValue
     },
     tokenization () {
-      return TokenizeController.defineTextTokenizationOptions(this.$settingsC.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
+      return TokenizeController.defineTextTokenizationOptions(SettingsController.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
     },
     charactersClasses () {
       return {
@@ -284,7 +297,7 @@ export default {
       return this.text ? this.text.length : 0
     },
     maxCharactersForTheText () {
-      return this.$store.state.optionsUpdated && this.$settingsC.maxCharactersPerTextValue
+      return this.$store.state.optionsUpdated && SettingsController.maxCharactersPerTextValue
     },
     charactersText () {
       return `Characters count - ${this.textCharactersAmount} (max - ${this.maxCharactersForTheText})`
@@ -299,7 +312,7 @@ export default {
     },
     showLangNotDetected () {
       const docSource = this.$textC.getDocSource(this.textType, this.textId)
-      return this.$store.state.docSourceLangDetected && docSource && (!docSource.detectedLang && docSource.text.length > 0)
+      return this.$store.state.docSourceLangDetected && docSource && (!docSource.skipDetected && !docSource.detectedLang && docSource.text.length > 0)
     },
     showAddTranslation () {
       return this.$store.state.docSourceUpdated && (this.textType === 'target') && (this.index === (this.$textC.allTargetTextsIds.length - 1)) && (this.text.length > 0)
@@ -308,7 +321,7 @@ export default {
       return this.$store.state.docSourceUpdated && (this.showUploadMenu || this.showTextProps)
     },
     alignAvailable () {
-      return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.$textC.couldStartAlign && this.$textC.checkSize(this.maxCharactersForTheText)
+      return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.$textC.couldStartAlign && this.$textC.checkSize()
     },
     describeButtonId () {
       return `alpheios-actions-menu-button__describe-${this.textType}-${this.textId}-id`
@@ -329,7 +342,7 @@ export default {
       const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
       if (sourceTextData && sourceTextData.text) {
         this.text = sourceTextData.text
-        this.$settingsC.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
+        SettingsController.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
         await this.updateText()
 
         this.showTypeUploadButtons = false
@@ -371,7 +384,7 @@ export default {
         this.text = ''
       }
 
-      if (result.resultUpdate && this.showTypeUploadButtons) {
+      if (result.resultUpdate && this.showTypeUploadButtons && (this.text.length !== 0)) {
 
         setTimeout(() => {
           this.showTypeUploadButtons = false
@@ -434,7 +447,8 @@ export default {
      * Reloads local options
      */
     prepareDefaultTextEditorOptions () {
-      this.localTextEditorOptions = this.$settingsC.cloneTextEditorOptions(this.textType, this.index)
+      this.localTextEditorOptions = SettingsController.cloneTextEditorOptions(this.textType, this.index)
+
       this.localTextEditorOptions.ready = true
       this.$store.commit('incrementOptionsUpdated')
     },

@@ -1,14 +1,18 @@
 <template>
-  <modal v-if="showModal" @close="$emit('closeModal')" class="alpheios-alignment-editor-modal-options">
-    <template v-slot:header >
+  <modal classes="alpheios-alignment-editor-modal-options alpheios-alignment-editor-modal-options-edit" 
+         name="options-edit" :draggable="true" height="auto">
+    <div class="alpheios-modal-header" >
+        <span class="alpheios-alignment-modal-close-icon" @click="$emit('closeModal')">
+            <x-close-icon />
+        </span>
         <h2 class="alpheios-alignment-editor-modal-header">{{ l10n.getMsgS('OPTIONS_TITLE_TEXT_EDIT') }}</h2>
-    </template>
-    <template v-slot:body >
+    </div>
+    <div class="alpheios-modal-body" >
         <div class="alpheios-alignment-editor-modal-options-block">
           <option-item-block :optionItem = "allowUpdateTokenOptionItem" />
         </div>
-    </template>
-    <template v-slot:footer>
+    </div>
+    <div class="alpheios-modal-footer" >
       <p class="alpheios-alignment-options__buttons">
         <button class="alpheios-editor-button-tertiary alpheios-options-button alpheios-options-reset-all" 
             @click="resetOptions" >
@@ -21,19 +25,21 @@
           {{ versionData }}
         </div>
       </div>
-    </template>
+    </div>
   </modal>
 </template>
 <script>
 import OptionItemBlock from '@/vue/options/option-item-block.vue'
-import Modal from '@/vue/common/modal.vue'
+import XCloseIcon from '@/inline-icons/x-close.svg'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
+
+import SettingsController from '@/lib/controllers/settings-controller'
 
 export default {
   name: 'OptionsTextEdit',
   components: {
     optionItemBlock: OptionItemBlock,
-    modal: Modal
+    xCloseIcon: XCloseIcon
   },
   props: {
     showModal: {
@@ -50,12 +56,12 @@ export default {
       return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`
     },
     allowUpdateTokenOptionItem () {
-      return this.$store.state.optionsUpdated && this.$settingsC.options.app.items.allowUpdateTokenWord
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.allowUpdateTokenWord
     }
   },
   methods: {
     async resetOptions () {
-      await this.$settingsC.resetAllOptions()
+      await SettingsController.resetAllOptions()
     }
   }
 }

@@ -1,31 +1,54 @@
 <template>
     <div class="alpheios-alignment-editor-align-text-segment" 
          :style="cssStyle"
-         :class = "cssClass" :dir = "direction" :lang = "lang" 
+         :class = "cssClass" 
           >
           <p class="alpheios-alignment-editor-align-text-segment-row" v-if="isFirst">
             <span class="alpheios-alignment-editor-align-text-segment-row__langname" >{{ segment.langName }}</span>
 
-            <metadata-icons :text-type = "textType" :text-id = "segment.docSourceId" @showModalMetadata = "showModalMetadata = true" />
+            <metadata-icons :text-type = "textType" :text-id = "segment.docSourceId" @showModalMetadata = "$modal.show(metadataModalName)" />
           </p>
-          <div class="alpheios-alignment-editor-align-text-segment-tokens" :id = "cssId" :style="cssStyleSeg">
+
+          <p class="alpheios-alignment-editor-align-text-parts" v-if="allPartsKeys.length > 1">
+            <span class="alpheios-alignment-editor-align-text-parts-link" 
+                  :class = "{ 'alpheios-alignment-editor-align-text-parts-link-current': currentPartIndexes.includes(parseInt(partData.partNum)) }"
+                  v-for = "partData in allPartsKeys" :key="partData.partNum"
+                  :style = partBlockStyle(partData.len)
+            >
+                  {{ 1 }}
+            </span>
+          </p>
+
+          <div class="alpheios-alignment-editor-align-text-segment-tokens" :id = "cssId" :style="cssStyleSeg" :dir = "direction" :lang = "lang" >
+            <p class="alpheios-alignment-editor-align-text-single-link" v-if="showPrev">
+              <span class="alpheios-alignment-editor-align-text-parts-link-text" @click="uploadPrevPart">prev</span>
+            </p>
+
             <template v-for = "(token, tokenIndex) in allTokens">
               <token
                 v-if ="token.word"
-                :token = "token" :key = "tokenIndex"
-                @click-token = "clickToken"
+                :token = "token" :key = "token.idWord"
+                @update-annotation = "updateAnnotation"
+                @update-alignment-group = "updateAlignmentGroup"
                 @add-hover-token = "addHoverToken"
                 @remove-hover-token = "removeHoverToken"
                 :selected = "$store.state.alignmentUpdated && selectedToken(token)"
                 :grouped = "$store.state.alignmentUpdated && groupedToken(token)"
                 :inActiveGroup = "$store.state.alignmentUpdated && inActiveGroup(token)"
                 :firstInActiveGroup = "$store.state.alignmentUpdated && isFirstInActiveGroup(token)"
+                :annotationMode="annotationMode"
               />
               <br v-if="$store.state.tokenUpdated && token.hasLineBreak" />
             </template>
+            
+            <p class="alpheios-alignment-editor-align-text-single-link" v-if="showNext">
+              <span class="alpheios-alignment-editor-align-text-parts-link-text" @click="uploadNextPart">next</span>  
+            </p>
           </div>
 
-          <metadata-block :text-type = "textType" :text-id = "segment.docSourceId" :showModal="showModalMetadata" @closeModal = "showModalMetadata = false"  v-if="isFirst"/>
+          <metadata-block :text-type = "textType" :text-id = "segment.docSourceId"  v-if="isFirst"
+                :mname = "metadataModalName"
+                @closeModal = "$modal.hide(metadataModalName)"  />
     </div>
 </template>
 <script>
@@ -55,9 +78,19 @@ export default {
       required: false
     },
 
-    segment: {
-      type: Object,
+    segmentIndex: {
+      type: Number,
       required: true
+    },
+
+    textType: {
+      type: String,
+      required: false
+    },
+
+    textId: {
+      type: String,
+      required: false
     },
 
     isLast : {
@@ -76,6 +109,11 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    annotationMode: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data () {
@@ -88,10 +126,14 @@ export default {
       heightUpdated: 1,
       showUpDown: false,
       minMaxHeight: 500,
-      showModalMetadata: false
+      showModalMetadata: false,
+      currentPartIndexes: [ 1 ]
     }
   },
   watch: {
+    '$store.state.reuploadTextsParts' () {
+      this.currentPartIndexes = [ 1 ]
+    }
   },
   computed: {
     l10n () {
@@ -100,8 +142,8 @@ export default {
     /**
      * @returns {String} - origin/target
      */
-    textType () {
-      return this.segment.textType
+    segment () {
+      return this.$store.state.reuploadTextsParts && this.$textC.getSegment(this.textType, this.textId, this.segmentIndex)
     },
     /**
      * @returns {String} - ltr/rtl
@@ -119,7 +161,10 @@ export default {
      * @returns {String} css id for html layout
      */
     cssId () {
-      return this.getCssId(this.textType, this.targetId, this.segment.index)
+      return this.getCssId(this.textType, this.textId, this.segmentIndex)
+    },
+    metadataModalName () {
+      return `metadata-align-${this.textType}-${this.textId}-${this.segment.index}`
     },
     /**
      * Styles for creating a html table layout with different background-colors for different targetIds
@@ -135,9 +180,9 @@ export default {
     cssStyle () {
       let result 
       if (this.textType === 'target') {
-        result = `order: ${this.segment.index};`
+        result = `order: ${this.segmentIndex};`
       } else {
-        result = `order: ${this.segment.index};`
+        result = `order: ${this.segmentIndex};`
       }
       return result
     },
@@ -171,19 +216,17 @@ export default {
      * @returns {Number | Null} - if it is a target segment, then it returns targetId order index, otherwise - null
      */
     targetIdIndex () {
-      return this.targetId ? this.allTargetTextsIds.indexOf(this.targetId) : null
-    },
-    /**
-     * @returns {String | Null} - if it is a target segment, returns targetId otherwise null
-     */
-    targetId () {
-      return (this.segment.textType === 'target') ? this.segment.docSourceId : null
+      return this.textType === 'target' ? this.allTargetTextsIds.indexOf(this.textId) : null
     },
     alignmentGroupsWorkflowAvailable () {
       return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowAvailable
     },
-    allTokens () {
-      return  this.$store.state.tokenUpdated ? this.segment.tokens : []
+    allPartsKeys () {
+      return  this.$store.state.tokenUpdated && this.$store.state.reuploadTextsParts && this.segment.allPartNums ? this.segment.allPartNums : []
+    },
+    allPartKeysLen () {
+      const sumArr = (total, partData) => total + partData.len
+      return this.allPartsKeys.length > 1 ? this.allPartsKeys.reduce(sumArr, 0) : 0
     },
     amountOfSegments () {
       return this.$store.state.alignmentUpdated ? this.$alignedGC.getAmountOfSegments(this.segment) : 1
@@ -192,13 +235,9 @@ export default {
       return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 350
     },
     maxHeight () {
-      const minHeight = this.minMaxHeight * (this.textType === 'origin') ? this.amountOfShownTabs : 1
       if (this.amountOfSegments === 1) {
         return this.containerHeight + this.heightDelta
-      } 
-
-      const heightCalculated = (this.textType === 'origin') ? this.containerHeight * this.amountOfShownTabs/this.amountOfSegments : this.containerHeight/this.amountOfSegments
-      return Math.round(Math.max(minHeight, heightCalculated)) + this.heightDelta
+      }
     },
     isEmptyMetadata () {
       const docSource = this.$textC.getDocSource(this.textType, this.segment.docSourceId)
@@ -208,9 +247,30 @@ export default {
     hasMetadata () {
       const docSource = this.$textC.getDocSource(this.textType, this.segment.docSourceId)
       return this.$store.state.docSourceUpdated && docSource && !docSource.hasEmptyMetadata
+    },
+
+    allTokens () {
+      let result
+
+      if (this.segment.allPartNums) {
+        result = this.$textC.getSegmentPart(this.textType, this.segment.docSourceId, this.segment.index, this.currentPartIndexes)
+      }
+      return  this.$store.state.tokenUpdated && this.$store.state.uploadPartNum && this.$store.state.reuploadTextsParts ? result : []
+    },
+
+    showPrev () {
+      return this.allPartsKeys.length > 0 && (Math.min(...this.currentPartIndexes) > this.allPartsKeys[0].partNum)
+    },
+
+    showNext () {
+      return this.allPartsKeys.length > 0 && (Math.max(...this.currentPartIndexes) < this.allPartsKeys[this.allPartsKeys.length-1].partNum)
     }
   },
   methods: {
+    partBlockStyle (len) {
+      const percentLen = Math.floor(len*100/this.allPartKeysLen)
+      return `width: ${percentLen}%;`
+    },
     getCssId (textType, targetId, segmentIndex) {
       if (textType === 'target') {
         return `alpheios-align-text-segment-${textType}-${targetId}-${segmentIndex}`
@@ -222,7 +282,7 @@ export default {
      * Starts click token workflow
      * @param {Token}
      */
-    clickToken (token) {
+    updateAlignmentGroup (token) {
       if (this.alignmentGroupsWorkflowAvailable && this.currentTargetId) {
         this.$alignedGC.clickToken(token, this.currentTargetId)
       }
@@ -241,7 +301,7 @@ export default {
         const textTypeSeg = (token.textType === 'target') ? 'origin' : 'target'
         
         for (let i = 0; i < scrollData.length; i++) {
-          const segId = this.getCssId(textTypeSeg, scrollData[i].targetId, this.segment.index)
+          const segId = this.getCssId(textTypeSeg, scrollData[i].targetId, this.segmentIndex)
           const tokId = `token-${scrollData[i].minOpositeTokenId}`
 
           ScrollUtility.makeScrollTo(tokId, segId)
@@ -282,13 +342,29 @@ export default {
     isFirstInActiveGroup (token) {
       return this.$alignedGC.isFirstInActiveGroup(token, this.currentTargetId)
     },
-    reduceHeight () {
-      this.heightDelta = this.heightDelta - this.heightStep
-      this.heightUpdated++
+
+    async uploadPrevPart () {
+      let partNums = []
+      partNums.push(this.currentPartIndexes[0]-1)
+      partNums.push(this.currentPartIndexes[0])
+      await this.uploadPartByNum(partNums)
+      this.currentPartIndexes = partNums
     },
-    increaseHeight () {
-      this.heightDelta = this.heightDelta + this.heightStep
-      this.heightUpdated++
+    
+    async uploadNextPart () {
+      let partNums = []
+      partNums.push(this.currentPartIndexes[this.currentPartIndexes.length - 1])
+      partNums.push(this.currentPartIndexes[this.currentPartIndexes.length - 1]+1)
+      await this.uploadPartByNum(partNums)
+      this.currentPartIndexes = partNums
+    },
+
+    async uploadPartByNum (partNums) {
+      await this.$textC.checkAndUploadSegmentsFromDB(this.textType, this.textId, this.segmentIndex, partNums)
+    },
+
+    updateAnnotation (token) {
+      this.$emit('update-annotation', token)
     }
   }
 
@@ -366,4 +442,40 @@ export default {
             }
           }
         }
+  .alpheios-alignment-editor-align-text-parts-link-text {
+    cursor: pointer;
+    display: inline-block;
+    padding: 3px;
+    text-decoration: underline;
+  }
+
+  .alpheios-alignment-editor-align-text-parts-link {
+    // cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 3px;
+    // text-decoration: underline;
+    font-size: 0;
+    background: #c6c6c6;
+    border: 1px solid #fff;
+    min-width: 8px;
+
+    &.alpheios-alignment-editor-align-text-parts-link-current {
+      cursor: initial;
+      // text-decoration: none;
+      background: #6e6e6e;
+    }
+  }
+
+  .alpheios-alignment-editor-align-text-parts,
+  .alpheios-alignment-editor-align-text-single-link {
+    margin: 0;
+    text-align: center;
+    color: #000;
+    font-weight: bold;
+  }
+
+  .alpheios-alignment-editor-align-text-parts {
+    padding: 0 25px;
+  }
 </style>

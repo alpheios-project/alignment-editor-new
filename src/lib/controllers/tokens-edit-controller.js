@@ -1,5 +1,7 @@
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
+import StorageController from '@/lib/controllers/storage-controller.js'
+import HistoryStep from '@/lib/data/history/history-step.js'
 
 export default class TokensEditController {
   /**
@@ -7,6 +9,10 @@ export default class TokensEditController {
    */
   constructor (store) {
     this.store = store
+  }
+
+  startOver (alignment) {
+    this.loadAlignment(alignment)
   }
 
   /**
@@ -23,11 +29,14 @@ export default class TokensEditController {
    * @param {String} word
    * @returns {Boolean}
    */
-  updateTokenWord (token, word) {
+  async updateTokenWord (token, word) {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.updateTokenWord(token, word)) {
       this.store.commit('incrementTokenUpdated')
+
+      await this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+      await StorageController.update(this.alignment)
       return true
     }
     return false
@@ -39,11 +48,14 @@ export default class TokensEditController {
    * @param {String} direction
    * @returns {Boolean}
    */
-  mergeToken (token, direction) {
+  async mergeToken (token, direction) {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.mergeToken(token, direction)) {
       this.store.commit('incrementTokenUpdated')
+
+      await this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+      await StorageController.update(this.alignment)
       return true
     }
     return false
@@ -55,7 +67,7 @@ export default class TokensEditController {
    * @param {String} tokenWord - token's word with space to be splitted
    * @returns {Boolean}
    */
-  splitToken (token, tokenWord) {
+  async splitToken (token, tokenWord) {
     if (!this.checkEditable(token)) { return false }
 
     if (!tokenWord.includes(' ')) {
@@ -76,6 +88,8 @@ export default class TokensEditController {
 
     if (this.alignment.splitToken(token, tokenWord)) {
       this.store.commit('incrementTokenUpdated')
+      await this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+      await StorageController.update(this.alignment)
       return true
     }
     return false
@@ -86,11 +100,13 @@ export default class TokensEditController {
    * @param {Token} token
    * @returns {Boolean}
    */
-  addLineBreakAfterToken (token) {
+  async addLineBreakAfterToken (token) {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.addLineBreakAfterToken(token)) {
       this.store.commit('incrementTokenUpdated')
+      await this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+      await StorageController.update(this.alignment)
       return true
     }
     return false
@@ -101,11 +117,15 @@ export default class TokensEditController {
    * @param {Token} token
    * @returns {Boolean}
    */
-  removeLineBreakAfterToken (token) {
+  async removeLineBreakAfterToken (token) {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.removeLineBreakAfterToken(token)) {
       this.store.commit('incrementTokenUpdated')
+
+      await this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+      await StorageController.update(this.alignment)
+
       return true
     }
     return false
@@ -117,11 +137,20 @@ export default class TokensEditController {
    * @param {HistoryStep.directions} direction
    * @returns {Boolean}
    */
-  moveToSegment (token, direction) {
+  async moveToSegment (token, direction) {
     if (!this.checkEditable(token)) { return false }
 
-    if (this.alignment.moveToSegment(token, direction)) {
+    const tokenSegmentIndex = token.segmentIndex
+    const tokenPartNum = token.partNum
+
+    const data = this.alignment.moveToSegment(token, direction)
+    if (data.result) {
       this.store.commit('incrementTokenUpdated')
+
+      await this.deleteAllPartFromStorage(token.docSourceId, tokenSegmentIndex, tokenPartNum)
+      await this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+
+      await StorageController.update(this.alignment)
       return true
     }
     return false
@@ -231,9 +260,12 @@ export default class TokensEditController {
    * @param {String} textId - docSourceId
    * @param {String} insertType - start (insert to the start of the first segment), end (insert to the end of the last segment)
    */
-  insertTokens (tokensText, textType, textId, insertType) {
-    if (this.alignment.insertTokens(tokensText, textType, textId, insertType)) {
+  async insertTokens (tokensText, textType, textId, insertType) {
+    const data = this.alignment.insertTokens(tokensText, textType, textId, insertType)
+    if (data.result) {
       this.store.commit('incrementTokenUpdated')
+      await this.deleteAllPartFromStorage(textId, data.segmentIndex, data.partNum)
+      await StorageController.update(this.alignment)
       return true
     }
     return false
@@ -244,27 +276,37 @@ export default class TokensEditController {
    * @param {Token} token
    * @returns {Boolean}
    */
-  deleteToken (token) {
+  async deleteToken (token) {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.deleteToken(token)) {
       this.store.commit('incrementTokenUpdated')
+      await this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+      await StorageController.update(this.alignment)
       return true
     }
     return false
   }
 
-  undoTokensEditStep () {
-    if (this.alignment.undoTokensEditStep()) {
+  async undoTokensEditStep () {
+    const data = this.alignment.undoTokensEditStep()
+
+    if (data.result) {
       this.store.commit('incrementTokenUpdated')
+      await this.prepareDeleteFromStorage(data.dataIndexedDB)
+      await StorageController.update(this.alignment)
       return true
     }
     return false
   }
 
-  redoTokensEditStep () {
-    if (this.alignment.redoTokensEditStep()) {
+  async redoTokensEditStep () {
+    const data = this.alignment.redoTokensEditStep()
+
+    if (data.result) {
       this.store.commit('incrementTokenUpdated')
+      await this.prepareDeleteFromStorage(data.dataIndexedDB)
+      await StorageController.update(this.alignment)
       return true
     }
     return false
@@ -276,5 +318,37 @@ export default class TokensEditController {
 
   get redoTokensEditAvailable () {
     return this.alignment.redoTokensEditAvailable
+  }
+
+  async prepareDeleteFromStorage (dataIndexedDB) {
+    const onlyToken = [HistoryStep.types.UPDATE, HistoryStep.types.SPLIT, HistoryStep.types.ADD_LINE_BREAK, HistoryStep.types.REMOVE_LINE_BREAK, HistoryStep.types.NEW, HistoryStep.types.DELETE]
+
+    for (let i = 0; i < dataIndexedDB.length; i++) {
+      const data = dataIndexedDB[i]
+      if (onlyToken.includes(data.type)) {
+        await this.deleteAllPartFromStorage(data.token.docSourceId, data.token.segmentIndex, data.token.partNum)
+      } else if (data.type === HistoryStep.types.MERGE) {
+        await this.deleteAllPartFromStorage(data.token.docSourceId, data.token.segmentIndex, data.token.partNum)
+        if (data.mergedToken) {
+          await this.deleteAllPartFromStorage(data.mergedToken.docSourceId, data.mergedToken.segmentIndex, data.mergedToken.partNum)
+        }
+      } else if (data.type === HistoryStep.types.TO_NEXT_SEGMENT) {
+        await this.deleteAllPartFromStorage(data.token.docSourceId, data.token.segmentIndex, data.token.partNum)
+        await this.deleteAllPartFromStorage(data.token.docSourceId, data.newSegmentIndex, data.newPartNum)
+      } else if (data.type === HistoryStep.types.TO_PREV_SEGMENT) {
+        await this.deleteAllPartFromStorage(data.token.docSourceId, data.token.segmentIndex, data.token.partNum)
+        await this.deleteAllPartFromStorage(data.token.docSourceId, data.newSegmentIndex, data.newPartNum)
+      }
+    }
+  }
+
+  deleteAllPartFromStorage (textId, segmentIndex, partNum) {
+    StorageController.deleteMany({
+      userID: this.alignment.userID,
+      alignmentID: this.alignment.id,
+      textId,
+      segmentIndex,
+      partNum
+    }, 'allPartNum')
   }
 }

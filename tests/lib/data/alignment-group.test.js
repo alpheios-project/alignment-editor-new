@@ -10,13 +10,14 @@ describe('alignment-group.test.js', () => {
   console.log = function () { }
   console.warn = function () { }
 
-  beforeAll(() => {
+  beforeAll(async () => {
     const appC = new AppController({
       appidWord: 'alpheios-alignment-editor'
     })
     appC.defineStore()
     appC.defineL10Support()
     appC.defineNotificationSupport(appC.store)
+    await appC.defineSettingsController(appC.store)
   })
 
   beforeEach(() => {
@@ -25,7 +26,7 @@ describe('alignment-group.test.js', () => {
     jest.spyOn(console, 'log')
     jest.spyOn(console, 'warn')
   })
-/*
+
   it('1 AlignmentGroup - constructor inits origin, target, steps arrays, creates unique id and adds first token, if a token is passed', () => {
     const token = new Token({
       textType: 'origin', idWord: 'L1-10', word: 'male'
@@ -961,7 +962,7 @@ describe('alignment-group.test.js', () => {
     expect(alGroup2.hasTheSameSegmentTargetId(1, 'target id2')).toBeFalsy()
     expect(alGroup2.hasTheSameSegmentTargetId(2, 'target id1')).toBeFalsy()
   })
-*/
+
   it('38 AlignmentGroup - allTokensInTheStartingText, true - if text has only origin/target, false - otherwise', () => {
     const token1 = new Token({
       textType: 'origin', idWord: '1-0-1', word: 'male'

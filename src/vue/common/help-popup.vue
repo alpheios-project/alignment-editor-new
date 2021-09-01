@@ -1,30 +1,37 @@
 <template>
-    <modal v-if="showModal" @close="$emit('closeModal')" class="alpheios-alignment-editor-modal-help">
-        <template v-slot:header >
+    <modal :classes="classes" :name="mname" :draggable="true" height="auto">
+        <div class="alpheios-modal-header" >
+          <span class="alpheios-alignment-modal-close-icon" @click="$emit('closeModal')">
+              <x-close-icon />
+          </span>
           <h2 class="alpheios-alignment-editor-modal-header">Help</h2>
-        </template>
-        <template v-slot:body >
+        </div>
+        <div class="alpheios-modal-body" >
             <slot name="content"></slot>
-        </template>
+        </div>
     </modal>
 </template>
 <script>
-import Modal from '@/vue/common/modal.vue'
+import XCloseIcon from '@/inline-icons/x-close.svg'
 
 export default {
   name: 'HelpPopup',
   components: {
-    modal: Modal
+    xCloseIcon: XCloseIcon
   },
   props: {
-    showModal: {
-      type: Boolean,
-      required: false,
-      default: false
+    mname: {
+      type: String,
+      required: true
     }
   },
   data () {
     return {
+    }
+  },
+  computed: {
+    classes () {
+      return `alpheios-alignment-editor-modal-help alpheios-alignment-editor-modal-${this.mname}`
     }
   }
 }

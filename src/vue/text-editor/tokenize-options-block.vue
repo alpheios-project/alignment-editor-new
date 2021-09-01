@@ -35,6 +35,7 @@
 <script>
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import OptionItemBlock from '@/vue/options/option-item-block.vue'
+import SettingsController from '@/lib/controllers/settings-controller.js'
 
 export default {
   name: 'TokenizeOptionsBlock',
@@ -61,7 +62,7 @@ export default {
       return L10nSingleton
     },
     showOptions () {
-      return this.$store.state.optionsUpdated && this.localOptions.ready && this.$settingsC.tokenizerOptionsLoaded
+      return this.$store.state.optionsUpdated && this.localOptions.ready && SettingsController.tokenizerOptionsLoaded
     },
     sourceType () {
       return this.$store.state.optionsUpdated && this.localOptions.sourceText.items.sourceType.currentValue

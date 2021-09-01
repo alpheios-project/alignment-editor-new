@@ -36,6 +36,11 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    annotationMode: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data () {
@@ -48,7 +53,10 @@ export default {
         'alpheios-token-selected': this.selected, 
         'alpheios-token-grouped': this.grouped ,
         'alpheios-token-clicked': this.inActiveGroup,
-        'alpheios-token-clicked-first': this.firstInActiveGroup
+        'alpheios-token-clicked-first': this.firstInActiveGroup,
+        'alpheios-token-part-shadowed': (this.token.partNum % 2 === 0),
+        'alpheios-token-annotated': this.hasAnnotations,
+        'alpheios-token-annotation-mode': this.annotationMode
       }
     }, 
     tokenWord () {
@@ -62,17 +70,30 @@ export default {
     },
     elementId () {
       return `token-${this.token.idWord}`
+    },
+    clickToken () {
+      return this.annotationMode ? this.updateAnnotation : this.updateAlignmentGroup
+    },
+    hasAnnotations () {
+      return this.$store.state.updateAnnotations && this.$textC.getAnnotations(this.token).length > 0
     }
   },
   methods: {
-    clickToken (event) {
-      this.$emit('click-token', this.token)
+    updateAnnotation () {
+      this.$emit('update-annotation', this.token)
+    },
+    updateAlignmentGroup (event) {
+      this.$emit('update-alignment-group', this.token)
     },
     addHoverToken () {
-      this.$emit('add-hover-token', this.token)
+      if (!this.annotationMode) {
+        this.$emit('add-hover-token', this.token)
+      }
     },
     removeHoverToken () {
-      this.$emit('remove-hover-token', this.token)
+      if (!this.annotationMode) {
+        this.$emit('remove-hover-token', this.token)
+      }
     }
   }
 }
@@ -81,14 +102,23 @@ export default {
     .alpheios-alignment-editor-align-text-segment {
         span.alpheios-token {
             cursor: pointer;
-            padding: 4px;
+            padding: 2px 2px 0 2px;
+            margin-bottom: 2px;
             border: 1px solid transparent;
             display: inline-block;
             vertical-align: top;
+            
+            &.alpheios-token-part-shadowed {
+              font-weight: bold;
+            }
 
             &:hover {
                 border-color: #FFC24F;
                 background: #FFD27D;
+            }
+            &.alpheios-token-annotation-mode:hover {
+              border-color: initial;
+              background: initial;
             }
 
             &.alpheios-token-grouped {
@@ -111,6 +141,10 @@ export default {
               border-color: #f06d26;
               background: #f06d26;
               color: #fff;
+            }
+
+            &.alpheios-token-annotated {
+              border-bottom: 1px solid;
             }
         }
     }

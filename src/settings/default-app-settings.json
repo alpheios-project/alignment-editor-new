@@ -84,6 +84,58 @@
           "text": "No"
         }
       ]
+    },
+    "maxCharactersPerPart": {
+      "defaultValue": 1000,
+      "labelText": "Max characters per part (recommended for performance), to be used in Align Text",
+      "number": true,
+      "minValue": 1,
+      "maxValue": 50000,
+      "values": []
+    },
+    "addIndexedDBSupport": {
+      "defaultValue": true,
+      "labelText": "Add IndexedDB support",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "Yes"
+        },
+        {
+          "value": false,
+          "text": "No"
+        }
+      ]
+    },
+    "availableAnnotationTypes": {
+      "defaultValue": [
+        "COMMENT", "LEMMAID", "MORPHOLOGY"
+      ],
+      "labelText": "Available Annotation Types",
+      "multiValue": true,
+      "values": [
+        {
+          "value": "COMMENT",
+          "text": "comment"
+        },
+        {
+          "value": "LEMMAID",
+          "text": "lemmaID"
+        },
+        {
+          "value": "MORPHOLOGY",
+          "text": "morphology"
+        }
+      ]
+    },
+    "maxCharactersAnnotationText": {
+      "defaultValue": 500,
+      "labelText": "Max characters in annotation text",
+      "number": true,
+      "minValue": 1,
+      "maxValue": 5000,
+      "values": []
     }
   }
 }

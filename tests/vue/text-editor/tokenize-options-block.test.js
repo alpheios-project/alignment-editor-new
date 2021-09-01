@@ -6,11 +6,13 @@ import AppController from '@/lib/controllers/app-controller.js'
 import TokenizeOptionsBlock from '@/vue/text-editor/tokenize-options-block.vue'
 import OptionItemBlock from '@/vue/options/option-item-block.vue'
 import { Options } from 'alpheios-data-models'
-
+import SettingsController from '@/lib/controllers/settings-controller'
+import VModal from 'vue-js-modal'
 import Vuex from "vuex"
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(VModal)
 
 let appC, localTextEditorOptions
 
@@ -90,8 +92,8 @@ describe('tokenize-options-block.test.js', () => {
 
     return {
       alpheiosRemoteTokenizer: {
-        text: new Options(defaultsText, new appC.settingsC.storageAdapter('alpheios-remote-tokenization-text')),
-        tei: new Options(defaultsTei, new appC.settingsC.storageAdapter('alpheios-remote-tokenization-tei')) 
+        text: new Options(defaultsText, new SettingsController.getStorageAdapter('alpheios-remote-tokenization-text')),
+        tei: new Options(defaultsTei, new SettingsController.getStorageAdapter('alpheios-remote-tokenization-tei')) 
       }
     }
   }
@@ -108,16 +110,13 @@ describe('tokenize-options-block.test.js', () => {
     appC.defineStore()
     appC.defineL10Support()
     appC.defineNotificationSupport(appC.store)
+    SettingsController.create(appC.store)
+    await appC.defineSettingsController(appC.store)
 
-    await appC.defineSettingsController()
-    await appC.settingsC.init()
+    SettingsController.allOptions.tokenize = fixtureForRemoteSettings()
+    SettingsController.allOptions.app.items.tokenizer.currentValue = 'alpheiosRemoteTokenizer'
 
-    appC.settingsC.options.tokenize = fixtureForRemoteSettings()
-
-   
-    appC.settingsC.options.app.items.tokenizer.currentValue = 'alpheiosRemoteTokenizer'
-
-    localTextEditorOptions = await appC.settingsC.cloneTextEditorOptions('target', 0)
+    localTextEditorOptions = await SettingsController.cloneTextEditorOptions('target', 0)
     localTextEditorOptions.ready = true
   })
 
@@ -144,5 +143,4 @@ describe('tokenize-options-block.test.js', () => {
     const optionItems = cmp.findAll(OptionItemBlock)
     expect(optionItems.length).toEqual(1 + Object.keys(localTextEditorOptions.text.items).length + Object.keys(localTextEditorOptions.tei.items).length)
   })
-
 })

@@ -7,9 +7,12 @@ import OptionItemBlock from '@/vue/options/option-item-block.vue'
 import { LocalStorageArea, Options } from 'alpheios-data-models'
 
 import Vuex from "vuex"
+import SettingsController from '@/lib/controllers/settings-controller'
+import VModal from 'vue-js-modal'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(VModal)
 
 let appC, localTextEditorOptions
 
@@ -89,8 +92,8 @@ describe('option-item-block.test.js', () => {
 
     return {
       alpheiosRemoteTokenizer: {
-        text: new Options(defaultsText, new appC.settingsC.storageAdapter('alpheios-remote-tokenization-text')),
-        tei: new Options(defaultsTei, new appC.settingsC.storageAdapter('alpheios-remote-tokenization-tei')) 
+        text: new Options(defaultsText, new SettingsController.getStorageAdapter('alpheios-remote-tokenization-text')),
+        tei: new Options(defaultsTei, new SettingsController.getStorageAdapter('alpheios-remote-tokenization-tei')) 
       }
     }
   }
@@ -108,12 +111,11 @@ describe('option-item-block.test.js', () => {
     appC.defineL10Support()
     appC.defineNotificationSupport(appC.store)
 
+    SettingsController.create(appC.store)
     await appC.defineSettingsController()
-    await appC.settingsC.init()
 
-    appC.settingsC.options.tokenize = fixtureForRemoteSettings()
-    
-    appC.settingsC.options.app.items.tokenizer.currentValue = 'alpheiosRemoteTokenizer'
+    SettingsController.allOptions.tokenize = fixtureForRemoteSettings()
+    SettingsController.allOptions.app.items.tokenizer.currentValue = 'alpheiosRemoteTokenizer'
   })
 
   it('1 OptionItemBlock - renders a vue instance (min requirements)', () => {
@@ -121,7 +123,7 @@ describe('option-item-block.test.js', () => {
         store: appC.store,
         localVue,
         propsData: {
-          optionItem: appC.settingsC.options.app.items.theme
+          optionItem: SettingsController.allOptions.app.items.theme
         }
       })
     expect(cmp.isVueInstance()).toBeTruthy()
@@ -132,7 +134,7 @@ describe('option-item-block.test.js', () => {
         store: appC.store,
         localVue,
         propsData: {
-          optionItem: appC.settingsC.options.app.items.theme // theme option with select type
+          optionItem: SettingsController.allOptions.app.items.theme // theme option with select type
         }
       })
     
@@ -141,10 +143,10 @@ describe('option-item-block.test.js', () => {
 
     expect(cmp.find(`#${cmp.vm.itemId}`).isVisible()).toBeTruthy()
 
-    expect(cmp.vm.values).toEqual(appC.settingsC.options.app.items.theme.values)
+    expect(cmp.vm.values).toEqual(SettingsController.allOptions.app.items.theme.values)
     expect(cmp.vm.labelText).toEqual(cmp.vm.optionItem.labelText)
 
-    expect(cmp.vm.selected).toEqual(appC.settingsC.options.app.items.theme.currentValue) // set default value
+    expect(cmp.vm.selected).toEqual(SettingsController.allOptions.app.items.theme.currentValue) // set default value
 
     // not used selectInputLabelsSelect
     expect(cmp.vm.checkboxLabel).toBeNull()
@@ -153,13 +155,13 @@ describe('option-item-block.test.js', () => {
     expect(cmp.vm.selectInputDescription).toBeNull()
 
     // check change workflow
-    jest.spyOn(cmp.vm.$settingsC, 'changeOption')
+    // jest.spyOn(cmp.vm.$settingsC, 'changeOption')
 
     cmp.vm.selected = 'standard-theme'
     cmp.vm.changeOption()
     
-    expect(appC.settingsC.options.app.items.theme.currentValue).toEqual('standard-theme')
-    expect(cmp.vm.$settingsC.changeOption).toHaveBeenLastCalledWith(cmp.vm.optionItem)
+    expect(SettingsController.allOptions.app.items.theme.currentValue).toEqual('standard-theme')
+    // expect(cmp.vm.$settingsC.changeOption).toHaveBeenLastCalledWith(cmp.vm.optionItem)
     expect(cmp.emitted()['updateData']).toBeFalsy()
   })
 
@@ -168,18 +170,18 @@ describe('option-item-block.test.js', () => {
         store: appC.store,
         localVue,
         propsData: {
-          optionItem: appC.settingsC.options.tokenize.alpheiosRemoteTokenizer.text.items.segstart // segstart option with text type
+          optionItem: SettingsController.allOptions.app.items.maxCharactersPerText // segstart option with number type
         }
       })
     
-    expect(cmp.vm.optionType).toEqual('text')
-    expect(cmp.vm.itemId).toEqual('alpheios-remote-tokenization-text__1_0_0__segstart-id')
+    expect(cmp.vm.optionType).toEqual('number')
+    expect(cmp.vm.itemId).toEqual('alpheios-alignment-editor-app__1__maxCharactersPerText-id')
 
     expect(cmp.find(`#${cmp.vm.itemId}`).isVisible()).toBeTruthy()
 
     expect(cmp.vm.labelText).toEqual(cmp.vm.optionItem.labelText)
 
-    expect(cmp.vm.selected).toEqual(appC.settingsC.options.tokenize.alpheiosRemoteTokenizer.text.items.segstart.currentValue) // set default value
+    expect(cmp.vm.selected).toEqual(SettingsController.allOptions.app.items.maxCharactersPerText.currentValue) // set default value
 
     // not used 
     expect(cmp.vm.values).toBeNull()
@@ -189,13 +191,14 @@ describe('option-item-block.test.js', () => {
     expect(cmp.vm.selectInputDescription).toBeNull()
 
     // check change workflow
-    jest.spyOn(cmp.vm.$settingsC, 'changeOption')
-
-    cmp.vm.selected = '2'
-    cmp.vm.changeOption()
     
-    expect(appC.settingsC.options.tokenize.alpheiosRemoteTokenizer.text.items.segstart.currentValue).toEqual('2')
-    expect(cmp.vm.$settingsC.changeOption).toHaveBeenLastCalledWith(cmp.vm.optionItem)
+    cmp.vm.selected = 2
+    // console.info('cmp.vm.optionItem', cmp.vm.optionItem.storageAdapter)
+    
+    // cmp.vm.optionItem.setValue('2')
+    cmp.vm.changeOption()
+        
+    expect(SettingsController.allOptions.app.items.maxCharactersPerText.currentValue).toEqual(2)
     expect(cmp.emitted()['updateData']).toBeFalsy()
   })
 
@@ -204,20 +207,19 @@ describe('option-item-block.test.js', () => {
         store: appC.store,
         localVue,
         propsData: {
-          optionItem: appC.settingsC.options.tokenize.alpheiosRemoteTokenizer.text.items.tbseg, // tbseg option with boolean type
+          optionItem: SettingsController.allOptions.app.items.showSummaryPopup, // showSummaryPopup option with boolean type
           showCheckboxTitle: false
         }
       })
     
     expect(cmp.vm.optionType).toEqual('boolean')
-    expect(cmp.vm.itemId).toEqual('alpheios-remote-tokenization-text__1_0_0__tbseg-id')
+    expect(cmp.vm.itemId).toEqual('alpheios-alignment-editor-app__1__showSummaryPopup-id')
 
     expect(cmp.find(`#${cmp.vm.itemId}`).isVisible()).toBeTruthy()
 
     expect(cmp.vm.labelText).toEqual(cmp.vm.optionItem.labelText)
 
-    expect(cmp.vm.selected).toEqual(appC.settingsC.options.tokenize.alpheiosRemoteTokenizer.text.items.tbseg.currentValue) // set default value
-    expect(cmp.vm.checkboxLabel).toBeNull()
+    expect(cmp.vm.selected).toEqual(SettingsController.allOptions.app.items.showSummaryPopup.currentValue) // set default value
 
     // not used 
     expect(cmp.vm.values).toBeNull()
@@ -227,13 +229,13 @@ describe('option-item-block.test.js', () => {
     expect(cmp.vm.selectInputDescription).toBeNull()
 
     // check change workflow
-    jest.spyOn(cmp.vm.$settingsC, 'changeOption')
+    // jest.spyOn(cmp.vm.$settingsC, 'changeOption')
 
     cmp.vm.selected = true
     cmp.vm.changeOption()
     
-    expect(appC.settingsC.options.tokenize.alpheiosRemoteTokenizer.text.items.tbseg.currentValue).toEqual(true)
-    expect(cmp.vm.$settingsC.changeOption).toHaveBeenLastCalledWith(cmp.vm.optionItem)
+    expect(SettingsController.allOptions.app.items.showSummaryPopup.currentValue).toEqual(true)
+    // expect(cmp.vm.$settingsC.changeOption).toHaveBeenLastCalledWith(cmp.vm.optionItem)
     expect(cmp.emitted()['updateData']).toBeFalsy()
   })
 
@@ -242,7 +244,7 @@ describe('option-item-block.test.js', () => {
         store: appC.store,
         localVue,
         propsData: {
-          optionItem: appC.settingsC.options.sourceText.items.direction // direction option with radio type
+          optionItem: SettingsController.allOptions.sourceText.items.direction // direction option with radio type
         }
       })
     
@@ -253,9 +255,9 @@ describe('option-item-block.test.js', () => {
 
     expect(cmp.vm.labelText).toEqual(cmp.vm.optionItem.labelText)
 
-    expect(cmp.vm.selected).toEqual(appC.settingsC.options.sourceText.items.direction.currentValue) // set default value
+    expect(cmp.vm.selected).toEqual(SettingsController.allOptions.sourceText.items.direction.currentValue) // set default value
 
-    expect(cmp.vm.values).toEqual(appC.settingsC.options.sourceText.items.direction.values)
+    expect(cmp.vm.values).toEqual(SettingsController.allOptions.sourceText.items.direction.values)
 
     // not used 
     expect(cmp.vm.checkboxLabel).toBeNull()    
@@ -264,13 +266,13 @@ describe('option-item-block.test.js', () => {
     expect(cmp.vm.selectInputDescription).toBeNull()
 
     // check change workflow
-    jest.spyOn(cmp.vm.$settingsC, 'changeOption')
+    // jest.spyOn(cmp.vm.$settingsC, 'changeOption')
 
     cmp.vm.selected = 'rtl'
     cmp.vm.changeOption()
     
-    expect(appC.settingsC.options.sourceText.items.direction.currentValue).toEqual('rtl')
-    expect(cmp.vm.$settingsC.changeOption).toHaveBeenLastCalledWith(cmp.vm.optionItem)
+    expect(SettingsController.allOptions.sourceText.items.direction.currentValue).toEqual('rtl')
+    // expect(cmp.vm.$settingsC.changeOption).toHaveBeenLastCalledWith(cmp.vm.optionItem)
     expect(cmp.emitted()['updateData']).toBeFalsy()
   })
 
@@ -279,7 +281,7 @@ describe('option-item-block.test.js', () => {
         store: appC.store,
         localVue,
         propsData: {
-          optionItem: appC.settingsC.options.sourceText.items.language, // direction option with radio type
+          optionItem: SettingsController.allOptions.sourceText.items.language, // direction option with radio type
           labelsListType: 'origin'
         }
       })
@@ -292,34 +294,35 @@ describe('option-item-block.test.js', () => {
 
     expect(cmp.vm.labelText).toEqual(cmp.vm.optionItem.labelText)
 
-    expect(cmp.vm.selectedS).toEqual(appC.settingsC.options.sourceText.items.language.currentValue) // set default value from the list - available language
+    expect(cmp.vm.selectedS).toEqual(SettingsController.allOptions.sourceText.items.language.currentValue) // set default value from the list - available language
     expect(cmp.vm.selectedI).toBeNull() // it is empty - choose another language
-    expect(cmp.vm.selected).toEqual(appC.settingsC.options.sourceText.items.language.currentValue)
+    expect(cmp.vm.selected).toEqual(SettingsController.allOptions.sourceText.items.language.currentValue)
 
-    expect(cmp.vm.values).toEqual(appC.settingsC.options.sourceText.items.language.values)
+    expect(cmp.vm.values).toEqual(SettingsController.allOptions.sourceText.items.language.values)
 
-    expect(cmp.vm.selectInputLabelsSelect).toEqual(appC.settingsC.options.sourceText.items.language.labelsList[cmp.vm.labelsListType].selectLabel) // get label from the optionItem for select
-    expect(cmp.vm.selectInputLabelsInput).toEqual(appC.settingsC.options.sourceText.items.language.labelsList[cmp.vm.labelsListType].inputLabel) // get label from the optionItem for input
-    expect(cmp.vm.selectInputDescription).toEqual(appC.settingsC.options.sourceText.items.language.description) // get description from the optionItem
+    expect(cmp.vm.selectInputLabelsSelect).toEqual(SettingsController.allOptions.sourceText.items.language.labelsList[cmp.vm.labelsListType].selectLabel) // get label from the optionItem for select
+    expect(cmp.vm.selectInputLabelsInput).toEqual(SettingsController.allOptions.sourceText.items.language.labelsList[cmp.vm.labelsListType].inputLabel) // get label from the optionItem for input
+    expect(cmp.vm.selectInputDescription).toEqual(SettingsController.allOptions.sourceText.items.language.description) // get description from the optionItem
 
     // not used    
     expect(cmp.vm.checkboxLabel).toBeNull()    
 
     // check change workflow
-    jest.spyOn(cmp.vm.$settingsC, 'changeOption')
+    // jest.spyOn(cmp.vm.$settingsC, 'changeOption')
 
     cmp.vm.selectedS = 'ara' // select another from the list
     cmp.vm.changeOption()
     
-    expect(appC.settingsC.options.sourceText.items.language.currentValue).toEqual('ara')
-    expect(cmp.vm.$settingsC.changeOption).toHaveBeenLastCalledWith(cmp.vm.optionItem)
+    expect(SettingsController.allOptions.sourceText.items.language.currentValue).toEqual('ara')
+    // expect(cmp.vm.$settingsC.changeOption).toHaveBeenLastCalledWith(cmp.vm.optionItem)
     expect(cmp.emitted()['updateData']).toBeFalsy()
 
     cmp.vm.selectedI = 'test' // select another from the list
     cmp.vm.changeOption()
     
-    expect(appC.settingsC.options.sourceText.items.language.currentValue).toEqual('test')
-    expect(cmp.vm.$settingsC.changeOption).toHaveBeenLastCalledWith(cmp.vm.optionItem)
+    expect(SettingsController.allOptions.sourceText.items.language.currentValue).toEqual('test')
+    // expect(cmp.vm.$settingsC.changeOption).toHaveBeenLastCalledWith(cmp.vm.optionItem)
     expect(cmp.emitted()['updateData']).toBeFalsy()
   })
+
 })

@@ -39,7 +39,7 @@
             <al-groups-view-sentence :fullData="fullData" :languageTargetIds = "languageTargetIds"  :sentence-count = "sentenceCount" v-if="viewType === 'viewSentence'" />
             <al-groups-view-equivalence :fullData="fullData" :languageTargetIds = "languageTargetIds"  v-if="viewType === 'viewEquivalence'" />
         </div>
-            
+        <annotation-block />
     </div>
 </template>
 <script>
@@ -47,6 +47,7 @@ import GroupUtility from '@/_output/utility/group-utility.js'
 import SourceData from '@/_output/data/source-data.js'
 
 import LanguagesBlock from '@/_output/vue/languages-block.vue'
+import AnnotationBlock from '@/_output/vue/annotation-block.vue'
 
 import AlGroupsViewFull from '@/_output/vue/views/al-groups-view-full.vue'
 import AlGroupsViewShort from '@/_output/vue/views/al-groups-view-short.vue'
@@ -58,6 +59,7 @@ export default {
   name: 'App',
   components: {
     languagesBlock: LanguagesBlock,
+    annotationBlock: AnnotationBlock,
 
     alGroupsViewFull: AlGroupsViewFull,
     alGroupsViewShort: AlGroupsViewShort,

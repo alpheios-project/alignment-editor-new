@@ -1,12 +1,14 @@
 <template>
-    <modal v-if="showModal" @close="$emit('closeModal')">
-        <template v-slot:header>
-            <p class="alpheios-editor-summary-header" v-html="l10n.getMsgS('SUMMARY_POPUP_HEADER')" v-show="!showWaiting"></p>
-        </template>
+    <modal classes="alpheios-alignment-editor-modal-summary" name="summary" :draggable="true" height="auto">
+        <div class="alpheios-modal-header" >
+            <span class="alpheios-alignment-modal-close-icon" @click = "$emit('closeModal')">
+                <x-close-icon />
+            </span>
+            <p class="alpheios-editor-summary-header" v-html="l10n.getMsgS('SUMMARY_POPUP_HEADER')"></p>
+        </div>
 
-        <template v-slot:body v-if="contentAvailable">
-          <waiting v-show="showWaiting"/>
-          <div class="alpheios-editor-summary-content" v-show="!showWaiting">
+        <div class="alpheios-modal-body" v-if="contentAvailable">
+          <div class="alpheios-editor-summary-content" >
             <table class="alpheios-editor-langs-table">
               <tr>
                 <th colspan="2">{{ l10n.getMsgS('SUMMARY_POPUP_TABEL_TH_ORIGINAL') }}</th>
@@ -44,62 +46,41 @@
 
             <div class="alpheios-editor-summary-show-option">
               <span class="alpheios-editor-summary-show-option-item">
-                <option-item-block :optionItem = "showSummaryPopupOpt" :showLabelText = "showLabelTextOpt" />
+                <option-item-block :optionItem = "showSummaryPopupOpt" :showLabelText = "showLabelTextOpt" :showCheckboxTitle = "showLabelTextOpt"/>
               </span>
               <span class="alpheios-editor-summary-show-option-label">{{ l10n.getMsgS('SUMMARY_POPUP_SHOW_OPTION_LABEL') }}</span>
             </div>
           </div>
-        </template>
+        </div>
 
-        <template v-slot:footer>
-          <div class="alpheios-editor-summary-footer" v-show="!showWaiting">
-            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click = "startAlign" :disabled = "showWaiting">{{ l10n.getMsgS('SUMMARY_POPUP_OK_BUTTON') }}</button>
-            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click="$emit('closeModal')" :disabled = "showWaiting">{{ l10n.getMsgS('SUMMARY_POPUP_CANCEL_BUTTON') }}</button>
+        <div class="alpheios-modal-footer" >
+          <div class="alpheios-editor-summary-footer" >
+            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click = "startAlign" >{{ l10n.getMsgS('SUMMARY_POPUP_OK_BUTTON') }}</button>
+            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click="$emit('closeModal')" >{{ l10n.getMsgS('SUMMARY_POPUP_CANCEL_BUTTON') }}</button>
           </div>
-        </template>
+        </div>
     </modal>
 </template>
 <script>
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
-import Modal from '@/vue/common/modal.vue'
-import Waiting from '@/vue/common/waiting.vue'
+import XCloseIcon from '@/inline-icons/x-close.svg'
 import OptionItemBlock from '@/vue/options/option-item-block.vue'
 import CheckIcon from '@/inline-icons/check.svg'
+
+import SettingsController from '@/lib/controllers/settings-controller.js'
 
 export default {
   name: 'SummaryPopup',
   components: {
-    modal: Modal,
-    waiting: Waiting,
+    xCloseIcon: XCloseIcon,
     optionItemBlock: OptionItemBlock,
     checkIcon: CheckIcon
   },
   props: {
-    showModal: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-    showOnlyWaiting: {
-      type: Boolean,
-      required: false,
-      default: false
-    }
   },
   data () {
     return {
-      contentAvailable: true,
-      showWaiting: false,
       showLabelTextOpt: false
-    }
-  },
-  watch: {
-    showModal () {
-      if (!this.showModal) {
-        this.showWaiting = false
-      } else if (this.showOnlyWaiting) {
-        this.startAlign()
-      }
     }
   },
   computed: {
@@ -113,13 +94,16 @@ export default {
       return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$textC.targetsLangData
     },
     showSummaryPopupOpt () {
-      return this.$store.state.optionsUpdated && this.$settingsC.options.app.items.showSummaryPopup
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.showSummaryPopup
+    },
+    contentAvailable () {
+      return this.$store.state.docSourceUpdated && this.originalLangData && this.targetsLangData
     }
   },
   methods: {
     startAlign () {
-      this.showWaiting = true
       this.$emit('start-align')
+      this.$emit('closeModal')
     }
   }
 }
@@ -191,6 +175,13 @@ export default {
       width: 15px;
       height: 15px;
       fill: #000;
+    }
+  }
+
+  .alpheios-alignment-editor-modal-summary {
+    .alpheios-modal-body {
+      border: 0;
+      padding: 10px 0;
     }
   }
 </style>

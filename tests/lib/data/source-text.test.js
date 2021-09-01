@@ -19,7 +19,7 @@ describe('source-text.test.js', () => {
     appC.defineStore()
     appC.defineL10Support()
     appC.defineNotificationSupport(appC.store)
-    await appC.defineSettingsController()
+    await appC.defineSettingsController(appC.store)
   })
 
   beforeEach(() => {

@@ -61,7 +61,7 @@ describe('history-controller.test.js', () => {
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
     alignment.addToAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[1])
 
-    historyC.undo()
+    await historyC.undo()
     expect(alignment.undoInActiveGroup).toHaveBeenCalled()
   })
 
@@ -85,7 +85,7 @@ describe('history-controller.test.js', () => {
     await alignment.createAlignedTexts()
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
 
-    historyC.undo()
+    await historyC.undo()
     expect(alignment.undoActiveGroup).toHaveBeenCalled()
   })
 
@@ -104,7 +104,7 @@ describe('history-controller.test.js', () => {
     alignment.updateTargetDocSource(targetDocSource)
     const targetId = Object.keys(alignment.targets)[0]
 
-    alignment.activateGroupByGroupIndex = jest.fn()
+    jest.spyOn(alignment, 'activateGroupByGroupIndex')
     
     historyC.startTracking(alignment)
 
@@ -113,7 +113,7 @@ describe('history-controller.test.js', () => {
     alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
     alignment.finishActiveAlignmentGroup()
 
-    historyC.undo()
+    await historyC.undo()
     expect(alignment.activateGroupByGroupIndex).toHaveBeenCalledWith(0)
   })
 
@@ -139,8 +139,8 @@ describe('history-controller.test.js', () => {
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
     alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
 
-    historyC.undo()
-    historyC.redo()
+    await historyC.undo()
+    await historyC.redo()
     expect(alignment.redoInActiveGroup).toHaveBeenCalled()
   })
 
@@ -166,7 +166,7 @@ describe('history-controller.test.js', () => {
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
     alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
 
-    historyC.redo()
+    await historyC.redo()
     expect(alignment.returnActiveGroupToList).not.toHaveBeenCalled()
   })
 
@@ -198,14 +198,14 @@ describe('history-controller.test.js', () => {
     alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
     alignment.finishActiveAlignmentGroup()
 
-    historyC.undo()
-    historyC.undo()
+    await historyC.undo()
+    await historyC.undo()
 
-    const resultUndo = historyC.undo()
+    const resultUndo = await historyC.undo()
     expect(resultUndo).toBeTruthy()
     expect(historyC.undoneSteps).toEqual(3)
 
-    const resultRedo = historyC.redo()
+    const resultRedo = await historyC.redo()
 
     expect(resultRedo).toBeTruthy()
     expect(alignment.redoActiveGroup).toHaveBeenCalled()
@@ -260,7 +260,7 @@ describe('history-controller.test.js', () => {
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[1])
     alignment.addToAlignmentGroup(alignment.targets[targetId1].alignedText.segments[0].tokens[1])
     alignment.finishActiveAlignmentGroup()
-    historyC.undo()
+    await historyC.undo()
 
 
     // activate only one tab
@@ -307,4 +307,5 @@ describe('history-controller.test.js', () => {
     expect(historyC.alignment.origin).toEqual({})
     expect(historyC.alignment.target).not.toBeDefined()
   })
+
 })

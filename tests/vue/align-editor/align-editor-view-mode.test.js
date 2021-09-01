@@ -11,9 +11,11 @@ import SourceText from '@/lib/data/source-text'
 import Alignment from '@/lib/data/alignment'
 
 import Vuex from "vuex"
+import VModal from 'vue-js-modal'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(VModal)
 
 let appC
 

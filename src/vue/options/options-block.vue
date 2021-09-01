@@ -28,6 +28,8 @@
 import OptionItemBlock from '@/vue/options/option-item-block.vue'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
+import SettingsController from '@/lib/controllers/settings-controller'
+
 export default {
   name: 'OptionsBlock',
   components: {
@@ -44,7 +46,7 @@ export default {
       return L10nSingleton
     },
     appOptionItems () {
-      return this.$store.state.optionsUpdated && this.$settingsC.options.app.items
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items
     },
     versionData () {
       return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`
@@ -52,7 +54,7 @@ export default {
   },
   methods: {
     async resetOptions () {
-      await this.$settingsC.resetAllOptions()
+      await SettingsController.resetAllOptions()
     }
   }
 }

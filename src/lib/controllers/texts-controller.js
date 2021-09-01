@@ -5,6 +5,8 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
+import StorageController from '@/lib/controllers/storage-controller.js'
+import SettingsController from '@/lib/controllers/settings-controller.js'
 
 export default class TextsController {
   constructor (store) {
@@ -28,8 +30,8 @@ export default class TextsController {
     return Boolean(this.alignment) && this.alignment.readyForTokenize
   }
 
-  checkSize (maxCharactersPerTextValue) {
-    return Boolean(this.alignment) && this.alignment.checkSize(maxCharactersPerTextValue)
+  checkSize () {
+    return Boolean(this.alignment) && this.alignment.checkSize(SettingsController.maxCharactersPerTextValue)
   }
 
   /**
@@ -51,6 +53,7 @@ export default class TextsController {
       this.store.commit('incrementDocSourceLangDetected')
     }
 
+    StorageController.update(this.alignment)
     return { resultUpdate, resultDetect }
   }
 
@@ -78,6 +81,7 @@ export default class TextsController {
     if (resultDetect) {
       this.store.commit('incrementDocSourceLangDetected')
     }
+    StorageController.update(this.alignment)
     return { resultUpdate: true, resultDetect, finalTargetId }
   }
 
@@ -111,6 +115,7 @@ export default class TextsController {
       this.alignment.deleteText(textType, id)
       this.store.commit('incrementDocSourceLangDetected')
       this.store.commit('incrementDocSourceUpdated')
+      StorageController.update(this.alignment, true)
     }
   }
 
@@ -186,7 +191,21 @@ export default class TextsController {
     return true
   }
 
-  uploadData (fileData, tokenizerOptionValue, extension) {
+  async uploadDataFromDB (alData) {
+    if (!alData) {
+      console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'),
+        type: NotificationSingleton.types.ERROR
+      })
+      return
+    }
+
+    const alignment = await UploadController.upload('indexedDBUpload', alData)
+    return alignment
+  }
+
+  uploadDataFromFile (fileData, tokenizerOptionValue, extension) {
     if (!fileData) {
       console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       NotificationSingleton.addNotification({
@@ -197,13 +216,14 @@ export default class TextsController {
     }
 
     const uploadType = UploadController.defineUploadTypeByExtension(extension)
-
     const uploadPrepareMethods = {
       plainSourceUploadAll: this.uploadDocSourceFromFileAll.bind(this),
       jsonSimpleUploadAll: this.uploadFullDataJSON.bind(this)
     }
 
-    return uploadPrepareMethods[uploadType](fileData, tokenizerOptionValue, uploadType)
+    const alignment = uploadPrepareMethods[uploadType](fileData, tokenizerOptionValue, uploadType)
+    StorageController.update(alignment, true)
+    return alignment
   }
 
   uploadFullDataJSON (fileData, tokenizerOptionValue, uploadType) {
@@ -221,13 +241,14 @@ export default class TextsController {
 
     const result = UploadController.upload(uploadType, { fileData, tokenization })
     if (result) {
-      this.updateOriginDocSource(result.originDocSource)
+      const alignment = new Alignment()
+      alignment.updateOriginDocSource(result.originDocSource)
       result.targetDocSources.forEach(targetDocSource => {
-        this.updateTargetDocSource(targetDocSource)
+        alignment.updateTargetDocSource(targetDocSource)
       })
 
       this.store.commit('incrementUploadCheck')
-      return true
+      return alignment
     }
     return false
   }
@@ -271,16 +292,16 @@ export default class TextsController {
    * Prepares and download source data
    * @returns {Boolean} - true - download was successful, false - was not
    */
-  downloadData (downloadType, additional = {}) {
+  async downloadData (downloadType, additional = {}) {
     const downloadPrepareMethods = {
       plainSourceDownloadAll: this.downloadShortData.bind(this),
       jsonSimpleDownloadAll: this.downloadFullData.bind(this),
       htmlDownloadAll: this.htmlDownloadAll.bind(this)
     }
 
-    const result = downloadPrepareMethods[downloadType](downloadType, additional)
-
-    return DownloadController.download(result.downloadType, result.data)
+    const result = await downloadPrepareMethods[downloadType](downloadType, additional)
+    await DownloadController.download(result.downloadType, result.data)
+    return true
   }
 
   downloadShortData (downloadType) {
@@ -293,8 +314,16 @@ export default class TextsController {
     }
   }
 
-  downloadFullData (downloadType) {
-    const data = this.alignment.convertToJSON()
+  async downloadFullData (downloadType) {
+    let data
+    if (!this.alignment.hasAllPartsUploaded) {
+      const dbData = await StorageController.select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+      const alignment = await Alignment.convertFromIndexedDB(dbData)
+
+      data = alignment.convertToJSON()
+    } else {
+      data = this.alignment.convertToJSON()
+    }
     return {
       downloadType, data
     }
@@ -311,13 +340,14 @@ export default class TextsController {
     return DownloadController.download(downloadType, { docSource })
   }
 
-  htmlDownloadAll (downloadType, additional) {
+  async htmlDownloadAll (downloadType, additional) {
+    const fullData = await this.prepareFullDataForHTMLOutput()
     return {
       downloadType,
       data: {
         theme: `alpheios-${additional.theme}`,
         langs: this.collectLangsForFileName(),
-        fullData: this.prepareFullDataForHTMLOutput()
+        fullData
       }
     }
   }
@@ -330,56 +360,18 @@ export default class TextsController {
     return langs
   }
 
-  prepareFullDataForHTMLOutput () {
-    let targets = {} // eslint-disable-line prefer-const
-    this.alignment.allTargetTextsIds.forEach(targetId => {
-      targets[targetId] = this.alignment.targets[targetId].alignedText.convertForHTMLOutput()
+  async prepareFullDataForHTMLOutput () {
+    let data
+    if (!this.alignment.hasAllPartsUploaded) {
+      const dbData = await StorageController.select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+      const alignment = await Alignment.convertFromIndexedDB(dbData)
 
-      targets[targetId].metadata = this.alignment.targets[targetId].docSource.metadata.convertToJSONLine()
-      targets[targetId].metadataShort = this.alignment.targets[targetId].docSource.metadata.convertToShortJSONLine()
-    })
+      data = alignment.convertToHTML()
+    } else {
+      data = this.alignment.convertToHTML()
+    }
 
-    let origin = this.alignment.origin.alignedText.convertForHTMLOutput() // eslint-disable-line prefer-const
-    origin.metadata = this.alignment.origin.docSource.metadata.convertToJSONLine()
-    origin.metadataShort = this.alignment.origin.docSource.metadata.convertToShortJSONLine()
-
-    origin.segments.forEach(seg => {
-      seg.tokens.forEach(token => {
-        token.grouped = this.alignment.tokenIsGrouped(token)
-
-        if (token.grouped) {
-          const tokenGroups = this.alignment.findAllAlignmentGroups(token)
-          if (!token.groupData) { token.groupData = [] }
-
-          tokenGroups.forEach(tokenGroup => {
-            token.groupData.push({
-              groupId: tokenGroup.id,
-              targetId: tokenGroup.targetId
-            })
-          })
-        }
-      })
-    })
-
-    this.alignment.allTargetTextsIds.forEach(targetId => {
-      targets[targetId].segments.forEach(seg => {
-        seg.tokens.forEach(token => {
-          token.grouped = this.alignment.tokenIsGrouped(token)
-          if (token.grouped) {
-            const tokenGroups = this.alignment.findAllAlignmentGroups(token)
-            if (!token.groupData) { token.groupData = [] }
-            tokenGroups.forEach(tokenGroup => {
-              token.groupData.push({
-                groupId: tokenGroup.id,
-                targetId: tokenGroup.targetId
-              })
-            })
-          }
-        })
-      })
-    })
-
-    return JSON.stringify({ origin, targets })
+    return data
   }
 
   /**
@@ -415,8 +407,21 @@ export default class TextsController {
   /**
    * A simple event for any change in metadata
    */
-  changeMetadataTerm () {
-    this.store.commit('incrementDocSourceUpdated')
+  changeMetadataTerm (metadataTermData, value, textType, textId) {
+    const result = this.alignment.changeMetadataTerm(metadataTermData, value, textType, textId)
+    if (result) {
+      this.store.commit('incrementDocSourceUpdated')
+      StorageController.update(this.alignment, true)
+    }
+  }
+
+  deleteValueByIndex (metadataTerm, termValIndex, textType, textId) {
+    const result = this.alignment.deleteValueByIndex(metadataTerm, termValIndex, textType, textId)
+
+    if (result) {
+      this.store.commit('incrementDocSourceUpdated')
+      StorageController.update(this.alignment, true)
+    }
   }
 
   get originDocSourceDefined () {
@@ -424,15 +429,177 @@ export default class TextsController {
   }
 
   checkDetectedProps (textType, docSourceId) {
-    const sourceText = this.getDocSource(textType, docSourceId)
-    return Boolean(sourceText && sourceText.detectedLang)
+    return this.alignment.checkDetectedProps(textType, docSourceId)
   }
 
   get originalLangData () {
-    return this.alignment.originalLangData
+    return this.alignment && this.alignment.originalLangData
   }
 
   get targetsLangData () {
-    return this.alignment.targetsLangData
+    return this.alignment && this.alignment.targetsLangData
+  }
+
+  async uploadFromAllAlignmentsDB () {
+    const data = { userID: Alignment.defaultUserID }
+
+    const alignmentList = await StorageController.select(data)
+
+    alignmentList.sort((a, b) => Date.parse(a.updatedDT) - Date.parse(b.updatedDT)).reverse()
+    return alignmentList
+  }
+
+  /**
+   * Deletes all data about Alignment from IndexedDB
+   * @param {Object} alData
+   *        {String} alData.alignmentID - unique ID of the alignment that should be deleted
+   * @returns {Boolean}
+   */
+  async deleteDataFromDB (alData) {
+    if (!alData) {
+      console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'),
+        type: NotificationSingleton.types.ERROR
+      })
+      return
+    }
+
+    const result = await StorageController.deleteMany(alData.alignmentID, 'fullAlignmentByID')
+
+    if (result) {
+      this.store.commit('incremetReloadAlignmentsList')
+    }
+    return result
+  }
+
+  /**
+   * Removes all data from IndexedDB
+   * @returns {Boolean}
+   */
+  async clearAllAlignmentsFromDB () {
+    const result = await StorageController.clear()
+
+    if (result) {
+      this.store.commit('incremetReloadAlignmentsList')
+    }
+    return result
+  }
+
+  async defineAllPartNumsForTexts () {
+    const allPartsAlreadyUploaded = this.alignment.hasAllPartsUploaded
+
+    if (!allPartsAlreadyUploaded) {
+      const dbData = await StorageController.select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+      this.alignment = await Alignment.convertFromIndexedDB(dbData)
+    }
+    this.alignment.defineAllPartNumsForTexts()
+    await StorageController.update(this.alignment, true)
+    if (!allPartsAlreadyUploaded) {
+      this.alignment.limitTokensToPartNumAllTexts(1)
+    }
+    this.store.commit('incrementReuploadTextsParts')
+  }
+
+  async checkAndUploadSegmentsFromDB (textType, textId, segmentIndex, partNums) {
+    this.alignment.limitTokensToPartNumSegment(textType, textId, segmentIndex, partNums)
+
+    for (let i = 0; i < partNums.length; i++) {
+      const uploaded = this.alignment.partIsUploaded(textType, textId, segmentIndex, partNums[i])
+      if (!uploaded) {
+        const selectParams = {
+          userID: this.alignment.userID,
+          alignmentID: this.alignment.id,
+          textId,
+          segmentIndex,
+          partNum: partNums[i]
+        }
+        const dbData = await StorageController.select(selectParams, 'tokensByPartNum')
+        this.alignment.uploadSegmentTokensFromDB(textType, textId, segmentIndex, dbData)
+      }
+    }
+    this.store.commit('incrementUploadPartNum')
+  }
+
+  getSegmentPart (textType, textId, segmentIndex, partNums) {
+    return this.alignment.getSegmentPart(textType, textId, segmentIndex, partNums)
+  }
+
+  getSegment (textType, textId, segmentIndex) {
+    return this.alignment.getSegment(textType, textId, segmentIndex)
+  }
+
+  /**
+   * @returns {Boolean} - IndexedDB support availability
+   */
+  get indexedDBAvailable () {
+    return StorageController.dbAdapterAvailable
+  }
+
+  /**
+   * Add a new attonation (if id is undefined) or update an existed annotation (if id is defined)
+   * @param {String} id - annotation ID
+   * @param {Token} token - to which annotation would be added
+   * @param {String} type - Annotation.types key
+   * @param {String} text - annotation text
+   * @returns {Boolean} - action result
+   */
+  addAnnotation ({ id, token, type, text } = {}) {
+    if (token && type && text) {
+      this.alignment.addAnnotation({ id, token, type, text })
+      this.store.commit('incrementUpdateAnnotations')
+      StorageController.update(this.alignment)
+      return true
+    }
+    console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_DATA_FOR_ANNOTATIONS'))
+    NotificationSingleton.addNotification({
+      text: L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_DATA_FOR_ANNOTATIONS'),
+      type: NotificationSingleton.types.ERROR
+    })
+    return false
+  }
+
+  /**
+   * Get annotations, attache to the token
+   * @param {Token} token
+   * @returns {Array[Annotation]}
+   */
+  getAnnotations (token) {
+    return this.alignment && this.alignment.getAnnotations(token)
+  }
+
+  /**
+   * Remove an existed annotation
+   * @param {Token} token
+   * @param {String} id  - annotation ID
+   * @returns {Boolean} - action result
+   */
+  removeAnnotation (token, id) {
+    if (token && id && this.alignment && this.alignment.removeAnnotation(token, id)) {
+      this.store.commit('incrementUpdateAnnotations')
+      this.deleteAnnotationFromStorage(id)
+      return true
+    }
+    return false
+  }
+
+  deleteAnnotationFromStorage (id) {
+    StorageController.deleteMany({
+      userID: this.alignment.userID,
+      alignmentID: this.alignment.id,
+      annotationId: id
+    }, 'annotationByID')
+  }
+
+  get hasAnnotations () {
+    return this.alignment && this.alignment.hasAnnotations
+  }
+
+  hasTokenAnnotations (token) {
+    return this.alignment && this.alignment.hasTokenAnnotations(token)
+  }
+
+  annotationIsEditable (annotation) {
+    return this.alignment && this.alignment.annotationIsEditable(annotation, SettingsController.availableAnnotationTypes)
   }
 }

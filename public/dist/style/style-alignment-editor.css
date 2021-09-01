@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: "Source Sans Pro";
   font-style: normal;
@@ -290,7 +291,128 @@ div.alpheios-alignment-checkbox-block {
   content: "";
 }
 
-.alpheios-modal-mask {
+.alpheios-alignment-editor-app-container .multiselect {
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 10px;
+  border: 1px solid #757575;
+  border-radius: 10px;
+}
+.alpheios-alignment-editor-app-container .multiselect__content-wrapper {
+  border: 1px solid #757575;
+  border-top: 0;
+  padding: 10px;
+}
+.alpheios-alignment-editor-app-container ul.multiselect__content {
+  padding: 0;
+  margin: 0;
+}
+.alpheios-alignment-editor-app-container .multiselect__tags {
+  font-size: 16px;
+  border-radius: 10px;
+  min-height: 40px;
+  padding: 8px 40px 0 8px;
+}
+.alpheios-alignment-editor-app-container span.multiselect__tag {
+  background-color: #C64906;
+  display: inline-block;
+  border-radius: 5px;
+  padding: 4px 26px 4px 10px;
+  position: relative;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-height: 24px;
+}
+.alpheios-alignment-editor-app-container span.multiselect__tag span {
+  color: #FFF;
+}
+.alpheios-alignment-editor-app-container .multiselect__select {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666666%22%20points%3D%2212%201%209%206%2015%206%22%3E%3C%2Fpolygon%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666666%22%20points%3D%2212%2013%209%208%2015%208%22%3E%3C%2Fpolygon%3E%0A%3C%2Fsvg%3E%0A");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 28px;
+  height: 100%;
+}
+.alpheios-alignment-editor-app-container .multiselect__select::before {
+  display: none;
+}
+.alpheios-alignment-editor-app-container .multiselect__content {
+  padding: 0;
+}
+.alpheios-alignment-editor-app-container .multiselect__single {
+  display: none;
+}
+.alpheios-alignment-editor-app-container span.multiselect__option {
+  padding: 12px;
+}
+.alpheios-alignment-editor-app-container .multiselect__option::after {
+  display: none;
+}
+.alpheios-alignment-editor-app-container .multiselect__option--highlight,
+.alpheios-alignment-editor-app-container .multiselect__tag,
+.alpheios-alignment-editor-app-container .multiselect__tag-icon:focus,
+.alpheios-alignment-editor-app-container .multiselect__tag-icon:hover {
+  background: #C64906;
+}
+.alpheios-alignment-editor-app-container .multiselect__option.multiselect__option--highlight {
+  background-color: #C64906;
+}
+.alpheios-alignment-editor-app-container .multiselect__option.multiselect__option--highlight:after {
+  display: none;
+}
+.alpheios-alignment-editor-app-container .multiselect__option.multiselect__option--highlight span {
+  color: #FFF;
+}
+.alpheios-alignment-editor-app-container .multiselect__option--highlight span,
+.alpheios-alignment-editor-app-container .multiselect__tag span,
+.alpheios-alignment-editor-app-container .multiselect__tag-icon:focus span,
+.alpheios-alignment-editor-app-container .multiselect__tag-icon:hover span {
+  color: #FFF;
+}
+.alpheios-alignment-editor-app-container .multiselect__tag-icon:after {
+  content: "×";
+  color: #FFF;
+  font-size: 24px;
+}
+.alpheios-alignment-editor-app-container .multiselect__tag-icon {
+  border-radius: 5px;
+  bottom: 0;
+  cursor: pointer;
+  font-style: normal;
+  font-weight: bold;
+  line-height: 1;
+  margin-left: 7px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  transition: all 0.2s ease;
+  width: 24px;
+  color: #FFF;
+}
+.alpheios-alignment-editor-app-container .multiselect__tag-icon:hover {
+  background-color: #C64906;
+}
+
+.alpheios-alignment-editor-app-container {
+  /*
+  * The following styles are auto-applied to elements with
+  * transition="modal" when their visibility is toggled
+  * by Vue.js.
+  *
+  * You can easily play with the modal transition by editing
+  * these styles.
+  */
+  /*
+    .alpheios-modal-enter .alpheios-modal-container,
+    .alpheios-modal-leave-active .alpheios-modal-container {
+      -webkit-transform: scale(1.1);
+      transform: scale(1.1);
+    }
+  */
+}
+.alpheios-alignment-editor-app-container .alpheios-modal-mask {
   position: fixed;
   z-index: 9998;
   top: 0;
@@ -301,13 +423,11 @@ div.alpheios-alignment-checkbox-block {
   display: table;
   transition: opacity 0.3s ease;
 }
-
-.alpheios-modal-wrapper {
+.alpheios-alignment-editor-app-container .alpheios-modal-wrapper {
   display: table-cell;
   vertical-align: middle;
 }
-
-.alpheios-modal-container {
+.alpheios-alignment-editor-app-container .alpheios-modal-container {
   width: 600px;
   max-height: 600px;
   margin: 0px auto;
@@ -317,47 +437,193 @@ div.alpheios-alignment-checkbox-block {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
 }
-
-.alpheios-modal-header h3 {
+.alpheios-alignment-editor-app-container .vm--container {
+  z-index: 99999;
+}
+.alpheios-alignment-editor-app-container .vm--modal {
+  padding: 20px 30px;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+}
+.alpheios-alignment-editor-app-container .alpheios-modal-header h3 {
   margin-top: 0;
   color: #42b983;
 }
-
-.alpheios-modal-body {
+.alpheios-alignment-editor-app-container .alpheios-modal-body {
   margin: 10px 0;
-  max-height: 500px;
+  max-height: 400px;
   overflow: auto;
   border: 2px solid #ddd;
   padding: 10px;
 }
-
-.alpheios-modal-default-button {
+.alpheios-alignment-editor-app-container .alpheios-modal-default-button {
   float: right;
 }
-
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
-.alpheios-modal-enter {
+.alpheios-alignment-editor-app-container .alpheios-modal-enter {
   opacity: 0;
 }
-
-.alpheios-modal-leave-active {
+.alpheios-alignment-editor-app-container .alpheios-modal-leave-active {
   opacity: 0;
 }
+.alpheios-alignment-editor-app-container .alpheios-modal-header {
+  position: relative;
+}
+.alpheios-alignment-editor-app-container .alpheios-modal-header .alpheios-alignment-modal-close-icon {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+.alpheios-alignment-editor-app-container .alpheios-modal-header .alpheios-alignment-modal-close-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  fill: #c6c6c6;
+}
 
-/*
-  .alpheios-modal-enter .alpheios-modal-container,
-  .alpheios-modal-leave-active .alpheios-modal-container {
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
+.alpheios-alignment-editor-app-container {
+  /* Rounded sliders */
+}
+.alpheios-alignment-editor-app-container .alpheios-switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 28px;
+}
+.alpheios-alignment-editor-app-container .alpheios-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.alpheios-alignment-editor-app-container .alpheios-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+.alpheios-alignment-editor-app-container .alpheios-slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+.alpheios-alignment-editor-app-container input:checked + .alpheios-slider {
+  background-color: #185F6D;
+}
+.alpheios-alignment-editor-app-container input:focus + .alpheios-slider {
+  box-shadow: 0 0 1px #185F6D;
+}
+.alpheios-alignment-editor-app-container input:checked + .alpheios-slider:before {
+  -webkit-transform: translateX(20px);
+  -ms-transform: translateX(20px);
+  transform: translateX(20px);
+}
+.alpheios-alignment-editor-app-container .alpheios-slider.alpheios-round {
+  border-radius: 34px;
+}
+.alpheios-alignment-editor-app-container .alpheios-slider.alpheios-round:before {
+  border-radius: 50%;
+}
+
+.alpheios-heading-animated {
+  min-height: 120px;
+  margin: 20px 60px;
+  color: #0E2233;
+  font-size: 80px;
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+  font-family: "Source Serif Pro", serif;
+  text-align: center;
+}
+.alpheios-heading-animated span {
+  display: inline-block;
+}
+.alpheios-heading-animated span:nth-of-type(2) {
+  animation-delay: 0.55s;
+}
+.alpheios-heading-animated span:nth-of-type(3) {
+  animation-delay: 0.6s;
+}
+.alpheios-heading-animated span:nth-of-type(4) {
+  animation-delay: 0.65s;
+}
+.alpheios-heading-animated span:nth-of-type(5) {
+  animation-delay: 0.7s;
+}
+.alpheios-heading-animated span:nth-of-type(6) {
+  animation-delay: 0.75s;
+}
+.alpheios-heading-animated span:nth-of-type(7) {
+  animation-delay: 0.8s;
+}
+.alpheios-heading-animated span:nth-of-type(8) {
+  animation-delay: 0.85s;
+}
+.alpheios-heading-animated span:nth-of-type(9) {
+  animation-delay: 0.9s;
+}
+.alpheios-heading-animated span:nth-of-type(10) {
+  animation-delay: 0.95s;
+}
+.alpheios-heading-animated span:nth-of-type(11) {
+  animation-delay: 1s;
+}
+.alpheios-heading-animated span:nth-of-type(12) {
+  animation-delay: 1.05s;
+}
+.alpheios-heading-animated span:nth-of-type(13) {
+  animation-delay: 1.1s;
+}
+.alpheios-heading-animated span:nth-of-type(14) {
+  animation-delay: 1.15s;
+}
+.alpheios-heading-animated span:nth-of-type(15) {
+  animation-delay: 1.2s;
+}
+.alpheios-heading-animated span:nth-of-type(16) {
+  animation-delay: 1.25s;
+}
+.alpheios-heading-animated span:nth-of-type(17) {
+  animation-delay: 1.3s;
+}
+.alpheios-heading-animated span:nth-of-type(18) {
+  animation-delay: 1.35s;
+}
+.alpheios-heading-animated span:nth-of-type(19) {
+  animation-delay: 1.4s;
+}
+.alpheios-heading-animated span:nth-of-type(20) {
+  animation-delay: 1.45s;
+}
+.alpheios-heading-animated span {
+  opacity: 0;
+  transform: translate(-150px, -50px) rotate(-180deg) scale(3);
+  animation: revolveScale 0.8s forwards;
+  animation-delay: 0.5s;
+}
+
+@keyframes revolveScale {
+  60% {
+    transform: translate(20px, 20px) rotate(30deg) scale(0.3);
   }
-*/
+  100% {
+    transform: translate(0) rotate(0) scale(1);
+    opacity: 1;
+  }
+}
 .alpheios-standard-theme {
   background-color: #fff;
   color: #212529;
@@ -382,6 +648,12 @@ div.alpheios-alignment-checkbox-block {
   color: #fff;
   background: #185F6D;
   border-color: #185F6D;
+}
+.alpheios-standard-theme .alpheios-alignment-editor-alignments-table_link {
+  color: #185F6D;
+}
+.alpheios-standard-theme .alpheios-alignment-editor-alignments-table_link:hover {
+  color: #10424c;
 }
 .alpheios-standard-theme .alpheios-menu-button,
 .alpheios-standard-theme .alpheios-actions-menu-button,
@@ -469,10 +741,17 @@ div.alpheios-alignment-checkbox-block {
   border-color: #FFC24F;
   background: #FFC24F;
 }
+.alpheios-standard-theme .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-annotation-mode:hover {
+  border-color: initial;
+  background: initial;
+}
 .alpheios-standard-theme .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-grouped {
   color: #212529;
   border-color: #BCE5F0;
   background: #BCE5F0;
+}
+.alpheios-standard-theme .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-grouped.alpheios-token-annotated {
+  border-bottom-color: #212529;
 }
 .alpheios-standard-theme .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-selected {
   color: #fff;
@@ -583,6 +862,12 @@ div.alpheios-alignment-checkbox-block {
   background: #90a959;
   border-color: #6a9fb5;
 }
+.alpheios-v1-theme .alpheios-alignment-editor-alignments-table_link {
+  color: #46788d;
+}
+.alpheios-v1-theme .alpheios-alignment-editor-alignments-table_link:hover {
+  color: #6a9fb5;
+}
 .alpheios-v1-theme .alpheios-menu-button,
 .alpheios-v1-theme .alpheios-actions-menu-button,
 .alpheios-v1-theme .alpheios-options-button,
@@ -669,6 +954,10 @@ div.alpheios-alignment-checkbox-block {
   border-color: gray;
   background: #fffee0;
 }
+.alpheios-v1-theme .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-annotation-mode:hover {
+  border-color: initial;
+  background: initial;
+}
 .alpheios-v1-theme .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-grouped {
   color: #282828;
   border-color: transparent;
@@ -678,6 +967,9 @@ div.alpheios-alignment-checkbox-block {
   color: #000;
   border-color: gray;
   background: #ffd740;
+}
+.alpheios-v1-theme .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-grouped.alpheios-token-annotated {
+  border-bottom-color: #282828;
 }
 .alpheios-v1-theme .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-selected {
   color: #000;
@@ -779,12 +1071,31 @@ body.alpheios-initial-page .header.alpheios-header {
 body.alpheios-initial-page .alpheios-alignment-app-menu-open-icon svg {
   fill: #fff;
 }
+.alpheios-alignment-editor-alignments-table td {
+  text-align: left;
+  padding: 5px;
+  cursor: pointer;
+}
+.alpheios-alignment-editor-alignments-table td.alpheios-alignment-editor-alignments-table_dt {
+  min-width: 144px;
+  text-decoration: underline;
+}
+.alpheios-alignment-editor-alignments-table_delete-icon_span {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+.alpheios-alignment-editor-alignments-table_delete-icon_span svg {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
 .alpheios-alignment-editor-initial-screen__intro {
   background-repeat: repeat-y;
   background-position: 98% 20%;
   background-size: 20% auto;
-  overflow: hidden;
-  height: 100vh;
+  min-height: 100vh;
 }
 .alpheios-alignment-editor-initial-screen__heading {
   display: none;
@@ -806,7 +1117,7 @@ body.alpheios-initial-page .alpheios-alignment-app-menu-open-icon svg {
 }
 .alpheios-header-logo {
   text-align: center;
-  margin-top: 80px;
+  padding-top: 80px;
   height: 60px;
 }
 .alpheios-header-logo .alpheios-logo {
@@ -814,7 +1125,7 @@ body.alpheios-initial-page .alpheios-alignment-app-menu-open-icon svg {
   width: 250px;
 }
 .alpheios-alignment-editor-initial-screen__buttons {
-  width: 700px;
+  width: 1000px;
   margin: 0 auto 50px;
   text-align: center;
 }
@@ -841,90 +1152,6 @@ body.alpheios-initial-page .alpheios-alignment-app-menu-open-icon svg {
   background: #eee;
   color: #46788d;
   font-weight: normal;
-}
-.alpheios-alignment-editor-initial-screen__heading-animated {
-  min-height: 120px;
-  margin: 20px 60px;
-  color: #0E2233;
-  font-size: 80px;
-  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
-  font-family: "Source Serif Pro", serif;
-  text-align: center;
-}
-.alpheios-alignment-editor-initial-screen__heading-animated span {
-  display: inline-block;
-}
-.alpheios-alignment-editor-initial-screen__heading-animated span:nth-of-type(2) {
-  animation-delay: 0.55s;
-}
-.alpheios-alignment-editor-initial-screen__heading-animated span:nth-of-type(3) {
-  animation-delay: 0.6s;
-}
-.alpheios-alignment-editor-initial-screen__heading-animated span:nth-of-type(4) {
-  animation-delay: 0.65s;
-}
-.alpheios-alignment-editor-initial-screen__heading-animated span:nth-of-type(5) {
-  animation-delay: 0.7s;
-}
-.alpheios-alignment-editor-initial-screen__heading-animated span:nth-of-type(6) {
-  animation-delay: 0.75s;
-}
-.alpheios-alignment-editor-initial-screen__heading-animated span:nth-of-type(7) {
-  animation-delay: 0.8s;
-}
-.alpheios-alignment-editor-initial-screen__heading-animated span:nth-of-type(8) {
-  animation-delay: 0.85s;
-}
-.alpheios-alignment-editor-initial-screen__heading-animated span:nth-of-type(9) {
-  animation-delay: 0.9s;
-}
-.alpheios-alignment-editor-initial-screen__heading-animated span:nth-of-type(10) {
-  animation-delay: 0.95s;
-}
-.alpheios-alignment-editor-initial-screen__heading-animated span:nth-of-type(11) {
-  animation-delay: 1s;
-}
-.alpheios-alignment-editor-initial-screen__heading-animated span:nth-of-type(12) {
-  animation-delay: 1.05s;
-}
-.alpheios-alignment-editor-initial-screen__heading-animated span:nth-of-type(13) {
-  animation-delay: 1.1s;
-}
-.alpheios-alignment-editor-initial-screen__heading-animated span:nth-of-type(14) {
-  animation-delay: 1.15s;
-}
-.alpheios-alignment-editor-initial-screen__heading-animated span:nth-of-type(15) {
-  animation-delay: 1.2s;
-}
-.alpheios-alignment-editor-initial-screen__heading-animated span:nth-of-type(16) {
-  animation-delay: 1.25s;
-}
-.alpheios-alignment-editor-initial-screen__heading-animated span:nth-of-type(17) {
-  animation-delay: 1.3s;
-}
-.alpheios-alignment-editor-initial-screen__heading-animated span:nth-of-type(18) {
-  animation-delay: 1.35s;
-}
-.alpheios-alignment-editor-initial-screen__heading-animated span:nth-of-type(19) {
-  animation-delay: 1.4s;
-}
-.alpheios-alignment-editor-initial-screen__heading-animated span:nth-of-type(20) {
-  animation-delay: 1.45s;
-}
-.alpheios-alignment-editor-initial-screen__heading-animated span {
-  opacity: 0;
-  transform: translate(-150px, -50px) rotate(-180deg) scale(3);
-  animation: revolveScale 0.8s forwards;
-  animation-delay: 0.5s;
-}
-@keyframes revolveScale {
-60% {
-    transform: translate(20px, 20px) rotate(30deg) scale(0.3);
-}
-100% {
-    transform: translate(0) rotate(0) scale(1);
-    opacity: 1;
-}
 }
 .alpheios-tooltip {
   position: relative;
@@ -1191,37 +1418,6 @@ button.alpheios-app-menu-link:-moz-focusring {
   background: #000;
   transition: 0.6s;
 }
-.alpheios-modal-header {
-  position: relative;
-}
-.alpheios-modal-header .alpheios-alignment-modal-close-icon {
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
-}
-.alpheios-modal-header .alpheios-alignment-modal-close-icon svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-  fill: #c6c6c6;
-}
-.alpheios-editor__waiting {
-  text-align: center;
-}
-.alpheios-editor__waiting .alpheios-editor__waiting-gif {
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-}
-.alpheios-editor__waiting .alpheios-editor__waiting-gif img {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
 .alpheios-alignment-option-item {
   display: inline-block;
   width: 100%;
@@ -1237,7 +1433,8 @@ button.alpheios-app-menu-link:-moz-focusring {
 }
 .alpheios-alignment-option-item input.alpheios-alignment-input,
 .alpheios-alignment-option-item .alpheios-alignment-select,
-.alpheios-alignment-option-item .alpheios-alignment-radio-block {
+.alpheios-alignment-option-item .alpheios-alignment-radio-block,
+.alpheios-alignment-option-item .multiselect.alpheios-alignment-option-item__control {
   display: inline-block;
   width: 50%;
   vertical-align: top;
@@ -1316,6 +1513,27 @@ button.alpheios-app-menu-link:-moz-focusring {
   width: 15px;
   height: 15px;
   fill: #000;
+}
+.alpheios-alignment-editor-modal-summary .alpheios-modal-body {
+  border: 0;
+  padding: 10px 0;
+}
+.alpheios-editor__waiting {
+  text-align: center;
+}
+.alpheios-editor__waiting .alpheios-editor__waiting-gif {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+}
+.alpheios-editor__waiting .alpheios-editor__waiting-gif img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.alpheios-alignment-editor-modal-waiting .alpheios-modal-body {
+  border: 0;
+  padding: 10px 0;
 }
 .alpheios-alignment-notification-bar {
   padding: 15px 15px 0;
@@ -1576,6 +1794,9 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   padding: 0 20px 0;
   border-bottom: 2px solid #ddd;
 }
+.alpheios-alignment-editor-modal-dts-api .alpheios-modal-body {
+  max-height: 370px;
+}
 .alpheios-alignment-editor-hidden {
   visibility: hidden;
 }
@@ -1778,6 +1999,9 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 .alpheios-alignment-editor-modal-options .alpheios-alignment-editor-modal-header {
   margin-bottom: 10px;
 }
+.alpheios-alignment-editor-modal-options .alpheios-alignment-options__buttons {
+  margin: 0;
+}
 .alpheios-editor-help-content {
   text-indent: 10px;
   text-align: justify;
@@ -1838,14 +2062,22 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 }
 .alpheios-alignment-editor-align-text-segment span.alpheios-token {
   cursor: pointer;
-  padding: 4px;
+  padding: 2px 2px 0 2px;
+  margin-bottom: 2px;
   border: 1px solid transparent;
   display: inline-block;
   vertical-align: top;
 }
+.alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-part-shadowed {
+  font-weight: bold;
+}
 .alpheios-alignment-editor-align-text-segment span.alpheios-token:hover {
   border-color: #FFC24F;
   background: #FFD27D;
+}
+.alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-annotation-mode:hover {
+  border-color: initial;
+  background: initial;
 }
 .alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-grouped {
   border-color: #BCE5F0;
@@ -1864,6 +2096,9 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   border-color: #f06d26;
   background: #f06d26;
   color: #fff;
+}
+.alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-annotated {
+  border-bottom: 1px solid;
 }
 .alpheios-alignment-editor-align-text-segment .alpheios-alignment-editor-align-text-segment-tokens {
   padding: 10px;
@@ -1911,6 +2146,35 @@ span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-edit
 span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-editor-text-blocks-single__metadata_icon_has_data svg {
   stroke: #2a9900;
 }
+.alpheios-alignment-editor-align-text-parts-link-text {
+  cursor: pointer;
+  display: inline-block;
+  padding: 3px;
+  text-decoration: underline;
+}
+.alpheios-alignment-editor-align-text-parts-link {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 3px;
+  font-size: 0;
+  background: #c6c6c6;
+  border: 1px solid #fff;
+  min-width: 8px;
+}
+.alpheios-alignment-editor-align-text-parts-link.alpheios-alignment-editor-align-text-parts-link-current {
+  cursor: initial;
+  background: #6e6e6e;
+}
+.alpheios-alignment-editor-align-text-parts,
+.alpheios-alignment-editor-align-text-single-link {
+  margin: 0;
+  text-align: center;
+  color: #000;
+  font-weight: bold;
+}
+.alpheios-alignment-editor-align-text-parts {
+  padding: 0 25px;
+}
 .alpheios-alignment-editor-align-target-tabs {
   display: inline-block;
   padding-left: 0;
@@ -1945,9 +2209,6 @@ span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-edit
   padding: 5px 0 10px;
   text-align: left;
   display: inline-block;
-}
-.alpheios-alignment-editor-align-groups-editor-container {
-  padding-top: 20px;
 }
 .alpheios-alignment-editor-align-define-container-inner {
   border: 1px solid #ddd;
@@ -1994,8 +2255,93 @@ span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-edit
 .alpheios-alignment-editor-modal-options .alpheios-alignment-editor-modal-header {
   margin-bottom: 10px;
 }
+.alpheios-alignment-editor-modal-annotations .alpheios-modal-body {
+  border: 0;
+  padding: 0;
+}
+.alpheios-alignment-editor-modal-annotations span.alpheios-alignment-editor-red {
+  color: #99002a;
+}
+.alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-textarea {
+  width: 100%;
+  min-height: 150px;
+  padding: 10px;
+  font-size: inherit;
+}
+.alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-select {
+  margin-bottom: 15px;
+}
+.alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-list {
+  border-collapse: collapse;
+  width: 100%;
+}
+.alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-list td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+.alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-list td.alpheios-alignment-editor-annotation-list-item__type {
+  width: 100px;
+}
+.alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-list td.alpheios-alignment-editor-annotation-list-item__text {
+  max-width: 10vw;
+}
+.alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-list td.alpheios-alignment-editor-annotation-list-item__text span {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+.alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-list .alpheios-alignment-editor-annotation-list-item__full .alpheios-alignment-editor-annotation-list-item__text span {
+  text-overflow: inherit;
+  overflow: inherit;
+  white-space: initial;
+}
+.alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-list .alpheios-alignment-editor-annotation-list-item__disabled {
+  color: #a6a6a6;
+}
+.alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-list tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-list .alpheios-alignment-editor-annotation-list-item__edit {
+  text-align: center;
+  width: 100px;
+}
+.alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-list .alpheios-alignment-editor-annotation-list-item__edit span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+.alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-list .alpheios-alignment-editor-annotation-list-item__edit span svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 .alpheios-alignment-align-editor-block.alpheios-alignment-editor-container {
   padding: 20px 30px 20px 40px;
+}
+.alpheios-alignment-text-editor-block__part {
+  min-width: 255px;
+}
+.alpheios-alignment-text-editor-block__part.alpheios-alignment-text-editor-block__part-2 {
+  text-align: center;
+}
+.alpheios-alignment-text-editor-block__part.alpheios-alignment-text-editor-block__part-3 {
+  text-align: right;
+}
+div.alpheios-alignment-annotation-mode-check-container {
+  display: block;
+  line-height: initial;
+  max-width: initial;
+  min-height: initial;
+  padding-top: 5px;
+}
+div.alpheios-alignment-annotation-mode-check-container .alpheios-switch-label {
+  font-weight: normal;
+  font-size: 80%;
+  padding-left: 5px;
+  line-height: 22px;
 }
 .alpheios-alignment-editor-token-edit-span {
   display: inline-block;

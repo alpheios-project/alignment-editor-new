@@ -13,5 +13,15 @@
       "message": "Choose a file",
       "description": "Button on initial screen",
       "component": "InitialScreen"
+    },
+    "INITIAL_HAS_TOKENS": {
+      "message": "with tokens",
+      "description": "Column in alignment's list",
+      "component": "InitialScreen"
+    },
+    "INITIAL_NO_TOKENS": {
+      "message": "no tokens",
+      "description": "Column in alignment's list",
+      "component": "InitialScreen"
     }
 }

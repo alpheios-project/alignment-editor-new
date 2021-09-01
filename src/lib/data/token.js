@@ -1,7 +1,7 @@
 import HistoryStep from '@/lib/data/history/history-step.js'
 
 export default class Token {
-  constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak, sentenceIndex } = {}, segmentIndex, docSourceId) {
+  constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak, sentenceIndex, tokenIndex, partNum } = {}, segmentIndex, docSourceId) {
     this.textType = textType
     this.idWord = idWord
     this.word = word
@@ -12,6 +12,8 @@ export default class Token {
 
     this.segmentIndex = segmentIndex
     this.docSourceId = docSourceId
+    this.tokenIndex = tokenIndex
+    this.partNum = partNum
   }
 
   /**
@@ -19,6 +21,10 @@ export default class Token {
    */
   get isAlignable () {
     return Boolean(this.textType && this.idWord && this.word)
+  }
+
+  get len () {
+    return this.word ? this.word.length : 0
   }
 
   /**
@@ -34,7 +40,7 @@ export default class Token {
    * @param {String} word - new word
    * @param {String} idWord - new idWord
    */
-  update ({ word, idWord, segmentIndex, hasLineBreak }) {
+  update ({ word, idWord, segmentIndex, hasLineBreak, partNum }) {
     if (word !== undefined) {
       this.word = word
     }
@@ -49,6 +55,10 @@ export default class Token {
 
     if (hasLineBreak !== undefined) {
       this.hasLineBreak = hasLineBreak
+    }
+
+    if (partNum !== undefined) {
+      this.partNum = partNum
     }
 
     return true
@@ -85,7 +95,7 @@ export default class Token {
    *          { Number } segmentIndex
    *          { String } docSourceId
    */
-  convertToJSON () {
+  convertToJSON (tokenIndex) {
     return {
       textType: this.textType,
       idWord: this.idWord,
@@ -95,7 +105,8 @@ export default class Token {
       hasLineBreak: this.hasLineBreak,
       segmentIndex: this.segmentIndex,
       docSourceId: this.docSourceId,
-      sentenceIndex: this.sentenceIndex
+      sentenceIndex: this.sentenceIndex,
+      tokenIndex: tokenIndex !== undefined ? tokenIndex : this.tokenIndex
     }
   }
 
@@ -120,11 +131,12 @@ export default class Token {
       beforeWord: data.beforeWord,
       afterWord: data.afterWord,
       hasLineBreak: data.hasLineBreak,
-      sentenceIndex: data.sentenceIndex
+      sentenceIndex: data.sentenceIndex,
+      tokenIndex: data.tokenIndex
     }, data.segmentIndex, data.docSourceId)
   }
 
-  convertForHTMLOutput () {
+  convertToHTML () {
     return {
       textType: this.textType,
       idWord: this.idWord,
@@ -133,6 +145,45 @@ export default class Token {
       afterWord: this.afterWord,
       hasLineBreak: this.hasLineBreak,
       sentenceIndex: this.sentenceIndex
+    }
+  }
+
+  static convertFromIndexedDB (data) {
+    return new Token({
+      textType: data.textType,
+      idWord: data.idWord,
+      word: data.word,
+      beforeWord: data.beforeWord,
+      afterWord: data.afterWord,
+      hasLineBreak: data.hasLineBreak,
+      sentenceIndex: data.sentenceIndex,
+      tokenIndex: data.tokenIndex,
+      partNum: data.partNum
+    }, data.segmentIndex, data.docSourceId)
+  }
+
+  convertToIndexedDB (tokenIndex) {
+    return {
+      textType: this.textType,
+      idWord: this.idWord,
+      word: this.word,
+      beforeWord: this.beforeWord,
+      afterWord: this.afterWord,
+      hasLineBreak: this.hasLineBreak,
+      segmentIndex: this.segmentIndex,
+      docSourceId: this.docSourceId,
+      sentenceIndex: this.sentenceIndex,
+      partNum: this.partNum,
+      tokenIndex
+    }
+  }
+
+  convertToShortJSON () {
+    return {
+      textType: this.textType,
+      idWord: this.idWord,
+      segmentIndex: this.segmentIndex,
+      docSourceId: this.docSourceId
     }
   }
 }

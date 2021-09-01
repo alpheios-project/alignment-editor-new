@@ -5,7 +5,7 @@
       </span>
       <main-menu 
         @download-data = "downloadData"
-        @upload-data = "uploadData"
+        @upload-data = "uploadDataFromFile"
         @align-texts = "showSummaryPopup"
         @redo-action = "redoAction"
         @undo-action = "undoAction"
@@ -21,8 +21,9 @@
         :updateCurrentPage = "updateCurrentPage"
       />
       <notification-bar />
-      <initial-screen v-show="showInitialScreenBlock" @upload-data = "uploadData" @new-alignment="showSourceTextEditor"/>
-      <options-block v-show="shownOptionsBlock" />
+      <initial-screen v-show="showInitialScreenBlock"
+        @upload-data-from-file = "uploadDataFromFile" @upload-data-from-db = "uploadDataFromDB" @delete-data-from-db = "deleteDataFromDB"
+        @new-initial-alignment="startNewInitialAlignment" @clear-all-alignments="clearAllAlignmentsFromDB"/>
       <text-editor v-show="showSourceTextEditorBlock" @add-translation="addTarget" @align-text="showSummaryPopup" @showAlignmentGroupsEditor = "showAlignmentGroupsEditor" @showTokensEditor = "showTokensEditor"
       />
       <align-editor v-show="showAlignmentGroupsEditorBlock" @showSourceTextEditor = "showSourceTextEditor" @showTokensEditor = "showTokensEditor"
@@ -30,8 +31,9 @@
       <tokens-editor v-show="showTokensEditorBlock" :renderEditor = "renderTokensEditor" @showSourceTextEditor = "showSourceTextEditor"  @showAlignmentGroupsEditor = "showAlignmentGroupsEditor"
       />
 
-      <summary-popup :showModal="showSummaryModal" :showOnlyWaiting = "showOnlyWaitingSummary" @closeModal = "showSummaryModal = false" @start-align = "alignTexts"
+      <summary-popup @closeModal = "$modal.hide('summary')" @start-align = "alignTexts"
       />
+      <waiting-popup @closeModal = "$modal.hide('waiting')" />
   </div>
 </template>
 <script>
@@ -43,6 +45,8 @@ import InitialScreen from '@/vue/initial-screen.vue'
 import MainMenu from '@/vue/main-menu.vue'
 import SummaryPopup from '@/vue/summary-popup.vue'
 
+import WaitingPopup from '@/vue/common/waiting-popup.vue'
+
 import NotificationBar from '@/vue/notification-bar.vue'
 import TextEditor from '@/vue/text-editor/text-editor.vue'
 import AlignEditor from '@/vue/align-editor/align-editor.vue'
@@ -51,6 +55,8 @@ import TokensEditor from '@/vue/tokens-editor/tokens-editor.vue'
 import OptionsBlock from '@/vue/options/options-block.vue'
 
 import NavbarIcon from '@/inline-icons/navbar.svg'
+
+import SettingsController from '@/lib/controllers/settings-controller.js'
 
 export default {
   name: 'App',
@@ -63,7 +69,9 @@ export default {
     optionsBlock: OptionsBlock,
     navbarIcon: NavbarIcon,
     initialScreen: InitialScreen,
-    summaryPopup: SummaryPopup
+    summaryPopup: SummaryPopup,
+    waitingPopup: WaitingPopup
+
   },
   data () {
     return {     
@@ -76,11 +84,10 @@ export default {
       pageClasses: [ 'initial-page', 'options-page', 'text-editor-page', 'align-editor-page', 'tokens-editor-page' ],
       menuShow: 1,
       renderTokensEditor: 1,
-      updateCurrentPage: 'initial-screen',
-
-      showSummaryModal: false,
-      showOnlyWaitingSummary: false
+      updateCurrentPage: 'initial-screen'
     }
+  },
+  watch: {
   },
   computed: {
   },
@@ -91,22 +98,22 @@ export default {
     /**
      * Starts download workflow
      */
-    downloadData (downloadType) {
+    async downloadData (downloadType) {
       let additional = {}
       if (downloadType === 'htmlDownloadAll') {
         additional = {
-          theme: this.$settingsC.themeOptionValue
+          theme: SettingsController.themeOptionValue
         }
       }
-      this.$textC.downloadData(downloadType, additional)
+      await this.$textC.downloadData(downloadType, additional)
     },
 
     /**
     * Starts upload workflow
     */
-    uploadData (fileData, extension) {
+    uploadDataFromFile (fileData, extension) {
       if (fileData) {
-        const alignment = this.$textC.uploadData(fileData, this.$settingsC.tokenizerOptionValue, extension)
+        const alignment = this.$textC.uploadDataFromFile(fileData, SettingsController.tokenizerOptionValue, extension)
 
         if (alignment instanceof Alignment) {
           return this.startOver(alignment)
@@ -114,6 +121,32 @@ export default {
       } 
       
       this.showSourceTextEditor()
+    },
+
+    async uploadDataFromDB (alData) {
+      if (alData) {
+        const alignment = await this.$textC.uploadDataFromDB(alData)
+        if (alignment instanceof Alignment) {
+          return this.startOver(alignment)
+        }
+      }
+      this.showSourceTextEditor()
+    },
+
+    async deleteDataFromDB (alData) {
+      if (alData) {
+        this.$modal.show('waiting')
+        const result = await this.$textC.deleteDataFromDB(alData)
+        this.$modal.hide('waiting')
+        return result
+      }
+    },
+
+    async clearAllAlignmentsFromDB () {
+      this.$modal.show('waiting')
+      const result = await this.$textC.clearAllAlignmentsFromDB()
+      this.$modal.hide('waiting')
+      return result
     },
     /**
      * Starts redo action
@@ -128,17 +161,22 @@ export default {
       this.$historyC.undo()
     },
 
-    showSummaryPopup () {
-      this.showOnlyWaitingSummary = !this.$settingsC.showSummaryPopup
-      this.showSummaryModal = true
+    async showSummaryPopup () {
+      if (!SettingsController.showSummaryPopup) {
+        await this.alignTexts()
+      } else {
+        this.$modal.show('summary')
+      }
     },
     /**
      * Starts align workflow
      */
     async alignTexts () {
-      const result = await this.$alignedGC.createAlignedTexts(this.$textC.alignment, this.$settingsC.useSpecificEnglishTokenizer)
-      this.showSummaryModal = false
+      this.$modal.show('waiting')
+      const result = await this.$alignedGC.createAlignedTexts(this.$textC.alignment)
+      this.$modal.hide('waiting')
       if (result) {
+        this.$tokensEC.loadAlignment(this.$textC.alignment)
         this.showAlignmentGroupsEditor()
       }
     },
@@ -149,6 +187,13 @@ export default {
       this.$textC.addNewTarget()
       this.showSourceTextEditor()
     },
+
+    startNewInitialAlignment () {
+      this.$textC.createAlignment()
+      this.$historyC.startTracking(this.$textC.alignment)
+      this.showSourceTextEditor()
+    },
+
     /**
      * Show options block
      */
@@ -221,20 +266,15 @@ export default {
      */
 
     startOver (alignment) {
-      this.$alignedGC.alignment = null
-      this.$textC.alignment = null
-      this.$historyC.alignment = null
-      this.$tokensEC.alignment = null
-
       if (alignment instanceof Alignment) {
         this.$textC.alignment = alignment
         this.$alignedGC.alignment = alignment
       } else {
-        this.$textC.createAlignment()
+        this.$textC.startOver()
+        this.$alignedGC.startOver()
       }
-      
-      this.$historyC.startTracking(this.$textC.alignment)
-      this.$tokensEC.loadAlignment(this.$textC.alignment)
+      this.$historyC.startOver(this.$textC.alignment)
+      this.$tokensEC.startOver(this.$textC.alignment)
       
       NotificationSingleton.clearNotifications()
       if (alignment instanceof Alignment) {

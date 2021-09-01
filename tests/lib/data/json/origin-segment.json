@@ -1,0 +1,651 @@
+{
+    "index": 1,
+    "textType": "origin",
+    "lang": "deu",
+    "direction": "ltr",
+    "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+    "tokens": [
+        {
+            "textType": "origin",
+            "idWord": "1-0-0",
+            "word": "“",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 1,
+            "tokenIndex": 0
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-1",
+            "word": "Ein",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 1,
+            "tokenIndex": 1
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-2",
+            "word": "ziemlich",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 1,
+            "tokenIndex": 2
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-3",
+            "word": "unauffälliges",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 1,
+            "tokenIndex": 3
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-4",
+            "word": "Tier",
+            "hasLineBreak": true,
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 1,
+            "tokenIndex": 4
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-5",
+            "word": "“",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 1,
+            "tokenIndex": 5
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-6",
+            "word": "Vor",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 1,
+            "tokenIndex": 6
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-7",
+            "word": "rund",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 1,
+            "tokenIndex": 7
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-8",
+            "word": "13,5",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 1,
+            "tokenIndex": 8
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-9",
+            "word": "Milliarden",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 1,
+            "tokenIndex": 9
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-10",
+            "word": "Jahren",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 1,
+            "tokenIndex": 10
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-11",
+            "word": "entstanden",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 1,
+            "tokenIndex": 11
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-12",
+            "word": "Materie",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 1,
+            "tokenIndex": 12
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-13",
+            "word": ",",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 1,
+            "tokenIndex": 13
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-14",
+            "word": "Energie",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 1,
+            "tokenIndex": 14
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-15",
+            "word": ",",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 1,
+            "tokenIndex": 15
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-16",
+            "word": "Raum",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 1,
+            "tokenIndex": 16
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-17",
+            "word": "und",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 1,
+            "tokenIndex": 17
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-18",
+            "word": "Zeit",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 1,
+            "tokenIndex": 18
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-19",
+            "word": "in",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 1,
+            "tokenIndex": 19
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-20",
+            "word": "einem",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 1,
+            "tokenIndex": 20
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-21",
+            "word": "Ereignis",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 1,
+            "tokenIndex": 21
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-22",
+            "word": "namens",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 1,
+            "tokenIndex": 22
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-23",
+            "word": "Urknall",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 1,
+            "tokenIndex": 23
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-24",
+            "word": ".",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 1,
+            "tokenIndex": 24
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-25",
+            "word": "Die",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 2,
+            "tokenIndex": 25
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-26",
+            "word": "Geschichte",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 2,
+            "tokenIndex": 26
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-27",
+            "word": "dieser",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 2,
+            "tokenIndex": 27
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-28",
+            "word": "grundlegenden",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 2,
+            "tokenIndex": 28
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-29",
+            "word": "Eigenschaften",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 2,
+            "tokenIndex": 29
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-30",
+            "word": "unseres",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 2,
+            "tokenIndex": 30
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-31",
+            "word": "Universums",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 2,
+            "tokenIndex": 31
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-32",
+            "word": "nennen",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 2,
+            "tokenIndex": 32
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-33",
+            "word": "wir",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 2,
+            "tokenIndex": 33
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-34",
+            "word": "Physik",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 2,
+            "tokenIndex": 34
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-35",
+            "word": ".",
+            "hasLineBreak": true,
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 2,
+            "tokenIndex": 35
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-36",
+            "word": "Etwa",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 3,
+            "tokenIndex": 36
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-37",
+            "word": "300000",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 3,
+            "tokenIndex": 37
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-38",
+            "word": "Jahre",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 3,
+            "tokenIndex": 38
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-39",
+            "word": "später",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 3,
+            "tokenIndex": 39
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-40",
+            "word": "verbanden",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 3,
+            "tokenIndex": 40
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-41",
+            "word": "sich",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 3,
+            "tokenIndex": 41
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-42",
+            "word": "Materie",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 3,
+            "tokenIndex": 42
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-43",
+            "word": "und",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 3,
+            "tokenIndex": 43
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-44",
+            "word": "Energie",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 3,
+            "tokenIndex": 44
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-45",
+            "word": "zu",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 3,
+            "tokenIndex": 45
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-46",
+            "word": "komplexeren",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 3,
+            "tokenIndex": 46
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-47",
+            "word": "Strukturen",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 3,
+            "tokenIndex": 47
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-48",
+            "word": "namens",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 3,
+            "tokenIndex": 48
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-49",
+            "word": "Atome",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 3,
+            "tokenIndex": 49
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-50",
+            "word": ",",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 3,
+            "tokenIndex": 50
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-51",
+            "word": "die",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 3,
+            "tokenIndex": 51
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-52",
+            "word": "sich",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 3,
+            "tokenIndex": 52
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-53",
+            "word": "wiederum",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 3,
+            "tokenIndex": 53
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-54",
+            "word": "zu",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 3,
+            "tokenIndex": 54
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-55",
+            "word": "Molekülen",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 3,
+            "tokenIndex": 55
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-56",
+            "word": "zusammenschlossen",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 3,
+            "tokenIndex": 56
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-57",
+            "word": ".",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 3,
+            "tokenIndex": 57
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-58",
+            "word": "Die",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 4,
+            "tokenIndex": 58
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-59",
+            "word": "Geschichte",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 4,
+            "tokenIndex": 59
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-60",
+            "word": "der",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 4,
+            "tokenIndex": 60
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-61",
+            "word": "Atome",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 4,
+            "tokenIndex": 61
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-62",
+            "word": ",",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 4,
+            "tokenIndex": 62
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-63",
+            "word": "Moleküle",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 4,
+            "tokenIndex": 63
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-64",
+            "word": "und",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 4,
+            "tokenIndex": 64
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-65",
+            "word": "ihrer",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 4,
+            "tokenIndex": 65
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-66",
+            "word": "Reaktionen",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 4,
+            "tokenIndex": 66
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-67",
+            "word": "nennen",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 4,
+            "tokenIndex": 67
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-68",
+            "word": "wir",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 4,
+            "tokenIndex": 68
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-69",
+            "word": "Chemie",
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 4,
+            "tokenIndex": 69
+        },
+        {
+            "textType": "origin",
+            "idWord": "1-0-70",
+            "word": ".",
+            "hasLineBreak": true,
+            "segmentIndex": 1,
+            "docSourceId": "499586c0-f1ec-4eba-b339-7bf964f2f2b4",
+            "sentenceIndex": 4,
+            "tokenIndex": 70
+        }
+    ]
+}

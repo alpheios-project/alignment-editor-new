@@ -5,11 +5,12 @@ import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
 import MainMenu from '@/vue/main-menu.vue'
 import AppController from '@/lib/controllers/app-controller.js'
 import Vue from '@vue-runtime'
-
+import VModal from 'vue-js-modal'
 import Vuex from "vuex"
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(VModal)
 
 let appC
 

@@ -20,7 +20,8 @@ export default class DownloadController {
         name: 'jsonSimpleDownloadAll',
         label: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL'),
         tooltip: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP'),
-        alignmentStarted: false
+        alignmentStarted: false,
+        hasGroups: false
       },
       plainSourceDownloadAll: {
         method: this.plainSourceDownloadAll,
@@ -28,7 +29,8 @@ export default class DownloadController {
         name: 'plainSourceDownloadAll',
         label: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL'),
         tooltip: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP'),
-        alignmentStarted: false
+        alignmentStarted: false,
+        hasGroups: false
       },
       plainSourceDownloadSingle: { method: this.plainSourceDownloadSingle, allTexts: false },
       htmlDownloadAll: {
@@ -37,7 +39,8 @@ export default class DownloadController {
         name: 'htmlDownloadAll',
         label: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_TYPE_HTML_LABEL'),
         tooltip: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_TYPE_HTML_TOOLTIP'),
-        alignmentStarted: true
+        alignmentStarted: true,
+        hasGroups: true
       }
     }
   }

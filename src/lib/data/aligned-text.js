@@ -55,17 +55,20 @@ export default class AlignedText {
    */
   async tokenize (docSource, useSpecificEnglishTokenizer = false) {
     const tokenizeMethod = TokenizeController.getTokenizer(docSource.tokenization.tokenizer)
-    const result = await tokenizeMethod(docSource, this.tokenPrefix, useSpecificEnglishTokenizer)
 
+    const result = await tokenizeMethod(docSource, this.tokenPrefix, useSpecificEnglishTokenizer)
     if (result && result.segments) {
-      this.segments = result.segments.map(segment => new Segment({
-        index: segment.index,
-        tokens: segment.tokens,
-        textType: docSource.textType,
-        lang: docSource.lang,
-        direction: docSource.direction,
-        docSourceId: docSource.id
-      }))
+      this.segments = result.segments.map(segment => {
+        return new Segment({
+          index: segment.index,
+          tokens: segment.tokens,
+          textType: docSource.textType,
+          lang: docSource.lang,
+          direction: docSource.direction,
+          docSourceId: docSource.id
+        })
+      })
+
       return true
     }
     return false
@@ -118,25 +121,71 @@ export default class AlignedText {
         textType: data.textType,
         direction: data.direction,
         lang: data.lang,
-        lansourceTypeg: data.sourceType,
+        sourceType: data.sourceType,
         tokenization: data.tokenization
-      }
-    }, data.tokenPrefix)
+      },
+      tokenPrefix: data.tokenPrefix
+    })
     alignedText.segments = data.segments.map(seg => Segment.convertFromJSON(seg))
 
     return alignedText
   }
 
-  convertForHTMLOutput () {
+  convertToHTML () {
     return {
       dir: this.direction,
       lang: this.lang,
       langName: this.langName,
       segments: this.segments.map(seg => {
         return {
-          tokens: seg.tokens.map(token => token.convertForHTMLOutput())
+          tokens: seg.tokens.map(token => token.convertToHTML())
         }
       })
     }
+  }
+
+  convertToIndexedDB () {
+    return {
+      textId: this.id,
+      textType: this.textType,
+      direction: this.direction,
+      lang: this.lang,
+      sourceType: this.sourceType,
+      tokenPrefix: this.tokenPrefix,
+      tokenization: this.tokenization,
+      segments: this.segments.map(seg => seg.convertToIndexedDB())
+    }
+  }
+
+  static convertFromIndexedDB (dbData, dbSegments, dbTokens, dbAllPartNums) {
+    const alignedText = new AlignedText({
+      docSource: {
+        id: dbData.textId,
+        textType: dbData.textType,
+        direction: dbData.direction,
+        lang: dbData.lang,
+        lansourceTypeg: dbData.sourceType,
+        tokenization: dbData.tokenization
+      },
+      tokenPrefix: dbData.tokenPrefix
+    })
+    const segmentsDbDataFiltered = dbSegments.filter(segmentItem => segmentItem.docSourceId === dbData.textId)
+
+    alignedText.segments = segmentsDbDataFiltered.map(seg => Segment.convertFromIndexedDB(seg, dbTokens, dbAllPartNums))
+
+    return alignedText
+  }
+
+  limitTokensToPartNum (partNum) {
+    this.segments.forEach(segment => segment.limitTokensToPartNum(partNum))
+  }
+
+  uploadSegmentTokensFromDB (segmentIndex, dbData) {
+    const segment = this.segments[segmentIndex - 1]
+    segment.uploadSegmentTokensFromDB(dbData)
+  }
+
+  get hasAllPartsUploaded () {
+    return this.segments.every(segment => segment.hasAllPartsUploaded)
   }
 }

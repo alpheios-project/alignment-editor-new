@@ -31,6 +31,13 @@
         border-color: map.get($theme, 'main-menu-border-color-hover');
     }
 
+    .alpheios-alignment-editor-alignments-table_link  {
+        color: map.get($theme, 'text-link-color');
+        &:hover {
+            color: map.get($theme, 'text-link-color-hover');
+        }
+    }
+
     .alpheios-menu-button,
     .alpheios-actions-menu-button,
     .alpheios-options-button,
@@ -122,10 +129,15 @@
         }
 
         .alpheios-alignment-editor-align-text-segment span.alpheios-token {
+
             &:hover {
                 color: map.get($theme, 'align-editor-text-color-hover');
                 border-color: map.get($theme, 'align-editor-text-border-color-hover');
                 background: map.get($theme, 'align-editor-text-background-color-hover');
+            }
+            &.alpheios-token-annotation-mode:hover {
+                border-color: initial;
+                background: initial;
             }
 
             &.alpheios-token-grouped {
@@ -137,6 +149,10 @@
                     color: map.get($theme, 'align-editor-text-color-grouped-hover');
                     border-color: map.get($theme, 'align-editor-text-border-color-grouped-hover');
                     background: map.get($theme, 'align-editor-text-background-color-grouped-hover');
+                }
+
+                &.alpheios-token-annotated {
+                    border-bottom-color: map.get($theme, 'align-editor-text-color-grouped');
                 }
             }
 

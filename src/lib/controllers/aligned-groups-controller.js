@@ -1,5 +1,6 @@
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
+import StorageController from '@/lib/controllers/storage-controller.js'
 
 export default class AlignedGroupsController {
   /**
@@ -14,7 +15,7 @@ export default class AlignedGroupsController {
    * @param {Alignment} alignment
    * @return {Boolean} result, true - aligned texts were created, false - were not
    */
-  async createAlignedTexts (alignment, useSpecificEnglishTokenizer = false) {
+  async createAlignedTexts (alignment) {
     if (!alignment || !alignment.readyForTokenize) {
       console.error(L10nSingleton.getMsgS('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'))
       NotificationSingleton.addNotification({
@@ -26,7 +27,7 @@ export default class AlignedGroupsController {
 
     this.alignment = alignment
 
-    const resultAlignment = await this.alignment.createAlignedTexts(useSpecificEnglishTokenizer)
+    const resultAlignment = await this.alignment.createAlignedTexts()
 
     if (!resultAlignment) {
       this.alignment.clearAlignedTexts() // notification is alredy published
@@ -48,7 +49,10 @@ export default class AlignedGroupsController {
     }
     this.store.commit('incrementAlignmentUpdated')
 
+    StorageController.update(this.alignment)
+
     document.dispatchEvent(new Event('AlpheiosAlignmentGroupsWorkflowStarted'))
+    this.alignment.limitTokensToPartNumAllTexts(1)
     return resultAlignment
   }
 
@@ -103,25 +107,38 @@ export default class AlignedGroupsController {
    * @param {Token} token
    * @param {String|Null} limitByTargetId - docSource of the current target document
    */
-  clickToken (token, limitByTargetId = null) {
+  async clickToken (token, limitByTargetId = null) {
     if (!this.hasActiveAlignmentGroup) {
       if (this.tokenIsGrouped(token, limitByTargetId)) {
-        this.activateGroupByToken(token, limitByTargetId)
+        const alGroupItemID = this.activateGroupByToken(token, limitByTargetId)
+        await this.deleteAlGroupFromStorage(alGroupItemID)
       } else {
         this.startNewAlignmentGroup(token, limitByTargetId)
       }
     } else {
       if (this.shouldFinishAlignmentGroup(token, limitByTargetId)) {
         this.finishActiveAlignmentGroup()
+        await StorageController.update(this.alignment)
       } else if (this.shouldRemoveFromAlignmentGroup(token, limitByTargetId)) {
         this.removeFromAlignmentGroup(token, limitByTargetId)
       } else if (this.tokenIsGrouped(token, limitByTargetId)) {
-        this.mergeActiveGroupWithAnotherByToken(token, limitByTargetId)
+        const alGroupItemID = this.mergeActiveGroupWithAnotherByToken(token, limitByTargetId)
+
+        await this.deleteAlGroupFromStorage(alGroupItemID)
+        await StorageController.update(this.alignment)
       } else {
         this.addToAlignmentGroup(token, limitByTargetId)
       }
     }
     this.store.commit('incrementAlignmentUpdated')
+  }
+
+  deleteAlGroupFromStorage (alGroupItemID) {
+    StorageController.deleteMany({
+      userID: this.alignment.userID,
+      alignmentID: this.alignment.id,
+      alGroupItemID
+    }, 'alignmentGroupByID')
   }
 
   /**
@@ -291,5 +308,9 @@ export default class AlignedGroupsController {
 
   getOpositeTokenTargetIdForScroll (token) {
     return this.alignment.getOpositeTokenTargetIdForScroll(token)
+  }
+
+  get hasAlignmentGroups () {
+    return this.alignment && this.alignment.hasAlignmentGroups
   }
 }

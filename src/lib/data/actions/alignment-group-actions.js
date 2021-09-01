@@ -7,6 +7,8 @@ export default class AlignmentGroupActions {
     this.origin = []
     this.target = []
     this.alignmentGroupHistory = alignmentGroupHistory
+    this.originPartNums = []
+    this.targetPartNums = []
   }
 
   // calculated props

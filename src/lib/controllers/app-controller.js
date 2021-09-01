@@ -1,5 +1,6 @@
 import App from '@/vue/app.vue'
 import Vue from '@vue-runtime'
+
 import Vuex from 'vuex'
 
 import TextsController from '@/lib/controllers/texts-controller.js'
@@ -7,12 +8,15 @@ import AlignedGroupsController from '@/lib/controllers/aligned-groups-controller
 import TokensEditController from '@/lib/controllers/tokens-edit-controller.js'
 import HistoryController from '@/lib/controllers/history-controller.js'
 import SettingsController from '@/lib/controllers/settings-controller.js'
+import StorageController from '@/lib/controllers/storage-controller.js'
+import AnnotationsController from '@/lib/controllers/annotations-controller.js'
 
 import StoreDefinition from '@/lib/store/store-definition'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import Locales from '@/locales/locales.js'
+import VModal from 'vue-js-modal'
 
 export default class AppController {
   /**
@@ -36,11 +40,12 @@ export default class AppController {
     this.defineStore()
     this.defineL10Support()
     this.defineNotificationSupport()
+    this.defineStorageController()
 
     await this.defineSettingsController()
 
-    if (this.settingsC.themeOptionValue) {
-      this.defineColorTheme({ theme: this.settingsC.themeOptionValue, themesList: [] })
+    if (SettingsController.themeOptionValue) {
+      this.defineColorTheme({ theme: SettingsController.themeOptionValue, themesList: [] })
     }
     if (this.pageSettings && this.pageSettings.appId) {
       this.attachVueComponents()
@@ -66,10 +71,13 @@ export default class AppController {
    * Creates and attaches App Vue component, defines additional controllers
    */
   attachVueComponents () {
+    Vue.use(VModal)
+
     this.defineTextController()
     this.defineAlignedGroupsController()
     this.defineTokensEditController()
     this.defineHistoryController()
+    this.defineAnnotationsController()
 
     const rootVi = new Vue({ store: this.store })
     const mountEl = document.getElementById(this.pageSettings.appId)
@@ -103,11 +111,9 @@ export default class AppController {
    * Creates SettingsController and attaches to Vue components
    */
   async defineSettingsController () {
-    this.settingsC = new SettingsController(this.store)
-    await this.settingsC.init()
-    Vue.prototype.$settingsC = this.settingsC
+    await SettingsController.init(this.store)
 
-    this.settingsC.uploadRemoteSettings()
+    SettingsController.uploadRemoteSettings()
   }
 
   /**
@@ -142,6 +148,11 @@ export default class AppController {
     Vue.prototype.$historyC = this.historyC
   }
 
+  defineAnnotationsController () {
+    this.annotationsC = new AnnotationsController(this.store)
+    Vue.prototype.$annotationsC = this.annotationsC
+  }
+
   /**
    * Defines L10n module
    */
@@ -163,5 +174,9 @@ export default class AppController {
   defineNotificationSupport () {
     const notificationSingleton = new NotificationSingleton(this.store)
     return notificationSingleton
+  }
+
+  defineStorageController () {
+    StorageController.definedDBAdapter()
   }
 }
