@@ -45,7 +45,7 @@
         </div>
 
         <div class="alpheios-alignment-editor-initial-screen__video" v-show="showVideo">
-            <video-embed css="embed-responsive-21by9" src="https://youtu.be/TZa86G1uVOU"></video-embed>
+            <video-embed css="embed-responsive-21by9" src="https://youtu.be/dWkT-7uYP4E"></video-embed>
         </div>
       </div>
   </div>
