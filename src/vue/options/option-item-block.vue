@@ -16,6 +16,7 @@
         placeholder="Pick some"
         @input = "changeOption"
         :disabled="disabled"
+        :allow-empty="false"
     >
     </multiselect>
 
