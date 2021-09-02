@@ -60,7 +60,7 @@
       "component": "TokensEditController"
     },
     "TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP": {
-      "message": "The token that is the translation of merging is inside a created alignment group, you should ungroup it first.",
+      "message": "The merging token is inside a created alignment group, you should ungroup it first.",
       "description": "An error message for token edit workflow",
       "component": "Alignment"
     },
