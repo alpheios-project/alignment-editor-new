@@ -834,7 +834,7 @@ div.alpheios-alignment-checkbox-block {
   stroke: #ddd;
 }
 .alpheios-standard-theme .alpheios-main-menu-download-block-radio-block_item label {
-  color: #fff;
+  color: #212529;
 }
 
 .alpheios-v1-theme {
@@ -1052,7 +1052,7 @@ div.alpheios-alignment-checkbox-block {
   stroke: #6a9fb5;
 }
 .alpheios-v1-theme .alpheios-main-menu-download-block-radio-block_item label {
-  color: #46788d;
+  color: #000;
 }
 
 .alpheios-alignment-editor-app-container {
