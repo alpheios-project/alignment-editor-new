@@ -47616,7 +47616,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i507-indexdb-supported.20210902564" : 0
+    return  true ? "i511-max-per-part.20210902612" : 0
   }
 
   static get libName () {
@@ -51722,6 +51722,10 @@ __webpack_require__.r(__webpack_exports__);
     maxCharactersAnnotationTextOptionItem () {
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.maxCharactersAnnotationText
     },
+
+    maxCharactersPerPart () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.maxCharactersPerPart
+    }, 
     versionData () {
       return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`
     },
@@ -62770,6 +62774,10 @@ var render = function() {
             _vm._v(" "),
             _c("option-item-block", {
               attrs: { optionItem: _vm.maxCharactersAnnotationTextOptionItem }
+            }),
+            _vm._v(" "),
+            _c("option-item-block", {
+              attrs: { optionItem: _vm.maxCharactersPerPart }
             }),
             _vm._v(" "),
             _c("option-item-block", {
