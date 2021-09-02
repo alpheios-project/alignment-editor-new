@@ -47616,7 +47616,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i500-no-annotation-type.20210902664" : 0
+    return  true ? "i501-standard-theme.20210902668" : 0
   }
 
   static get libName () {
@@ -51128,6 +51128,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/settings-controller */ "./lib/controllers/settings-controller.js");
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect */ "../node_modules/vue-multiselect/dist/vue-multiselect.min.js");
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_2__);
+//
 //
 //
 //
@@ -62060,7 +62061,8 @@ var render = function() {
                   "preserve-search": true,
                   searchable: false,
                   placeholder: "Pick some",
-                  disabled: _vm.disabled
+                  disabled: _vm.disabled,
+                  "allow-empty": false
                 },
                 on: { input: _vm.changeOption },
                 model: {
