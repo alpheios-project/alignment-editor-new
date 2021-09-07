@@ -40444,6 +40444,7 @@ class TextsController {
   }
 
   async defineAllPartNumsForTexts () {
+    console.info('TE defineAllPartNumsForTexts')
     const allPartsAlreadyUploaded = this.alignment.hasAllPartsUploaded
 
     if (!allPartsAlreadyUploaded) {
@@ -40795,7 +40796,8 @@ class TokenizeController {
     }
   }
 
-  static reIndexSentences (segment) {
+  static reIndexSentences (segment, redefineParts = true) {
+    console.info('TE reIndexSentences')
     let sentenceIndex = 1
     for (let iTok = 0; iTok < segment.tokens.length; iTok++) {
       let token = segment.tokens[iTok] // eslint-disable-line prefer-const
@@ -40806,7 +40808,10 @@ class TokenizeController {
         sentenceIndex++
       }
     }
-    segment.defineAllPartNums()
+
+    if (redefineParts) {
+      segment.defineAllPartNums()
+    }
   }
 }
 
@@ -42060,7 +42065,7 @@ class TokensEditActions {
   reIndexSentence (segment) {
     const alignedText = (segment.textType === 'origin') ? this.origin.alignedText : this.targets[segment.docSourceId].alignedText
     const getReIndexSentenceMethod = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.getReIndexSentenceMethod(alignedText.tokenization.tokenizer)
-    getReIndexSentenceMethod(segment)
+    getReIndexSentenceMethod(segment, false)
   }
 
   /**
@@ -45160,6 +45165,7 @@ class Segment {
    * updates allPartNums
    */
   defineAllPartNums () {
+    // console.info('defineAllPartNums', this.textType, this.index)
     const charMax = _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__.default.maxCharactersPerPart
     const parts = {}
     const allPartNums = []
@@ -47616,7 +47622,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i501-standard-theme.20210902668" : 0
+    return  true ? "i503-edit-text-parts.20210907553" : 0
   }
 
   static get libName () {
@@ -54595,7 +54601,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     mergeToken (direction) {
       this.$tokensEC.mergeToken(this.token, direction)
-      this.hideActionsMenu()
     },
     splitToken ()  {
       this.$tokensEC.splitToken(this.token, this.tokenWord)
@@ -65738,7 +65743,7 @@ var render = function() {
             return [
               token.word
                 ? _c("token-edit-block", {
-                    key: token.idWord,
+                    key: tokenIndex,
                     attrs: {
                       token: token,
                       deactivated: _vm.deactivated,

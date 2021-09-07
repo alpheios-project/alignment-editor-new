@@ -154,7 +154,6 @@ export default {
     },
     mergeToken (direction) {
       this.$tokensEC.mergeToken(this.token, direction)
-      this.hideActionsMenu()
     },
     splitToken ()  {
       this.$tokensEC.splitToken(this.token, this.tokenWord)
