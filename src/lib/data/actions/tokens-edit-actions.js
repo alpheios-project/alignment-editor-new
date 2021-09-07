@@ -386,7 +386,7 @@ export default class TokensEditActions {
   reIndexSentence (segment) {
     const alignedText = (segment.textType === 'origin') ? this.origin.alignedText : this.targets[segment.docSourceId].alignedText
     const getReIndexSentenceMethod = TokenizeController.getReIndexSentenceMethod(alignedText.tokenization.tokenizer)
-    getReIndexSentenceMethod(segment)
+    getReIndexSentenceMethod(segment, false)
   }
 
   /**

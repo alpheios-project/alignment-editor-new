@@ -211,7 +211,7 @@ export default class TokenizeController {
     }
   }
 
-  static reIndexSentences (segment) {
+  static reIndexSentences (segment, redefineParts = true) {
     let sentenceIndex = 1
     for (let iTok = 0; iTok < segment.tokens.length; iTok++) {
       let token = segment.tokens[iTok] // eslint-disable-line prefer-const
@@ -222,6 +222,9 @@ export default class TokenizeController {
         sentenceIndex++
       }
     }
-    segment.defineAllPartNums()
+
+    if (redefineParts) {
+      segment.defineAllPartNums()
+    }
   }
 }

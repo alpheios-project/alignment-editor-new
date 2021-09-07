@@ -31,7 +31,7 @@
           <template v-for = "(token, tokenIndex) in allTokens">
             <token-edit-block
               v-if ="token.word"
-              :token = "token" :key = "token.idWord" :deactivated = "deactivated"
+              :token = "token" :key = "tokenIndex" :deactivated = "deactivated"
               :updateTokenIdWord = "updateTokenIdWord === token.idWord ? updateTokenIdWord : null"
               :mergeTokenPrevIdWord = "mergeTokenPrevIdWord === token.idWord ? mergeTokenPrevIdWord : null"
               :mergeTokenNextIdWord = "mergeTokenNextIdWord === token.idWord ? mergeTokenNextIdWord : null"
