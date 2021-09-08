@@ -40273,7 +40273,7 @@ class TextsController {
 
   async downloadFullData (downloadType) {
     let data
-    if (!this.alignment.hasAllPartsUploaded) {
+    if (_lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.dbAdapterAvailable && !this.alignment.hasAllPartsUploaded) {
       const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
       const alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default.convertFromIndexedDB(dbData)
 
@@ -40319,7 +40319,7 @@ class TextsController {
 
   async prepareFullDataForHTMLOutput () {
     let data
-    if (!this.alignment.hasAllPartsUploaded) {
+    if (_lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.dbAdapterAvailable && !this.alignment.hasAllPartsUploaded) {
       const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
       const alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default.convertFromIndexedDB(dbData)
 
@@ -45089,6 +45089,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_data_token__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/token */ "./lib/data/token.js");
 /* harmony import */ var _lib_data_langs_langs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/data/langs/langs */ "./lib/data/langs/langs.js");
 /* harmony import */ var _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/settings-controller */ "./lib/controllers/settings-controller.js");
+/* harmony import */ var _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/controllers/storage-controller.js */ "./lib/controllers/storage-controller.js");
+
 
 
 
@@ -45396,9 +45398,12 @@ class Segment {
   }
 
   limitTokensToPartNum (partNum) {
-    this.tokens = this.partsTokens(partNum)
-    this.getCurrentPartNums()
-    return true
+    if (_lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_4__.default.dbAdapterAvailable) {
+      this.tokens = this.partsTokens(partNum)
+      this.getCurrentPartNums()
+      return true
+    }
+    return false
   }
 
   get hasAllPartsUploaded () {
@@ -47619,7 +47624,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i520-html-truncated.20210908640" : 0
+    return  true ? "i520-html-truncated.20210908658" : 0
   }
 
   static get libName () {
@@ -49281,6 +49286,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.segment.allPartNums) {
         result = this.$textC.getSegmentPart(this.textType, this.segment.docSourceId, this.segment.index, this.currentPartIndexes)
       }
+
       return  this.$store.state.tokenUpdated && this.$store.state.uploadPartNum && this.$store.state.reuploadTextsParts ? result : []
     },
 
