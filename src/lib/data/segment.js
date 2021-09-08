@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 import Token from '@/lib/data/token'
 import Langs from '@/lib/data/langs/langs'
 import SettingsController from '@/lib/controllers/settings-controller'
+import StorageController from '@/lib/controllers/storage-controller.js'
 
 export default class Segment {
   constructor ({ id, index, textType, lang, direction, tokens, docSourceId, allPartNums } = {}) {
@@ -305,9 +306,12 @@ export default class Segment {
   }
 
   limitTokensToPartNum (partNum) {
-    this.tokens = this.partsTokens(partNum)
-    this.getCurrentPartNums()
-    return true
+    if (StorageController.dbAdapterAvailable) {
+      this.tokens = this.partsTokens(partNum)
+      this.getCurrentPartNums()
+      return true
+    }
+    return false
   }
 
   get hasAllPartsUploaded () {

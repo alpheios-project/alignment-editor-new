@@ -316,7 +316,7 @@ export default class TextsController {
 
   async downloadFullData (downloadType) {
     let data
-    if (!this.alignment.hasAllPartsUploaded) {
+    if (StorageController.dbAdapterAvailable && !this.alignment.hasAllPartsUploaded) {
       const dbData = await StorageController.select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
       const alignment = await Alignment.convertFromIndexedDB(dbData)
 
@@ -362,7 +362,7 @@ export default class TextsController {
 
   async prepareFullDataForHTMLOutput () {
     let data
-    if (!this.alignment.hasAllPartsUploaded) {
+    if (StorageController.dbAdapterAvailable && !this.alignment.hasAllPartsUploaded) {
       const dbData = await StorageController.select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
       const alignment = await Alignment.convertFromIndexedDB(dbData)
 
