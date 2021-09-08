@@ -18,6 +18,7 @@
               @focus = "showActionsMenu"
               :disabled = "!isEditableToken"
               @keydown="checkKeyPres"
+              :ref = "itemId"
           >
         </span>
       {{ token.afterWord }}
@@ -150,19 +151,24 @@ export default {
     updateTokenWord () {
       if (this.allowedUpdateTokenWord && (this.token.word !== this.tokenWord)) {
         this.$tokensEC.updateTokenWord(this.token, this.tokenWord)
+        this.hideActionsMenu()
       }
     },
     mergeToken (direction) {
       this.$tokensEC.mergeToken(this.token, direction)
+      this.hideActionsMenu()
     },
     splitToken ()  {
       this.$tokensEC.splitToken(this.token, this.tokenWord)
+      this.hideActionsMenu()
     },
     addLineBreakAfterToken () {
       this.$tokensEC.addLineBreakAfterToken(this.token)
+      this.hideActionsMenu()
     },
     removeLineBreakAfterToken () {
       this.$tokensEC.removeLineBreakAfterToken(this.token)
+      this.hideActionsMenu()
     },
     hideActionsMenu () {
       this.activated = false

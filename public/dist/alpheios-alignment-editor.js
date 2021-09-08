@@ -40444,7 +40444,6 @@ class TextsController {
   }
 
   async defineAllPartNumsForTexts () {
-    console.info('TE defineAllPartNumsForTexts')
     const allPartsAlreadyUploaded = this.alignment.hasAllPartsUploaded
 
     if (!allPartsAlreadyUploaded) {
@@ -40797,7 +40796,6 @@ class TokenizeController {
   }
 
   static reIndexSentences (segment, redefineParts = true) {
-    console.info('TE reIndexSentences')
     let sentenceIndex = 1
     for (let iTok = 0; iTok < segment.tokens.length; iTok++) {
       let token = segment.tokens[iTok] // eslint-disable-line prefer-const
@@ -45165,7 +45163,6 @@ class Segment {
    * updates allPartNums
    */
   defineAllPartNums () {
-    // console.info('defineAllPartNums', this.textType, this.index)
     const charMax = _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__.default.maxCharactersPerPart
     const parts = {}
     const allPartNums = []
@@ -47622,7 +47619,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i503-edit-text-parts.20210907553" : 0
+    return  true ? "i520-html-truncated.20210908640" : 0
   }
 
   static get libName () {
@@ -54317,15 +54314,10 @@ __webpack_require__.r(__webpack_exports__);
     alignmentGroupsWorkflowAvailable () {
       return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowAvailable
     },
-    /*
-    allTokens () {
-      return  this.$store.state.tokenUpdated ? this.segment.tokens : []
-    },
-    */
     currentPartIndexes () {
       return this.$store.state.uploadPartNum && this.$store.state.reuploadTextsParts ? this.segment.currentPartNums : []
     },
-    allTokens () {
+    allTokens () {    
       return  this.$store.state.tokenUpdated && this.$store.state.uploadPartNum && this.$store.state.reuploadTextsParts ? this.segment.tokens : []
     },
     amountOfSegments () {
@@ -54445,6 +54437,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/data/history/history-step.js */ "./lib/data/history/history-step.js");
 /* harmony import */ var _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/settings-controller */ "./lib/controllers/settings-controller.js");
+//
 //
 //
 //
@@ -54597,19 +54590,24 @@ __webpack_require__.r(__webpack_exports__);
     updateTokenWord () {
       if (this.allowedUpdateTokenWord && (this.token.word !== this.tokenWord)) {
         this.$tokensEC.updateTokenWord(this.token, this.tokenWord)
+        this.hideActionsMenu()
       }
     },
     mergeToken (direction) {
       this.$tokensEC.mergeToken(this.token, direction)
+      this.hideActionsMenu()
     },
     splitToken ()  {
       this.$tokensEC.splitToken(this.token, this.tokenWord)
+      this.hideActionsMenu()
     },
     addLineBreakAfterToken () {
       this.$tokensEC.addLineBreakAfterToken(this.token)
+      this.hideActionsMenu()
     },
     removeLineBreakAfterToken () {
       this.$tokensEC.removeLineBreakAfterToken(this.token)
+      this.hideActionsMenu()
     },
     hideActionsMenu () {
       this.activated = false
@@ -65743,7 +65741,7 @@ var render = function() {
             return [
               token.word
                 ? _c("token-edit-block", {
-                    key: tokenIndex,
+                    key: token.idWord,
                     attrs: {
                       token: token,
                       deactivated: _vm.deactivated,
@@ -65895,6 +65893,7 @@ var render = function() {
                     expression: "tokenWord"
                   }
                 ],
+                ref: _vm.itemId,
                 staticClass:
                   "alpheios-alignment-input alpheios-alignment-editor-token-edit-input",
                 attrs: {
