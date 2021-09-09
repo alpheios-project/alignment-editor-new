@@ -45,6 +45,7 @@ export default class TokenizeController {
   }
 
   static checkRemoteTokenizeOptionsMethod (tokenizeOptions) {
+    console.info('checkRemoteTokenizeOptionsMethod - ', Boolean(tokenizeOptions), Boolean(tokenizeOptions.text), Boolean(tokenizeOptions.tei))
     return Boolean(tokenizeOptions) && Boolean(tokenizeOptions.text) && Boolean(tokenizeOptions.tei)
   }
 
