@@ -34,12 +34,6 @@ export default {
     }
   },
   computed: {
-    /**
-     * @returns {Boolean} - true if sourceText options are loaded
-     */
-    // showOptions () {
-    //  return this.$store.state.optionsUpdated && this.localOptions.ready && SettingsController.sourceTextOptionsLoaded
-    // }
   },
   methods: {
     updateData () {

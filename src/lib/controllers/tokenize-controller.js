@@ -100,6 +100,9 @@ export default class TokenizeController {
         resultOptions[tokenizeMName] = await tokenizeM.uploadOptionsMethod(storage, tokenizeM)
       }
     }
+
+    console.info('uploadOptions resultOptions', resultOptions)
+
     return resultOptions
   }
 

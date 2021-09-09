@@ -39736,6 +39736,7 @@ class SettingsController {
    */
   static async uploadRemoteSettings () {
     _instance.options.tokenize = await _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.uploadOptions(_instance.storageAdapter)
+    console.info('_instance.options.tokenize - ', _instance.options.tokenize)
 
     if (_instance.options.tokenize && _instance.options.tokenize.alpheiosRemoteTokenizer && _instance.options.tokenize.alpheiosRemoteTokenizer.text) {
       delete _instance.options.tokenize.alpheiosRemoteTokenizer.text.items.tbsegstart
@@ -47624,7 +47625,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i526-source-type-empty.20210909377" : 0
+    return  true ? "i526-source-type-empty.20210909385" : 0
   }
 
   static get libName () {
@@ -51939,9 +51940,9 @@ __webpack_require__.r(__webpack_exports__);
     /**
      * @returns {Boolean} - true if sourceText options are loaded
      */
-    showOptions () {
-      return this.$store.state.optionsUpdated && this.localOptions.ready && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_1__.default.sourceTextOptionsLoaded
-    }
+    // showOptions () {
+    //  return this.$store.state.optionsUpdated && this.localOptions.ready && SettingsController.sourceTextOptionsLoaded
+    // }
   },
   methods: {
     updateData () {
@@ -53315,9 +53316,9 @@ __webpack_require__.r(__webpack_exports__);
     l10n () {
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
     },
-    showOptions () {
-      return this.$store.state.optionsUpdated && this.localOptions.ready && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.tokenizerOptionsLoaded
-    },
+    // showOptions () {
+    //   return this.$store.state.optionsUpdated && this.localOptions.ready && SettingsController.tokenizerOptionsLoaded
+    // },
     sourceType () {
       return this.$store.state.optionsUpdated && this.localOptions.sourceText.items.sourceType.currentValue
     }
