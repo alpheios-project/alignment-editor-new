@@ -147,7 +147,10 @@ export default {
       if (!file) { return }
       const extension = file.name.split('.').pop()
 
-      if (!this.$textC.checkUploadedFileByExtension(extension)) { return }
+      if (!this.$textC.checkUploadedFileByExtension(extension)) { 
+        this.closeMenu()
+        return 
+      }
 
       const reader = new FileReader()
 

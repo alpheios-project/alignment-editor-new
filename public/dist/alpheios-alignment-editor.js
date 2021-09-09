@@ -47624,7 +47624,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i520-html-truncated.20210908658" : 0
+    return  true ? "i524-resume-from-menu.20210909357" : 0
   }
 
   static get libName () {
@@ -50970,7 +50970,10 @@ __webpack_require__.r(__webpack_exports__);
       if (!file) { return }
       const extension = file.name.split('.').pop()
 
-      if (!this.$textC.checkUploadedFileByExtension(extension)) { return }
+      if (!this.$textC.checkUploadedFileByExtension(extension)) { 
+        this.closeMenu()
+        return 
+      }
 
       const reader = new FileReader()
 
