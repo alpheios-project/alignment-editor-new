@@ -61,9 +61,9 @@ export default {
     l10n () {
       return L10nSingleton
     },
-    showOptions () {
-      return this.$store.state.optionsUpdated && this.localOptions.ready && SettingsController.tokenizerOptionsLoaded
-    },
+    // showOptions () {
+    //   return this.$store.state.optionsUpdated && this.localOptions.ready && SettingsController.tokenizerOptionsLoaded
+    // },
     sourceType () {
       return this.$store.state.optionsUpdated && this.localOptions.sourceText.items.sourceType.currentValue
     }
