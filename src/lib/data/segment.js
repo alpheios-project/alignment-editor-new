@@ -220,7 +220,7 @@ export default class Segment {
    *          { Array[Object] } tokens - array of tokens converted to JSON
    */
   convertToJSON () {
-    return {
+    const res = {
       index: this.index,
       textType: this.textType,
       lang: this.lang,
@@ -228,6 +228,9 @@ export default class Segment {
       docSourceId: this.docSourceId,
       tokens: this.tokens.map((token, tokenIndex) => token.convertToJSON(tokenIndex))
     }
+
+    // console.info('tokens - ', res.tokens)
+    return res
   }
 
   /**

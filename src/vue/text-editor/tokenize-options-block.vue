@@ -62,6 +62,7 @@ export default {
       return L10nSingleton
     },
     showOptions () {
+      console.info('**************TOB showOptions', this.$store.state.optionsUpdated, this.localOptions.ready, SettingsController.tokenizerOptionsLoaded)
       return this.$store.state.optionsUpdated && this.localOptions.ready && SettingsController.tokenizerOptionsLoaded
     },
     sourceType () {
