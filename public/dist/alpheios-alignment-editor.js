@@ -39736,6 +39736,7 @@ class SettingsController {
    */
   static async uploadRemoteSettings () {
     _instance.options.tokenize = await _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.uploadOptions(_instance.storageAdapter)
+    console.info('_instance.options.tokenize - ', _instance.options.tokenize)
 
     if (_instance.options.tokenize && _instance.options.tokenize.alpheiosRemoteTokenizer && _instance.options.tokenize.alpheiosRemoteTokenizer.text) {
       delete _instance.options.tokenize.alpheiosRemoteTokenizer.text.items.tbsegstart
@@ -47624,7 +47625,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i524-resume-from-menu.20210909357" : 0
+    return  true ? "i526-source-type-empty.20210909385" : 0
   }
 
   static get libName () {
@@ -51939,9 +51940,9 @@ __webpack_require__.r(__webpack_exports__);
     /**
      * @returns {Boolean} - true if sourceText options are loaded
      */
-    showOptions () {
-      return this.$store.state.optionsUpdated && this.localOptions.ready && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_1__.default.sourceTextOptionsLoaded
-    }
+    // showOptions () {
+    //  return this.$store.state.optionsUpdated && this.localOptions.ready && SettingsController.sourceTextOptionsLoaded
+    // }
   },
   methods: {
     updateData () {
@@ -53315,9 +53316,9 @@ __webpack_require__.r(__webpack_exports__);
     l10n () {
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
     },
-    showOptions () {
-      return this.$store.state.optionsUpdated && this.localOptions.ready && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.tokenizerOptionsLoaded
-    },
+    // showOptions () {
+    //   return this.$store.state.optionsUpdated && this.localOptions.ready && SettingsController.tokenizerOptionsLoaded
+    // },
     sourceType () {
       return this.$store.state.optionsUpdated && this.localOptions.sourceText.items.sourceType.currentValue
     }
@@ -63185,35 +63186,33 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.showOptions
-    ? _c(
-        "div",
+  return _c(
+    "div",
+    {
+      staticClass:
+        "alpheios-alignment-editor-text-blocks-single-direction-options"
+    },
+    [
+      _c(
+        "fieldset",
         {
           staticClass:
-            "alpheios-alignment-editor-text-blocks-single-direction-options"
+            "alpheios-alignment-editor-options-fieldset alpheios-alignment-editor-options-fieldset-slim alpheios-alignment-editor-options-fieldset-label-auto"
         },
         [
-          _c(
-            "fieldset",
-            {
-              staticClass:
-                "alpheios-alignment-editor-options-fieldset alpheios-alignment-editor-options-fieldset-slim alpheios-alignment-editor-options-fieldset-label-auto"
+          _c("option-item-block", {
+            attrs: {
+              optionItem: _vm.localOptions.sourceText.items.direction,
+              emitUpdateData: true,
+              disabled: _vm.disabled
             },
-            [
-              _c("option-item-block", {
-                attrs: {
-                  optionItem: _vm.localOptions.sourceText.items.direction,
-                  emitUpdateData: true,
-                  disabled: _vm.disabled
-                },
-                on: { updateData: _vm.updateData }
-              })
-            ],
-            1
-          )
-        ]
+            on: { updateData: _vm.updateData }
+          })
+        ],
+        1
       )
-    : _vm._e()
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -64646,142 +64645,136 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.showOptions
-    ? _c(
+  return _c(
+    "div",
+    {
+      staticClass:
+        "alpheios-alignment-editor-text-blocks-single-tokenize-options"
+    },
+    [
+      _c(
+        "fieldset",
+        {
+          staticClass:
+            "alpheios-alignment-editor-options-fieldset alpheios-alignment-editor-options-fieldset-slim alpheios-alignment-editor-options-fieldset-label-auto"
+        },
+        [
+          _c("legend", [
+            _vm._v(
+              _vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS"))
+            )
+          ]),
+          _vm._v(" "),
+          _c("option-item-block", {
+            attrs: {
+              optionItem: _vm.localOptions.sourceText.items.sourceType,
+              emitUpdateData: true,
+              disabled: _vm.disabled
+            },
+            on: {
+              updateData: function($event) {
+                return _vm.$emit("updateText")
+              }
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
         "div",
         {
           staticClass:
-            "alpheios-alignment-editor-text-blocks-single-tokenize-options"
+            "alpheios-alignment-editor-tokenize-options__details-container"
         },
         [
           _c(
             "fieldset",
             {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.sourceType === "text",
+                  expression: "sourceType === 'text'"
+                }
+              ],
               staticClass:
-                "alpheios-alignment-editor-options-fieldset alpheios-alignment-editor-options-fieldset-slim alpheios-alignment-editor-options-fieldset-label-auto"
+                "alpheios-alignment-editor-options-fieldset alpheios-alignment-editor-options-fieldset__text"
             },
             [
               _c("legend", [
                 _vm._v(
-                  _vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS"))
+                  _vm._s(
+                    _vm.l10n.getMsgS("TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT")
+                  )
                 )
               ]),
               _vm._v(" "),
-              _c("option-item-block", {
-                attrs: {
-                  optionItem: _vm.localOptions.sourceText.items.sourceType,
-                  emitUpdateData: true,
-                  disabled: _vm.disabled
-                },
-                on: {
-                  updateData: function($event) {
-                    return _vm.$emit("updateText")
+              _vm._l(_vm.localOptions.text.items, function(textOptItem) {
+                return _c("option-item-block", {
+                  key: textOptItem.domain,
+                  attrs: {
+                    optionItem: textOptItem,
+                    emitUpdateData: true,
+                    disabled: _vm.disabled
+                  },
+                  on: {
+                    updateData: function($event) {
+                      return _vm.$emit("updateText")
+                    }
                   }
-                }
+                })
               })
             ],
-            1
+            2
           ),
           _vm._v(" "),
           _c(
-            "div",
+            "fieldset",
             {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.sourceType === "tei",
+                  expression: "sourceType === 'tei'"
+                }
+              ],
               staticClass:
-                "alpheios-alignment-editor-tokenize-options__details-container"
+                "alpheios-alignment-editor-options-fieldset alpheios-alignment-editor-options-fieldset__tei"
             },
             [
-              _c(
-                "fieldset",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.sourceType === "text",
-                      expression: "sourceType === 'text'"
-                    }
-                  ],
-                  staticClass:
-                    "alpheios-alignment-editor-options-fieldset alpheios-alignment-editor-options-fieldset__text"
-                },
-                [
-                  _c("legend", [
-                    _vm._v(
-                      _vm._s(
-                        _vm.l10n.getMsgS(
-                          "TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT"
-                        )
-                      )
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _vm._l(_vm.localOptions.text.items, function(textOptItem) {
-                    return _c("option-item-block", {
-                      key: textOptItem.domain,
-                      attrs: {
-                        optionItem: textOptItem,
-                        emitUpdateData: true,
-                        disabled: _vm.disabled
-                      },
-                      on: {
-                        updateData: function($event) {
-                          return _vm.$emit("updateText")
-                        }
-                      }
-                    })
-                  })
-                ],
-                2
-              ),
+              _c("legend", [
+                _vm._v(
+                  _vm._s(
+                    _vm.l10n.getMsgS("TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI")
+                  )
+                )
+              ]),
               _vm._v(" "),
-              _c(
-                "fieldset",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.sourceType === "tei",
-                      expression: "sourceType === 'tei'"
+              _vm._l(_vm.localOptions.tei.items, function(textOptItem) {
+                return _c("option-item-block", {
+                  key: textOptItem.domain,
+                  attrs: {
+                    optionItem: textOptItem,
+                    emitUpdateData: true,
+                    disabled: _vm.disabled
+                  },
+                  on: {
+                    updateData: function($event) {
+                      return _vm.$emit("updateText")
                     }
-                  ],
-                  staticClass:
-                    "alpheios-alignment-editor-options-fieldset alpheios-alignment-editor-options-fieldset__tei"
-                },
-                [
-                  _c("legend", [
-                    _vm._v(
-                      _vm._s(
-                        _vm.l10n.getMsgS(
-                          "TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI"
-                        )
-                      )
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _vm._l(_vm.localOptions.tei.items, function(textOptItem) {
-                    return _c("option-item-block", {
-                      key: textOptItem.domain,
-                      attrs: {
-                        optionItem: textOptItem,
-                        emitUpdateData: true,
-                        disabled: _vm.disabled
-                      },
-                      on: {
-                        updateData: function($event) {
-                          return _vm.$emit("updateText")
-                        }
-                      }
-                    })
-                  })
-                ],
-                2
-              )
-            ]
+                  }
+                })
+              })
+            ],
+            2
           )
         ]
       )
-    : _vm._e()
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
