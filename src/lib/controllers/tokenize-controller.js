@@ -45,7 +45,6 @@ export default class TokenizeController {
   }
 
   static checkRemoteTokenizeOptionsMethod (tokenizeOptions) {
-    console.info('checkRemoteTokenizeOptionsMethod - ', Boolean(tokenizeOptions), Boolean(tokenizeOptions.text), Boolean(tokenizeOptions.tei))
     return Boolean(tokenizeOptions) && Boolean(tokenizeOptions.text) && Boolean(tokenizeOptions.tei)
   }
 
@@ -101,8 +100,6 @@ export default class TokenizeController {
         resultOptions[tokenizeMName] = await tokenizeM.uploadOptionsMethod(storage, tokenizeM)
       }
     }
-
-    console.info('uploadOptions resultOptions', resultOptions)
 
     return resultOptions
   }

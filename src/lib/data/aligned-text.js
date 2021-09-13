@@ -126,7 +126,7 @@ export default class AlignedText {
       },
       tokenPrefix: data.tokenPrefix
     })
-    alignedText.segments = data.segments.map(seg => Segment.convertFromJSON(seg))
+    alignedText.segments = data.segments.map(seg => Segment.convertFromJSON(seg)).sort((a, b) => a.index - b.index)
 
     return alignedText
   }
@@ -171,7 +171,7 @@ export default class AlignedText {
     })
     const segmentsDbDataFiltered = dbSegments.filter(segmentItem => segmentItem.docSourceId === dbData.textId)
 
-    alignedText.segments = segmentsDbDataFiltered.map(seg => Segment.convertFromIndexedDB(seg, dbTokens, dbAllPartNums))
+    alignedText.segments = segmentsDbDataFiltered.map(seg => Segment.convertFromIndexedDB(seg, dbTokens, dbAllPartNums)).sort((a, b) => a.index - b.index)
 
     return alignedText
   }

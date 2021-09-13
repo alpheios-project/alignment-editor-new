@@ -250,10 +250,7 @@ export default class Segment {
       lang: data.lang,
       direction: data.direction,
       docSourceId: data.docSourceId,
-      tokens: data.tokens.map((token, tokenIndex) => {
-        token.tokenIdex = tokenIndex
-        return Token.convertFromJSON(token)
-      })
+      tokens: data.tokens.map(token => Token.convertFromJSON(token)).sort((a, b) => a.tokenIndex - b.tokenIndex)
     })
   }
 
