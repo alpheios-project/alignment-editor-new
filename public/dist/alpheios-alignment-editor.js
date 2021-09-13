@@ -47616,7 +47616,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "dev.20210910628" : 0
+    return  true ? "master-upload-video.20210913375" : 0
   }
 
   static get libName () {
@@ -61674,7 +61674,7 @@ var render = function() {
               _c("video-embed", {
                 attrs: {
                   css: "embed-responsive-21by9",
-                  src: "https://youtu.be/P0OIOVdBAD8"
+                  src: "https://youtu.be/WaLMw7XYhtc"
                 }
               })
             ],
