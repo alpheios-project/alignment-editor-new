@@ -39693,7 +39693,6 @@ class SettingsController {
    * @returns {Boolean} - true - if tokenize options are already defined
    */
   static get tokenizerOptionsLoaded () {
-    console.info('******tokenizerOptionsLoaded - ', this.tokenizerOptionValue, _instance.options.tokenize)
     return _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.fullyDefinedOptions(this.tokenizerOptionValue, _instance.options.tokenize)
   }
 
@@ -40630,7 +40629,6 @@ class TokenizeController {
   }
 
   static checkRemoteTokenizeOptionsMethod (tokenizeOptions) {
-    console.info('checkRemoteTokenizeOptionsMethod - ', Boolean(tokenizeOptions), Boolean(tokenizeOptions.text), Boolean(tokenizeOptions.tei))
     return Boolean(tokenizeOptions) && Boolean(tokenizeOptions.text) && Boolean(tokenizeOptions.tei)
   }
 
@@ -40686,8 +40684,6 @@ class TokenizeController {
         resultOptions[tokenizeMName] = await tokenizeM.uploadOptionsMethod(storage, tokenizeM)
       }
     }
-
-    console.info('uploadOptions resultOptions', resultOptions)
 
     return resultOptions
   }
@@ -42417,7 +42413,7 @@ class AlignedText {
       },
       tokenPrefix: data.tokenPrefix
     })
-    alignedText.segments = data.segments.map(seg => _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(seg))
+    alignedText.segments = data.segments.map(seg => _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(seg)).sort((a, b) => a.index - b.index)
 
     return alignedText
   }
@@ -42462,7 +42458,7 @@ class AlignedText {
     })
     const segmentsDbDataFiltered = dbSegments.filter(segmentItem => segmentItem.docSourceId === dbData.textId)
 
-    alignedText.segments = segmentsDbDataFiltered.map(seg => _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default.convertFromIndexedDB(seg, dbTokens, dbAllPartNums))
+    alignedText.segments = segmentsDbDataFiltered.map(seg => _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default.convertFromIndexedDB(seg, dbTokens, dbAllPartNums)).sort((a, b) => a.index - b.index)
 
     return alignedText
   }
@@ -45347,10 +45343,7 @@ class Segment {
       lang: data.lang,
       direction: data.direction,
       docSourceId: data.docSourceId,
-      tokens: data.tokens.map((token, tokenIndex) => {
-        token.tokenIdex = tokenIndex
-        return _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(token)
-      })
+      tokens: data.tokens.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(token)).sort((a, b) => a.tokenIndex - b.tokenIndex)
     })
   }
 
@@ -47632,7 +47625,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "dev-upload-video.20210913373" : 0
+    return  true ? "i530-mixed-tokens.20210913652" : 0
   }
 
   static get libName () {
@@ -53318,7 +53311,6 @@ __webpack_require__.r(__webpack_exports__);
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
     },
     showOptions () {
-      console.info('**************TOB showOptions', this.$store.state.optionsUpdated, this.localOptions.ready, _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.tokenizerOptionsLoaded)
       return this.$store.state.optionsUpdated && this.localOptions.ready && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.tokenizerOptionsLoaded
     },
     sourceType () {
