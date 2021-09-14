@@ -45365,13 +45365,16 @@ class Segment {
   static convertFromIndexedDB (data, dbTokens, dbAllPartNums) {
     const tokensDbDataFiltered = dbTokens.filter(tokenItem => (data.docSourceId === tokenItem.textId) && (data.index === tokenItem.segmentIndex))
 
+    const tokens = tokensDbDataFiltered.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default.convertFromIndexedDB(token))
+      .sort((a, b) => (a.partNum - b.partNum) !== 0 ? (a.partNum - b.partNum) : (a.tokenIndex - b.tokenIndex))
+
     return new Segment({
       index: data.index,
       textType: data.textType,
       lang: data.lang,
       direction: data.direction,
       docSourceId: data.docSourceId,
-      tokens: tokensDbDataFiltered.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default.convertFromIndexedDB(token)).sort((a, b) => a.tokenIndex - b.tokenIndex),
+      tokens,
       allPartNums: dbAllPartNums.filter(partNum => (data.docSourceId === partNum.textId) && (data.index === partNum.segmentIndex))
         .map(partData => {
           return {
@@ -47625,7 +47628,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i530-mixed-tokens.20210913652" : 0
+    return  true ? "i530-mixed-tokens2.20210914642" : 0
   }
 
   static get libName () {
