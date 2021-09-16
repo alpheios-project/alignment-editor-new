@@ -38706,6 +38706,7 @@ class AlignedGroupsController {
       }
     }
     this.store.commit('incrementAlignmentUpdated')
+    console.info('this.alignment - ', this.alignment.alignmentHistory)
   }
 
   deleteAlGroupFromStorage (alGroupItemID) {
@@ -38934,7 +38935,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/texts-controller.js */ "./lib/controllers/texts-controller.js");
 /* harmony import */ var _lib_controllers_aligned_groups_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/aligned-groups-controller.js */ "./lib/controllers/aligned-groups-controller.js");
 /* harmony import */ var _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/tokens-edit-controller.js */ "./lib/controllers/tokens-edit-controller.js");
-/* harmony import */ var _lib_controllers_history_controller_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/controllers/history-controller.js */ "./lib/controllers/history-controller.js");
+/* harmony import */ var _lib_controllers_history_algroups_controller_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/controllers/history-algroups-controller.js */ "./lib/controllers/history-algroups-controller.js");
 /* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
 /* harmony import */ var _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/controllers/storage-controller.js */ "./lib/controllers/storage-controller.js");
 /* harmony import */ var _lib_controllers_annotations_controller_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/controllers/annotations-controller.js */ "./lib/controllers/annotations-controller.js");
@@ -39022,7 +39023,7 @@ class AppController {
     this.defineTextController()
     this.defineAlignedGroupsController()
     this.defineTokensEditController()
-    this.defineHistoryController()
+    this.defineHistoryAlGroupsController()
     this.defineAnnotationsController()
 
     const rootVi = new _vue_runtime__WEBPACK_IMPORTED_MODULE_13__.default({ store: this.store })
@@ -39087,11 +39088,11 @@ class AppController {
   }
 
   /**
-   * Creates HistoryController and attaches to Vue components
+   * Creates HistoryAlGroupsController and attaches to Vue components
    */
-  defineHistoryController () {
-    this.historyC = new _lib_controllers_history_controller_js__WEBPACK_IMPORTED_MODULE_4__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_13__.default.prototype.$historyC = this.historyC
+  defineHistoryAlGroupsController () {
+    this.historyAGC = new _lib_controllers_history_algroups_controller_js__WEBPACK_IMPORTED_MODULE_4__.default(this.store)
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_13__.default.prototype.$historyAGC = this.historyAGC
   }
 
   defineAnnotationsController () {
@@ -39433,21 +39434,21 @@ class DownloadController {
 
 /***/ }),
 
-/***/ "./lib/controllers/history-controller.js":
-/*!***********************************************!*\
-  !*** ./lib/controllers/history-controller.js ***!
-  \***********************************************/
+/***/ "./lib/controllers/history-algroups-controller.js":
+/*!********************************************************!*\
+  !*** ./lib/controllers/history-algroups-controller.js ***!
+  \********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ HistoryController)
+/* harmony export */   "default": () => (/* binding */ HistoryAlGroupsController)
 /* harmony export */ });
 /* harmony import */ var _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/controllers/storage-controller.js */ "./lib/controllers/storage-controller.js");
 
 
-class HistoryController {
+class HistoryAlGroupsController {
   constructor (store) {
     this.store = store
     this.tabsViewMode = false
@@ -39513,6 +39514,7 @@ class HistoryController {
       this.store.commit('incrementAlignmentUpdated')
       this.undoneSteps = this.undoneSteps + 1
       await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.update(this.alignment, true)
+
       return result
     }
   }
@@ -42774,10 +42776,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
 /* harmony import */ var _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/data/history/history-step.js */ "./lib/data/history/history-step.js");
 /* harmony import */ var _lib_data_history_tokens_edit_history_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/lib/data/history/tokens-edit-history.js */ "./lib/data/history/tokens-edit-history.js");
-/* harmony import */ var _lib_data_actions_tokens_edit_actions_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/lib/data/actions/tokens-edit-actions.js */ "./lib/data/actions/tokens-edit-actions.js");
-/* harmony import */ var _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/lib/controllers/detect-text-controller.js */ "./lib/controllers/detect-text-controller.js");
-/* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
-/* harmony import */ var _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/lib/utility/convert-utility.js */ "./lib/utility/convert-utility.js");
+/* harmony import */ var _lib_data_history_alignment_history_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/lib/data/history/alignment-history.js */ "./lib/data/history/alignment-history.js");
+/* harmony import */ var _lib_data_actions_tokens_edit_actions_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/lib/data/actions/tokens-edit-actions.js */ "./lib/data/actions/tokens-edit-actions.js");
+/* harmony import */ var _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/lib/controllers/detect-text-controller.js */ "./lib/controllers/detect-text-controller.js");
+/* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
+/* harmony import */ var _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/lib/utility/convert-utility.js */ "./lib/utility/convert-utility.js");
+
 
 
 
@@ -42818,8 +42822,10 @@ class Alignment {
 
     this.annotations = {}
 
+    this.alignmentHistory = new _lib_data_history_alignment_history_js__WEBPACK_IMPORTED_MODULE_9__.default()
     this.tokensEditHistory = new _lib_data_history_tokens_edit_history_js__WEBPACK_IMPORTED_MODULE_8__.default()
-    this.tokensEditActions = new _lib_data_actions_tokens_edit_actions_js__WEBPACK_IMPORTED_MODULE_9__.default({ origin: this.origin, targets: this.targets, tokensEditHistory: this.tokensEditHistory })
+
+    this.tokensEditActions = new _lib_data_actions_tokens_edit_actions_js__WEBPACK_IMPORTED_MODULE_10__.default({ origin: this.origin, targets: this.targets, tokensEditHistory: this.tokensEditHistory })
     this.tokensEditHistory.allStepActions = this.allStepActionsTokensEditor
   }
 
@@ -42901,7 +42907,7 @@ class Alignment {
     const docSource = this.getDocSource(textType, targetId)
 
     if (docSource && docSource.readyForLangDetection) {
-      const langData = await _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_10__.default.detectTextProperties(docSource)
+      const langData = await _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_11__.default.detectTextProperties(docSource)
       docSource.updateDetectedLang(langData)
       return true
     }
@@ -43055,14 +43061,14 @@ class Alignment {
     }
 
     if (!this.origin.alignedText) {
-      const originResult = await this.createOriginAlignedText(_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_11__.default.useSpecificEnglishTokenizer)
+      const originResult = await this.createOriginAlignedText(_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_12__.default.useSpecificEnglishTokenizer)
       if (!originResult) { return false }
     }
 
     for (let i = 0; i < Object.keys(this.targets).length; i++) {
       const id = Object.keys(this.targets)[i]
       if (!this.targets[id].alignedText) {
-        const targetResult = await this.createTargetAlignedText(id, i, _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_11__.default.useSpecificEnglishTokenizer)
+        const targetResult = await this.createTargetAlignedText(id, i, _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_12__.default.useSpecificEnglishTokenizer)
         if (!targetResult) { return false }
       }
     }
@@ -43249,6 +43255,10 @@ class Alignment {
 
     this.activeAlignmentGroup = new _lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default(token, limitByTargetId)
     this.undoneGroups = []
+
+    this.alignmentHistory.truncateSteps()
+    this.alignmentHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.START_GROUP, { groupId: this.activeAlignmentGroup.id })
+
     return Boolean(this.activeAlignmentGroup)
   }
 
@@ -43261,6 +43271,7 @@ class Alignment {
   addToAlignmentGroup (token, limitByTargetId = null) {
     if (this.hasActiveAlignmentGroup && !this.tokenInActiveGroup(token, limitByTargetId) &&
         this.hasTheSameSegmentTargetIdActiveGroup(token.segmentIndex, limitByTargetId)) {
+      this.alignmentHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.ADD, { groupId: this.activeAlignmentGroup.id })
       return this.activeAlignmentGroup.add(token)
     } else {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
@@ -43281,6 +43292,7 @@ class Alignment {
   removeFromAlignmentGroup (token, limitByTargetId = null) {
     if (this.hasActiveAlignmentGroup && this.tokenInActiveGroup(token, limitByTargetId)) {
       this.activeAlignmentGroup.remove(token)
+      this.alignmentHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.REMOVE, { groupId: this.activeAlignmentGroup.id })
       return true
     } else {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'))
@@ -43298,13 +43310,9 @@ class Alignment {
   finishActiveAlignmentGroup () {
     if (this.hasActiveAlignmentGroup && this.activeAlignmentGroup.couldBeFinished) {
       this.alignmentGroups.push(this.activeAlignmentGroup)
+      this.alignmentHistory.addStep(null, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.FINISH_GROUP, { groupId: this.activeAlignmentGroup.id })
       this.activeAlignmentGroup = null
-      /*
-      NotificationSingleton.addNotification({
-        text: L10nSingleton.getMsgS('ALIGNMENT_GROUP_IS_COMPLETED'),
-        type: NotificationSingleton.types.INFO
-      })
-      */
+
       this.setUpdated()
       return true
     }
@@ -43428,6 +43436,9 @@ class Alignment {
       this.removeGroupFromAlignmentGroups(tokensGroup)
       if (token) { this.activeAlignmentGroup.updateFirstStepToken(token) }
       this.setUpdated()
+
+      this.alignmentHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.START_GROUP, { groupId: this.activeAlignmentGroup.id })
+
       return tokensGroup.id
     }
     return false
@@ -43447,6 +43458,9 @@ class Alignment {
 
       const indexDeleted = this.removeGroupFromAlignmentGroups(tokensGroup)
       this.activeAlignmentGroup.merge(tokensGroup, indexDeleted)
+
+      this.alignmentHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.MERGE, { groupId: this.activeAlignmentGroup.id, indexDeleted })
+
       this.setUpdated()
       return tokensGroup.id
     }
@@ -43870,8 +43884,8 @@ class Alignment {
 
     return {
       id: this.id,
-      createdDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_12__.default.convertDateToString(this.createdDT),
-      updatedDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_12__.default.convertDateToString(this.updatedDT),
+      createdDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_13__.default.convertDateToString(this.createdDT),
+      updatedDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_13__.default.convertDateToString(this.updatedDT),
       userID: this.userID,
       origin,
       targets,
@@ -43881,8 +43895,8 @@ class Alignment {
   }
 
   static convertFromJSON (data) {
-    const createdDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_12__.default.convertStringToDate(data.createdDT)
-    const updatedDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_12__.default.convertStringToDate(data.updatedDT)
+    const createdDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_13__.default.convertStringToDate(data.createdDT)
+    const updatedDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_13__.default.convertStringToDate(data.updatedDT)
     const alignment = new Alignment({
       id: data.id, createdDT, updatedDT, userID: data.userID
     })
@@ -43951,8 +43965,8 @@ class Alignment {
 
     return {
       id: this.id,
-      createdDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_12__.default.convertDateToString(this.createdDT),
-      updatedDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_12__.default.convertDateToString(this.updatedDT),
+      createdDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_13__.default.convertDateToString(this.createdDT),
+      updatedDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_13__.default.convertDateToString(this.updatedDT),
       userID: this.userID,
       langsList: this.langsList,
       hasTokens,
@@ -43964,8 +43978,8 @@ class Alignment {
   }
 
   static async convertFromIndexedDB (dbData) {
-    const createdDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_12__.default.convertStringToDate(dbData.createdDT)
-    const updatedDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_12__.default.convertStringToDate(dbData.updatedDT)
+    const createdDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_13__.default.convertStringToDate(dbData.createdDT)
+    const updatedDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_13__.default.convertStringToDate(dbData.updatedDT)
     const alignment = new Alignment({
       id: dbData.alignmentID, createdDT, updatedDT, userID: dbData.userID
     })
@@ -44374,6 +44388,62 @@ class AlignmentGroupStep extends _lib_data_history_history_step__WEBPACK_IMPORTE
 
 /***/ }),
 
+/***/ "./lib/data/history/alignment-history.js":
+/*!***********************************************!*\
+  !*** ./lib/data/history/alignment-history.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ AlignmentHistory)
+/* harmony export */ });
+/* harmony import */ var _lib_data_history_editor_history__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/history/editor-history */ "./lib/data/history/editor-history.js");
+/* harmony import */ var _lib_data_history_alignment_step_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/history/alignment-step.js */ "./lib/data/history/alignment-step.js");
+
+
+
+
+class AlignmentHistory extends _lib_data_history_editor_history__WEBPACK_IMPORTED_MODULE_0__.default {
+  get stepClass () {
+    return _lib_data_history_alignment_step_js__WEBPACK_IMPORTED_MODULE_1__.default
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/data/history/alignment-step.js":
+/*!********************************************!*\
+  !*** ./lib/data/history/alignment-step.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ AlignmentStep)
+/* harmony export */ });
+/* harmony import */ var _lib_data_history_history_step__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/history/history-step */ "./lib/data/history/history-step.js");
+
+
+class AlignmentStep extends _lib_data_history_history_step__WEBPACK_IMPORTED_MODULE_0__.default {
+  /**
+   *
+   * @param {Token} token
+   * @param {String} type  - add, remove, merge
+   * @param {Object} params
+   */
+  constructor (token, type, params = {}) {
+    super(token, type)
+    this.params = params
+  }
+}
+
+
+/***/ }),
+
 /***/ "./lib/data/history/editor-history.js":
 /*!********************************************!*\
   !*** ./lib/data/history/editor-history.js ***!
@@ -44595,7 +44665,11 @@ HistoryStep.types = {
   //
   NEW: 'new',
   //
-  DELETE: 'delete'
+  DELETE: 'delete',
+  //
+  START_GROUP: 'start group',
+  //
+  FINISH_GROUP: 'finish group'
 }
 
 HistoryStep.directions = {
@@ -47628,7 +47702,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i530-mixed-tokens2.20210914642" : 0
+    return  true ? "i491-undo-bug.20210916525" : 0
   }
 
   static get libName () {
@@ -48464,18 +48538,18 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
     },
     undoAvailable () {
-      return this.alignEditAvailable && this.$historyC.undoAvailable
+      return this.alignEditAvailable && this.$historyAGC.undoAvailable
     },
     redoAvailable () {
-      return this.alignEditAvailable && this.$historyC.redoAvailable
+      return this.alignEditAvailable && this.$historyAGC.redoAvailable
     }
   },
   methods: {
     undoAction () {
-      this.$historyC.undo()
+      this.$historyAGC.undo()
     },
     redoAction () {
-      this.$historyC.redo()
+      this.$historyAGC.redo()
     }
   }
 });
@@ -48580,7 +48654,7 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.shownTabsInited) {
         this.shownTabs = allTokenizedTargetTextsIds.slice(0, 1)
         this.shownTabsInited = true
-        this.$historyC.updateMode(this.shownTabs) 
+        this.$historyAGC.updateMode(this.shownTabs) 
       }
     
       return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated ? allTokenizedTargetTextsIds : []
@@ -48652,7 +48726,7 @@ __webpack_require__.r(__webpack_exports__);
       } else if (!this.shownTabs.includes(targetId)) {
         this.shownTabs.push(targetId)
       }  
-      this.$historyC.updateMode(this.shownTabs)    
+      this.$historyAGC.updateMode(this.shownTabs)    
     },
 
     updateAnnotation (token) {
@@ -49807,13 +49881,13 @@ __webpack_require__.r(__webpack_exports__);
      * Starts redo action
      */
     redoAction () {
-      this.$historyC.redo()
+      this.$historyAGC.redo()
     },
     /**
      * Starts undo action
      */
     undoAction () {
-      this.$historyC.undo()
+      this.$historyAGC.undo()
     },
 
     async showSummaryPopup () {
@@ -49845,7 +49919,7 @@ __webpack_require__.r(__webpack_exports__);
 
     startNewInitialAlignment () {
       this.$textC.createAlignment()
-      this.$historyC.startTracking(this.$textC.alignment)
+      this.$historyAGC.startTracking(this.$textC.alignment)
       this.showSourceTextEditor()
     },
 
@@ -49928,7 +50002,7 @@ __webpack_require__.r(__webpack_exports__);
         this.$textC.startOver()
         this.$alignedGC.startOver()
       }
-      this.$historyC.startOver(this.$textC.alignment)
+      this.$historyAGC.startOver(this.$textC.alignment)
       this.$tokensEC.startOver(this.$textC.alignment)
       
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_0__.default.clearNotifications()
@@ -50929,10 +51003,10 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$textC.couldStartAlign && this.$textC.checkSize()
     },
     undoAvailable () {
-      return this.alignEditAvailable && this.$historyC.undoAvailable
+      return this.alignEditAvailable && this.$historyAGC.undoAvailable
     },
     redoAvailable () {
-      return this.alignEditAvailable && this.$historyC.redoAvailable
+      return this.alignEditAvailable && this.$historyAGC.redoAvailable
     },
     downloadAvailable () {
       return Boolean(this.$store.state.docSourceUpdated) && this.$textC.originDocSourceHasText
@@ -54737,7 +54811,7 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.shownTabsInited || (this.shownTabs.length === 0)) {
         this.shownTabs = allTokenizedTargetTextsIds.slice(0, 1)
         this.shownTabsInited = true
-        this.$historyC.updateMode(this.shownTabs) 
+        this.$historyAGC.updateMode(this.shownTabs) 
       }
       return this.$store.state.alignmentUpdated  ? allTokenizedTargetTextsIds : []
     },
@@ -54803,7 +54877,7 @@ __webpack_require__.r(__webpack_exports__);
       } else if (!this.shownTabs.includes(targetId)) {
         this.shownTabs.push(targetId)
       }  
-      this.$historyC.updateMode(this.shownTabs)    
+      this.$historyAGC.updateMode(this.shownTabs)    
     },
 
     blockTokensActions () {

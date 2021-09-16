@@ -1,6 +1,6 @@
 import StorageController from '@/lib/controllers/storage-controller.js'
 
-export default class HistoryController {
+export default class HistoryAlGroupsController {
   constructor (store) {
     this.store = store
     this.tabsViewMode = false
@@ -66,6 +66,7 @@ export default class HistoryController {
       this.store.commit('incrementAlignmentUpdated')
       this.undoneSteps = this.undoneSteps + 1
       await StorageController.update(this.alignment, true)
+
       return result
     }
   }

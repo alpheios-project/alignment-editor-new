@@ -131,6 +131,7 @@ export default class AlignedGroupsController {
       }
     }
     this.store.commit('incrementAlignmentUpdated')
+    console.info('this.alignment - ', this.alignment.alignmentHistory)
   }
 
   deleteAlGroupFromStorage (alGroupItemID) {

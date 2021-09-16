@@ -47,10 +47,10 @@ describe('text-editor-single-block.test.js', () => {
     appC.defineTextController(appC.store)
     appC.defineAlignedGroupsController(appC.store)
     appC.defineTokensEditController(appC.store)
-    appC.defineHistoryController(appC.store)
+    appC.defineHistoryAlGroupsController(appC.store)
 
     appC.textC.createAlignment()
-    appC.historyC.startTracking(appC.textC.alignment)
+    appC.historyAGC.startTracking(appC.textC.alignment)
 
     const originDocSource = new SourceText('origin', {
       text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: {

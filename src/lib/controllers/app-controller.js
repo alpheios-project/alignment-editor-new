@@ -6,7 +6,7 @@ import Vuex from 'vuex'
 import TextsController from '@/lib/controllers/texts-controller.js'
 import AlignedGroupsController from '@/lib/controllers/aligned-groups-controller.js'
 import TokensEditController from '@/lib/controllers/tokens-edit-controller.js'
-import HistoryController from '@/lib/controllers/history-controller.js'
+import HistoryAlGroupsController from '@/lib/controllers/history-algroups-controller.js'
 import SettingsController from '@/lib/controllers/settings-controller.js'
 import StorageController from '@/lib/controllers/storage-controller.js'
 import AnnotationsController from '@/lib/controllers/annotations-controller.js'
@@ -76,7 +76,7 @@ export default class AppController {
     this.defineTextController()
     this.defineAlignedGroupsController()
     this.defineTokensEditController()
-    this.defineHistoryController()
+    this.defineHistoryAlGroupsController()
     this.defineAnnotationsController()
 
     const rootVi = new Vue({ store: this.store })
@@ -141,11 +141,11 @@ export default class AppController {
   }
 
   /**
-   * Creates HistoryController and attaches to Vue components
+   * Creates HistoryAlGroupsController and attaches to Vue components
    */
-  defineHistoryController () {
-    this.historyC = new HistoryController(this.store)
-    Vue.prototype.$historyC = this.historyC
+  defineHistoryAlGroupsController () {
+    this.historyAGC = new HistoryAlGroupsController(this.store)
+    Vue.prototype.$historyAGC = this.historyAGC
   }
 
   defineAnnotationsController () {

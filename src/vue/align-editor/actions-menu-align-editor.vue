@@ -31,18 +31,18 @@ export default {
       return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
     },
     undoAvailable () {
-      return this.alignEditAvailable && this.$historyC.undoAvailable
+      return this.alignEditAvailable && this.$historyAGC.undoAvailable
     },
     redoAvailable () {
-      return this.alignEditAvailable && this.$historyC.redoAvailable
+      return this.alignEditAvailable && this.$historyAGC.redoAvailable
     }
   },
   methods: {
     undoAction () {
-      this.$historyC.undo()
+      this.$historyAGC.undo()
     },
     redoAction () {
-      this.$historyC.redo()
+      this.$historyAGC.redo()
     }
   }
 }

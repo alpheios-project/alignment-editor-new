@@ -9,6 +9,7 @@ import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
 import HistoryStep from '@/lib/data/history/history-step.js'
 import TokensEditHistory from '@/lib/data/history/tokens-edit-history.js'
+import AlignmentHistory from '@/lib/data/history/alignment-history.js'
 
 import TokensEditActions from '@/lib/data/actions/tokens-edit-actions.js'
 import DetectTextController from '@/lib/controllers/detect-text-controller.js'
@@ -38,7 +39,9 @@ export default class Alignment {
 
     this.annotations = {}
 
+    this.alignmentHistory = new AlignmentHistory()
     this.tokensEditHistory = new TokensEditHistory()
+
     this.tokensEditActions = new TokensEditActions({ origin: this.origin, targets: this.targets, tokensEditHistory: this.tokensEditHistory })
     this.tokensEditHistory.allStepActions = this.allStepActionsTokensEditor
   }
@@ -469,6 +472,10 @@ export default class Alignment {
 
     this.activeAlignmentGroup = new AlignmentGroup(token, limitByTargetId)
     this.undoneGroups = []
+
+    this.alignmentHistory.truncateSteps()
+    this.alignmentHistory.addStep(token, HistoryStep.types.START_GROUP, { groupId: this.activeAlignmentGroup.id })
+
     return Boolean(this.activeAlignmentGroup)
   }
 
@@ -481,6 +488,7 @@ export default class Alignment {
   addToAlignmentGroup (token, limitByTargetId = null) {
     if (this.hasActiveAlignmentGroup && !this.tokenInActiveGroup(token, limitByTargetId) &&
         this.hasTheSameSegmentTargetIdActiveGroup(token.segmentIndex, limitByTargetId)) {
+      this.alignmentHistory.addStep(token, HistoryStep.types.ADD, { groupId: this.activeAlignmentGroup.id })
       return this.activeAlignmentGroup.add(token)
     } else {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
@@ -501,6 +509,7 @@ export default class Alignment {
   removeFromAlignmentGroup (token, limitByTargetId = null) {
     if (this.hasActiveAlignmentGroup && this.tokenInActiveGroup(token, limitByTargetId)) {
       this.activeAlignmentGroup.remove(token)
+      this.alignmentHistory.addStep(token, HistoryStep.types.REMOVE, { groupId: this.activeAlignmentGroup.id })
       return true
     } else {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'))
@@ -518,13 +527,9 @@ export default class Alignment {
   finishActiveAlignmentGroup () {
     if (this.hasActiveAlignmentGroup && this.activeAlignmentGroup.couldBeFinished) {
       this.alignmentGroups.push(this.activeAlignmentGroup)
+      this.alignmentHistory.addStep(null, HistoryStep.types.FINISH_GROUP, { groupId: this.activeAlignmentGroup.id })
       this.activeAlignmentGroup = null
-      /*
-      NotificationSingleton.addNotification({
-        text: L10nSingleton.getMsgS('ALIGNMENT_GROUP_IS_COMPLETED'),
-        type: NotificationSingleton.types.INFO
-      })
-      */
+
       this.setUpdated()
       return true
     }
@@ -648,6 +653,9 @@ export default class Alignment {
       this.removeGroupFromAlignmentGroups(tokensGroup)
       if (token) { this.activeAlignmentGroup.updateFirstStepToken(token) }
       this.setUpdated()
+
+      this.alignmentHistory.addStep(token, HistoryStep.types.START_GROUP, { groupId: this.activeAlignmentGroup.id })
+
       return tokensGroup.id
     }
     return false
@@ -667,6 +675,9 @@ export default class Alignment {
 
       const indexDeleted = this.removeGroupFromAlignmentGroups(tokensGroup)
       this.activeAlignmentGroup.merge(tokensGroup, indexDeleted)
+
+      this.alignmentHistory.addStep(token, HistoryStep.types.MERGE, { groupId: this.activeAlignmentGroup.id, indexDeleted })
+
       this.setUpdated()
       return tokensGroup.id
     }

@@ -53,10 +53,10 @@ describe('segment-block.test.js', () => {
     appC.defineTextController(appC.store)
     appC.defineAlignedGroupsController(appC.store)
     appC.defineTokensEditController(appC.store)
-    appC.defineHistoryController(appC.store)
+    appC.defineHistoryAlGroupsController(appC.store)
 
     appC.textC.createAlignment()
-    appC.historyC.startTracking(appC.textC.alignment)
+    appC.historyAGC.startTracking(appC.textC.alignment)
 
     const originDocSource = new SourceText('origin', {
       text: '“Ein ziemlich unauffälliges Tier.\n“Vor rund 13,5 Milliarden Jahren entstanden Materie, Energie, Raum und Zeit in einem Ereignis namens Urknall.', direction: 'ltr', lang: 'deu', sourceType: 'text', tokenization: {

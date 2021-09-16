@@ -77,7 +77,7 @@ export default {
       if (!this.shownTabsInited || (this.shownTabs.length === 0)) {
         this.shownTabs = allTokenizedTargetTextsIds.slice(0, 1)
         this.shownTabsInited = true
-        this.$historyC.updateMode(this.shownTabs) 
+        this.$historyAGC.updateMode(this.shownTabs) 
       }
       return this.$store.state.alignmentUpdated  ? allTokenizedTargetTextsIds : []
     },
@@ -143,7 +143,7 @@ export default {
       } else if (!this.shownTabs.includes(targetId)) {
         this.shownTabs.push(targetId)
       }  
-      this.$historyC.updateMode(this.shownTabs)    
+      this.$historyAGC.updateMode(this.shownTabs)    
     },
 
     blockTokensActions () {
