@@ -12,10 +12,14 @@ export default class HistoryAlGroupsController {
    * @returns {Boolean} true - undo could be done, false - not
    */
   get redoAvailable () {
+    // console.info('redoAvailable new', Boolean(this.alignment) && !this.tabsViewMode && this.alignment.redoAvailableAlGroups)
+    return Boolean(this.alignment) && !this.tabsViewMode && this.alignment.redoAvailableAlGroups
+    /*
     return Boolean(this.alignment) && !this.tabsViewMode &&
            ((this.alignment.hasActiveAlignmentGroup && !this.alignment.currentStepOnLastInActiveGroup) ||
            (this.alignment.hasActiveAlignmentGroup && this.alignment.currentStepOnLastInActiveGroup && (this.undoneSteps > 0)) ||
            (!this.alignment.hasActiveAlignmentGroup && this.alignment.undoneGroups.length > 0))
+    */
   }
 
   /**
@@ -23,9 +27,14 @@ export default class HistoryAlGroupsController {
    * @returns {Boolean} true - redo could be done, false - not
    */
   get undoAvailable () {
+    // console.info('undoAvailable new', Boolean(this.alignment) && !this.tabsViewMode && this.alignment.undoAvailableAlGroups)
+
+    return Boolean(this.alignment) && !this.tabsViewMode && this.alignment.undoAvailableAlGroups
+    /*
     return Boolean(this.alignment) && !this.tabsViewMode &&
            ((this.alignment.hasActiveAlignmentGroup && this.alignment.activeAlignmentGroup.undoAvailable) ||
            (!this.alignment.hasActiveAlignmentGroup && this.alignment.alignmentGroups.length > 0 && this.alignment.alignmentGroups[this.alignment.alignmentGroups.length - 1].undoAvailable))
+    */
   }
 
   /**
@@ -52,6 +61,16 @@ export default class HistoryAlGroupsController {
    *   if there is no active alignment group but there exists saved alignment groups, then we would activate previous group
    */
   async undo () {
+    const result = this.alignment.undoAlGroups()
+    console.info('undo - ', result)
+    if (result) {
+      this.store.commit('incrementAlignmentUpdated')
+      // this.undoneSteps = this.undoneSteps + 1
+      await StorageController.update(this.alignment, true)
+
+      return result
+    }
+    /*
     let result
     if (this.alignment.hasActiveAlignmentGroup && this.alignment.activeAlignmentGroup.groupLen > 1) {
       result = this.alignment.undoInActiveGroup()
@@ -69,6 +88,7 @@ export default class HistoryAlGroupsController {
 
       return result
     }
+    */
   }
 
   /**
@@ -78,6 +98,17 @@ export default class HistoryAlGroupsController {
    *   if there is no active alignment group and there are some saved undone groups, then we would reactivate next group from the list
    */
   async redo () {
+    const result = this.alignment.redoAlGroups()
+
+    if (result) {
+      if (result.deleteActiveAlGroupFromStorage) {
+        await this.deleteAlGroupFromStorage(this.alignment.activeAlignmentGroup.id)
+      }
+      this.store.commit('incrementAlignmentUpdated')
+      await StorageController.update(this.alignment, true)
+      return result
+    }
+    /*
     let result
     if (this.alignment.hasActiveAlignmentGroup && !this.alignment.currentStepOnLastInActiveGroup) {
       result = this.alignment.redoInActiveGroup()
@@ -93,6 +124,7 @@ export default class HistoryAlGroupsController {
       await StorageController.update(this.alignment, true)
       return result
     }
+    */
   }
 
   /**

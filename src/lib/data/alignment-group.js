@@ -222,6 +222,12 @@ export default class AlignmentGroup {
     }
   }
 
+  update ({ id }) {
+    if (id) {
+      this.id = id
+    }
+  }
+
   convertToJSON () {
     return {
       id: this.id,

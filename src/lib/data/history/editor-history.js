@@ -19,8 +19,11 @@ export default class EditorHistory {
    * Truncates steps to the currentStepIndex
    */
   truncateSteps () {
+    console.info('truncateSteps - ', this.currentStepIndex, this.currentStepOnLast, this)
     if ((this.currentStepIndex !== null) && !this.currentStepOnLast) {
+      console.info('truncateSteps - before', this.steps)
       this.steps = this.steps.slice(0, this.currentStepIndex + 1)
+      console.info('truncateSteps - after', this.steps)
     }
   }
 
@@ -46,6 +49,7 @@ export default class EditorHistory {
 
   undo () {
     if (this.undoAvailable) {
+      console.info('undo - ', this)
       return this.alignToStep(this.currentStepIndex - 1)
     } else {
       console.error(L10nSingleton.getMsgS('TOKENS_EDIT_UNDO_ERROR'))
@@ -58,6 +62,7 @@ export default class EditorHistory {
 
   redo () {
     if (this.redoAvailable) {
+      console.info('redo - ', this)
       return this.alignToStep(this.currentStepIndex + 1)
     } else {
       console.error(L10nSingleton.getMsgS('TOKENS_EDIT_REDO_ERROR'))
@@ -80,6 +85,7 @@ export default class EditorHistory {
     if (this.currentStepIndex > stepIndex) {
       for (let i = this.currentStepIndex; i > stepIndex; i--) {
         const dataResult = this.doStepAction(i, 'remove')
+
         result = result && dataResult.result
         if (dataResult.data) { data.push(dataResult.data) }
         dataIndexedDB.push(dataResult.dataIndexedDB)
@@ -119,6 +125,7 @@ export default class EditorHistory {
     const actions = this.allStepActions
     let finalResult
     try {
+      // console.info('doStepAction ', typeAction, step.type)
       finalResult = actions[typeAction][step.type](step)
     } catch (e) {
       console.error(e)
@@ -127,6 +134,7 @@ export default class EditorHistory {
       }
     }
     finalResult.dataIndexedDB = this.prepareDataForIndexedDBCorrect(step)
+    // console.info('doStepAction finalResult - ', finalResult)
     return finalResult
   }
 
