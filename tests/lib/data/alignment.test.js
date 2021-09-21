@@ -37,7 +37,6 @@ describe('alignment.test.js', () => {
     expect(alignment.targets).toEqual({})
     expect(alignment.alignmentGroups.length).toEqual(0)
 
-    expect(alignment.undoneGroups.length).toEqual(0)
     expect(alignment.hoveredGroups.length).toEqual(0)
     expect(alignment.activeAlignmentGroup).toBeNull()   
   })
@@ -525,7 +524,7 @@ describe('alignment.test.js', () => {
     alignment.addToAlignmentGroup(targetToken1, targetId1)
 
     expect(alignment.currentStepOnLastInActiveGroup).toBeTruthy()
-    alignment.undoInActiveGroup()
+    alignment.undoAlGroups()
     expect(alignment.currentStepOnLastInActiveGroup).toBeFalsy()
   })
 
@@ -1191,7 +1190,7 @@ describe('alignment.test.js', () => {
 
   })
 
-  it('31 Alignment - undoInActiveGroup executes undo for the active alignment group and executes insertUnmergedGroup if it was a merge step', async () => {
+  it('31 Alignment - undoAlGroups executes undo for the active alignment group and executes insertUnmergedGroup if it was a merge step', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
@@ -1232,13 +1231,11 @@ describe('alignment.test.js', () => {
     alignment.startNewAlignmentGroup(originToken3, targetId1) // starts new alignment group
     alignment.mergeActiveGroupWithAnotherByToken(originToken1, targetId1)
 
-    jest.spyOn(alignment.activeAlignmentGroup, 'undo')
     jest.spyOn(alignment, 'insertUnmergedGroup')
 
     expect(alignment.alignmentGroups.length).toEqual(0) // the only saved group was merged
-    alignment.undoInActiveGroup()
+    alignment.undoAlGroups()
 
-    expect(alignment.activeAlignmentGroup.undo).toHaveBeenCalled()
     expect(alignment.insertUnmergedGroup).toHaveBeenCalledWith({
       tokensGroup: alGroup,
       indexDeleted: 0
@@ -1281,12 +1278,7 @@ describe('alignment.test.js', () => {
     alignment.startNewAlignmentGroup(originToken1, targetId1)
     alignment.addToAlignmentGroup(originToken2, targetId1)
     alignment.addToAlignmentGroup(targetToken1, targetId1)
-    alignment.undoInActiveGroup()
-
-    jest.spyOn(alignment.activeAlignmentGroup, 'redo')
-    
-    alignment.redoInActiveGroup()
-    expect(alignment.activeAlignmentGroup.redo).toHaveBeenCalled()
+    alignment.undoAlGroups()
   })
 
   it('33 Alignment - undoActiveGroup save active alignment group to undoneGroups, redoActiveGroup - extracts from there', async () => {
@@ -1327,18 +1319,15 @@ describe('alignment.test.js', () => {
 
     const alGroup = alignment.activeAlignmentGroup
 
-    alGroup.undo() // undo adding targetToken1
-    alGroup.undo() // undo adding originToken2
+    alignment.undoAlGroups() // undo adding targetToken1
+    alignment.undoAlGroups() // undo adding originToken2
 
-    alignment.undoActiveGroup() // as we have the last item we should undo the whole group
+    alignment.undoAlGroups() // as we have the last item we should undo the whole group
 
-    expect(alignment.undoneGroups.length).toEqual(1)
-    expect(alignment.undoneGroups[0]).toEqual(alGroup)
     expect(alignment.hasActiveAlignmentGroup).toBeFalsy()
 
-    alignment.redoActiveGroup() // redo and return undone group to the list
+    alignment.redoAlGroups() // redo and return undone group to the list
 
-    expect(alignment.undoneGroups.length).toEqual(0)
     expect(alignment.activeAlignmentGroup).toEqual(alGroup)
   })
 
@@ -1379,9 +1368,9 @@ describe('alignment.test.js', () => {
 
     const alGroup = alignment.activeAlignmentGroup
 
-    alignment.undoInActiveGroup() // undo adding targetToken1
-    alignment.undoInActiveGroup() // undo adding originToken2
-    alignment.undoActiveGroup() // undo the whole group as it is has 
+    alignment.undoAlGroups() // undo adding targetToken1
+    alignment.undoAlGroups() // undo adding originToken2
+    alignment.undoAlGroups() // undo the whole group as it is has 
 
 
   })

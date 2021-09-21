@@ -228,8 +228,6 @@ export default class Segment {
       docSourceId: this.docSourceId,
       tokens: this.tokens.map((token, tokenIndex) => token.convertToJSON(tokenIndex))
     }
-
-    // console.info('tokens - ', res.tokens)
     return res
   }
 

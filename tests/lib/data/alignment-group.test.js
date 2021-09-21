@@ -3,7 +3,10 @@
 import AlignmentGroup from '@/lib/data/alignment-group'
 import AppController from '@/lib/controllers/app-controller.js'
 import Token from '@/lib/data/token'
-import AlignmentGroupStep from '@/lib/data/history/alignment-group-step'
+import HistoryStep from '@/lib/data/history/history-step.js'
+import AlignmentStep from '@/lib/data/history/alignment-step.js'
+
+import Alignment from '@/lib/data/alignment'
 
 describe('alignment-group.test.js', () => {
   console.error = function () { }
@@ -37,7 +40,6 @@ describe('alignment-group.test.js', () => {
     expect(alGroup.id).toBeDefined()
     expect(alGroup.origin.length).toEqual(1)
     expect(alGroup.target.length).toEqual(0)
-    expect(alGroup.steps.length).toEqual(1)
     expect(alGroup.firstStepToken).toEqual(token)
     expect(alGroup.targetId).toEqual('targetId1')
   })
@@ -48,7 +50,6 @@ describe('alignment-group.test.js', () => {
     expect(alGroup.id).toBeDefined()
     expect(alGroup.origin.length).toEqual(0)
     expect(alGroup.target.length).toEqual(0)
-    expect(alGroup.steps.length).toEqual(0)
     expect(alGroup.firstStepToken).toBeNull()
   })
 
@@ -60,7 +61,6 @@ describe('alignment-group.test.js', () => {
     expect(result).toBeFalsy()
     expect(alGroup.origin.length).toEqual(0)
     expect(alGroup.target.length).toEqual(0)
-    expect(alGroup.steps.length).toEqual(0)
     expect(alGroup.firstStepToken).toBeNull()
     expect(alGroup.targetId).not.toBeDefined()
   })
@@ -76,7 +76,6 @@ describe('alignment-group.test.js', () => {
     expect(result).toBeFalsy()
     expect(alGroup.origin.length).toEqual(0)
     expect(alGroup.target.length).toEqual(0)
-    expect(alGroup.steps.length).toEqual(0)
     expect(alGroup.firstStepToken).toBeNull()
   })
 
@@ -92,8 +91,6 @@ describe('alignment-group.test.js', () => {
     expect(result).toBeTruthy()
     expect(alGroup.origin).toEqual(['L1-10'])
     expect(alGroup.target.length).toEqual(0)
-    expect(alGroup.steps[0]).toHaveProperty('token', token)
-    expect(alGroup.steps[0]).toHaveProperty('type', 'add')
 
     expect(alGroup.firstStepToken).toEqual(token)
 
@@ -109,12 +106,6 @@ describe('alignment-group.test.js', () => {
     expect(result).toBeTruthy()
     expect(alGroup.origin).toEqual(['L1-10'])
     expect(alGroup.target).toEqual(['L2-10'])
-
-    expect(alGroup.steps[0]).toHaveProperty('token', token)
-    expect(alGroup.steps[0]).toHaveProperty('type', 'add')
-
-    expect(alGroup.steps[1]).toHaveProperty('token', token2)
-    expect(alGroup.steps[1]).toHaveProperty('type', 'add')
 
     expect(alGroup.firstStepToken).toEqual(token)
 
@@ -134,7 +125,6 @@ describe('alignment-group.test.js', () => {
     expect(result).toBeFalsy()
     expect(alGroup.origin.length).toEqual(1)
     expect(alGroup.target.length).toEqual(0)
-    expect(alGroup.steps.length).toEqual(1)
     expect(alGroup.firstStepToken).toEqual(token)
   })
 
@@ -154,7 +144,6 @@ describe('alignment-group.test.js', () => {
     expect(result).toBeFalsy()
     expect(alGroup.origin.length).toEqual(1)
     expect(alGroup.target.length).toEqual(0)
-    expect(alGroup.steps.length).toEqual(1)
     expect(alGroup.firstStepToken).toEqual(token)
   })
 
@@ -173,7 +162,6 @@ describe('alignment-group.test.js', () => {
     expect(result).toBeFalsy()
     expect(alGroup.origin.length).toEqual(1)
     expect(alGroup.target.length).toEqual(0)
-    expect(alGroup.steps.length).toEqual(1)
     expect(alGroup.firstStepToken).toEqual(token)
   })
 
@@ -195,11 +183,11 @@ describe('alignment-group.test.js', () => {
     expect(result).toBeTruthy()
     expect(alGroup.origin.length).toEqual(1)
     expect(alGroup.target.length).toEqual(0)
-    expect(alGroup.steps.length).toEqual(3)
     expect(alGroup.firstStepToken).toEqual(token)
   })
 
   it('10 AlignmentGroup - remove method returns true, remove token data from origin/target, add ref to steps and updates firstStepToken if needed', () => {
+    const alignment = new Alignment()
     const alGroup = new AlignmentGroup(null, 'targetId1')
     const token = new Token({
       textType: 'origin', idWord: 'L1-10', word: 'male'
@@ -214,14 +202,21 @@ describe('alignment-group.test.js', () => {
 
     const result = alGroup.remove(token)
 
+    alignment.alignmentHistory.addStep(token, HistoryStep.types.ADD, { groupId: alGroup.id })
+    alignment.alignmentHistory.addStep(token2, HistoryStep.types.ADD, { groupId: alGroup.id })
+    alignment.alignmentHistory.addStep(token, HistoryStep.types.REMOVE, { groupId: alGroup.id })
+    alGroup.defineFirstStepToken(alignment.alignmentHistory)
+
     expect(result).toBeTruthy()
     expect(alGroup.origin.length).toEqual(0)
     expect(alGroup.target.length).toEqual(1)
-    expect(alGroup.steps.length).toEqual(3)
+
     expect(alGroup.firstStepToken).toEqual(token2)
   })
 
   it('11 AlignmentGroup - remove method returns true, remove token data from origin/target, add ref to steps and updates firstStepToken if needed', () => {
+    const alignment = new Alignment()
+
     const alGroup = new AlignmentGroup(null, 'targetId1')
     const token = new Token({
       textType: 'origin', idWord: 'L1-10', word: 'male'
@@ -233,19 +228,23 @@ describe('alignment-group.test.js', () => {
 
     alGroup.add(token)
     alGroup.add(token2)
+    alignment.alignmentHistory.addStep(token, HistoryStep.types.ADD, { groupId: alGroup.id })
+    alignment.alignmentHistory.addStep(token2, HistoryStep.types.ADD, { groupId: alGroup.id })
 
-    alGroup.remove(token)
-    alGroup.remove(token2)
+    alignment.alignmentHistory.addStep(token, HistoryStep.types.REMOVE, { groupId: alGroup.id })
+    alGroup.remove(token, alignment.alignmentHistory)
+    
+    alignment.alignmentHistory.addStep(token2, HistoryStep.types.REMOVE, { groupId: alGroup.id })
+    alGroup.remove(token2, alignment.alignmentHistory)
 
     expect(alGroup.origin.length).toEqual(0)
     expect(alGroup.target.length).toEqual(0)
-    expect(alGroup.steps.length).toEqual(4)
     expect(alGroup.firstStepToken).toBeNull()
   })
 
   it('12 AlignmentGroup - firstStepNeedToBeUpdated returns true if firstStepToken is null', () => {
     const alGroup = new AlignmentGroup(null, 'targetId1')
-    expect(alGroup.alignmentGroupActions.firstStepNeedToBeUpdated).toBeTruthy()
+    expect(alGroup.firstStepNeedToBeUpdated).toBeTruthy()
   })
 
   it('13 AlignmentGroup - firstStepNeedToBeUpdated returns true if firstStepToken is not included in group anymore', () => {
@@ -257,7 +256,7 @@ describe('alignment-group.test.js', () => {
     alGroup.add(token)
     alGroup.remove(token)
 
-    expect(alGroup.alignmentGroupActions.firstStepNeedToBeUpdated).toBeTruthy()
+    expect(alGroup.firstStepNeedToBeUpdated).toBeTruthy()
   })
 
   it('14 AlignmentGroup - firstStepNeedToBeUpdated returns false if firstStepToken is correctly defined', () => {
@@ -268,7 +267,7 @@ describe('alignment-group.test.js', () => {
     }, 1, 'originId1')
     alGroup.add(token)
 
-    expect(alGroup.alignmentGroupActions.firstStepNeedToBeUpdated).toBeFalsy()
+    expect(alGroup.firstStepNeedToBeUpdated).toBeFalsy()
   })
 
   it('15 AlignmentGroup - defineFirstStepToken do nothing if first step should not be updated', () => {
@@ -283,22 +282,22 @@ describe('alignment-group.test.js', () => {
       textType: 'target', idWord: 'L2-10', word: 'man'
     }, 1, 'targetId1')
 
-    alGroup.alignmentGroupActions[token.textType].push(token.idWord)
-    alGroup.alignmentGroupHistory.steps.push({ textType: token.textType, idWord: token.idWord, type: 'add' })
+    const alignment = new Alignment()
 
-    alGroup.alignmentGroupActions[token2.textType].push(token2.idWord)
-    alGroup.alignmentGroupHistory.steps.push({ textType: token2.textType, idWord: token2.idWord, type: 'add' })
+    alGroup[token.textType].push(token.idWord)
+    alGroup[token2.textType].push(token2.idWord)
 
-    alGroup.alignmentGroupHistory.firstStepToken = token
+    alignment.alignmentHistory.addStep(token, HistoryStep.types.ADD, { groupId: alGroup.id })
+    alignment.alignmentHistory.addStep(token2, HistoryStep.types.ADD, { groupId: alGroup.id })
 
-    expect(alGroup.alignmentGroupActions.firstStepNeedToBeUpdated).toBeFalsy()
-    expect(alGroup.alignmentGroupHistory.firstStepToken).toEqual(token)
+    expect(alGroup.firstStepNeedToBeUpdated).toBeTruthy()
 
-    alGroup.alignmentGroupActions.defineFirstStepToken()
-    expect(alGroup.alignmentGroupHistory.firstStepToken).toEqual(token)
+    alGroup.defineFirstStepToken(alignment.alignmentHistory)
+    expect(alGroup.firstStepToken).toEqual(token)
   })
 
   it('16 AlignmentGroup - defineFirstStepToken updates firstStepToken with the first existed step if it is null', () => {
+    const alignment = new Alignment()
     const alGroup = new AlignmentGroup(null, 'targetId1')
 
     const token = new Token({
@@ -309,21 +308,21 @@ describe('alignment-group.test.js', () => {
       textType: 'target', idWord: 'L2-10', word: 'man'
     }, 1, 'targetId1')
 
-    alGroup.alignmentGroupActions[token.textType].push(token.idWord)
-    alGroup.alignmentGroupHistory.steps.push(new AlignmentGroupStep(token, 'add'))
+    alGroup[token.textType].push(token.idWord)
+    alGroup[token2.textType].push(token2.idWord)
 
-    alGroup.alignmentGroupActions[token2.textType].push(token2.idWord)
-    alGroup.alignmentGroupHistory.steps.push(new AlignmentGroupStep(token2, 'add'))
+    alignment.alignmentHistory.addStep(token, HistoryStep.types.ADD, { groupId: alGroup.id })
+    alignment.alignmentHistory.addStep(token2, HistoryStep.types.ADD, { groupId: alGroup.id })
 
+    expect(alGroup.firstStepNeedToBeUpdated).toBeTruthy()
+    expect(alGroup.firstStepToken).toBeNull()
 
-    expect(alGroup.alignmentGroupActions.firstStepNeedToBeUpdated).toBeTruthy()
-    expect(alGroup.alignmentGroupHistory.firstStepToken).toBeNull()
-
-    alGroup.alignmentGroupActions.defineFirstStepToken()
-    expect(alGroup.alignmentGroupHistory.firstStepToken).toEqual(token)
+    alGroup.defineFirstStepToken(alignment.alignmentHistory)
+    expect(alGroup.firstStepToken).toEqual(token)
   })
 
   it('17 AlignmentGroup - defineFirstStepToken updates firstStep with the first existed step if it is already not existed in group', () => {
+    const alignment = new Alignment()
     const alGroup = new AlignmentGroup(null, 'targetId1')
 
     const token = new Token({
@@ -334,21 +333,21 @@ describe('alignment-group.test.js', () => {
       textType: 'target', idWord: 'L2-10', word: 'man'
     }, 1, 'targetId1')
 
-    alGroup.alignmentGroupActions[token.textType].push(token.idWord)
-    alGroup.alignmentGroupHistory.steps.push(new AlignmentGroupStep(token, 'add'))
+    alGroup[token.textType].push(token.idWord)
+    alignment.alignmentHistory.addStep(token, HistoryStep.types.ADD, { groupId: alGroup.id })
 
-    alGroup.alignmentGroupActions[token2.textType].push(token2.idWord)
-    alGroup.alignmentGroupHistory.steps.push(new AlignmentGroupStep(token2, 'add'))
+    alGroup[token2.textType].push(token2.idWord)
+    alignment.alignmentHistory.addStep(token2, HistoryStep.types.ADD, { groupId: alGroup.id })
 
-    alGroup.alignmentGroupActions[token.textType].splice(0, 1)
-    alGroup.alignmentGroupHistory.steps.push(new AlignmentGroupStep(token, 'remove'))
+    alGroup[token.textType].splice(0, 1)
+    alignment.alignmentHistory.addStep(token, HistoryStep.types.REMOVE, { groupId: alGroup.id })
 
-    alGroup.alignmentGroupHistory.firstStepToken = token
+    alGroup.firstStepToken = token
 
-    expect(alGroup.alignmentGroupActions.firstStepNeedToBeUpdated).toBeTruthy()
+    expect(alGroup.firstStepNeedToBeUpdated).toBeTruthy()
 
-    alGroup.alignmentGroupActions.defineFirstStepToken()
-    expect(alGroup.alignmentGroupHistory.firstStepToken).toEqual(token2)
+    alGroup.defineFirstStepToken(alignment.alignmentHistory)
+    expect(alGroup.firstStepToken).toEqual(token2)
   })
 
   it('18 AlignmentGroup - couldBeFinished returns true if origin and target each has one element at least and id is defined', () => {
@@ -508,7 +507,7 @@ describe('alignment-group.test.js', () => {
 
     alGroup.updateFirstStepToken(token3)
 
-    expect(alGroup.firstStepToken).toBeNull()
+    expect(alGroup.firstStepToken).toEqual(token)
 
     alGroup.updateFirstStepToken(token2)
     expect(alGroup.firstStepToken).toEqual(token2) // token2
@@ -545,16 +544,6 @@ describe('alignment-group.test.js', () => {
 
     expect(alGroup1.origin).toEqual(['L1-10', 'L1-8'])
     expect(alGroup1.target).toEqual(['L2-10', 'L2-8'])
-    expect(alGroup1.steps.length).toEqual(3)
-
-    expect(alGroup1.steps[0]).toHaveProperty('token', token1)
-    expect(alGroup1.steps[0]).toHaveProperty('type', 'add')
-
-    expect(alGroup1.steps[1]).toHaveProperty('token', token2)
-    expect(alGroup1.steps[1]).toHaveProperty('type', 'add')
-
-    expect(alGroup1.steps[2]).toHaveProperty('token', alGroup2)
-    expect(alGroup1.steps[2]).toHaveProperty('type', 'merge')
 
   })
 
@@ -578,7 +567,7 @@ describe('alignment-group.test.js', () => {
     expect(alGroup1.groupLen).toEqual(2)
   })
 
-  it('27 AlignmentGroup - currentStepOnLast returns true if there are no undone steps, otherwise - false', () => {
+  it.skip('27 AlignmentGroup - currentStepOnLast returns true if there are no undone steps, otherwise - false', () => {
     const alGroup1 = new AlignmentGroup(null, 'targetId1')
 
     const token1 = new Token({
@@ -601,7 +590,7 @@ describe('alignment-group.test.js', () => {
     expect(alGroup1.alignmentGroupHistory.currentStepOnLast).toBeTruthy()
   })
 
-  it('28 AlignmentGroup - add method - would remove undone steps, if we add a new token to a group', () => {
+  it.skip('28 AlignmentGroup - add method - would remove undone steps, if we add a new token to a group', () => {
     const alGroup1 = new AlignmentGroup(null, 'targetId1')
 
     const token1 = new Token({
@@ -643,7 +632,7 @@ describe('alignment-group.test.js', () => {
 
   })
 
-  it('29 AlignmentGroup - remove method - would remove undone steps, if we add a new token to a group', () => {
+  it.skip('29 AlignmentGroup - remove method - would remove undone steps, if we add a new token to a group', () => {
     const alGroup1 = new AlignmentGroup(null, 'targetId1')
 
     const token1 = new Token({
@@ -716,13 +705,15 @@ describe('alignment-group.test.js', () => {
     alGroup2.add(token4)
 
     alGroup1.merge(alGroup2, 1)
-
+    
+    const mergeStep = new AlignmentStep(alGroup2, HistoryStep.types.MERGE, { groupId: alGroup1.id, indexDeleted: 1 })
+    
     expect(alGroup1.includesToken(token1)).toBeTruthy()
     expect(alGroup1.includesToken(token2)).toBeTruthy()
     expect(alGroup1.includesToken(token3)).toBeTruthy()
     expect(alGroup1.includesToken(token4)).toBeTruthy()
 
-    const result = alGroup1.unmerge(alGroup1.steps[alGroup1.steps.length - 1])
+    const result = alGroup1.unmerge(mergeStep)
 
     expect(alGroup1.includesToken(token1)).toBeTruthy()
     expect(alGroup1.includesToken(token2)).toBeTruthy()
@@ -733,7 +724,7 @@ describe('alignment-group.test.js', () => {
     expect(result.indexDeleted).toEqual(1)
   })
 
-  it('32 AlignmentGroup - undo - align group to the previous step, redo - to the next step', () => {
+  it.skip('32 AlignmentGroup - undo - align group to the previous step, redo - to the next step', () => {
     const alGroup1 = new AlignmentGroup(null, 'targetId1')
 
     const token1 = new Token({
@@ -760,7 +751,7 @@ describe('alignment-group.test.js', () => {
     expect(alGroup1.includesToken(token2)).toBeTruthy()
   })
 
-  it('33 AlignmentGroup - undo - if there is only one step - there would be no changes', () => {
+  it.skip('33 AlignmentGroup - undo - if there is only one step - there would be no changes', () => {
     const alGroup1 = new AlignmentGroup(null, 'targetId1')
 
     const token1 = new Token({
@@ -789,7 +780,7 @@ describe('alignment-group.test.js', () => {
     expect(console.error).toHaveBeenCalled()
   })
 
-  it('34 AlignmentGroup - redo - if there are no steps forward - there would be no changes', () => {
+  it.skip('34 AlignmentGroup - redo - if there are no steps forward - there would be no changes', () => {
     const alGroup1 = new AlignmentGroup(null, 'targetId1')
 
     const token1 = new Token({
@@ -822,7 +813,7 @@ describe('alignment-group.test.js', () => {
     expect(console.error).toHaveBeenCalled()
   })
 
-  it('35 AlignmentGroup - alignToStep - removes or apply actions according to the given stepIndex', () => {
+  it.skip('35 AlignmentGroup - alignToStep - removes or apply actions according to the given stepIndex', () => {
     const alGroup1 = new AlignmentGroup(null, 'targetId1')
 
     const token1 = new Token({
@@ -856,7 +847,7 @@ describe('alignment-group.test.js', () => {
     expect(alGroup1.includesToken(token2)).toBeTruthy()
   })
 
-  it('36 AlignmentGroup - doStepAction (remove) - removes action by stepIndex, doStepAction (apply) - applies action by stepIndex', () => {
+  it.skip('36 AlignmentGroup - doStepAction (remove) - removes action by stepIndex, doStepAction (apply) - applies action by stepIndex', () => {
     const alGroup2 = new AlignmentGroup(null, 'targetId1')
 
     const token3 = new Token({

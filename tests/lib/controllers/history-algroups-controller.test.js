@@ -53,7 +53,7 @@ describe('history-controller.test.js', () => {
     alignment.updateOriginDocSource(originDocSource)
     alignment.updateTargetDocSource(targetDocSource)
 
-    alignment.undoInActiveGroup = jest.fn()
+    jest.spyOn(alignment.alignmentHistory, 'undo')
 
     historyC.startTracking(alignment)
 
@@ -62,7 +62,7 @@ describe('history-controller.test.js', () => {
     alignment.addToAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[1])
 
     await historyC.undo()
-    expect(alignment.undoInActiveGroup).toHaveBeenCalled()
+    expect(alignment.alignmentHistory.undo).toHaveBeenCalled()
   })
 
   it('3 HistoryAlGroupsController - undo - if there is an active alignment group and it has only 1 token, then it would execute alignment.undoActiveGroup', async () => {
@@ -104,7 +104,7 @@ describe('history-controller.test.js', () => {
     alignment.updateTargetDocSource(targetDocSource)
     const targetId = Object.keys(alignment.targets)[0]
 
-    jest.spyOn(alignment, 'activateGroupByGroupIndex')
+    jest.spyOn(alignment, 'activateGroupByGroupId')
     
     historyC.startTracking(alignment)
 
@@ -114,7 +114,7 @@ describe('history-controller.test.js', () => {
     alignment.finishActiveAlignmentGroup()
 
     await historyC.undo()
-    expect(alignment.activateGroupByGroupIndex).toHaveBeenCalledWith(0)
+    expect(alignment.activateGroupByGroupId).toHaveBeenCalled()
   })
 
   it('5 HistoryAlGroupsController - redo - if there is an active alignment group and it has future undone steps, then it would execute alignment.redoInActiveGroup', async () => {
@@ -131,8 +131,8 @@ describe('history-controller.test.js', () => {
     alignment.updateOriginDocSource(originDocSource)
     alignment.updateTargetDocSource(targetDocSource)
     const targetId = Object.keys(alignment.targets)[0]
-    alignment.redoInActiveGroup = jest.fn()
 
+    jest.spyOn(alignment.alignmentHistory, 'redo')
     historyC.startTracking(alignment)
 
     await alignment.createAlignedTexts()
@@ -141,7 +141,7 @@ describe('history-controller.test.js', () => {
 
     await historyC.undo()
     await historyC.redo()
-    expect(alignment.redoInActiveGroup).toHaveBeenCalled()
+    expect(alignment.alignmentHistory.redo).toHaveBeenCalled()
   })
 
   it('6 HistoryAlGroupsController - redo - if there is an active alignment group and it has no future undone steps, then it would not execute alignment.returnActiveGroupToList', async () => {
@@ -158,7 +158,8 @@ describe('history-controller.test.js', () => {
     alignment.updateOriginDocSource(originDocSource)
     alignment.updateTargetDocSource(targetDocSource)
     const targetId = Object.keys(alignment.targets)[0]
-    alignment.returnActiveGroupToList = jest.fn()
+    
+    jest.spyOn(alignment.alignmentHistory, 'redo')
 
     historyC.startTracking(alignment)
 
@@ -167,7 +168,7 @@ describe('history-controller.test.js', () => {
     alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
 
     await historyC.redo()
-    expect(alignment.returnActiveGroupToList).not.toHaveBeenCalled()
+    expect(alignment.alignmentHistory.redo).not.toHaveBeenCalled()
   })
 
   it('7 HistoryAlGroupsController - redo - if there are no active alignment group and it has future undone groups, then it would execute alignment.redoActiveGroup', async () => {
@@ -184,7 +185,6 @@ describe('history-controller.test.js', () => {
     alignment.updateOriginDocSource(originDocSource)
     alignment.updateTargetDocSource(targetDocSource)
     const targetId = Object.keys(alignment.targets)[0]
-    jest.spyOn(alignment, 'redoActiveGroup')
 
     historyC.startTracking(alignment)
 
@@ -198,18 +198,20 @@ describe('history-controller.test.js', () => {
     alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
     alignment.finishActiveAlignmentGroup()
 
+    expect(alignment.alignmentHistory.steps.length).toEqual(6)
+
     await historyC.undo()
     await historyC.undo()
 
     const resultUndo = await historyC.undo()
     expect(resultUndo).toBeTruthy()
-    expect(historyC.undoneSteps).toEqual(3)
+
+    expect(alignment.alignmentHistory.currentStepIndex).toEqual(2)
 
     const resultRedo = await historyC.redo()
 
     expect(resultRedo).toBeTruthy()
-    expect(alignment.redoActiveGroup).toHaveBeenCalled()
-    expect(historyC.undoneSteps).toEqual(2)
+    expect(alignment.alignmentHistory.currentStepIndex).toEqual(3)
   })
 
   it('8 HistoryAlGroupsController - updateMode - updates tabsViewMode', async () => {
@@ -297,7 +299,6 @@ describe('history-controller.test.js', () => {
     alignment.updateTargetDocSource(targetDocSource2)   
 
     const targetId1 = Object.keys(alignment.targets)[0]
-    alignment.redoActiveGroup = jest.fn()
 
     historyC.startTracking(alignment)
 

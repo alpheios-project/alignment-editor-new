@@ -38706,7 +38706,6 @@ class AlignedGroupsController {
       }
     }
     this.store.commit('incrementAlignmentUpdated')
-    console.info('this.alignment - ', this.alignment.alignmentHistory)
   }
 
   deleteAlGroupFromStorage (alGroupItemID) {
@@ -39460,14 +39459,7 @@ class HistoryAlGroupsController {
    * @returns {Boolean} true - undo could be done, false - not
    */
   get redoAvailable () {
-    // console.info('redoAvailable new', Boolean(this.alignment) && !this.tabsViewMode && this.alignment.redoAvailableAlGroups)
     return Boolean(this.alignment) && !this.tabsViewMode && this.alignment.redoAvailableAlGroups
-    /*
-    return Boolean(this.alignment) && !this.tabsViewMode &&
-           ((this.alignment.hasActiveAlignmentGroup && !this.alignment.currentStepOnLastInActiveGroup) ||
-           (this.alignment.hasActiveAlignmentGroup && this.alignment.currentStepOnLastInActiveGroup && (this.undoneSteps > 0)) ||
-           (!this.alignment.hasActiveAlignmentGroup && this.alignment.undoneGroups.length > 0))
-    */
   }
 
   /**
@@ -39475,14 +39467,7 @@ class HistoryAlGroupsController {
    * @returns {Boolean} true - redo could be done, false - not
    */
   get undoAvailable () {
-    // console.info('undoAvailable new', Boolean(this.alignment) && !this.tabsViewMode && this.alignment.undoAvailableAlGroups)
-
     return Boolean(this.alignment) && !this.tabsViewMode && this.alignment.undoAvailableAlGroups
-    /*
-    return Boolean(this.alignment) && !this.tabsViewMode &&
-           ((this.alignment.hasActiveAlignmentGroup && this.alignment.activeAlignmentGroup.undoAvailable) ||
-           (!this.alignment.hasActiveAlignmentGroup && this.alignment.alignmentGroups.length > 0 && this.alignment.alignmentGroups[this.alignment.alignmentGroups.length - 1].undoAvailable))
-    */
   }
 
   /**
@@ -39509,34 +39494,14 @@ class HistoryAlGroupsController {
    *   if there is no active alignment group but there exists saved alignment groups, then we would activate previous group
    */
   async undo () {
+    if (!this.undoAvailable) { return }
     const result = this.alignment.undoAlGroups()
-    console.info('undo - ', result)
     if (result) {
       this.store.commit('incrementAlignmentUpdated')
-      // this.undoneSteps = this.undoneSteps + 1
       await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.update(this.alignment, true)
 
       return result
     }
-    /*
-    let result
-    if (this.alignment.hasActiveAlignmentGroup && this.alignment.activeAlignmentGroup.groupLen > 1) {
-      result = this.alignment.undoInActiveGroup()
-    } else if (this.alignment.hasActiveAlignmentGroup && this.alignment.activeAlignmentGroup.groupLen === 1) {
-      result = this.alignment.undoActiveGroup()
-    } else if (!this.alignment.hasActiveAlignmentGroup && this.alignment.alignmentGroups.length > 0) {
-      result = this.alignment.activateGroupByGroupIndex(this.alignment.alignmentGroups.length - 1)
-      await this.deleteAlGroupFromStorage(this.alignment.activeAlignmentGroup.id)
-    }
-
-    if (result) {
-      this.store.commit('incrementAlignmentUpdated')
-      this.undoneSteps = this.undoneSteps + 1
-      await StorageController.update(this.alignment, true)
-
-      return result
-    }
-    */
   }
 
   /**
@@ -39546,6 +39511,7 @@ class HistoryAlGroupsController {
    *   if there is no active alignment group and there are some saved undone groups, then we would reactivate next group from the list
    */
   async redo () {
+    if (!this.redoAvailable) { return }
     const result = this.alignment.redoAlGroups()
 
     if (result) {
@@ -39556,23 +39522,6 @@ class HistoryAlGroupsController {
       await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.update(this.alignment, true)
       return result
     }
-    /*
-    let result
-    if (this.alignment.hasActiveAlignmentGroup && !this.alignment.currentStepOnLastInActiveGroup) {
-      result = this.alignment.redoInActiveGroup()
-    } else if (this.alignment.hasActiveAlignmentGroup && this.alignment.currentStepOnLastInActiveGroup && (this.undoneSteps > 0)) {
-      result = this.alignment.finishActiveAlignmentGroup()
-    } else if (!this.alignment.hasActiveAlignmentGroup && this.alignment.undoneGroups.length > 0) {
-      result = this.alignment.redoActiveGroup()
-      await this.deleteAlGroupFromStorage(this.alignment.activeAlignmentGroup.id)
-    }
-    if (result) {
-      this.store.commit('incrementAlignmentUpdated')
-      this.undoneSteps = this.undoneSteps - 1
-      await StorageController.update(this.alignment, true)
-      return result
-    }
-    */
   }
 
   /**
@@ -41417,21 +41366,21 @@ class UploadController {
 
 /***/ }),
 
-/***/ "./lib/data/actions/al-groups-actions.js":
-/*!***********************************************!*\
-  !*** ./lib/data/actions/al-groups-actions.js ***!
-  \***********************************************/
+/***/ "./lib/data/actions/al-history-actions.js":
+/*!************************************************!*\
+  !*** ./lib/data/actions/al-history-actions.js ***!
+  \************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ AlGroupsActions)
+/* harmony export */   "default": () => (/* binding */ AlHistoryActions)
 /* harmony export */ });
 // import HistoryStep from '@/lib/data/history/history-step.js'
 // import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 
-class AlGroupsActions {
+class AlHistoryActions {
   constructor ({ alignmentGroups, alignmentHistory }) {
     this.alignmentGroups = alignmentGroups
     this.alignmentHistory = alignmentHistory
@@ -41439,13 +41388,25 @@ class AlGroupsActions {
 
   applyStartGroupStep (step) {
     return {
-      data: { resStartAlGroup: true, groupId: step.params.groupId, token: step.token }
+      data: { resStartAlGroup: true, groupId: step.params.groupId, targetId: step.params.targetId, token: step.token }
     }
   }
 
   removeStartGroupStep (step) {
     return {
       data: { removeActiveAlGroup: true }
+    }
+  }
+
+  applyActivateGroupStep (step) {
+    return {
+      data: { reactivateAlGroup: true, groupId: step.params.groupId, targetId: step.params.targetId, token: step.token }
+    }
+  }
+
+  removeActivateGroupStep (step) {
+    return {
+      data: { finishActiveAlGroup: true }
     }
   }
 
@@ -41492,15 +41453,17 @@ class AlGroupsActions {
     }
   }
 
-  removeStepMerge (step) {
-    const data = this.activeAlignmentGroup.unmerge(step)
+  removeMergeStep (step) {
+    const dataGroup = this.activeAlignmentGroup.unmerge(step)
     return {
       result: true,
-      data
+      data: {
+        insertGroups: true, dataGroup: dataGroup
+      }
     }
   }
 
-  applyStepMerge (step) {
+  applyMergeStep (step) {
     this.activeAlignmentGroup.origin.push(...step.token.origin)
     this.activeAlignmentGroup.target.push(...step.token.target)
     return {
@@ -41527,30 +41490,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class AlignmentGroupActions {
-  constructor ({ targetId, alignmentGroupHistory }) {
+  constructor (targetId) {
     this.segmentIndex = null
     this.targetId = targetId
     this.origin = []
     this.target = []
-    this.alignmentGroupHistory = alignmentGroupHistory
     this.originPartNums = []
     this.targetPartNums = []
-  }
-
-  // calculated props
-
-  get firstStepToken () {
-    return this.alignmentGroupHistory ? this.alignmentGroupHistory.firstStepToken : null
-  }
-
-  // checks
-  /**
-   * Checks if the alignment group has the same target docSourceId
-   * @param {String} targetId
-   * @returns {Boolean}
-   */
-  hasTheSameTargetId (targetId) {
-    return !targetId || !this.targetId || (this.targetId === targetId)
   }
 
   /**
@@ -41576,54 +41522,6 @@ class AlignmentGroupActions {
            (!this.targetId || (token.textType === 'origin') || ((this.targetId === token.docSourceId)))
   }
 
-  // first step definition
-
-  /**
-   * Checks if first step is empty or equals to the token that was already removed
-   * @returns { Boolean } true - first step should be updated, false - first step is correct
-   */
-  get firstStepNeedToBeUpdated () {
-    return !this.firstStepToken || !this.includesToken(this.firstStepToken)
-  }
-
-  /**
-   * Finds the first token in the steps that is yet included in group, and updates firstStep
-   */
-  defineFirstStepToken () {
-    if (this.firstStepNeedToBeUpdated) {
-      let firstStepToken = null
-      for (let i = 0; i < this.alignmentGroupHistory.steps.length; i++) {
-        if (this.includesToken(this.alignmentGroupHistory.steps[i].token)) {
-          firstStepToken = this.alignmentGroupHistory.steps[i].token
-          break
-        }
-      }
-
-      this.updateFirstStepToken(firstStepToken)
-    }
-  }
-
-  /**
-   * Update first step with passed token, it is used when we want to activate previously saved alignment group
-   * @param {Token} token
-   */
-  updateFirstStepToken (token) {
-    if (token && this.includesToken(token)) {
-      this.alignmentGroupHistory.firstStepToken = token
-    } else {
-      this.alignmentGroupHistory.firstStepToken = null
-    }
-  }
-
-  /**
-   * Checks if the token is equal saved to the first step by unique idWord
-   * @param {Token} token
-   * @returns {Boolean} true - if this is the first step, false - not
-   */
-  isFirstToken (token, targetId) {
-    return this.firstStepToken && this.hasTheSameTargetId(targetId) && this.includesToken(token) && (this.firstStepToken.idWord === token.idWord)
-  }
-
   // actions
 
   /**
@@ -41645,10 +41543,7 @@ class AlignmentGroupActions {
 
     this[token.textType].push(token.idWord)
 
-    this.alignmentGroupHistory.truncateSteps()
-    this.alignmentGroupHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.ADD)
-
-    this.defineFirstStepToken()
+    // this.defineFirstStepToken()
     return true
   }
 
@@ -41662,15 +41557,12 @@ class AlignmentGroupActions {
       return false
     }
 
-    this.alignmentGroupHistory.truncateSteps()
-
     const tokenIndex = this[token.textType].findIndex(tokenId => tokenId === token.idWord)
 
     if (tokenIndex >= 0) {
       this[token.textType].splice(tokenIndex, 1)
 
-      this.alignmentGroupHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.REMOVE)
-      this.defineFirstStepToken()
+      // this.defineFirstStepToken()
       return true
     }
     return false
@@ -41684,8 +41576,6 @@ class AlignmentGroupActions {
   merge (tokensGroup, indexDeleted) {
     this.origin.push(...tokensGroup.origin)
     this.target.push(...tokensGroup.target)
-
-    this.alignmentGroupHistory.addStep(tokensGroup, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.MERGE, { indexDeleted })
   }
 
   /**
@@ -41713,58 +41603,10 @@ class AlignmentGroupActions {
         this.target.splice(tokenIndex, 1)
       }
     }
-    this.defineFirstStepToken()
+    // this.defineFirstStepToken()
     return {
       tokensGroup,
       indexDeleted: step.indexDeleted
-    }
-  }
-
-  // step actions
-
-  removeStepAdd (step) {
-    const tokenIndex = this[step.token.textType].findIndex(tokenId => tokenId === step.token.idWord)
-    this[step.token.textType].splice(tokenIndex, 1)
-    return {
-      result: true
-    }
-  }
-
-  removeStepRemove (step) {
-    this[step.token.textType].push(step.token.idWord)
-    return {
-      result: true
-    }
-  }
-
-  removeStepMerge (step) {
-    const data = this.unmerge(step)
-    return {
-      result: true,
-      data
-    }
-  }
-
-  applyStepAdd (step) {
-    this[step.token.textType].push(step.token.idWord)
-    return {
-      result: true
-    }
-  }
-
-  applyStepRemove (step) {
-    const tokenIndex = this[step.token.textType].findIndex(tokenId => tokenId === step.token.idWord)
-    this[step.token.textType].splice(tokenIndex, 1)
-    return {
-      result: true
-    }
-  }
-
-  applyStepMerge (step) {
-    this.origin.push(...step.token.origin)
-    this.target.push(...step.token.target)
-    return {
-      result: true
     }
   }
 
@@ -41778,9 +41620,7 @@ class AlignmentGroupActions {
   }
 
   static convertFromJSON (data) {
-    const actions = new AlignmentGroupActions({
-      targetId: data.targetId
-    })
+    const actions = new AlignmentGroupActions(data.targetId)
     actions.segmentIndex = data.segmentIndex
     actions.origin = data.origin
     actions.target = data.target
@@ -42623,9 +42463,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/history/history-step.js */ "./lib/data/history/history-step.js");
-/* harmony import */ var _lib_data_history_alignment_group_history__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/data/history/alignment-group-history */ "./lib/data/history/alignment-group-history.js");
-/* harmony import */ var _lib_data_actions_alignment_group_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/data/actions/alignment-group-actions */ "./lib/data/actions/alignment-group-actions.js");
-
+/* harmony import */ var _lib_data_actions_alignment_group_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/data/actions/alignment-group-actions */ "./lib/data/actions/alignment-group-actions.js");
 
 
 
@@ -42638,16 +42476,15 @@ class AlignmentGroup {
    */
   constructor (token, targetId, empty = false, id = null) {
     this.id = id || (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
-    this.alignmentGroupHistory = new _lib_data_history_alignment_group_history__WEBPACK_IMPORTED_MODULE_2__.default()
 
     if (!empty) {
-      this.alignmentGroupActions = new _lib_data_actions_alignment_group_actions__WEBPACK_IMPORTED_MODULE_3__.default({
-        targetId,
-        alignmentGroupHistory: this.alignmentGroupHistory
-      })
+      this.alignmentGroupActions = new _lib_data_actions_alignment_group_actions__WEBPACK_IMPORTED_MODULE_2__.default(targetId)
 
-      this.alignmentGroupHistory.allStepActions = this.allStepActions
-      if (token) { this.add(token) }
+      if (token) {
+        this.add(token)
+      } else {
+        this.firstStepToken = null
+      }
     }
   }
 
@@ -42676,10 +42513,6 @@ class AlignmentGroup {
     return this.origin.length + this.target.length
   }
 
-  get firstStepToken () {
-    return this.alignmentGroupHistory.firstStepToken
-  }
-
   get targetId () {
     return this.alignmentGroupActions.targetId
   }
@@ -42699,14 +42532,6 @@ class AlignmentGroup {
     return ids
   }
 
-  get currentStepOnLast () {
-    return this.alignmentGroupHistory.currentStepOnLast
-  }
-
-  get steps () {
-    return this.alignmentGroupHistory.steps
-  }
-
   // checks
 
   /**
@@ -42714,10 +42539,11 @@ class AlignmentGroup {
    * @param {Token} token
    * @returns {Boolean} - true - if the token is inside the group, false - if not
    */
+  /*
   includesToken (token) {
     return this.alignmentGroupActions.includesToken(token)
   }
-
+*/
   /**
    * Checks if the alignment group has the same segment
    * @param {Number} segmentIndex
@@ -42751,8 +42577,18 @@ class AlignmentGroup {
    * @param {Token} token
    * @returns {Boolean} true - if this is the first step, false - not
    */
+  /*
   isFirstToken (token, targetId) {
     return this.alignmentGroupActions.isFirstToken(token, targetId)
+  }
+*/
+
+  includesToken (token) {
+    return Boolean(token) && (this.origin.includes(token.idWord) || this.target.includes(token.idWord))
+  }
+
+  isFirstToken (token, targetId) {
+    return this.firstStepToken && this.hasTheSameTargetId(targetId) && this.includesToken(token) && (this.firstStepToken.idWord === token.idWord)
   }
 
   /**
@@ -42770,15 +42606,20 @@ class AlignmentGroup {
    * @returns {Boolean} true - if the same type, false - if not
    */
   tokenTheSameTextTypeAsStart (token) {
-    return this.firstStepToken && this.alignmentGroupHistory.steps.length > 0 && this.firstStepToken.textType === token.textType
+    return this.firstStepToken && this.firstStepToken.textType === token.textType
   }
 
   /**
    *
    * @param {Token} token
    */
+
   updateFirstStepToken (token) {
-    return this.alignmentGroupActions.updateFirstStepToken(token)
+    if (this.includesToken(token)) {
+      this.firstStepToken = token
+    } else if (!token) {
+      this.firstStepToken = null
+    }
   }
 
   /**
@@ -42788,14 +42629,41 @@ class AlignmentGroup {
     return ((this.origin.length === 0) || (this.target.length === 0)) && (this.groupLen > 0)
   }
 
+  get firstStepNeedToBeUpdated () {
+    return !this.firstStepToken || !this.includesToken(this.firstStepToken)
+  }
+
+  defineFirstStepToken (alignmentHistory) {
+    if (this.firstStepNeedToBeUpdated && alignmentHistory) {
+      let firstStepToken = null
+      for (let i = alignmentHistory.currentStepIndex; i >= 0; i--) {
+        if (this.includesToken(alignmentHistory.steps[i].token) && (this.id === alignmentHistory.steps[i].params.groupId)) {
+          firstStepToken = alignmentHistory.steps[i].token
+        }
+      }
+
+      this.updateFirstStepToken(firstStepToken)
+    }
+  }
+
   // actions
 
   add (token) {
-    return this.alignmentGroupActions.add(token)
+    const res = this.alignmentGroupActions.add(token)
+    if (res) {
+      if (this.groupLen === 1) {
+        this.firstStepToken = token
+      }
+      return res
+    }
   }
 
-  remove (token) {
-    return this.alignmentGroupActions.remove(token)
+  remove (token, alignmentHistory) {
+    const res = this.alignmentGroupActions.remove(token)
+    if (res) {
+      this.defineFirstStepToken(alignmentHistory)
+      return res
+    }
   }
 
   /**
@@ -42816,18 +42684,6 @@ class AlignmentGroup {
    */
   unmerge (step) {
     return this.alignmentGroupActions.unmerge(step)
-  }
-
-  undo () {
-    return this.alignmentGroupHistory.undo()
-  }
-
-  redo () {
-    return this.alignmentGroupHistory.redo()
-  }
-
-  get undoAvailable () {
-    return this.alignmentGroupHistory.undoAvailable
   }
 
   /**
@@ -42865,22 +42721,14 @@ class AlignmentGroup {
   static convertFromJSON (data) {
     const alGroup = new AlignmentGroup(null, null, true, data.id)
 
-    alGroup.alignmentGroupActions = _lib_data_actions_alignment_group_actions__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON(data.actions)
-    alGroup.alignmentGroupActions.alignmentGroupHistory = alGroup.alignmentGroupHistory
-
-    alGroup.alignmentGroupHistory.allStepActions = alGroup.allStepActions
-
+    alGroup.alignmentGroupActions = _lib_data_actions_alignment_group_actions__WEBPACK_IMPORTED_MODULE_2__.default.convertFromJSON(data.actions)
     return alGroup
   }
 
   static convertFromIndexedDB (data) {
     const alGroup = new AlignmentGroup(null, null, true, data.alGroupId)
 
-    alGroup.alignmentGroupActions = _lib_data_actions_alignment_group_actions__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON(data)
-    alGroup.alignmentGroupActions.alignmentGroupHistory = alGroup.alignmentGroupHistory
-
-    alGroup.alignmentGroupHistory.allStepActions = alGroup.allStepActions
-
+    alGroup.alignmentGroupActions = _lib_data_actions_alignment_group_actions__WEBPACK_IMPORTED_MODULE_2__.default.convertFromJSON(data)
     return alGroup
   }
 }
@@ -42911,7 +42759,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_data_history_tokens_edit_history_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/lib/data/history/tokens-edit-history.js */ "./lib/data/history/tokens-edit-history.js");
 /* harmony import */ var _lib_data_history_alignment_history_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/lib/data/history/alignment-history.js */ "./lib/data/history/alignment-history.js");
 /* harmony import */ var _lib_data_actions_tokens_edit_actions_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/lib/data/actions/tokens-edit-actions.js */ "./lib/data/actions/tokens-edit-actions.js");
-/* harmony import */ var _lib_data_actions_al_groups_actions_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/lib/data/actions/al-groups-actions.js */ "./lib/data/actions/al-groups-actions.js");
+/* harmony import */ var _lib_data_actions_al_history_actions_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/lib/data/actions/al-history-actions.js */ "./lib/data/actions/al-history-actions.js");
 /* harmony import */ var _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/lib/controllers/detect-text-controller.js */ "./lib/controllers/detect-text-controller.js");
 /* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
 /* harmony import */ var _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/lib/utility/convert-utility.js */ "./lib/utility/convert-utility.js");
@@ -42954,12 +42802,12 @@ class Alignment {
     this.activeAlignmentGroup = null
 
     this.hoveredGroups = []
-    this.undoneGroups = []
+    // this.undoneGroups = []
 
     this.annotations = {}
 
     this.alignmentHistory = new _lib_data_history_alignment_history_js__WEBPACK_IMPORTED_MODULE_9__.default()
-    this.alGroupsActions = new _lib_data_actions_al_groups_actions_js__WEBPACK_IMPORTED_MODULE_11__.default({ alignmentGroups: this.alignmentGroups, alignmentHistory: this.alignmentHistory })
+    this.alHistoryActions = new _lib_data_actions_al_history_actions_js__WEBPACK_IMPORTED_MODULE_11__.default({ alignmentGroups: this.alignmentGroups, alignmentHistory: this.alignmentHistory })
 
     this.alignmentHistory.allStepActions = this.allStepActionsAlGroups
 
@@ -43381,7 +43229,7 @@ class Alignment {
    * Checks if there is no undone steps in the group
    */
   get currentStepOnLastInActiveGroup () {
-    return this.activeAlignmentGroup.currentStepOnLast
+    return this.alignmentHistory.currentStepOnLast
   }
 
   /**
@@ -43394,10 +43242,10 @@ class Alignment {
     if (!token.isTheSameTargetId(limitByTargetId)) { return false }
 
     this.activeAlignmentGroup = new _lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default(token, limitByTargetId)
-    this.undoneGroups = []
+    // this.undoneGroups = []
 
     this.alignmentHistory.truncateSteps()
-    this.alignmentHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.START_GROUP, { groupId: this.activeAlignmentGroup.id })
+    this.alignmentHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.START_GROUP, { groupId: this.activeAlignmentGroup.id, targetId: this.activeAlignmentGroup.targetId })
 
     return Boolean(this.activeAlignmentGroup)
   }
@@ -43432,10 +43280,10 @@ class Alignment {
    */
   removeFromAlignmentGroup (token, limitByTargetId = null) {
     if (this.hasActiveAlignmentGroup && this.tokenInActiveGroup(token, limitByTargetId)) {
-      this.activeAlignmentGroup.remove(token)
-
       this.alignmentHistory.truncateSteps()
       this.alignmentHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.REMOVE, { groupId: this.activeAlignmentGroup.id })
+
+      this.activeAlignmentGroup.remove(token, this.alignmentHistory)
       return true
     } else {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'))
@@ -43592,7 +43440,7 @@ class Alignment {
       this.setUpdated()
 
       this.alignmentHistory.truncateSteps()
-      this.alignmentHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.START_GROUP, { groupId: this.activeAlignmentGroup.id })
+      this.alignmentHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.ACTIVATE_GROUP, { groupId: this.activeAlignmentGroup.id, targetId: this.activeAlignmentGroup.targetId })
 
       return tokensGroup.id
     }
@@ -43615,7 +43463,7 @@ class Alignment {
       this.activeAlignmentGroup.merge(tokensGroup, indexDeleted)
 
       this.alignmentHistory.truncateSteps()
-      this.alignmentHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.MERGE, { groupId: this.activeAlignmentGroup.id, indexDeleted })
+      this.alignmentHistory.addStep(tokensGroup, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.MERGE, { groupId: this.activeAlignmentGroup.id, indexDeleted })
 
       this.setUpdated()
       return tokensGroup.id
@@ -43627,6 +43475,7 @@ class Alignment {
    * Step back inside active group
    * If we step back merge step, then we would insert unmerged group back to the list
    */
+  /*
   undoInActiveGroup () {
     if (!this.hasActiveAlignmentGroup) {
       return
@@ -43641,7 +43490,7 @@ class Alignment {
     }
     return true
   }
-
+*/
   /**
    *
    * @param {Object} data
@@ -43656,21 +43505,20 @@ class Alignment {
   /**
    * Step forward inside active group
    */
+  /*
   redoInActiveGroup () {
     if (this.hasActiveAlignmentGroup) {
       return this.activeAlignmentGroup.redo()
     }
   }
-
+  */
   /**
    * Saves active alignment group the list with saved undone groups
    */
+
   undoActiveGroup () {
-    console.info('undoActiveGroup - start')
     if (this.hasActiveAlignmentGroup) {
-      this.undoneGroups.push(this.activeAlignmentGroup)
       this.activeAlignmentGroup = null
-      console.info('undoActiveGroup - this.activeAlignmentGroup', this.activeAlignmentGroup)
       return true
     }
   }
@@ -43678,12 +43526,14 @@ class Alignment {
   /**
    * Extracts alignment group from the list and saves it to active
    */
+  /*
   redoActiveGroup () {
     if (!this.hasActiveAlignmentGroup) {
       this.activeAlignmentGroup = this.undoneGroups.pop()
       return true
     }
   }
+  */
 
   /**
    * This method finds all saved groups that includes the token and filtered by passed targetId and saves to hoveredGroups
@@ -44024,16 +43874,22 @@ class Alignment {
   get allStepActionsAlGroups () {
     return {
       remove: {
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.START_GROUP]: this.alGroupsActions.removeStartGroupStep.bind(this.alGroupsActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.ADD]: this.alGroupsActions.removeAddStep.bind(this.alGroupsActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.REMOVE]: this.alGroupsActions.removeRemoveStep.bind(this.alGroupsActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.FINISH_GROUP]: this.alGroupsActions.removeFinishGroupStep.bind(this.alGroupsActions)
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.START_GROUP]: this.alHistoryActions.removeStartGroupStep.bind(this.alHistoryActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.ACTIVATE_GROUP]: this.alHistoryActions.removeActivateGroupStep.bind(this.alHistoryActions),
+
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.ADD]: this.alHistoryActions.removeAddStep.bind(this.alHistoryActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.REMOVE]: this.alHistoryActions.removeRemoveStep.bind(this.alHistoryActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.MERGE]: this.alHistoryActions.removeMergeStep.bind(this.alHistoryActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.FINISH_GROUP]: this.alHistoryActions.removeFinishGroupStep.bind(this.alHistoryActions)
       },
       apply: {
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.START_GROUP]: this.alGroupsActions.applyStartGroupStep.bind(this.alGroupsActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.ADD]: this.alGroupsActions.applyAddStep.bind(this.alGroupsActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.REMOVE]: this.alGroupsActions.applyRemoveStep.bind(this.alGroupsActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.FINISH_GROUP]: this.alGroupsActions.applyFinishGroupStep.bind(this.alGroupsActions)
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.START_GROUP]: this.alHistoryActions.applyStartGroupStep.bind(this.alHistoryActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.ACTIVATE_GROUP]: this.alHistoryActions.applyActivateGroupStep.bind(this.alHistoryActions),
+
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.ADD]: this.alHistoryActions.applyAddStep.bind(this.alHistoryActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.REMOVE]: this.alHistoryActions.applyRemoveStep.bind(this.alHistoryActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.MERGE]: this.alHistoryActions.applyMergeStep.bind(this.alHistoryActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.FINISH_GROUP]: this.alHistoryActions.applyFinishGroupStep.bind(this.alHistoryActions)
       }
     }
   }
@@ -44418,7 +44274,7 @@ class Alignment {
   }
 
   undoAlGroups () {
-    this.alGroupsActions.activeAlignmentGroup = this.activeAlignmentGroup
+    this.alHistoryActions.activeAlignmentGroup = this.activeAlignmentGroup
 
     const result = this.alignmentHistory.undo()
     if (result.data[0]) {
@@ -44428,25 +44284,34 @@ class Alignment {
       if (result.data[0].reactivateAlGroup) {
         this.activateGroupByGroupId(result.data[0].groupId)
       }
-    }
-    return true
-  }
-
-  redoAlGroups () {
-    this.alGroupsActions.activeAlignmentGroup = this.activeAlignmentGroup
-
-    const result = this.alignmentHistory.redo()
-    if (result.data[0]) {
-      if (result.data[0].resStartAlGroup) {
-        this.activeAlignmentGroup = new _lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default(result.data[0].token)
-        this.activeAlignmentGroup.update({ id: result.data[0].groupId })
+      if (result.data[0].insertGroups && result.data[0].dataGroup) {
+        this.insertUnmergedGroup(result.data[0].dataGroup)
       }
       if (result.data[0].finishActiveAlGroup) {
         this.alignmentGroups.push(this.activeAlignmentGroup)
         this.activeAlignmentGroup = null
       }
     }
+    return true
+  }
 
+  redoAlGroups () {
+    this.alHistoryActions.activeAlignmentGroup = this.activeAlignmentGroup
+
+    const result = this.alignmentHistory.redo()
+    if (result.data[0]) {
+      if (result.data[0].resStartAlGroup) {
+        this.activeAlignmentGroup = new _lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default(result.data[0].token, result.data[0].targetId, false, result.data[0].groupId)
+        this.activeAlignmentGroup.update({ id: result.data[0].groupId })
+      }
+      if (result.data[0].finishActiveAlGroup) {
+        this.alignmentGroups.push(this.activeAlignmentGroup)
+        this.activeAlignmentGroup = null
+      }
+      if (result.data[0].reactivateAlGroup) {
+        this.activateGroupByGroupId(result.data[0].groupId)
+      }
+    }
     return true
   }
 }
@@ -44539,71 +44404,6 @@ Annotation.types = {
 
 /***/ }),
 
-/***/ "./lib/data/history/alignment-group-history.js":
-/*!*****************************************************!*\
-  !*** ./lib/data/history/alignment-group-history.js ***!
-  \*****************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ AlignmentGroupHistory)
-/* harmony export */ });
-/* harmony import */ var _lib_data_history_editor_history__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/history/editor-history */ "./lib/data/history/editor-history.js");
-/* harmony import */ var _lib_data_history_alignment_group_step_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/history/alignment-group-step.js */ "./lib/data/history/alignment-group-step.js");
-
-
-
-
-class AlignmentGroupHistory extends _lib_data_history_editor_history__WEBPACK_IMPORTED_MODULE_0__.default {
-  constructor () {
-    super()
-    this.firstStepToken = null
-  }
-
-  get stepClass () {
-    return _lib_data_history_alignment_group_step_js__WEBPACK_IMPORTED_MODULE_1__.default
-  }
-
-  get undoAvailable () {
-    return (this.steps.length > 1 && this.currentStepIndex > 0)
-  }
-}
-
-
-/***/ }),
-
-/***/ "./lib/data/history/alignment-group-step.js":
-/*!**************************************************!*\
-  !*** ./lib/data/history/alignment-group-step.js ***!
-  \**************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ AlignmentGroupStep)
-/* harmony export */ });
-/* harmony import */ var _lib_data_history_history_step__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/history/history-step */ "./lib/data/history/history-step.js");
-
-
-class AlignmentGroupStep extends _lib_data_history_history_step__WEBPACK_IMPORTED_MODULE_0__.default {
-  /**
-   *
-   * @param {Token | AlignmentGroup} token
-   * @param {String} type  - add, remove, merge
-   * @param {Object} params - for now it is used only for indexDeleted (merge action)
-   */
-  constructor (token, type, params = {}) {
-    super(token, type)
-    this.indexDeleted = params.indexDeleted
-  }
-}
-
-
-/***/ }),
-
 /***/ "./lib/data/history/alignment-history.js":
 /*!***********************************************!*\
   !*** ./lib/data/history/alignment-history.js ***!
@@ -44654,6 +44454,7 @@ class AlignmentStep extends _lib_data_history_history_step__WEBPACK_IMPORTED_MOD
   constructor (token, type, params = {}) {
     super(token, type)
     this.params = params
+    this.indexDeleted = params.indexDeleted
   }
 }
 
@@ -44694,11 +44495,8 @@ class EditorHistory {
    * Truncates steps to the currentStepIndex
    */
   truncateSteps () {
-    console.info('truncateSteps - ', this.currentStepIndex, this.currentStepOnLast, this)
     if ((this.currentStepIndex !== null) && !this.currentStepOnLast) {
-      console.info('truncateSteps - before', this.steps)
       this.steps = this.steps.slice(0, this.currentStepIndex + 1)
-      console.info('truncateSteps - after', this.steps)
     }
   }
 
@@ -44724,7 +44522,6 @@ class EditorHistory {
 
   undo () {
     if (this.undoAvailable) {
-      console.info('undo - ', this)
       return this.alignToStep(this.currentStepIndex - 1)
     } else {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('TOKENS_EDIT_UNDO_ERROR'))
@@ -44737,7 +44534,6 @@ class EditorHistory {
 
   redo () {
     if (this.redoAvailable) {
-      console.info('redo - ', this)
       return this.alignToStep(this.currentStepIndex + 1)
     } else {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('TOKENS_EDIT_REDO_ERROR'))
@@ -44800,7 +44596,6 @@ class EditorHistory {
     const actions = this.allStepActions
     let finalResult
     try {
-      // console.info('doStepAction ', typeAction, step.type)
       finalResult = actions[typeAction][step.type](step)
     } catch (e) {
       console.error(e)
@@ -44809,7 +44604,6 @@ class EditorHistory {
       }
     }
     finalResult.dataIndexedDB = this.prepareDataForIndexedDBCorrect(step)
-    // console.info('doStepAction finalResult - ', finalResult)
     return finalResult
   }
 
@@ -44893,7 +44687,9 @@ HistoryStep.types = {
   //
   START_GROUP: 'start group',
   //
-  FINISH_GROUP: 'finish group'
+  FINISH_GROUP: 'finish group',
+  //
+  ACTIVATE_GROUP: 'activate group'
 }
 
 HistoryStep.directions = {
@@ -45619,8 +45415,6 @@ class Segment {
       docSourceId: this.docSourceId,
       tokens: this.tokens.map((token, tokenIndex) => token.convertToJSON(tokenIndex))
     }
-
-    // console.info('tokens - ', res.tokens)
     return res
   }
 
@@ -47551,7 +47345,6 @@ class IndexedDBStructure {
     const finalData = []
     for (const alGroupItem of data.alignmentGroups) {
       const uniqueID = `${data.userID}-${data.id}-${alGroupItem.id}`
-
       finalData.push({
         ID: uniqueID,
         alignmentID: data.id,
@@ -47926,7 +47719,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i491-undo-bug.20210919435" : 0
+    return  true ? "i491-undo-bug.20210921608" : 0
   }
 
   static get libName () {
@@ -67219,7 +67012,7 @@ render._withStripped = true
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/texts-controller.test.js --coverage","test-b":"jest tests/vue/align-editor/annotation-block.test.js --coverage","test-c":"jest tests/lib/data/json-conversion.test.js","test-d":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.3.0","@babel/core":"^7.14.3","@babel/plugin-proposal-object-rest-spread":"^7.14.4","@babel/plugin-transform-modules-commonjs":"^7.14.0","@babel/plugin-transform-runtime":"^7.14.3","@babel/preset-env":"^7.14.4","@babel/register":"^7.13.16","@babel/runtime":"^7.14.0","@vue/test-utils":"^1.2.0","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.28.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.23.4","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.2","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.6.18","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.6","papaparse":"^5.3.1","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.34.1","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.14","vue-eslint-parser":"^7.6.0","vue-jest":"^3.0.7","vue-js-modal":"^2.0.1","vue-loader":"^15.9.7","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.14","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.38.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
+module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/aligned-groups-controller.test.js --coverage","test-b":"jest tests/vue/align-editor/segment-block.test.js --coverage","test-c":"jest tests/lib/data/alignment.test.js","test-d":"jest tests/lib/storage/indexed-db-adapter.test.js","test-e":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.3.0","@babel/core":"^7.14.3","@babel/plugin-proposal-object-rest-spread":"^7.14.4","@babel/plugin-transform-modules-commonjs":"^7.14.0","@babel/plugin-transform-runtime":"^7.14.3","@babel/preset-env":"^7.14.4","@babel/register":"^7.13.16","@babel/runtime":"^7.14.0","@vue/test-utils":"^1.2.0","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.28.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.23.4","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.2","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.6.18","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.6","papaparse":"^5.3.1","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.34.1","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.14","vue-eslint-parser":"^7.6.0","vue-jest":"^3.0.7","vue-js-modal":"^2.0.1","vue-loader":"^15.9.7","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.14","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.38.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
 
 /***/ }),
 

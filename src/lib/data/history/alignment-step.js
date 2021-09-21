@@ -10,5 +10,6 @@ export default class AlignmentStep extends HistoryStep {
   constructor (token, type, params = {}) {
     super(token, type)
     this.params = params
+    this.indexDeleted = params.indexDeleted
   }
 }

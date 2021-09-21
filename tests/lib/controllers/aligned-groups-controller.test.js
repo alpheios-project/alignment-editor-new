@@ -204,6 +204,7 @@ describe('aligned-groups-controller.test.js', () => {
     expect(alignedGC.activateGroupByToken).toHaveBeenCalledWith(tokenTarget1, targetIds[0])
     expect(alignment.hasActiveAlignmentGroup).toBeTruthy() // group was successfully activated
     expect(alignment.activeAlignmentGroup.groupLen).toEqual(2)
+
   })
 
   it('8 AlignedGroupsController - clickToken executes startNewAlignmentGroup if there is no active alignment and token is not grouped inside correct target text (limitByTargetId)', async () => {
@@ -617,12 +618,14 @@ describe('aligned-groups-controller.test.js', () => {
     alignedGC.clickToken(tokenTarget2, targetIds[0]) // active group
     alignedGC.clickToken(tokenOrigin2, targetIds[0])
 
+
     expect(alignedGC.isFirstInActiveGroup(tokenTarget2)).toBeTruthy()
     expect(alignedGC.isFirstInActiveGroup(tokenOrigin2)).toBeFalsy()
     expect(alignedGC.isFirstInActiveGroup(tokenOrigin1)).toBeFalsy()
 
     expect(alignedGC.isFirstInActiveGroup(tokenTarget2, targetIds[0])).toBeTruthy()
     expect(alignedGC.isFirstInActiveGroup(tokenTarget2, targetIds[1])).toBeFalsy()
+
   })
 
   it('20 AlignedGroupsController - hasActiveAlignmentGroup returns true if an active alignment group is started', async () => {
@@ -953,6 +956,7 @@ describe('aligned-groups-controller.test.js', () => {
     alignedGC.startOver()
     expect(alignedGC.alignment).toBeNull()
   })
+
 })
 
 

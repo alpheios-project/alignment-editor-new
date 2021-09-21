@@ -48,7 +48,7 @@ describe('indexed-db-structure.test.js', () => {
 
   it('2 IndexedDBAdapter - update - insert/update data to IndexedDB', async () => {
     const formattedAlignment = alignment1.convertToIndexedDB({ textAsBlob: false })
-   
+
     const dbAdapter = new IndexedDBAdapter()
     await dbAdapter.update(formattedAlignment)
 

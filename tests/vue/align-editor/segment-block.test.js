@@ -347,17 +347,18 @@ describe('segment-block.test.js', () => {
       }
     })
 
-    const alGroup = createAlignmentGroup(true)
+    createAlignmentGroup(true)
 
     // we didn't activate hover
+    const steps = appC.alignedGC.alignment.alignmentHistory.steps
 
-    expect(cmp.vm.selectedToken(alGroup.steps[0].token, allTargetTextsIds[1])).toBeFalsy() // first origin token
-    expect(cmp.vm.selectedToken(alGroup.steps[1].token, allTargetTextsIds[1])).toBeFalsy() // target token
-    cmp.vm.addHoverToken(alGroup.steps[0].token) // activated hovering on the group
+    expect(cmp.vm.selectedToken(steps[0].token, allTargetTextsIds[1])).toBeFalsy() // first origin token
+    expect(cmp.vm.selectedToken(steps[1].token, allTargetTextsIds[1])).toBeFalsy() // target token
+    cmp.vm.addHoverToken(steps[0].token) // activated hovering on the group
 
     // we activated hover
-    expect(cmp.vm.selectedToken(alGroup.steps[0].token, allTargetTextsIds[1])).toBeTruthy() // first origin token
-    expect(cmp.vm.selectedToken(alGroup.steps[1].token, allTargetTextsIds[1])).toBeTruthy() // target token
+    expect(cmp.vm.selectedToken(steps[0].token, allTargetTextsIds[1])).toBeTruthy() // first origin token
+    expect(cmp.vm.selectedToken(steps[1].token, allTargetTextsIds[1])).toBeTruthy() // target token
   })
 
   it('11 SegmentBlock - groupedToken - defines if token is grouped', async () => {
@@ -372,10 +373,11 @@ describe('segment-block.test.js', () => {
       }
     })
 
-    const alGroup = createAlignmentGroup(true)
+    createAlignmentGroup(true)
 
-    expect(cmp.vm.groupedToken(alGroup.steps[0].token, allTargetTextsIds[1])).toBeTruthy() // first origin token
-    expect(cmp.vm.groupedToken(alGroup.steps[1].token, allTargetTextsIds[1])).toBeTruthy() // target token
+    const steps = appC.alignedGC.alignment.alignmentHistory.steps
+    expect(cmp.vm.groupedToken(steps[0].token, allTargetTextsIds[1])).toBeTruthy() // first origin token
+    expect(cmp.vm.groupedToken(steps[1].token, allTargetTextsIds[1])).toBeTruthy() // target token
 
     expect(cmp.vm.groupedToken(originSegment.tokens[1], allTargetTextsIds[1])).toBeFalsy() // was not added to the group
   })
@@ -392,15 +394,16 @@ describe('segment-block.test.js', () => {
       }
     })
 
-    const alGroup = createAlignmentGroup(false)
+    createAlignmentGroup(false)
+    const steps = appC.alignedGC.alignment.alignmentHistory.steps
 
-    expect(cmp.vm.inActiveGroup(alGroup.steps[0].token, allTargetTextsIds[1])).toBeTruthy() // first origin token
-    expect(cmp.vm.inActiveGroup(alGroup.steps[1].token, allTargetTextsIds[1])).toBeTruthy() // target token
+    expect(cmp.vm.inActiveGroup(steps[0].token, allTargetTextsIds[1])).toBeTruthy() // first origin token
+    expect(cmp.vm.inActiveGroup(steps[1].token, allTargetTextsIds[1])).toBeTruthy() // target token
 
     expect(cmp.vm.inActiveGroup(originSegment.tokens[1], allTargetTextsIds[1])).toBeFalsy() // was not added to the group
 
-    expect(cmp.vm.isFirstInActiveGroup(alGroup.steps[0].token, allTargetTextsIds[1])).toBeTruthy() // first origin token
-    expect(cmp.vm.isFirstInActiveGroup(alGroup.steps[1].token, allTargetTextsIds[1])).toBeFalsy() // target token
+    expect(cmp.vm.isFirstInActiveGroup(steps[0].token, allTargetTextsIds[1])).toBeTruthy() // first origin token
+    expect(cmp.vm.isFirstInActiveGroup(steps[1].token, allTargetTextsIds[1])).toBeFalsy() // target token
   })
 
   it('13 SegmentBlock - allPartsKeys, currentPartIndexes, allTokens, click next, click prev', async () => {
@@ -455,4 +458,5 @@ describe('segment-block.test.js', () => {
     expect(cmp.vm.allTokens.map(token => token.word)).toEqual([ 'Vor', 'rund', '13', '5', 'Milliarden', 'Jahren', 'entstanden'])
 
   }, 50000)
+
 })
