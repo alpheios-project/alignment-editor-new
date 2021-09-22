@@ -11,7 +11,7 @@ import TokensEditor from '@/vue/tokens-editor/tokens-editor.vue'
 import TextsController from '@/lib/controllers/texts-controller.js'
 import AppController from '@/lib/controllers/app-controller.js'
 import AlignedGroupsController from '@/lib/controllers/aligned-groups-controller.js'
-import HistoryController from '@/lib/controllers/history-controller.js'
+import HistoryAlGroupsController from '@/lib/controllers/history-algroups-controller.js'
 
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
@@ -51,7 +51,7 @@ describe('app.test.js', () => {
     appC.defineTextController(appC.store)
     appC.defineAlignedGroupsController(appC.store)
     appC.defineTokensEditController(appC.store)
-    appC.defineHistoryController(appC.store)
+    appC.defineHistoryAlGroupsController(appC.store)
   })
 
   it('1 App - renders a vue instance (min requirements)', () => {
@@ -103,24 +103,24 @@ describe('app.test.js', () => {
   })
 
 
-  it('6 App - undoAction - executes $historyC.undo', () => {
+  it('6 App - undoAction - executes $historyAGC.undo', () => {
     let cmp = shallowMount(App)
 
-    expect(cmp.vm.$historyC).toEqual(expect.any(HistoryController))
-    cmp.vm.$historyC.undo = jest.fn()
+    expect(cmp.vm.$historyAGC).toEqual(expect.any(HistoryAlGroupsController))
+    cmp.vm.$historyAGC.undo = jest.fn()
     
     cmp.vm.undoAction()
-    expect(cmp.vm.$historyC.undo).toHaveBeenCalled()
+    expect(cmp.vm.$historyAGC.undo).toHaveBeenCalled()
   })
 
-  it('7 App - redoAction - executes $historyC.redo', () => {
+  it('7 App - redoAction - executes $historyAGC.redo', () => {
     let cmp = shallowMount(App)
 
-    expect(cmp.vm.$historyC).toEqual(expect.any(HistoryController))
-    cmp.vm.$historyC.redo = jest.fn()
+    expect(cmp.vm.$historyAGC).toEqual(expect.any(HistoryAlGroupsController))
+    cmp.vm.$historyAGC.redo = jest.fn()
     
     cmp.vm.redoAction()
-    expect(cmp.vm.$historyC.redo).toHaveBeenCalled()
+    expect(cmp.vm.$historyAGC.redo).toHaveBeenCalled()
   })
 
   it('8 App - addTarget - executes $textC.updateTargetDocSource', () => {
@@ -274,14 +274,14 @@ describe('app.test.js', () => {
 
     // decided to start over
     jest.spyOn(cmp.vm.$textC, 'createAlignment')
-    jest.spyOn(cmp.vm.$historyC, 'startTracking')
+    jest.spyOn(cmp.vm.$historyAGC, 'startTracking')
     jest.spyOn(NotificationSingleton, 'clearNotifications')
     jest.spyOn(cmp.vm, 'showSourceTextEditor')
 
     cmp.vm.startOver()
 
     expect(cmp.vm.$textC.createAlignment).toHaveBeenCalled()
-    expect(cmp.vm.$historyC.startTracking).toHaveBeenCalled()
+    expect(cmp.vm.$historyAGC.startTracking).toHaveBeenCalled()
     expect(NotificationSingleton.clearNotifications).toHaveBeenCalled()
     expect(cmp.vm.showSourceTextEditor).toHaveBeenCalled()
 

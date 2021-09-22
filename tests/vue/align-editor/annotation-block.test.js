@@ -36,11 +36,11 @@ describe('annotation-block.test.js', () => {
     appC.defineTextController(appC.store)
     appC.defineAlignedGroupsController(appC.store)
     appC.defineTokensEditController(appC.store)
-    appC.defineHistoryController(appC.store)
+    appC.defineHistoryAlGroupsController(appC.store)
 
     alignment = Alignment.convertFromJSON(LatEng)
     appC.textC.alignment = alignment
-    appC.historyC.startTracking(appC.textC.alignment)
+    appC.historyAGC.startTracking(appC.textC.alignment)
     appC.alignedGC.alignment = alignment
 
     token = appC.alignedGC.allAlignedTextsSegments[0].origin.tokens[0]

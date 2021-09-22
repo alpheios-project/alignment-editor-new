@@ -365,7 +365,6 @@ export default class IndexedDBStructure {
     const finalData = []
     for (const alGroupItem of data.alignmentGroups) {
       const uniqueID = `${data.userID}-${data.id}-${alGroupItem.id}`
-
       finalData.push({
         ID: uniqueID,
         alignmentID: data.id,

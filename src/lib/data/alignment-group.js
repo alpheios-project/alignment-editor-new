@@ -1,6 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
 import HistoryStep from '@/lib/data/history/history-step.js'
-import AlignmentGroupHistory from '@/lib/data/history/alignment-group-history'
 import AlignmentGroupActions from '@/lib/data/actions/alignment-group-actions'
 
 export default class AlignmentGroup {
@@ -11,16 +10,15 @@ export default class AlignmentGroup {
    */
   constructor (token, targetId, empty = false, id = null) {
     this.id = id || uuidv4()
-    this.alignmentGroupHistory = new AlignmentGroupHistory()
 
     if (!empty) {
-      this.alignmentGroupActions = new AlignmentGroupActions({
-        targetId,
-        alignmentGroupHistory: this.alignmentGroupHistory
-      })
+      this.alignmentGroupActions = new AlignmentGroupActions(targetId)
 
-      this.alignmentGroupHistory.allStepActions = this.allStepActions
-      if (token) { this.add(token) }
+      if (token) {
+        this.add(token)
+      } else {
+        this.firstStepToken = null
+      }
     }
   }
 
@@ -49,10 +47,6 @@ export default class AlignmentGroup {
     return this.origin.length + this.target.length
   }
 
-  get firstStepToken () {
-    return this.alignmentGroupHistory.firstStepToken
-  }
-
   get targetId () {
     return this.alignmentGroupActions.targetId
   }
@@ -72,24 +66,7 @@ export default class AlignmentGroup {
     return ids
   }
 
-  get currentStepOnLast () {
-    return this.alignmentGroupHistory.currentStepOnLast
-  }
-
-  get steps () {
-    return this.alignmentGroupHistory.steps
-  }
-
   // checks
-
-  /**
-   *
-   * @param {Token} token
-   * @returns {Boolean} - true - if the token is inside the group, false - if not
-   */
-  includesToken (token) {
-    return this.alignmentGroupActions.includesToken(token)
-  }
 
   /**
    * Checks if the alignment group has the same segment
@@ -119,13 +96,12 @@ export default class AlignmentGroup {
     return this.theSameSegment(segmentIndex) && this.hasTheSameTargetId(targetId)
   }
 
-  /**
-   * Checks if the token is equal saved to the first step by unique idWord
-   * @param {Token} token
-   * @returns {Boolean} true - if this is the first step, false - not
-   */
+  includesToken (token) {
+    return Boolean(token) && (this.origin.includes(token.idWord) || this.target.includes(token.idWord))
+  }
+
   isFirstToken (token, targetId) {
-    return this.alignmentGroupActions.isFirstToken(token, targetId)
+    return this.firstStepToken && this.hasTheSameTargetId(targetId) && this.includesToken(token) && (this.firstStepToken.idWord === token.idWord)
   }
 
   /**
@@ -143,15 +119,20 @@ export default class AlignmentGroup {
    * @returns {Boolean} true - if the same type, false - if not
    */
   tokenTheSameTextTypeAsStart (token) {
-    return this.firstStepToken && this.alignmentGroupHistory.steps.length > 0 && this.firstStepToken.textType === token.textType
+    return this.firstStepToken && this.firstStepToken.textType === token.textType
   }
 
   /**
    *
    * @param {Token} token
    */
+
   updateFirstStepToken (token) {
-    return this.alignmentGroupActions.updateFirstStepToken(token)
+    if (this.includesToken(token)) {
+      this.firstStepToken = token
+    } else if (!token) {
+      this.firstStepToken = null
+    }
   }
 
   /**
@@ -161,14 +142,41 @@ export default class AlignmentGroup {
     return ((this.origin.length === 0) || (this.target.length === 0)) && (this.groupLen > 0)
   }
 
+  get firstStepNeedToBeUpdated () {
+    return !this.firstStepToken || !this.includesToken(this.firstStepToken)
+  }
+
+  defineFirstStepToken (alignmentHistory, redefine = false) {
+    if (alignmentHistory || (this.firstStepNeedToBeUpdated && redefine)) {
+      let firstStepToken = null
+      for (let i = alignmentHistory.currentStepIndex; i >= 0; i--) {
+        if (this.includesToken(alignmentHistory.steps[i].token) && (this.id === alignmentHistory.steps[i].params.groupId)) {
+          firstStepToken = alignmentHistory.steps[i].token
+        }
+      }
+
+      this.updateFirstStepToken(firstStepToken)
+    }
+  }
+
   // actions
 
   add (token) {
-    return this.alignmentGroupActions.add(token)
+    const res = this.alignmentGroupActions.add(token)
+    if (res) {
+      if (this.groupLen === 1) {
+        this.firstStepToken = token
+      }
+      return res
+    }
   }
 
-  remove (token) {
-    return this.alignmentGroupActions.remove(token)
+  remove (token, alignmentHistory) {
+    const res = this.alignmentGroupActions.remove(token)
+    if (res) {
+      this.defineFirstStepToken(alignmentHistory)
+      return res
+    }
   }
 
   /**
@@ -191,18 +199,6 @@ export default class AlignmentGroup {
     return this.alignmentGroupActions.unmerge(step)
   }
 
-  undo () {
-    return this.alignmentGroupHistory.undo()
-  }
-
-  redo () {
-    return this.alignmentGroupHistory.redo()
-  }
-
-  get undoAvailable () {
-    return this.alignmentGroupHistory.undoAvailable
-  }
-
   /**
    * The full list with undo/redo actions - removeStepAction, applyStepAction for all step types
    * used in doStepAction
@@ -222,6 +218,12 @@ export default class AlignmentGroup {
     }
   }
 
+  update ({ id }) {
+    if (id) {
+      this.id = id
+    }
+  }
+
   convertToJSON () {
     return {
       id: this.id,
@@ -233,10 +235,6 @@ export default class AlignmentGroup {
     const alGroup = new AlignmentGroup(null, null, true, data.id)
 
     alGroup.alignmentGroupActions = AlignmentGroupActions.convertFromJSON(data.actions)
-    alGroup.alignmentGroupActions.alignmentGroupHistory = alGroup.alignmentGroupHistory
-
-    alGroup.alignmentGroupHistory.allStepActions = alGroup.allStepActions
-
     return alGroup
   }
 
@@ -244,10 +242,6 @@ export default class AlignmentGroup {
     const alGroup = new AlignmentGroup(null, null, true, data.alGroupId)
 
     alGroup.alignmentGroupActions = AlignmentGroupActions.convertFromJSON(data)
-    alGroup.alignmentGroupActions.alignmentGroupHistory = alGroup.alignmentGroupHistory
-
-    alGroup.alignmentGroupHistory.allStepActions = alGroup.allStepActions
-
     return alGroup
   }
 }

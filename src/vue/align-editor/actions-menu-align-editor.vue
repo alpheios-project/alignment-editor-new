@@ -1,11 +1,11 @@
 <template>
     <div class="alpheios-alignment-editor-actions-menu">
       <div class="alpheios-alignment-editor-actions-menu__buttons">
-        <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  id="alpheios-actions-menu-align-editor-button__undo"
+        <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button  alpheios-disabled"  id="alpheios-actions-menu-align-editor-button__undo"
             @click="undoAction" :disabled="!undoAvailable" >
             {{ l10n.getMsgS('ACTIONS_UNDO_TITLE') }}
         </button>
-        <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-align-editor-button__redo"
+        <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button  alpheios-disabled" id="alpheios-actions-menu-align-editor-button__redo"
             @click="redoAction" :disabled="!redoAvailable" >
             {{ l10n.getMsgS('ACTIONS_REDO_TITLE') }}
         </button>
@@ -31,18 +31,18 @@ export default {
       return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
     },
     undoAvailable () {
-      return this.alignEditAvailable && this.$historyC.undoAvailable
+      return this.alignEditAvailable && this.$historyAGC.undoAvailable
     },
     redoAvailable () {
-      return this.alignEditAvailable && this.$historyC.redoAvailable
+      return this.alignEditAvailable && this.$historyAGC.redoAvailable
     }
   },
   methods: {
     undoAction () {
-      this.$historyC.undo()
+      this.$historyAGC.undo()
     },
     redoAction () {
-      this.$historyC.redo()
+      this.$historyAGC.redo()
     }
   }
 }

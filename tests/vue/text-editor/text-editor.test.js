@@ -41,7 +41,7 @@ describe('text-editor.test.js', () => {
     appC.defineAlignedGroupsController(appC.store)
     appC.defineTokensEditController(appC.store)
     appC.defineTokensEditController(appC.store)
-    appC.defineHistoryController(appC.store)
+    appC.defineHistoryAlGroupsController(appC.store)
   })
 
   it('1 TextEditor - renders a vue instance (min requirements)', () => {
@@ -69,7 +69,7 @@ describe('text-editor.test.js', () => {
 
     expect(cmp.vm.$textC).toEqual(expect.any(TextsController))
     expect(cmp.vm.$textC.alignment).toEqual(expect.any(Alignment))
-    expect(cmp.vm.$historyC.alignment).toEqual(expect.any(Alignment))
+    expect(cmp.vm.$historyAGC.alignment).toEqual(expect.any(Alignment))
   })
 */
 

@@ -36,7 +36,7 @@ describe('main-menu.test.js', () => {
     appC.defineTextController(appC.store)
     appC.defineAlignedGroupsController(appC.store)
     appC.defineTokensEditController(appC.store)
-    appC.defineHistoryController(appC.store)
+    appC.defineHistoryAlGroupsController(appC.store)
   })
 
   it('1 MainMenu - renders a vue instance (min requirements)', () => {

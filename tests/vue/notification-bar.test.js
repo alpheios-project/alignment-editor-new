@@ -37,7 +37,7 @@ describe('notification-bar.test.js', () => {
     appC.defineTextController(appC.store)
     appC.defineAlignedGroupsController(appC.store)
     appC.defineTokensEditController(appC.store)
-    appC.defineHistoryController(appC.store)
+    appC.defineHistoryAlGroupsController(appC.store)
   })
 
   it('1 NotificationBar - renders a vue instance (min requirements)', () => {

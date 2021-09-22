@@ -102,10 +102,10 @@ export default {
       return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$textC.couldStartAlign && this.$textC.checkSize()
     },
     undoAvailable () {
-      return this.alignEditAvailable && this.$historyC.undoAvailable
+      return this.alignEditAvailable && this.$historyAGC.undoAvailable
     },
     redoAvailable () {
-      return this.alignEditAvailable && this.$historyC.redoAvailable
+      return this.alignEditAvailable && this.$historyAGC.redoAvailable
     },
     downloadAvailable () {
       return Boolean(this.$store.state.docSourceUpdated) && this.$textC.originDocSourceHasText
