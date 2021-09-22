@@ -14,7 +14,7 @@
     "test-vue": "jest tests/vue --coverage",
     "test-a": "jest tests/lib/controllers/aligned-groups-controller.test.js --coverage",
     "test-b": "jest tests/vue/align-editor/segment-block.test.js --coverage",
-    "test-c": "jest tests/lib/data/alignment-history-cases.test.js",
+    "test-c": "jest tests/lib/data/tokens-edit-history-cases.test.js",
     "test-d": "jest tests/lib/storage/indexed-db-adapter.test.js",
     "test-e": "jest tests/_output/vue/app.test.js --coverage",
     "github-build": "node --experimental-modules --experimental-json-modules ./github-build.mjs",

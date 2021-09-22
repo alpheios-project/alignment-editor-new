@@ -705,27 +705,6 @@ export default class Alignment {
     }
     return false
   }
-
-  /**
-   * Step back inside active group
-   * If we step back merge step, then we would insert unmerged group back to the list
-   */
-  /*
-  undoInActiveGroup () {
-    if (!this.hasActiveAlignmentGroup) {
-      return
-    }
-
-    const dataResult = this.activeAlignmentGroup.undo()
-
-    if (dataResult && dataResult.result && dataResult.data.length > 0) {
-      for (let i = 0; i < dataResult.data.length; i++) {
-        this.insertUnmergedGroup(dataResult.data[i])
-      }
-    }
-    return true
-  }
-*/
   /**
    *
    * @param {Object} data
@@ -738,16 +717,6 @@ export default class Alignment {
   }
 
   /**
-   * Step forward inside active group
-   */
-  /*
-  redoInActiveGroup () {
-    if (this.hasActiveAlignmentGroup) {
-      return this.activeAlignmentGroup.redo()
-    }
-  }
-  */
-  /**
    * Saves active alignment group the list with saved undone groups
    */
 
@@ -757,18 +726,6 @@ export default class Alignment {
       return true
     }
   }
-
-  /**
-   * Extracts alignment group from the list and saves it to active
-   */
-  /*
-  redoActiveGroup () {
-    if (!this.hasActiveAlignmentGroup) {
-      this.activeAlignmentGroup = this.undoneGroups.pop()
-      return true
-    }
-  }
-  */
 
   /**
    * This method finds all saved groups that includes the token and filtered by passed targetId and saves to hoveredGroups
@@ -1538,6 +1495,9 @@ export default class Alignment {
 
     const result = this.alignmentHistory.redo()
     if (result.data[0]) {
+      if (result.data[0].removeGroup) {
+        this.removeGroupFromAlignmentGroups(result.data[0].tokensGroup)
+      }
       if (result.data[0].defineFirstStepToken && this.hasActiveAlignmentGroup) {
         this.activeAlignmentGroup.defineFirstStepToken(this.alignmentHistory, true)
       }

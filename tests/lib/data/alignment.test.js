@@ -41,20 +41,6 @@ describe('alignment.test.js', () => {
     expect(alignment.activeAlignmentGroup).toBeNull()   
   })
 
-  it.skip('2 Alignment - constructor origin.docSource and target.docSource if they are pased', () => {
-    const originDocSource = new SourceText('origin', {
-      text: 'some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
-    })
-    const targetDocSource = new SourceText('target', {
-      text: 'some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
-    })
-
-    const alignment = new Alignment(originDocSource, targetDocSource)
-
-    expect(alignment.origin).toHaveProperty('docSource', expect.any(SourceText))
-    
-    expect(Object.values(alignment.targets)[0]).toHaveProperty('docSource', expect.any(SourceText))
-  })
 
   it('3 Alignment - readyForTokenize return true if origin docSource and target docSource are defined with all obligatory fields (text, direction, lang)', () => {
     const originDocSource = new SourceText('origin', {

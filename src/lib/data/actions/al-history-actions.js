@@ -89,10 +89,12 @@ export default class AlHistoryActions {
   }
 
   applyMergeStep (step) {
+    const tokensGroup = step.token
     this.activeAlignmentGroup.origin.push(...step.token.origin)
     this.activeAlignmentGroup.target.push(...step.token.target)
     return {
-      result: true
+      result: true,
+      data: { removeGroup: true,  tokensGroup }
     }
   }
 }
