@@ -94,7 +94,7 @@ export default class AlHistoryActions {
     this.activeAlignmentGroup.target.push(...step.token.target)
     return {
       result: true,
-      data: { removeGroup: true,  tokensGroup }
+      data: { removeGroup: true, tokensGroup }
     }
   }
 }

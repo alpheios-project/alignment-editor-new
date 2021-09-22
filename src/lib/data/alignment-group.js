@@ -69,16 +69,6 @@ export default class AlignmentGroup {
   // checks
 
   /**
-   *
-   * @param {Token} token
-   * @returns {Boolean} - true - if the token is inside the group, false - if not
-   */
-  /*
-  includesToken (token) {
-    return this.alignmentGroupActions.includesToken(token)
-  }
-*/
-  /**
    * Checks if the alignment group has the same segment
    * @param {Number} segmentIndex
    * @returns {Boolean}
@@ -105,17 +95,6 @@ export default class AlignmentGroup {
   hasTheSameSegmentTargetId (segmentIndex, targetId) {
     return this.theSameSegment(segmentIndex) && this.hasTheSameTargetId(targetId)
   }
-
-  /**
-   * Checks if the token is equal saved to the first step by unique idWord
-   * @param {Token} token
-   * @returns {Boolean} true - if this is the first step, false - not
-   */
-  /*
-  isFirstToken (token, targetId) {
-    return this.alignmentGroupActions.isFirstToken(token, targetId)
-  }
-*/
 
   includesToken (token) {
     return Boolean(token) && (this.origin.includes(token.idWord) || this.target.includes(token.idWord))

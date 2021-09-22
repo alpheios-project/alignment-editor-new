@@ -37,7 +37,6 @@ export default class Alignment {
     this.activeAlignmentGroup = null
 
     this.hoveredGroups = []
-    // this.undoneGroups = []
 
     this.annotations = {}
 
@@ -477,7 +476,6 @@ export default class Alignment {
     if (!token.isTheSameTargetId(limitByTargetId)) { return false }
 
     this.activeAlignmentGroup = new AlignmentGroup(token, limitByTargetId)
-    // this.undoneGroups = []
 
     this.alignmentHistory.truncateSteps()
     this.alignmentHistory.addStep(token, HistoryStep.types.START_GROUP, { groupId: this.activeAlignmentGroup.id, targetId: this.activeAlignmentGroup.targetId })
@@ -705,6 +703,7 @@ export default class Alignment {
     }
     return false
   }
+
   /**
    *
    * @param {Object} data

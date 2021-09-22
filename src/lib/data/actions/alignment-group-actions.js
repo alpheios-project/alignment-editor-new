@@ -53,8 +53,6 @@ export default class AlignmentGroupActions {
     }
 
     this[token.textType].push(token.idWord)
-
-    // this.defineFirstStepToken()
     return true
   }
 

@@ -12,7 +12,7 @@ export default class HistoryAlGroupsController {
    * @returns {Boolean} true - undo could be done, false - not
    */
   get redoAvailable () {
-    return Boolean(this.alignment) && !this.tabsViewMode && this.alignment.redoAvailableAlGroups
+    return Boolean(this.alignment) && this.alignment.redoAvailableAlGroups
   }
 
   /**
@@ -20,7 +20,7 @@ export default class HistoryAlGroupsController {
    * @returns {Boolean} true - redo could be done, false - not
    */
   get undoAvailable () {
-    return Boolean(this.alignment) && !this.tabsViewMode && this.alignment.undoAvailableAlGroups
+    return Boolean(this.alignment) && this.alignment.undoAvailableAlGroups
   }
 
   /**
