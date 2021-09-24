@@ -47835,7 +47835,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i537-annot-edit-token.20210924370" : 0
+    return  true ? "i537-annot-edit-token.20210924396" : 0
   }
 
   static get libName () {
@@ -51802,11 +51802,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 
@@ -51833,9 +51828,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     versionData () {
       return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`
-    },
-    allowUpdateTokenOptionItem () {
-      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.allowUpdateTokenWord
     }
   },
   methods: {
@@ -62869,19 +62861,6 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "alpheios-modal-body" }, [
-        _c(
-          "div",
-          { staticClass: "alpheios-alignment-editor-modal-options-block" },
-          [
-            _c("option-item-block", {
-              attrs: { optionItem: _vm.allowUpdateTokenOptionItem }
-            })
-          ],
-          1
-        )
-      ]),
-      _vm._v(" "),
       _c("div", { staticClass: "alpheios-modal-footer" }, [
         _c("p", { staticClass: "alpheios-alignment-options__buttons" }, [
           _c(
@@ -66361,7 +66340,10 @@ var render = function() {
                 {
                   staticClass:
                     "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-                  attrs: { id: "alpheios-actions-menu-button__enter-options" },
+                  attrs: {
+                    id: "alpheios-actions-menu-button__enter-options",
+                    disabled: true
+                  },
                   on: {
                     click: function($event) {
                       return _vm.$modal.show("options-edit")
