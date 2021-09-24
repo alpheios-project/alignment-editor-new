@@ -210,8 +210,6 @@ describe('token.test.js', () => {
     segment.limitTokensToPartNum(1)
     expect(segment.allPartNums).toEqual(prepareParts(15))
     expect(segment.currentPartNums).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15])
-
-    // console.info(segment)
   })
 
   it('8 Segment - partsTokens', () => {

@@ -83,8 +83,6 @@ describe('aligned-groups-indexeddb-controller.test.js', () => {
     expect(alignment1.alignmentGroups.length).toEqual(0)
     expect(alignment1.activeAlignmentGroup).toEqual(expect.any(AlignmentGroup))
 
-    // console.info(alignment1)
-
     let alGroupsDB = await queryFromIndexedDB(dbAdapter, alignment1)
     expect(alGroupsDB.length).toEqual(0)
 
@@ -94,7 +92,6 @@ describe('aligned-groups-indexeddb-controller.test.js', () => {
     expect(alignment1.activeAlignmentGroup).toBeNull()
 
     alGroupsDB = await queryFromIndexedDB(dbAdapter, alignment1)
-    // console.info(alGroupsDB)
 
     expect(alGroupsDB.length).toEqual(1)
     expect(alGroupsDB[0].origin.length).toEqual(1)
@@ -115,7 +112,6 @@ describe('aligned-groups-indexeddb-controller.test.js', () => {
     expect(alignment1.alignmentGroups.length).toEqual(1)
     expect(alignment1.activeAlignmentGroup).toBeNull()
     alGroupsDB = await queryFromIndexedDB(dbAdapter, alignment1)
-    // console.info(alGroupsDB)
 
     expect(alGroupsDB.length).toEqual(1)
     expect(alGroupsDB[0].origin.length).toEqual(1)
@@ -156,7 +152,6 @@ describe('aligned-groups-indexeddb-controller.test.js', () => {
     expect(alignment1.activeAlignmentGroup).toBeNull()
 
     let alGroupsDB = await queryFromIndexedDB(dbAdapter, alignment1)
-    // console.info(alGroupsDB)
 
     expect(alGroupsDB.length).toEqual(1)
     expect(alGroupsDB[0].origin.length).toEqual(1)
@@ -216,7 +211,6 @@ describe('aligned-groups-indexeddb-controller.test.js', () => {
     expect(alignment1.activeAlignmentGroup).toBeNull()
 
     let alGroupsDB = await queryFromIndexedDB(dbAdapter, alignment1)
-    // console.info(alGroupsDB)
 
     expect(alGroupsDB.length).toEqual(2)
     expect(alGroupsDB[0].origin.length).toEqual(1)
@@ -233,7 +227,6 @@ describe('aligned-groups-indexeddb-controller.test.js', () => {
     expect(alignment1.activeAlignmentGroup).toEqual(expect.any(AlignmentGroup))
 
     alGroupsDB = await queryFromIndexedDB(dbAdapter, alignment1)
-    // console.info(alGroupsDB)
 
     expect(alGroupsDB.length).toEqual(0)
 

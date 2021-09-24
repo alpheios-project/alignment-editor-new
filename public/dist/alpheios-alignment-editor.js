@@ -41107,7 +41107,6 @@ class TokensEditController {
 
   async undoTokensEditStep () {
     const data = this.alignment.undoTokensEditStep()
-
     if (data.result) {
       this.store.commit('incrementTokenUpdated')
       await this.prepareDeleteFromStorage(data.dataIndexedDB)
@@ -41738,11 +41737,13 @@ class TokensEditActions {
     })
 
     this.tokensEditHistory.truncateSteps()
-    this.tokensEditHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.UPDATE, { wasIdWord: token.idWord, wasWord: token.word, newWord: word, newIdWord })
+
+    const wasIdWord = token.idWord
+    this.tokensEditHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.UPDATE, { wasIdWord, wasWord: token.word, newWord: word, newIdWord })
     token.update({ word, idWord: newIdWord })
     this.reIndexSentence(segment)
 
-    return true
+    return { wasIdWord }
   }
 
   /**
@@ -41750,7 +41751,7 @@ class TokensEditActions {
    * @param {String} direction - left/right
    * @returns {Boolean}
    */
-  mergeToken (token, direction) {
+  mergeToken (token, direction, annotations) {
     const { segment, tokenIndex, tokenResult, position } = this.getNextPrevToken(token, direction)
 
     const alignedText = this.getAlignedTextByToken(token)
@@ -41760,12 +41761,16 @@ class TokensEditActions {
       changeType: _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.MERGE
     })
 
+    const wasIdWord = tokenResult.idWord
     const stepParams = {
-      wasIdWord: tokenResult.idWord,
+      wasIdWord,
       wasWord: tokenResult.word,
       mergedToken: token,
       position,
       newIdWord
+    }
+    if (annotations && annotations[token.idWord]) {
+      stepParams.wasAnnotations = [...annotations[token.idWord]]
     }
 
     tokenResult.merge({ token, position, newIdWord })
@@ -41776,7 +41781,9 @@ class TokensEditActions {
     this.tokensEditHistory.addStep(tokenResult, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.MERGE, stepParams)
     segment.deleteToken(tokenIndex)
     this.reIndexSentence(segment)
-    return true
+    return {
+      wasIdWord: [wasIdWord, token.idWord], token: tokenResult
+    }
   }
 
   /**
@@ -41803,8 +41810,9 @@ class TokensEditActions {
       indexWord: 2
     })
 
+    const wasIdWord = token.idWord
     const stepParams = {
-      wasIdWord: token.idWord,
+      wasIdWord,
       wasWord: token.word,
       newIdWord1,
       newIdWord2
@@ -41825,7 +41833,11 @@ class TokensEditActions {
 
     segment.addNewToken(tokenIndex, newIdWord2, tokenWordParts[1])
     this.reIndexSentence(segment)
-    return true
+    return {
+      result: true,
+      wasIdWord,
+      token
+    }
   }
 
   changeLineBreak (token, hasLineBreak) {
@@ -41842,8 +41854,9 @@ class TokensEditActions {
     this.tokensEditHistory.truncateSteps()
     this.tokensEditHistory.addStep(token, changeType, { wasIdWord: token.idWord, newIdWord })
 
+    const wasIdWord = token.idWord
     token.update({ hasLineBreak, idWord: newIdWord })
-    return true
+    return { wasIdWord }
   }
 
   /**
@@ -41900,7 +41913,8 @@ class TokensEditActions {
     this.reIndexSentence(newSegment)
     return {
       result: true,
-      newSegmentIndex: newSegment.index
+      newSegmentIndex: newSegment.index,
+      wasIdWord
     }
   }
 
@@ -42042,7 +42056,7 @@ class TokensEditActions {
    * @param {Token} token
    * @returns {Boolean}
    */
-  deleteToken (token) {
+  deleteToken (token, annotations) {
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
 
@@ -42050,7 +42064,7 @@ class TokensEditActions {
     if (deletedToken) {
       this.tokensEditHistory.truncateSteps()
       this.tokensEditHistory.addStep(null, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.DELETE, {
-        segmentToDelete: segment, deleteIndex: tokenIndex, deletedToken
+        segmentToDelete: segment, deleteIndex: tokenIndex, deletedToken, deletedAnnotations: annotations
       })
 
       this.reIndexSentence(segment)
@@ -42066,7 +42080,13 @@ class TokensEditActions {
     step.token.update({ word: step.params.wasWord, idWord: step.params.wasIdWord })
     this.reIndexSentence(segment)
     return {
-      result: true
+      result: true,
+      data: {
+        updateAnnotations: true,
+        type: 'single',
+        token: step.token,
+        wasIdWord: [step.params.newIdWord]
+      }
     }
   }
 
@@ -42075,7 +42095,13 @@ class TokensEditActions {
     step.token.update({ word: step.params.newWord, idWord: step.params.newIdWord })
     this.reIndexSentence(segment)
     return {
-      result: true
+      result: true,
+      data: {
+        updateAnnotations: true,
+        type: 'single',
+        token: step.token,
+        wasIdWord: [step.params.wasIdWord]
+      }
     }
   }
 
@@ -42090,7 +42116,15 @@ class TokensEditActions {
     segment.insertToken(step.params.mergedToken, insertPosition)
     this.reIndexSentence(segment)
     return {
-      result: true
+      result: true,
+      data: {
+        updateAnnotations: true,
+        type: 'multiple',
+        mergedToken: step.params.mergedToken,
+        mergedAnnotations: step.params.wasAnnotations,
+        wasToken: step.token,
+        newIdWord: step.params.newIdWord
+      }
     }
   }
 
@@ -42102,8 +42136,15 @@ class TokensEditActions {
     const deleteIndex = (step.params.position === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? tokenIndex - 1 : tokenIndex + 1
     segment.deleteToken(deleteIndex)
     this.reIndexSentence(segment)
+
     return {
-      result: true
+      result: true,
+      data: {
+        updateAnnotations: true,
+        type: 'single',
+        token: step.token,
+        wasIdWord: [step.params.wasIdWord, step.params.mergedToken.idWord]
+      }
     }
   }
 
@@ -42115,7 +42156,13 @@ class TokensEditActions {
     segment.deleteToken(tokenIndex + 1)
     this.reIndexSentence(segment)
     return {
-      result: true
+      result: true,
+      data: {
+        updateAnnotations: true,
+        type: 'single',
+        token: step.token,
+        wasIdWord: [step.params.newIdWord1]
+      }
     }
   }
 
@@ -42127,35 +42174,65 @@ class TokensEditActions {
     segment.addNewToken(tokenIndex, step.params.newIdWord2, step.params.newWord2)
     this.reIndexSentence(segment)
     return {
-      result: true
+      result: true,
+      data: {
+        updateAnnotations: true,
+        type: 'single',
+        token: step.token,
+        wasIdWord: [step.params.wasIdWord]
+      }
     }
   }
 
   removeStepAddLineBreak (step) {
     step.token.update({ hasLineBreak: false, idWord: step.params.wasIdWord })
     return {
-      result: true
+      result: true,
+      data: {
+        updateAnnotations: true,
+        type: 'single',
+        token: step.token,
+        wasIdWord: [step.params.newIdWord]
+      }
     }
   }
 
   applyStepAddLineBreak (step) {
     step.token.update({ hasLineBreak: true, idWord: step.params.newIdWord })
     return {
-      result: true
+      result: true,
+      data: {
+        updateAnnotations: true,
+        type: 'single',
+        token: step.token,
+        wasIdWord: [step.params.wasIdWord]
+      }
     }
   }
 
   removeStepRemoveLineBreak (step) {
     step.token.update({ hasLineBreak: true, idWord: step.params.wasIdWord })
     return {
-      result: true
+      result: true,
+      data: {
+        updateAnnotations: true,
+        type: 'single',
+        token: step.token,
+        wasIdWord: [step.params.newIdWord]
+      }
     }
   }
 
   applyStepRemoveLineBreak (step) {
     step.token.update({ hasLineBreak: false, idWord: step.params.newIdWord })
     return {
-      result: true
+      result: true,
+      data: {
+        updateAnnotations: true,
+        type: 'single',
+        token: step.token,
+        wasIdWord: [step.params.wasIdWord]
+      }
     }
   }
 
@@ -42175,7 +42252,13 @@ class TokensEditActions {
     this.reIndexSentence(newSegment)
     this.reIndexSentence(wasSegment)
     return {
-      result: true
+      result: true,
+      data: {
+        updateAnnotations: true,
+        type: 'single',
+        token: step.token,
+        wasIdWord: [step.params.newIdWord]
+      }
     }
   }
 
@@ -42195,7 +42278,13 @@ class TokensEditActions {
     this.reIndexSentence(newSegment)
     this.reIndexSentence(wasSegment)
     return {
-      result: true
+      result: true,
+      data: {
+        updateAnnotations: true,
+        type: 'single',
+        token: step.token,
+        wasIdWord: [step.params.wasIdWord]
+      }
     }
   }
 
@@ -42224,8 +42313,15 @@ class TokensEditActions {
   removeStepDeleteToken (step) {
     step.params.segmentToDelete.insertToken(step.params.deletedToken, step.params.deleteIndex)
     this.reIndexSentence(step.params.segmentToDelete)
+
     return {
-      result: true
+      result: true,
+      data: {
+        updateAnnotations: true,
+        type: 'local',
+        token: step.params.deletedToken,
+        annotations: step.params.deletedAnnotations
+      }
     }
   }
 
@@ -42233,7 +42329,12 @@ class TokensEditActions {
     step.params.segmentToDelete.deleteToken(step.params.tokenIndex)
     this.reIndexSentence(step.params.segmentToDelete)
     return {
-      result: true
+      result: true,
+      data: {
+        updateAnnotations: true,
+        type: 'delete',
+        token: step.params.deletedToken
+      }
     }
   }
 }
@@ -43592,6 +43693,7 @@ class Alignment {
    */
   updateTokenWord (token, word) {
     const result = this.tokensEditActions.updateTokenWord(token, word)
+    this.updateAnnotationLinksSingle(token, [result.wasIdWord])
     this.setUpdated()
     return result
   }
@@ -43612,7 +43714,8 @@ class Alignment {
       return false
     }
 
-    const result = this.tokensEditActions.mergeToken(token, direction)
+    const result = this.tokensEditActions.mergeToken(token, direction, this.annotations)
+    this.updateAnnotationLinksSingle(result.token, result.wasIdWord)
     this.setUpdated()
     return result
   }
@@ -43624,6 +43727,8 @@ class Alignment {
    */
   splitToken (token, tokenWord) {
     const result = this.tokensEditActions.splitToken(token, tokenWord)
+
+    this.updateAnnotationLinksSingle(result.token, [result.wasIdWord])
     this.setUpdated()
     return result
   }
@@ -43635,6 +43740,7 @@ class Alignment {
    */
   addLineBreakAfterToken (token) {
     const result = this.tokensEditActions.changeLineBreak(token, true)
+    this.updateAnnotationLinksSingle(token, [result.wasIdWord])
     this.setUpdated()
     return result
   }
@@ -43646,6 +43752,7 @@ class Alignment {
    */
   removeLineBreakAfterToken (token) {
     const result = this.tokensEditActions.changeLineBreak(token, false)
+    this.updateAnnotationLinksSingle(token, [result.wasIdWord])
     this.setUpdated()
     return result
   }
@@ -43658,6 +43765,7 @@ class Alignment {
    */
   moveToSegment (token, direction) {
     const result = this.tokensEditActions.moveToSegment(token, direction)
+    this.updateAnnotationLinksSingle(token, [result.wasIdWord])
     this.setUpdated()
     return result
   }
@@ -43681,7 +43789,8 @@ class Alignment {
    * @returns {Boolean}
    */
   deleteToken (token) {
-    const result = this.tokensEditActions.deleteToken(token)
+    const result = this.tokensEditActions.deleteToken(token, this.annotations[token.idWord])
+    delete this.annotations[token.idWord]
     this.setUpdated()
     return result
   }
@@ -43769,11 +43878,32 @@ class Alignment {
   }
 
   undoTokensEditStep () {
-    return this.tokensEditHistory.undo()
+    const result = this.tokensEditHistory.undo()
+    if (result.data && result.data[0] && result.data[0].updateAnnotations) {
+      if (result.data[0].type === 'multiple') {
+        this.updateAnnotationLinksMultiple(result.data[0].newIdWord, { token: result.data[0].mergedToken, annotations: result.data[0].mergedAnnotations }, result.data[0].wasToken)
+      } else if (result.data[0].type === 'local') {
+        console.info('result.data[0] - ', result.data[0])
+        this.updateAnnotationLinksLocal(result.data[0].token, result.data[0].annotations)
+      } else {
+        this.updateAnnotationLinksSingle(result.data[0].token, result.data[0].wasIdWord)
+      }
+    }
+    return result
   }
 
   redoTokensEditStep () {
-    return this.tokensEditHistory.redo()
+    const result = this.tokensEditHistory.redo()
+    if (result.data && result.data[0] && result.data[0].updateAnnotations) {
+      if (result.data[0].type === 'multiple') {
+        this.updateAnnotationLinksMultiple(result.data[0].newIdWord, { token: result.data[0].mergedToken, annotations: result.data[0].mergedAnnotations }, result.data[0].wasToken)
+      } if (result.data[0].type === 'delete') {
+        this.deleteAnnotations(result.data[0].token)
+      } else {
+        this.updateAnnotationLinksSingle(result.data[0].token, result.data[0].wasIdWord)
+      }
+    }
+    return result
   }
 
   /**
@@ -44126,6 +44256,47 @@ class Alignment {
   get hasAllPartsUploaded () {
     return !(this.origin.alignedText) ||
            (this.origin.alignedText.hasAllPartsUploaded && Object.values(this.targets).every(target => target.alignedText.hasAllPartsUploaded))
+  }
+
+  updateAnnotationLinksSingle (token, fromIdWord) {
+    const annotations = []
+    for (let i = 0; i < fromIdWord.length; i++) {
+      if (this.annotations[fromIdWord[i]]) {
+        annotations.push(...this.annotations[fromIdWord[i]])
+        delete this.annotations[fromIdWord[i]]
+      }
+    }
+    this.annotations[token.idWord] = annotations
+    this.annotations[token.idWord].forEach(annot => { annot.token = token })
+  }
+
+  updateAnnotationLinksMultiple (fromIdWord, tokenDataWithAnnot1, token2) {
+    if (this.annotations[fromIdWord]) {
+      let annotationsForToken2 = this.annotations[fromIdWord]
+
+      if (tokenDataWithAnnot1.annotations) {
+        this.annotations[tokenDataWithAnnot1.token.idWord] = tokenDataWithAnnot1.annotations
+        this.annotations[tokenDataWithAnnot1.token.idWord].forEach(annot => { annot.token = tokenDataWithAnnot1.token })
+        annotationsForToken2 = this.annotations[fromIdWord].filter(annot => !tokenDataWithAnnot1.annotations.some(annotInner => annotInner.id === annot.id))
+      }
+
+      if (annotationsForToken2) {
+        this.annotations[token2.idWord] = annotationsForToken2
+        this.annotations[token2.idWord].forEach(annot => { annot.token = token2 })
+      }
+      delete this.annotations[fromIdWord]
+    }
+  }
+
+  updateAnnotationLinksLocal (token, annotations) {
+    if (annotations) {
+      this.annotations[token.idWord] = annotations
+      this.annotations[token.idWord].forEach(annot => { annot.token = token })
+    }
+  }
+
+  deleteAnnotations (token) {
+    delete this.annotations[token.idWord]
   }
 
   addAnnotation ({ id, token, type, text } = {}) {
@@ -47664,7 +47835,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i491-undo-bug.20210922618" : 0
+    return  true ? "i537-annot-edit-token.20210924366" : 0
   }
 
   static get libName () {
@@ -66957,7 +67128,7 @@ render._withStripped = true
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/aligned-groups-controller.test.js --coverage","test-b":"jest tests/vue/align-editor/segment-block.test.js --coverage","test-c":"jest tests/lib/data/tokens-edit-history-cases.test.js","test-d":"jest tests/lib/storage/indexed-db-adapter.test.js","test-e":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.3.0","@babel/core":"^7.14.3","@babel/plugin-proposal-object-rest-spread":"^7.14.4","@babel/plugin-transform-modules-commonjs":"^7.14.0","@babel/plugin-transform-runtime":"^7.14.3","@babel/preset-env":"^7.14.4","@babel/register":"^7.13.16","@babel/runtime":"^7.14.0","@vue/test-utils":"^1.2.0","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.28.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.23.4","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.2","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.6.18","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.6","papaparse":"^5.3.1","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.34.1","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.14","vue-eslint-parser":"^7.6.0","vue-jest":"^3.0.7","vue-js-modal":"^2.0.1","vue-loader":"^15.9.7","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.14","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.38.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
+module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/tokens-edit-indexeddb-controller.test.js --coverage","test-b":"jest tests/vue/align-editor/segment-block.test.js --coverage","test-c":"jest tests/lib/data/alignment-annotations.test.js","test-d":"jest tests/lib/storage/indexed-db-adapter.test.js","test-e":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.3.0","@babel/core":"^7.14.3","@babel/plugin-proposal-object-rest-spread":"^7.14.4","@babel/plugin-transform-modules-commonjs":"^7.14.0","@babel/plugin-transform-runtime":"^7.14.3","@babel/preset-env":"^7.14.4","@babel/register":"^7.13.16","@babel/runtime":"^7.14.0","@vue/test-utils":"^1.2.0","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.28.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.23.4","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.2","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.6.18","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.6","papaparse":"^5.3.1","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.34.1","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.14","vue-eslint-parser":"^7.6.0","vue-jest":"^3.0.7","vue-js-modal":"^2.0.1","vue-loader":"^15.9.7","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.14","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.38.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
 
 /***/ }),
 
@@ -67122,7 +67293,7 @@ module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit text","de
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"1","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":false,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":true,"labelText":"Show language check before text would be prepared","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerPart":{"defaultValue":1000,"labelText":"Max characters per part (recommended for performance), to be used in Align Text","number":true,"minValue":1,"maxValue":50000,"values":[]},"addIndexedDBSupport":{"defaultValue":true,"labelText":"Add IndexedDB support","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"availableAnnotationTypes":{"defaultValue":["COMMENT","LEMMAID","MORPHOLOGY"],"labelText":"Available Annotation Types","multiValue":true,"values":[{"value":"COMMENT","text":"comment"},{"value":"LEMMAID","text":"lemmaID"},{"value":"MORPHOLOGY","text":"morphology"}]},"maxCharactersAnnotationText":{"defaultValue":500,"labelText":"Max characters in annotation text","number":true,"minValue":1,"maxValue":5000,"values":[]}}}');
+module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"1","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":true,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":true,"labelText":"Show language check before text would be prepared","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerPart":{"defaultValue":1000,"labelText":"Max characters per part (recommended for performance), to be used in Align Text","number":true,"minValue":1,"maxValue":50000,"values":[]},"addIndexedDBSupport":{"defaultValue":true,"labelText":"Add IndexedDB support","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"availableAnnotationTypes":{"defaultValue":["COMMENT","LEMMAID","MORPHOLOGY"],"labelText":"Available Annotation Types","multiValue":true,"values":[{"value":"COMMENT","text":"comment"},{"value":"LEMMAID","text":"lemmaID"},{"value":"MORPHOLOGY","text":"morphology"}]},"maxCharactersAnnotationText":{"defaultValue":500,"labelText":"Max characters in annotation text","number":true,"minValue":1,"maxValue":5000,"values":[]}}}');
 
 /***/ }),
 

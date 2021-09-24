@@ -193,7 +193,6 @@ describe('option-item-block.test.js', () => {
     // check change workflow
     
     cmp.vm.selected = 2
-    // console.info('cmp.vm.optionItem', cmp.vm.optionItem.storageAdapter)
     
     // cmp.vm.optionItem.setValue('2')
     cmp.vm.changeOption()

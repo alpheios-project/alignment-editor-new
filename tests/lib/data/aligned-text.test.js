@@ -141,7 +141,6 @@ describe('aligned-text.test.js', () => {
   
     const jsonResult = alignedText.convertToJSON()
 
-    // console.info('jsonResult - ', jsonResult)
     expect(jsonResult).toHaveProperty('textType', 'origin')
     expect(jsonResult).toHaveProperty('tokenization', { tokenizer: "simpleLocalTokenizer" })
     expect(jsonResult).toHaveProperty('direction', 'ltr')
