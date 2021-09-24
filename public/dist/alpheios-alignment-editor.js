@@ -43976,7 +43976,7 @@ class Alignment {
     const alignmentGroups = this.alignmentGroups.map(alGroup => alGroup.convertToJSON())
     const annotations = {}
     Object.keys(this.annotations).forEach(tokenIdWord => {
-      annotations[tokenIdWord] = this.annotations[tokenIdWord].map(annot => annot.convertToJSON())
+      annotations[tokenIdWord] = this.annotations[tokenIdWord].filter(annot => annot.token).map(annot => annot.convertToJSON())
     })
 
     return {
@@ -44057,7 +44057,7 @@ class Alignment {
 
     const annotations = []
     Object.keys(this.annotations).forEach(tokenIdWord => {
-      annotations.push(...this.annotations[tokenIdWord].map(annot => annot.convertToJSON()))
+      annotations.push(...this.annotations[tokenIdWord].filter(annot => annot.token).map(annot => annot.convertToJSON()))
     })
 
     return {
@@ -44155,7 +44155,7 @@ class Alignment {
     const collectAnnotationData = (token) => {
       token.annotated = this.annotations[token.idWord] && this.annotations[token.idWord].length > 0
       if (token.annotated) {
-        token.annotationData = this.annotations[token.idWord].map(annotation => annotation.convertToHTML())
+        token.annotationData = this.annotations[token.idWord].filter(annot => annot.token).map(annotation => annotation.convertToHTML())
       }
     }
 
@@ -47835,7 +47835,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i537-annot-edit-token.20210924366" : 0
+    return  true ? "i537-annot-edit-token.20210924370" : 0
   }
 
   static get libName () {

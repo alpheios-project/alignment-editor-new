@@ -1130,7 +1130,7 @@ export default class Alignment {
     const alignmentGroups = this.alignmentGroups.map(alGroup => alGroup.convertToJSON())
     const annotations = {}
     Object.keys(this.annotations).forEach(tokenIdWord => {
-      annotations[tokenIdWord] = this.annotations[tokenIdWord].map(annot => annot.convertToJSON())
+      annotations[tokenIdWord] = this.annotations[tokenIdWord].filter(annot => annot.token).map(annot => annot.convertToJSON())
     })
 
     return {
@@ -1211,7 +1211,7 @@ export default class Alignment {
 
     const annotations = []
     Object.keys(this.annotations).forEach(tokenIdWord => {
-      annotations.push(...this.annotations[tokenIdWord].map(annot => annot.convertToJSON()))
+      annotations.push(...this.annotations[tokenIdWord].filter(annot => annot.token).map(annot => annot.convertToJSON()))
     })
 
     return {
@@ -1309,7 +1309,7 @@ export default class Alignment {
     const collectAnnotationData = (token) => {
       token.annotated = this.annotations[token.idWord] && this.annotations[token.idWord].length > 0
       if (token.annotated) {
-        token.annotationData = this.annotations[token.idWord].map(annotation => annotation.convertToHTML())
+        token.annotationData = this.annotations[token.idWord].filter(annot => annot.token).map(annotation => annotation.convertToHTML())
       }
     }
 
