@@ -220,7 +220,6 @@ describe('alignment.test.js', () => {
 
     result = await alignment.createAlignedTexts()
 
-    // console.info(alignment.targets)
     expect(result).toBeTruthy() // defined two correct aligned texts
     expect(alignment.origin.alignedText).toEqual(expect.any(AlignedText))
     expect(Object.values(alignment.targets)[0].alignedText).toEqual(expect.any(AlignedText))

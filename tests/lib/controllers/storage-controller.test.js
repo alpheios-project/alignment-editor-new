@@ -244,9 +244,7 @@ describe('storage-controller.test.js', () => {
     await StorageController.update(alignment, true, false)
 
     alignmentDB = await StorageController.select({ userID, alignmentID: alignment.id }, 'alignmentByAlIDQuery') 
-
-    // console.info('alignmentDB.metadata - ', alignmentDB.metadata)
-    
+   
     StorageController.clear()
   })
 
@@ -322,8 +320,6 @@ describe('storage-controller.test.js', () => {
     await StorageController.update(alignment, false, false)
 
     let alignmentDB = await StorageController.select({ userID, alignmentID: alignment.id }, 'alignmentByAlIDQuery') 
-    // console.info('alignmentDB - ', alignmentDB)
-
     expect(alignmentDB.alignedText.length).toEqual(2)
     expect(alignmentDB.segments.length).toEqual(2)
     expect(alignmentDB.tokens.length).toEqual(6)
@@ -374,7 +370,6 @@ describe('storage-controller.test.js', () => {
 
     await StorageController.update(alignment, false, false)
     alignmentDB = await StorageController.select({ userID, alignmentID: alignment.id }, 'alignmentByAlIDQuery') 
-    // console.info(alignmentDB)
     
     expect(alignmentDB.alignmentGroups.length).toEqual(2)
 
@@ -505,7 +500,6 @@ describe('storage-controller.test.js', () => {
     alignment.insertTokens('insert tokens', 'origin', originDocSource.id, 'end')
     await StorageController.update(alignment, true, false)
     alignmentDB = await StorageController.select({ userID, alignmentID: alignment.id }, 'alignmentByAlIDQuery') 
-    // console.info('alignmentDB.tokens - ', alignmentDB.tokens)
 
     expect(alignmentDB.tokens.length).toEqual(7)
     expect(alignmentDB.tokens).toEqual(expect.arrayContaining([expect.objectContaining({

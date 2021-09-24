@@ -446,7 +446,6 @@ describe('segment-block.test.js', () => {
     await cmp.vm.uploadNextPart()
 
     expect(cmp.vm.currentPartIndexes).toEqual([ 2, 3 ])
-    // console.info('tokens', cmp.vm.allTokens)
     expect(cmp.vm.allTokens.length).toEqual(4)
     expect(cmp.vm.allTokens.map(token => token.word)).toEqual([ 'Jahren', 'entstanden', 'Materie', 'Energie' ])
 

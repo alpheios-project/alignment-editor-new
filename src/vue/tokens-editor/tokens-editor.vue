@@ -11,7 +11,7 @@
               @click="$modal.show('help-edit')">
               {{ l10n.getMsgS('TEXT_EDITOR_HEADER_HELP') }}
           </button>
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-options"
+          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-options" :disabled = "true"
               @click="$modal.show('options-edit')">
               {{ l10n.getMsgS('TEXT_EDITOR_HEADER_OPTIONS') }}
           </button>

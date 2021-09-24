@@ -165,8 +165,6 @@ describe('target-texts.test.js', () => {
     expect(alignment.hoveredGroups.length).toEqual(0)
     expect(cmp.vm.$alignedGC.selectedToken(testOriginToken1)).toBeFalsy()
     expect(cmp.vm.$alignedGC.selectedToken(testTargetToken1)).toBeFalsy()
-
-    // console.info('hoveredGroups - ', alignment.hoveredGroups)
   })
 
   it('2 Multiple targets - create two aligned groups in different target texts', async () => {
@@ -409,7 +407,6 @@ describe('target-texts.test.js', () => {
     // created the third group
     const testOriginToken3 = clickToken(cmp, alignment, 'origin', 0, 2, 1)
     const testTargetToken3 = clickToken(cmp, alignment, 'target', 0, 2, 1)
-    // console.info(alignment.activeAlignmentGroup)
     cmp.vm.$alignedGC.clickToken(testOriginToken3, allTargetsId[1])
 
     //********************************************************************* 
@@ -483,9 +480,6 @@ describe('target-texts.test.js', () => {
     expect(cmp.vm.$alignedGC.tokenIsGrouped(testTargetToken3, allTargetsId[0])).toBeFalsy()
 
     expect(cmp.vm.$alignedGC.tokenIsGrouped(testTargetToken4, allTargetsId[0])).toBeFalsy() 
-
-    // console.info(alignment.alignmentGroups)
-    // console.info(alignment.activeAlignmentGroup)
 
     // the second tab is activated
 
