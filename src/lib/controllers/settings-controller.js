@@ -114,6 +114,10 @@ export default class SettingsController {
     return TokenizeController.fullyDefinedOptions(this.tokenizerOptionValue, _instance.options.tokenize)
   }
 
+  static get hasSourceTypeOptions () {
+    return TokenizeController.hasSourceTypeOptions(this.tokenizerOptionValue)
+  }
+
   /**
    * @returns {Boolean} - true - if sourceText options are already defined
    */
@@ -180,6 +184,8 @@ export default class SettingsController {
       this.submitEventUpdateTheme()
     } else if (optionNameParts[2] === 'addIndexedDBSupport') {
       StorageController.changeIndexedDBSupport(optionItem.currentValue)
+    } else if (optionNameParts[2] === 'tokenizer') {
+      _instance.store.commit('incrementTokenizerUpdated')
     }
     _instance.store.commit('incrementOptionsUpdated')
   }
