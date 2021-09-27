@@ -39451,7 +39451,6 @@ class HistoryAlGroupsController {
   constructor (store) {
     this.store = store
     this.tabsViewMode = false
-    this.undoneSteps = 0
   }
 
   /**
@@ -39529,7 +39528,6 @@ class HistoryAlGroupsController {
    */
   startOver (alignment) {
     this.tabsViewMode = false
-    this.undoneSteps = 0
     this.startTracking(alignment)
   }
 
@@ -47846,7 +47844,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i537-annot-edit-token-2.20210927394" : 0
+    return  true ? "i545-undo-still-active.20210927407" : 0
   }
 
   static get libName () {
@@ -48679,7 +48677,7 @@ __webpack_require__.r(__webpack_exports__);
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
     },
     alignEditAvailable () {
-      return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
+      return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && this.$store.state.uploadCheck && this.$alignedGC.alignmentGroupsWorkflowStarted
     },
     undoAvailable () {
       return this.alignEditAvailable && this.$historyAGC.undoAvailable
@@ -54234,10 +54232,10 @@ __webpack_require__.r(__webpack_exports__);
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
     },
     undoTokensEditAvailable () {
-      return this.$store.state.tokenUpdated && this.$tokensEC.undoTokensEditAvailable
+      return this.$store.state.tokenUpdated && this.$store.state.uploadCheck && this.$tokensEC.undoTokensEditAvailable
     },
     redoTokensEditAvailable () {
-      return this.$store.state.tokenUpdated && this.$tokensEC.redoTokensEditAvailable
+      return this.$store.state.tokenUpdated && this.$store.state.uploadCheck && this.$tokensEC.redoTokensEditAvailable
     }
   },
   methods: {

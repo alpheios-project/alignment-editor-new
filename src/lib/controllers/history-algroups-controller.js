@@ -4,7 +4,6 @@ export default class HistoryAlGroupsController {
   constructor (store) {
     this.store = store
     this.tabsViewMode = false
-    this.undoneSteps = 0
   }
 
   /**
@@ -82,7 +81,6 @@ export default class HistoryAlGroupsController {
    */
   startOver (alignment) {
     this.tabsViewMode = false
-    this.undoneSteps = 0
     this.startTracking(alignment)
   }
 

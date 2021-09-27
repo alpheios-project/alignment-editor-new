@@ -28,7 +28,7 @@ export default {
       return L10nSingleton
     },
     alignEditAvailable () {
-      return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
+      return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && this.$store.state.uploadCheck && this.$alignedGC.alignmentGroupsWorkflowStarted
     },
     undoAvailable () {
       return this.alignEditAvailable && this.$historyAGC.undoAvailable
