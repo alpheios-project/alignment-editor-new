@@ -39679,6 +39679,10 @@ class SettingsController {
     return _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.fullyDefinedOptions(this.tokenizerOptionValue, _instance.options.tokenize)
   }
 
+  static get hasSourceTypeOptions () {
+    return _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.hasSourceTypeOptions(this.tokenizerOptionValue)
+  }
+
   /**
    * @returns {Boolean} - true - if sourceText options are already defined
    */
@@ -39745,6 +39749,8 @@ class SettingsController {
       this.submitEventUpdateTheme()
     } else if (optionNameParts[2] === 'addIndexedDBSupport') {
       _storage_controller__WEBPACK_IMPORTED_MODULE_5__.default.changeIndexedDBSupport(optionItem.currentValue)
+    } else if (optionNameParts[2] === 'tokenizer') {
+      _instance.store.commit('incrementTokenizerUpdated')
     }
     _instance.store.commit('incrementOptionsUpdated')
   }
@@ -40584,12 +40590,14 @@ class TokenizeController {
     return {
       simpleLocalTokenizer: {
         method: _lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__.default.tokenize.bind(_lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__.default),
+        hasSourceTypeOptions: false,
         hasOptions: false,
         getNextTokenIdWord: this.getNextTokenIdWordChangesType.bind(this),
         reIndexSentence: this.reIndexSentences.bind(this)
       },
       alpheiosRemoteTokenizer: {
         method: _lib_tokenizers_alpheios_remote_tokenizer_js__WEBPACK_IMPORTED_MODULE_1__.default.tokenize.bind(_lib_tokenizers_alpheios_remote_tokenizer_js__WEBPACK_IMPORTED_MODULE_1__.default),
+        hasSourceTypeOptions: true,
         hasOptions: true,
         uploadOptionsMethod: this.uploadDefaultRemoteTokenizeOptions.bind(this),
         checkOptionsMethod: this.checkRemoteTokenizeOptionsMethod.bind(this),
@@ -40597,6 +40605,10 @@ class TokenizeController {
         reIndexSentence: this.reIndexSentences.bind(this)
       }
     }
+  }
+
+  static hasSourceTypeOptions (tokenizer) {
+    return Boolean(this.tokenizeMethods[tokenizer]) && this.tokenizeMethods[tokenizer].hasSourceTypeOptions
   }
 
   /**
@@ -43883,7 +43895,6 @@ class Alignment {
       if (result.data[0].type === 'multiple') {
         this.updateAnnotationLinksMultiple(result.data[0].newIdWord, { token: result.data[0].mergedToken, annotations: result.data[0].mergedAnnotations }, result.data[0].wasToken)
       } else if (result.data[0].type === 'local') {
-        console.info('result.data[0] - ', result.data[0])
         this.updateAnnotationLinksLocal(result.data[0].token, result.data[0].annotations)
       } else {
         this.updateAnnotationLinksSingle(result.data[0].token, result.data[0].wasIdWord)
@@ -47835,7 +47846,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i537-annot-edit-token.20210924396" : 0
+    return  true ? "i537-annot-edit-token-2.20210927394" : 0
   }
 
   static get libName () {
@@ -52861,6 +52872,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -52964,6 +52977,9 @@ __webpack_require__.r(__webpack_exports__);
     async '$store.state.resetOptions' () {
       this.localTextEditorOptions = _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__.default.resetLocalTextEditorOptions(this.textType, this.textId)
       await this.updateText()
+    },
+    '$store.state.tokenizerUpdated' () {
+      this.prepareDefaultTextEditorOptions()
     }
   },
   computed: {
@@ -53110,9 +53126,23 @@ __webpack_require__.r(__webpack_exports__);
     },
     describeButtonId () {
       return `alpheios-actions-menu-button__describe-${this.textType}-${this.textId}-id`
+    },
+    sourceTypeDisabled () {
+      return this.$store.state.optionsUpdated && !_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__.default.hasSourceTypeOptions
+    },
+    sourceTypeIconClass () {
+      return {
+        'alpheios-alignment-editor-text-blocks-single__lang-icon_disabled': this.sourceTypeDisabled
+      }
     }
   },
   methods: {
+    clickSourceType () {
+      if (!this.sourceTypeDisabled) {
+        this.$modal.show(this.sourceTypeModalName)
+      }
+    },
+
     initDataProps () {
       this.showTypeUploadButtons = true
 
@@ -53516,7 +53546,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.optionsUpdated && this.localOptions.ready && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.tokenizerOptionsLoaded
     },
     sourceType () {
-      return this.$store.state.optionsUpdated && this.localOptions.sourceText.items.sourceType.currentValue
+      return this.$store.state.optionsUpdated && this.localOptions.ready && this.localOptions.sourceText.items.sourceType.currentValue
     }
 
   },
@@ -64246,7 +64276,7 @@ var render = function() {
         attrs: {
           "text-type": _vm.textType,
           "text-id": _vm.textId,
-          localOptions: _vm.localTextEditorOptions,
+          localOptions: _vm.updatedLocalOptions,
           mname: _vm.languageModalName
         },
         on: {
@@ -64262,7 +64292,7 @@ var render = function() {
         attrs: {
           "text-type": _vm.textType,
           "text-id": _vm.textId,
-          localOptions: _vm.localTextEditorOptions,
+          localOptions: _vm.updatedLocalOptions,
           mname: _vm.sourceTypeModalName
         },
         on: {
@@ -64315,11 +64345,8 @@ var render = function() {
                   ],
                   staticClass:
                     "alpheios-alignment-editor-text-blocks-single__lang-icon",
-                  on: {
-                    click: function($event) {
-                      return _vm.$modal.show(_vm.sourceTypeModalName)
-                    }
-                  }
+                  class: _vm.sourceTypeIconClass,
+                  on: { click: _vm.clickSourceType }
                 },
                 [_vm._v(" " + _vm._s(_vm.sourceType) + " ")]
               ),

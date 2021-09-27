@@ -1864,6 +1864,11 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   min-width: 33px;
   text-align: center;
 }
+.alpheios-alignment-editor-text-blocks-single .alpheios-alignment-editor-text-blocks-single__lang-icon.alpheios-alignment-editor-text-blocks-single__lang-icon_disabled {
+  cursor: initial;
+  color: #9a9a9a;
+  border-color: #9a9a9a;
+}
 .alpheios-alignment-editor-text-blocks-single__title {
   position: relative;
   font-size: 20px;

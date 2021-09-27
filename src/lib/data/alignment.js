@@ -1037,7 +1037,6 @@ export default class Alignment {
       if (result.data[0].type === 'multiple') {
         this.updateAnnotationLinksMultiple(result.data[0].newIdWord, { token: result.data[0].mergedToken, annotations: result.data[0].mergedAnnotations }, result.data[0].wasToken)
       } else if (result.data[0].type === 'local') {
-        console.info('result.data[0] - ', result.data[0])
         this.updateAnnotationLinksLocal(result.data[0].token, result.data[0].annotations)
       } else {
         this.updateAnnotationLinksSingle(result.data[0].token, result.data[0].wasIdWord)

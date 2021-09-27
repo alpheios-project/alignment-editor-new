@@ -17,12 +17,14 @@ export default class TokenizeController {
     return {
       simpleLocalTokenizer: {
         method: SimpleLocalTokenizer.tokenize.bind(SimpleLocalTokenizer),
+        hasSourceTypeOptions: false,
         hasOptions: false,
         getNextTokenIdWord: this.getNextTokenIdWordChangesType.bind(this),
         reIndexSentence: this.reIndexSentences.bind(this)
       },
       alpheiosRemoteTokenizer: {
         method: AlpheiosRemoteTokenizer.tokenize.bind(AlpheiosRemoteTokenizer),
+        hasSourceTypeOptions: true,
         hasOptions: true,
         uploadOptionsMethod: this.uploadDefaultRemoteTokenizeOptions.bind(this),
         checkOptionsMethod: this.checkRemoteTokenizeOptionsMethod.bind(this),
@@ -30,6 +32,10 @@ export default class TokenizeController {
         reIndexSentence: this.reIndexSentences.bind(this)
       }
     }
+  }
+
+  static hasSourceTypeOptions (tokenizer) {
+    return Boolean(this.tokenizeMethods[tokenizer]) && this.tokenizeMethods[tokenizer].hasSourceTypeOptions
   }
 
   /**
