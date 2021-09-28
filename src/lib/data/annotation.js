@@ -13,6 +13,29 @@ export default class Annotation {
     return Object.keys(Annotation.types)
   }
 
+  static getNewIndex (token, lastTypeIndex) {
+    if (!lastTypeIndex) {
+      return `${token.idWord}-1`
+    }
+    const annotIndexParts = lastTypeIndex.split('-')
+    const annotIndex = parseInt(annotIndexParts[annotIndexParts.length - 1]) + 1
+
+    return `${token.idWord}-${annotIndex}`
+  }
+
+  static parseIndex (index) {
+    const indexParts = index.split('-')
+    const anIndex = indexParts[indexParts.length - 1]
+
+    indexParts.pop()
+    const anWordId = indexParts.join('-')
+
+    return {
+      idWord: anWordId,
+      index: anIndex
+    }
+  }
+
   hasProperties ({ type, text } = {}) {
     let result = !type || this.type === type
     result &= !text || this.text === text

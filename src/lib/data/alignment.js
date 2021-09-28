@@ -1466,14 +1466,23 @@ export default class Alignment {
         this.annotations[token.idWord] = []
       }
 
-      let lastTypeIndex = 0
+      let lastTypeIndex = null
       this.annotations[token.idWord].forEach(annot => {
-        if ((annot.type === type) && (lastTypeIndex < annot.index)) {
-          lastTypeIndex = annot.index
+        const annotCurData = Annotation.parseIndex(annot.index)
+        if ((annot.type === type) && (annotCurData.idWord === token.idWord)) {
+          if (!lastTypeIndex) {
+            lastTypeIndex = annot.index
+          } else {
+            const lastTypeIndexData = Annotation.parseIndex(lastTypeIndex)
+            if (lastTypeIndexData.index < annotCurData.index) {
+              lastTypeIndex = annot.index
+            }
+          }
         }
       })
 
-      const annotation = new Annotation({ token, type, text, index: lastTypeIndex + 1 })
+      const newTypeIndex = Annotation.getNewIndex(token, lastTypeIndex)
+      const annotation = new Annotation({ token, type, text, index: newTypeIndex })
 
       this.annotations[token.idWord].push(annotation)
       return true
@@ -1490,7 +1499,16 @@ export default class Alignment {
   }
 
   getAnnotations (token) {
-    return this.annotations[token.idWord] ? this.annotations[token.idWord] : []
+    if (!this.annotations[token.idWord]) {
+      return []
+    }
+    return this.annotations[token.idWord].sort((a, b) => {
+      if (a.type === b.type) {
+        return a.index < b.index ? -1 : 1
+      } else {
+        return a.type < b.type ? -1 : 1
+      }
+    })
   }
 
   equalAnnotation ({ token, type, text }) {
