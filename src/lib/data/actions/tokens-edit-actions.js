@@ -90,11 +90,13 @@ export default class TokensEditActions {
     })
 
     this.tokensEditHistory.truncateSteps()
-    this.tokensEditHistory.addStep(token, HistoryStep.types.UPDATE, { wasIdWord: token.idWord, wasWord: token.word, newWord: word, newIdWord })
+
+    const wasIdWord = token.idWord
+    this.tokensEditHistory.addStep(token, HistoryStep.types.UPDATE, { wasIdWord, wasWord: token.word, newWord: word, newIdWord })
     token.update({ word, idWord: newIdWord })
     this.reIndexSentence(segment)
 
-    return true
+    return { wasIdWord }
   }
 
   /**
@@ -102,7 +104,7 @@ export default class TokensEditActions {
    * @param {String} direction - left/right
    * @returns {Boolean}
    */
-  mergeToken (token, direction) {
+  mergeToken (token, direction, annotations) {
     const { segment, tokenIndex, tokenResult, position } = this.getNextPrevToken(token, direction)
 
     const alignedText = this.getAlignedTextByToken(token)
@@ -112,12 +114,16 @@ export default class TokensEditActions {
       changeType: HistoryStep.types.MERGE
     })
 
+    const wasIdWord = tokenResult.idWord
     const stepParams = {
-      wasIdWord: tokenResult.idWord,
+      wasIdWord,
       wasWord: tokenResult.word,
       mergedToken: token,
       position,
       newIdWord
+    }
+    if (annotations && annotations[token.idWord]) {
+      stepParams.wasAnnotations = [...annotations[token.idWord]]
     }
 
     tokenResult.merge({ token, position, newIdWord })
@@ -128,7 +134,9 @@ export default class TokensEditActions {
     this.tokensEditHistory.addStep(tokenResult, HistoryStep.types.MERGE, stepParams)
     segment.deleteToken(tokenIndex)
     this.reIndexSentence(segment)
-    return true
+    return {
+      wasIdWord: [wasIdWord, token.idWord], token: tokenResult
+    }
   }
 
   /**
@@ -155,8 +163,9 @@ export default class TokensEditActions {
       indexWord: 2
     })
 
+    const wasIdWord = token.idWord
     const stepParams = {
-      wasIdWord: token.idWord,
+      wasIdWord,
       wasWord: token.word,
       newIdWord1,
       newIdWord2
@@ -177,7 +186,11 @@ export default class TokensEditActions {
 
     segment.addNewToken(tokenIndex, newIdWord2, tokenWordParts[1])
     this.reIndexSentence(segment)
-    return true
+    return {
+      result: true,
+      wasIdWord,
+      token
+    }
   }
 
   changeLineBreak (token, hasLineBreak) {
@@ -194,8 +207,9 @@ export default class TokensEditActions {
     this.tokensEditHistory.truncateSteps()
     this.tokensEditHistory.addStep(token, changeType, { wasIdWord: token.idWord, newIdWord })
 
+    const wasIdWord = token.idWord
     token.update({ hasLineBreak, idWord: newIdWord })
-    return true
+    return { wasIdWord }
   }
 
   /**
@@ -252,7 +266,8 @@ export default class TokensEditActions {
     this.reIndexSentence(newSegment)
     return {
       result: true,
-      newSegmentIndex: newSegment.index
+      newSegmentIndex: newSegment.index,
+      wasIdWord
     }
   }
 
@@ -386,7 +401,7 @@ export default class TokensEditActions {
   reIndexSentence (segment) {
     const alignedText = (segment.textType === 'origin') ? this.origin.alignedText : this.targets[segment.docSourceId].alignedText
     const getReIndexSentenceMethod = TokenizeController.getReIndexSentenceMethod(alignedText.tokenization.tokenizer)
-    getReIndexSentenceMethod(segment)
+    getReIndexSentenceMethod(segment, false)
   }
 
   /**
@@ -394,7 +409,7 @@ export default class TokensEditActions {
    * @param {Token} token
    * @returns {Boolean}
    */
-  deleteToken (token) {
+  deleteToken (token, annotations) {
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
 
@@ -402,7 +417,7 @@ export default class TokensEditActions {
     if (deletedToken) {
       this.tokensEditHistory.truncateSteps()
       this.tokensEditHistory.addStep(null, HistoryStep.types.DELETE, {
-        segmentToDelete: segment, deleteIndex: tokenIndex, deletedToken
+        segmentToDelete: segment, deleteIndex: tokenIndex, deletedToken, deletedAnnotations: annotations
       })
 
       this.reIndexSentence(segment)
@@ -418,7 +433,13 @@ export default class TokensEditActions {
     step.token.update({ word: step.params.wasWord, idWord: step.params.wasIdWord })
     this.reIndexSentence(segment)
     return {
-      result: true
+      result: true,
+      data: {
+        updateAnnotations: true,
+        type: 'single',
+        token: step.token,
+        wasIdWord: [step.params.newIdWord]
+      }
     }
   }
 
@@ -427,7 +448,13 @@ export default class TokensEditActions {
     step.token.update({ word: step.params.newWord, idWord: step.params.newIdWord })
     this.reIndexSentence(segment)
     return {
-      result: true
+      result: true,
+      data: {
+        updateAnnotations: true,
+        type: 'single',
+        token: step.token,
+        wasIdWord: [step.params.wasIdWord]
+      }
     }
   }
 
@@ -442,7 +469,15 @@ export default class TokensEditActions {
     segment.insertToken(step.params.mergedToken, insertPosition)
     this.reIndexSentence(segment)
     return {
-      result: true
+      result: true,
+      data: {
+        updateAnnotations: true,
+        type: 'multiple',
+        mergedToken: step.params.mergedToken,
+        mergedAnnotations: step.params.wasAnnotations,
+        wasToken: step.token,
+        newIdWord: step.params.newIdWord
+      }
     }
   }
 
@@ -454,8 +489,15 @@ export default class TokensEditActions {
     const deleteIndex = (step.params.position === HistoryStep.directions.PREV) ? tokenIndex - 1 : tokenIndex + 1
     segment.deleteToken(deleteIndex)
     this.reIndexSentence(segment)
+
     return {
-      result: true
+      result: true,
+      data: {
+        updateAnnotations: true,
+        type: 'single',
+        token: step.token,
+        wasIdWord: [step.params.wasIdWord, step.params.mergedToken.idWord]
+      }
     }
   }
 
@@ -467,7 +509,13 @@ export default class TokensEditActions {
     segment.deleteToken(tokenIndex + 1)
     this.reIndexSentence(segment)
     return {
-      result: true
+      result: true,
+      data: {
+        updateAnnotations: true,
+        type: 'single',
+        token: step.token,
+        wasIdWord: [step.params.newIdWord1]
+      }
     }
   }
 
@@ -479,35 +527,65 @@ export default class TokensEditActions {
     segment.addNewToken(tokenIndex, step.params.newIdWord2, step.params.newWord2)
     this.reIndexSentence(segment)
     return {
-      result: true
+      result: true,
+      data: {
+        updateAnnotations: true,
+        type: 'single',
+        token: step.token,
+        wasIdWord: [step.params.wasIdWord]
+      }
     }
   }
 
   removeStepAddLineBreak (step) {
     step.token.update({ hasLineBreak: false, idWord: step.params.wasIdWord })
     return {
-      result: true
+      result: true,
+      data: {
+        updateAnnotations: true,
+        type: 'single',
+        token: step.token,
+        wasIdWord: [step.params.newIdWord]
+      }
     }
   }
 
   applyStepAddLineBreak (step) {
     step.token.update({ hasLineBreak: true, idWord: step.params.newIdWord })
     return {
-      result: true
+      result: true,
+      data: {
+        updateAnnotations: true,
+        type: 'single',
+        token: step.token,
+        wasIdWord: [step.params.wasIdWord]
+      }
     }
   }
 
   removeStepRemoveLineBreak (step) {
     step.token.update({ hasLineBreak: true, idWord: step.params.wasIdWord })
     return {
-      result: true
+      result: true,
+      data: {
+        updateAnnotations: true,
+        type: 'single',
+        token: step.token,
+        wasIdWord: [step.params.newIdWord]
+      }
     }
   }
 
   applyStepRemoveLineBreak (step) {
     step.token.update({ hasLineBreak: false, idWord: step.params.newIdWord })
     return {
-      result: true
+      result: true,
+      data: {
+        updateAnnotations: true,
+        type: 'single',
+        token: step.token,
+        wasIdWord: [step.params.wasIdWord]
+      }
     }
   }
 
@@ -527,7 +605,13 @@ export default class TokensEditActions {
     this.reIndexSentence(newSegment)
     this.reIndexSentence(wasSegment)
     return {
-      result: true
+      result: true,
+      data: {
+        updateAnnotations: true,
+        type: 'single',
+        token: step.token,
+        wasIdWord: [step.params.newIdWord]
+      }
     }
   }
 
@@ -547,7 +631,13 @@ export default class TokensEditActions {
     this.reIndexSentence(newSegment)
     this.reIndexSentence(wasSegment)
     return {
-      result: true
+      result: true,
+      data: {
+        updateAnnotations: true,
+        type: 'single',
+        token: step.token,
+        wasIdWord: [step.params.wasIdWord]
+      }
     }
   }
 
@@ -576,8 +666,15 @@ export default class TokensEditActions {
   removeStepDeleteToken (step) {
     step.params.segmentToDelete.insertToken(step.params.deletedToken, step.params.deleteIndex)
     this.reIndexSentence(step.params.segmentToDelete)
+
     return {
-      result: true
+      result: true,
+      data: {
+        updateAnnotations: true,
+        type: 'local',
+        token: step.params.deletedToken,
+        annotations: step.params.deletedAnnotations
+      }
     }
   }
 
@@ -585,7 +682,12 @@ export default class TokensEditActions {
     step.params.segmentToDelete.deleteToken(step.params.tokenIndex)
     this.reIndexSentence(step.params.segmentToDelete)
     return {
-      result: true
+      result: true,
+      data: {
+        updateAnnotations: true,
+        type: 'delete',
+        token: step.params.deletedToken
+      }
     }
   }
 }

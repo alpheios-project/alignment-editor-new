@@ -26,18 +26,20 @@
       <metadata-block :text-type = "textType" :text-id = "textId" 
                       :mname = "metadataModalName"
                       @closeModal = "$modal.hide(metadataModalName)"  />
-      <language-block :text-type = "textType" :text-id = "textId" :localOptions = "localTextEditorOptions" 
+      <language-block :text-type = "textType" :text-id = "textId" :localOptions = "updatedLocalOptions" 
                       :mname = "languageModalName"
                       @updateText = "updateText" @updateDirection = "updateDirection"
                        @closeModal = "$modal.hide(languageModalName)"  />
-      <source-type-block :text-type = "textType" :text-id = "textId" :localOptions = "localTextEditorOptions" @updateText = "updateText" 
+      <source-type-block :text-type = "textType" :text-id = "textId" :localOptions = "updatedLocalOptions" @updateText = "updateText" 
                       :mname = "sourceTypeModalName" @closeModal = "$modal.hide(sourceTypeModalName)"  />
 
       <div v-show="showTypeTextBlock" class="alpheios-alignment-editor-text-blocks-single-text-area-container">
         <p class="alpheios-alignment-editor-text-blocks-info-line">
           <span class="alpheios-alignment-editor-text-blocks-single__characters" :class = "charactersClasses">{{ charactersText }}</span>
 
-          <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="showTextProps" @click="$modal.show(sourceTypeModalName)"> {{ sourceType }} </span>
+          <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" 
+                :class="sourceTypeIconClass" v-show="showTextProps" 
+                @click="clickSourceType"> {{ sourceType }} </span>
           <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="showTextProps" @click="$modal.show(languageModalName)"> {{ language }} </span>
           <span class="alpheios-alignment-editor-text-blocks-single__icons" v-show="showLangNotDetected">
             <tooltip :tooltipText="l10n.getMsgS('NO_LANG_DETECTED_ICON')" tooltipDirection="top">
@@ -179,6 +181,9 @@ export default {
     async '$store.state.resetOptions' () {
       this.localTextEditorOptions = SettingsController.resetLocalTextEditorOptions(this.textType, this.textId)
       await this.updateText()
+    },
+    '$store.state.tokenizerUpdated' () {
+      this.prepareDefaultTextEditorOptions()
     }
   },
   computed: {
@@ -325,9 +330,23 @@ export default {
     },
     describeButtonId () {
       return `alpheios-actions-menu-button__describe-${this.textType}-${this.textId}-id`
+    },
+    sourceTypeDisabled () {
+      return this.$store.state.optionsUpdated && !SettingsController.hasSourceTypeOptions
+    },
+    sourceTypeIconClass () {
+      return {
+        'alpheios-alignment-editor-text-blocks-single__lang-icon_disabled': this.sourceTypeDisabled
+      }
     }
   },
   methods: {
+    clickSourceType () {
+      if (!this.sourceTypeDisabled) {
+        this.$modal.show(this.sourceTypeModalName)
+      }
+    },
+
     initDataProps () {
       this.showTypeUploadButtons = true
 
@@ -589,6 +608,12 @@ export default {
 
           min-width: 33px;
           text-align: center;
+
+          &.alpheios-alignment-editor-text-blocks-single__lang-icon_disabled {
+            cursor: initial;
+            color: #9a9a9a;
+            border-color: #9a9a9a;
+          }
         }
     }
 

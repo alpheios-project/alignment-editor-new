@@ -1,14 +1,15 @@
 import HistoryStep from '@/lib/data/history/history-step'
 
-export default class AlignmentGroupStep extends HistoryStep {
+export default class AlignmentStep extends HistoryStep {
   /**
    *
-   * @param {Token | AlignmentGroup} token
+   * @param {Token} token
    * @param {String} type  - add, remove, merge
-   * @param {Object} params - for now it is used only for indexDeleted (merge action)
+   * @param {Object} params
    */
   constructor (token, type, params = {}) {
     super(token, type)
+    this.params = params
     this.indexDeleted = params.indexDeleted
   }
 }

@@ -290,7 +290,6 @@ export default class TokensEditController {
 
   async undoTokensEditStep () {
     const data = this.alignment.undoTokensEditStep()
-
     if (data.result) {
       this.store.commit('incrementTokenUpdated')
       await this.prepareDeleteFromStorage(data.dataIndexedDB)

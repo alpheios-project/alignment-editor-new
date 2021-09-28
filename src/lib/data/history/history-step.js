@@ -52,7 +52,13 @@ HistoryStep.types = {
   //
   NEW: 'new',
   //
-  DELETE: 'delete'
+  DELETE: 'delete',
+  //
+  START_GROUP: 'start group',
+  //
+  FINISH_GROUP: 'finish group',
+  //
+  ACTIVATE_GROUP: 'activate group'
 }
 
 HistoryStep.directions = {

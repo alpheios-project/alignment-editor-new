@@ -80,7 +80,6 @@ describe('tokens-edit-controller.test.js', () => {
       if (data[i].hasLineBreak !== undefined) {
         res = res && data[i].hasLineBreak ? data[i].token.hasLineBreak === data[i].hasLineBreak : !data[i].token.hasLineBreak
       }
-      // console.info('res', res, data[i])
       if (!res) {
         break
       }
@@ -132,6 +131,7 @@ describe('tokens-edit-controller.test.js', () => {
     ])
 
     const result1 = await tokensEC.undoTokensEditStep()
+
     expect(result1).toBeTruthy()
     
     expect(compareTokens([
@@ -848,4 +848,5 @@ describe('tokens-edit-controller.test.js', () => {
       { idWord: '1-0-2', word: 'instruendam' }
     ])
   })
+
 })

@@ -33,7 +33,7 @@
       ]
     },
     "allowUpdateTokenWord": {
-      "defaultValue": false,
+      "defaultValue": true,
       "labelText": "Allow update token word",
       "boolean": true,
       "values": [

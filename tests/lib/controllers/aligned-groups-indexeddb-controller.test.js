@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 
 import AlignedGroupsController from '@/lib/controllers/aligned-groups-controller.js'
-import HistoryController from '@/lib/controllers/history-controller.js'
+import HistoryAlGroupsController from '@/lib/controllers/history-algroups-controller.js'
 import Alignment from '@/lib/data/alignment'
 import AlignmentGroup from '@/lib/data/alignment-group'
 import SourceText from '@/lib/data/source-text'
@@ -71,7 +71,7 @@ describe('aligned-groups-indexeddb-controller.test.js', () => {
     const alGC = new AlignedGroupsController(appC.store)
     alGC.alignment = alignment1
 
-    const historyC = new HistoryController(appC.store)
+    const historyC = new HistoryAlGroupsController(appC.store)
     historyC.startTracking(alignment1)
 
     const tokenOrigin1 = alignment1.origin.alignedText.segments[0].tokens[0]
@@ -83,8 +83,6 @@ describe('aligned-groups-indexeddb-controller.test.js', () => {
     expect(alignment1.alignmentGroups.length).toEqual(0)
     expect(alignment1.activeAlignmentGroup).toEqual(expect.any(AlignmentGroup))
 
-    // console.info(alignment1)
-
     let alGroupsDB = await queryFromIndexedDB(dbAdapter, alignment1)
     expect(alGroupsDB.length).toEqual(0)
 
@@ -94,7 +92,6 @@ describe('aligned-groups-indexeddb-controller.test.js', () => {
     expect(alignment1.activeAlignmentGroup).toBeNull()
 
     alGroupsDB = await queryFromIndexedDB(dbAdapter, alignment1)
-    // console.info(alGroupsDB)
 
     expect(alGroupsDB.length).toEqual(1)
     expect(alGroupsDB[0].origin.length).toEqual(1)
@@ -115,7 +112,6 @@ describe('aligned-groups-indexeddb-controller.test.js', () => {
     expect(alignment1.alignmentGroups.length).toEqual(1)
     expect(alignment1.activeAlignmentGroup).toBeNull()
     alGroupsDB = await queryFromIndexedDB(dbAdapter, alignment1)
-    // console.info(alGroupsDB)
 
     expect(alGroupsDB.length).toEqual(1)
     expect(alGroupsDB[0].origin.length).toEqual(1)
@@ -141,7 +137,7 @@ describe('aligned-groups-indexeddb-controller.test.js', () => {
     const alGC = new AlignedGroupsController(appC.store)
     alGC.alignment = alignment1
 
-    const historyC = new HistoryController(appC.store)
+    const historyC = new HistoryAlGroupsController(appC.store)
     historyC.startTracking(alignment1)
 
     const tokenOrigin1 = alignment1.origin.alignedText.segments[0].tokens[0]
@@ -156,7 +152,6 @@ describe('aligned-groups-indexeddb-controller.test.js', () => {
     expect(alignment1.activeAlignmentGroup).toBeNull()
 
     let alGroupsDB = await queryFromIndexedDB(dbAdapter, alignment1)
-    // console.info(alGroupsDB)
 
     expect(alGroupsDB.length).toEqual(1)
     expect(alGroupsDB[0].origin.length).toEqual(1)
@@ -193,7 +188,7 @@ describe('aligned-groups-indexeddb-controller.test.js', () => {
     const alGC = new AlignedGroupsController(appC.store)
     alGC.alignment = alignment1
 
-    const historyC = new HistoryController(appC.store)
+    const historyC = new HistoryAlGroupsController(appC.store)
     historyC.startTracking(alignment1)
 
     // create the first group
@@ -216,7 +211,6 @@ describe('aligned-groups-indexeddb-controller.test.js', () => {
     expect(alignment1.activeAlignmentGroup).toBeNull()
 
     let alGroupsDB = await queryFromIndexedDB(dbAdapter, alignment1)
-    // console.info(alGroupsDB)
 
     expect(alGroupsDB.length).toEqual(2)
     expect(alGroupsDB[0].origin.length).toEqual(1)
@@ -233,7 +227,6 @@ describe('aligned-groups-indexeddb-controller.test.js', () => {
     expect(alignment1.activeAlignmentGroup).toEqual(expect.any(AlignmentGroup))
 
     alGroupsDB = await queryFromIndexedDB(dbAdapter, alignment1)
-    // console.info(alGroupsDB)
 
     expect(alGroupsDB.length).toEqual(0)
 

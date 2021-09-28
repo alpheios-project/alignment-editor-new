@@ -1,10 +1,9 @@
 import StorageController from '@/lib/controllers/storage-controller.js'
 
-export default class HistoryController {
+export default class HistoryAlGroupsController {
   constructor (store) {
     this.store = store
     this.tabsViewMode = false
-    this.undoneSteps = 0
   }
 
   /**
@@ -12,10 +11,7 @@ export default class HistoryController {
    * @returns {Boolean} true - undo could be done, false - not
    */
   get redoAvailable () {
-    return Boolean(this.alignment) && !this.tabsViewMode &&
-           ((this.alignment.hasActiveAlignmentGroup && !this.alignment.currentStepOnLastInActiveGroup) ||
-           (this.alignment.hasActiveAlignmentGroup && this.alignment.currentStepOnLastInActiveGroup && (this.undoneSteps > 0)) ||
-           (!this.alignment.hasActiveAlignmentGroup && this.alignment.undoneGroups.length > 0))
+    return Boolean(this.alignment) && this.alignment.redoAvailableAlGroups
   }
 
   /**
@@ -23,9 +19,7 @@ export default class HistoryController {
    * @returns {Boolean} true - redo could be done, false - not
    */
   get undoAvailable () {
-    return Boolean(this.alignment) && !this.tabsViewMode &&
-           ((this.alignment.hasActiveAlignmentGroup && this.alignment.activeAlignmentGroup.undoAvailable) ||
-           (!this.alignment.hasActiveAlignmentGroup && this.alignment.alignmentGroups.length > 0 && this.alignment.alignmentGroups[this.alignment.alignmentGroups.length - 1].undoAvailable))
+    return Boolean(this.alignment) && this.alignment.undoAvailableAlGroups
   }
 
   /**
@@ -52,20 +46,12 @@ export default class HistoryController {
    *   if there is no active alignment group but there exists saved alignment groups, then we would activate previous group
    */
   async undo () {
-    let result
-    if (this.alignment.hasActiveAlignmentGroup && this.alignment.activeAlignmentGroup.groupLen > 1) {
-      result = this.alignment.undoInActiveGroup()
-    } else if (this.alignment.hasActiveAlignmentGroup && this.alignment.activeAlignmentGroup.groupLen === 1) {
-      result = this.alignment.undoActiveGroup()
-    } else if (!this.alignment.hasActiveAlignmentGroup && this.alignment.alignmentGroups.length > 0) {
-      result = this.alignment.activateGroupByGroupIndex(this.alignment.alignmentGroups.length - 1)
-      await this.deleteAlGroupFromStorage(this.alignment.activeAlignmentGroup.id)
-    }
-
+    if (!this.undoAvailable) { return }
+    const result = this.alignment.undoAlGroups()
     if (result) {
       this.store.commit('incrementAlignmentUpdated')
-      this.undoneSteps = this.undoneSteps + 1
       await StorageController.update(this.alignment, true)
+
       return result
     }
   }
@@ -77,18 +63,14 @@ export default class HistoryController {
    *   if there is no active alignment group and there are some saved undone groups, then we would reactivate next group from the list
    */
   async redo () {
-    let result
-    if (this.alignment.hasActiveAlignmentGroup && !this.alignment.currentStepOnLastInActiveGroup) {
-      result = this.alignment.redoInActiveGroup()
-    } else if (this.alignment.hasActiveAlignmentGroup && this.alignment.currentStepOnLastInActiveGroup && (this.undoneSteps > 0)) {
-      result = this.alignment.finishActiveAlignmentGroup()
-    } else if (!this.alignment.hasActiveAlignmentGroup && this.alignment.undoneGroups.length > 0) {
-      result = this.alignment.redoActiveGroup()
-      await this.deleteAlGroupFromStorage(this.alignment.activeAlignmentGroup.id)
-    }
+    if (!this.redoAvailable) { return }
+    const result = this.alignment.redoAlGroups()
+
     if (result) {
+      if (result.deleteActiveAlGroupFromStorage) {
+        await this.deleteAlGroupFromStorage(this.alignment.activeAlignmentGroup.id)
+      }
       this.store.commit('incrementAlignmentUpdated')
-      this.undoneSteps = this.undoneSteps - 1
       await StorageController.update(this.alignment, true)
       return result
     }
@@ -99,7 +81,6 @@ export default class HistoryController {
    */
   startOver (alignment) {
     this.tabsViewMode = false
-    this.undoneSteps = 0
     this.startTracking(alignment)
   }
 

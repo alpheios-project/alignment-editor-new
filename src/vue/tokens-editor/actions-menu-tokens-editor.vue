@@ -28,10 +28,10 @@ export default {
       return L10nSingleton
     },
     undoTokensEditAvailable () {
-      return this.$store.state.tokenUpdated && this.$tokensEC.undoTokensEditAvailable
+      return this.$store.state.tokenUpdated && this.$store.state.uploadCheck && this.$tokensEC.undoTokensEditAvailable
     },
     redoTokensEditAvailable () {
-      return this.$store.state.tokenUpdated && this.$tokensEC.redoTokensEditAvailable
+      return this.$store.state.tokenUpdated && this.$store.state.uploadCheck && this.$tokensEC.redoTokensEditAvailable
     }
   },
   methods: {

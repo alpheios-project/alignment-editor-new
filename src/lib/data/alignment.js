@@ -9,8 +9,11 @@ import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
 import HistoryStep from '@/lib/data/history/history-step.js'
 import TokensEditHistory from '@/lib/data/history/tokens-edit-history.js'
+import AlignmentHistory from '@/lib/data/history/alignment-history.js'
 
 import TokensEditActions from '@/lib/data/actions/tokens-edit-actions.js'
+import AlHistoryActions from '@/lib/data/actions/al-history-actions.js'
+
 import DetectTextController from '@/lib/controllers/detect-text-controller.js'
 import SettingsController from '@/lib/controllers/settings-controller.js'
 
@@ -34,12 +37,17 @@ export default class Alignment {
     this.activeAlignmentGroup = null
 
     this.hoveredGroups = []
-    this.undoneGroups = []
 
     this.annotations = {}
 
+    this.alignmentHistory = new AlignmentHistory()
+    this.alHistoryActions = new AlHistoryActions({ alignmentGroups: this.alignmentGroups, alignmentHistory: this.alignmentHistory })
+
+    this.alignmentHistory.allStepActions = this.allStepActionsAlGroups
+
     this.tokensEditHistory = new TokensEditHistory()
     this.tokensEditActions = new TokensEditActions({ origin: this.origin, targets: this.targets, tokensEditHistory: this.tokensEditHistory })
+
     this.tokensEditHistory.allStepActions = this.allStepActionsTokensEditor
   }
 
@@ -455,7 +463,7 @@ export default class Alignment {
    * Checks if there is no undone steps in the group
    */
   get currentStepOnLastInActiveGroup () {
-    return this.activeAlignmentGroup.currentStepOnLast
+    return this.alignmentHistory.currentStepOnLast
   }
 
   /**
@@ -468,7 +476,10 @@ export default class Alignment {
     if (!token.isTheSameTargetId(limitByTargetId)) { return false }
 
     this.activeAlignmentGroup = new AlignmentGroup(token, limitByTargetId)
-    this.undoneGroups = []
+
+    this.alignmentHistory.truncateSteps()
+    this.alignmentHistory.addStep(token, HistoryStep.types.START_GROUP, { groupId: this.activeAlignmentGroup.id, targetId: this.activeAlignmentGroup.targetId })
+
     return Boolean(this.activeAlignmentGroup)
   }
 
@@ -481,6 +492,8 @@ export default class Alignment {
   addToAlignmentGroup (token, limitByTargetId = null) {
     if (this.hasActiveAlignmentGroup && !this.tokenInActiveGroup(token, limitByTargetId) &&
         this.hasTheSameSegmentTargetIdActiveGroup(token.segmentIndex, limitByTargetId)) {
+      this.alignmentHistory.truncateSteps()
+      this.alignmentHistory.addStep(token, HistoryStep.types.ADD, { groupId: this.activeAlignmentGroup.id })
       return this.activeAlignmentGroup.add(token)
     } else {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
@@ -500,7 +513,10 @@ export default class Alignment {
    */
   removeFromAlignmentGroup (token, limitByTargetId = null) {
     if (this.hasActiveAlignmentGroup && this.tokenInActiveGroup(token, limitByTargetId)) {
-      this.activeAlignmentGroup.remove(token)
+      this.alignmentHistory.truncateSteps()
+      this.alignmentHistory.addStep(token, HistoryStep.types.REMOVE, { groupId: this.activeAlignmentGroup.id })
+
+      this.activeAlignmentGroup.remove(token, this.alignmentHistory)
       return true
     } else {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'))
@@ -518,13 +534,11 @@ export default class Alignment {
   finishActiveAlignmentGroup () {
     if (this.hasActiveAlignmentGroup && this.activeAlignmentGroup.couldBeFinished) {
       this.alignmentGroups.push(this.activeAlignmentGroup)
+
+      this.alignmentHistory.truncateSteps()
+      this.alignmentHistory.addStep(null, HistoryStep.types.FINISH_GROUP, { groupId: this.activeAlignmentGroup.id })
       this.activeAlignmentGroup = null
-      /*
-      NotificationSingleton.addNotification({
-        text: L10nSingleton.getMsgS('ALIGNMENT_GROUP_IS_COMPLETED'),
-        type: NotificationSingleton.types.INFO
-      })
-      */
+
       this.setUpdated()
       return true
     }
@@ -636,6 +650,15 @@ export default class Alignment {
     return this.activateGroup(tokensGroup)
   }
 
+  activateGroupByGroupId (groupId) {
+    const group = this.alignmentGroups.find(alGroup => alGroup.id === groupId)
+    if (group) {
+      this.activeAlignmentGroup = group
+      this.removeGroupFromAlignmentGroups(group)
+    }
+    return false
+  }
+
   /**
    * Removes the group from saved list and makes it active
    * @param {AlignmentGroup} tokensGroup
@@ -648,6 +671,10 @@ export default class Alignment {
       this.removeGroupFromAlignmentGroups(tokensGroup)
       if (token) { this.activeAlignmentGroup.updateFirstStepToken(token) }
       this.setUpdated()
+
+      this.alignmentHistory.truncateSteps()
+      this.alignmentHistory.addStep(token, HistoryStep.types.ACTIVATE_GROUP, { groupId: this.activeAlignmentGroup.id, targetId: this.activeAlignmentGroup.targetId })
+
       return tokensGroup.id
     }
     return false
@@ -667,29 +694,14 @@ export default class Alignment {
 
       const indexDeleted = this.removeGroupFromAlignmentGroups(tokensGroup)
       this.activeAlignmentGroup.merge(tokensGroup, indexDeleted)
+
+      this.alignmentHistory.truncateSteps()
+      this.alignmentHistory.addStep(tokensGroup, HistoryStep.types.MERGE, { groupId: this.activeAlignmentGroup.id, indexDeleted })
+
       this.setUpdated()
       return tokensGroup.id
     }
     return false
-  }
-
-  /**
-   * Step back inside active group
-   * If we step back merge step, then we would insert unmerged group back to the list
-   */
-  undoInActiveGroup () {
-    if (!this.hasActiveAlignmentGroup) {
-      return
-    }
-
-    const dataResult = this.activeAlignmentGroup.undo()
-
-    if (dataResult && dataResult.result && dataResult.data.length > 0) {
-      for (let i = 0; i < dataResult.data.length; i++) {
-        this.insertUnmergedGroup(dataResult.data[i])
-      }
-    }
-    return true
   }
 
   /**
@@ -704,31 +716,12 @@ export default class Alignment {
   }
 
   /**
-   * Step forward inside active group
-   */
-  redoInActiveGroup () {
-    if (this.hasActiveAlignmentGroup) {
-      return this.activeAlignmentGroup.redo()
-    }
-  }
-
-  /**
    * Saves active alignment group the list with saved undone groups
    */
+
   undoActiveGroup () {
     if (this.hasActiveAlignmentGroup) {
-      this.undoneGroups.push(this.activeAlignmentGroup)
       this.activeAlignmentGroup = null
-      return true
-    }
-  }
-
-  /**
-   * Extracts alignment group from the list and saves it to active
-   */
-  redoActiveGroup () {
-    if (!this.hasActiveAlignmentGroup) {
-      this.activeAlignmentGroup = this.undoneGroups.pop()
       return true
     }
   }
@@ -854,6 +847,7 @@ export default class Alignment {
    */
   updateTokenWord (token, word) {
     const result = this.tokensEditActions.updateTokenWord(token, word)
+    this.updateAnnotationLinksSingle(token, [result.wasIdWord])
     this.setUpdated()
     return result
   }
@@ -874,7 +868,8 @@ export default class Alignment {
       return false
     }
 
-    const result = this.tokensEditActions.mergeToken(token, direction)
+    const result = this.tokensEditActions.mergeToken(token, direction, this.annotations)
+    this.updateAnnotationLinksSingle(result.token, result.wasIdWord)
     this.setUpdated()
     return result
   }
@@ -886,6 +881,8 @@ export default class Alignment {
    */
   splitToken (token, tokenWord) {
     const result = this.tokensEditActions.splitToken(token, tokenWord)
+
+    this.updateAnnotationLinksSingle(result.token, [result.wasIdWord])
     this.setUpdated()
     return result
   }
@@ -897,6 +894,7 @@ export default class Alignment {
    */
   addLineBreakAfterToken (token) {
     const result = this.tokensEditActions.changeLineBreak(token, true)
+    this.updateAnnotationLinksSingle(token, [result.wasIdWord])
     this.setUpdated()
     return result
   }
@@ -908,6 +906,7 @@ export default class Alignment {
    */
   removeLineBreakAfterToken (token) {
     const result = this.tokensEditActions.changeLineBreak(token, false)
+    this.updateAnnotationLinksSingle(token, [result.wasIdWord])
     this.setUpdated()
     return result
   }
@@ -920,6 +919,7 @@ export default class Alignment {
    */
   moveToSegment (token, direction) {
     const result = this.tokensEditActions.moveToSegment(token, direction)
+    this.updateAnnotationLinksSingle(token, [result.wasIdWord])
     this.setUpdated()
     return result
   }
@@ -943,7 +943,8 @@ export default class Alignment {
    * @returns {Boolean}
    */
   deleteToken (token) {
-    const result = this.tokensEditActions.deleteToken(token)
+    const result = this.tokensEditActions.deleteToken(token, this.annotations[token.idWord])
+    delete this.annotations[token.idWord]
     this.setUpdated()
     return result
   }
@@ -1031,11 +1032,31 @@ export default class Alignment {
   }
 
   undoTokensEditStep () {
-    return this.tokensEditHistory.undo()
+    const result = this.tokensEditHistory.undo()
+    if (result.data && result.data[0] && result.data[0].updateAnnotations) {
+      if (result.data[0].type === 'multiple') {
+        this.updateAnnotationLinksMultiple(result.data[0].newIdWord, { token: result.data[0].mergedToken, annotations: result.data[0].mergedAnnotations }, result.data[0].wasToken)
+      } else if (result.data[0].type === 'local') {
+        this.updateAnnotationLinksLocal(result.data[0].token, result.data[0].annotations)
+      } else {
+        this.updateAnnotationLinksSingle(result.data[0].token, result.data[0].wasIdWord)
+      }
+    }
+    return result
   }
 
   redoTokensEditStep () {
-    return this.tokensEditHistory.redo()
+    const result = this.tokensEditHistory.redo()
+    if (result.data && result.data[0] && result.data[0].updateAnnotations) {
+      if (result.data[0].type === 'multiple') {
+        this.updateAnnotationLinksMultiple(result.data[0].newIdWord, { token: result.data[0].mergedToken, annotations: result.data[0].mergedAnnotations }, result.data[0].wasToken)
+      } if (result.data[0].type === 'delete') {
+        this.deleteAnnotations(result.data[0].token)
+      } else {
+        this.updateAnnotationLinksSingle(result.data[0].token, result.data[0].wasIdWord)
+      }
+    }
+    return result
   }
 
   /**
@@ -1069,6 +1090,29 @@ export default class Alignment {
     }
   }
 
+  get allStepActionsAlGroups () {
+    return {
+      remove: {
+        [HistoryStep.types.START_GROUP]: this.alHistoryActions.removeStartGroupStep.bind(this.alHistoryActions),
+        [HistoryStep.types.ACTIVATE_GROUP]: this.alHistoryActions.removeActivateGroupStep.bind(this.alHistoryActions),
+
+        [HistoryStep.types.ADD]: this.alHistoryActions.removeAddStep.bind(this.alHistoryActions),
+        [HistoryStep.types.REMOVE]: this.alHistoryActions.removeRemoveStep.bind(this.alHistoryActions),
+        [HistoryStep.types.MERGE]: this.alHistoryActions.removeMergeStep.bind(this.alHistoryActions),
+        [HistoryStep.types.FINISH_GROUP]: this.alHistoryActions.removeFinishGroupStep.bind(this.alHistoryActions)
+      },
+      apply: {
+        [HistoryStep.types.START_GROUP]: this.alHistoryActions.applyStartGroupStep.bind(this.alHistoryActions),
+        [HistoryStep.types.ACTIVATE_GROUP]: this.alHistoryActions.applyActivateGroupStep.bind(this.alHistoryActions),
+
+        [HistoryStep.types.ADD]: this.alHistoryActions.applyAddStep.bind(this.alHistoryActions),
+        [HistoryStep.types.REMOVE]: this.alHistoryActions.applyRemoveStep.bind(this.alHistoryActions),
+        [HistoryStep.types.MERGE]: this.alHistoryActions.applyMergeStep.bind(this.alHistoryActions),
+        [HistoryStep.types.FINISH_GROUP]: this.alHistoryActions.applyFinishGroupStep.bind(this.alHistoryActions)
+      }
+    }
+  }
+
   convertToJSON () {
     const origin = {
       docSource: this.origin.docSource.convertToJSON(),
@@ -1085,7 +1129,7 @@ export default class Alignment {
     const alignmentGroups = this.alignmentGroups.map(alGroup => alGroup.convertToJSON())
     const annotations = {}
     Object.keys(this.annotations).forEach(tokenIdWord => {
-      annotations[tokenIdWord] = this.annotations[tokenIdWord].map(annot => annot.convertToJSON())
+      annotations[tokenIdWord] = this.annotations[tokenIdWord].filter(annot => annot.token).map(annot => annot.convertToJSON())
     })
 
     return {
@@ -1166,7 +1210,7 @@ export default class Alignment {
 
     const annotations = []
     Object.keys(this.annotations).forEach(tokenIdWord => {
-      annotations.push(...this.annotations[tokenIdWord].map(annot => annot.convertToJSON()))
+      annotations.push(...this.annotations[tokenIdWord].filter(annot => annot.token).map(annot => annot.convertToJSON()))
     })
 
     return {
@@ -1264,7 +1308,7 @@ export default class Alignment {
     const collectAnnotationData = (token) => {
       token.annotated = this.annotations[token.idWord] && this.annotations[token.idWord].length > 0
       if (token.annotated) {
-        token.annotationData = this.annotations[token.idWord].map(annotation => annotation.convertToHTML())
+        token.annotationData = this.annotations[token.idWord].filter(annot => annot.token).map(annotation => annotation.convertToHTML())
       }
     }
 
@@ -1367,6 +1411,47 @@ export default class Alignment {
            (this.origin.alignedText.hasAllPartsUploaded && Object.values(this.targets).every(target => target.alignedText.hasAllPartsUploaded))
   }
 
+  updateAnnotationLinksSingle (token, fromIdWord) {
+    const annotations = []
+    for (let i = 0; i < fromIdWord.length; i++) {
+      if (this.annotations[fromIdWord[i]]) {
+        annotations.push(...this.annotations[fromIdWord[i]])
+        delete this.annotations[fromIdWord[i]]
+      }
+    }
+    this.annotations[token.idWord] = annotations
+    this.annotations[token.idWord].forEach(annot => { annot.token = token })
+  }
+
+  updateAnnotationLinksMultiple (fromIdWord, tokenDataWithAnnot1, token2) {
+    if (this.annotations[fromIdWord]) {
+      let annotationsForToken2 = this.annotations[fromIdWord]
+
+      if (tokenDataWithAnnot1.annotations) {
+        this.annotations[tokenDataWithAnnot1.token.idWord] = tokenDataWithAnnot1.annotations
+        this.annotations[tokenDataWithAnnot1.token.idWord].forEach(annot => { annot.token = tokenDataWithAnnot1.token })
+        annotationsForToken2 = this.annotations[fromIdWord].filter(annot => !tokenDataWithAnnot1.annotations.some(annotInner => annotInner.id === annot.id))
+      }
+
+      if (annotationsForToken2) {
+        this.annotations[token2.idWord] = annotationsForToken2
+        this.annotations[token2.idWord].forEach(annot => { annot.token = token2 })
+      }
+      delete this.annotations[fromIdWord]
+    }
+  }
+
+  updateAnnotationLinksLocal (token, annotations) {
+    if (annotations) {
+      this.annotations[token.idWord] = annotations
+      this.annotations[token.idWord].forEach(annot => { annot.token = token })
+    }
+  }
+
+  deleteAnnotations (token) {
+    delete this.annotations[token.idWord]
+  }
+
   addAnnotation ({ id, token, type, text } = {}) {
     if (token && type && text) {
       const existedAnnotation = this.existedAnnotation(token, id)
@@ -1438,5 +1523,64 @@ export default class Alignment {
 
   get hasAlignmentGroups () {
     return this.alignmentGroups.length > 0
+  }
+
+  get undoAvailableAlGroups () {
+    return this.alignmentHistory.undoAvailable
+  }
+
+  get redoAvailableAlGroups () {
+    return this.alignmentHistory.redoAvailable
+  }
+
+  undoAlGroups () {
+    this.alHistoryActions.activeAlignmentGroup = this.activeAlignmentGroup
+
+    const result = this.alignmentHistory.undo()
+    if (result.data[0]) {
+      if (result.data[0].defineFirstStepToken && this.hasActiveAlignmentGroup) {
+        this.activeAlignmentGroup.defineFirstStepToken(this.alignmentHistory, true)
+      }
+      if (result.data[0].removeActiveAlGroup) {
+        this.undoActiveGroup()
+      }
+      if (result.data[0].reactivateAlGroup) {
+        this.activateGroupByGroupId(result.data[0].groupId)
+      }
+      if (result.data[0].insertGroups && result.data[0].dataGroup) {
+        this.insertUnmergedGroup(result.data[0].dataGroup)
+      }
+      if (result.data[0].finishActiveAlGroup) {
+        this.alignmentGroups.push(this.activeAlignmentGroup)
+        this.activeAlignmentGroup = null
+      }
+    }
+    return true
+  }
+
+  redoAlGroups () {
+    this.alHistoryActions.activeAlignmentGroup = this.activeAlignmentGroup
+
+    const result = this.alignmentHistory.redo()
+    if (result.data[0]) {
+      if (result.data[0].removeGroup) {
+        this.removeGroupFromAlignmentGroups(result.data[0].tokensGroup)
+      }
+      if (result.data[0].defineFirstStepToken && this.hasActiveAlignmentGroup) {
+        this.activeAlignmentGroup.defineFirstStepToken(this.alignmentHistory, true)
+      }
+      if (result.data[0].resStartAlGroup) {
+        this.activeAlignmentGroup = new AlignmentGroup(result.data[0].token, result.data[0].targetId, false, result.data[0].groupId)
+        this.activeAlignmentGroup.update({ id: result.data[0].groupId })
+      }
+      if (result.data[0].finishActiveAlGroup) {
+        this.alignmentGroups.push(this.activeAlignmentGroup)
+        this.activeAlignmentGroup = null
+      }
+      if (result.data[0].reactivateAlGroup) {
+        this.activateGroupByGroupId(result.data[0].groupId)
+      }
+    }
+    return true
   }
 }

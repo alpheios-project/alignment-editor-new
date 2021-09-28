@@ -80,6 +80,7 @@ export default class EditorHistory {
     if (this.currentStepIndex > stepIndex) {
       for (let i = this.currentStepIndex; i > stepIndex; i--) {
         const dataResult = this.doStepAction(i, 'remove')
+
         result = result && dataResult.result
         if (dataResult.data) { data.push(dataResult.data) }
         dataIndexedDB.push(dataResult.dataIndexedDB)

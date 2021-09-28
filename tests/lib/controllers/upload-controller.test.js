@@ -112,8 +112,8 @@ describe('upload-controller.test.js', () => {
   })
   
   it('8 UploadController - static getAvailableExtensions returns an array of available file extensions', () => {
-    expect(UploadController.getAvailableExtensions()).toEqual(['csv', 'tsv', 'json', 'indexedDB-alignment'])
-    expect(UploadController.getAvailableExtensions(true)).toEqual(['csv', 'tsv', 'json', 'indexedDB-alignment'])  
+    expect(UploadController.getAvailableExtensions()).toEqual(['csv', 'tsv', 'json'])
+    expect(UploadController.getAvailableExtensions(true)).toEqual(['csv', 'tsv', 'json'])  
     expect(UploadController.getAvailableExtensions(false)).toEqual(['csv', 'tsv', 'xml', 'txt'])    
   })
 })

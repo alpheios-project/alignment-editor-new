@@ -13,7 +13,7 @@
             <option-item-block :optionItem = "tokenizerOptionItem" />
             <option-item-block :optionItem = "availableAnnotationTypesOptionItem"  :disabled = "disableAnnotationsTypes" />
             <option-item-block :optionItem = "maxCharactersAnnotationTextOptionItem" />
-
+            <option-item-block :optionItem = "maxCharactersPerPart" />
             <option-item-block :optionItem = "maxCharactersOptionItem" />
             <option-item-block :optionItem = "useSpecificEnglishTokenizerOptionItem" />
             <option-item-block :optionItem = "showSummaryPopupOptionItem" />
@@ -80,6 +80,10 @@ export default {
     maxCharactersAnnotationTextOptionItem () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.maxCharactersAnnotationText
     },
+
+    maxCharactersPerPart () {
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.maxCharactersPerPart
+    }, 
     versionData () {
       return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`
     },

@@ -5,7 +5,7 @@ import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
 import AppController from '@/lib/controllers/app-controller.js'
 import TextsController from '@/lib/controllers/texts-controller.js'
 import AlignedGroupsController from '@/lib/controllers/aligned-groups-controller.js'
-import HistoryController from '@/lib/controllers/history-controller.js'
+import HistoryAlGroupsController from '@/lib/controllers/history-algroups-controller.js'
 import TokensEditController from '@/lib/controllers/tokens-edit-controller.js'
 
 import Vue from '@vue-runtime'
@@ -36,7 +36,7 @@ describe('app-controller.test.js', () => {
     Vue.prototype.$textC = undefined
     Vue.prototype.$alignedGC = undefined
     Vue.prototype.$tokensEC = undefined
-    Vue.prototype.$historyC = undefined
+    Vue.prototype.$historyAGC = undefined
   })
 
   function timeout (ms) {
@@ -116,20 +116,20 @@ describe('app-controller.test.js', () => {
     })
   })
 
-  it('6 AppController - attachVueComponents executes defineTextController, defineAlignedGroupsController, defineHistoryController and attaches App Vue component ', async () => {
+  it('6 AppController - attachVueComponents executes defineTextController, defineAlignedGroupsController, defineHistoryAlGroupsController and attaches App Vue component ', async () => {
     const appC = new AppController({
       appId: 'alpheios-alignment-editor'
     })
 
     jest.spyOn(appC, 'defineTextController')
     jest.spyOn(appC, 'defineAlignedGroupsController')
-    jest.spyOn(appC, 'defineHistoryController')
+    jest.spyOn(appC, 'defineHistoryAlGroupsController')
 
     await appC.init()
 
     expect(appC.defineTextController).toHaveBeenCalled()
     expect(appC.defineAlignedGroupsController).toHaveBeenCalled()
-    expect(appC.defineHistoryController).toHaveBeenCalled()
+    expect(appC.defineHistoryAlGroupsController).toHaveBeenCalled()
 
     const divAppVue = document.getElementById('alpheios-alignment-app-container')   
     expect(divAppVue).toBeDefined()
@@ -213,7 +213,7 @@ describe('app-controller.test.js', () => {
     expect(appC.store).toEqual(expect.any(Vuex.Store))
   })
 
-  it('12 AppController - defineHistoryController creates HistoryController and attaches it to Vue component ', async () => {
+  it('12 AppController - defineHistoryAlGroupsController creates HistoryAlGroupsController and attaches it to Vue component ', async () => {
     const appC = new AppController({
       appId: 'alpheios-alignment-editor'
     })
@@ -221,13 +221,13 @@ describe('app-controller.test.js', () => {
     appC.attachVueComponents = jest.fn()
     await appC.init()
 
-    expect(appC.historyC).not.toBeDefined()
-    expect(Vue.prototype.$historyC).not.toBeDefined()
+    expect(appC.historyAGC).not.toBeDefined()
+    expect(Vue.prototype.$historyAGC).not.toBeDefined()
 
-    appC.defineHistoryController()
+    appC.defineHistoryAlGroupsController()
 
-    expect(appC.historyC).toBeInstanceOf(HistoryController)
-    expect(Vue.prototype.$historyC).toBeInstanceOf(HistoryController)
+    expect(appC.historyAGC).toBeInstanceOf(HistoryAlGroupsController)
+    expect(Vue.prototype.$historyAGC).toBeInstanceOf(HistoryAlGroupsController)
   })
 
   it('13 AppController - defineNotificationSupport creates notificationSingleton', async () => {

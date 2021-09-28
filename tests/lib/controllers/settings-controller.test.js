@@ -261,8 +261,8 @@ describe('settings-controller.test.js', () => {
   it('12 SettingsController - allowUpdateTokenWordOptionValue returns current allowUpdateTokenWord option value', () => {
     SettingsController.create(appC.store)
 
-    expect(SettingsController.allOptions.app.items.allowUpdateTokenWord.currentValue).toBeFalsy()
-    expect(SettingsController.allowUpdateTokenWordOptionValue).toBeFalsy()
+    expect(SettingsController.allOptions.app.items.allowUpdateTokenWord.currentValue).toBeTruthy()
+    expect(SettingsController.allowUpdateTokenWordOptionValue).toBeTruthy()
   })
 
   it('13 SettingsController - resetLocalTextEditorOptions - reset local options to initial', async () => {
@@ -321,7 +321,7 @@ describe('settings-controller.test.js', () => {
 
     expect(SettingsController.allOptions.app.items.theme.currentValue).toEqual('v1-theme')
     expect(SettingsController.allOptions.app.items.tokenizer.currentValue).toEqual('alpheiosRemoteTokenizer')
-    expect(SettingsController.allOptions.app.items.allowUpdateTokenWord.currentValue).toEqual(false)
+    expect(SettingsController.allOptions.app.items.allowUpdateTokenWord.currentValue).toEqual(true)
 
     expect(SettingsController.allOptions.sourceText.items.language.currentValue).toEqual('eng')
     expect(SettingsController.allOptions.sourceText.items.direction.currentValue).toEqual('ltr')

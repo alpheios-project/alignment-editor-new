@@ -152,13 +152,13 @@ export default {
      * Starts redo action
      */
     redoAction () {
-      this.$historyC.redo()
+      this.$historyAGC.redo()
     },
     /**
      * Starts undo action
      */
     undoAction () {
-      this.$historyC.undo()
+      this.$historyAGC.undo()
     },
 
     async showSummaryPopup () {
@@ -190,7 +190,7 @@ export default {
 
     startNewInitialAlignment () {
       this.$textC.createAlignment()
-      this.$historyC.startTracking(this.$textC.alignment)
+      this.$historyAGC.startTracking(this.$textC.alignment)
       this.showSourceTextEditor()
     },
 
@@ -273,7 +273,7 @@ export default {
         this.$textC.startOver()
         this.$alignedGC.startOver()
       }
-      this.$historyC.startOver(this.$textC.alignment)
+      this.$historyAGC.startOver(this.$textC.alignment)
       this.$tokensEC.startOver(this.$textC.alignment)
       
       NotificationSingleton.clearNotifications()

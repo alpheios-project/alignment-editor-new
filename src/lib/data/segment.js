@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 import Token from '@/lib/data/token'
 import Langs from '@/lib/data/langs/langs'
 import SettingsController from '@/lib/controllers/settings-controller'
+import StorageController from '@/lib/controllers/storage-controller.js'
 
 export default class Segment {
   constructor ({ id, index, textType, lang, direction, tokens, docSourceId, allPartNums } = {}) {
@@ -219,7 +220,7 @@ export default class Segment {
    *          { Array[Object] } tokens - array of tokens converted to JSON
    */
   convertToJSON () {
-    return {
+    const res = {
       index: this.index,
       textType: this.textType,
       lang: this.lang,
@@ -227,6 +228,7 @@ export default class Segment {
       docSourceId: this.docSourceId,
       tokens: this.tokens.map((token, tokenIndex) => token.convertToJSON(tokenIndex))
     }
+    return res
   }
 
   /**
@@ -246,10 +248,7 @@ export default class Segment {
       lang: data.lang,
       direction: data.direction,
       docSourceId: data.docSourceId,
-      tokens: data.tokens.map((token, tokenIndex) => {
-        token.tokenIdex = tokenIndex
-        return Token.convertFromJSON(token)
-      })
+      tokens: data.tokens.map(token => Token.convertFromJSON(token)).sort((a, b) => a.tokenIndex - b.tokenIndex)
     })
   }
 
@@ -271,13 +270,16 @@ export default class Segment {
   static convertFromIndexedDB (data, dbTokens, dbAllPartNums) {
     const tokensDbDataFiltered = dbTokens.filter(tokenItem => (data.docSourceId === tokenItem.textId) && (data.index === tokenItem.segmentIndex))
 
+    const tokens = tokensDbDataFiltered.map(token => Token.convertFromIndexedDB(token))
+      .sort((a, b) => (a.partNum - b.partNum) !== 0 ? (a.partNum - b.partNum) : (a.tokenIndex - b.tokenIndex))
+
     return new Segment({
       index: data.index,
       textType: data.textType,
       lang: data.lang,
       direction: data.direction,
       docSourceId: data.docSourceId,
-      tokens: tokensDbDataFiltered.map(token => Token.convertFromIndexedDB(token)).sort((a, b) => a.tokenIndex - b.tokenIndex),
+      tokens,
       allPartNums: dbAllPartNums.filter(partNum => (data.docSourceId === partNum.textId) && (data.index === partNum.segmentIndex))
         .map(partData => {
           return {
@@ -305,9 +307,12 @@ export default class Segment {
   }
 
   limitTokensToPartNum (partNum) {
-    this.tokens = this.partsTokens(partNum)
-    this.getCurrentPartNums()
-    return true
+    if (StorageController.dbAdapterAvailable) {
+      this.tokens = this.partsTokens(partNum)
+      this.getCurrentPartNums()
+      return true
+    }
+    return false
   }
 
   get hasAllPartsUploaded () {

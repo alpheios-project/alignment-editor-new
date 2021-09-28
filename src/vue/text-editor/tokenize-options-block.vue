@@ -65,7 +65,7 @@ export default {
       return this.$store.state.optionsUpdated && this.localOptions.ready && SettingsController.tokenizerOptionsLoaded
     },
     sourceType () {
-      return this.$store.state.optionsUpdated && this.localOptions.sourceText.items.sourceType.currentValue
+      return this.$store.state.optionsUpdated && this.localOptions.ready && this.localOptions.sourceText.items.sourceType.currentValue
     }
 
   },

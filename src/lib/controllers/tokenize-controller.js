@@ -17,12 +17,14 @@ export default class TokenizeController {
     return {
       simpleLocalTokenizer: {
         method: SimpleLocalTokenizer.tokenize.bind(SimpleLocalTokenizer),
+        hasSourceTypeOptions: false,
         hasOptions: false,
         getNextTokenIdWord: this.getNextTokenIdWordChangesType.bind(this),
         reIndexSentence: this.reIndexSentences.bind(this)
       },
       alpheiosRemoteTokenizer: {
         method: AlpheiosRemoteTokenizer.tokenize.bind(AlpheiosRemoteTokenizer),
+        hasSourceTypeOptions: true,
         hasOptions: true,
         uploadOptionsMethod: this.uploadDefaultRemoteTokenizeOptions.bind(this),
         checkOptionsMethod: this.checkRemoteTokenizeOptionsMethod.bind(this),
@@ -30,6 +32,10 @@ export default class TokenizeController {
         reIndexSentence: this.reIndexSentences.bind(this)
       }
     }
+  }
+
+  static hasSourceTypeOptions (tokenizer) {
+    return Boolean(this.tokenizeMethods[tokenizer]) && this.tokenizeMethods[tokenizer].hasSourceTypeOptions
   }
 
   /**
@@ -100,6 +106,7 @@ export default class TokenizeController {
         resultOptions[tokenizeMName] = await tokenizeM.uploadOptionsMethod(storage, tokenizeM)
       }
     }
+
     return resultOptions
   }
 
@@ -211,7 +218,7 @@ export default class TokenizeController {
     }
   }
 
-  static reIndexSentences (segment) {
+  static reIndexSentences (segment, redefineParts = true) {
     let sentenceIndex = 1
     for (let iTok = 0; iTok < segment.tokens.length; iTok++) {
       let token = segment.tokens[iTok] // eslint-disable-line prefer-const
@@ -222,6 +229,9 @@ export default class TokenizeController {
         sentenceIndex++
       }
     }
-    segment.defineAllPartNums()
+
+    if (redefineParts) {
+      segment.defineAllPartNums()
+    }
   }
 }

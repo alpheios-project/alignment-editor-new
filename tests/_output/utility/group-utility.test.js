@@ -59,11 +59,8 @@ describe('group-utility.test.js', () => {
   
   it('4 GroupUtility - allShownSegments extracts all segments from origin', async () => {
     const fullData = new SourceData(TestData)
-    // console.info('fullData', fullData)
 
     const allShownSegments1 = GroupUtility.allShownSegments(fullData, ['9a0ca81c-816f-4040-9b4f-c7bde4e19925'])
-    // console.info('allShownSegments1 - ', allShownSegments1)
-
     expect(allShownSegments1.length).toEqual(3)
 
     expect(allShownSegments1[0].index).toEqual(0)
@@ -103,11 +100,7 @@ describe('group-utility.test.js', () => {
 
   it('5 GroupUtility - alignmentGroups converts fullData to alignment groups array - full', async () => {
     const fullData = new SourceData(TestData)
-    // console.info('fullData', fullData)
-
     const allGroups = GroupUtility.alignmentGroups(fullData)
-
-    // console.info('allGroups - ', allGroups)
 
     expect(Object.keys(allGroups)).toEqual(['0a0c90fc-8219-4b01-93ad-c9a464f3d18b', 'c2700d5e-f037-4261-a2f4-138a12fffd74'])
 
@@ -134,11 +127,8 @@ describe('group-utility.test.js', () => {
 
   it('6 GroupUtility - alignmentGroups converts fullData to alignment groups array - short = equivalence', async () => {
     const fullData = new SourceData(TestData)
-    // console.info('fullData', fullData)
 
     const allGroupsShort = GroupUtility.alignmentGroups(fullData, 'short')
-
-    // console.info('allGroups - ', allGroups)
 
     expect(Object.keys(allGroupsShort)).toEqual(['0a0c90fc-8219-4b01-93ad-c9a464f3d18b', 'c2700d5e-f037-4261-a2f4-138a12fffd74'])
 
@@ -185,7 +175,6 @@ describe('group-utility.test.js', () => {
 
   it('7 GroupUtility - alignmentGroups converts fullData to alignment groups array - sentence = short before collectSentences ', async () => {
     const fullData = new SourceData(TestData)
-    // console.info('fullData', fullData)
 
     const allGroupsShort = GroupUtility.alignmentGroups(fullData, 'short')
 

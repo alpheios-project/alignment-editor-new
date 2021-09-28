@@ -1,30 +1,13 @@
 import HistoryStep from '@/lib/data/history/history-step.js'
 
 export default class AlignmentGroupActions {
-  constructor ({ targetId, alignmentGroupHistory }) {
+  constructor (targetId) {
     this.segmentIndex = null
     this.targetId = targetId
     this.origin = []
     this.target = []
-    this.alignmentGroupHistory = alignmentGroupHistory
     this.originPartNums = []
     this.targetPartNums = []
-  }
-
-  // calculated props
-
-  get firstStepToken () {
-    return this.alignmentGroupHistory ? this.alignmentGroupHistory.firstStepToken : null
-  }
-
-  // checks
-  /**
-   * Checks if the alignment group has the same target docSourceId
-   * @param {String} targetId
-   * @returns {Boolean}
-   */
-  hasTheSameTargetId (targetId) {
-    return !targetId || !this.targetId || (this.targetId === targetId)
   }
 
   /**
@@ -50,54 +33,6 @@ export default class AlignmentGroupActions {
            (!this.targetId || (token.textType === 'origin') || ((this.targetId === token.docSourceId)))
   }
 
-  // first step definition
-
-  /**
-   * Checks if first step is empty or equals to the token that was already removed
-   * @returns { Boolean } true - first step should be updated, false - first step is correct
-   */
-  get firstStepNeedToBeUpdated () {
-    return !this.firstStepToken || !this.includesToken(this.firstStepToken)
-  }
-
-  /**
-   * Finds the first token in the steps that is yet included in group, and updates firstStep
-   */
-  defineFirstStepToken () {
-    if (this.firstStepNeedToBeUpdated) {
-      let firstStepToken = null
-      for (let i = 0; i < this.alignmentGroupHistory.steps.length; i++) {
-        if (this.includesToken(this.alignmentGroupHistory.steps[i].token)) {
-          firstStepToken = this.alignmentGroupHistory.steps[i].token
-          break
-        }
-      }
-
-      this.updateFirstStepToken(firstStepToken)
-    }
-  }
-
-  /**
-   * Update first step with passed token, it is used when we want to activate previously saved alignment group
-   * @param {Token} token
-   */
-  updateFirstStepToken (token) {
-    if (token && this.includesToken(token)) {
-      this.alignmentGroupHistory.firstStepToken = token
-    } else {
-      this.alignmentGroupHistory.firstStepToken = null
-    }
-  }
-
-  /**
-   * Checks if the token is equal saved to the first step by unique idWord
-   * @param {Token} token
-   * @returns {Boolean} true - if this is the first step, false - not
-   */
-  isFirstToken (token, targetId) {
-    return this.firstStepToken && this.hasTheSameTargetId(targetId) && this.includesToken(token) && (this.firstStepToken.idWord === token.idWord)
-  }
-
   // actions
 
   /**
@@ -118,11 +53,6 @@ export default class AlignmentGroupActions {
     }
 
     this[token.textType].push(token.idWord)
-
-    this.alignmentGroupHistory.truncateSteps()
-    this.alignmentGroupHistory.addStep(token, HistoryStep.types.ADD)
-
-    this.defineFirstStepToken()
     return true
   }
 
@@ -136,15 +66,10 @@ export default class AlignmentGroupActions {
       return false
     }
 
-    this.alignmentGroupHistory.truncateSteps()
-
     const tokenIndex = this[token.textType].findIndex(tokenId => tokenId === token.idWord)
 
     if (tokenIndex >= 0) {
       this[token.textType].splice(tokenIndex, 1)
-
-      this.alignmentGroupHistory.addStep(token, HistoryStep.types.REMOVE)
-      this.defineFirstStepToken()
       return true
     }
     return false
@@ -158,8 +83,6 @@ export default class AlignmentGroupActions {
   merge (tokensGroup, indexDeleted) {
     this.origin.push(...tokensGroup.origin)
     this.target.push(...tokensGroup.target)
-
-    this.alignmentGroupHistory.addStep(tokensGroup, HistoryStep.types.MERGE, { indexDeleted })
   }
 
   /**
@@ -187,58 +110,9 @@ export default class AlignmentGroupActions {
         this.target.splice(tokenIndex, 1)
       }
     }
-    this.defineFirstStepToken()
     return {
       tokensGroup,
       indexDeleted: step.indexDeleted
-    }
-  }
-
-  // step actions
-
-  removeStepAdd (step) {
-    const tokenIndex = this[step.token.textType].findIndex(tokenId => tokenId === step.token.idWord)
-    this[step.token.textType].splice(tokenIndex, 1)
-    return {
-      result: true
-    }
-  }
-
-  removeStepRemove (step) {
-    this[step.token.textType].push(step.token.idWord)
-    return {
-      result: true
-    }
-  }
-
-  removeStepMerge (step) {
-    const data = this.unmerge(step)
-    return {
-      result: true,
-      data
-    }
-  }
-
-  applyStepAdd (step) {
-    this[step.token.textType].push(step.token.idWord)
-    return {
-      result: true
-    }
-  }
-
-  applyStepRemove (step) {
-    const tokenIndex = this[step.token.textType].findIndex(tokenId => tokenId === step.token.idWord)
-    this[step.token.textType].splice(tokenIndex, 1)
-    return {
-      result: true
-    }
-  }
-
-  applyStepMerge (step) {
-    this.origin.push(...step.token.origin)
-    this.target.push(...step.token.target)
-    return {
-      result: true
     }
   }
 
@@ -252,9 +126,7 @@ export default class AlignmentGroupActions {
   }
 
   static convertFromJSON (data) {
-    const actions = new AlignmentGroupActions({
-      targetId: data.targetId
-    })
+    const actions = new AlignmentGroupActions(data.targetId)
     actions.segmentIndex = data.segmentIndex
     actions.origin = data.origin
     actions.target = data.target

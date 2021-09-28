@@ -191,15 +191,10 @@ export default {
     alignmentGroupsWorkflowAvailable () {
       return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowAvailable
     },
-    /*
-    allTokens () {
-      return  this.$store.state.tokenUpdated ? this.segment.tokens : []
-    },
-    */
     currentPartIndexes () {
       return this.$store.state.uploadPartNum && this.$store.state.reuploadTextsParts ? this.segment.currentPartNums : []
     },
-    allTokens () {
+    allTokens () {    
       return  this.$store.state.tokenUpdated && this.$store.state.uploadPartNum && this.$store.state.reuploadTextsParts ? this.segment.tokens : []
     },
     amountOfSegments () {
