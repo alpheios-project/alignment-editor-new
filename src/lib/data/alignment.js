@@ -1583,4 +1583,12 @@ export default class Alignment {
     }
     return true
   }
+
+  clearTokensEditHistory () {
+    return this.tokensEditHistory.clearHistory()
+  }
+
+  tokenWasEdited (token) {
+    return this.tokensEditHistory.tokenWasEdited(token)
+  }
 }

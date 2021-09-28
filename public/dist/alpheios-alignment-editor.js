@@ -38683,12 +38683,14 @@ class AlignedGroupsController {
    * @param {String|Null} limitByTargetId - docSource of the current target document
    */
   async clickToken (token, limitByTargetId = null) {
+    let checkHistory = false
     if (!this.hasActiveAlignmentGroup) {
       if (this.tokenIsGrouped(token, limitByTargetId)) {
         const alGroupItemID = this.activateGroupByToken(token, limitByTargetId)
         await this.deleteAlGroupFromStorage(alGroupItemID)
       } else {
         this.startNewAlignmentGroup(token, limitByTargetId)
+        checkHistory = true
       }
     } else {
       if (this.shouldFinishAlignmentGroup(token, limitByTargetId)) {
@@ -38703,9 +38705,23 @@ class AlignedGroupsController {
         await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
       } else {
         this.addToAlignmentGroup(token, limitByTargetId)
+        checkHistory = true
       }
     }
+    if (checkHistory && this.tokenWasEdited(token)) {
+      this.clearTokensEditHistory()
+    }
     this.store.commit('incrementAlignmentUpdated')
+  }
+
+  clearTokensEditHistory () {
+    this.alignment.clearTokensEditHistory()
+    this.store.commit('incrementTokenUpdated')
+    return true
+  }
+
+  tokenWasEdited (token) {
+    return this.alignment.tokenWasEdited(token)
   }
 
   deleteAlGroupFromStorage (alGroupItemID) {
@@ -44439,6 +44455,14 @@ class Alignment {
     }
     return true
   }
+
+  clearTokensEditHistory () {
+    return this.tokensEditHistory.clearHistory()
+  }
+
+  tokenWasEdited (token) {
+    return this.tokensEditHistory.tokenWasEdited(token)
+  }
 }
 
 
@@ -44735,6 +44759,12 @@ class EditorHistory {
   prepareDataForIndexedDBCorrect () {
     return {}
   }
+
+  clearHistory () {
+    this.steps = []
+    this.currentStepIndex = null
+    return true
+  }
 }
 
 
@@ -44879,6 +44909,10 @@ class TokensEditHistory extends _lib_data_history_editor_history__WEBPACK_IMPORT
     } else if (step.type === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__.default.types.DELETE) {
       return { type: step.type, token: step.params.deletedToken }
     }
+  }
+
+  tokenWasEdited (token) {
+    return this.steps.some(step => step.token === token)
   }
 }
 
@@ -47844,7 +47878,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i545-undo-still-active.20210927407" : 0
+    return  true ? "i542-clear-history.20210927616" : 0
   }
 
   static get libName () {
