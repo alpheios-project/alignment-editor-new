@@ -37,4 +37,8 @@ export default class TokensEditHistory extends EditorHistory {
       return { type: step.type, token: step.params.deletedToken }
     }
   }
+
+  tokenWasEdited (token) {
+    return this.steps.some(step => step.token === token)
+  }
 }

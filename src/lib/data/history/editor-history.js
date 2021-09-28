@@ -134,4 +134,10 @@ export default class EditorHistory {
   prepareDataForIndexedDBCorrect () {
     return {}
   }
+
+  clearHistory () {
+    this.steps = []
+    this.currentStepIndex = null
+    return true
+  }
 }

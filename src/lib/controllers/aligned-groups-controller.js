@@ -108,12 +108,14 @@ export default class AlignedGroupsController {
    * @param {String|Null} limitByTargetId - docSource of the current target document
    */
   async clickToken (token, limitByTargetId = null) {
+    let checkHistory = false
     if (!this.hasActiveAlignmentGroup) {
       if (this.tokenIsGrouped(token, limitByTargetId)) {
         const alGroupItemID = this.activateGroupByToken(token, limitByTargetId)
         await this.deleteAlGroupFromStorage(alGroupItemID)
       } else {
         this.startNewAlignmentGroup(token, limitByTargetId)
+        checkHistory = true
       }
     } else {
       if (this.shouldFinishAlignmentGroup(token, limitByTargetId)) {
@@ -128,9 +130,23 @@ export default class AlignedGroupsController {
         await StorageController.update(this.alignment)
       } else {
         this.addToAlignmentGroup(token, limitByTargetId)
+        checkHistory = true
       }
     }
+    if (checkHistory && this.tokenWasEdited(token)) {
+      this.clearTokensEditHistory()
+    }
     this.store.commit('incrementAlignmentUpdated')
+  }
+
+  clearTokensEditHistory () {
+    this.alignment.clearTokensEditHistory()
+    this.store.commit('incrementTokenUpdated')
+    return true
+  }
+
+  tokenWasEdited (token) {
+    return this.alignment.tokenWasEdited(token)
   }
 
   deleteAlGroupFromStorage (alGroupItemID) {
