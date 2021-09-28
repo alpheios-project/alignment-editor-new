@@ -88,6 +88,12 @@ export default {
 }
 </script>
 <style lang="scss">
+  .alpheios-alignment-editor-modal-save-align {
+    .alpheios-modal-body {
+      overflow: initial;
+    }
+  }
+
   .alpheios-main-menu-download-block-radio-block_item {
     padding-right: 20px; 
   }
