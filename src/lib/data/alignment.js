@@ -1466,14 +1466,29 @@ export default class Alignment {
         this.annotations[token.idWord] = []
       }
 
-      let lastTypeIndex = 0
+      let lastTypeIndex = null
       this.annotations[token.idWord].forEach(annot => {
-        if ((annot.type === type) && (lastTypeIndex < annot.index)) {
+        console.info('addAnnotation - 1', lastTypeIndex)
+        if ((annot.type === type) && lastTypeIndex) {
+          const anIndexLastParts = lastTypeIndex.split('-')
+          const anIndexLast = anIndexLastParts[anIndexLastParts.length - 1]
+
+          const anIndexCurParts = annot.index.split('-')
+          const anIndexCur = anIndexCurParts[anIndexCurParts.length - 1]
+
+          console.info('addAnnotation - 2', lastTypeIndex, annot.index, anIndexLast, anIndexCur)
+          if (anIndexLast < anIndexCur) {
+            lastTypeIndex = annot.index
+          }
+          console.info('addAnnotation - 3', lastTypeIndex)
+        }
+        if (!lastTypeIndex) {
           lastTypeIndex = annot.index
         }
       })
 
-      const annotation = new Annotation({ token, type, text, index: lastTypeIndex + 1 })
+      const newTypeIndex = Annotation.getNewIndex(token, lastTypeIndex)
+      const annotation = new Annotation({ token, type, text, index: newTypeIndex })
 
       this.annotations[token.idWord].push(annotation)
       return true

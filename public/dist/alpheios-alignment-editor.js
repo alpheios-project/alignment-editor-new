@@ -44338,14 +44338,29 @@ class Alignment {
         this.annotations[token.idWord] = []
       }
 
-      let lastTypeIndex = 0
+      let lastTypeIndex = null
       this.annotations[token.idWord].forEach(annot => {
-        if ((annot.type === type) && (lastTypeIndex < annot.index)) {
+        console.info('addAnnotation - 1', lastTypeIndex)
+        if ((annot.type === type) && lastTypeIndex) {
+          const anIndexLastParts = lastTypeIndex.split('-')
+          const anIndexLast = anIndexLastParts[anIndexLastParts.length - 1]
+
+          const anIndexCurParts = annot.index.split('-')
+          const anIndexCur = anIndexCurParts[anIndexCurParts.length - 1]
+
+          console.info('addAnnotation - 2', lastTypeIndex, annot.index, anIndexLast, anIndexCur)
+          if (anIndexLast < anIndexCur) {
+            lastTypeIndex = annot.index
+          }
+          console.info('addAnnotation - 3', lastTypeIndex)
+        }
+        if (!lastTypeIndex) {
           lastTypeIndex = annot.index
         }
       })
 
-      const annotation = new _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__.default({ token, type, text, index: lastTypeIndex + 1 })
+      const newTypeIndex = _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__.default.getNewIndex(token, lastTypeIndex)
+      const annotation = new _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__.default({ token, type, text, index: newTypeIndex })
 
       this.annotations[token.idWord].push(annotation)
       return true
@@ -44494,6 +44509,18 @@ class Annotation {
 
   static get allTypes () {
     return Object.keys(Annotation.types)
+  }
+
+  static getNewIndex (token, lastTypeIndex) {
+    console.info('getNewIndex -1', token.idWord, lastTypeIndex)
+    if (!lastTypeIndex) {
+      return `${token.idWord}-1`
+    }
+    const annotIndexParts = lastTypeIndex.split('-')
+    const annotIndex = parseInt(annotIndexParts[annotIndexParts.length - 1]) + 1
+
+    console.info('getNewIndex -2', annotIndexParts, annotIndex)
+    return `${token.idWord}-${annotIndex}`
   }
 
   hasProperties ({ type, text } = {}) {
@@ -47878,7 +47905,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i542-clear-history.20210928508" : 0
+    return  true ? "i538-annotation-num.20210928621" : 0
   }
 
   static get libName () {
