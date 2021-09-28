@@ -286,8 +286,8 @@ input.alpheios-alignment-input::-ms-input-placeholder {
 }
 .alpheios-standard-theme .alpheios-al-editor-container-inner span.alpheios-token.alpheios-token-grouped {
   color: #282828;
-  border-color: transparent;
-  background: transparent;
+  border-color: #BCE5F0;
+  background: #BCE5F0;
 }
 .alpheios-standard-theme .alpheios-al-editor-container-inner span.alpheios-token.alpheios-token-grouped.alpheios-token-annotated {
   border-bottom-color: #282828;

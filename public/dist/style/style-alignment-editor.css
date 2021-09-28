@@ -1973,6 +1973,9 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   text-transform: uppercase;
   margin-bottom: 10px;
 }
+.alpheios-alignment-editor-modal-save-align .alpheios-modal-body {
+  overflow: initial;
+}
 .alpheios-main-menu-download-block-radio-block_item {
   padding-right: 20px;
 }
