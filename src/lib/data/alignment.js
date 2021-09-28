@@ -1468,22 +1468,16 @@ export default class Alignment {
 
       let lastTypeIndex = null
       this.annotations[token.idWord].forEach(annot => {
-        console.info('addAnnotation - 1', lastTypeIndex)
-        if ((annot.type === type) && lastTypeIndex) {
-          const anIndexLastParts = lastTypeIndex.split('-')
-          const anIndexLast = anIndexLastParts[anIndexLastParts.length - 1]
-
-          const anIndexCurParts = annot.index.split('-')
-          const anIndexCur = anIndexCurParts[anIndexCurParts.length - 1]
-
-          console.info('addAnnotation - 2', lastTypeIndex, annot.index, anIndexLast, anIndexCur)
-          if (anIndexLast < anIndexCur) {
+        const annotCurData = Annotation.parseIndex(annot.index)
+        if ((annot.type === type) && (annotCurData.idWord === token.idWord)) {
+          if (!lastTypeIndex) {
             lastTypeIndex = annot.index
+          } else {
+            const lastTypeIndexData = Annotation.parseIndex(lastTypeIndex)
+            if (lastTypeIndexData.index < annotCurData.index) {
+              lastTypeIndex = annot.index
+            }
           }
-          console.info('addAnnotation - 3', lastTypeIndex)
-        }
-        if (!lastTypeIndex) {
-          lastTypeIndex = annot.index
         }
       })
 
@@ -1505,7 +1499,16 @@ export default class Alignment {
   }
 
   getAnnotations (token) {
-    return this.annotations[token.idWord] ? this.annotations[token.idWord] : []
+    if (!this.annotations[token.idWord]) {
+      return []
+    }
+    return this.annotations[token.idWord].sort((a, b) => {
+      if (a.type === b.type) {
+        return a.index < b.index ? -1 : 1
+      } else {
+        return a.type < b.type ? -1 : 1
+      }
+    })
   }
 
   equalAnnotation ({ token, type, text }) {

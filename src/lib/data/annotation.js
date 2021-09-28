@@ -14,15 +14,26 @@ export default class Annotation {
   }
 
   static getNewIndex (token, lastTypeIndex) {
-    console.info('getNewIndex -1', token.idWord, lastTypeIndex)
     if (!lastTypeIndex) {
       return `${token.idWord}-1`
     }
     const annotIndexParts = lastTypeIndex.split('-')
     const annotIndex = parseInt(annotIndexParts[annotIndexParts.length - 1]) + 1
 
-    console.info('getNewIndex -2', annotIndexParts, annotIndex)
     return `${token.idWord}-${annotIndex}`
+  }
+
+  static parseIndex (index) {
+    const indexParts = index.split('-')
+    const anIndex = indexParts[indexParts.length - 1]
+
+    indexParts.pop()
+    const anWordId = indexParts.join('-')
+
+    return {
+      idWord: anWordId,
+      index: anIndex
+    }
   }
 
   hasProperties ({ type, text } = {}) {

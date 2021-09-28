@@ -44340,22 +44340,16 @@ class Alignment {
 
       let lastTypeIndex = null
       this.annotations[token.idWord].forEach(annot => {
-        console.info('addAnnotation - 1', lastTypeIndex)
-        if ((annot.type === type) && lastTypeIndex) {
-          const anIndexLastParts = lastTypeIndex.split('-')
-          const anIndexLast = anIndexLastParts[anIndexLastParts.length - 1]
-
-          const anIndexCurParts = annot.index.split('-')
-          const anIndexCur = anIndexCurParts[anIndexCurParts.length - 1]
-
-          console.info('addAnnotation - 2', lastTypeIndex, annot.index, anIndexLast, anIndexCur)
-          if (anIndexLast < anIndexCur) {
+        const annotCurData = _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__.default.parseIndex(annot.index)
+        if ((annot.type === type) && (annotCurData.idWord === token.idWord)) {
+          if (!lastTypeIndex) {
             lastTypeIndex = annot.index
+          } else {
+            const lastTypeIndexData = _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__.default.parseIndex(lastTypeIndex)
+            if (lastTypeIndexData.index < annotCurData.index) {
+              lastTypeIndex = annot.index
+            }
           }
-          console.info('addAnnotation - 3', lastTypeIndex)
-        }
-        if (!lastTypeIndex) {
-          lastTypeIndex = annot.index
         }
       })
 
@@ -44377,7 +44371,16 @@ class Alignment {
   }
 
   getAnnotations (token) {
-    return this.annotations[token.idWord] ? this.annotations[token.idWord] : []
+    if (!this.annotations[token.idWord]) {
+      return []
+    }
+    return this.annotations[token.idWord].sort((a, b) => {
+      if (a.type === b.type) {
+        return a.index < b.index ? -1 : 1
+      } else {
+        return a.type < b.type ? -1 : 1
+      }
+    })
   }
 
   equalAnnotation ({ token, type, text }) {
@@ -44512,15 +44515,26 @@ class Annotation {
   }
 
   static getNewIndex (token, lastTypeIndex) {
-    console.info('getNewIndex -1', token.idWord, lastTypeIndex)
     if (!lastTypeIndex) {
       return `${token.idWord}-1`
     }
     const annotIndexParts = lastTypeIndex.split('-')
     const annotIndex = parseInt(annotIndexParts[annotIndexParts.length - 1]) + 1
 
-    console.info('getNewIndex -2', annotIndexParts, annotIndex)
     return `${token.idWord}-${annotIndex}`
+  }
+
+  static parseIndex (index) {
+    const indexParts = index.split('-')
+    const anIndex = indexParts[indexParts.length - 1]
+
+    indexParts.pop()
+    const anWordId = indexParts.join('-')
+
+    return {
+      idWord: anWordId,
+      index: anIndex
+    }
   }
 
   hasProperties ({ type, text } = {}) {
@@ -47905,7 +47919,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i538-annotation-num.20210928621" : 0
+    return  true ? "i538-annotation-num.20210928639" : 0
   }
 
   static get libName () {
