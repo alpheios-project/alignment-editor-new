@@ -515,9 +515,6 @@ var serializerDefault = function () {
 function ObjectWithoutPrototypeCache() {
     this.cache = Object.create(null);
 }
-ObjectWithoutPrototypeCache.prototype.has = function (key) {
-    return key in this.cache;
-};
 ObjectWithoutPrototypeCache.prototype.get = function (key) {
     return this.cache[key];
 };
@@ -2616,9 +2613,9 @@ return /******/ (() => { // webpackBootstrap
 /*!********************************************!*\
   !*** ../../../node_modules/axios/index.js ***!
   \********************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_1310__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_1293__) => {
 
-module.exports = __nested_webpack_require_1310__(/*! ./lib/axios */ "../../../node_modules/axios/lib/axios.js");
+module.exports = __nested_webpack_require_1293__(/*! ./lib/axios */ "../../../node_modules/axios/lib/axios.js");
 
 /***/ }),
 
@@ -2626,19 +2623,19 @@ module.exports = __nested_webpack_require_1310__(/*! ./lib/axios */ "../../../no
 /*!*******************************************************!*\
   !*** ../../../node_modules/axios/lib/adapters/xhr.js ***!
   \*******************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_1741__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_1714__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_1741__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
-var settle = __nested_webpack_require_1741__(/*! ./../core/settle */ "../../../node_modules/axios/lib/core/settle.js");
-var cookies = __nested_webpack_require_1741__(/*! ./../helpers/cookies */ "../../../node_modules/axios/lib/helpers/cookies.js");
-var buildURL = __nested_webpack_require_1741__(/*! ./../helpers/buildURL */ "../../../node_modules/axios/lib/helpers/buildURL.js");
-var buildFullPath = __nested_webpack_require_1741__(/*! ../core/buildFullPath */ "../../../node_modules/axios/lib/core/buildFullPath.js");
-var parseHeaders = __nested_webpack_require_1741__(/*! ./../helpers/parseHeaders */ "../../../node_modules/axios/lib/helpers/parseHeaders.js");
-var isURLSameOrigin = __nested_webpack_require_1741__(/*! ./../helpers/isURLSameOrigin */ "../../../node_modules/axios/lib/helpers/isURLSameOrigin.js");
-var createError = __nested_webpack_require_1741__(/*! ../core/createError */ "../../../node_modules/axios/lib/core/createError.js");
+var utils = __nested_webpack_require_1714__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var settle = __nested_webpack_require_1714__(/*! ./../core/settle */ "../../../node_modules/axios/lib/core/settle.js");
+var cookies = __nested_webpack_require_1714__(/*! ./../helpers/cookies */ "../../../node_modules/axios/lib/helpers/cookies.js");
+var buildURL = __nested_webpack_require_1714__(/*! ./../helpers/buildURL */ "../../../node_modules/axios/lib/helpers/buildURL.js");
+var buildFullPath = __nested_webpack_require_1714__(/*! ../core/buildFullPath */ "../../../node_modules/axios/lib/core/buildFullPath.js");
+var parseHeaders = __nested_webpack_require_1714__(/*! ./../helpers/parseHeaders */ "../../../node_modules/axios/lib/helpers/parseHeaders.js");
+var isURLSameOrigin = __nested_webpack_require_1714__(/*! ./../helpers/isURLSameOrigin */ "../../../node_modules/axios/lib/helpers/isURLSameOrigin.js");
+var createError = __nested_webpack_require_1714__(/*! ../core/createError */ "../../../node_modules/axios/lib/core/createError.js");
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -2816,16 +2813,16 @@ module.exports = function xhrAdapter(config) {
 /*!************************************************!*\
   !*** ../../../node_modules/axios/lib/axios.js ***!
   \************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_8658__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_8441__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_8658__(/*! ./utils */ "../../../node_modules/axios/lib/utils.js");
-var bind = __nested_webpack_require_8658__(/*! ./helpers/bind */ "../../../node_modules/axios/lib/helpers/bind.js");
-var Axios = __nested_webpack_require_8658__(/*! ./core/Axios */ "../../../node_modules/axios/lib/core/Axios.js");
-var mergeConfig = __nested_webpack_require_8658__(/*! ./core/mergeConfig */ "../../../node_modules/axios/lib/core/mergeConfig.js");
-var defaults = __nested_webpack_require_8658__(/*! ./defaults */ "../../../node_modules/axios/lib/defaults.js");
+var utils = __nested_webpack_require_8441__(/*! ./utils */ "../../../node_modules/axios/lib/utils.js");
+var bind = __nested_webpack_require_8441__(/*! ./helpers/bind */ "../../../node_modules/axios/lib/helpers/bind.js");
+var Axios = __nested_webpack_require_8441__(/*! ./core/Axios */ "../../../node_modules/axios/lib/core/Axios.js");
+var mergeConfig = __nested_webpack_require_8441__(/*! ./core/mergeConfig */ "../../../node_modules/axios/lib/core/mergeConfig.js");
+var defaults = __nested_webpack_require_8441__(/*! ./defaults */ "../../../node_modules/axios/lib/defaults.js");
 
 /**
  * Create an instance of Axios
@@ -2858,18 +2855,18 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __nested_webpack_require_8658__(/*! ./cancel/Cancel */ "../../../node_modules/axios/lib/cancel/Cancel.js");
-axios.CancelToken = __nested_webpack_require_8658__(/*! ./cancel/CancelToken */ "../../../node_modules/axios/lib/cancel/CancelToken.js");
-axios.isCancel = __nested_webpack_require_8658__(/*! ./cancel/isCancel */ "../../../node_modules/axios/lib/cancel/isCancel.js");
+axios.Cancel = __nested_webpack_require_8441__(/*! ./cancel/Cancel */ "../../../node_modules/axios/lib/cancel/Cancel.js");
+axios.CancelToken = __nested_webpack_require_8441__(/*! ./cancel/CancelToken */ "../../../node_modules/axios/lib/cancel/CancelToken.js");
+axios.isCancel = __nested_webpack_require_8441__(/*! ./cancel/isCancel */ "../../../node_modules/axios/lib/cancel/isCancel.js");
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __nested_webpack_require_8658__(/*! ./helpers/spread */ "../../../node_modules/axios/lib/helpers/spread.js");
+axios.spread = __nested_webpack_require_8441__(/*! ./helpers/spread */ "../../../node_modules/axios/lib/helpers/spread.js");
 
 // Expose isAxiosError
-axios.isAxiosError = __nested_webpack_require_8658__(/*! ./helpers/isAxiosError */ "../../../node_modules/axios/lib/helpers/isAxiosError.js");
+axios.isAxiosError = __nested_webpack_require_8441__(/*! ./helpers/isAxiosError */ "../../../node_modules/axios/lib/helpers/isAxiosError.js");
 
 module.exports = axios;
 
@@ -2913,12 +2910,12 @@ module.exports = Cancel;
 /*!*************************************************************!*\
   !*** ../../../node_modules/axios/lib/cancel/CancelToken.js ***!
   \*************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_11949__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_11635__) => {
 
 "use strict";
 
 
-var Cancel = __nested_webpack_require_11949__(/*! ./Cancel */ "../../../node_modules/axios/lib/cancel/Cancel.js");
+var Cancel = __nested_webpack_require_11635__(/*! ./Cancel */ "../../../node_modules/axios/lib/cancel/Cancel.js");
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -2997,16 +2994,16 @@ module.exports = function isCancel(value) {
 /*!*****************************************************!*\
   !*** ../../../node_modules/axios/lib/core/Axios.js ***!
   \*****************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_14044__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_13646__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_14044__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
-var buildURL = __nested_webpack_require_14044__(/*! ../helpers/buildURL */ "../../../node_modules/axios/lib/helpers/buildURL.js");
-var InterceptorManager = __nested_webpack_require_14044__(/*! ./InterceptorManager */ "../../../node_modules/axios/lib/core/InterceptorManager.js");
-var dispatchRequest = __nested_webpack_require_14044__(/*! ./dispatchRequest */ "../../../node_modules/axios/lib/core/dispatchRequest.js");
-var mergeConfig = __nested_webpack_require_14044__(/*! ./mergeConfig */ "../../../node_modules/axios/lib/core/mergeConfig.js");
+var utils = __nested_webpack_require_13646__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var buildURL = __nested_webpack_require_13646__(/*! ../helpers/buildURL */ "../../../node_modules/axios/lib/helpers/buildURL.js");
+var InterceptorManager = __nested_webpack_require_13646__(/*! ./InterceptorManager */ "../../../node_modules/axios/lib/core/InterceptorManager.js");
+var dispatchRequest = __nested_webpack_require_13646__(/*! ./dispatchRequest */ "../../../node_modules/axios/lib/core/dispatchRequest.js");
+var mergeConfig = __nested_webpack_require_13646__(/*! ./mergeConfig */ "../../../node_modules/axios/lib/core/mergeConfig.js");
 
 /**
  * Create a new instance of Axios
@@ -3103,12 +3100,12 @@ module.exports = Axios;
 /*!******************************************************************!*\
   !*** ../../../node_modules/axios/lib/core/InterceptorManager.js ***!
   \******************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_17519__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_17015__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_17519__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var utils = __nested_webpack_require_17015__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
 
 function InterceptorManager() {
   this.handlers = [];
@@ -3166,13 +3163,13 @@ module.exports = InterceptorManager;
 /*!*************************************************************!*\
   !*** ../../../node_modules/axios/lib/core/buildFullPath.js ***!
   \*************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_19239__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_18672__) => {
 
 "use strict";
 
 
-var isAbsoluteURL = __nested_webpack_require_19239__(/*! ../helpers/isAbsoluteURL */ "../../../node_modules/axios/lib/helpers/isAbsoluteURL.js");
-var combineURLs = __nested_webpack_require_19239__(/*! ../helpers/combineURLs */ "../../../node_modules/axios/lib/helpers/combineURLs.js");
+var isAbsoluteURL = __nested_webpack_require_18672__(/*! ../helpers/isAbsoluteURL */ "../../../node_modules/axios/lib/helpers/isAbsoluteURL.js");
+var combineURLs = __nested_webpack_require_18672__(/*! ../helpers/combineURLs */ "../../../node_modules/axios/lib/helpers/combineURLs.js");
 
 /**
  * Creates a new URL by combining the baseURL with the requestedURL,
@@ -3197,12 +3194,12 @@ module.exports = function buildFullPath(baseURL, requestedURL) {
 /*!***********************************************************!*\
   !*** ../../../node_modules/axios/lib/core/createError.js ***!
   \***********************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_20453__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_19855__) => {
 
 "use strict";
 
 
-var enhanceError = __nested_webpack_require_20453__(/*! ./enhanceError */ "../../../node_modules/axios/lib/core/enhanceError.js");
+var enhanceError = __nested_webpack_require_19855__(/*! ./enhanceError */ "../../../node_modules/axios/lib/core/enhanceError.js");
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -3226,15 +3223,15 @@ module.exports = function createError(message, config, code, request, response) 
 /*!***************************************************************!*\
   !*** ../../../node_modules/axios/lib/core/dispatchRequest.js ***!
   \***************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_21533__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_20906__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_21533__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
-var transformData = __nested_webpack_require_21533__(/*! ./transformData */ "../../../node_modules/axios/lib/core/transformData.js");
-var isCancel = __nested_webpack_require_21533__(/*! ../cancel/isCancel */ "../../../node_modules/axios/lib/cancel/isCancel.js");
-var defaults = __nested_webpack_require_21533__(/*! ../defaults */ "../../../node_modules/axios/lib/defaults.js");
+var utils = __nested_webpack_require_20906__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var transformData = __nested_webpack_require_20906__(/*! ./transformData */ "../../../node_modules/axios/lib/core/transformData.js");
+var isCancel = __nested_webpack_require_20906__(/*! ../cancel/isCancel */ "../../../node_modules/axios/lib/cancel/isCancel.js");
+var defaults = __nested_webpack_require_20906__(/*! ../defaults */ "../../../node_modules/axios/lib/defaults.js");
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -3369,12 +3366,12 @@ module.exports = function enhanceError(error, config, code, request, response) {
 /*!***********************************************************!*\
   !*** ../../../node_modules/axios/lib/core/mergeConfig.js ***!
   \***********************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_25558__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_24788__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_25558__(/*! ../utils */ "../../../node_modules/axios/lib/utils.js");
+var utils = __nested_webpack_require_24788__(/*! ../utils */ "../../../node_modules/axios/lib/utils.js");
 
 /**
  * Config-specific merge-function which creates a new config-object
@@ -3467,12 +3464,12 @@ module.exports = function mergeConfig(config1, config2) {
 /*!******************************************************!*\
   !*** ../../../node_modules/axios/lib/core/settle.js ***!
   \******************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_28929__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_28061__) => {
 
 "use strict";
 
 
-var createError = __nested_webpack_require_28929__(/*! ./createError */ "../../../node_modules/axios/lib/core/createError.js");
+var createError = __nested_webpack_require_28061__(/*! ./createError */ "../../../node_modules/axios/lib/core/createError.js");
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -3503,12 +3500,12 @@ module.exports = function settle(resolve, reject, response) {
 /*!*************************************************************!*\
   !*** ../../../node_modules/axios/lib/core/transformData.js ***!
   \*************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_30088__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_29184__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_30088__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var utils = __nested_webpack_require_29184__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
 
 /**
  * Transform the data for a request or a response
@@ -3534,13 +3531,13 @@ module.exports = function transformData(data, headers, fns) {
 /*!***************************************************!*\
   !*** ../../../node_modules/axios/lib/defaults.js ***!
   \***************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_31035__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_30100__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_31035__(/*! ./utils */ "../../../node_modules/axios/lib/utils.js");
-var normalizeHeaderName = __nested_webpack_require_31035__(/*! ./helpers/normalizeHeaderName */ "../../../node_modules/axios/lib/helpers/normalizeHeaderName.js");
+var utils = __nested_webpack_require_30100__(/*! ./utils */ "../../../node_modules/axios/lib/utils.js");
+var normalizeHeaderName = __nested_webpack_require_30100__(/*! ./helpers/normalizeHeaderName */ "../../../node_modules/axios/lib/helpers/normalizeHeaderName.js");
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -3556,10 +3553,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __nested_webpack_require_31035__(/*! ./adapters/xhr */ "../../../node_modules/axios/lib/adapters/xhr.js");
+    adapter = __nested_webpack_require_30100__(/*! ./adapters/xhr */ "../../../node_modules/axios/lib/adapters/xhr.js");
   } else if (typeof process !== 'undefined' && Object.prototype.toString.call(process) === '[object process]') {
     // For node use HTTP adapter
-    adapter = __nested_webpack_require_31035__(/*! ./adapters/http */ "../../../node_modules/axios/lib/adapters/xhr.js");
+    adapter = __nested_webpack_require_30100__(/*! ./adapters/http */ "../../../node_modules/axios/lib/adapters/xhr.js");
   }
   return adapter;
 }
@@ -3665,12 +3662,12 @@ module.exports = function bind(fn, thisArg) {
 /*!***********************************************************!*\
   !*** ../../../node_modules/axios/lib/helpers/buildURL.js ***!
   \***********************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_34874__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_33808__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_34874__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var utils = __nested_webpack_require_33808__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
 
 function encode(val) {
   return encodeURIComponent(val).
@@ -3771,12 +3768,12 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 /*!**********************************************************!*\
   !*** ../../../node_modules/axios/lib/helpers/cookies.js ***!
   \**********************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_37701__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_36529__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_37701__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var utils = __nested_webpack_require_36529__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -3882,12 +3879,12 @@ module.exports = function isAxiosError(payload) {
 /*!******************************************************************!*\
   !*** ../../../node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
   \******************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_41197__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_39914__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_41197__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var utils = __nested_webpack_require_39914__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -3961,12 +3958,12 @@ module.exports = (
 /*!**********************************************************************!*\
   !*** ../../../node_modules/axios/lib/helpers/normalizeHeaderName.js ***!
   \**********************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_44023__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_42661__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_44023__(/*! ../utils */ "../../../node_modules/axios/lib/utils.js");
+var utils = __nested_webpack_require_42661__(/*! ../utils */ "../../../node_modules/axios/lib/utils.js");
 
 module.exports = function normalizeHeaderName(headers, normalizedName) {
   utils.forEach(headers, function processHeader(value, name) {
@@ -3984,12 +3981,12 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 /*!***************************************************************!*\
   !*** ../../../node_modules/axios/lib/helpers/parseHeaders.js ***!
   \***************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_44817__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_43432__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_44817__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var utils = __nested_webpack_require_43432__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
 
 // Headers whose duplicates are ignored by node
 // c.f. https://nodejs.org/api/http.html#http_message_headers
@@ -4086,12 +4083,12 @@ module.exports = function spread(callback) {
 /*!************************************************!*\
   !*** ../../../node_modules/axios/lib/utils.js ***!
   \************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_47513__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_46026__) => {
 
 "use strict";
 
 
-var bind = __nested_webpack_require_47513__(/*! ./helpers/bind */ "../../../node_modules/axios/lib/helpers/bind.js");
+var bind = __nested_webpack_require_46026__(/*! ./helpers/bind */ "../../../node_modules/axios/lib/helpers/bind.js");
 
 /*global toString:true*/
 
@@ -4448,9 +4445,9 @@ module.exports = {
 /*!********************************************************!*\
   !*** ../../../node_modules/xmltojson/lib/xmlToJSON.js ***!
   \********************************************************/
-/***/ ((module, exports, __nested_webpack_require_57198__) => {
+/***/ ((module, exports, __nested_webpack_require_55349__) => {
 
-/* module decorator */ module = __nested_webpack_require_57198__.nmd(module);
+/* module decorator */ module = __nested_webpack_require_55349__.nmd(module);
 var __WEBPACK_AMD_DEFINE_RESULT__;/* Copyright 2015 William Summers, MetaTribal LLC
  * adapted from https://developer.mozilla.org/en-US/docs/JXON
  *
@@ -4692,7 +4689,7 @@ var xmlToJSON = (function () {
 }).call({});
 
 if (  true && module !== null && module.exports) module.exports = xmlToJSON;
-else if (true) !(__WEBPACK_AMD_DEFINE_RESULT__ = (function () { return xmlToJSON }).call(exports, __nested_webpack_require_57198__, exports, module),
+else if (true) !(__WEBPACK_AMD_DEFINE_RESULT__ = (function () { return xmlToJSON }).call(exports, __nested_webpack_require_55349__, exports, module),
 		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 
@@ -4702,19 +4699,19 @@ else if (true) !(__WEBPACK_AMD_DEFINE_RESULT__ = (function () { return xmlToJSON
 /*!****************************************!*\
   !*** ./adapters/alpheiostb/adapter.js ***!
   \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_66990__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_64887__) => {
 
 "use strict";
-__nested_webpack_require_66990__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_66990__.d(__webpack_exports__, {
+__nested_webpack_require_64887__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_64887__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_66990__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_66990__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_66990__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var _clAdapters_adapters_alpheiostb_config_json__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_66990__(/*! @clAdapters/adapters/alpheiostb/config.json */ "./adapters/alpheiostb/config.json");
-/* harmony import */ var xmltojson__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_66990__(/*! xmltojson */ "../../../node_modules/xmltojson/lib/xmlToJSON.js");
-/* harmony import */ var xmltojson__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__nested_webpack_require_66990__.n(xmltojson__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_64887__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_64887__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_64887__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_adapters_alpheiostb_config_json__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_64887__(/*! @clAdapters/adapters/alpheiostb/config.json */ "./adapters/alpheiostb/config.json");
+/* harmony import */ var xmltojson__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_64887__(/*! xmltojson */ "../../../node_modules/xmltojson/lib/xmlToJSON.js");
+/* harmony import */ var xmltojson__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__nested_webpack_require_64887__.n(xmltojson__WEBPACK_IMPORTED_MODULE_3__);
 
 
 
@@ -4843,21 +4840,21 @@ class AlpheiosTreebankAdapter extends _clAdapters_adapters_base_adapter__WEBPACK
 /*!**************************************!*\
   !*** ./adapters/arethusa/adapter.js ***!
   \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_73774__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_71650__) => {
 
 "use strict";
-__nested_webpack_require_73774__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_73774__.d(__webpack_exports__, {
+__nested_webpack_require_71650__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_71650__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_73774__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var _clAdapters_transformers_alpheios_lexicon_transformer__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_73774__(/*! @clAdapters/transformers/alpheios-lexicon-transformer */ "./transformers/alpheios-lexicon-transformer.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_73774__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_73774__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_73774__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var _clAdapters_adapters_alpheiostb_config_json__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_73774__(/*! @clAdapters/adapters/alpheiostb/config.json */ "./adapters/alpheiostb/config.json");
-/* harmony import */ var alpheios_messaging__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_73774__(/*! alpheios-messaging */ "alpheios-messaging");
-/* harmony import */ var alpheios_messaging__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__nested_webpack_require_73774__.n(alpheios_messaging__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_71650__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_transformers_alpheios_lexicon_transformer__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_71650__(/*! @clAdapters/transformers/alpheios-lexicon-transformer */ "./transformers/alpheios-lexicon-transformer.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_71650__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_71650__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_71650__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var _clAdapters_adapters_alpheiostb_config_json__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_71650__(/*! @clAdapters/adapters/alpheiostb/config.json */ "./adapters/alpheiostb/config.json");
+/* harmony import */ var alpheios_messaging__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_71650__(/*! alpheios-messaging */ "alpheios-messaging");
+/* harmony import */ var alpheios_messaging__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__nested_webpack_require_71650__.n(alpheios_messaging__WEBPACK_IMPORTED_MODULE_5__);
 
 
 
@@ -5037,25 +5034,25 @@ class ArethusaTreebankAdapter extends _clAdapters_adapters_base_adapter__WEBPACK
 /*!**********************************!*\
   !*** ./adapters/base-adapter.js ***!
   \**********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_83930__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_81783__) => {
 
 "use strict";
-__nested_webpack_require_83930__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_83930__.d(__webpack_exports__, {
+__nested_webpack_require_81783__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_81783__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_83930__(/*! axios */ "../../../node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_83930__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_83930__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_83930__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var alpheios_l10n__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_83930__(/*! alpheios-l10n */ "alpheios-l10n");
-/* harmony import */ var alpheios_l10n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_83930__.n(alpheios_l10n__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _clAdapters_errors_adapter_error__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_83930__(/*! @clAdapters/errors/adapter-error */ "./errors/adapter-error.js");
-/* harmony import */ var _clAdapters_errors_adapter_warning_js__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_83930__(/*! @clAdapters/errors/adapter-warning.js */ "./errors/adapter-warning.js");
-/* harmony import */ var _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_83930__(/*! @clAdapters/errors/remote-error.js */ "./errors/remote-error.js");
-/* harmony import */ var _clAdapters_locales_locales_js__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_83930__(/*! @clAdapters/locales/locales.js */ "./locales/locales.js");
-/* harmony import */ var _clAdapters_locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_83930__(/*! @clAdapters/locales/en-us/messages.json */ "./locales/en-us/messages.json");
-/* harmony import */ var _clAdapters_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_83930__(/*! @clAdapters/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_81783__(/*! axios */ "../../../node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_81783__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_81783__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_81783__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var alpheios_l10n__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_81783__(/*! alpheios-l10n */ "alpheios-l10n");
+/* harmony import */ var alpheios_l10n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_81783__.n(alpheios_l10n__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _clAdapters_errors_adapter_error__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_81783__(/*! @clAdapters/errors/adapter-error */ "./errors/adapter-error.js");
+/* harmony import */ var _clAdapters_errors_adapter_warning_js__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_81783__(/*! @clAdapters/errors/adapter-warning.js */ "./errors/adapter-warning.js");
+/* harmony import */ var _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_81783__(/*! @clAdapters/errors/remote-error.js */ "./errors/remote-error.js");
+/* harmony import */ var _clAdapters_locales_locales_js__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_81783__(/*! @clAdapters/locales/locales.js */ "./locales/locales.js");
+/* harmony import */ var _clAdapters_locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_81783__(/*! @clAdapters/locales/en-us/messages.json */ "./locales/en-us/messages.json");
+/* harmony import */ var _clAdapters_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_81783__(/*! @clAdapters/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
 
 
 
@@ -5291,19 +5288,19 @@ class BaseAdapter {
 /*!****************************************!*\
   !*** ./adapters/chineseloc/adapter.js ***!
   \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_95135__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_92961__) => {
 
 "use strict";
-__nested_webpack_require_95135__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_95135__.d(__webpack_exports__, {
+__nested_webpack_require_92961__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_92961__.d(__webpack_exports__, {
 /* harmony export */   "CedictCharacterForms": () => (/* binding */ CedictCharacterForms),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_95135__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_95135__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_95135__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var alpheios_messaging__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_95135__(/*! alpheios-messaging */ "alpheios-messaging");
-/* harmony import */ var alpheios_messaging__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_95135__.n(alpheios_messaging__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_92961__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_92961__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_92961__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var alpheios_messaging__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_92961__(/*! alpheios-messaging */ "alpheios-messaging");
+/* harmony import */ var alpheios_messaging__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_92961__.n(alpheios_messaging__WEBPACK_IMPORTED_MODULE_2__);
 /* eslint-disable no-unused-vars */
 
 
@@ -5476,18 +5473,18 @@ class AlpheiosChineseLocAdapter extends _clAdapters_adapters_base_adapter__WEBPA
 /*!*****************************************!*\
   !*** ./adapters/concordance/adapter.js ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_104566__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_102371__) => {
 
 "use strict";
-__nested_webpack_require_104566__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_104566__.d(__webpack_exports__, {
+__nested_webpack_require_102371__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_102371__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_concordance_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_104566__(/*! @clAdapters/adapters/concordance/config.json */ "./adapters/concordance/config.json");
-/* harmony import */ var _clAdapters_adapters_concordance_author_work_json__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_104566__(/*! @clAdapters/adapters/concordance/author-work.json */ "./adapters/concordance/author-work.json");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_104566__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_104566__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_104566__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_adapters_concordance_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_102371__(/*! @clAdapters/adapters/concordance/config.json */ "./adapters/concordance/config.json");
+/* harmony import */ var _clAdapters_adapters_concordance_author_work_json__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_102371__(/*! @clAdapters/adapters/concordance/author-work.json */ "./adapters/concordance/author-work.json");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_102371__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_102371__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_102371__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
 
 
 
@@ -5804,16 +5801,16 @@ class AlpheiosConcordanceAdapter extends _clAdapters_adapters_base_adapter__WEBP
 /*!****************************************!*\
   !*** ./adapters/detectlang/adapter.js ***!
   \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_118961__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_116746__) => {
 
 "use strict";
-__nested_webpack_require_118961__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_118961__.d(__webpack_exports__, {
+__nested_webpack_require_116746__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_116746__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ DetectLangAdapter)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_118961__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var _clAdapters_adapters_detectlang_config_json__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_118961__(/*! @clAdapters/adapters/detectlang/config.json */ "./adapters/detectlang/config.json");
-/* harmony import */ var _clAdapters_adapters_detectlang_langs_list_json__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_118961__(/*! @clAdapters/adapters/detectlang/langs-list.json */ "./adapters/detectlang/langs-list.json");
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_116746__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_adapters_detectlang_config_json__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_116746__(/*! @clAdapters/adapters/detectlang/config.json */ "./adapters/detectlang/config.json");
+/* harmony import */ var _clAdapters_adapters_detectlang_langs_list_json__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_116746__(/*! @clAdapters/adapters/detectlang/langs-list.json */ "./adapters/detectlang/langs-list.json");
 
 
 
@@ -5910,16 +5907,16 @@ class DetectLangAdapter extends _clAdapters_adapters_base_adapter__WEBPACK_IMPOR
 /*!************************************!*\
   !*** ./adapters/dtsapi/adapter.js ***!
   \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_122780__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_120547__) => {
 
 "use strict";
-__nested_webpack_require_122780__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_122780__.d(__webpack_exports__, {
+__nested_webpack_require_120547__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_120547__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ DTSAPIAdapter)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_122780__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_122780__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_122780__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_120547__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_120547__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_120547__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -6111,19 +6108,19 @@ class DTSAPIAdapter extends _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_
 /*!**************************************!*\
   !*** ./adapters/lexicons/adapter.js ***!
   \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_129241__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_126990__) => {
 
 "use strict";
-__nested_webpack_require_129241__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_129241__.d(__webpack_exports__, {
+__nested_webpack_require_126990__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_126990__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_129241__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_129241__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var papaparse__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_129241__(/*! papaparse */ "papaparse");
-/* harmony import */ var papaparse__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_129241__.n(papaparse__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_129241__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var _clAdapters_adapters_lexicons_config_json__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_129241__(/*! @clAdapters/adapters/lexicons/config.json */ "./adapters/lexicons/config.json");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_126990__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_126990__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var papaparse__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_126990__(/*! papaparse */ "papaparse");
+/* harmony import */ var papaparse__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_126990__.n(papaparse__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_126990__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_adapters_lexicons_config_json__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_126990__(/*! @clAdapters/adapters/lexicons/config.json */ "./adapters/lexicons/config.json");
 
 
 
@@ -6672,17 +6669,17 @@ class AlpheiosLexiconsAdapter extends _clAdapters_adapters_base_adapter__WEBPACK
 /*!*************************************!*\
   !*** ./adapters/logeion/adapter.js ***!
   \*************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_152712__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_150440__) => {
 
 "use strict";
-__nested_webpack_require_152712__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_152712__.d(__webpack_exports__, {
+__nested_webpack_require_150440__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_150440__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_logeion_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_152712__(/*! @clAdapters/adapters/logeion/config.json */ "./adapters/logeion/config.json");
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_152712__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_152712__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_152712__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _clAdapters_adapters_logeion_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_150440__(/*! @clAdapters/adapters/logeion/config.json */ "./adapters/logeion/config.json");
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_150440__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_150440__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_150440__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
 
 
 
@@ -6789,17 +6786,17 @@ class AlpheiosLogeionAdapter extends _clAdapters_adapters_base_adapter__WEBPACK_
 /*!******************************************!*\
   !*** ./adapters/tokenization/adapter.js ***!
   \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_157317__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_155026__) => {
 
 "use strict";
-__nested_webpack_require_157317__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_157317__.d(__webpack_exports__, {
+__nested_webpack_require_155026__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_155026__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_tokenization_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_157317__(/*! @clAdapters/adapters/tokenization/config.json */ "./adapters/tokenization/config.json");
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_157317__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_157317__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_157317__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _clAdapters_adapters_tokenization_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_155026__(/*! @clAdapters/adapters/tokenization/config.json */ "./adapters/tokenization/config.json");
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_155026__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_155026__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_155026__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
 
 
 
@@ -6973,17 +6970,17 @@ class AlpheiosTokenizationAdapter extends _clAdapters_adapters_base_adapter__WEB
 /*!******************************************!*\
   !*** ./adapters/translations/adapter.js ***!
   \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_163584__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_161274__) => {
 
 "use strict";
-__nested_webpack_require_163584__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_163584__.d(__webpack_exports__, {
+__nested_webpack_require_161274__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_161274__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_translations_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_163584__(/*! @clAdapters/adapters/translations/config.json */ "./adapters/translations/config.json");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_163584__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_163584__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_163584__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_adapters_translations_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_161274__(/*! @clAdapters/adapters/translations/config.json */ "./adapters/translations/config.json");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_161274__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_161274__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_161274__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
 
 
 
@@ -7112,19 +7109,19 @@ class AlpheiosLemmaTranslationsAdapter extends _clAdapters_adapters_base_adapter
 /*!***********************************!*\
   !*** ./adapters/tufts/adapter.js ***!
   \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_169183__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_166854__) => {
 
 "use strict";
-__nested_webpack_require_169183__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_169183__.d(__webpack_exports__, {
+__nested_webpack_require_166854__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_166854__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_169183__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_169183__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_169183__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var _clAdapters_transformers_alpheios_lexicon_transformer__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_169183__(/*! @clAdapters/transformers/alpheios-lexicon-transformer */ "./transformers/alpheios-lexicon-transformer.js");
-/* harmony import */ var _clAdapters_adapters_tufts_config_json__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_169183__(/*! @clAdapters/adapters/tufts/config.json */ "./adapters/tufts/config.json");
-/* harmony import */ var _clAdapters_adapters_tufts_engines_set__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_169183__(/*! @clAdapters/adapters/tufts/engines-set */ "./adapters/tufts/engines-set.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_166854__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_166854__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_166854__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_transformers_alpheios_lexicon_transformer__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_166854__(/*! @clAdapters/transformers/alpheios-lexicon-transformer */ "./transformers/alpheios-lexicon-transformer.js");
+/* harmony import */ var _clAdapters_adapters_tufts_config_json__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_166854__(/*! @clAdapters/adapters/tufts/config.json */ "./adapters/tufts/config.json");
+/* harmony import */ var _clAdapters_adapters_tufts_engines_set__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_166854__(/*! @clAdapters/adapters/tufts/engines-set */ "./adapters/tufts/engines-set.js");
 
 
 
@@ -7243,16 +7240,16 @@ class AlpheiosTuftsAdapter extends _clAdapters_adapters_base_adapter__WEBPACK_IM
 /*!*******************************************!*\
   !*** ./adapters/tufts/engine/aramorph.js ***!
   \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_175206__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_172856__) => {
 
 "use strict";
-__nested_webpack_require_175206__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_175206__.d(__webpack_exports__, {
+__nested_webpack_require_172856__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_172856__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_175206__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_175206__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_175206__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_172856__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_172856__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_172856__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -7267,16 +7264,16 @@ const data = new _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED
 /*!***************************************!*\
   !*** ./adapters/tufts/engine/hazm.js ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_176513__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_174145__) => {
 
 "use strict";
-__nested_webpack_require_176513__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_176513__.d(__webpack_exports__, {
+__nested_webpack_require_174145__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_174145__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_176513__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_176513__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_176513__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_174145__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_174145__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_174145__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -7294,16 +7291,16 @@ data.setLexemeFilter(function (lexeme) { return Boolean(lexeme.lemma.word) })
 /*!**********************************************!*\
   !*** ./adapters/tufts/engine/morpheusgrc.js ***!
   \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_178050__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_175664__) => {
 
 "use strict";
-__nested_webpack_require_178050__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_178050__.d(__webpack_exports__, {
+__nested_webpack_require_175664__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_175664__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_178050__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_178050__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_178050__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_175664__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_175664__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_175664__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -7372,16 +7369,16 @@ data.setPropertyParser(function (propertyName, propertyValue, inputElem) {
 /*!****************************************!*\
   !*** ./adapters/tufts/engine/sedra.js ***!
   \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_183061__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_180657__) => {
 
 "use strict";
-__nested_webpack_require_183061__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_183061__.d(__webpack_exports__, {
+__nested_webpack_require_180657__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_180657__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_183061__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_183061__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_183061__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_180657__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_180657__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_180657__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -7424,16 +7421,16 @@ data.setPropertyParser(function (propertyName, propertyValue, inputElem) {
 /*!*****************************************!*\
   !*** ./adapters/tufts/engine/traces.js ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_185561__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_183139__) => {
 
 "use strict";
-__nested_webpack_require_185561__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_185561__.d(__webpack_exports__, {
+__nested_webpack_require_183139__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_183139__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_185561__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_185561__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_185561__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_183139__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_183139__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_183139__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -7448,16 +7445,16 @@ const data = new _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED
 /*!********************************************!*\
   !*** ./adapters/tufts/engine/whitakers.js ***!
   \********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_186884__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_184444__) => {
 
 "use strict";
-__nested_webpack_require_186884__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_186884__.d(__webpack_exports__, {
+__nested_webpack_require_184444__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_184444__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_186884__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_186884__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_186884__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_184444__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_184444__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_184444__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -7581,21 +7578,21 @@ data.setLemmaParser(function (lemma) {
 /*!***************************************!*\
   !*** ./adapters/tufts/engines-set.js ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_193144__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_190685__) => {
 
 "use strict";
-__nested_webpack_require_193144__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_193144__.d(__webpack_exports__, {
+__nested_webpack_require_190685__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_190685__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_tufts_engine_whitakers__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_193144__(/*! @clAdapters/adapters/tufts/engine/whitakers */ "./adapters/tufts/engine/whitakers.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_morpheusgrc__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_193144__(/*! @clAdapters/adapters/tufts/engine/morpheusgrc */ "./adapters/tufts/engine/morpheusgrc.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_aramorph__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_193144__(/*! @clAdapters/adapters/tufts/engine/aramorph */ "./adapters/tufts/engine/aramorph.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_hazm__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_193144__(/*! @clAdapters/adapters/tufts/engine/hazm */ "./adapters/tufts/engine/hazm.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_traces__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_193144__(/*! @clAdapters/adapters/tufts/engine/traces */ "./adapters/tufts/engine/traces.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_sedra__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_193144__(/*! @clAdapters/adapters/tufts/engine/sedra */ "./adapters/tufts/engine/sedra.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_193144__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nested_webpack_require_193144__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _clAdapters_adapters_tufts_engine_whitakers__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_190685__(/*! @clAdapters/adapters/tufts/engine/whitakers */ "./adapters/tufts/engine/whitakers.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_morpheusgrc__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_190685__(/*! @clAdapters/adapters/tufts/engine/morpheusgrc */ "./adapters/tufts/engine/morpheusgrc.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_aramorph__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_190685__(/*! @clAdapters/adapters/tufts/engine/aramorph */ "./adapters/tufts/engine/aramorph.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_hazm__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_190685__(/*! @clAdapters/adapters/tufts/engine/hazm */ "./adapters/tufts/engine/hazm.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_traces__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_190685__(/*! @clAdapters/adapters/tufts/engine/traces */ "./adapters/tufts/engine/traces.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_sedra__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_190685__(/*! @clAdapters/adapters/tufts/engine/sedra */ "./adapters/tufts/engine/sedra.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_190685__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nested_webpack_require_190685__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__);
 
 
 
@@ -7646,27 +7643,27 @@ class EnginesSet {
 /*!****************************!*\
   !*** ./client-adapters.js ***!
   \****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_196721__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_194239__) => {
 
 "use strict";
-__nested_webpack_require_196721__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_196721__.d(__webpack_exports__, {
+__nested_webpack_require_194239__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_194239__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_tufts_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_196721__(/*! @clAdapters/adapters/tufts/adapter */ "./adapters/tufts/adapter.js");
-/* harmony import */ var _clAdapters_adapters_chineseloc_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_196721__(/*! @clAdapters/adapters/chineseloc/adapter */ "./adapters/chineseloc/adapter.js");
-/* harmony import */ var _clAdapters_adapters_alpheiostb_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_196721__(/*! @clAdapters/adapters/alpheiostb/adapter */ "./adapters/alpheiostb/adapter.js");
-/* harmony import */ var _clAdapters_adapters_translations_adapter__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_196721__(/*! @clAdapters/adapters/translations/adapter */ "./adapters/translations/adapter.js");
-/* harmony import */ var _clAdapters_adapters_lexicons_adapter__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_196721__(/*! @clAdapters/adapters/lexicons/adapter */ "./adapters/lexicons/adapter.js");
-/* harmony import */ var _clAdapters_adapters_concordance_adapter__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_196721__(/*! @clAdapters/adapters/concordance/adapter */ "./adapters/concordance/adapter.js");
-/* harmony import */ var _clAdapters_adapters_arethusa_adapter__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_196721__(/*! @clAdapters/adapters/arethusa/adapter */ "./adapters/arethusa/adapter.js");
-/* harmony import */ var _clAdapters_adapters_logeion_adapter__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_196721__(/*! @clAdapters/adapters/logeion/adapter */ "./adapters/logeion/adapter.js");
-/* harmony import */ var _clAdapters_adapters_tokenization_adapter__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_196721__(/*! @clAdapters/adapters/tokenization/adapter */ "./adapters/tokenization/adapter.js");
-/* harmony import */ var _clAdapters_adapters_dtsapi_adapter__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_196721__(/*! @clAdapters/adapters/dtsapi/adapter */ "./adapters/dtsapi/adapter.js");
-/* harmony import */ var _clAdapters_adapters_detectlang_adapter__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_196721__(/*! @clAdapters/adapters/detectlang/adapter */ "./adapters/detectlang/adapter.js");
-/* harmony import */ var _clAdapters_errors_wrong_method_error__WEBPACK_IMPORTED_MODULE_11__ = __nested_webpack_require_196721__(/*! @clAdapters/errors/wrong-method-error */ "./errors/wrong-method-error.js");
-/* harmony import */ var _clAdapters_errors_no_required_param_error__WEBPACK_IMPORTED_MODULE_12__ = __nested_webpack_require_196721__(/*! @clAdapters/errors/no-required-param-error */ "./errors/no-required-param-error.js");
-/* harmony import */ var _clAdapters_adapters_adapters_config_json__WEBPACK_IMPORTED_MODULE_13__ = __nested_webpack_require_196721__(/*! @clAdapters/adapters/adapters-config.json */ "./adapters/adapters-config.json");
+/* harmony import */ var _clAdapters_adapters_tufts_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/tufts/adapter */ "./adapters/tufts/adapter.js");
+/* harmony import */ var _clAdapters_adapters_chineseloc_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/chineseloc/adapter */ "./adapters/chineseloc/adapter.js");
+/* harmony import */ var _clAdapters_adapters_alpheiostb_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/alpheiostb/adapter */ "./adapters/alpheiostb/adapter.js");
+/* harmony import */ var _clAdapters_adapters_translations_adapter__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/translations/adapter */ "./adapters/translations/adapter.js");
+/* harmony import */ var _clAdapters_adapters_lexicons_adapter__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/lexicons/adapter */ "./adapters/lexicons/adapter.js");
+/* harmony import */ var _clAdapters_adapters_concordance_adapter__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/concordance/adapter */ "./adapters/concordance/adapter.js");
+/* harmony import */ var _clAdapters_adapters_arethusa_adapter__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/arethusa/adapter */ "./adapters/arethusa/adapter.js");
+/* harmony import */ var _clAdapters_adapters_logeion_adapter__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/logeion/adapter */ "./adapters/logeion/adapter.js");
+/* harmony import */ var _clAdapters_adapters_tokenization_adapter__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/tokenization/adapter */ "./adapters/tokenization/adapter.js");
+/* harmony import */ var _clAdapters_adapters_dtsapi_adapter__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/dtsapi/adapter */ "./adapters/dtsapi/adapter.js");
+/* harmony import */ var _clAdapters_adapters_detectlang_adapter__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/detectlang/adapter */ "./adapters/detectlang/adapter.js");
+/* harmony import */ var _clAdapters_errors_wrong_method_error__WEBPACK_IMPORTED_MODULE_11__ = __nested_webpack_require_194239__(/*! @clAdapters/errors/wrong-method-error */ "./errors/wrong-method-error.js");
+/* harmony import */ var _clAdapters_errors_no_required_param_error__WEBPACK_IMPORTED_MODULE_12__ = __nested_webpack_require_194239__(/*! @clAdapters/errors/no-required-param-error */ "./errors/no-required-param-error.js");
+/* harmony import */ var _clAdapters_adapters_adapters_config_json__WEBPACK_IMPORTED_MODULE_13__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/adapters-config.json */ "./adapters/adapters-config.json");
 
 
 
@@ -8164,11 +8161,11 @@ class ClientAdapters {
 /*!*********************************!*\
   !*** ./errors/adapter-error.js ***!
   \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_219687__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_217176__) => {
 
 "use strict";
-__nested_webpack_require_219687__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_219687__.d(__webpack_exports__, {
+__nested_webpack_require_217176__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_217176__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 class AdapterError extends Error {
@@ -8211,11 +8208,11 @@ class AdapterError extends Error {
 /*!***********************************!*\
   !*** ./errors/adapter-warning.js ***!
   \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_221222__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_218696__) => {
 
 "use strict";
-__nested_webpack_require_221222__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_221222__.d(__webpack_exports__, {
+__nested_webpack_require_218696__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_218696__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ AdapterWarning)
 /* harmony export */ });
 /**
@@ -8248,11 +8245,11 @@ class AdapterWarning extends Error {
 /*!*******************************************!*\
   !*** ./errors/no-required-param-error.js ***!
   \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_222776__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_220213__) => {
 
 "use strict";
-__nested_webpack_require_222776__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_222776__.d(__webpack_exports__, {
+__nested_webpack_require_220213__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_220213__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 class NoRequiredParamError extends Error {
@@ -8275,11 +8272,11 @@ class NoRequiredParamError extends Error {
 /*!********************************!*\
   !*** ./errors/remote-error.js ***!
   \********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_223765__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_221187__) => {
 
 "use strict";
-__nested_webpack_require_223765__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_223765__.d(__webpack_exports__, {
+__nested_webpack_require_221187__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_221187__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ RemoteError)
 /* harmony export */ });
 class RemoteError extends Error {
@@ -8306,11 +8303,11 @@ class RemoteError extends Error {
 /*!**************************************!*\
   !*** ./errors/wrong-method-error.js ***!
   \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_224764__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_222155__) => {
 
 "use strict";
-__nested_webpack_require_224764__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_224764__.d(__webpack_exports__, {
+__nested_webpack_require_222155__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_222155__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 class WrongMethodError extends Error {
@@ -8332,18 +8329,18 @@ class WrongMethodError extends Error {
 /*!******************!*\
   !*** ./index.js ***!
   \******************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_225605__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_222981__) => {
 
 "use strict";
-__nested_webpack_require_225605__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_225605__.d(__webpack_exports__, {
+__nested_webpack_require_222981__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_222981__.d(__webpack_exports__, {
 /* harmony export */   "ClientAdapters": () => (/* reexport safe */ _clAdapters_client_adapters_js__WEBPACK_IMPORTED_MODULE_0__.default),
 /* harmony export */   "AdapterError": () => (/* reexport safe */ _clAdapters_errors_adapter_error_js__WEBPACK_IMPORTED_MODULE_1__.default),
 /* harmony export */   "RemoteError": () => (/* reexport safe */ _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_2__.default)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_client_adapters_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_225605__(/*! @clAdapters/client-adapters.js */ "./client-adapters.js");
-/* harmony import */ var _clAdapters_errors_adapter_error_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_225605__(/*! @clAdapters/errors/adapter-error.js */ "./errors/adapter-error.js");
-/* harmony import */ var _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_225605__(/*! @clAdapters/errors/remote-error.js */ "./errors/remote-error.js");
+/* harmony import */ var _clAdapters_client_adapters_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_222981__(/*! @clAdapters/client-adapters.js */ "./client-adapters.js");
+/* harmony import */ var _clAdapters_errors_adapter_error_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_222981__(/*! @clAdapters/errors/adapter-error.js */ "./errors/adapter-error.js");
+/* harmony import */ var _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_222981__(/*! @clAdapters/errors/remote-error.js */ "./errors/remote-error.js");
 
 
 
@@ -8357,15 +8354,15 @@ __nested_webpack_require_225605__.r(__webpack_exports__);
 /*!****************************!*\
   !*** ./locales/locales.js ***!
   \****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_226963__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_224319__) => {
 
 "use strict";
-__nested_webpack_require_226963__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_226963__.d(__webpack_exports__, {
+__nested_webpack_require_224319__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_224319__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _en_us_messages_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_226963__(/*! ./en-us/messages.json */ "./locales/en-us/messages.json");
-/* harmony import */ var _en_gb_messages_json__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_226963__(/*! ./en-gb/messages.json */ "./locales/en-gb/messages.json");
+/* harmony import */ var _en_us_messages_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_224319__(/*! ./en-us/messages.json */ "./locales/en-us/messages.json");
+/* harmony import */ var _en_gb_messages_json__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_224319__(/*! ./en-gb/messages.json */ "./locales/en-gb/messages.json");
 
 
 
@@ -8385,15 +8382,15 @@ __nested_webpack_require_226963__.r(__webpack_exports__);
 /*!******************************************************!*\
   !*** ./transformers/alpheios-lexicon-transformer.js ***!
   \******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_228109__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_225448__) => {
 
 "use strict";
-__nested_webpack_require_228109__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_228109__.d(__webpack_exports__, {
+__nested_webpack_require_225448__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_225448__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_228109__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_228109__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_225448__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_225448__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
 
 
 /**
@@ -8711,15 +8708,15 @@ class AlpheiosLexiconTransformer {
 /*!*******************************************!*\
   !*** ./transformers/import-morph-data.js ***!
   \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_242432__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_239754__) => {
 
 "use strict";
-__nested_webpack_require_242432__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_242432__.d(__webpack_exports__, {
+__nested_webpack_require_239754__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_239754__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_242432__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_242432__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_239754__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_239754__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
 /*
 Objects of a morphology analyzer's library
  */
@@ -9079,7 +9076,7 @@ module.exports = JSON.parse("{\"aa\":{\"label\":\"Afar\",\"langCode\":\"aar\"},\
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"https://github.com/alpheios-project/mjm\":{\"urls\":{\"short\":\"https://repos1.alpheios.net/lexdata/mjm/dat/grc-mjm-defs.dat\"},\"langs\":{\"source\":\"grc\",\"target\":\"en\"},\"format\":{\"short\":\"text/html\"},\"description\":\"Definitions derived from Wilfred E. Major's Core Greek Vocabulary, extended with definitions from the Middle Liddell.\",\"rights_keys\":{\"ML\":\" \\\"An Intermediate Greek-English Lexicon\\\" (Henry George Liddell, Robert Scott). Provided by the Perseus Digital Library at Tufts University. Edits and additions provided by Vanessa Gorman, University of Nebraska.\",\"Major\":\" Wilfred E. Major, Core Greek Vocabulary for the First Two Years of Greek. CPL Online, Winter 2008. Edits and additions provided by Vanessa Gorman, University of Nebraska.\"}},\"https://github.com/alpheios-project/majorplus\":{\"urls\":{\"short\":\"https://repos1.alpheios.net/lexdata/majorplus/dat/grc-mjp-defs.dat\"},\"langs\":{\"source\":\"grc\",\"target\":\"en\"},\"format\":{\"short\":\"text/html\"},\"description\":\"Definitions derived from Wilfred E. Major's Core Greek Vocabulary, extended with definitions from the LSJ.\",\"rights_keys\":{\"LSJ\":\" \\\"A Greek-English Lexicon\\\" (Henry George Liddell, Robert Scott). Provided by the Perseus Digital Library at Tufts University. Edits and additions provided by Vanessa Gorman, University of Nebraska.\",\"Major\":\" Wilfred E. Major, Core Greek Vocabulary for the First Two Years of Greek. CPL Online, Winter 2008. Edits and additions provided by Vanessa Gorman, University of Nebraska.\"}},\"https://github.com/alpheios-project/lsj\":{\"urls\":{\"short\":\"https://repos1.alpheios.net/lexdata/lsj/dat/grc-lsj-defs.dat\",\"index\":\"https://repos1.alpheios.net/lexdata/lsj/dat/grc-lsj-ids.dat\",\"full\":\"https://repos1.alpheios.net/exist/rest/db/xq/lexi-get.xq?lx=lsj&lg=grc&out=html\"},\"langs\":{\"source\":\"grc\",\"target\":\"en\"},\"description\":\"\\\"A Greek-English Lexicon\\\" (Henry George Liddell, Robert Scott)\",\"rights\":\" \\\"A Greek-English Lexicon\\\" (Henry George Liddell, Robert Scott). Provided by the Perseus Digital Library at Tufts University.\"},\"https://github.com/alpheios-project/aut\":{\"urls\":{\"short\":\"https://repos1.alpheios.net/lexdata/aut/dat/grc-aut-defs.dat\",\"index\":\"https://repos1.alpheios.net/lexdata/aut//dat/grc-aut-ids.dat\",\"full\":\"https://repos1.alpheios.net/exist/rest/db/xq/lexi-get.xq?lx=aut&lg=grc&out=html\"},\"langs\":{\"source\":\"grc\",\"target\":\"en\"},\"description\":\"\\\"Autenrieth Homeric Dictionary\\\" (Geoerge Autenrieth)\",\"rights\":\" \\\"Autenrieth Homeric Dictionary\\\" (Geoerge Autenrieth). Provided by the Perseus Digital Library at Tufts University\"},\"https://github.com/alpheios-project/ml\":{\"urls\":{\"short\":\"https://repos1.alpheios.net/lexdata/ml/dat/grc-ml-defs.dat\",\"index\":\"https://repos1.alpheios.net/lexdata/ml/dat/grc-ml-ids.dat\",\"full\":\"https://repos1.alpheios.net/exist/rest/db/xq/lexi-get.xq?lx=ml&lg=grc&out=html\"},\"langs\":{\"source\":\"grc\",\"target\":\"en\"},\"description\":\"\\\"Middle Liddell\\\"\",\"rights\":\" \\\"An Intermediate Greek-English Lexicon\\\" (Henry George Liddell, Robert Scott). Provided by the Perseus Digital Library at Tufts University\"},\"https://github.com/alpheios-project/as\":{\"urls\":{\"short\":\"https://repos1.alpheios.net/lexdata/as/dat/grc-as-defs.dat\",\"index\":\"https://repos1.alpheios.net/lexdata/as/dat/grc-as-ids.dat\",\"full\":\"https://repos1.alpheios.net/exist/rest/db/xq/lexi-get.xq?lx=as&lg=grc&out=html\"},\"langs\":{\"source\":\"grc\",\"target\":\"en\"},\"description\":\"\\\"A Manual Greek Lexicon of the New Testament\\\"\",\"rights\":\" \\\"A Manual Greek Lexicon of the New Testament\\\" (G. Abbott-Smith). Provided by biblicalhumanities.org.\"},\"https://github.com/alpheios-project/dod\":{\"urls\":{\"short\":\"https://repos1.alpheios.net/lexdata/dod/dat/grc-dod-defs.dat\",\"index\":\"https://repos1.alpheios.net/lexdata/dod/dat/grc-dod-ids.dat\",\"full\":null},\"langs\":{\"source\":\"grc\",\"target\":\"en\"},\"description\":\"\\\"Dodson\\\"\",\"rights\":\" \\\"A Public Domain lexicon by John Jeffrey Dodson (2010)\\\". Provided by biblicalhumanities.org.\"},\"https://github.com/alpheios-project/ls\":{\"urls\":{\"short\":null,\"index\":\"https://repos1.alpheios.net/lexdata/ls/dat/lat-ls-ids.dat\",\"full\":\"https://repos1.alpheios.net/exist/rest/db/xq/lexi-get.xq?lx=ls&lg=lat&out=html\"},\"langs\":{\"source\":\"lat\",\"target\":\"en\"},\"description\":\"\\\"A Latin Dictionary\\\" (Charlton T. Lewis, Charles Short)\",\"rights\":\"\\\"A Latin Dictionary\\\" (Charlton T. Lewis, Charles Short). Provided by the Perseus Digital Library at Tufts University.\"},\"https://github.com/alpheios-project/lan\":{\"urls\":{\"short\":null,\"index\":\"https://repos1.alpheios.net/lexdata/lan/dat/ara-lan-ids.dat\",\"full\":\"https://repos1.alpheios.net/exist/rest/db/xq/lexi-get.xq?lx=lan&lg=ara&out=html\"},\"langs\":{\"source\":\"ara\",\"target\":\"en\"},\"description\":\"\\\"The Arabic-English Lexicon\\\" (Edward Lane)\",\"rights\":\"\\\"The Arabic-English Lexicon\\\" (Edward Lane). Provided by the Perseus Digital Library at Tufts University.\"},\"https://github.com/alpheios-project/sal\":{\"urls\":{\"short\":null,\"index\":\"https://repos1.alpheios.net/lexdata/sal/dat/ara-sal-ids.dat\",\"full\":\"https://repos1.alpheios.net/exist/rest/db/xq/lexi-get.xq?lx=sal&lg=ara&out=html\"},\"langs\":{\"source\":\"ara\",\"target\":\"en\"},\"description\":\"\\\"An Advanced Learner's Arabic Dictionary\\\" (H. Anthony Salmone)\",\"rights\":\"\\\"An Advanced Learner's Arabic Dictionary\\\" (H. Anthony Salmone). Provided by the Perseus Digital Library at Tufts University.\"},\"https://github.com/alpheios-project/stg\":{\"urls\":{\"short\":\"https://repos1.alpheios.net/lexdata/stg/dat/per-stg-defs.dat\",\"index\":\"https://repos1.alpheios.net/lexdata/stg/dat/per-stg-ids.dat\",\"full\":null},\"langs\":{\"source\":\"per\",\"target\":\"en\"},\"description\":\"\\\"A Comprehensive Persian-English Dictionary\\\" (Francis Joseph Steingass)\",\"rights\":\"\\\"A Comprehensive Persian-English Dictionary\\\" (Francis Joseph Steingass). Provided by the Center for Advanced Study of Language (CASL) at the University of Maryland, College Park.\"}}");
+module.exports = JSON.parse("{\"https://github.com/alpheios-project/mjm\":{\"urls\":{\"short\":\"https://repos1.alpheios.net/lexdata/mjm/dat/grc-mjm-defs.dat\"},\"langs\":{\"source\":\"grc\",\"target\":\"en\"},\"format\":{\"short\":\"text/html\"},\"description\":\"Definitions derived from Wilfred E. Major's Core Greek Vocabulary, extended with definitions from the Middle Liddell.\",\"rights_keys\":{\"ML\":\" \\\"An Intermediate Greek-English Lexicon\\\" (Henry George Liddell, Robert Scott). Provided by the Perseus Digital Library at Tufts University. Edits and additions provided by Vanessa Gorman, University of Nebraska.\",\"Major\":\" Wilfred E. Major, Core Greek Vocabulary for the First Two Years of Greek. CPL Online, Winter 2008. Edits and additions provided by Vanessa Gorman, University of Nebraska.\"}},\"https://github.com/alpheios-project/majorplus\":{\"urls\":{\"short\":\"https://repos1.alpheios.net/lexdata/majorplus/dat/grc-mjp-defs.dat\"},\"langs\":{\"source\":\"grc\",\"target\":\"en\"},\"format\":{\"short\":\"text/html\"},\"description\":\"Definitions derived from Wilfred E. Major's Core Greek Vocabulary, extended with definitions from the LSJ.\",\"rights_keys\":{\"LSJ\":\" \\\"A Greek-English Lexicon\\\" (Henry George Liddell, Robert Scott). Provided by the Perseus Digital Library at Tufts University. Edits and additions provided by Vanessa Gorman, University of Nebraska.\",\"Major\":\" Wilfred E. Major, Core Greek Vocabulary for the First Two Years of Greek. CPL Online, Winter 2008. Edits and additions provided by Vanessa Gorman, University of Nebraska.\"}},\"https://github.com/alpheios-project/lsj\":{\"urls\":{\"short\":\"https://repos1.alpheios.net/lexdata/lsj/dat/grc-lsj-defs.dat\",\"index\":\"https://repos1.alpheios.net/lexdata/lsj/dat/grc-lsj-ids.dat\",\"full\":\"https://repos1.alpheios.net/exist/rest/db/xq/lexi-get.xq?lx=lsj&lg=grc&out=html\"},\"langs\":{\"source\":\"grc\",\"target\":\"en\"},\"description\":\"\\\"A Greek-English Lexicon\\\" (Henry George Liddell, Robert Scott)\",\"rights\":\" \\\"A Greek-English Lexicon\\\" (Henry George Liddell, Robert Scott). Provided by the Perseus Digital Library at Tufts University.\"},\"https://github.com/alpheios-project/aut\":{\"urls\":{\"short\":\"https://repos1.alpheios.net/lexdata/aut/dat/grc-aut-defs.dat\",\"index\":\"https://repos1.alpheios.net/lexdata/aut//dat/grc-aut-ids.dat\",\"full\":\"https://repos1.alpheios.net/exist/rest/db/xq/lexi-get.xq?lx=aut&lg=grc&out=html\"},\"langs\":{\"source\":\"grc\",\"target\":\"en\"},\"description\":\"\\\"Autenrieth Homeric Dictionary\\\" (Geoerge Autenrieth)\",\"rights\":\" \\\"Autenrieth Homeric Dictionary\\\" (Geoerge Autenrieth). Provided by the Perseus Digital Library at Tufts University\"},\"https://github.com/alpheios-project/ml\":{\"urls\":{\"short\":\"https://repos1.alpheios.net/lexdata/ml/dat/grc-ml-defs.dat\",\"index\":\"https://repos1.alpheios.net/lexdata/ml/dat/grc-ml-ids.dat\",\"full\":\"https://repos1.alpheios.net/exist/rest/db/xq/lexi-get.xq?lx=ml&lg=grc&out=html\"},\"langs\":{\"source\":\"grc\",\"target\":\"en\"},\"description\":\"\\\"Middle Liddell\\\"\",\"rights\":\" \\\"An Intermediate Greek-English Lexicon\\\" (Henry George Liddell, Robert Scott). Provided by the Perseus Digital Library at Tufts University\"},\"https://github.com/alpheios-project/as\":{\"urls\":{\"short\":\"https://repos1.alpheios.net/lexdata/as/dat/grc-as-defs.dat\",\"index\":\"https://repos1.alpheios.net/lexdata/as/dat/grc-as-ids.dat\",\"full\":\"https://repos1.alpheios.net/exist/rest/db/xq/lexi-get.xq?lx=as&lg=grc&out=html\"},\"langs\":{\"source\":\"grc\",\"target\":\"en\"},\"description\":\"\\\"A Manual Greek Lexicon of the New Testament\\\"\",\"rights\":\" \\\"A Manual Greek Lexicon of the New Testament\\\" (G. Abbott-Smith). Provided by biblicalhumanities.org.\"},\"https://github.com/alpheios-project/dod\":{\"urls\":{\"short\":\"https://repos1.alpheios.net/lexdata/dod/dat/grc-dod-defs.dat\",\"index\":\"https://repos1.alpheios.net/lexdata/dod/dat/grc-dod-ids.dat\",\"full\":null},\"langs\":{\"source\":\"grc\",\"target\":\"en\"},\"description\":\"\\\"Dodson\\\"\",\"rights\":\" \\\"A Public Domain lexicon by John Jeffrey Dodson (2010)\\\". Provided by biblicalhumanities.org.\"},\"https://github.com/alpheios-project/ls\":{\"urls\":{\"short\":null,\"index\":\"https://repos1.alpheios.net/lexdata/ls/dat/lat-ls-ids.dat\",\"full\":\"https://repos1.alpheios.net/exist/rest/db/xq/lexi-get.xq?lx=ls&lg=lat&out=html\"},\"langs\":{\"source\":\"lat\",\"target\":\"en\"},\"description\":\"\\\"A Latin Dictionary\\\" (Charlton T. Lewis, Charles Short)\",\"rights\":\"\\\"A Latin Dictionary\\\" (Charlton T. Lewis, Charles Short). Provided by the Perseus Digital Library at Tufts University.\"},\"https://github.com/alpheios-project/lan\":{\"urls\":{\"short\":null,\"index\":\"https://repos1.alpheios.net/lexdata/lan/dat/ara-lan-ids.dat\",\"full\":\"https://repos1.alpheios.net/exist/rest/db/xq/lexi-get.xq?lx=lan&lg=ara&out=html\"},\"langs\":{\"source\":\"ara\",\"target\":\"en\"},\"description\":\"\\\"The Arabic-English Lexicon\\\" (Edward Lane)\",\"rights\":\"\\\"The Arabic-English Lexicon\\\" (Edward Lane). Provided by the Perseus Digital Library at Tufts University.\"},\"https://github.com/alpheios-project/sal\":{\"urls\":{\"short\":null,\"index\":\"https://repos1.alpheios.net/lexdata/sal/dat/ara-sal-ids.dat\",\"full\":\"https://repos1.alpheios.net/exist/rest/db/xq/lexi-get.xq?lx=sal&lg=ara&out=html\"},\"langs\":{\"source\":\"ara\",\"target\":\"en\"},\"description\":\"\\\"An Advanced Learner's Arabic Dictionary\\\" (H. Anthony Salmone)\",\"rights\":\"\\\"An Advanced Learner's Arabic Dictionary\\\" (H. Anthony Salmone). Provided by the Perseus Digital Library at Tufts University.\"},\"https://github.com/alpheios-project/stg\":{\"urls\":{\"short\":\"https://repos1.alpheios.net/lexdata/stg/dat/per-stg-defs.dat\",\"index\":\"https://repos1.alpheios.net/lexdata/stg/dat/per-stg-ids.dat\",\"full\":null},\"langs\":{\"source\":\"per\",\"target\":\"en\"},\"description\":\"\\\"A Comprehensive Persian-English Dictionary\\\" (Francis Joseph Steingass)\",\"rights\":\"\\\"A Comprehensive Persian-English Dictionary\\\" (Francis Joseph Steingass). Provided by the Center for Advanced Study of Language (CASL) at the University of Maryland, College Park.\"},\"https://github.com/alpheios-project/paidea-glossary\":{\"urls\":{\"short\":\"https://repos1.alpheios.net/lexdata/paideia/dat/lat-1a-reader.dat\"},\"langs\":{\"source\":\"lat\",\"target\":\"en\"},\"format\":{\"short\":\"text/html\"},\"description\":\"Definitions derived from Paidea Glossary.\",\"rights\":\"Definitions from Living Latin- The Paideia Institute.\"}}");
 
 /***/ }),
 
@@ -9199,7 +9196,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	var __webpack_module_cache__ = {};
 /******/ 	
 /******/ 	// The require function
-/******/ 	function __nested_webpack_require_496457__(moduleId) {
+/******/ 	function __nested_webpack_require_493939__(moduleId) {
 /******/ 		// Check if module is in cache
 /******/ 		if(__webpack_module_cache__[moduleId]) {
 /******/ 			return __webpack_module_cache__[moduleId].exports;
@@ -9212,7 +9209,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_496457__);
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_493939__);
 /******/ 	
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
@@ -9225,11 +9222,11 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__nested_webpack_require_496457__.n = (module) => {
+/******/ 		__nested_webpack_require_493939__.n = (module) => {
 /******/ 			var getter = module && module.__esModule ?
 /******/ 				() => (module['default']) :
 /******/ 				() => (module);
-/******/ 			__nested_webpack_require_496457__.d(getter, { a: getter });
+/******/ 			__nested_webpack_require_493939__.d(getter, { a: getter });
 /******/ 			return getter;
 /******/ 		};
 /******/ 	})();
@@ -9237,9 +9234,9 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
-/******/ 		__nested_webpack_require_496457__.d = (exports, definition) => {
+/******/ 		__nested_webpack_require_493939__.d = (exports, definition) => {
 /******/ 			for(var key in definition) {
-/******/ 				if(__nested_webpack_require_496457__.o(definition, key) && !__nested_webpack_require_496457__.o(exports, key)) {
+/******/ 				if(__nested_webpack_require_493939__.o(definition, key) && !__nested_webpack_require_493939__.o(exports, key)) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
@@ -9248,13 +9245,13 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
-/******/ 		__nested_webpack_require_496457__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 		__nested_webpack_require_493939__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
-/******/ 		__nested_webpack_require_496457__.r = (exports) => {
+/******/ 		__nested_webpack_require_493939__.r = (exports) => {
 /******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
@@ -9264,7 +9261,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	
 /******/ 	/* webpack/runtime/node module decorator */
 /******/ 	(() => {
-/******/ 		__nested_webpack_require_496457__.nmd = (module) => {
+/******/ 		__nested_webpack_require_493939__.nmd = (module) => {
 /******/ 			module.paths = [];
 /******/ 			if (!module.children) module.children = [];
 /******/ 			return module;
@@ -9275,7 +9272,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	// module exports must be returned from runtime so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	return __nested_webpack_require_496457__("./index.js");
+/******/ 	return __nested_webpack_require_493939__("./index.js");
 /******/ })()
 ;
 });
@@ -25661,9 +25658,6 @@ function createFastMemoizeCache(store) {
     return {
         create: function () {
             return {
-                has: function (key) {
-                    return key in store;
-                },
                 get: function (key) {
                     return store[key];
                 },
@@ -25681,7 +25675,7 @@ function createDefaultFormatters(cache) {
         pluralRules: {},
     }; }
     return {
-        getNumberFormat: (0,_formatjs_fast_memoize__WEBPACK_IMPORTED_MODULE_1__.default)(function () {
+        getNumberFormat: (0,_formatjs_fast_memoize__WEBPACK_IMPORTED_MODULE_1__["default"])(function () {
             var _a;
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
@@ -25692,7 +25686,7 @@ function createDefaultFormatters(cache) {
             cache: createFastMemoizeCache(cache.number),
             strategy: _formatjs_fast_memoize__WEBPACK_IMPORTED_MODULE_1__.strategies.variadic,
         }),
-        getDateTimeFormat: (0,_formatjs_fast_memoize__WEBPACK_IMPORTED_MODULE_1__.default)(function () {
+        getDateTimeFormat: (0,_formatjs_fast_memoize__WEBPACK_IMPORTED_MODULE_1__["default"])(function () {
             var _a;
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
@@ -25703,7 +25697,7 @@ function createDefaultFormatters(cache) {
             cache: createFastMemoizeCache(cache.dateTime),
             strategy: _formatjs_fast_memoize__WEBPACK_IMPORTED_MODULE_1__.strategies.variadic,
         }),
-        getPluralRules: (0,_formatjs_fast_memoize__WEBPACK_IMPORTED_MODULE_1__.default)(function () {
+        getPluralRules: (0,_formatjs_fast_memoize__WEBPACK_IMPORTED_MODULE_1__["default"])(function () {
             var _a;
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
@@ -25796,6 +25790,9 @@ var IntlMessageFormat = /** @class */ (function () {
     // and Intl.DateTimeFormat instances.
     IntlMessageFormat.formats = {
         number: {
+            integer: {
+                maximumFractionDigits: 0,
+            },
             currency: {
                 style: 'currency',
             },
@@ -28321,10 +28318,14 @@ function __spreadArrays() {
     return r;
 }
 
-function __spreadArray(to, from) {
-    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-        to[j] = from[i];
-    return to;
+function __spreadArray(to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
 }
 
 function __await(v) {
@@ -38592,10 +38593,10 @@ class AlignedGroupsController {
    */
   async createAlignedTexts (alignment) {
     if (!alignment || !alignment.readyForTokenize) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"].getMsgS('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"].getMsgS('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].types.ERROR
       })
       return false
     }
@@ -38613,10 +38614,10 @@ class AlignedGroupsController {
     const resultSegmentsCheck = this.alignment.equalSegmentsAmount
 
     if (!resultSegmentsCheck) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"].getMsgS('ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"].getMsgS('ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].types.ERROR
       })
       this.alignment.clearAlignedTexts()
       this.store.commit('incrementAlignmentUpdated')
@@ -38624,7 +38625,7 @@ class AlignedGroupsController {
     }
     this.store.commit('incrementAlignmentUpdated')
 
-    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
+    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].update(this.alignment)
 
     document.dispatchEvent(new Event('AlpheiosAlignmentGroupsWorkflowStarted'))
     this.alignment.limitTokensToPartNumAllTexts(1)
@@ -38695,14 +38696,14 @@ class AlignedGroupsController {
     } else {
       if (this.shouldFinishAlignmentGroup(token, limitByTargetId)) {
         this.finishActiveAlignmentGroup()
-        await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
+        await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].update(this.alignment)
       } else if (this.shouldRemoveFromAlignmentGroup(token, limitByTargetId)) {
         this.removeFromAlignmentGroup(token, limitByTargetId)
       } else if (this.tokenIsGrouped(token, limitByTargetId)) {
         const alGroupItemID = this.mergeActiveGroupWithAnotherByToken(token, limitByTargetId)
 
         await this.deleteAlGroupFromStorage(alGroupItemID)
-        await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
+        await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].update(this.alignment)
       } else {
         this.addToAlignmentGroup(token, limitByTargetId)
         checkHistory = true
@@ -38725,7 +38726,7 @@ class AlignedGroupsController {
   }
 
   deleteAlGroupFromStorage (alGroupItemID) {
-    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.deleteMany({
+    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].deleteMany({
       userID: this.alignment.userID,
       alignmentID: this.alignment.id,
       alGroupItemID
@@ -39006,8 +39007,8 @@ class AppController {
 
     await this.defineSettingsController()
 
-    if (_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.themeOptionValue) {
-      this.defineColorTheme({ theme: _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.themeOptionValue, themesList: [] })
+    if (_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__["default"].themeOptionValue) {
+      this.defineColorTheme({ theme: _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__["default"].themeOptionValue, themesList: [] })
     }
     if (this.pageSettings && this.pageSettings.appId) {
       this.attachVueComponents()
@@ -39033,7 +39034,7 @@ class AppController {
    * Creates and attaches App Vue component, defines additional controllers
    */
   attachVueComponents () {
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_13__.default.use((vue_js_modal__WEBPACK_IMPORTED_MODULE_12___default()))
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_13__["default"].use((vue_js_modal__WEBPACK_IMPORTED_MODULE_12___default()))
 
     this.defineTextController()
     this.defineAlignedGroupsController()
@@ -39041,12 +39042,12 @@ class AppController {
     this.defineHistoryAlGroupsController()
     this.defineAnnotationsController()
 
-    const rootVi = new _vue_runtime__WEBPACK_IMPORTED_MODULE_13__.default({ store: this.store })
+    const rootVi = new _vue_runtime__WEBPACK_IMPORTED_MODULE_13__["default"]({ store: this.store })
     const mountEl = document.getElementById(this.pageSettings.appId)
     const appContainer = document.createElement('div')
 
     const appContainerEl = mountEl.appendChild(appContainer)
-    const AppComponent = _vue_runtime__WEBPACK_IMPORTED_MODULE_13__.default.extend(_vue_app_vue__WEBPACK_IMPORTED_MODULE_0__.default)
+    const AppComponent = _vue_runtime__WEBPACK_IMPORTED_MODULE_13__["default"].extend(_vue_app_vue__WEBPACK_IMPORTED_MODULE_0__["default"])
 
     this._viAppComp = new AppComponent({
       parent: rootVi
@@ -39058,61 +39059,61 @@ class AppController {
   }
 
   defineEvents () {
-    _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.evt.SETTINGS_CONTROLLER_THEME_UPDATED.sub(this.defineColorTheme.bind(this))
+    _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__["default"].evt.SETTINGS_CONTROLLER_THEME_UPDATED.sub(this.defineColorTheme.bind(this))
   }
 
   /**
    * Inits Vuex Store
    */
   defineStore () {
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_13__.default.use(vuex__WEBPACK_IMPORTED_MODULE_14__.default)
-    this.store = new vuex__WEBPACK_IMPORTED_MODULE_14__.default.Store(_lib_store_store_definition__WEBPACK_IMPORTED_MODULE_8__.default.defaultDefinition)
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_13__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_14__["default"])
+    this.store = new vuex__WEBPACK_IMPORTED_MODULE_14__["default"].Store(_lib_store_store_definition__WEBPACK_IMPORTED_MODULE_8__["default"].defaultDefinition)
   }
 
   /**
    * Creates SettingsController and attaches to Vue components
    */
   async defineSettingsController () {
-    await _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.init(this.store)
+    await _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__["default"].init(this.store)
 
-    _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.uploadRemoteSettings()
+    _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__["default"].uploadRemoteSettings()
   }
 
   /**
    * Creates TextController and attaches to Vue components
    */
   defineTextController () {
-    this.textC = new _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_13__.default.prototype.$textC = this.textC
+    this.textC = new _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__["default"](this.store)
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_13__["default"].prototype.$textC = this.textC
   }
 
   /**
    * Creates AlignedGroupsController and attaches to Vue components
    */
   defineAlignedGroupsController () {
-    this.alignedGC = new _lib_controllers_aligned_groups_controller_js__WEBPACK_IMPORTED_MODULE_2__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_13__.default.prototype.$alignedGC = this.alignedGC
+    this.alignedGC = new _lib_controllers_aligned_groups_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"](this.store)
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_13__["default"].prototype.$alignedGC = this.alignedGC
   }
 
   /**
    * Creates TokensEditController and attaches to Vue components
    */
   defineTokensEditController () {
-    this.tokensEC = new _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_3__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_13__.default.prototype.$tokensEC = this.tokensEC
+    this.tokensEC = new _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"](this.store)
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_13__["default"].prototype.$tokensEC = this.tokensEC
   }
 
   /**
    * Creates HistoryAlGroupsController and attaches to Vue components
    */
   defineHistoryAlGroupsController () {
-    this.historyAGC = new _lib_controllers_history_algroups_controller_js__WEBPACK_IMPORTED_MODULE_4__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_13__.default.prototype.$historyAGC = this.historyAGC
+    this.historyAGC = new _lib_controllers_history_algroups_controller_js__WEBPACK_IMPORTED_MODULE_4__["default"](this.store)
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_13__["default"].prototype.$historyAGC = this.historyAGC
   }
 
   defineAnnotationsController () {
-    this.annotationsC = new _lib_controllers_annotations_controller_js__WEBPACK_IMPORTED_MODULE_7__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_13__.default.prototype.$annotationsC = this.annotationsC
+    this.annotationsC = new _lib_controllers_annotations_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"](this.store)
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_13__["default"].prototype.$annotationsC = this.annotationsC
   }
 
   /**
@@ -39120,11 +39121,11 @@ class AppController {
    */
   defineL10Support () {
     const config = {
-      defaultLocale: _locales_locales_js__WEBPACK_IMPORTED_MODULE_11__.default.en_US,
-      messageBundles: _locales_locales_js__WEBPACK_IMPORTED_MODULE_11__.default.bundleArr(_locales_locales_js__WEBPACK_IMPORTED_MODULE_11__.default.predefinedLocales())
+      defaultLocale: _locales_locales_js__WEBPACK_IMPORTED_MODULE_11__["default"].en_US,
+      messageBundles: _locales_locales_js__WEBPACK_IMPORTED_MODULE_11__["default"].bundleArr(_locales_locales_js__WEBPACK_IMPORTED_MODULE_11__["default"].predefinedLocales())
     }
 
-    const l10n = new _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_10__.default()
+    const l10n = new _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_10__["default"]()
     config.messageBundles.forEach(mb => l10n.addMessageBundle(mb))
     l10n.setLocale(config.defaultLocale)
     return l10n
@@ -39134,12 +39135,12 @@ class AppController {
    * Defines NotificatinSingleton instance
    */
   defineNotificationSupport () {
-    const notificationSingleton = new _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_9__.default(this.store)
+    const notificationSingleton = new _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_9__["default"](this.store)
     return notificationSingleton
   }
 
   defineStorageController () {
-    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.definedDBAdapter()
+    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].definedDBAdapter()
   }
 }
 
@@ -39205,9 +39206,9 @@ class DetectTextController {
     if (adapterDetectLangRes.errors.length > 0) {
       adapterDetectLangRes.errors.forEach(error => {
         console.error(error)
-        _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
+        _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].addNotification({
           text: error.message,
-          type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
+          type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].types.ERROR
         })
       })
       return
@@ -39215,7 +39216,7 @@ class DetectTextController {
     this.addToDetected(sourceText)
     return {
       lang: adapterDetectLangRes.result,
-      direction: _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_2__.default.defineDirection(adapterDetectLangRes.result),
+      direction: _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_2__["default"].defineDirection(adapterDetectLangRes.result),
       sourceType
     }
   }
@@ -39292,8 +39293,8 @@ class DownloadController {
         method: this.jsonSimpleDownloadAll,
         allTexts: true,
         name: 'jsonSimpleDownloadAll',
-        label: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL'),
-        tooltip: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP'),
+        label: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__["default"].getMsgS('DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL'),
+        tooltip: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__["default"].getMsgS('DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP'),
         alignmentStarted: false,
         hasGroups: false
       },
@@ -39301,8 +39302,8 @@ class DownloadController {
         method: this.plainSourceDownloadAll,
         // allTexts: true,
         name: 'plainSourceDownloadAll',
-        label: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL'),
-        tooltip: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP'),
+        label: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__["default"].getMsgS('DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL'),
+        tooltip: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__["default"].getMsgS('DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP'),
         alignmentStarted: false,
         hasGroups: false
       },
@@ -39311,8 +39312,8 @@ class DownloadController {
         method: this.htmlDownloadAll,
         allTexts: true,
         name: 'htmlDownloadAll',
-        label: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_HTML_LABEL'),
-        tooltip: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_HTML_TOOLTIP'),
+        label: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__["default"].getMsgS('DOWNLOAD_CONTROLLER_TYPE_HTML_LABEL'),
+        tooltip: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__["default"].getMsgS('DOWNLOAD_CONTROLLER_TYPE_HTML_TOOLTIP'),
         alignmentStarted: true,
         hasGroups: true
       }
@@ -39329,10 +39330,10 @@ class DownloadController {
     if (this.downloadMethods[downloadType]) {
       return this.downloadMethods[downloadType].method(data)
     }
-    console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }))
-    _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
-      text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }),
-      type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.types.ERROR
+    console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__["default"].getMsgS('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }))
+    _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__["default"].addNotification({
+      text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__["default"].getMsgS('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }),
+      type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__["default"].types.ERROR
     })
     return false
   }
@@ -39356,10 +39357,10 @@ class DownloadController {
    */
   static plainSourceDownloadAll (data) {
     if (!data.originDocSource || !data.targetDocSources) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__["default"].getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__["default"].addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__["default"].getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__["default"].types.ERROR
       })
       return false
     }
@@ -39383,7 +39384,7 @@ class DownloadController {
     const now = DownloadController.timeNow.bind(new Date())()
     const fileName = `${now}-alignment-${data.originDocSource.lang}-${langs.join('-')}`
     const exportFields = ['header', 'direction', 'lang', 'sourceType']
-    return _lib_download_download_file_csv_js__WEBPACK_IMPORTED_MODULE_0__.default.download(fields, exportFields, fileName)
+    return _lib_download_download_file_csv_js__WEBPACK_IMPORTED_MODULE_0__["default"].download(fields, exportFields, fileName)
   }
 
   /**
@@ -39393,10 +39394,10 @@ class DownloadController {
    */
   static plainSourceDownloadSingle (data) {
     if (!data.docSource) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__["default"].getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__["default"].addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__["default"].getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__["default"].types.ERROR
       })
       return false
     }
@@ -39410,7 +39411,7 @@ class DownloadController {
 
     const now = DownloadController.timeNow.bind(new Date())()
     const fileName = `${now}-alignment-${data.docSource.lang}`
-    return _lib_download_download_file_csv_js__WEBPACK_IMPORTED_MODULE_0__.default.download(fields, exportFields, fileName)
+    return _lib_download_download_file_csv_js__WEBPACK_IMPORTED_MODULE_0__["default"].download(fields, exportFields, fileName)
   }
 
   static jsonSimpleDownloadAll (data) {
@@ -39424,7 +39425,7 @@ class DownloadController {
 
     const filePrefixName = data.origin.alignedText ? 'full-alignment' : 'alignment'
     const fileName = `${now}-${filePrefixName}-${data.origin.docSource.lang}-${langs.join('-')}`
-    return _lib_download_download_file_json_js__WEBPACK_IMPORTED_MODULE_1__.default.download(data, fileName)
+    return _lib_download_download_file_json_js__WEBPACK_IMPORTED_MODULE_1__["default"].download(data, fileName)
   }
 
   static htmlDownloadAll (data) {
@@ -39442,7 +39443,7 @@ class DownloadController {
     const now = DownloadController.timeNow.bind(new Date())()
 
     const fileName = `${now}-alignment-html-output-${data.langs.join('-')}`
-    return _lib_download_download_file_html_js__WEBPACK_IMPORTED_MODULE_2__.default.download(layout, fileName)
+    return _lib_download_download_file_html_js__WEBPACK_IMPORTED_MODULE_2__["default"].download(layout, fileName)
   }
 }
 
@@ -39513,7 +39514,7 @@ class HistoryAlGroupsController {
     const result = this.alignment.undoAlGroups()
     if (result) {
       this.store.commit('incrementAlignmentUpdated')
-      await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.update(this.alignment, true)
+      await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_0__["default"].update(this.alignment, true)
 
       return result
     }
@@ -39534,7 +39535,7 @@ class HistoryAlGroupsController {
         await this.deleteAlGroupFromStorage(this.alignment.activeAlignmentGroup.id)
       }
       this.store.commit('incrementAlignmentUpdated')
-      await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.update(this.alignment, true)
+      await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_0__["default"].update(this.alignment, true)
       return result
     }
   }
@@ -39548,7 +39549,7 @@ class HistoryAlGroupsController {
   }
 
   deleteAlGroupFromStorage (alGroupItemID) {
-    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.deleteMany({
+    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_0__["default"].deleteMany({
       userID: this.alignment.userID,
       alignmentID: this.alignment.id,
       alGroupItemID
@@ -39605,9 +39606,9 @@ class SettingsController {
 
     this.options = {}
 
-    _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_4__.default.collectLangsData()
+    _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_4__["default"].collectLangsData()
     this.valuesClassesList = {
-      Langs: _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_4__.default.all
+      Langs: _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_4__["default"].all
     }
   }
 
@@ -39690,11 +39691,11 @@ class SettingsController {
    * @returns {Boolean} - true - if tokenize options are already defined
    */
   static get tokenizerOptionsLoaded () {
-    return _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.fullyDefinedOptions(this.tokenizerOptionValue, _instance.options.tokenize)
+    return _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].fullyDefinedOptions(this.tokenizerOptionValue, _instance.options.tokenize)
   }
 
   static get hasSourceTypeOptions () {
-    return _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.hasSourceTypeOptions(this.tokenizerOptionValue)
+    return _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].hasSourceTypeOptions(this.tokenizerOptionValue)
   }
 
   /**
@@ -39736,7 +39737,7 @@ class SettingsController {
    * we could need to upload from a remote source
    */
   static async uploadRemoteSettings () {
-    _instance.options.tokenize = await _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.uploadOptions(_instance.storageAdapter)
+    _instance.options.tokenize = await _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].uploadOptions(_instance.storageAdapter)
 
     if (_instance.options.tokenize && _instance.options.tokenize.alpheiosRemoteTokenizer && _instance.options.tokenize.alpheiosRemoteTokenizer.text) {
       delete _instance.options.tokenize.alpheiosRemoteTokenizer.text.items.tbsegstart
@@ -39762,7 +39763,7 @@ class SettingsController {
     if (optionNameParts[2] === 'theme') {
       this.submitEventUpdateTheme()
     } else if (optionNameParts[2] === 'addIndexedDBSupport') {
-      _storage_controller__WEBPACK_IMPORTED_MODULE_5__.default.changeIndexedDBSupport(optionItem.currentValue)
+      _storage_controller__WEBPACK_IMPORTED_MODULE_5__["default"].changeIndexedDBSupport(optionItem.currentValue)
     } else if (optionNameParts[2] === 'tokenizer') {
       _instance.store.commit('incrementTokenizerUpdated')
     }
@@ -39880,7 +39881,7 @@ let dbAdapter, addIndexedDBSupportValue
 class StorageController {
   static definedDBAdapter () {
     if (!dbAdapter) {
-      dbAdapter = new _lib_storage_indexed_db_adapter_js__WEBPACK_IMPORTED_MODULE_0__.default()
+      dbAdapter = new _lib_storage_indexed_db_adapter_js__WEBPACK_IMPORTED_MODULE_0__["default"]()
     }
   }
 
@@ -39979,7 +39980,7 @@ class TextsController {
    * @param {String} targetDocSource
    */
   createAlignment () {
-    this.alignment = new _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default()
+    this.alignment = new _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__["default"]()
     return this.alignment
   }
 
@@ -39991,7 +39992,7 @@ class TextsController {
   }
 
   checkSize () {
-    return Boolean(this.alignment) && this.alignment.checkSize(_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__.default.maxCharactersPerTextValue)
+    return Boolean(this.alignment) && this.alignment.checkSize(_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].maxCharactersPerTextValue)
   }
 
   /**
@@ -40013,7 +40014,7 @@ class TextsController {
       this.store.commit('incrementDocSourceLangDetected')
     }
 
-    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment)
+    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].update(this.alignment)
     return { resultUpdate, resultDetect }
   }
 
@@ -40023,9 +40024,9 @@ class TextsController {
    */
   async updateTargetDocSource (targetDocSource, targetId) {
     if (!this.alignment) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'),
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__["default"].getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__["default"].addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__["default"].getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'),
         type: 'error'
       })
       return
@@ -40041,15 +40042,15 @@ class TextsController {
     if (resultDetect) {
       this.store.commit('incrementDocSourceLangDetected')
     }
-    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment)
+    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].update(this.alignment)
     return { resultUpdate: true, resultDetect, finalTargetId }
   }
 
   async addNewTarget () {
     if (!this.alignment) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'),
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__["default"].getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__["default"].addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__["default"].getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'),
         type: 'error'
       })
       return
@@ -40066,16 +40067,16 @@ class TextsController {
    */
   deleteText (textType, id) {
     if (!this.alignment) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__["default"].getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__["default"].addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__["default"].getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__["default"].types.ERROR
       })
     } else {
       this.alignment.deleteText(textType, id)
       this.store.commit('incrementDocSourceLangDetected')
       this.store.commit('incrementDocSourceUpdated')
-      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment, true)
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].update(this.alignment, true)
     }
   }
 
@@ -40139,12 +40140,12 @@ class TextsController {
   }
 
   checkUploadedFileByExtension (extension, allTexts) {
-    if (!_lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.isExtensionAvailable(extension, allTexts)) {
-      const availableExtensions = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.getAvailableExtensions(allTexts).join(', ')
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE', { extension, availableExtensions }))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE', { extension, availableExtensions }),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.types.ERROR
+    if (!_lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].isExtensionAvailable(extension, allTexts)) {
+      const availableExtensions = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].getAvailableExtensions(allTexts).join(', ')
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__["default"].getMsgS('UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE', { extension, availableExtensions }))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__["default"].addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__["default"].getMsgS('UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE', { extension, availableExtensions }),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__["default"].types.ERROR
       })
       return
     }
@@ -40153,41 +40154,41 @@ class TextsController {
 
   async uploadDataFromDB (alData) {
     if (!alData) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__["default"].getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__["default"].addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__["default"].getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__["default"].types.ERROR
       })
       return
     }
 
-    const alignment = await _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload('indexedDBUpload', alData)
+    const alignment = await _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].upload('indexedDBUpload', alData)
     return alignment
   }
 
   uploadDataFromFile (fileData, tokenizerOptionValue, extension) {
     if (!fileData) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__["default"].getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__["default"].addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__["default"].getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__["default"].types.ERROR
       })
       return
     }
 
-    const uploadType = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.defineUploadTypeByExtension(extension)
+    const uploadType = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].defineUploadTypeByExtension(extension)
     const uploadPrepareMethods = {
       plainSourceUploadAll: this.uploadDocSourceFromFileAll.bind(this),
       jsonSimpleUploadAll: this.uploadFullDataJSON.bind(this)
     }
 
     const alignment = uploadPrepareMethods[uploadType](fileData, tokenizerOptionValue, uploadType)
-    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(alignment, true)
+    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].update(alignment, true)
     return alignment
   }
 
   uploadFullDataJSON (fileData, tokenizerOptionValue, uploadType) {
-    const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, fileData)
+    const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].upload(uploadType, fileData)
     this.store.commit('incrementUploadCheck')
     return result
   }
@@ -40197,11 +40198,11 @@ class TextsController {
    * @param {String} fileData - a content of the uploaded file
    */
   uploadDocSourceFromFileAll (fileData, tokenizerOptionValue, uploadType) {
-    const tokenization = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.defineTextTokenizationOptions(tokenizerOptionValue)
+    const tokenization = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_5__["default"].defineTextTokenizationOptions(tokenizerOptionValue)
 
-    const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, { fileData, tokenization })
+    const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].upload(uploadType, { fileData, tokenization })
     if (result) {
-      const alignment = new _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default()
+      const alignment = new _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__["default"]()
       alignment.updateOriginDocSource(result.originDocSource)
       result.targetDocSources.forEach(targetDocSource => {
         alignment.updateTargetDocSource(targetDocSource)
@@ -40219,17 +40220,17 @@ class TextsController {
    */
   async uploadDocSourceFromFileSingle (fileData, { textType, textId, tokenization }) {
     if (!fileData) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__["default"].getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__["default"].addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__["default"].getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__["default"].types.ERROR
       })
       return
     }
 
-    const uploadType = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.defineUploadTypeByExtension(fileData.extension, false)
+    const uploadType = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].defineUploadTypeByExtension(fileData.extension, false)
 
-    const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, { fileData, textType, textId, tokenization })
+    const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].upload(uploadType, { fileData, textType, textId, tokenization })
     if (result) {
       if (textType === 'origin') {
         const resultUpdate = await this.updateOriginDocSource(result)
@@ -40260,7 +40261,7 @@ class TextsController {
     }
 
     const result = await downloadPrepareMethods[downloadType](downloadType, additional)
-    await _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(result.downloadType, result.data)
+    await _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__["default"].download(result.downloadType, result.data)
     return true
   }
 
@@ -40276,9 +40277,9 @@ class TextsController {
 
   async downloadFullData (downloadType) {
     let data
-    if (_lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.dbAdapterAvailable && !this.alignment.hasAllPartsUploaded) {
-      const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
-      const alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default.convertFromIndexedDB(dbData)
+    if (_lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].dbAdapterAvailable && !this.alignment.hasAllPartsUploaded) {
+      const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+      const alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__["default"].convertFromIndexedDB(dbData)
 
       data = alignment.convertToJSON()
     } else {
@@ -40297,7 +40298,7 @@ class TextsController {
     const downloadType = 'plainSourceDownloadSingle'
     const docSource = this.getDocSource(textType, textId)
 
-    return _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(downloadType, { docSource })
+    return _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__["default"].download(downloadType, { docSource })
   }
 
   async htmlDownloadAll (downloadType, additional) {
@@ -40322,9 +40323,9 @@ class TextsController {
 
   async prepareFullDataForHTMLOutput () {
     let data
-    if (_lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.dbAdapterAvailable && !this.alignment.hasAllPartsUploaded) {
-      const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
-      const alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default.convertFromIndexedDB(dbData)
+    if (_lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].dbAdapterAvailable && !this.alignment.hasAllPartsUploaded) {
+      const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+      const alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__["default"].convertFromIndexedDB(dbData)
 
       data = alignment.convertToHTML()
     } else {
@@ -40371,7 +40372,7 @@ class TextsController {
     const result = this.alignment.changeMetadataTerm(metadataTermData, value, textType, textId)
     if (result) {
       this.store.commit('incrementDocSourceUpdated')
-      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment, true)
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].update(this.alignment, true)
     }
   }
 
@@ -40380,7 +40381,7 @@ class TextsController {
 
     if (result) {
       this.store.commit('incrementDocSourceUpdated')
-      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment, true)
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].update(this.alignment, true)
     }
   }
 
@@ -40401,9 +40402,9 @@ class TextsController {
   }
 
   async uploadFromAllAlignmentsDB () {
-    const data = { userID: _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default.defaultUserID }
+    const data = { userID: _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__["default"].defaultUserID }
 
-    const alignmentList = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select(data)
+    const alignmentList = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].select(data)
 
     alignmentList.sort((a, b) => Date.parse(a.updatedDT) - Date.parse(b.updatedDT)).reverse()
     return alignmentList
@@ -40417,15 +40418,15 @@ class TextsController {
    */
   async deleteDataFromDB (alData) {
     if (!alData) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__["default"].getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__["default"].addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__["default"].getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__["default"].types.ERROR
       })
       return
     }
 
-    const result = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.deleteMany(alData.alignmentID, 'fullAlignmentByID')
+    const result = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].deleteMany(alData.alignmentID, 'fullAlignmentByID')
 
     if (result) {
       this.store.commit('incremetReloadAlignmentsList')
@@ -40438,7 +40439,7 @@ class TextsController {
    * @returns {Boolean}
    */
   async clearAllAlignmentsFromDB () {
-    const result = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.clear()
+    const result = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].clear()
 
     if (result) {
       this.store.commit('incremetReloadAlignmentsList')
@@ -40450,11 +40451,11 @@ class TextsController {
     const allPartsAlreadyUploaded = this.alignment.hasAllPartsUploaded
 
     if (!allPartsAlreadyUploaded) {
-      const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
-      this.alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default.convertFromIndexedDB(dbData)
+      const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+      this.alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__["default"].convertFromIndexedDB(dbData)
     }
     this.alignment.defineAllPartNumsForTexts()
-    await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment, true)
+    await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].update(this.alignment, true)
     if (!allPartsAlreadyUploaded) {
       this.alignment.limitTokensToPartNumAllTexts(1)
     }
@@ -40474,7 +40475,7 @@ class TextsController {
           segmentIndex,
           partNum: partNums[i]
         }
-        const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select(selectParams, 'tokensByPartNum')
+        const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].select(selectParams, 'tokensByPartNum')
         this.alignment.uploadSegmentTokensFromDB(textType, textId, segmentIndex, dbData)
       }
     }
@@ -40493,7 +40494,7 @@ class TextsController {
    * @returns {Boolean} - IndexedDB support availability
    */
   get indexedDBAvailable () {
-    return _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.dbAdapterAvailable
+    return _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].dbAdapterAvailable
   }
 
   /**
@@ -40508,13 +40509,13 @@ class TextsController {
     if (token && type && text) {
       this.alignment.addAnnotation({ id, token, type, text })
       this.store.commit('incrementUpdateAnnotations')
-      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment)
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].update(this.alignment)
       return true
     }
-    console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_DATA_FOR_ANNOTATIONS'))
-    _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
-      text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_DATA_FOR_ANNOTATIONS'),
-      type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.types.ERROR
+    console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__["default"].getMsgS('TEXTS_CONTROLLER_EMPTY_DATA_FOR_ANNOTATIONS'))
+    _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__["default"].addNotification({
+      text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__["default"].getMsgS('TEXTS_CONTROLLER_EMPTY_DATA_FOR_ANNOTATIONS'),
+      type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__["default"].types.ERROR
     })
     return false
   }
@@ -40544,7 +40545,7 @@ class TextsController {
   }
 
   deleteAnnotationFromStorage (id) {
-    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.deleteMany({
+    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].deleteMany({
       userID: this.alignment.userID,
       alignmentID: this.alignment.id,
       annotationId: id
@@ -40560,7 +40561,7 @@ class TextsController {
   }
 
   annotationIsEditable (annotation) {
-    return this.alignment && this.alignment.annotationIsEditable(annotation, _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__.default.availableAnnotationTypes)
+    return this.alignment && this.alignment.annotationIsEditable(annotation, _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].availableAnnotationTypes)
   }
 }
 
@@ -40603,14 +40604,14 @@ class TokenizeController {
   static get tokenizeMethods () {
     return {
       simpleLocalTokenizer: {
-        method: _lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__.default.tokenize.bind(_lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__.default),
+        method: _lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__["default"].tokenize.bind(_lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__["default"]),
         hasSourceTypeOptions: false,
         hasOptions: false,
         getNextTokenIdWord: this.getNextTokenIdWordChangesType.bind(this),
         reIndexSentence: this.reIndexSentences.bind(this)
       },
       alpheiosRemoteTokenizer: {
-        method: _lib_tokenizers_alpheios_remote_tokenizer_js__WEBPACK_IMPORTED_MODULE_1__.default.tokenize.bind(_lib_tokenizers_alpheios_remote_tokenizer_js__WEBPACK_IMPORTED_MODULE_1__.default),
+        method: _lib_tokenizers_alpheios_remote_tokenizer_js__WEBPACK_IMPORTED_MODULE_1__["default"].tokenize.bind(_lib_tokenizers_alpheios_remote_tokenizer_js__WEBPACK_IMPORTED_MODULE_1__["default"]),
         hasSourceTypeOptions: true,
         hasOptions: true,
         uploadOptionsMethod: this.uploadDefaultRemoteTokenizeOptions.bind(this),
@@ -40649,10 +40650,10 @@ class TokenizeController {
     if (this.tokenizeMethods[tokenizer]) {
       return this.tokenizeMethods[tokenizer].method
     }
-    console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED', { tokenizer }))
-    _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__.default.addNotification({
-      text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED', { tokenizer }),
-      type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__.default.types.ERROR
+    console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__["default"].getMsgS('TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED', { tokenizer }))
+    _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__["default"].addNotification({
+      text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__["default"].getMsgS('TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED', { tokenizer }),
+      type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__["default"].types.ERROR
     })
     return false
   }
@@ -40713,9 +40714,9 @@ class TokenizeController {
     if (adapterTokenizerRes.errors.length > 0) {
       adapterTokenizerRes.errors.forEach(error => {
         console.log(error)
-        _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__.default.addNotification({
+        _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__["default"].addNotification({
           text: error.message,
-          type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__.default.types.ERROR
+          type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__["default"].types.ERROR
         })
       })
     }
@@ -40768,14 +40769,14 @@ class TokenizeController {
   static getNextTokenIdWordChangesType ({ tokenIdWord, lastTokenIdWord, changeType, indexWord, increment }) {
     const divider = '-'
     const changeLibrary = {
-      [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_5__.default.types.SPLIT]: 's',
-      [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_5__.default.types.MERGE]: 'm',
-      [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_5__.default.types.UPDATE]: 'e',
-      [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_5__.default.types.ADD_LINE_BREAK]: 'al',
-      [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_5__.default.types.REMOVE_LINE_BREAK]: 'rl',
-      [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_5__.default.types.TO_NEXT_SEGMENT]: 'ns',
-      [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_5__.default.types.TO_PREV_SEGMENT]: 'ps',
-      [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_5__.default.types.NEW]: 'n'
+      [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_5__["default"].types.SPLIT]: 's',
+      [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_5__["default"].types.MERGE]: 'm',
+      [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_5__["default"].types.UPDATE]: 'e',
+      [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_5__["default"].types.ADD_LINE_BREAK]: 'al',
+      [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_5__["default"].types.REMOVE_LINE_BREAK]: 'rl',
+      [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_5__["default"].types.TO_NEXT_SEGMENT]: 'ns',
+      [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_5__["default"].types.TO_PREV_SEGMENT]: 'ps',
+      [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_5__["default"].types.NEW]: 'n'
 
     }
 
@@ -40879,7 +40880,7 @@ class TokensEditController {
       this.store.commit('incrementTokenUpdated')
 
       await this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
-      await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
+      await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].update(this.alignment)
       return true
     }
     return false
@@ -40898,7 +40899,7 @@ class TokensEditController {
       this.store.commit('incrementTokenUpdated')
 
       await this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
-      await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
+      await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].update(this.alignment)
       return true
     }
     return false
@@ -40914,17 +40915,17 @@ class TokensEditController {
     if (!this.checkEditable(token)) { return false }
 
     if (!tokenWord.includes(' ')) {
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('TOKENS_EDIT_SPLIT_NO_SPACES'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"].getMsgS('TOKENS_EDIT_SPLIT_NO_SPACES'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].types.ERROR
       })
       return false
     }
 
     if (tokenWord.split(' ').length > 2) {
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('TOKENS_EDIT_SPLIT_SEVERAL_SPACES'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"].getMsgS('TOKENS_EDIT_SPLIT_SEVERAL_SPACES'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].types.ERROR
       })
       return false
     }
@@ -40932,7 +40933,7 @@ class TokensEditController {
     if (this.alignment.splitToken(token, tokenWord)) {
       this.store.commit('incrementTokenUpdated')
       await this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
-      await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
+      await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].update(this.alignment)
       return true
     }
     return false
@@ -40949,7 +40950,7 @@ class TokensEditController {
     if (this.alignment.addLineBreakAfterToken(token)) {
       this.store.commit('incrementTokenUpdated')
       await this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
-      await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
+      await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].update(this.alignment)
       return true
     }
     return false
@@ -40967,7 +40968,7 @@ class TokensEditController {
       this.store.commit('incrementTokenUpdated')
 
       await this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
-      await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
+      await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].update(this.alignment)
 
       return true
     }
@@ -40993,7 +40994,7 @@ class TokensEditController {
       await this.deleteAllPartFromStorage(token.docSourceId, tokenSegmentIndex, tokenPartNum)
       await this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
 
-      await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
+      await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].update(this.alignment)
       return true
     }
     return false
@@ -41006,9 +41007,9 @@ class TokensEditController {
    */
   checkEditable (token) {
     if (!this.isEditableToken(token)) {
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('TOKENS_EDIT_IS_NOT_EDITABLE_ERROR'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"].getMsgS('TOKENS_EDIT_IS_NOT_EDITABLE_ERROR'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].types.ERROR
       })
       return false
     }
@@ -41108,7 +41109,7 @@ class TokensEditController {
     if (data.result) {
       this.store.commit('incrementTokenUpdated')
       await this.deleteAllPartFromStorage(textId, data.segmentIndex, data.partNum)
-      await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
+      await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].update(this.alignment)
       return true
     }
     return false
@@ -41125,7 +41126,7 @@ class TokensEditController {
     if (this.alignment.deleteToken(token)) {
       this.store.commit('incrementTokenUpdated')
       await this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
-      await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
+      await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].update(this.alignment)
       return true
     }
     return false
@@ -41136,7 +41137,7 @@ class TokensEditController {
     if (data.result) {
       this.store.commit('incrementTokenUpdated')
       await this.prepareDeleteFromStorage(data.dataIndexedDB)
-      await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
+      await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].update(this.alignment)
       return true
     }
     return false
@@ -41148,7 +41149,7 @@ class TokensEditController {
     if (data.result) {
       this.store.commit('incrementTokenUpdated')
       await this.prepareDeleteFromStorage(data.dataIndexedDB)
-      await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
+      await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].update(this.alignment)
       return true
     }
     return false
@@ -41163,21 +41164,21 @@ class TokensEditController {
   }
 
   async prepareDeleteFromStorage (dataIndexedDB) {
-    const onlyToken = [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_3__.default.types.UPDATE, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_3__.default.types.SPLIT, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_3__.default.types.ADD_LINE_BREAK, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_3__.default.types.REMOVE_LINE_BREAK, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_3__.default.types.NEW, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_3__.default.types.DELETE]
+    const onlyToken = [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_3__["default"].types.UPDATE, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_3__["default"].types.SPLIT, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_3__["default"].types.ADD_LINE_BREAK, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_3__["default"].types.REMOVE_LINE_BREAK, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_3__["default"].types.NEW, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_3__["default"].types.DELETE]
 
     for (let i = 0; i < dataIndexedDB.length; i++) {
       const data = dataIndexedDB[i]
       if (onlyToken.includes(data.type)) {
         await this.deleteAllPartFromStorage(data.token.docSourceId, data.token.segmentIndex, data.token.partNum)
-      } else if (data.type === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_3__.default.types.MERGE) {
+      } else if (data.type === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_3__["default"].types.MERGE) {
         await this.deleteAllPartFromStorage(data.token.docSourceId, data.token.segmentIndex, data.token.partNum)
         if (data.mergedToken) {
           await this.deleteAllPartFromStorage(data.mergedToken.docSourceId, data.mergedToken.segmentIndex, data.mergedToken.partNum)
         }
-      } else if (data.type === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_3__.default.types.TO_NEXT_SEGMENT) {
+      } else if (data.type === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_3__["default"].types.TO_NEXT_SEGMENT) {
         await this.deleteAllPartFromStorage(data.token.docSourceId, data.token.segmentIndex, data.token.partNum)
         await this.deleteAllPartFromStorage(data.token.docSourceId, data.newSegmentIndex, data.newPartNum)
-      } else if (data.type === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_3__.default.types.TO_PREV_SEGMENT) {
+      } else if (data.type === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_3__["default"].types.TO_PREV_SEGMENT) {
         await this.deleteAllPartFromStorage(data.token.docSourceId, data.token.segmentIndex, data.token.partNum)
         await this.deleteAllPartFromStorage(data.token.docSourceId, data.newSegmentIndex, data.newPartNum)
       }
@@ -41185,7 +41186,7 @@ class TokensEditController {
   }
 
   deleteAllPartFromStorage (textId, segmentIndex, partNum) {
-    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.deleteMany({
+    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].deleteMany({
       userID: this.alignment.userID,
       alignmentID: this.alignment.id,
       textId,
@@ -41286,10 +41287,10 @@ class UploadController {
     if (this.uploadMethods[uploadType]) {
       return this.uploadMethods[uploadType].method(data)
     }
-    console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }))
-    _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
-      text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }),
-      type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
+    console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"].getMsgS('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }))
+    _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].addNotification({
+      text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"].getMsgS('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }),
+      type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].types.ERROR
     })
     return false
   }
@@ -41306,24 +41307,24 @@ class UploadController {
     const fileDataArr = fileData.split(/\r\n|\r|\n/)
 
     if (fileDataArr.length < 2) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('SOURCE_TEXT_CONVERT_ERROR'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('SOURCE_TEXT_CONVERT_ERROR'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"].getMsgS('SOURCE_TEXT_CONVERT_ERROR'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"].getMsgS('SOURCE_TEXT_CONVERT_ERROR'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].types.ERROR
       })
       return
     }
 
-    const result = _lib_upload_upload_file_csv_js__WEBPACK_IMPORTED_MODULE_4__.default.upload(fileDataArr)
+    const result = _lib_upload_upload_file_csv_js__WEBPACK_IMPORTED_MODULE_4__["default"].upload(fileDataArr)
 
     if (result && (result.length > 0)) {
       const finalResult = {}
 
-      finalResult.originDocSource = _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON('origin', { tokenization, text: result[0].text, direction: result[0].direction, lang: result[0].lang, sourceType: result[0].sourceType })
+      finalResult.originDocSource = _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__["default"].convertFromJSON('origin', { tokenization, text: result[0].text, direction: result[0].direction, lang: result[0].lang, sourceType: result[0].sourceType })
       finalResult.targetDocSources = []
 
       for (let i = 1; i < result.length; i++) {
-        finalResult.targetDocSources.push(_lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON('target', { tokenization, text: result[i].text, direction: result[i].direction, lang: result[i].lang, sourceType: result[i].sourceType }))
+        finalResult.targetDocSources.push(_lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__["default"].convertFromJSON('target', { tokenization, text: result[i].text, direction: result[i].direction, lang: result[i].lang, sourceType: result[i].sourceType }))
       }
 
       return finalResult
@@ -41345,45 +41346,45 @@ class UploadController {
     if (fileData.text.indexOf('HEADER:') === 0) {
       const fileDataArr = fileData.text.split(/\r\n|\r|\n/)
       if (fileDataArr.length < 2) {
-        console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
-        _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
-          text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
-          type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
+        console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"].getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
+        _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].addNotification({
+          text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"].getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
+          type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].types.ERROR
         })
         return
       }
 
-      const result = _lib_upload_upload_file_csv_js__WEBPACK_IMPORTED_MODULE_4__.default.upload(fileDataArr)
+      const result = _lib_upload_upload_file_csv_js__WEBPACK_IMPORTED_MODULE_4__["default"].upload(fileDataArr)
 
-      return _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON(textType, { textId, tokenization, text: result[0].text, direction: result[0].direction, lang: result[0].lang, sourceType: result[0].sourceType })
+      return _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__["default"].convertFromJSON(textType, { textId, tokenization, text: result[0].text, direction: result[0].direction, lang: result[0].lang, sourceType: result[0].sourceType })
     } else {
       const fileExtension = fileData.extension
       const sourceType = (fileExtension === 'xml') ? 'tei' : 'text'
-      return _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON(textType, { textId, tokenization, text: fileData.text, sourceType, lang: fileData.lang })
+      return _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__["default"].convertFromJSON(textType, { textId, tokenization, text: fileData.text, sourceType, lang: fileData.lang })
     }
   }
 
   static jsonSimpleUploadAll (fileData) {
     const fileJSON = JSON.parse(fileData)
-    return _lib_data_alignment__WEBPACK_IMPORTED_MODULE_2__.default.convertFromJSON(fileJSON)
+    return _lib_data_alignment__WEBPACK_IMPORTED_MODULE_2__["default"].convertFromJSON(fileJSON)
   }
 
   static async dtsAPIUploadSingle ({ linkData, objType = 'collection', refParams } = {}) {
     if (objType === 'collection') {
-      const content = await _lib_upload_upload_dts_api_js__WEBPACK_IMPORTED_MODULE_5__.default.getCollection(linkData)
+      const content = await _lib_upload_upload_dts_api_js__WEBPACK_IMPORTED_MODULE_5__["default"].getCollection(linkData)
       return content
     } else if (objType === 'navigation') {
-      const content = await _lib_upload_upload_dts_api_js__WEBPACK_IMPORTED_MODULE_5__.default.getNavigation(linkData)
+      const content = await _lib_upload_upload_dts_api_js__WEBPACK_IMPORTED_MODULE_5__["default"].getNavigation(linkData)
       return content
     } else if (objType === 'document') {
-      const docXML = await _lib_upload_upload_dts_api_js__WEBPACK_IMPORTED_MODULE_5__.default.getDocument(linkData, refParams)
+      const docXML = await _lib_upload_upload_dts_api_js__WEBPACK_IMPORTED_MODULE_5__["default"].getDocument(linkData, refParams)
       return docXML
     }
   }
 
   static async indexedDBUploadSingle (alData) {
-    const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select(alData, 'alignmentByAlIDQuery')
-    const alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_2__.default.convertFromIndexedDB(dbData)
+    const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].select(alData, 'alignmentByAlIDQuery')
+    const alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_2__["default"].convertFromIndexedDB(dbData)
     return alignment
   }
 }
@@ -41613,7 +41614,7 @@ class AlignmentGroupActions {
    *          { Number } indexDeleted - place in group list
    */
   unmerge (step) {
-    const tokensGroup = step.type === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.MERGE ? step.token : []
+    const tokensGroup = step.type === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].types.MERGE ? step.token : []
 
     for (let i = 0; i < tokensGroup.origin.length; i++) {
       const tokenIdWord = tokensGroup.origin[i]
@@ -41711,9 +41712,9 @@ class TokensEditActions {
     switch (segmentType) {
       case 'current' :
         return alignedText.segments[token.segmentIndex - 1]
-      case _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT :
+      case _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.NEXT :
         return alignedText.segments.length > token.segmentIndex ? alignedText.segments[token.segmentIndex] : null
-      case _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV :
+      case _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV :
         return token.segmentIndex > 1 ? alignedText.segments[token.segmentIndex - 2] : null
     }
     return null
@@ -41733,14 +41734,14 @@ class TokensEditActions {
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
 
-    const check = (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? (!segment.isFirstTokenInSegment(token)) : (!segment.isLastTokenInSegment(token))
+    const check = (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV) ? (!segment.isFirstTokenInSegment(token)) : (!segment.isLastTokenInSegment(token))
 
     if (check) {
       return {
         segment,
         tokenIndex,
-        position: (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT : _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV,
-        tokenResult: segment.getTokenByIndex((direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? (tokenIndex - 1) : (tokenIndex + 1))
+        position: (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV) ? _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.NEXT : _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV,
+        tokenResult: segment.getTokenByIndex((direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV) ? (tokenIndex - 1) : (tokenIndex + 1))
       }
     }
 
@@ -41759,13 +41760,13 @@ class TokensEditActions {
     const newIdWord = alignedText.getNewIdWord({
       token,
       segment,
-      changeType: _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.UPDATE
+      changeType: _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].types.UPDATE
     })
 
     this.tokensEditHistory.truncateSteps()
 
     const wasIdWord = token.idWord
-    this.tokensEditHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.UPDATE, { wasIdWord, wasWord: token.word, newWord: word, newIdWord })
+    this.tokensEditHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].types.UPDATE, { wasIdWord, wasWord: token.word, newWord: word, newIdWord })
     token.update({ word, idWord: newIdWord })
     this.reIndexSentence(segment)
 
@@ -41784,7 +41785,7 @@ class TokensEditActions {
     const newIdWord = alignedText.getNewIdWord({
       token: tokenResult,
       segment,
-      changeType: _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.MERGE
+      changeType: _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].types.MERGE
     })
 
     const wasIdWord = tokenResult.idWord
@@ -41804,7 +41805,7 @@ class TokensEditActions {
     stepParams.newWord = tokenResult.word
 
     this.tokensEditHistory.truncateSteps()
-    this.tokensEditHistory.addStep(tokenResult, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.MERGE, stepParams)
+    this.tokensEditHistory.addStep(tokenResult, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].types.MERGE, stepParams)
     segment.deleteToken(tokenIndex)
     this.reIndexSentence(segment)
     return {
@@ -41825,14 +41826,14 @@ class TokensEditActions {
     const newIdWord1 = alignedText.getNewIdWord({
       token,
       segment,
-      changeType: _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.SPLIT,
+      changeType: _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].types.SPLIT,
       indexWord: 1
     })
 
     const newIdWord2 = alignedText.getNewIdWord({
       token,
       segment,
-      changeType: _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.SPLIT,
+      changeType: _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].types.SPLIT,
       indexWord: 2
     })
 
@@ -41855,7 +41856,7 @@ class TokensEditActions {
     stepParams.newWord2 = tokenWordParts[1]
 
     this.tokensEditHistory.truncateSteps()
-    this.tokensEditHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.SPLIT, stepParams)
+    this.tokensEditHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].types.SPLIT, stepParams)
 
     segment.addNewToken(tokenIndex, newIdWord2, tokenWordParts[1])
     this.reIndexSentence(segment)
@@ -41870,7 +41871,7 @@ class TokensEditActions {
     const segment = this.getSegmentByToken(token)
     const alignedText = this.getAlignedTextByToken(token)
 
-    const changeType = hasLineBreak ? _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.ADD_LINE_BREAK : _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.REMOVE_LINE_BREAK
+    const changeType = hasLineBreak ? _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].types.ADD_LINE_BREAK : _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].types.REMOVE_LINE_BREAK
     const newIdWord = alignedText.getNewIdWord({
       token,
       segment,
@@ -41899,7 +41900,7 @@ class TokensEditActions {
     const tokenIndex = segment.getTokenIndex(token)
     segment.deleteToken(tokenIndex)
 
-    const changeType = (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.TO_PREV_SEGMENT : _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.TO_NEXT_SEGMENT
+    const changeType = (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV) ? _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].types.TO_PREV_SEGMENT : _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].types.TO_NEXT_SEGMENT
 
     const alignedText = this.getAlignedTextByToken(token)
     const wasIdWord = token.idWord
@@ -41909,14 +41910,14 @@ class TokensEditActions {
       changeType
     })
 
-    const newPartNum = (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? newSegment.allPartNums[newSegment.allPartNums.length - 1].partNum : 1
+    const newPartNum = (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV) ? newSegment.allPartNums[newSegment.allPartNums.length - 1].partNum : 1
     token.update({
       idWord: newIdWord,
       segmentIndex: newSegment.index,
       partNum: newPartNum
     })
     // update part num
-    const insertPosition = (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? newSegment.tokens.length : 0
+    const insertPosition = (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV) ? newSegment.tokens.length : 0
 
     const stepParams = {
       token,
@@ -41950,7 +41951,7 @@ class TokensEditActions {
    * @returns {Boolean}
    */
   allowedMergePrev (token) {
-    return Boolean(this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV))
+    return Boolean(this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV))
   }
 
   /**
@@ -41959,7 +41960,7 @@ class TokensEditActions {
    * @returns {Boolean}
    */
   allowedMergeNext (token) {
-    return Boolean(this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT))
+    return Boolean(this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.NEXT))
   }
 
   /**
@@ -41977,7 +41978,7 @@ class TokensEditActions {
    * @returns {Boolean}
    */
   allowedAddLineBreak (token) {
-    return !token.hasLineBreak && Boolean(this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT))
+    return !token.hasLineBreak && Boolean(this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.NEXT))
   }
 
   /**
@@ -41986,7 +41987,7 @@ class TokensEditActions {
    * @returns {Boolean}
    */
   allowedRemoveLineBreak (token) {
-    return Boolean(token.hasLineBreak) && Boolean(this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT))
+    return Boolean(token.hasLineBreak) && Boolean(this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.NEXT))
   }
 
   /**
@@ -41996,8 +41997,8 @@ class TokensEditActions {
    */
   allowedToNextSegment (token) {
     const segment = this.getSegmentByToken(token)
-    const nextSegment = this.getSegmentByToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT)
-    return segment.tokens.length > 1 && !this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT) && Boolean(nextSegment)
+    const nextSegment = this.getSegmentByToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.NEXT)
+    return segment.tokens.length > 1 && !this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.NEXT) && Boolean(nextSegment)
   }
 
   /**
@@ -42007,8 +42008,8 @@ class TokensEditActions {
    */
   allowedToPrevSegment (token) {
     const segment = this.getSegmentByToken(token)
-    const prevSegment = this.getSegmentByToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV)
-    return segment.tokens.length > 1 && !this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) && Boolean(prevSegment)
+    const prevSegment = this.getSegmentByToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV)
+    return segment.tokens.length > 1 && !this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV) && Boolean(prevSegment)
   }
 
   /**
@@ -42020,8 +42021,8 @@ class TokensEditActions {
     const alignedText = this.getAlignedTextByToken(token)
     const segment = this.getSegmentByToken(token)
     return segment.tokens.length > 1 &&
-           ((!this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) && (token.segmentIndex === alignedText.segments[0].index)) ||
-           (!this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT) && (token.segmentIndex === alignedText.segments[alignedText.segments.length - 1].index)))
+           ((!this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV) && (token.segmentIndex === alignedText.segments[0].index)) ||
+           (!this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.NEXT) && (token.segmentIndex === alignedText.segments[alignedText.segments.length - 1].index)))
   }
 
   /**
@@ -42047,7 +42048,7 @@ class TokensEditActions {
       const newIdWord = alignedText.getNewIdWord({
         token: baseToken,
         segment: segmentToInsert,
-        changeType: _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.NEW,
+        changeType: _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].types.NEW,
         insertType
       })
 
@@ -42058,7 +42059,7 @@ class TokensEditActions {
     })
 
     this.tokensEditHistory.truncateSteps()
-    this.tokensEditHistory.addStep(null, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.NEW, {
+    this.tokensEditHistory.addStep(null, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].types.NEW, {
       createdTokens, segmentToInsert, insertType
     })
 
@@ -42073,7 +42074,7 @@ class TokensEditActions {
 
   reIndexSentence (segment) {
     const alignedText = (segment.textType === 'origin') ? this.origin.alignedText : this.targets[segment.docSourceId].alignedText
-    const getReIndexSentenceMethod = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.getReIndexSentenceMethod(alignedText.tokenization.tokenizer)
+    const getReIndexSentenceMethod = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_1__["default"].getReIndexSentenceMethod(alignedText.tokenization.tokenizer)
     getReIndexSentenceMethod(segment, false)
   }
 
@@ -42089,7 +42090,7 @@ class TokensEditActions {
     const deletedToken = segment.deleteToken(tokenIndex)
     if (deletedToken) {
       this.tokensEditHistory.truncateSteps()
-      this.tokensEditHistory.addStep(null, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.DELETE, {
+      this.tokensEditHistory.addStep(null, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].types.DELETE, {
         segmentToDelete: segment, deleteIndex: tokenIndex, deletedToken, deletedAnnotations: annotations
       })
 
@@ -42137,7 +42138,7 @@ class TokensEditActions {
 
     step.token.update({ word: step.params.wasWord, idWord: step.params.wasIdWord })
 
-    const insertPosition = (step.params.position === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? tokenIndex : tokenIndex + 1
+    const insertPosition = (step.params.position === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV) ? tokenIndex : tokenIndex + 1
 
     segment.insertToken(step.params.mergedToken, insertPosition)
     this.reIndexSentence(segment)
@@ -42159,7 +42160,7 @@ class TokensEditActions {
     step.token.update({ word: step.params.newWord, idWord: step.params.newIdWord })
 
     const tokenIndex = segment.getTokenIndex(step.token)
-    const deleteIndex = (step.params.position === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? tokenIndex - 1 : tokenIndex + 1
+    const deleteIndex = (step.params.position === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV) ? tokenIndex - 1 : tokenIndex + 1
     segment.deleteToken(deleteIndex)
     this.reIndexSentence(segment)
 
@@ -42420,7 +42421,7 @@ class AlignedText {
   }
 
   defineLangName () {
-    const langData = _lib_data_langs_langs__WEBPACK_IMPORTED_MODULE_2__.default.all.find(langData => langData.value === this.lang)
+    const langData = _lib_data_langs_langs__WEBPACK_IMPORTED_MODULE_2__["default"].all.find(langData => langData.value === this.lang)
     const res = langData ? langData.text : this.lang
     return res
   }
@@ -42438,12 +42439,12 @@ class AlignedText {
    * @param {SourceText} docSource
    */
   async tokenize (docSource, useSpecificEnglishTokenizer = false) {
-    const tokenizeMethod = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.getTokenizer(docSource.tokenization.tokenizer)
+    const tokenizeMethod = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_0__["default"].getTokenizer(docSource.tokenization.tokenizer)
 
     const result = await tokenizeMethod(docSource, this.tokenPrefix, useSpecificEnglishTokenizer)
     if (result && result.segments) {
       this.segments = result.segments.map(segment => {
-        return new _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default({
+        return new _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__["default"]({
           index: segment.index,
           tokens: segment.tokens,
           textType: docSource.textType,
@@ -42475,7 +42476,7 @@ class AlignedText {
    * @returns {String} - idWord
    */
   getNewIdWord ({ segment, token, changeType, indexWord }) {
-    const getNextIdWordMethod = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.getNextTokenIdWordMethod(this.tokenization.tokenizer)
+    const getNextIdWordMethod = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_0__["default"].getNextTokenIdWordMethod(this.tokenization.tokenizer)
 
     return getNextIdWordMethod({
       tokenIdWord: token.idWord,
@@ -42510,7 +42511,7 @@ class AlignedText {
       },
       tokenPrefix: data.tokenPrefix
     })
-    alignedText.segments = data.segments.map(seg => _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(seg)).sort((a, b) => a.index - b.index)
+    alignedText.segments = data.segments.map(seg => _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__["default"].convertFromJSON(seg)).sort((a, b) => a.index - b.index)
 
     return alignedText
   }
@@ -42555,7 +42556,7 @@ class AlignedText {
     })
     const segmentsDbDataFiltered = dbSegments.filter(segmentItem => segmentItem.docSourceId === dbData.textId)
 
-    alignedText.segments = segmentsDbDataFiltered.map(seg => _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default.convertFromIndexedDB(seg, dbTokens, dbAllPartNums)).sort((a, b) => a.index - b.index)
+    alignedText.segments = segmentsDbDataFiltered.map(seg => _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__["default"].convertFromIndexedDB(seg, dbTokens, dbAllPartNums)).sort((a, b) => a.index - b.index)
 
     return alignedText
   }
@@ -42606,7 +42607,7 @@ class AlignmentGroup {
     this.id = id || (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
 
     if (!empty) {
-      this.alignmentGroupActions = new _lib_data_actions_alignment_group_actions__WEBPACK_IMPORTED_MODULE_2__.default(targetId)
+      this.alignmentGroupActions = new _lib_data_actions_alignment_group_actions__WEBPACK_IMPORTED_MODULE_2__["default"](targetId)
 
       if (token) {
         this.add(token)
@@ -42800,14 +42801,14 @@ class AlignmentGroup {
   get allStepActions () {
     return {
       remove: {
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_1__.default.types.ADD]: this.alignmentGroupActions.removeStepAdd.bind(this.alignmentGroupActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_1__.default.types.REMOVE]: this.alignmentGroupActions.removeStepRemove.bind(this.alignmentGroupActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_1__.default.types.MERGE]: this.alignmentGroupActions.removeStepMerge.bind(this.alignmentGroupActions)
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_1__["default"].types.ADD]: this.alignmentGroupActions.removeStepAdd.bind(this.alignmentGroupActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_1__["default"].types.REMOVE]: this.alignmentGroupActions.removeStepRemove.bind(this.alignmentGroupActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_1__["default"].types.MERGE]: this.alignmentGroupActions.removeStepMerge.bind(this.alignmentGroupActions)
       },
       apply: {
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_1__.default.types.ADD]: this.alignmentGroupActions.applyStepAdd.bind(this.alignmentGroupActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_1__.default.types.REMOVE]: this.alignmentGroupActions.applyStepRemove.bind(this.alignmentGroupActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_1__.default.types.MERGE]: this.alignmentGroupActions.applyStepMerge.bind(this.alignmentGroupActions)
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_1__["default"].types.ADD]: this.alignmentGroupActions.applyStepAdd.bind(this.alignmentGroupActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_1__["default"].types.REMOVE]: this.alignmentGroupActions.applyStepRemove.bind(this.alignmentGroupActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_1__["default"].types.MERGE]: this.alignmentGroupActions.applyStepMerge.bind(this.alignmentGroupActions)
       }
     }
   }
@@ -42828,14 +42829,14 @@ class AlignmentGroup {
   static convertFromJSON (data) {
     const alGroup = new AlignmentGroup(null, null, true, data.id)
 
-    alGroup.alignmentGroupActions = _lib_data_actions_alignment_group_actions__WEBPACK_IMPORTED_MODULE_2__.default.convertFromJSON(data.actions)
+    alGroup.alignmentGroupActions = _lib_data_actions_alignment_group_actions__WEBPACK_IMPORTED_MODULE_2__["default"].convertFromJSON(data.actions)
     return alGroup
   }
 
   static convertFromIndexedDB (data) {
     const alGroup = new AlignmentGroup(null, null, true, data.alGroupId)
 
-    alGroup.alignmentGroupActions = _lib_data_actions_alignment_group_actions__WEBPACK_IMPORTED_MODULE_2__.default.convertFromJSON(data)
+    alGroup.alignmentGroupActions = _lib_data_actions_alignment_group_actions__WEBPACK_IMPORTED_MODULE_2__["default"].convertFromJSON(data)
     return alGroup
   }
 }
@@ -42912,13 +42913,13 @@ class Alignment {
 
     this.annotations = {}
 
-    this.alignmentHistory = new _lib_data_history_alignment_history_js__WEBPACK_IMPORTED_MODULE_9__.default()
-    this.alHistoryActions = new _lib_data_actions_al_history_actions_js__WEBPACK_IMPORTED_MODULE_11__.default({ alignmentGroups: this.alignmentGroups, alignmentHistory: this.alignmentHistory })
+    this.alignmentHistory = new _lib_data_history_alignment_history_js__WEBPACK_IMPORTED_MODULE_9__["default"]()
+    this.alHistoryActions = new _lib_data_actions_al_history_actions_js__WEBPACK_IMPORTED_MODULE_11__["default"]({ alignmentGroups: this.alignmentGroups, alignmentHistory: this.alignmentHistory })
 
     this.alignmentHistory.allStepActions = this.allStepActionsAlGroups
 
-    this.tokensEditHistory = new _lib_data_history_tokens_edit_history_js__WEBPACK_IMPORTED_MODULE_8__.default()
-    this.tokensEditActions = new _lib_data_actions_tokens_edit_actions_js__WEBPACK_IMPORTED_MODULE_10__.default({ origin: this.origin, targets: this.targets, tokensEditHistory: this.tokensEditHistory })
+    this.tokensEditHistory = new _lib_data_history_tokens_edit_history_js__WEBPACK_IMPORTED_MODULE_8__["default"]()
+    this.tokensEditActions = new _lib_data_actions_tokens_edit_actions_js__WEBPACK_IMPORTED_MODULE_10__["default"]({ origin: this.origin, targets: this.targets, tokensEditHistory: this.tokensEditHistory })
 
     this.tokensEditHistory.allStepActions = this.allStepActionsTokensEditor
   }
@@ -42992,7 +42993,7 @@ class Alignment {
 
   createNewDocSource (textType, docSource, targetId = null, skipTextCheck = false) {
     if (skipTextCheck || (docSource.text && docSource.text.length > 0)) {
-      return new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default(textType, docSource, targetId)
+      return new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__["default"](textType, docSource, targetId)
     }
     return false
   }
@@ -43001,7 +43002,7 @@ class Alignment {
     const docSource = this.getDocSource(textType, targetId)
 
     if (docSource && docSource.readyForLangDetection) {
-      const langData = await _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_12__.default.detectTextProperties(docSource)
+      const langData = await _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_12__["default"].detectTextProperties(docSource)
       docSource.updateDetectedLang(langData)
       return true
     }
@@ -43046,10 +43047,10 @@ class Alignment {
 
     if (!this.origin.docSource) {
       if (docSource) {
-        console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_ERROR_ADD_TARGET_SOURCE'))
-        _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.addNotification({
-          text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_ERROR_ADD_TARGET_SOURCE'),
-          type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.types.ERROR
+        console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__["default"].getMsgS('ALIGNMENT_ERROR_ADD_TARGET_SOURCE'))
+        _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__["default"].addNotification({
+          text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__["default"].getMsgS('ALIGNMENT_ERROR_ADD_TARGET_SOURCE'),
+          type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__["default"].types.ERROR
         })
       }
       return false
@@ -43146,23 +43147,23 @@ class Alignment {
    */
   async createAlignedTexts () {
     if (!this.readyForTokenize) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__["default"].getMsgS('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__["default"].addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__["default"].getMsgS('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__["default"].types.ERROR
       })
       return false
     }
 
     if (!this.origin.alignedText) {
-      const originResult = await this.createOriginAlignedText(_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_13__.default.useSpecificEnglishTokenizer)
+      const originResult = await this.createOriginAlignedText(_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_13__["default"].useSpecificEnglishTokenizer)
       if (!originResult) { return false }
     }
 
     for (let i = 0; i < Object.keys(this.targets).length; i++) {
       const id = Object.keys(this.targets)[i]
       if (!this.targets[id].alignedText) {
-        const targetResult = await this.createTargetAlignedText(id, i, _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_13__.default.useSpecificEnglishTokenizer)
+        const targetResult = await this.createTargetAlignedText(id, i, _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_13__["default"].useSpecificEnglishTokenizer)
         if (!targetResult) { return false }
       }
     }
@@ -43171,7 +43172,7 @@ class Alignment {
   }
 
   async createOriginAlignedText (useSpecificEnglishTokenizer) {
-    this.origin.alignedText = new _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default({
+    this.origin.alignedText = new _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__["default"]({
       docSource: this.origin.docSource,
       tokenPrefix: '1'
     })
@@ -43179,10 +43180,10 @@ class Alignment {
     const result = await this.origin.alignedText.tokenize(this.origin.docSource, useSpecificEnglishTokenizer)
 
     if (!result) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_ORIGIN_NOT_TOKENIZED'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_ORIGIN_NOT_TOKENIZED'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__["default"].getMsgS('ALIGNMENT_ORIGIN_NOT_TOKENIZED'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__["default"].addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__["default"].getMsgS('ALIGNMENT_ORIGIN_NOT_TOKENIZED'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__["default"].types.ERROR
       })
       return false
     }
@@ -43190,7 +43191,7 @@ class Alignment {
   }
 
   async createTargetAlignedText (targetId, index, useSpecificEnglishTokenizer) {
-    this.targets[targetId].alignedText = new _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default({
+    this.targets[targetId].alignedText = new _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__["default"]({
       docSource: this.targets[targetId].docSource,
       tokenPrefix: (index + 2)
     })
@@ -43198,10 +43199,10 @@ class Alignment {
     const result = await this.targets[targetId].alignedText.tokenize(this.targets[targetId].docSource, useSpecificEnglishTokenizer)
 
     if (!result) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_TARGET_NOT_TOKENIZED', { textnum: (index + 1) }))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_TARGET_NOT_TOKENIZED', { textnum: (index + 1) }),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__["default"].getMsgS('ALIGNMENT_TARGET_NOT_TOKENIZED', { textnum: (index + 1) }))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__["default"].addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__["default"].getMsgS('ALIGNMENT_TARGET_NOT_TOKENIZED', { textnum: (index + 1) }),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__["default"].types.ERROR
       })
       return false
     }
@@ -43347,10 +43348,10 @@ class Alignment {
   startNewAlignmentGroup (token, limitByTargetId = null) {
     if (!token.isTheSameTargetId(limitByTargetId)) { return false }
 
-    this.activeAlignmentGroup = new _lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default(token, limitByTargetId)
+    this.activeAlignmentGroup = new _lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__["default"](token, limitByTargetId)
 
     this.alignmentHistory.truncateSteps()
-    this.alignmentHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.START_GROUP, { groupId: this.activeAlignmentGroup.id, targetId: this.activeAlignmentGroup.targetId })
+    this.alignmentHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.START_GROUP, { groupId: this.activeAlignmentGroup.id, targetId: this.activeAlignmentGroup.targetId })
 
     return Boolean(this.activeAlignmentGroup)
   }
@@ -43365,13 +43366,13 @@ class Alignment {
     if (this.hasActiveAlignmentGroup && !this.tokenInActiveGroup(token, limitByTargetId) &&
         this.hasTheSameSegmentTargetIdActiveGroup(token.segmentIndex, limitByTargetId)) {
       this.alignmentHistory.truncateSteps()
-      this.alignmentHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.ADD, { groupId: this.activeAlignmentGroup.id })
+      this.alignmentHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.ADD, { groupId: this.activeAlignmentGroup.id })
       return this.activeAlignmentGroup.add(token)
     } else {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__["default"].getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__["default"].addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__["default"].getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__["default"].types.ERROR
       })
       return false
     }
@@ -43386,15 +43387,15 @@ class Alignment {
   removeFromAlignmentGroup (token, limitByTargetId = null) {
     if (this.hasActiveAlignmentGroup && this.tokenInActiveGroup(token, limitByTargetId)) {
       this.alignmentHistory.truncateSteps()
-      this.alignmentHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.REMOVE, { groupId: this.activeAlignmentGroup.id })
+      this.alignmentHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.REMOVE, { groupId: this.activeAlignmentGroup.id })
 
       this.activeAlignmentGroup.remove(token, this.alignmentHistory)
       return true
     } else {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__["default"].getMsgS('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__["default"].addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__["default"].getMsgS('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__["default"].types.ERROR
       })
     }
   }
@@ -43408,7 +43409,7 @@ class Alignment {
       this.alignmentGroups.push(this.activeAlignmentGroup)
 
       this.alignmentHistory.truncateSteps()
-      this.alignmentHistory.addStep(null, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.FINISH_GROUP, { groupId: this.activeAlignmentGroup.id })
+      this.alignmentHistory.addStep(null, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.FINISH_GROUP, { groupId: this.activeAlignmentGroup.id })
       this.activeAlignmentGroup = null
 
       this.setUpdated()
@@ -43511,10 +43512,10 @@ class Alignment {
    */
   activateGroupByGroupIndex (tokensGroupIndex) {
     if (tokensGroupIndex >= this.alignmentGroups.length) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_ERROR_ACTIVATE_BY_INDEX', { index: tokensGroupIndex }))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('ALIGNMENT_ERROR_ACTIVATE_BY_INDEX', { index: tokensGroupIndex }),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__["default"].getMsgS('ALIGNMENT_ERROR_ACTIVATE_BY_INDEX', { index: tokensGroupIndex }))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__["default"].addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__["default"].getMsgS('ALIGNMENT_ERROR_ACTIVATE_BY_INDEX', { index: tokensGroupIndex }),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__["default"].types.ERROR
       })
       return
     }
@@ -43545,7 +43546,7 @@ class Alignment {
       this.setUpdated()
 
       this.alignmentHistory.truncateSteps()
-      this.alignmentHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.ACTIVATE_GROUP, { groupId: this.activeAlignmentGroup.id, targetId: this.activeAlignmentGroup.targetId })
+      this.alignmentHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.ACTIVATE_GROUP, { groupId: this.activeAlignmentGroup.id, targetId: this.activeAlignmentGroup.targetId })
 
       return tokensGroup.id
     }
@@ -43568,7 +43569,7 @@ class Alignment {
       this.activeAlignmentGroup.merge(tokensGroup, indexDeleted)
 
       this.alignmentHistory.truncateSteps()
-      this.alignmentHistory.addStep(tokensGroup, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.MERGE, { groupId: this.activeAlignmentGroup.id, indexDeleted })
+      this.alignmentHistory.addStep(tokensGroup, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.MERGE, { groupId: this.activeAlignmentGroup.id, indexDeleted })
 
       this.setUpdated()
       return tokensGroup.id
@@ -43733,9 +43734,9 @@ class Alignment {
     const { tokenResult } = this.tokensEditActions.getNextPrevToken(token, direction)
 
     if (!this.isEditableToken(tokenResult)) {
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default.types.ERROR
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__["default"].addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__["default"].getMsgS('TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__["default"].types.ERROR
       })
       return false
     }
@@ -43938,26 +43939,26 @@ class Alignment {
   get allStepActionsTokensEditor () {
     return {
       remove: {
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.UPDATE]: this.tokensEditActions.removeStepUpdate.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.MERGE]: this.tokensEditActions.removeStepMerge.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.SPLIT]: this.tokensEditActions.removeStepSplit.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.ADD_LINE_BREAK]: this.tokensEditActions.removeStepAddLineBreak.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.REMOVE_LINE_BREAK]: this.tokensEditActions.removeStepRemoveLineBreak.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.TO_PREV_SEGMENT]: this.tokensEditActions.removeStepToOtherSegment.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.TO_NEXT_SEGMENT]: this.tokensEditActions.removeStepToOtherSegment.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.NEW]: this.tokensEditActions.removeStepInsertTokens.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.DELETE]: this.tokensEditActions.removeStepDeleteToken.bind(this.tokensEditActions)
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.UPDATE]: this.tokensEditActions.removeStepUpdate.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.MERGE]: this.tokensEditActions.removeStepMerge.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.SPLIT]: this.tokensEditActions.removeStepSplit.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.ADD_LINE_BREAK]: this.tokensEditActions.removeStepAddLineBreak.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.REMOVE_LINE_BREAK]: this.tokensEditActions.removeStepRemoveLineBreak.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.TO_PREV_SEGMENT]: this.tokensEditActions.removeStepToOtherSegment.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.TO_NEXT_SEGMENT]: this.tokensEditActions.removeStepToOtherSegment.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.NEW]: this.tokensEditActions.removeStepInsertTokens.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.DELETE]: this.tokensEditActions.removeStepDeleteToken.bind(this.tokensEditActions)
       },
       apply: {
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.UPDATE]: this.tokensEditActions.applyStepUpdate.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.MERGE]: this.tokensEditActions.applyStepMerge.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.SPLIT]: this.tokensEditActions.applyStepSplit.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.ADD_LINE_BREAK]: this.tokensEditActions.applyStepAddLineBreak.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.REMOVE_LINE_BREAK]: this.tokensEditActions.applyStepRemoveLineBreak.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.TO_PREV_SEGMENT]: this.tokensEditActions.applyStepToOtherSegment.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.TO_NEXT_SEGMENT]: this.tokensEditActions.applyStepToOtherSegment.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.NEW]: this.tokensEditActions.applyStepInsertTokens.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.DELETE]: this.tokensEditActions.applyStepDeleteToken.bind(this.tokensEditActions)
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.UPDATE]: this.tokensEditActions.applyStepUpdate.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.MERGE]: this.tokensEditActions.applyStepMerge.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.SPLIT]: this.tokensEditActions.applyStepSplit.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.ADD_LINE_BREAK]: this.tokensEditActions.applyStepAddLineBreak.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.REMOVE_LINE_BREAK]: this.tokensEditActions.applyStepRemoveLineBreak.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.TO_PREV_SEGMENT]: this.tokensEditActions.applyStepToOtherSegment.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.TO_NEXT_SEGMENT]: this.tokensEditActions.applyStepToOtherSegment.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.NEW]: this.tokensEditActions.applyStepInsertTokens.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.DELETE]: this.tokensEditActions.applyStepDeleteToken.bind(this.tokensEditActions)
       }
     }
   }
@@ -43965,22 +43966,22 @@ class Alignment {
   get allStepActionsAlGroups () {
     return {
       remove: {
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.START_GROUP]: this.alHistoryActions.removeStartGroupStep.bind(this.alHistoryActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.ACTIVATE_GROUP]: this.alHistoryActions.removeActivateGroupStep.bind(this.alHistoryActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.START_GROUP]: this.alHistoryActions.removeStartGroupStep.bind(this.alHistoryActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.ACTIVATE_GROUP]: this.alHistoryActions.removeActivateGroupStep.bind(this.alHistoryActions),
 
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.ADD]: this.alHistoryActions.removeAddStep.bind(this.alHistoryActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.REMOVE]: this.alHistoryActions.removeRemoveStep.bind(this.alHistoryActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.MERGE]: this.alHistoryActions.removeMergeStep.bind(this.alHistoryActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.FINISH_GROUP]: this.alHistoryActions.removeFinishGroupStep.bind(this.alHistoryActions)
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.ADD]: this.alHistoryActions.removeAddStep.bind(this.alHistoryActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.REMOVE]: this.alHistoryActions.removeRemoveStep.bind(this.alHistoryActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.MERGE]: this.alHistoryActions.removeMergeStep.bind(this.alHistoryActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.FINISH_GROUP]: this.alHistoryActions.removeFinishGroupStep.bind(this.alHistoryActions)
       },
       apply: {
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.START_GROUP]: this.alHistoryActions.applyStartGroupStep.bind(this.alHistoryActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.ACTIVATE_GROUP]: this.alHistoryActions.applyActivateGroupStep.bind(this.alHistoryActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.START_GROUP]: this.alHistoryActions.applyStartGroupStep.bind(this.alHistoryActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.ACTIVATE_GROUP]: this.alHistoryActions.applyActivateGroupStep.bind(this.alHistoryActions),
 
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.ADD]: this.alHistoryActions.applyAddStep.bind(this.alHistoryActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.REMOVE]: this.alHistoryActions.applyRemoveStep.bind(this.alHistoryActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.MERGE]: this.alHistoryActions.applyMergeStep.bind(this.alHistoryActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__.default.types.FINISH_GROUP]: this.alHistoryActions.applyFinishGroupStep.bind(this.alHistoryActions)
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.ADD]: this.alHistoryActions.applyAddStep.bind(this.alHistoryActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.REMOVE]: this.alHistoryActions.applyRemoveStep.bind(this.alHistoryActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.MERGE]: this.alHistoryActions.applyMergeStep.bind(this.alHistoryActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_7__["default"].types.FINISH_GROUP]: this.alHistoryActions.applyFinishGroupStep.bind(this.alHistoryActions)
       }
     }
   }
@@ -44006,8 +44007,8 @@ class Alignment {
 
     return {
       id: this.id,
-      createdDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_14__.default.convertDateToString(this.createdDT),
-      updatedDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_14__.default.convertDateToString(this.updatedDT),
+      createdDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_14__["default"].convertDateToString(this.createdDT),
+      updatedDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_14__["default"].convertDateToString(this.updatedDT),
       userID: this.userID,
       origin,
       targets,
@@ -44017,36 +44018,36 @@ class Alignment {
   }
 
   static convertFromJSON (data) {
-    const createdDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_14__.default.convertStringToDate(data.createdDT)
-    const updatedDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_14__.default.convertStringToDate(data.updatedDT)
+    const createdDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_14__["default"].convertStringToDate(data.createdDT)
+    const updatedDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_14__["default"].convertStringToDate(data.updatedDT)
     const alignment = new Alignment({
       id: data.id, createdDT, updatedDT, userID: data.userID
     })
 
-    alignment.origin.docSource = _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON('origin', data.origin.docSource)
+    alignment.origin.docSource = _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__["default"].convertFromJSON('origin', data.origin.docSource)
 
     if (data.origin.alignedText) {
-      alignment.origin.alignedText = _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default.convertFromJSON(data.origin.alignedText)
+      alignment.origin.alignedText = _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__["default"].convertFromJSON(data.origin.alignedText)
     }
 
     Object.keys(data.targets).forEach(targetId => {
       alignment.targets[targetId] = {
-        docSource: _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON('target', data.targets[targetId].docSource)
+        docSource: _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__["default"].convertFromJSON('target', data.targets[targetId].docSource)
       }
 
       if (data.targets[targetId].alignedText) {
-        alignment.targets[targetId].alignedText = _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default.convertFromJSON(data.targets[targetId].alignedText)
+        alignment.targets[targetId].alignedText = _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__["default"].convertFromJSON(data.targets[targetId].alignedText)
       }
     })
 
     if (data.alignmentGroups) {
-      data.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(_lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(alGroup)))
+      data.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(_lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__["default"].convertFromJSON(alGroup)))
     }
     if (data.annotations) {
       Object.keys(data.annotations).forEach(tokenIdWord => {
         alignment.annotations[tokenIdWord] = data.annotations[tokenIdWord].filter(annotData => annotData.tokenData).map(annotData => {
           const token = alignment.findTokenByTokenShortJSON(annotData.tokenData)
-          return _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__.default.convertFromJSON(annotData, token)
+          return _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__["default"].convertFromJSON(annotData, token)
         })
       })
     }
@@ -44087,8 +44088,8 @@ class Alignment {
 
     return {
       id: this.id,
-      createdDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_14__.default.convertDateToString(this.createdDT),
-      updatedDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_14__.default.convertDateToString(this.updatedDT),
+      createdDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_14__["default"].convertDateToString(this.createdDT),
+      updatedDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_14__["default"].convertDateToString(this.updatedDT),
       userID: this.userID,
       langsList: this.langsList,
       hasTokens,
@@ -44100,15 +44101,15 @@ class Alignment {
   }
 
   static async convertFromIndexedDB (dbData) {
-    const createdDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_14__.default.convertStringToDate(dbData.createdDT)
-    const updatedDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_14__.default.convertStringToDate(dbData.updatedDT)
+    const createdDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_14__["default"].convertStringToDate(dbData.createdDT)
+    const updatedDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_14__["default"].convertStringToDate(dbData.updatedDT)
     const alignment = new Alignment({
       id: dbData.alignmentID, createdDT, updatedDT, userID: dbData.userID
     })
 
     if (dbData.docSource) {
       for (const docSourceData of dbData.docSource) {
-        const docSource = await _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default.convertFromIndexedDB(docSourceData, dbData.metadata)
+        const docSource = await _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__["default"].convertFromIndexedDB(docSourceData, dbData.metadata)
         if (docSource.textType === 'origin') {
           alignment.origin.docSource = docSource
         } else {
@@ -44119,7 +44120,7 @@ class Alignment {
 
     if (dbData.alignedText) {
       for (const alignedTextData of dbData.alignedText) {
-        const alignedText = await _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default.convertFromIndexedDB(alignedTextData, dbData.segments, dbData.tokens, dbData.partNums)
+        const alignedText = await _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__["default"].convertFromIndexedDB(alignedTextData, dbData.segments, dbData.tokens, dbData.partNums)
         if (alignedText.textType === 'origin') {
           alignment.origin.alignedText = alignedText
         } else {
@@ -44128,7 +44129,7 @@ class Alignment {
       }
     }
     if (dbData.alignmentGroups) {
-      dbData.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(_lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default.convertFromIndexedDB(alGroup)))
+      dbData.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(_lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__["default"].convertFromIndexedDB(alGroup)))
     }
 
     if (dbData.annotations) {
@@ -44139,7 +44140,7 @@ class Alignment {
           }
           const token = alignment.findTokenByTokenShortJSON(annotData.tokenData)
 
-          alignment.annotations[annotData.tokenData.idWord].push(_lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__.default.convertFromJSON(annotData, token))
+          alignment.annotations[annotData.tokenData.idWord].push(_lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__["default"].convertFromJSON(annotData, token))
         }
       })
     }
@@ -44340,12 +44341,12 @@ class Alignment {
 
       let lastTypeIndex = null
       this.annotations[token.idWord].forEach(annot => {
-        const annotCurData = _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__.default.parseIndex(annot.index)
+        const annotCurData = _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__["default"].parseIndex(annot.index)
         if ((annot.type === type) && (annotCurData.idWord === token.idWord)) {
           if (!lastTypeIndex) {
             lastTypeIndex = annot.index
           } else {
-            const lastTypeIndexData = _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__.default.parseIndex(lastTypeIndex)
+            const lastTypeIndexData = _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__["default"].parseIndex(lastTypeIndex)
             if (lastTypeIndexData.index < annotCurData.index) {
               lastTypeIndex = annot.index
             }
@@ -44353,8 +44354,8 @@ class Alignment {
         }
       })
 
-      const newTypeIndex = _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__.default.getNewIndex(token, lastTypeIndex)
-      const annotation = new _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__.default({ token, type, text, index: newTypeIndex })
+      const newTypeIndex = _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__["default"].getNewIndex(token, lastTypeIndex)
+      const annotation = new _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__["default"]({ token, type, text, index: newTypeIndex })
 
       this.annotations[token.idWord].push(annotation)
       return true
@@ -44460,7 +44461,7 @@ class Alignment {
         this.activeAlignmentGroup.defineFirstStepToken(this.alignmentHistory, true)
       }
       if (result.data[0].resStartAlGroup) {
-        this.activeAlignmentGroup = new _lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default(result.data[0].token, result.data[0].targetId, false, result.data[0].groupId)
+        this.activeAlignmentGroup = new _lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__["default"](result.data[0].token, result.data[0].targetId, false, result.data[0].groupId)
         this.activeAlignmentGroup.update({ id: result.data[0].groupId })
       }
       if (result.data[0].finishActiveAlGroup) {
@@ -44611,9 +44612,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-class AlignmentHistory extends _lib_data_history_editor_history__WEBPACK_IMPORTED_MODULE_0__.default {
+class AlignmentHistory extends _lib_data_history_editor_history__WEBPACK_IMPORTED_MODULE_0__["default"] {
   get stepClass () {
-    return _lib_data_history_alignment_step_js__WEBPACK_IMPORTED_MODULE_1__.default
+    return _lib_data_history_alignment_step_js__WEBPACK_IMPORTED_MODULE_1__["default"]
   }
 }
 
@@ -44634,7 +44635,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_data_history_history_step__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/history/history-step */ "./lib/data/history/history-step.js");
 
 
-class AlignmentStep extends _lib_data_history_history_step__WEBPACK_IMPORTED_MODULE_0__.default {
+class AlignmentStep extends _lib_data_history_history_step__WEBPACK_IMPORTED_MODULE_0__["default"] {
   /**
    *
    * @param {Token} token
@@ -44714,10 +44715,10 @@ class EditorHistory {
     if (this.undoAvailable) {
       return this.alignToStep(this.currentStepIndex - 1)
     } else {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('TOKENS_EDIT_UNDO_ERROR'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('TOKENS_EDIT_UNDO_ERROR'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"].getMsgS('TOKENS_EDIT_UNDO_ERROR'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"].getMsgS('TOKENS_EDIT_UNDO_ERROR'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].types.ERROR
       })
     }
   }
@@ -44726,10 +44727,10 @@ class EditorHistory {
     if (this.redoAvailable) {
       return this.alignToStep(this.currentStepIndex + 1)
     } else {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('TOKENS_EDIT_REDO_ERROR'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('TOKENS_EDIT_REDO_ERROR'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"].getMsgS('TOKENS_EDIT_REDO_ERROR'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"].getMsgS('TOKENS_EDIT_REDO_ERROR'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].types.ERROR
       })
     }
   }
@@ -44775,10 +44776,10 @@ class EditorHistory {
   doStepAction (stepIndex, typeAction) {
     const step = this.steps[stepIndex]
     if (!step.hasValidType) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('ALIGNMENT_GROUP_STEP_ERROR', { type: step.type }))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('ALIGNMENT_GROUP_STEP_ERROR', { type: step.type }),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"].getMsgS('ALIGNMENT_GROUP_STEP_ERROR', { type: step.type }))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"].getMsgS('ALIGNMENT_GROUP_STEP_ERROR', { type: step.type }),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].types.ERROR
       })
       return
     }
@@ -44839,14 +44840,14 @@ class HistoryStep {
    * @returns {String} - origin/target
    */
   get textType () {
-    return this.token instanceof _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default ? this.token.textType : null
+    return this.token instanceof _lib_data_token__WEBPACK_IMPORTED_MODULE_1__["default"] ? this.token.textType : null
   }
 
   /**
    * @returns {String}
    */
   get idWord () {
-    return this.token instanceof _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default ? this.token.idWord : null
+    return this.token instanceof _lib_data_token__WEBPACK_IMPORTED_MODULE_1__["default"] ? this.token.idWord : null
   }
 
   /**
@@ -44917,23 +44918,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-class TokensEditHistory extends _lib_data_history_editor_history__WEBPACK_IMPORTED_MODULE_1__.default {
+class TokensEditHistory extends _lib_data_history_editor_history__WEBPACK_IMPORTED_MODULE_1__["default"] {
   get stepClass () {
-    return _lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_0__.default
+    return _lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 
   prepareDataForIndexedDBCorrect (step) {
-    const onlyToken = [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__.default.types.UPDATE, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__.default.types.SPLIT, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__.default.types.ADD_LINE_BREAK, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__.default.types.REMOVE_LINE_BREAK]
+    const onlyToken = [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].types.UPDATE, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].types.SPLIT, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].types.ADD_LINE_BREAK, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].types.REMOVE_LINE_BREAK]
 
     if (onlyToken.includes(step.type)) {
       return { type: step.type, token: step.token }
-    } else if (step.type === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__.default.types.MERGE) {
+    } else if (step.type === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].types.MERGE) {
       const data = { type: step.type, token: step.token }
       if (step.params.mergedToken && (step.params.mergedToken.partNum !== step.token.partNum)) {
         data.mergedToken = step.params.mergedToken
       }
       return data
-    } else if ((step.type === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__.default.types.TO_NEXT_SEGMENT) || (step.type === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__.default.types.TO_PREV_SEGMENT)) {
+    } else if ((step.type === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].types.TO_NEXT_SEGMENT) || (step.type === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].types.TO_PREV_SEGMENT)) {
       let newSegmentIndex, newPartNum
       if (step.token.segmentIndex === step.params.newSegmentIndex) {
         newSegmentIndex = step.params.wasSegmentIndex
@@ -44944,10 +44945,10 @@ class TokensEditHistory extends _lib_data_history_editor_history__WEBPACK_IMPORT
       }
 
       return { type: step.type, token: step.token, newSegmentIndex, newPartNum }
-    } else if (step.type === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__.default.types.NEW) {
+    } else if (step.type === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].types.NEW) {
       const checkToken = (step.params.insertType === 'start') ? step.params.segmentToInsert.tokens[0] : step.params.segmentToInsert.tokens[step.params.segmentToInsert.tokens.length - 1]
       return { type: step.type, token: checkToken }
-    } else if (step.type === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__.default.types.DELETE) {
+    } else if (step.type === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].types.DELETE) {
       return { type: step.type, token: step.params.deletedToken }
     }
   }
@@ -44974,7 +44975,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_data_history_history_step__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/history/history-step */ "./lib/data/history/history-step.js");
 
 
-class TokensEditStep extends _lib_data_history_history_step__WEBPACK_IMPORTED_MODULE_0__.default {
+class TokensEditStep extends _lib_data_history_history_step__WEBPACK_IMPORTED_MODULE_0__["default"] {
   /**
    *
    * @param {Token} token
@@ -45044,7 +45045,7 @@ class Langs {
 
     _lib_data_langs_langs_list_json__WEBPACK_IMPORTED_MODULE_0__.forEach(langData => {
       const l10nLabel = `LANG_${langData.value.toUpperCase()}`
-      const l10nMessage = _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS(l10nLabel)
+      const l10nMessage = _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__["default"].getMsgS(l10nLabel)
 
       if (langData.direction === 'rtl') { rtlLangs.push(langData.value) }
       allLangs.push({
@@ -45263,11 +45264,11 @@ class Metadata {
   }
 
   get isEmpty () {
-    return Object.values(_lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__.default.property).every(property => !this.hasProperty(property))
+    return Object.values(_lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__["default"].property).every(property => !this.hasProperty(property))
   }
 
   isSupportedProperty (property) {
-    return Object.values(_lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__.default.property).includes(property)
+    return Object.values(_lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__["default"].property).includes(property)
   }
 
   hasProperty (property) {
@@ -45280,7 +45281,7 @@ class Metadata {
     }
 
     if (!this.hasProperty(property) && value) {
-      this.properties[property.label] = new _lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__.default(property, value, metaId)
+      this.properties[property.label] = new _lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__["default"](property, value, metaId)
       return true
     } else if (this.hasProperty(property)) {
       if (value) { this.getProperty(property).saveValue(value) } else { delete this.properties[property.label] }
@@ -45316,7 +45317,7 @@ class Metadata {
   get allAvailableMetadata () {
     const allMeta = {}
 
-    Object.values(_lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__.default.property).forEach(property => {
+    Object.values(_lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__["default"].property).forEach(property => {
       allMeta[property.label] = this.hasProperty(property) ? this.getProperty(property) : { template: true, property, value: (property.multivalued ? [null] : null) }
     })
     return allMeta
@@ -45334,7 +45335,7 @@ class Metadata {
 
   convertToShortJSONLine () {
     const propsToShow = ['TITLE', 'CREATOR', 'DATE_COPYRIGHTED']
-    const propsValues = propsToShow.map(prop => this.getPropertyValue(_lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__.default.property[prop])).filter(value => value)
+    const propsValues = propsToShow.map(prop => this.getPropertyValue(_lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__["default"].property[prop])).filter(value => value)
 
     return propsValues.length > 0 ? propsValues.join('; ') : ''
   }
@@ -45342,7 +45343,7 @@ class Metadata {
   static convertFromJSON (data) {
     const metadata = new Metadata()
     data.properties.forEach(prop => {
-      const metaItem = _lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON(prop)
+      const metaItem = _lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__["default"].convertFromJSON(prop)
       metadata.addProperty(metaItem.property, metaItem.value)
     })
     return metadata
@@ -45357,7 +45358,7 @@ class Metadata {
   static convertFromIndexedDB (data) {
     const metadata = new Metadata()
     data.forEach(prop => {
-      const metaItem = _lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__.default.convertFromIndexedDB(prop)
+      const metaItem = _lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__["default"].convertFromIndexedDB(prop)
       metadata.addProperty(metaItem.property, metaItem.value, metaItem.id)
     })
 
@@ -45418,7 +45419,7 @@ class Segment {
    * @returns {String} - language name or language code if there is no such code in the Langs list
    */
   defineLangName () {
-    const langData = _lib_data_langs_langs__WEBPACK_IMPORTED_MODULE_2__.default.all.find(langData => langData.value === this.lang)
+    const langData = _lib_data_langs_langs__WEBPACK_IMPORTED_MODULE_2__["default"].all.find(langData => langData.value === this.lang)
     const res = langData ? langData.text : this.lang
     return res
   }
@@ -45437,11 +45438,11 @@ class Segment {
    */
   checkAndUpdateTokens (tokens) {
     this.tokens = tokens.map((token, tokenIndex) => {
-      if (token instanceof _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default) {
+      if (token instanceof _lib_data_token__WEBPACK_IMPORTED_MODULE_1__["default"]) {
         return token
       }
       if (!token.tokenIndex) { token.tokenIndex = tokenIndex }
-      return new _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default(token, this.index, this.docSourceId)
+      return new _lib_data_token__WEBPACK_IMPORTED_MODULE_1__["default"](token, this.index, this.docSourceId)
     })
     this.lastTokenIdWord = this.tokens[this.tokens.length - 1] ? this.tokens[this.tokens.length - 1].idWord : null
   }
@@ -45460,7 +45461,7 @@ class Segment {
    * updates allPartNums
    */
   defineAllPartNums () {
-    const charMax = _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__.default.maxCharactersPerPart
+    const charMax = _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__["default"].maxCharactersPerPart
     const parts = {}
     const allPartNums = []
     let partNum = 1
@@ -45572,7 +45573,7 @@ class Segment {
    * @returns {Boolean}
    */
   addNewToken (tokenIndex, newIdWord, word, updateLastToken = true) {
-    const newToken = new _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default({
+    const newToken = new _lib_data_token__WEBPACK_IMPORTED_MODULE_1__["default"]({
       textType: this.textType,
       idWord: newIdWord,
       word: word,
@@ -45635,7 +45636,7 @@ class Segment {
       lang: data.lang,
       direction: data.direction,
       docSourceId: data.docSourceId,
-      tokens: data.tokens.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(token)).sort((a, b) => a.tokenIndex - b.tokenIndex)
+      tokens: data.tokens.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__["default"].convertFromJSON(token)).sort((a, b) => a.tokenIndex - b.tokenIndex)
     })
   }
 
@@ -45657,7 +45658,7 @@ class Segment {
   static convertFromIndexedDB (data, dbTokens, dbAllPartNums) {
     const tokensDbDataFiltered = dbTokens.filter(tokenItem => (data.docSourceId === tokenItem.textId) && (data.index === tokenItem.segmentIndex))
 
-    const tokens = tokensDbDataFiltered.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default.convertFromIndexedDB(token))
+    const tokens = tokensDbDataFiltered.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__["default"].convertFromIndexedDB(token))
       .sort((a, b) => (a.partNum - b.partNum) !== 0 ? (a.partNum - b.partNum) : (a.tokenIndex - b.tokenIndex))
 
     return new Segment({
@@ -45679,7 +45680,7 @@ class Segment {
   }
 
   uploadSegmentTokensFromDB (dbData) {
-    const newTokens = dbData.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default.convertFromIndexedDB(token))
+    const newTokens = dbData.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__["default"].convertFromIndexedDB(token))
     this.tokens.push(...newTokens)
     this.tokens.sort((a, b) => {
       if (a.partNum === b.partNum) {
@@ -45694,7 +45695,7 @@ class Segment {
   }
 
   limitTokensToPartNum (partNum) {
-    if (_lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_4__.default.dbAdapterAvailable) {
+    if (_lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_4__["default"].dbAdapterAvailable) {
       this.tokens = this.partsTokens(partNum)
       this.getCurrentPartNums()
       return true
@@ -45764,13 +45765,13 @@ class SourceText {
     this.startedDetection = false
 
     if (docSource && docSource.metadata) {
-      if (docSource.metadata instanceof _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_5__.default) {
+      if (docSource.metadata instanceof _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_5__["default"]) {
         this.metadata = docSource.metadata
       } else {
-        this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_5__.default(docSource.metadata)
+        this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_5__["default"](docSource.metadata)
       }
     } else {
-      this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_5__.default()
+      this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_5__["default"]()
     }
   }
 
@@ -45796,7 +45797,7 @@ class SourceText {
 
   get langData () {
     const textPart = this.text.substr(0, 10)
-    const langName = _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_6__.default.defineLangName(this.lang)
+    const langName = _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_6__["default"].defineLangName(this.lang)
     return {
       textPart: textPart.length < this.text.length ? `${textPart.trim()}...` : textPart,
       langCode: this.lang,
@@ -45807,7 +45808,7 @@ class SourceText {
   clear () {
     this.clearText()
     this.tokenization = {}
-    this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_5__.default()
+    this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_5__["default"]()
   }
 
   clearText () {
@@ -45870,11 +45871,11 @@ class SourceText {
   }
 
   get detectedLang () {
-    return _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.isAlreadyDetected(this)
+    return _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].isAlreadyDetected(this)
   }
 
   removeDetectedFlag () {
-    return _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.removeFromDetected(this)
+    return _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].removeFromDetected(this)
   }
 
   get readyForLangDetection () {
@@ -45903,10 +45904,10 @@ class SourceText {
    */
   static convertFromJSON (textType, jsonData) {
     if (!jsonData.text) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('SOURCE_TEXT_CONVERT_ERROR'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('SOURCE_TEXT_CONVERT_ERROR'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"].getMsgS('SOURCE_TEXT_CONVERT_ERROR'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"].getMsgS('SOURCE_TEXT_CONVERT_ERROR'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].types.ERROR
       })
       return false
     }
@@ -45916,7 +45917,7 @@ class SourceText {
     const lang = jsonData.lang ? jsonData.lang.trim() : null
     const sourceType = jsonData.sourceType ? jsonData.sourceType.trim() : null
     const tokenization = jsonData.tokenization
-    const metadata = jsonData.metadata ? _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_5__.default.convertFromJSON(jsonData.metadata) : null
+    const metadata = jsonData.metadata ? _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_5__["default"].convertFromJSON(jsonData.metadata) : null
 
     const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization, metadata }, null, lang !== null)
     if (jsonData.textId) {
@@ -45948,7 +45949,7 @@ class SourceText {
     return {
       textId: this.id,
       textType: this.textType,
-      text: textAsBlob ? _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_3__.default.convertTextToBlob(this.text, this.sourceType) : this.text,
+      text: textAsBlob ? _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_3__["default"].convertTextToBlob(this.text, this.sourceType) : this.text,
       direction: this.direction,
       lang: this.lang,
       sourceType: this.sourceType,
@@ -45958,10 +45959,10 @@ class SourceText {
   }
 
   static async convertFromIndexedDB (dbData, metadataDbData) {
-    const textData = await _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_3__.default.converBlobToText(dbData.text)
+    const textData = await _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_3__["default"].converBlobToText(dbData.text)
 
     const metadataDbDataFiltered = metadataDbData ? metadataDbData.filter(metadataItem => metadataItem.textId === dbData.textId) : null
-    const metadata = metadataDbDataFiltered ? _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_5__.default.convertFromIndexedDB(metadataDbDataFiltered) : null
+    const metadata = metadataDbDataFiltered ? _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_5__["default"].convertFromIndexedDB(metadataDbDataFiltered) : null
 
     const tokenization = dbData.tokenization
 
@@ -46068,12 +46069,12 @@ class Token {
    * @param {String} newIdWord
    */
   merge ({ token, position, newIdWord }) {
-    if (position === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) {
+    if (position === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV) {
       this.update({
         word: `${token.word} ${this.word}`,
         idWord: newIdWord
       })
-    } else if (position === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT) {
+    } else if (position === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.NEXT) {
       this.update({
         word: `${this.word} ${token.word}`,
         idWord: newIdWord
@@ -46322,7 +46323,7 @@ __webpack_require__.r(__webpack_exports__);
 
 let l10NInstance
 
-class L10nSingleton extends _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_0__.default {
+class L10nSingleton extends _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
   /**
    * Creates a single instance to be used for all cases
    */
@@ -46385,7 +46386,7 @@ class L10n {
       messageBundle = this.bundles.get(locale)
       messageBundle.appendFromJSON(messageJSON)
     } else {
-      messageBundle = new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_0__.default(messageJSON, locale, missingTranslationMsgFn)
+      messageBundle = new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_0__["default"](messageJSON, locale, missingTranslationMsgFn)
       this.addMessageBundle(messageBundle)
       if (!this.selectedLocale) {
         // If locale is not defined, set it to the value of the current (and the only one) message bundle
@@ -46546,7 +46547,7 @@ class MessageBundle {
    */
   append (messages) {
     for (const [key, messageObj] of Object.entries(messages)) {
-      const message = new _lib_l10n_message_js__WEBPACK_IMPORTED_MODULE_0__.default(messageObj, this._locale)
+      const message = new _lib_l10n_message_js__WEBPACK_IMPORTED_MODULE_0__["default"](messageObj, this._locale)
       this._messages.set(key, message)
     }
   }
@@ -46699,8 +46700,8 @@ class Message {
       this[key] = message[key]
     }
 
-    this.formatFunc = new intl_messageformat__WEBPACK_IMPORTED_MODULE_0__.default(this.message, this.locale)
-    this.abbrFunc = new intl_messageformat__WEBPACK_IMPORTED_MODULE_0__.default(this.abbr || this.message, this.locale)
+    this.formatFunc = new intl_messageformat__WEBPACK_IMPORTED_MODULE_0__["default"](this.message, this.locale)
+    this.abbrFunc = new intl_messageformat__WEBPACK_IMPORTED_MODULE_0__["default"](this.abbr || this.message, this.locale)
   }
 
   /**
@@ -46859,7 +46860,7 @@ class IndexedDBAdapter {
     if (!this.available) { return false }
     try {
       let finalResult
-      const queries = _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.prepareSelectQuery(typeQuery, data)
+      const queries = _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__["default"].prepareSelectQuery(typeQuery, data)
       for (const query of queries) {
         const queryResult = await this._getFromStore(query)
         finalResult = query.mergeData ? this.merge(finalResult, queryResult, query.mergeData) : queryResult
@@ -46878,8 +46879,8 @@ class IndexedDBAdapter {
     if (!this.available) { return false }
     try {
       let result
-      for (const objectStoreData of Object.values(_lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.allObjectStoreData)) {
-        const query = _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.prepareUpdateQuery(objectStoreData, data)
+      for (const objectStoreData of Object.values(_lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__["default"].allObjectStoreData)) {
+        const query = _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__["default"].prepareUpdateQuery(objectStoreData, data)
         if (query.ready) {
           result = await this._set(query)
         }
@@ -46896,7 +46897,7 @@ class IndexedDBAdapter {
   async deleteMany (data, typeQuery) {
     if (!this.available) { return false }
     try {
-      const queries = _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.prepareDeleteQuery(typeQuery, data)
+      const queries = _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__["default"].prepareDeleteQuery(typeQuery, data)
       for (const query of queries) {
         // const now1 = DownloadController.timeNow.bind(new Date())()
         const queryResult = await this._deleteFromStore(query)
@@ -46926,7 +46927,7 @@ class IndexedDBAdapter {
   }
 
   _openDatabaseRequest () {
-    const request = this.indexedDB.open(_lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.dbName, _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.dbVersion)
+    const request = this.indexedDB.open(_lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__["default"].dbName, _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__["default"].dbVersion)
     request.onupgradeneeded = (event) => {
       const db = event.target.result
       const upgradeTransaction = event.target.transaction
@@ -46937,7 +46938,7 @@ class IndexedDBAdapter {
 
   _createObjectStores (db, upgradeTransaction) {
     try {
-      for (const objectStoreData of Object.values(_lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.allObjectStoreData)) {
+      for (const objectStoreData of Object.values(_lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__["default"].allObjectStoreData)) {
         let objectStore
 
         if (!db.objectStoreNames.contains(objectStoreData.name)) {
@@ -47123,12 +47124,12 @@ class IndexedDBAdapter {
     const idba = this
 
     const promiseDB = await new Promise((resolve, reject) => {
-      const request = idba.indexedDB.open(_lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.dbName, _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.dbVersion)
+      const request = idba.indexedDB.open(_lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__["default"].dbName, _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__["default"].dbVersion)
       request.onsuccess = (event) => {
         try {
           const db = event.target.result
 
-          const objectStores = Object.values(_lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.allObjectStoreData)
+          const objectStores = Object.values(_lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__["default"].allObjectStoreData)
           let objectStoresRemaining = objectStores.length
 
           for (const store of objectStores) {
@@ -47919,7 +47920,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i538-annotation-num.20210928639" : 0
+    return  true ? "i400-hide-upload.20210930386" : 0
   }
 
   static get libName () {
@@ -48098,9 +48099,9 @@ class AlpheiosRemoteTokenizer {
       adapterTokenizerRes.errors.forEach(error => {
         console.error(error)
 
-        _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
+        _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].addNotification({
           text: error.message,
-          type: (error.statusCode && error.statusCode === 500) ? _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.SYSTEM_ERROR : _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
+          type: (error.statusCode && error.statusCode === 500) ? _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].types.SYSTEM_ERROR : _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].types.ERROR
         })
       })
     }
@@ -48363,9 +48364,9 @@ class UploadDTSAPI {
     if (result.errors && result.errors.length > 0) {
       result.errors.forEach(err => {
         console.error(err)
-        _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
+        _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].addNotification({
           text: err.message,
-          type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
+          type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].types.ERROR
         })
       })
 
@@ -48682,7 +48683,7 @@ const availableMessages = {
    * @return {MessageBundle} A message bundle with messages from JSON.
    */
   createBundle: (messagesJSONorObj, locale) => {
-    return new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_12__.default(messagesJSONorObj, locale)
+    return new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_12__["default"](messagesJSONorObj, locale)
   },
   /**
    * Same as above, but creates an array of message bundles out of an array of messages JSONs and a locales.
@@ -48692,7 +48693,7 @@ const availableMessages = {
    * @return {MessageBundle[]} An array of message bundles.
    */
   createBundleArr: (msgArr) => {
-    return msgArr.map((m) => new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_12__.default(...m))
+    return msgArr.map((m) => new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_12__["default"](...m))
   },
   /**
    * Creates an array of message bundles out of all availableMessages.
@@ -48701,7 +48702,7 @@ const availableMessages = {
   bundleArr: () => {
     let msgArray = [] // eslint-disable-line prefer-const
     for (const [locale, messages] of Object.entries(availableMessages)) {
-      msgArray.push(...messages.map(m => new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_12__.default(m, locale)))
+      msgArray.push(...messages.map(m => new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_12__["default"](m, locale)))
     }
     return msgArray
   }
@@ -48749,7 +48750,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"]
     },
     alignEditAvailable () {
       return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && this.$store.state.uploadCheck && this.$alignedGC.alignmentGroupsWorkflowStarted
@@ -48833,9 +48834,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AlignEditorViewMode',
   components: {
-    segmentBlock: _vue_align_editor_segment_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    editorTabs: _vue_common_editor_tabs_vue__WEBPACK_IMPORTED_MODULE_1__.default,
-    actionsMenuAlignEditor: _vue_align_editor_actions_menu_align_editor_vue__WEBPACK_IMPORTED_MODULE_2__.default
+    segmentBlock: _vue_align_editor_segment_block_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    editorTabs: _vue_common_editor_tabs_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    actionsMenuAlignEditor: _vue_align_editor_actions_menu_align_editor_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   props: {
     annotationMode: {
@@ -49037,12 +49038,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AlignEditor',
   components: {
-    alignEditorViewMode: _vue_align_editor_align_editor_view_mode_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    helpPopup: _vue_common_help_popup_vue__WEBPACK_IMPORTED_MODULE_2__.default,
-    savePopup: _vue_common_save_popup_vue__WEBPACK_IMPORTED_MODULE_3__.default,
-    helpBlockAlign: _vue_help_blocks_eng_help_block_align_vue__WEBPACK_IMPORTED_MODULE_6__.default,
-    optionsTextAlignPopup: _vue_options_options_text_align_vue__WEBPACK_IMPORTED_MODULE_4__.default,
-    annotationBlockPopup: _vue_align_editor_annotation_block_vue__WEBPACK_IMPORTED_MODULE_5__.default
+    alignEditorViewMode: _vue_align_editor_align_editor_view_mode_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    helpPopup: _vue_common_help_popup_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    savePopup: _vue_common_save_popup_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    helpBlockAlign: _vue_help_blocks_eng_help_block_align_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+    optionsTextAlignPopup: _vue_options_options_text_align_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    annotationBlockPopup: _vue_align_editor_annotation_block_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
   props: {
   },
@@ -49057,7 +49058,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__["default"]
     },
     renderAlignEditor ()  {
       this.annotationMode = false
@@ -49199,15 +49200,15 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__["default"]
     },
     textareaId () {
       this.defineCurrentState()
       return `alpheios-alignment-editor-annotation-textarea-${this.token.idWord}`
     },
     annotationTypes () {
-      this.annotationType = _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.availableAnnotationTypes[0]
-      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.availableAnnotationTypes
+      this.annotationType = _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__["default"].availableAnnotationTypes[0]
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__["default"].availableAnnotationTypes
     },
     allAnnotations () {
       return this.$store.state.updateAnnotations && this.$textC.getAnnotations(this.token)
@@ -49225,7 +49226,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.annotationText ? this.annotationText.length : 0
     },
     maxCharactersForTheText () {
-      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.maxCharactersAnnotationText
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__["default"].maxCharactersAnnotationText
     },
     charactersText () {
       return `Characters count - ${this.textCharactersAmount} (max - ${this.maxCharactersForTheText})`
@@ -49246,7 +49247,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     annotationTypeValue (anType) {
-      return _lib_data_annotation_js__WEBPACK_IMPORTED_MODULE_2__.default.types[anType]
+      return _lib_data_annotation_js__WEBPACK_IMPORTED_MODULE_2__["default"].types[anType]
     },
     saveAnnotation () {
       const result = this.$textC.addAnnotation({
@@ -49391,12 +49392,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'SegmentBlock',
   components: {
-    token: _vue_align_editor_token_block_vue__WEBPACK_IMPORTED_MODULE_1__.default,
-    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_5__.default,
+    token: _vue_align_editor_token_block_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
     noMetadataIcon: (_inline_icons_no_metadata_svg__WEBPACK_IMPORTED_MODULE_3___default()),
     hasMetadataIcon: (_inline_icons_has_metadata_svg__WEBPACK_IMPORTED_MODULE_4___default()),
-    metadataBlock: _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_6__.default,
-    metadataIcons: _vue_common_metadata_icons_vue__WEBPACK_IMPORTED_MODULE_7__.default
+    metadataBlock: _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+    metadataIcons: _vue_common_metadata_icons_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
   },
   props: {
     currentTargetId: {
@@ -49463,7 +49464,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"]
     },
     /**
      * @returns {String} - origin/target
@@ -49631,7 +49632,7 @@ __webpack_require__.r(__webpack_exports__);
           const segId = this.getCssId(textTypeSeg, scrollData[i].targetId, this.segmentIndex)
           const tokId = `token-${scrollData[i].minOpositeTokenId}`
 
-          _lib_utility_scroll_utility_js__WEBPACK_IMPORTED_MODULE_2__.default.makeScrollTo(tokId, segId)
+          _lib_utility_scroll_utility_js__WEBPACK_IMPORTED_MODULE_2__["default"].makeScrollTo(tokId, segId)
         }
       }
     },
@@ -49881,7 +49882,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"]
     },
     readyAlignments () {
       return this.alignments && this.alignments.length > 0
@@ -50007,16 +50008,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'App',
   components: {
-    mainMenu: _vue_main_menu_vue__WEBPACK_IMPORTED_MODULE_3__.default,
-    textEditor: _vue_text_editor_text_editor_vue__WEBPACK_IMPORTED_MODULE_7__.default,
-    alignEditor: _vue_align_editor_align_editor_vue__WEBPACK_IMPORTED_MODULE_8__.default,
-    tokensEditor: _vue_tokens_editor_tokens_editor_vue__WEBPACK_IMPORTED_MODULE_9__.default,
-    notificationBar: _vue_notification_bar_vue__WEBPACK_IMPORTED_MODULE_6__.default,
-    optionsBlock: _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_10__.default,
+    mainMenu: _vue_main_menu_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    textEditor: _vue_text_editor_text_editor_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
+    alignEditor: _vue_align_editor_align_editor_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
+    tokensEditor: _vue_tokens_editor_tokens_editor_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
+    notificationBar: _vue_notification_bar_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+    optionsBlock: _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
     navbarIcon: (_inline_icons_navbar_svg__WEBPACK_IMPORTED_MODULE_11___default()),
-    initialScreen: _vue_initial_screen_vue__WEBPACK_IMPORTED_MODULE_2__.default,
-    summaryPopup: _vue_summary_popup_vue__WEBPACK_IMPORTED_MODULE_4__.default,
-    waitingPopup: _vue_common_waiting_popup_vue__WEBPACK_IMPORTED_MODULE_5__.default
+    initialScreen: _vue_initial_screen_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    summaryPopup: _vue_summary_popup_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    waitingPopup: _vue_common_waiting_popup_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
 
   },
   data () {
@@ -50048,7 +50049,7 @@ __webpack_require__.r(__webpack_exports__);
       let additional = {}
       if (downloadType === 'htmlDownloadAll') {
         additional = {
-          theme: _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_12__.default.themeOptionValue
+          theme: _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_12__["default"].themeOptionValue
         }
       }
       await this.$textC.downloadData(downloadType, additional)
@@ -50059,9 +50060,9 @@ __webpack_require__.r(__webpack_exports__);
     */
     uploadDataFromFile (fileData, extension) {
       if (fileData) {
-        const alignment = this.$textC.uploadDataFromFile(fileData, _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_12__.default.tokenizerOptionValue, extension)
+        const alignment = this.$textC.uploadDataFromFile(fileData, _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_12__["default"].tokenizerOptionValue, extension)
 
-        if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
+        if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__["default"]) {
           return this.startOver(alignment)
         }
       } 
@@ -50072,7 +50073,7 @@ __webpack_require__.r(__webpack_exports__);
     async uploadDataFromDB (alData) {
       if (alData) {
         const alignment = await this.$textC.uploadDataFromDB(alData)
-        if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
+        if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__["default"]) {
           return this.startOver(alignment)
         }
       }
@@ -50108,7 +50109,7 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     async showSummaryPopup () {
-      if (!_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_12__.default.showSummaryPopup) {
+      if (!_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_12__["default"].showSummaryPopup) {
         await this.alignTexts()
       } else {
         this.$modal.show('summary')
@@ -50212,7 +50213,7 @@ __webpack_require__.r(__webpack_exports__);
      */
 
     startOver (alignment) {
-      if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
+      if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__["default"]) {
         this.$textC.alignment = alignment
         this.$alignedGC.alignment = alignment
       } else {
@@ -50222,15 +50223,15 @@ __webpack_require__.r(__webpack_exports__);
       this.$historyAGC.startOver(this.$textC.alignment)
       this.$tokensEC.startOver(this.$textC.alignment)
       
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_0__.default.clearNotifications()
-      if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_0__["default"].clearNotifications()
+      if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__["default"]) {
         this.$textC.store.commit('incrementUploadCheck')
       } else {
         this.$textC.store.commit('incrementAlignmentRestarted')
       }
       this.$textC.store.commit('incrementDocSourceUpdated')
 
-      if ((alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) && alignment.hasOriginAlignedTexts) {
+      if ((alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__["default"]) && alignment.hasOriginAlignedTexts) {
         this.showAlignmentGroupsEditor()
       } else {
         this.showSourceTextEditor()
@@ -50279,7 +50280,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'EditorTabs',
   components: {
-    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_0__.default
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   props: {
     tabs: {
@@ -50451,14 +50452,14 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     noMetadataIcon: (_inline_icons_no_metadata_svg__WEBPACK_IMPORTED_MODULE_1___default()),
     hasMetadataIcon: (_inline_icons_has_metadata_svg__WEBPACK_IMPORTED_MODULE_2___default()),
-    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_0__.default
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data () {
     return {}
   },
   computed: {
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__["default"]
     },
     isEmptyMetadata () {
       const docSource = this.$textC.getDocSource(this.textType, this.textId)
@@ -50529,7 +50530,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'SavePopup',
   components: {
-    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_3__.default,
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
     downloadIcon: (_inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_1___default()),
     xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_0___default())
   },
@@ -50551,7 +50552,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     downloadTypes () {
       return Boolean(this.$store.state.alignmentUpdated) && 
-             Object.values(_lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.downloadMethods)
+             Object.values(_lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].downloadMethods)
              .filter(method => method.allTexts && (!method.alignmentStarted || this.$alignedGC.alignmentGroupsWorkflowAvailable) && (!method.hasGroups || this.$alignedGC.hasAlignmentGroups))
     },
     classes () {
@@ -50573,7 +50574,7 @@ __webpack_require__.r(__webpack_exports__);
       let additional = {}
       if (this.currentDownloadType === 'htmlDownloadAll') {
         additional = {
-          theme: _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_4__.default.themeOptionValue
+          theme: _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_4__["default"].themeOptionValue
         }
       }
       await this.$textC.downloadData(this.currentDownloadType, additional)
@@ -50689,7 +50690,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'WaitingPopup',
   components: {
-    waiting: _vue_common_waiting_vue__WEBPACK_IMPORTED_MODULE_0__.default
+    waiting: _vue_common_waiting_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   props: {
   }
@@ -51024,12 +51025,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // global register
-vue__WEBPACK_IMPORTED_MODULE_3__.default.use((v_video_embed__WEBPACK_IMPORTED_MODULE_0___default()))
+vue__WEBPACK_IMPORTED_MODULE_3__["default"].use((v_video_embed__WEBPACK_IMPORTED_MODULE_0___default()))
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'InitialScreen',
   components: {
-    alignmentsList: _vue_alignments_list_vue__WEBPACK_IMPORTED_MODULE_2__.default
+    alignmentsList: _vue_alignments_list_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data () {
     return {
@@ -51046,7 +51047,7 @@ vue__WEBPACK_IMPORTED_MODULE_3__.default.use((v_video_embed__WEBPACK_IMPORTED_MO
   },
   computed: {
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__["default"]
     },
     readyAlignments () {
       return this.alignments && this.alignments.length > 0
@@ -51178,7 +51179,7 @@ __webpack_require__.r(__webpack_exports__);
     downloadIcon: (_inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_2___default()),
     uploadIcon: (_inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_3___default()),
     xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_4___default()),
-    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_5__.default
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
   props: {
     menuShow: {
@@ -51214,7 +51215,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"]
     },
     alignAvailable () {
       return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$textC.couldStartAlign && this.$textC.checkSize()
@@ -51239,7 +51240,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     downloadTypes () {
       return Boolean(this.$store.state.alignmentUpdated) && 
-             Object.values(_lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.downloadMethods).filter(method => method.allTexts && (!method.alignmentStarted || this.$alignedGC.alignmentGroupsWorkflowAvailable))
+             Object.values(_lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__["default"].downloadMethods).filter(method => method.allTexts && (!method.alignmentStarted || this.$alignedGC.alignmentGroupsWorkflowAvailable))
     }
   },
   methods: {
@@ -51412,7 +51413,7 @@ __webpack_require__.r(__webpack_exports__);
       return `alpheios-alignment-notification-bar-message___${message.type}`
     },
     toggleShown (message) {
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.removeNotification(message)
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].removeNotification(message)
     }
   }
 });
@@ -51582,7 +51583,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"]
     },
     itemId () {
       return `${this.optionItem.name.replace(/\./g, '_')}-id`
@@ -51675,7 +51676,7 @@ __webpack_require__.r(__webpack_exports__);
       }
       this.optionItem.setValue(this.selected)
       
-      _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_1__.default.changeOption(this.optionItem)
+      _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_1__["default"].changeOption(this.optionItem)
       if (this.emitUpdateData) {
         this.$emit('updateData')
       }
@@ -51742,7 +51743,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'OptionsBlock',
   components: {
-    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__.default
+    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   props: {
   },
@@ -51752,10 +51753,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__["default"]
     },
     appOptionItems () {
-      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_2__.default.allOptions.app.items
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_2__["default"].allOptions.app.items
     },
     versionData () {
       return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`
@@ -51763,7 +51764,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     async resetOptions () {
-      await _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_2__.default.resetAllOptions()
+      await _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_2__["default"].resetAllOptions()
     }
   }
 });
@@ -51822,14 +51823,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'OptionsTextAlign',
   components: {
-    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_1__.default,
+    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_0___default())
   },
   props: {
   },
   computed: {
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__["default"]
     },
     versionData () {
       return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`
@@ -51837,7 +51838,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     async resetOptions () {
-      await _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__.default.resetAllOptions()
+      await _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__["default"].resetAllOptions()
     }
   }
 });
@@ -51896,7 +51897,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'OptionsTextEdit',
   components: {
-    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
+    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_1___default())
   },
   props: {
@@ -51908,7 +51909,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__["default"]
     },
     versionData () {
       return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`
@@ -51916,7 +51917,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     async resetOptions () {
-      await _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__.default.resetAllOptions()
+      await _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__["default"].resetAllOptions()
     }
   }
 });
@@ -51987,44 +51988,44 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'OptionsTextEnter',
   components: {
-    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
+    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_2___default())
   },
   props: {
   },
   computed: {
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__["default"]
     },
     themeOptionItem () {
-      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.theme
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOptions.app.items.theme
     },
     tokenizerOptionItem () {
-      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.tokenizer
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOptions.app.items.tokenizer
     },
     maxCharactersOptionItem () {
-      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.maxCharactersPerText
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOptions.app.items.maxCharactersPerText
     },
     useSpecificEnglishTokenizerOptionItem () {
-      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.useSpecificEnglishTokenizer
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOptions.app.items.useSpecificEnglishTokenizer
     },
     showSummaryPopupOptionItem () {
-      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.showSummaryPopup
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOptions.app.items.showSummaryPopup
     },
 
     addIndexedDBSupportOptionItem () {
-      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.addIndexedDBSupport
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOptions.app.items.addIndexedDBSupport
     },
     availableAnnotationTypesOptionItem () {
-      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.availableAnnotationTypes
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOptions.app.items.availableAnnotationTypes
     },
 
     maxCharactersAnnotationTextOptionItem () {
-      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.maxCharactersAnnotationText
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOptions.app.items.maxCharactersAnnotationText
     },
 
     maxCharactersPerPart () {
-      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.allOptions.app.items.maxCharactersPerPart
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOptions.app.items.maxCharactersPerPart
     }, 
     versionData () {
       return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`
@@ -52035,7 +52036,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     async resetOptions () {
-      await _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.resetAllOptions()
+      await _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].resetAllOptions()
     }
   }
 });
@@ -52136,7 +52137,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'SummaryPopup',
   components: {
     xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_1___default()),
-    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_2__.default,
+    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     checkIcon: (_inline_icons_check_svg__WEBPACK_IMPORTED_MODULE_3___default())
   },
   props: {
@@ -52148,7 +52149,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"]
     },
     originalLangData () {
       return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$textC.originalLangData
@@ -52157,7 +52158,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$textC.targetsLangData
     },
     showSummaryPopupOpt () {
-      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_4__.default.allOptions.app.items.showSummaryPopup
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_4__["default"].allOptions.app.items.showSummaryPopup
     },
     contentAvailable () {
       return this.$store.state.docSourceUpdated && this.originalLangData && this.targetsLangData
@@ -52205,7 +52206,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'DirectionOptionsBlock',
   components: {
-    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__.default
+    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   props: {
     localOptions: {
@@ -52304,7 +52305,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"]
     },
     showPaginationFirst () {
       return this.first !== this.current
@@ -52382,8 +52383,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'LanguageBlock',
   components: {
-    directionOptionsBlock: _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    languageOptionsBlock: _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_1__.default,
+    directionOptionsBlock: _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    languageOptionsBlock: _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_2___default())
   },
   props: {
@@ -52455,7 +52456,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'LanguageOptionsBlock',
   components: {
-    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__.default
+    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   props: {
     textType: {
@@ -52479,7 +52480,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     showOptions () {
-      return this.$store.state.optionsUpdated && this.localOptions.ready && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_1__.default.sourceTextOptionsLoaded
+      return this.$store.state.optionsUpdated && this.localOptions.ready && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_1__["default"].sourceTextOptionsLoaded
     },
     optionItem () {
       return this.$store.state.optionsUpdated && this.localOptions.sourceText.items.language
@@ -52536,8 +52537,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'MetadataBlock',
   components: {
-    metadataTermBlock: _vue_text_editor_metadata_term_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    metadataInfo: _vue_text_editor_metadata_info_vue__WEBPACK_IMPORTED_MODULE_1__.default,
+    metadataTermBlock: _vue_text_editor_metadata_term_block_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    metadataInfo: _vue_text_editor_metadata_info_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_2___default())
   },
   props: {
@@ -52612,7 +52613,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"]
     },
     instructions () {
       return this.l10n.getMsgS('METADATA_INSTRUCTIONS')
@@ -52676,7 +52677,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'MetadataTermBlock',
   components: {
     deleteIcon: (_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1___default()),
-    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_2__.default
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   props: {
     metadataTerm: {
@@ -52702,7 +52703,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"]
     },
     itemId () {
       return `alpheios-meta-${this.textType}-${this.textId}-${this.metadataTerm.property.label}-id`
@@ -52810,7 +52811,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   components: {
-    tokenizeOptionsBlock: _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
+    tokenizeOptionsBlock: _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_1___default())
   },
   data () {
@@ -52823,7 +52824,7 @@ __webpack_require__.r(__webpack_exports__);
              !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
     },
     hasTokenizerOptions () {
-      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_2__.default.hasTokenizerOptions
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_2__["default"].hasTokenizerOptions
     },
     classes () {
       return `alpheios-alignment-editor-modal-source-type alpheios-alignment-editor-modal-${this.mname}`
@@ -52997,13 +52998,13 @@ __webpack_require__.r(__webpack_exports__);
     hasMetadataIcon: (_inline_icons_has_metadata_svg__WEBPACK_IMPORTED_MODULE_3___default()),
     noLangDetectedIcon: (_inline_icons_no_lang_detected_svg__WEBPACK_IMPORTED_MODULE_4___default()),
     plusIcon: (_inline_icons_plus_svg__WEBPACK_IMPORTED_MODULE_5___default()),
-    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_8__.default,
-    metadataBlock: _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_9__.default,
-    sourceTypeBlock: _vue_text_editor_source_type_block_vue__WEBPACK_IMPORTED_MODULE_11__.default,
-    languageBlock: _vue_text_editor_language_block_vue__WEBPACK_IMPORTED_MODULE_10__.default,
-    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_12__.default,
-    uploadDtsapiBlock: _vue_text_editor_upload_dtsapi_block_vue__WEBPACK_IMPORTED_MODULE_14__.default,
-    metadataIcons: _vue_common_metadata_icons_vue__WEBPACK_IMPORTED_MODULE_13__.default
+    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
+    metadataBlock: _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
+    sourceTypeBlock: _vue_text_editor_source_type_block_vue__WEBPACK_IMPORTED_MODULE_11__["default"],
+    languageBlock: _vue_text_editor_language_block_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_12__["default"],
+    uploadDtsapiBlock: _vue_text_editor_upload_dtsapi_block_vue__WEBPACK_IMPORTED_MODULE_14__["default"],
+    metadataIcons: _vue_common_metadata_icons_vue__WEBPACK_IMPORTED_MODULE_13__["default"]
   },
   data () {
     return {
@@ -53024,7 +53025,7 @@ __webpack_require__.r(__webpack_exports__);
    * Clone options (sourceText and tokenize options) for the cuurent instance of a sourceText
    */
   async mounted () {
-    if (!this.localTextEditorOptions.ready && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__.default.tokenizerOptionsLoaded) {
+    if (!this.localTextEditorOptions.ready && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].tokenizerOptionsLoaded) {
       this.prepareDefaultTextEditorOptions()
     }
     this.initDataProps()
@@ -53032,7 +53033,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     async '$store.state.optionsUpdated' () {
-      if (!this.localTextEditorOptions.ready && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__.default.tokenizerOptionsLoaded) {
+      if (!this.localTextEditorOptions.ready && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].tokenizerOptionsLoaded) {
         this.prepareDefaultTextEditorOptions()
       }
     },
@@ -53048,7 +53049,7 @@ __webpack_require__.r(__webpack_exports__);
       this.restartTextEditor()
     },
     async '$store.state.resetOptions' () {
-      this.localTextEditorOptions = _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__.default.resetLocalTextEditorOptions(this.textType, this.textId)
+      this.localTextEditorOptions = _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].resetLocalTextEditorOptions(this.textType, this.textId)
       await this.updateText()
     },
     '$store.state.tokenizerUpdated' () {
@@ -53058,7 +53059,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
 
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"]
     },
     /**
      * Used for css id definition
@@ -53072,7 +53073,7 @@ __webpack_require__.r(__webpack_exports__);
      * checks if  localOptions is not yet uploaded
      */
     dataUpdated () {
-      if (!this.localTextEditorOptions.ready && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__.default.tokenizerOptionsLoaded) {
+      if (!this.localTextEditorOptions.ready && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].tokenizerOptionsLoaded) {
         this.prepareDefaultTextEditorOptions()
       }
       return this.$store.state.docSourceUpdated
@@ -53159,7 +53160,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.optionsUpdated && this.$store.state.docSourceUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.sourceType.currentValue
     },
     tokenization () {
-      return _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.defineTextTokenizationOptions(_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__.default.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
+      return _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].defineTextTokenizationOptions(_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
     },
     charactersClasses () {
       return {
@@ -53171,7 +53172,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.text ? this.text.length : 0
     },
     maxCharactersForTheText () {
-      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__.default.maxCharactersPerTextValue
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].maxCharactersPerTextValue
     },
     charactersText () {
       return `Characters count - ${this.textCharactersAmount} (max - ${this.maxCharactersForTheText})`
@@ -53201,7 +53202,7 @@ __webpack_require__.r(__webpack_exports__);
       return `alpheios-actions-menu-button__describe-${this.textType}-${this.textId}-id`
     },
     sourceTypeDisabled () {
-      return this.$store.state.optionsUpdated && !_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__.default.hasSourceTypeOptions
+      return this.$store.state.optionsUpdated && !_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].hasSourceTypeOptions
     },
     sourceTypeIconClass () {
       return {
@@ -53230,10 +53231,10 @@ __webpack_require__.r(__webpack_exports__);
       const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
       if (sourceTextData && sourceTextData.text) {
         this.text = sourceTextData.text
-        _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__.default.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
+        _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
         await this.updateText()
-
         this.showTypeUploadButtons = false
+        this.showUploadMenu = false
       }
     },
 
@@ -53316,7 +53317,7 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     updateDirection () {
-      this.localTextEditorOptions.sourceText.items.direction.currentValue = _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_15__.default.defineDirection(this.localTextEditorOptions.sourceText.items.language.currentValue)
+      this.localTextEditorOptions.sourceText.items.direction.currentValue = _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_15__["default"].defineDirection(this.localTextEditorOptions.sourceText.items.language.currentValue)
       this.$store.commit('incrementOptionsUpdated')
     },
 
@@ -53335,7 +53336,7 @@ __webpack_require__.r(__webpack_exports__);
      * Reloads local options
      */
     prepareDefaultTextEditorOptions () {
-      this.localTextEditorOptions = _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__.default.cloneTextEditorOptions(this.textType, this.index)
+      this.localTextEditorOptions = _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].cloneTextEditorOptions(this.textType, this.index)
 
       this.localTextEditorOptions.ready = true
       this.$store.commit('incrementOptionsUpdated')
@@ -53486,12 +53487,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'TextEditor',
   components: {
-    textEditorSingleBlock: _vue_text_editor_text_editor_single_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_2__.default,
-    helpPopup: _vue_common_help_popup_vue__WEBPACK_IMPORTED_MODULE_3__.default,
-    savePopup: _vue_common_save_popup_vue__WEBPACK_IMPORTED_MODULE_4__.default,
-    helpBlockEnter: _vue_help_blocks_eng_help_block_enter_vue__WEBPACK_IMPORTED_MODULE_6__.default,
-    optionsTextEnterPopup: _vue_options_options_text_enter_vue__WEBPACK_IMPORTED_MODULE_5__.default
+    textEditorSingleBlock: _vue_text_editor_text_editor_single_block_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    helpPopup: _vue_common_help_popup_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    savePopup: _vue_common_save_popup_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    helpBlockEnter: _vue_help_blocks_eng_help_block_enter_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+    optionsTextEnterPopup: _vue_options_options_text_enter_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
   props: {  
   },
@@ -53522,7 +53523,7 @@ __webpack_require__.r(__webpack_exports__);
      * Defines label show/hide texts block depending on showTextsBlocks
      */
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__["default"]
     },
     alignEditAvailable () {
       return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
@@ -53594,7 +53595,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'TokenizeOptionsBlock',
   components: {
-    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_1__.default
+    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   props: {
     localOptions: {
@@ -53613,10 +53614,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"]
     },
     showOptions () {
-      return this.$store.state.optionsUpdated && this.localOptions.ready && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.tokenizerOptionsLoaded
+      return this.$store.state.optionsUpdated && this.localOptions.ready && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].tokenizerOptionsLoaded
     },
     sourceType () {
       return this.$store.state.optionsUpdated && this.localOptions.ready && this.localOptions.sourceText.items.sourceType.currentValue
@@ -53724,8 +53725,8 @@ __webpack_require__.r(__webpack_exports__);
   name: 'UploadDTSAPIBlock',
   components: {
     xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_5___default()),
-    waiting: _vue_common_waiting_vue__WEBPACK_IMPORTED_MODULE_4__.default,
-    dtsApiPagination: _vue_text_editor_dts_api_pagination_vue__WEBPACK_IMPORTED_MODULE_3__.default
+    waiting: _vue_common_waiting_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    dtsApiPagination: _vue_text_editor_dts_api_pagination_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   props: {
     mname: {
@@ -53746,14 +53747,14 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted () {
-    this.homeLinks = _lib_upload_upload_dts_api_js__WEBPACK_IMPORTED_MODULE_2__.default.rootCollections
+    this.homeLinks = _lib_upload_upload_dts_api_js__WEBPACK_IMPORTED_MODULE_2__["default"].rootCollections
     
     this.breadcrumbs.push({ title: 'Home' })
     this.updateContent(this.homeLinks, false)
   },
   computed: {
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"]
     },
     title () {
       return this.l10n.getMsgS('UPLOAD_DTSAPI_TITLE')
@@ -53888,7 +53889,7 @@ __webpack_require__.r(__webpack_exports__);
     async getCollection (linkData) {     
       this.updateBreadcrumbs(linkData)
       this.clearContent()
-      const content = await _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.upload('dtsAPIUpload', {linkData, objType: 'collection'})
+      const content = await _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_1__["default"].upload('dtsAPIUpload', {linkData, objType: 'collection'})
       this.updateContent(content)
     },
 
@@ -53896,7 +53897,7 @@ __webpack_require__.r(__webpack_exports__);
       this.updateBreadcrumbs(linkData)
       this.clearContent()
       
-      const content = await _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.upload('dtsAPIUpload', {linkData, objType: 'navigation'})
+      const content = await _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_1__["default"].upload('dtsAPIUpload', {linkData, objType: 'navigation'})
       this.updateContent(content)
     },
 
@@ -53928,7 +53929,7 @@ __webpack_require__.r(__webpack_exports__);
       const refParams = this.defineRefParams()     
       this.showWaiting = true
 
-      const result = await _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.upload('dtsAPIUpload', {linkData, objType: 'document', refParams})
+      const result = await _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_1__["default"].upload('dtsAPIUpload', {linkData, objType: 'document', refParams})
 
       this.showWaiting = false
       if (result) {
@@ -53944,7 +53945,7 @@ __webpack_require__.r(__webpack_exports__);
       const linkData = this.content[0]
       this.showWaiting = true
 
-      const result = await _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.upload('dtsAPIUpload', {linkData, objType: 'document'})
+      const result = await _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_1__["default"].upload('dtsAPIUpload', {linkData, objType: 'document'})
 
       this.showWaiting = false
       if (result) {
@@ -53967,7 +53968,7 @@ __webpack_require__.r(__webpack_exports__);
       }
       this.updateBreadcrumbs(linkData)
       this.clearContent()
-      const content = await _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.upload('dtsAPIUpload', {linkData, objType: 'collection'})
+      const content = await _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_1__["default"].upload('dtsAPIUpload', {linkData, objType: 'collection'})
       this.updateContent(content)
     }
   }
@@ -54013,7 +54014,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'ActionsButtonTokenEdit',
   components: {
-    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_0__.default
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   props: {
     tooltipMess: {
@@ -54031,7 +54032,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__["default"]
     },
 
     tooltipText () {
@@ -54177,7 +54178,7 @@ __webpack_require__.r(__webpack_exports__);
     nextIcon: (_inline_icons_next_svg__WEBPACK_IMPORTED_MODULE_6___default()),
     prevIcon: (_inline_icons_prev_svg__WEBPACK_IMPORTED_MODULE_7___default()),
     deleteIcon: (_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_8___default()),
-    actionsButton: _vue_tokens_editor_actions_button_token_edit_vue__WEBPACK_IMPORTED_MODULE_12__.default
+    actionsButton: _vue_tokens_editor_actions_button_token_edit_vue__WEBPACK_IMPORTED_MODULE_12__["default"]
   },
   props: {
     token: {
@@ -54206,7 +54207,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_10__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_10__["default"]
     },
     cssStyles () {
       const  top = this.topPos + 'px'
@@ -54225,7 +54226,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     }, 
     allowedUpdateTokenWord () {
-      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_13__.default.allowUpdateTokenWordOptionValue
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_13__["default"].allowUpdateTokenWordOptionValue
     },
     allowedMergePrev () {
       return this.$store.state.optionsUpdated && this.$tokensEC.allowedMergePrev(this.token)
@@ -54254,10 +54255,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     mergeToPrev () {
-      this.$emit('mergeToken', this.token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_11__.default.directions.PREV)
+      this.$emit('mergeToken', this.token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_11__["default"].directions.PREV)
     },
     mergeToNext () {
-      this.$emit('mergeToken', this.token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_11__.default.directions.NEXT)
+      this.$emit('mergeToken', this.token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_11__["default"].directions.NEXT)
     }
   }
 });
@@ -54304,7 +54305,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"]
     },
     undoTokensEditAvailable () {
       return this.$store.state.tokenUpdated && this.$store.state.uploadCheck && this.$tokensEC.undoTokensEditAvailable
@@ -54386,7 +54387,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"]
     },
     /**
      * Used for css id definition
@@ -54493,9 +54494,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'SegmentEditBlock',
   components: {
-    tokenEditBlock: _vue_tokens_editor_token_edit_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    actionsMenuTokenEdit: _vue_tokens_editor_actions_menu_token_edit_vue__WEBPACK_IMPORTED_MODULE_1__.default,
-    emptyTokensInput: _vue_tokens_editor_empty_tokens_input_vue__WEBPACK_IMPORTED_MODULE_3__.default
+    tokenEditBlock: _vue_tokens_editor_token_edit_block_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    actionsMenuTokenEdit: _vue_tokens_editor_actions_menu_token_edit_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    emptyTokensInput: _vue_tokens_editor_empty_tokens_input_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   props: {
     currentTargetId: {
@@ -54682,7 +54683,7 @@ __webpack_require__.r(__webpack_exports__);
     async clearPrevIdWord (token, typeName) {
       if (token.idWord === this[typeName]) {
         this[typeName] = null
-        await _vue_runtime__WEBPACK_IMPORTED_MODULE_4__.default.nextTick()
+        await _vue_runtime__WEBPACK_IMPORTED_MODULE_4__["default"].nextTick()
       }
     },
     async updateTokenWord (token) {
@@ -54690,11 +54691,11 @@ __webpack_require__.r(__webpack_exports__);
       this.updateTokenIdWord = token.idWord
     },
     async mergeToken (token, direction) {
-      if (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__.default.directions.PREV) {
+      if (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].directions.PREV) {
         await this.clearPrevIdWord(token, 'mergeTokenPrevIdWord')
         this.mergeTokenPrevIdWord = token.idWord
       }
-      if (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__.default.directions.NEXT) {
+      if (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].directions.NEXT) {
         await this.clearPrevIdWord(token, 'mergeTokenNextIdWord')
         this.mergeTokenNextIdWord = token.idWord
       }
@@ -54712,11 +54713,11 @@ __webpack_require__.r(__webpack_exports__);
       this.removeLineBreakIdWord = token.idWord
     },
     moveToNextSegment (token) {
-      this.$tokensEC.moveToSegment(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__.default.directions.NEXT)
+      this.$tokensEC.moveToSegment(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].directions.NEXT)
       this.removeAllActivated()
     },
     moveToPrevSegment (token) {
-      this.$tokensEC.moveToSegment(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__.default.directions.PREV)
+      this.$tokensEC.moveToSegment(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].directions.PREV)
       this.removeAllActivated()
     },
     deleteToken (token) {
@@ -54783,7 +54784,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'TokenEditBlock',
   components: {
-    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_0__.default
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   props: {
     token: {
@@ -54848,12 +54849,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     mergeTokenPrevIdWord () {
       if (this.activated && (this.mergeTokenPrevIdWord === this.token.idWord)) {
-        this.mergeToken(_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__.default.directions.PREV)
+        this.mergeToken(_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].directions.PREV)
       }
     },
     mergeTokenNextIdWord () {
       if (this.activated && (this.mergeTokenNextIdWord === this.token.idWord)) {
-        this.mergeToken(_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__.default.directions.NEXT)
+        this.mergeToken(_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].directions.NEXT)
       }
     },
     splitTokenIdWord () {
@@ -54877,7 +54878,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__["default"]
     },
     itemId () {
       return this.$store.state.tokenUpdated && `${this.token.idWord}-input-id`
@@ -54892,7 +54893,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.alignmentUpdated && this.$tokensEC.isEditableToken(this.token)
     }, 
     allowedUpdateTokenWord () {
-      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__.default.allowUpdateTokenWordOptionValue
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__["default"].allowUpdateTokenWordOptionValue
     }
   },
   methods: {
@@ -54925,7 +54926,7 @@ __webpack_require__.r(__webpack_exports__);
     async showActionsMenu () {
       this.$emit('removeAllActivated')
 
-      await _vue_runtime__WEBPACK_IMPORTED_MODULE_4__.default.nextTick()
+      await _vue_runtime__WEBPACK_IMPORTED_MODULE_4__["default"].nextTick()
 
       this.activated = true
       this.$emit('showActionsMenu', {
@@ -55006,9 +55007,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'TokensEditorInnerBlock',
   components: {
-    segmentEditBlock: _vue_tokens_editor_segment_edit_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    editorTabs: _vue_common_editor_tabs_vue__WEBPACK_IMPORTED_MODULE_2__.default,
-    actionsMenuTokensEditor: _vue_tokens_editor_actions_menu_tokens_editor_vue__WEBPACK_IMPORTED_MODULE_1__.default
+    segmentEditBlock: _vue_tokens_editor_segment_edit_block_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    editorTabs: _vue_common_editor_tabs_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    actionsMenuTokensEditor: _vue_tokens_editor_actions_menu_tokens_editor_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   props: {
   },
@@ -55186,11 +55187,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'TokensEditor',
   components: {
-    TokensEditorInnerBlock: _vue_tokens_editor_tokens_editor_inner_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    helpPopup: _vue_common_help_popup_vue__WEBPACK_IMPORTED_MODULE_2__.default,
-    savePopup: _vue_common_save_popup_vue__WEBPACK_IMPORTED_MODULE_3__.default,
-    helpBlockEdit: _vue_help_blocks_eng_help_block_edit_vue__WEBPACK_IMPORTED_MODULE_4__.default,
-    optionsTextEditPopup: _vue_options_options_text_edit_vue__WEBPACK_IMPORTED_MODULE_5__.default
+    TokensEditorInnerBlock: _vue_tokens_editor_tokens_editor_inner_block_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    helpPopup: _vue_common_help_popup_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    savePopup: _vue_common_save_popup_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    helpBlockEdit: _vue_help_blocks_eng_help_block_edit_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    optionsTextEditPopup: _vue_options_options_text_edit_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
   props: {
     renderEditor: {
@@ -55214,7 +55215,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__["default"]
     },
     alignmentStared ()  {
       return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
@@ -55250,8 +55251,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _actions_menu_align_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _actions_menu_align_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _actions_menu_align_editor_vue_vue_type_template_id_ce854d20___WEBPACK_IMPORTED_MODULE_0__.render,
   _actions_menu_align_editor_vue_vue_type_template_id_ce854d20___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -55291,8 +55292,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _align_editor_view_mode_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _align_editor_view_mode_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _align_editor_view_mode_vue_vue_type_template_id_81e34bb4___WEBPACK_IMPORTED_MODULE_0__.render,
   _align_editor_view_mode_vue_vue_type_template_id_81e34bb4___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -55332,8 +55333,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _align_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _align_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _align_editor_vue_vue_type_template_id_d51e2a30___WEBPACK_IMPORTED_MODULE_0__.render,
   _align_editor_vue_vue_type_template_id_d51e2a30___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -55373,8 +55374,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _annotation_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _annotation_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _annotation_block_vue_vue_type_template_id_897c30bc___WEBPACK_IMPORTED_MODULE_0__.render,
   _annotation_block_vue_vue_type_template_id_897c30bc___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -55414,8 +55415,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _segment_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _segment_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _segment_block_vue_vue_type_template_id_c614d760___WEBPACK_IMPORTED_MODULE_0__.render,
   _segment_block_vue_vue_type_template_id_c614d760___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -55455,8 +55456,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _token_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _token_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _token_block_vue_vue_type_template_id_53b7c654___WEBPACK_IMPORTED_MODULE_0__.render,
   _token_block_vue_vue_type_template_id_53b7c654___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -55496,8 +55497,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _alignments_list_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _alignments_list_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _alignments_list_vue_vue_type_template_id_2fb49fb4___WEBPACK_IMPORTED_MODULE_0__.render,
   _alignments_list_vue_vue_type_template_id_2fb49fb4___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -55537,8 +55538,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _app_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _app_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _app_vue_vue_type_template_id_2307d2fa___WEBPACK_IMPORTED_MODULE_0__.render,
   _app_vue_vue_type_template_id_2307d2fa___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -55578,8 +55579,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _editor_tabs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _editor_tabs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _editor_tabs_vue_vue_type_template_id_6ce13a71___WEBPACK_IMPORTED_MODULE_0__.render,
   _editor_tabs_vue_vue_type_template_id_6ce13a71___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -55619,8 +55620,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _help_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _help_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _help_popup_vue_vue_type_template_id_67ac5f5d___WEBPACK_IMPORTED_MODULE_0__.render,
   _help_popup_vue_vue_type_template_id_67ac5f5d___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -55658,8 +55659,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 ;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
-  _metadata_icons_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _metadata_icons_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _metadata_icons_vue_vue_type_template_id_665dca8e___WEBPACK_IMPORTED_MODULE_0__.render,
   _metadata_icons_vue_vue_type_template_id_665dca8e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -55699,8 +55700,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _save_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _save_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _save_popup_vue_vue_type_template_id_4944b699___WEBPACK_IMPORTED_MODULE_0__.render,
   _save_popup_vue_vue_type_template_id_4944b699___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -55740,8 +55741,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _tooltip_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _tooltip_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _tooltip_vue_vue_type_template_id_50461596___WEBPACK_IMPORTED_MODULE_0__.render,
   _tooltip_vue_vue_type_template_id_50461596___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -55781,8 +55782,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _waiting_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _waiting_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _waiting_popup_vue_vue_type_template_id_52772402___WEBPACK_IMPORTED_MODULE_0__.render,
   _waiting_popup_vue_vue_type_template_id_52772402___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -55822,8 +55823,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _waiting_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _waiting_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _waiting_vue_vue_type_template_id_3a83a6e0___WEBPACK_IMPORTED_MODULE_0__.render,
   _waiting_vue_vue_type_template_id_3a83a6e0___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -55861,8 +55862,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 ;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
-  _help_block_align_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _help_block_align_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _help_block_align_vue_vue_type_template_id_39f2aa9e___WEBPACK_IMPORTED_MODULE_0__.render,
   _help_block_align_vue_vue_type_template_id_39f2aa9e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -55900,8 +55901,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 ;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
-  _help_block_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _help_block_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _help_block_edit_vue_vue_type_template_id_0b50ac01___WEBPACK_IMPORTED_MODULE_0__.render,
   _help_block_edit_vue_vue_type_template_id_0b50ac01___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -55941,8 +55942,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _help_block_enter_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _help_block_enter_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _help_block_enter_vue_vue_type_template_id_c50c0e1e___WEBPACK_IMPORTED_MODULE_0__.render,
   _help_block_enter_vue_vue_type_template_id_c50c0e1e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -55982,8 +55983,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _initial_screen_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _initial_screen_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _initial_screen_vue_vue_type_template_id_4ed16468___WEBPACK_IMPORTED_MODULE_0__.render,
   _initial_screen_vue_vue_type_template_id_4ed16468___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -56023,8 +56024,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _main_menu_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _main_menu_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _main_menu_vue_vue_type_template_id_0482afe8___WEBPACK_IMPORTED_MODULE_0__.render,
   _main_menu_vue_vue_type_template_id_0482afe8___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -56064,8 +56065,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _notification_bar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _notification_bar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _notification_bar_vue_vue_type_template_id_0bf96128___WEBPACK_IMPORTED_MODULE_0__.render,
   _notification_bar_vue_vue_type_template_id_0bf96128___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -56105,8 +56106,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _option_item_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _option_item_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _option_item_block_vue_vue_type_template_id_b17943da___WEBPACK_IMPORTED_MODULE_0__.render,
   _option_item_block_vue_vue_type_template_id_b17943da___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -56146,8 +56147,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _options_block_vue_vue_type_template_id_7e2b5386___WEBPACK_IMPORTED_MODULE_0__.render,
   _options_block_vue_vue_type_template_id_7e2b5386___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -56187,8 +56188,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _options_text_align_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _options_text_align_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _options_text_align_vue_vue_type_template_id_e0476788___WEBPACK_IMPORTED_MODULE_0__.render,
   _options_text_align_vue_vue_type_template_id_e0476788___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -56228,8 +56229,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _options_text_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _options_text_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _options_text_edit_vue_vue_type_template_id_aa0542ba___WEBPACK_IMPORTED_MODULE_0__.render,
   _options_text_edit_vue_vue_type_template_id_aa0542ba___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -56269,8 +56270,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _options_text_enter_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _options_text_enter_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _options_text_enter_vue_vue_type_template_id_1938cae2___WEBPACK_IMPORTED_MODULE_0__.render,
   _options_text_enter_vue_vue_type_template_id_1938cae2___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -56310,8 +56311,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _summary_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _summary_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _summary_popup_vue_vue_type_template_id_ab96fd44___WEBPACK_IMPORTED_MODULE_0__.render,
   _summary_popup_vue_vue_type_template_id_ab96fd44___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -56351,8 +56352,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _direction_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _direction_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _direction_options_block_vue_vue_type_template_id_417d0327___WEBPACK_IMPORTED_MODULE_0__.render,
   _direction_options_block_vue_vue_type_template_id_417d0327___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -56392,8 +56393,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _dts_api_pagination_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _dts_api_pagination_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _dts_api_pagination_vue_vue_type_template_id_4e177450___WEBPACK_IMPORTED_MODULE_0__.render,
   _dts_api_pagination_vue_vue_type_template_id_4e177450___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -56433,8 +56434,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _language_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _language_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _language_block_vue_vue_type_template_id_61eff3d1___WEBPACK_IMPORTED_MODULE_0__.render,
   _language_block_vue_vue_type_template_id_61eff3d1___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -56472,8 +56473,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 ;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
-  _language_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _language_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _language_options_block_vue_vue_type_template_id_d0c3793c___WEBPACK_IMPORTED_MODULE_0__.render,
   _language_options_block_vue_vue_type_template_id_d0c3793c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -56513,8 +56514,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _metadata_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _metadata_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _metadata_block_vue_vue_type_template_id_afaf8a30___WEBPACK_IMPORTED_MODULE_0__.render,
   _metadata_block_vue_vue_type_template_id_afaf8a30___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -56554,8 +56555,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _metadata_info_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _metadata_info_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _metadata_info_vue_vue_type_template_id_589c69a3___WEBPACK_IMPORTED_MODULE_0__.render,
   _metadata_info_vue_vue_type_template_id_589c69a3___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -56595,8 +56596,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _metadata_term_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _metadata_term_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _metadata_term_block_vue_vue_type_template_id_b757cfbe___WEBPACK_IMPORTED_MODULE_0__.render,
   _metadata_term_block_vue_vue_type_template_id_b757cfbe___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -56636,8 +56637,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _source_type_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _source_type_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _source_type_block_vue_vue_type_template_id_30891ac3___WEBPACK_IMPORTED_MODULE_0__.render,
   _source_type_block_vue_vue_type_template_id_30891ac3___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -56677,8 +56678,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _text_editor_single_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _text_editor_single_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _text_editor_single_block_vue_vue_type_template_id_0567ab41___WEBPACK_IMPORTED_MODULE_0__.render,
   _text_editor_single_block_vue_vue_type_template_id_0567ab41___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -56718,8 +56719,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _text_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _text_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _text_editor_vue_vue_type_template_id_6a45ae64___WEBPACK_IMPORTED_MODULE_0__.render,
   _text_editor_vue_vue_type_template_id_6a45ae64___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -56759,8 +56760,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _tokenize_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _tokenize_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _tokenize_options_block_vue_vue_type_template_id_40c7ae05___WEBPACK_IMPORTED_MODULE_0__.render,
   _tokenize_options_block_vue_vue_type_template_id_40c7ae05___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -56800,8 +56801,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _upload_dtsapi_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _upload_dtsapi_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _upload_dtsapi_block_vue_vue_type_template_id_1afbfb3a___WEBPACK_IMPORTED_MODULE_0__.render,
   _upload_dtsapi_block_vue_vue_type_template_id_1afbfb3a___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -56841,8 +56842,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _actions_button_token_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _actions_button_token_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _actions_button_token_edit_vue_vue_type_template_id_5edfbd93___WEBPACK_IMPORTED_MODULE_0__.render,
   _actions_button_token_edit_vue_vue_type_template_id_5edfbd93___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -56882,8 +56883,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _actions_menu_token_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _actions_menu_token_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _actions_menu_token_edit_vue_vue_type_template_id_4505d046___WEBPACK_IMPORTED_MODULE_0__.render,
   _actions_menu_token_edit_vue_vue_type_template_id_4505d046___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -56923,8 +56924,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _actions_menu_tokens_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _actions_menu_tokens_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _actions_menu_tokens_editor_vue_vue_type_template_id_69c97b70___WEBPACK_IMPORTED_MODULE_0__.render,
   _actions_menu_tokens_editor_vue_vue_type_template_id_69c97b70___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -56964,8 +56965,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _empty_tokens_input_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _empty_tokens_input_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _empty_tokens_input_vue_vue_type_template_id_5fdb8c3d___WEBPACK_IMPORTED_MODULE_0__.render,
   _empty_tokens_input_vue_vue_type_template_id_5fdb8c3d___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -57005,8 +57006,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _segment_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _segment_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _segment_edit_block_vue_vue_type_template_id_eba38d6c___WEBPACK_IMPORTED_MODULE_0__.render,
   _segment_edit_block_vue_vue_type_template_id_eba38d6c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -57046,8 +57047,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _token_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _token_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _token_edit_block_vue_vue_type_template_id_98c65578___WEBPACK_IMPORTED_MODULE_0__.render,
   _token_edit_block_vue_vue_type_template_id_98c65578___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -57087,8 +57088,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _tokens_editor_inner_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _tokens_editor_inner_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _tokens_editor_inner_block_vue_vue_type_template_id_419ac493___WEBPACK_IMPORTED_MODULE_0__.render,
   _tokens_editor_inner_block_vue_vue_type_template_id_419ac493___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -57128,8 +57129,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _tokens_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _tokens_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _tokens_editor_vue_vue_type_template_id_393827ec___WEBPACK_IMPORTED_MODULE_0__.render,
   _tokens_editor_vue_vue_type_template_id_393827ec___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
@@ -57889,7 +57890,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_actions_menu_align_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./actions-menu-align-editor.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/actions-menu-align-editor.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_actions_menu_align_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_actions_menu_align_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -57905,7 +57906,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_view_mode_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./align-editor-view-mode.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor-view-mode.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_view_mode_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_view_mode_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -57921,7 +57922,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./align-editor.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -57937,7 +57938,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_annotation_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./annotation-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/annotation-block.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_annotation_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_annotation_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -57953,7 +57954,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_segment_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./segment-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/segment-block.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_segment_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_segment_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -57969,7 +57970,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_token_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./token-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/token-block.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_token_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_token_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -57985,7 +57986,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_alignments_list_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../node_modules/source-map-loader/dist/cjs.js!./alignments-list.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/alignments-list.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_alignments_list_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_alignments_list_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58001,7 +58002,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_app_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../node_modules/source-map-loader/dist/cjs.js!./app.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/app.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_app_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_app_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58017,7 +58018,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_editor_tabs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./editor-tabs.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/editor-tabs.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_editor_tabs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_editor_tabs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58033,7 +58034,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_help_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./help-popup.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/help-popup.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_help_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_help_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58049,7 +58050,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_metadata_icons_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./metadata-icons.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/metadata-icons.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_metadata_icons_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_metadata_icons_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58065,7 +58066,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_save_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./save-popup.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/save-popup.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_save_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_save_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58081,7 +58082,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tooltip_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./tooltip.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/tooltip.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tooltip_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tooltip_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58097,7 +58098,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_waiting_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./waiting-popup.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/waiting-popup.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_waiting_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_waiting_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58113,7 +58114,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_waiting_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./waiting.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/waiting.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_waiting_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_waiting_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58129,7 +58130,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_help_block_align_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../../node_modules/source-map-loader/dist/cjs.js!./help-block-align.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/help-blocks/eng/help-block-align.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_help_block_align_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_help_block_align_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58145,7 +58146,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_help_block_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../../node_modules/source-map-loader/dist/cjs.js!./help-block-edit.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/help-blocks/eng/help-block-edit.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_help_block_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_help_block_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58161,7 +58162,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_help_block_enter_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../../node_modules/source-map-loader/dist/cjs.js!./help-block-enter.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/help-blocks/eng/help-block-enter.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_help_block_enter_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_help_block_enter_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58177,7 +58178,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_initial_screen_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../node_modules/source-map-loader/dist/cjs.js!./initial-screen.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/initial-screen.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_initial_screen_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_initial_screen_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58193,7 +58194,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_main_menu_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../node_modules/source-map-loader/dist/cjs.js!./main-menu.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/main-menu.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_main_menu_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_main_menu_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58209,7 +58210,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_notification_bar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../node_modules/source-map-loader/dist/cjs.js!./notification-bar.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/notification-bar.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_notification_bar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_notification_bar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58225,7 +58226,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_option_item_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./option-item-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/options/option-item-block.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_option_item_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_option_item_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58241,7 +58242,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./options-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/options/options-block.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58257,7 +58258,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_options_text_align_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./options-text-align.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/options/options-text-align.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_options_text_align_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_options_text_align_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58273,7 +58274,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_options_text_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./options-text-edit.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/options/options-text-edit.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_options_text_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_options_text_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58289,7 +58290,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_options_text_enter_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./options-text-enter.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/options/options-text-enter.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_options_text_enter_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_options_text_enter_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58305,7 +58306,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_summary_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../node_modules/source-map-loader/dist/cjs.js!./summary-popup.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/summary-popup.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_summary_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_summary_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58321,7 +58322,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_direction_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./direction-options-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/direction-options-block.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_direction_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_direction_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58337,7 +58338,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_dts_api_pagination_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./dts-api-pagination.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/dts-api-pagination.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_dts_api_pagination_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_dts_api_pagination_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58353,7 +58354,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_language_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./language-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/language-block.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_language_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_language_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58369,7 +58370,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_language_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./language-options-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/language-options-block.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_language_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_language_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58385,7 +58386,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_metadata_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./metadata-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/metadata-block.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_metadata_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_metadata_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58401,7 +58402,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_metadata_info_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./metadata-info.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/metadata-info.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_metadata_info_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_metadata_info_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58417,7 +58418,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_metadata_term_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./metadata-term-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/metadata-term-block.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_metadata_term_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_metadata_term_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58433,7 +58434,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_source_type_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./source-type-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/source-type-block.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_source_type_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_source_type_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58449,7 +58450,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_text_editor_single_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./text-editor-single-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/text-editor-single-block.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_text_editor_single_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_text_editor_single_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58465,7 +58466,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_text_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./text-editor.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/text-editor.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_text_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_text_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58481,7 +58482,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tokenize_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./tokenize-options-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/tokenize-options-block.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tokenize_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tokenize_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58497,7 +58498,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_upload_dtsapi_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./upload-dtsapi-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/upload-dtsapi-block.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_upload_dtsapi_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_upload_dtsapi_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58513,7 +58514,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_actions_button_token_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./actions-button-token-edit.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/actions-button-token-edit.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_actions_button_token_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_actions_button_token_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58529,7 +58530,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_actions_menu_token_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./actions-menu-token-edit.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_actions_menu_token_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_actions_menu_token_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58545,7 +58546,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_actions_menu_tokens_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./actions-menu-tokens-editor.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/actions-menu-tokens-editor.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_actions_menu_tokens_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_actions_menu_tokens_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58561,7 +58562,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_empty_tokens_input_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./empty-tokens-input.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/empty-tokens-input.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_empty_tokens_input_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_empty_tokens_input_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58577,7 +58578,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_segment_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./segment-edit-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/segment-edit-block.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_segment_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_segment_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58593,7 +58594,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_token_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./token-edit-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/token-edit-block.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_token_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_token_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58609,7 +58610,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tokens_editor_inner_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./tokens-editor-inner-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/tokens-editor-inner-block.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tokens_editor_inner_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tokens_editor_inner_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -58625,7 +58626,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tokens_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./tokens-editor.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/tokens-editor.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tokens_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tokens_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -67210,7 +67211,7 @@ render._withStripped = true
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/tokens-edit-indexeddb-controller.test.js --coverage","test-b":"jest tests/vue/align-editor/segment-block.test.js --coverage","test-c":"jest tests/lib/data/alignment-annotations.test.js","test-d":"jest tests/lib/storage/indexed-db-adapter.test.js","test-e":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.3.0","@babel/core":"^7.14.3","@babel/plugin-proposal-object-rest-spread":"^7.14.4","@babel/plugin-transform-modules-commonjs":"^7.14.0","@babel/plugin-transform-runtime":"^7.14.3","@babel/preset-env":"^7.14.4","@babel/register":"^7.13.16","@babel/runtime":"^7.14.0","@vue/test-utils":"^1.2.0","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.28.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.23.4","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.2","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.6.18","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.6","papaparse":"^5.3.1","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.34.1","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.14","vue-eslint-parser":"^7.6.0","vue-jest":"^3.0.7","vue-js-modal":"^2.0.1","vue-loader":"^15.9.7","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.14","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.38.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
+module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/tokens-edit-indexeddb-controller.test.js --coverage","test-b":"jest tests/vue/align-editor/segment-block.test.js --coverage","test-c":"jest tests/lib/data/alignment-annotations.test.js","test-d":"jest tests/lib/storage/indexed-db-adapter.test.js","test-e":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.6.0","@babel/core":"^7.15.5","@babel/plugin-proposal-object-rest-spread":"^7.15.6","@babel/plugin-transform-modules-commonjs":"^7.15.4","@babel/plugin-transform-runtime":"^7.15.0","@babel/preset-env":"^7.15.6","@babel/register":"^7.15.3","@babel/runtime":"^7.15.4","@vue/test-utils":"^1.2.2","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.2.0","coveralls":"^3.1.1","css-loader":"^3.6.0","eslint":"^7.32.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.24.2","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.3","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.9.2","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.8","papaparse":"^5.3.1","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.42.1","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.14","vue-eslint-parser":"^7.11.0","vue-jest":"^3.0.7","vue-js-modal":"^2.0.1","vue-loader":"^15.9.8","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.14","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.55.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
 
 /***/ }),
 
@@ -67480,7 +67481,7 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Style": () => (/* reexport default from dynamic */ _styles_style_scss__WEBPACK_IMPORTED_MODULE_0___default.a),
-/* harmony export */   "AppController": () => (/* reexport safe */ _lib_controllers_app_controller_js__WEBPACK_IMPORTED_MODULE_1__.default)
+/* harmony export */   "AppController": () => (/* reexport safe */ _lib_controllers_app_controller_js__WEBPACK_IMPORTED_MODULE_1__["default"])
 /* harmony export */ });
 /* harmony import */ var _styles_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/styles/style.scss */ "./styles/style.scss");
 /* harmony import */ var _styles_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_styles_style_scss__WEBPACK_IMPORTED_MODULE_0__);
