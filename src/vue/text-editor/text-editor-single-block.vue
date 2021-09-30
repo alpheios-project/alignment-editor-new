@@ -363,8 +363,8 @@ export default {
         this.text = sourceTextData.text
         SettingsController.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
         await this.updateText()
-
         this.showTypeUploadButtons = false
+        this.showUploadMenu = false
       }
     },
 
