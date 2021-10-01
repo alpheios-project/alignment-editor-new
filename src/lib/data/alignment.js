@@ -1452,6 +1452,14 @@ export default class Alignment {
     delete this.annotations[token.idWord]
   }
 
+  /**
+   * Creates an annotation, defines index and saves to annotations
+   * @param {String} id - is passed when we upload existed token from JSON for example
+   * @param {Token} token
+   * @param {Annotation.types} type
+   * @param {String} text
+   * @returns {Boolean}
+   */
   addAnnotation ({ id, token, type, text } = {}) {
     if (token && type && text) {
       const existedAnnotation = this.existedAnnotation(token, id)
@@ -1466,28 +1474,37 @@ export default class Alignment {
         this.annotations[token.idWord] = []
       }
 
-      let lastTypeIndex = null
-      this.annotations[token.idWord].forEach(annot => {
-        const annotCurData = Annotation.parseIndex(annot.index)
-        if ((annot.type === type) && (annotCurData.idWord === token.idWord)) {
-          if (!lastTypeIndex) {
-            lastTypeIndex = annot.index
-          } else {
-            const lastTypeIndexData = Annotation.parseIndex(lastTypeIndex)
-            if (lastTypeIndexData.index < annotCurData.index) {
-              lastTypeIndex = annot.index
-            }
-          }
-        }
-      })
-
-      const newTypeIndex = Annotation.getNewIndex(token, lastTypeIndex)
+      const newTypeIndex = this.defineNewIndex(token, type)
       const annotation = new Annotation({ token, type, text, index: newTypeIndex })
 
       this.annotations[token.idWord].push(annotation)
       return true
     }
     return false
+  }
+
+  /**
+   * Finds a max index for the given type and token.idWord and defines next
+   * @param {Token} token
+   * @param {Annotation.types} type
+   */
+  defineNewIndex (token, type) {
+    let lastTypeIndex = null
+    this.annotations[token.idWord].forEach(annot => {
+      const annotCurData = Annotation.parseIndex(annot.index)
+      if ((annot.type === type) && (annotCurData.idWord === token.idWord)) {
+        if (!lastTypeIndex) {
+          lastTypeIndex = annot.index
+        } else {
+          const lastTypeIndexData = Annotation.parseIndex(lastTypeIndex)
+          if (lastTypeIndexData.index < annotCurData.index) {
+            lastTypeIndex = annot.index
+          }
+        }
+      }
+    })
+
+    return Annotation.getNewIndex(token, lastTypeIndex)
   }
 
   get hasAnnotations () {
