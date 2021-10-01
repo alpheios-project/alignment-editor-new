@@ -44325,6 +44325,14 @@ class Alignment {
     delete this.annotations[token.idWord]
   }
 
+  /**
+   * Creates an annotation, defines index and saves to annotations
+   * @param {String} id - is passed when we upload existed token from JSON for example
+   * @param {Token} token
+   * @param {Annotation.types} type
+   * @param {String} text
+   * @returns {Boolean}
+   */
   addAnnotation ({ id, token, type, text } = {}) {
     if (token && type && text) {
       const existedAnnotation = this.existedAnnotation(token, id)
@@ -44339,28 +44347,37 @@ class Alignment {
         this.annotations[token.idWord] = []
       }
 
-      let lastTypeIndex = null
-      this.annotations[token.idWord].forEach(annot => {
-        const annotCurData = _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__["default"].parseIndex(annot.index)
-        if ((annot.type === type) && (annotCurData.idWord === token.idWord)) {
-          if (!lastTypeIndex) {
-            lastTypeIndex = annot.index
-          } else {
-            const lastTypeIndexData = _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__["default"].parseIndex(lastTypeIndex)
-            if (lastTypeIndexData.index < annotCurData.index) {
-              lastTypeIndex = annot.index
-            }
-          }
-        }
-      })
-
-      const newTypeIndex = _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__["default"].getNewIndex(token, lastTypeIndex)
+      const newTypeIndex = this.defineNewIndex(token, type)
       const annotation = new _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__["default"]({ token, type, text, index: newTypeIndex })
 
       this.annotations[token.idWord].push(annotation)
       return true
     }
     return false
+  }
+
+  /**
+   * Finds a max index for the given type and token.idWord and defines next
+   * @param {Token} token
+   * @param {Annotation.types} type
+   */
+  defineNewIndex (token, type) {
+    let lastTypeIndex = null
+    this.annotations[token.idWord].forEach(annot => {
+      const annotCurData = _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__["default"].parseIndex(annot.index)
+      if ((annot.type === type) && (annotCurData.idWord === token.idWord)) {
+        if (!lastTypeIndex) {
+          lastTypeIndex = annot.index
+        } else {
+          const lastTypeIndexData = _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__["default"].parseIndex(lastTypeIndex)
+          if (lastTypeIndexData.index < annotCurData.index) {
+            lastTypeIndex = annot.index
+          }
+        }
+      }
+    })
+
+    return _lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__["default"].getNewIndex(token, lastTypeIndex)
   }
 
   get hasAnnotations () {
@@ -47920,7 +47937,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i400-hide-upload.20210930386" : 0
+    return  true ? "unit-tests.20211001631" : 0
   }
 
   static get libName () {
