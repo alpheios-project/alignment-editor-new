@@ -30,6 +30,10 @@ export default class TextsController {
     return Boolean(this.alignment) && this.alignment.readyForTokenize
   }
 
+  /**
+   * Checks if the length of all source texts are not out of the limit, defined by the settings
+   * @returns
+   */
   checkSize () {
     return Boolean(this.alignment) && this.alignment.checkSize(SettingsController.maxCharactersPerTextValue)
   }
@@ -85,6 +89,9 @@ export default class TextsController {
     return { resultUpdate: true, resultDetect, finalTargetId }
   }
 
+  /**
+   * @returns {String} targetId of the created target
+   */
   async addNewTarget () {
     if (!this.alignment) {
       console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
@@ -127,6 +134,9 @@ export default class TextsController {
     return this.alignment ? this.alignment.originDocSource : null
   }
 
+  /**
+   * @returns {Boolean} - true if origin has text bigger then 0
+   */
   get originDocSourceHasText () {
     return this.alignment ? this.alignment.originDocSourceHasText : null
   }
@@ -138,6 +148,9 @@ export default class TextsController {
     return this.alignment ? this.alignment.allTargetTextsIds : []
   }
 
+  /**
+   * @returns {Array[Object{ targetId: String, targetIndex: Number }]} - reverse order of targetsId with original index
+   */
   get allTargetTextsIdsNumbered () {
     return this.alignment ? this.alignment.allTargetTextsIdsNumbered : []
   }
@@ -178,6 +191,11 @@ export default class TextsController {
     return null
   }
 
+  /**
+   * @param {String} extension  - file extension - csv, json, html
+   * @param {Boolean} allTexts  - true, if check for files that could have several texts (json), false if single (txt)
+   * @returns
+   */
   checkUploadedFileByExtension (extension, allTexts) {
     if (!UploadController.isExtensionAvailable(extension, allTexts)) {
       const availableExtensions = UploadController.getAvailableExtensions(allTexts).join(', ')
@@ -191,6 +209,10 @@ export default class TextsController {
     return true
   }
 
+  /**
+   * @param {Boolean} alData - a check for selecting from IndexedDB, for now it is always true - and selects a full alignment
+   * @returns {Alignment}
+   */
   async uploadDataFromDB (alData) {
     if (!alData) {
       console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'))
@@ -352,6 +374,9 @@ export default class TextsController {
     }
   }
 
+  /**
+   * @returns {Array[String]} - array of lang codes
+   */
   collectLangsForFileName () {
     const langs = [this.alignment.origin.docSource.lang]
     Object.values(this.alignment.targets).forEach(target => {
@@ -440,6 +465,35 @@ export default class TextsController {
     return this.alignment && this.alignment.targetsLangData
   }
 
+  async defineAllPartNumsForTexts () {
+    const allPartsAlreadyUploaded = this.alignment.hasAllPartsUploaded
+
+    if (!allPartsAlreadyUploaded) {
+      const dbData = await StorageController.select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+      this.alignment = await Alignment.convertFromIndexedDB(dbData)
+    }
+    this.alignment.defineAllPartNumsForTexts()
+    await StorageController.update(this.alignment, true)
+    if (!allPartsAlreadyUploaded) {
+      this.alignment.limitTokensToPartNumAllTexts(1)
+    }
+    this.store.commit('incrementReuploadTextsParts')
+  }
+
+  getSegmentPart (textType, textId, segmentIndex, partNums) {
+    return this.alignment.getSegmentPart(textType, textId, segmentIndex, partNums)
+  }
+
+  getSegment (textType, textId, segmentIndex) {
+    return this.alignment.getSegment(textType, textId, segmentIndex)
+  }
+
+  // IndexedDB
+
+  /**
+   * Uploads and prepare alignments list, sorted by date updated in reverse order
+   * @returns {Array[Object]}
+   */
   async uploadFromAllAlignmentsDB () {
     const data = { userID: Alignment.defaultUserID }
 
@@ -474,32 +528,12 @@ export default class TextsController {
   }
 
   /**
-   * Removes all data from IndexedDB
-   * @returns {Boolean}
+   * Uploads missed parts from the Storage - parts are listed in partNums
+   * @param {String} textType - origin/target
+   * @param {String} textId - docSource id
+   * @param {Number} segmentIndex
+   * @param {Array[Number]} partNums
    */
-  async clearAllAlignmentsFromDB () {
-    const result = await StorageController.clear()
-
-    if (result) {
-      this.store.commit('incremetReloadAlignmentsList')
-    }
-    return result
-  }
-
-  async defineAllPartNumsForTexts () {
-    const allPartsAlreadyUploaded = this.alignment.hasAllPartsUploaded
-
-    if (!allPartsAlreadyUploaded) {
-      const dbData = await StorageController.select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
-      this.alignment = await Alignment.convertFromIndexedDB(dbData)
-    }
-    this.alignment.defineAllPartNumsForTexts()
-    await StorageController.update(this.alignment, true)
-    if (!allPartsAlreadyUploaded) {
-      this.alignment.limitTokensToPartNumAllTexts(1)
-    }
-    this.store.commit('incrementReuploadTextsParts')
-  }
 
   async checkAndUploadSegmentsFromDB (textType, textId, segmentIndex, partNums) {
     this.alignment.limitTokensToPartNumSegment(textType, textId, segmentIndex, partNums)
@@ -521,12 +555,17 @@ export default class TextsController {
     this.store.commit('incrementUploadPartNum')
   }
 
-  getSegmentPart (textType, textId, segmentIndex, partNums) {
-    return this.alignment.getSegmentPart(textType, textId, segmentIndex, partNums)
-  }
+  /**
+   * Removes all data from IndexedDB
+   * @returns {Boolean}
+   */
+  async clearAllAlignmentsFromDB () {
+    const result = await StorageController.clear()
 
-  getSegment (textType, textId, segmentIndex) {
-    return this.alignment.getSegment(textType, textId, segmentIndex)
+    if (result) {
+      this.store.commit('incremetReloadAlignmentsList')
+    }
+    return result
   }
 
   /**
@@ -535,6 +574,8 @@ export default class TextsController {
   get indexedDBAvailable () {
     return StorageController.dbAdapterAvailable
   }
+
+  // annotations
 
   /**
    * Add a new attonation (if id is undefined) or update an existed annotation (if id is defined)
@@ -583,6 +624,9 @@ export default class TextsController {
     return false
   }
 
+  /**
+   * @param {String} id
+   */
   deleteAnnotationFromStorage (id) {
     StorageController.deleteMany({
       userID: this.alignment.userID,
@@ -591,14 +635,25 @@ export default class TextsController {
     }, 'annotationByID')
   }
 
+  /**
+   * @returns {Boolean} - true if there are any annotations
+   */
   get hasAnnotations () {
     return this.alignment && this.alignment.hasAnnotations
   }
 
+  /**
+   * @param {Token} token
+   * @returns {Boolean} - true if there are any annotations for the token
+   */
   hasTokenAnnotations (token) {
     return this.alignment && this.alignment.hasTokenAnnotations(token)
   }
 
+  /**
+   * @param {Annotation} annotation
+   * @returns {Boolean} - true if annotations has type that is allowed to be edited defined in settings
+   */
   annotationIsEditable (annotation) {
     return this.alignment && this.alignment.annotationIsEditable(annotation, SettingsController.availableAnnotationTypes)
   }

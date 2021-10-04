@@ -39991,6 +39991,10 @@ class TextsController {
     return Boolean(this.alignment) && this.alignment.readyForTokenize
   }
 
+  /**
+   * Checks if the length of all source texts are not out of the limit, defined by the settings
+   * @returns
+   */
   checkSize () {
     return Boolean(this.alignment) && this.alignment.checkSize(_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].maxCharactersPerTextValue)
   }
@@ -40046,6 +40050,9 @@ class TextsController {
     return { resultUpdate: true, resultDetect, finalTargetId }
   }
 
+  /**
+   * @returns {String} targetId of the created target
+   */
   async addNewTarget () {
     if (!this.alignment) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__["default"].getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
@@ -40088,6 +40095,9 @@ class TextsController {
     return this.alignment ? this.alignment.originDocSource : null
   }
 
+  /**
+   * @returns {Boolean} - true if origin has text bigger then 0
+   */
   get originDocSourceHasText () {
     return this.alignment ? this.alignment.originDocSourceHasText : null
   }
@@ -40099,6 +40109,9 @@ class TextsController {
     return this.alignment ? this.alignment.allTargetTextsIds : []
   }
 
+  /**
+   * @returns {Array[Object{ targetId: String, targetIndex: Number }]} - reverse order of targetsId with original index
+   */
   get allTargetTextsIdsNumbered () {
     return this.alignment ? this.alignment.allTargetTextsIdsNumbered : []
   }
@@ -40139,6 +40152,11 @@ class TextsController {
     return null
   }
 
+  /**
+   * @param {String} extension  - file extension - csv, json, html
+   * @param {Boolean} allTexts  - true, if check for files that could have several texts (json), false if single (txt)
+   * @returns
+   */
   checkUploadedFileByExtension (extension, allTexts) {
     if (!_lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].isExtensionAvailable(extension, allTexts)) {
       const availableExtensions = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].getAvailableExtensions(allTexts).join(', ')
@@ -40152,6 +40170,10 @@ class TextsController {
     return true
   }
 
+  /**
+   * @param {Boolean} alData - a check for selecting from IndexedDB, for now it is always true - and selects a full alignment
+   * @returns {Alignment}
+   */
   async uploadDataFromDB (alData) {
     if (!alData) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__["default"].getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'))
@@ -40313,6 +40335,9 @@ class TextsController {
     }
   }
 
+  /**
+   * @returns {Array[String]} - array of lang codes
+   */
   collectLangsForFileName () {
     const langs = [this.alignment.origin.docSource.lang]
     Object.values(this.alignment.targets).forEach(target => {
@@ -40401,6 +40426,35 @@ class TextsController {
     return this.alignment && this.alignment.targetsLangData
   }
 
+  async defineAllPartNumsForTexts () {
+    const allPartsAlreadyUploaded = this.alignment.hasAllPartsUploaded
+
+    if (!allPartsAlreadyUploaded) {
+      const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+      this.alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__["default"].convertFromIndexedDB(dbData)
+    }
+    this.alignment.defineAllPartNumsForTexts()
+    await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].update(this.alignment, true)
+    if (!allPartsAlreadyUploaded) {
+      this.alignment.limitTokensToPartNumAllTexts(1)
+    }
+    this.store.commit('incrementReuploadTextsParts')
+  }
+
+  getSegmentPart (textType, textId, segmentIndex, partNums) {
+    return this.alignment.getSegmentPart(textType, textId, segmentIndex, partNums)
+  }
+
+  getSegment (textType, textId, segmentIndex) {
+    return this.alignment.getSegment(textType, textId, segmentIndex)
+  }
+
+  // IndexedDB
+
+  /**
+   * Uploads and prepare alignments list, sorted by date updated in reverse order
+   * @returns {Array[Object]}
+   */
   async uploadFromAllAlignmentsDB () {
     const data = { userID: _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__["default"].defaultUserID }
 
@@ -40435,32 +40489,12 @@ class TextsController {
   }
 
   /**
-   * Removes all data from IndexedDB
-   * @returns {Boolean}
+   * Uploads missed parts from the Storage - parts are listed in partNums
+   * @param {String} textType - origin/target
+   * @param {String} textId - docSource id
+   * @param {Number} segmentIndex
+   * @param {Array[Number]} partNums
    */
-  async clearAllAlignmentsFromDB () {
-    const result = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].clear()
-
-    if (result) {
-      this.store.commit('incremetReloadAlignmentsList')
-    }
-    return result
-  }
-
-  async defineAllPartNumsForTexts () {
-    const allPartsAlreadyUploaded = this.alignment.hasAllPartsUploaded
-
-    if (!allPartsAlreadyUploaded) {
-      const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
-      this.alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__["default"].convertFromIndexedDB(dbData)
-    }
-    this.alignment.defineAllPartNumsForTexts()
-    await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].update(this.alignment, true)
-    if (!allPartsAlreadyUploaded) {
-      this.alignment.limitTokensToPartNumAllTexts(1)
-    }
-    this.store.commit('incrementReuploadTextsParts')
-  }
 
   async checkAndUploadSegmentsFromDB (textType, textId, segmentIndex, partNums) {
     this.alignment.limitTokensToPartNumSegment(textType, textId, segmentIndex, partNums)
@@ -40482,12 +40516,17 @@ class TextsController {
     this.store.commit('incrementUploadPartNum')
   }
 
-  getSegmentPart (textType, textId, segmentIndex, partNums) {
-    return this.alignment.getSegmentPart(textType, textId, segmentIndex, partNums)
-  }
+  /**
+   * Removes all data from IndexedDB
+   * @returns {Boolean}
+   */
+  async clearAllAlignmentsFromDB () {
+    const result = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].clear()
 
-  getSegment (textType, textId, segmentIndex) {
-    return this.alignment.getSegment(textType, textId, segmentIndex)
+    if (result) {
+      this.store.commit('incremetReloadAlignmentsList')
+    }
+    return result
   }
 
   /**
@@ -40496,6 +40535,8 @@ class TextsController {
   get indexedDBAvailable () {
     return _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].dbAdapterAvailable
   }
+
+  // annotations
 
   /**
    * Add a new attonation (if id is undefined) or update an existed annotation (if id is defined)
@@ -40544,6 +40585,9 @@ class TextsController {
     return false
   }
 
+  /**
+   * @param {String} id
+   */
   deleteAnnotationFromStorage (id) {
     _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].deleteMany({
       userID: this.alignment.userID,
@@ -40552,14 +40596,25 @@ class TextsController {
     }, 'annotationByID')
   }
 
+  /**
+   * @returns {Boolean} - true if there are any annotations
+   */
   get hasAnnotations () {
     return this.alignment && this.alignment.hasAnnotations
   }
 
+  /**
+   * @param {Token} token
+   * @returns {Boolean} - true if there are any annotations for the token
+   */
   hasTokenAnnotations (token) {
     return this.alignment && this.alignment.hasTokenAnnotations(token)
   }
 
+  /**
+   * @param {Annotation} annotation
+   * @returns {Boolean} - true if annotations has type that is allowed to be edited defined in settings
+   */
   annotationIsEditable (annotation) {
     return this.alignment && this.alignment.annotationIsEditable(annotation, _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].availableAnnotationTypes)
   }
@@ -41383,9 +41438,13 @@ class UploadController {
   }
 
   static async indexedDBUploadSingle (alData) {
+    console.info('indexedDBUploadSingle - started')
     const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].select(alData, 'alignmentByAlIDQuery')
-    const alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_2__["default"].convertFromIndexedDB(dbData)
-    return alignment
+    if (dbData) {
+      const alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_2__["default"].convertFromIndexedDB(dbData)
+      return alignment
+    }
+    return null
   }
 }
 
@@ -42958,6 +43017,11 @@ class Alignment {
     return this.originDocSourceFullyDefined && this.targetDocSourceFullyDefined && !this.alignmentGroupsWorkflowAvailable
   }
 
+  /**
+   * Checks if the length of all source texts are not out of the limit, defined by the property
+   * @param {Number} maxCharactersPerTextValue
+   * @returns
+   */
   checkSize (maxCharactersPerTextValue) {
     return this.origin.docSource && (Object.values(this.targets).length > 0) && this.origin.docSource.checkSize(maxCharactersPerTextValue) && Object.values(this.targets).every(target => target.docSource.checkSize(maxCharactersPerTextValue))
   }
@@ -43107,6 +43171,9 @@ class Alignment {
     return this.origin.docSource ? this.origin.docSource : null
   }
 
+  /**
+   * @returns {Boolean} - true if origin has text bigger then 0
+   */
   get originDocSourceHasText () {
     return this.originDocSource && Boolean(this.originDocSource.text)
   }
@@ -43249,6 +43316,9 @@ class Alignment {
     return Object.keys(this.targets)
   }
 
+  /**
+   * @returns {Array[Object{ targetId: String, targetIndex: Number }]} - reverse order of targetsId with original index
+   */
   get allTargetTextsIdsNumbered () {
     return Object.keys(this.targets).map((targetId, targetIndex) => { return { targetId, targetIndex } }).reverse()
   }
@@ -45907,6 +45977,11 @@ class SourceText {
     return Boolean(this.textType && this.text && this.direction && this.lang && this.sourceType && this.tokenization.tokenizer)
   }
 
+  /**
+   * Checks if the length of the text is not out of the limit, defined by the property
+   * @param {Number} maxCharactersPerTextValue
+   * @returns
+   */
   checkSize (maxCharactersPerTextValue) {
     return this.text && (this.text.length > 0) && (this.isTei || (this.text.length <= maxCharactersPerTextValue))
   }
@@ -47937,7 +48012,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "unit-tests.20211001631" : 0
+    return  true ? "unit-tests.20211004560" : 0
   }
 
   static get libName () {
@@ -67228,7 +67303,7 @@ render._withStripped = true
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/tokens-edit-indexeddb-controller.test.js --coverage","test-b":"jest tests/vue/align-editor/segment-block.test.js --coverage","test-c":"jest tests/lib/data/alignment-annotations.test.js","test-d":"jest tests/lib/storage/indexed-db-adapter.test.js","test-e":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.6.0","@babel/core":"^7.15.5","@babel/plugin-proposal-object-rest-spread":"^7.15.6","@babel/plugin-transform-modules-commonjs":"^7.15.4","@babel/plugin-transform-runtime":"^7.15.0","@babel/preset-env":"^7.15.6","@babel/register":"^7.15.3","@babel/runtime":"^7.15.4","@vue/test-utils":"^1.2.2","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.2.0","coveralls":"^3.1.1","css-loader":"^3.6.0","eslint":"^7.32.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.24.2","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.3","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.9.2","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.8","papaparse":"^5.3.1","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.42.1","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.14","vue-eslint-parser":"^7.11.0","vue-jest":"^3.0.7","vue-js-modal":"^2.0.1","vue-loader":"^15.9.8","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.14","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.55.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
+module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/texts-controller.test.js --coverage","test-b":"jest tests/vue/align-editor/segment-block.test.js --coverage","test-c":"jest tests/lib/data/alignment-annotations.test.js","test-d":"jest tests/lib/storage/indexed-db-adapter.test.js","test-e":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.6.0","@babel/core":"^7.15.5","@babel/plugin-proposal-object-rest-spread":"^7.15.6","@babel/plugin-transform-modules-commonjs":"^7.15.4","@babel/plugin-transform-runtime":"^7.15.0","@babel/preset-env":"^7.15.6","@babel/register":"^7.15.3","@babel/runtime":"^7.15.4","@vue/test-utils":"^1.2.2","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.2.0","coveralls":"^3.1.1","css-loader":"^3.6.0","eslint":"^7.32.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.24.2","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.3","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.9.2","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.8","papaparse":"^5.3.1","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.42.1","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.14","vue-eslint-parser":"^7.11.0","vue-jest":"^3.0.7","vue-js-modal":"^2.0.1","vue-loader":"^15.9.8","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.14","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.55.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
 
 /***/ }),
 

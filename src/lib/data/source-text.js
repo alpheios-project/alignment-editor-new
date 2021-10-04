@@ -157,6 +157,11 @@ export default class SourceText {
     return Boolean(this.textType && this.text && this.direction && this.lang && this.sourceType && this.tokenization.tokenizer)
   }
 
+  /**
+   * Checks if the length of the text is not out of the limit, defined by the property
+   * @param {Number} maxCharactersPerTextValue
+   * @returns
+   */
   checkSize (maxCharactersPerTextValue) {
     return this.text && (this.text.length > 0) && (this.isTei || (this.text.length <= maxCharactersPerTextValue))
   }

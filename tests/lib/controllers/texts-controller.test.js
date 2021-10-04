@@ -3,6 +3,9 @@
 
 import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
 import TextsController from '@/lib/controllers/texts-controller.js'
+import SettingsController from '@/lib/controllers/settings-controller.js'
+import StorageController from '@/lib/controllers/storage-controller.js'
+
 import Alignment from '@/lib/data/alignment'
 import Token from '@/lib/data/token'
 import UploadController from '@/lib/controllers/upload-controller.js'
@@ -12,6 +15,9 @@ import AppController from '@/lib/controllers/app-controller.js'
 
 import LatEng from '@tests/lib/storage/alignments/lat-eng-short.json'
 import Annotation from '@/lib/data/annotation'
+
+import IndexedDB from 'fake-indexeddb'
+import IDBKeyRange from 'fake-indexeddb/lib/FDBKeyRange'
 
 describe('texts-controller.test.js', () => {
 
@@ -526,5 +532,110 @@ describe('texts-controller.test.js', () => {
     result = textsC.removeAnnotation(null, annotationId)
     expect(result).toBeFalsy()
     expect(textsC.getAnnotations(tokenOrigin1).length).toEqual(1)
+  })
+
+  it('21 TextsController - checkSize - checks if texts are less then the setting', () => {
+    const textsC = new TextsController(appC.store)
+    const alignment = Alignment.convertFromJSON(LatEng)
+    textsC.alignment = alignment
+
+    expect(SettingsController.maxCharactersPerTextValue).toEqual(5000)
+    expect(alignment.origin.docSource.text.length).toEqual(38)
+    expect(Object.values(alignment.targets)[0].docSource.text.length).toEqual(39)
+
+    expect(textsC.checkSize()).toBeTruthy()
+
+    SettingsController.allOptions.app.items.maxCharactersPerText.setValue(30)
+
+    expect(textsC.checkSize()).toBeFalsy()
+  })
+
+  it('22 TextsController - addNewTarget - adds new empty target', async () => {
+    const textsC = new TextsController(appC.store)
+    const alignment = Alignment.convertFromJSON(LatEng)
+    const resTargetId1 = await textsC.addNewTarget()
+    expect(resTargetId1).not.toBeDefined()
+
+    textsC.alignment = alignment
+
+    expect(Object.values(alignment.targets).length).toEqual(1)
+
+    const resTargetId2 = await textsC.addNewTarget()
+    expect(Object.values(alignment.targets).length).toEqual(2)
+    expect(Object.keys(alignment.targets)[1]).toEqual(resTargetId2)
+  })
+
+  it('23 TextsController - originDocSourceHasText', async () => {
+    const textsC = new TextsController(appC.store)
+    const alignment = Alignment.convertFromJSON(LatEng)
+
+    textsC.alignment = alignment
+
+    expect(alignment.origin.docSource.text.length).toEqual(38)
+    expect(textsC.originDocSourceHasText).toBeTruthy()
+
+    textsC.updateOriginDocSource({ text: '' })
+
+    expect(alignment.origin.docSource.text.length).toEqual(0)
+    expect(textsC.originDocSourceHasText).toBeFalsy()
+  })
+
+  it('24 TextsController - allTargetTextsIdsNumbered', async () => {
+    const textsC = new TextsController(appC.store)
+    const alignment = Alignment.convertFromJSON(LatEng)
+
+    textsC.alignment = alignment
+
+    textsC.updateTargetDocSource({ text: 'Some test target 2' })
+
+    const resTargets = textsC.allTargetTextsIdsNumbered
+
+    expect(resTargets[0]).toEqual({ targetId: Object.keys(alignment.targets)[1], targetIndex: 1 })
+    expect(resTargets[1]).toEqual({ targetId: Object.keys(alignment.targets)[0], targetIndex: 0 })
+  })
+
+  it('24 TextsController - getDocSource', async () => {
+    const textsC = new TextsController(appC.store)
+    const alignment = Alignment.convertFromJSON(LatEng)
+
+    textsC.alignment = alignment
+
+    textsC.updateTargetDocSource({ text: 'Some test target 2' })
+
+    expect(textsC.getDocSource()).toBeNull()
+    expect(textsC.getDocSource('origin')).toEqual(alignment.origin.docSource)
+    expect(textsC.getDocSource('target', Object.keys(alignment.targets)[0])).toEqual(Object.values(alignment.targets)[0].docSource)
+    expect(textsC.getDocSource('target', Object.keys(alignment.targets)[1])).toEqual(Object.values(alignment.targets)[1].docSource)
+  })
+
+  it('25 TextsController - checkUploadedFileByExtension', async () => {
+    const textsC = new TextsController(appC.store)
+    const alignment = Alignment.convertFromJSON(LatEng)
+
+    textsC.alignment = alignment
+
+    // check that jpg is not a good extension for any upload type
+    expect(textsC.checkUploadedFileByExtension('jpg', true)).toBeFalsy()
+    expect(textsC.checkUploadedFileByExtension('jpg', false)).toBeFalsy()
+
+    // check that txt is a good extension only for a single text upload
+    expect(textsC.checkUploadedFileByExtension('txt', true)).toBeFalsy()
+    expect(textsC.checkUploadedFileByExtension('txt', false)).toBeTruthy()
+
+    // check that json is a good extension only for a single text upload
+    expect(textsC.checkUploadedFileByExtension('json', true)).toBeTruthy()
+    expect(textsC.checkUploadedFileByExtension('json', false)).toBeFalsy()
+  })
+
+  it.skip('26 TextsController - checkUploadedFileByExtension', async () => {
+    window.indexedDB = IndexedDB
+    window.IDBKeyRange = IDBKeyRange
+    
+    const textsC = new TextsController(appC.store)
+    StorageController.select = jest.fn()
+    
+    const res = await textsC.uploadDataFromDB(true)
+    console.info('res - ', res)
+    expect(StorageController.select).toHaveBeenCalledWith(true, 'alignmentByAlIDQuery')
   })
 })
