@@ -85,6 +85,11 @@ export default class Alignment {
     return this.originDocSourceFullyDefined && this.targetDocSourceFullyDefined && !this.alignmentGroupsWorkflowAvailable
   }
 
+  /**
+   * Checks if the length of all source texts are not out of the limit, defined by the property
+   * @param {Number} maxCharactersPerTextValue
+   * @returns
+   */
   checkSize (maxCharactersPerTextValue) {
     return this.origin.docSource && (Object.values(this.targets).length > 0) && this.origin.docSource.checkSize(maxCharactersPerTextValue) && Object.values(this.targets).every(target => target.docSource.checkSize(maxCharactersPerTextValue))
   }
@@ -234,6 +239,9 @@ export default class Alignment {
     return this.origin.docSource ? this.origin.docSource : null
   }
 
+  /**
+   * @returns {Boolean} - true if origin has text bigger then 0
+   */
   get originDocSourceHasText () {
     return this.originDocSource && Boolean(this.originDocSource.text)
   }
@@ -376,6 +384,9 @@ export default class Alignment {
     return Object.keys(this.targets)
   }
 
+  /**
+   * @returns {Array[Object{ targetId: String, targetIndex: Number }]} - reverse order of targetsId with original index
+   */
   get allTargetTextsIdsNumbered () {
     return Object.keys(this.targets).map((targetId, targetIndex) => { return { targetId, targetIndex } }).reverse()
   }
