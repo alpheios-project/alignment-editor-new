@@ -12,10 +12,14 @@
 
 ![image](img/screen-2.png)
 
-4. The Options popup window will give you an access to some useful settings - you could read detailed description [here](enter-text-details.md).
+4. The Options popup window will give you an access to some useful settings - you could read detailed description [here](enter-text-options-details.md).
 
 ![image](img/screen-3.png)
 
 5. You should begin by entering the original text in the left hand text box. Let's type in some Latin (this sample is from [AVLI GELLI NOCTES ATTICAE: LIBER II](http://www.thelatinlibrary.com/gellius/gellius2.shtml)). You will notice that as soon as you click outside the text box some new icons appear.
 
 ![image](img/screen-4.png)
+
+6. The first one warns you that no metadata description of this text has been entered yet. If you click on this icon a popup will appear in which you can enter the missing description. The same popup will appear if you click on the "Describe" button under the text box. More details about adding metadata for the text you could read [here](metadata-details.md).
+
+![image](img/screen-5.png)
