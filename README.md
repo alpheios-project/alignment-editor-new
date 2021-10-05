@@ -6,7 +6,7 @@ The Alpheios Translation Alignment editor allows you to create word-by-word alig
 
 It is available [here](https://alignment.alpheios.net/)
 
-## Guides
+## Documentation
 
 - [Simple tutorial](docs/simple-tutorial.md)
 - [Enter Text Options details](docs/enter-text-options.md)
@@ -14,3 +14,4 @@ It is available [here](https://alignment.alpheios.net/)
 - [Language detection details](docs/language-detection.md)
 - [Tokenizer options details](docs/tokenizer-options.md)
 - [Alignment groups creation details](docs/alignment-groups.md)
+- [Annotations details](docs/annotations.md)

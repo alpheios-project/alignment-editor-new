@@ -62,3 +62,9 @@ texts for alignment.
 ![image](img/screen-14.png)
 
 16. To dissolve a group of links you can double click on any word in the group in either text and then single click on each other word in the group until they have all returned to an unlinked red status. You can also dissolve the links in the most recent group you created just by hitting the Undo button repeatedly. detailed information about linking features could be found [here](alignment-groups.md).
+
+17. At any time we can navigate back to the ENTER TEXT screen and add a new translation text by clicking on the plus icon. And easily return to the ALIGN TEXT screen with the help of navigation links in the left top corner of each screen.
+
+18. If you want to add an annotation to the word you must switch to annotation mode by clicking on the toggle switch. Now when you click on a word you will see a box into which you can enter your annotation. More details could be found [here](annotations.md).
+
+![image](img/screen-15.png)
