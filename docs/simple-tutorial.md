@@ -23,3 +23,7 @@
 6. The first one warns you that no metadata description of this text has been entered yet. If you click on this icon a popup will appear in which you can enter the missing description. The same popup will appear if you click on the "Describe" button under the text box. More details about adding metadata for the text you could read [here](metadata-details.md).
 
 ![image](img/screen-5.png)
+
+7. The second icon shows the language that the application believes it has detected (details about language detection are [here](language-detection-details.md)). If this is not the correct language you can click on this icon and redefine it manually. You can either select the correct language from the dropdown list or enter the language code in the empty box.
+
+![image](img/screen-6.png)
