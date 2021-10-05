@@ -65,6 +65,10 @@ texts for alignment.
 
 17. At any time we can navigate back to the ENTER TEXT screen and add a new translation text by clicking on the plus icon. And easily return to the ALIGN TEXT screen with the help of navigation links in the left top corner of each screen.
 
-18. If you want to add an annotation to the word you must switch to annotation mode by clicking on the toggle switch. Now when you click on a word you will see a box into which you can enter your annotation. More details could be found [here](annotations.md).
+18. If we need to do some simple editing after the texts have been prepared for alignment and already appear on the Align Text screen we must go to the the EDIT TEXT screen and make our modifications there. See the Help page on the Edit Text screen. More details about editing tokens you could read [here](edit-tokens.md).
+
+![image](img/screen-16.png)
+
+19. If you want to add an annotation to the word you must switch to annotation mode by clicking on the toggle switch. Now when you click on a word you will see a box into which you can enter your annotation. More details could be found [here](annotations.md).
 
 ![image](img/screen-15.png)
