@@ -6,4 +6,6 @@ The Alpheios Translation Alignment editor allows you to create word-by-word alig
 
 It is available [here](https://alignment.alpheios.net/)
 
+## Guides
+
 - [Simple tutorial](docs/simple-tutorial.md)
