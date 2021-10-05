@@ -9,3 +9,4 @@ It is available [here](https://alignment.alpheios.net/)
 ## Guides
 
 - [Simple tutorial](docs/simple-tutorial.md)
+- [Enter Text Options detailed information](docs/enter-text-options-details.md)
