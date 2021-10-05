@@ -5,3 +5,5 @@
 The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.
 
 It is available [here](https://alignment.alpheios.net/)
+
+- [Simple tutorial](docs/simple-tutorial.md)
