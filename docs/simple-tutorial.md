@@ -2,4 +2,4 @@
 
 1. Click **Start a new alignment** button.
 
-!(img/initial-screen.png)
+![image](img/initial-screen.png)
