@@ -9,6 +9,7 @@ It is available [here](https://alignment.alpheios.net/)
 ## Guides
 
 - [Simple tutorial](docs/simple-tutorial.md)
-- [Enter Text Options detailed information](docs/enter-text-options-details.md)
-- [Metadata detailed information](docs/metadata-details.md)
-- [Language detection details](docs/language-detection-details.md)
+- [Enter Text Options details](docs/enter-text-options.md)
+- [Metadata details](docs/metadata.md)
+- [Language detection details](docs/language-detection.md)
+- [Tokenizer options details](docs/tokenizer-options.md)
