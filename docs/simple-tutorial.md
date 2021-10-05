@@ -72,3 +72,13 @@ texts for alignment.
 19. If you want to add an annotation to the word you must switch to annotation mode by clicking on the toggle switch. Now when you click on a word you will see a box into which you can enter your annotation. More details could be found [here](annotations.md).
 
 ![image](img/screen-15.png)
+
+20. There are two save options available from the SAVE LOCALLY button in the top right corner. The **Full to json** option allows you to download all the data for this whole alignment to a JSON file that can be opened in the alpheios alignment editor in any other browser on any other computer. This json file allows you to resume your alignment later or enlist the help of someone else working remotely. You could see detailed specification for json format [here](json-format-specification.md).
+
+![image](img/screen-17.png)
+
+21. Let's reload the page. Click "Resume Previous Alignment". You can upload the JSON file by using the "Choose file" button. Or select it from the list of autosaved alignments below the button.
+
+![image](img/screen-18.png)
+
+22. The "HTML" option creates an offline HTML file that can display the alignments in several different formats in any of the three browsers that we support: Chrome, Firefox and Safari. More details about HTML format you could find [here](html-output.md).
