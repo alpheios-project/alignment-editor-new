@@ -9,13 +9,13 @@
           <template v-slot:disabled><pen-icon /></template>
         </actions-button>
 
-        <actions-button tooltipMess = "ACTION_BUTTON_MERGE_LEFT" :allowedCondition = "allowedMergePrev"
+        <actions-button tooltipMess = "ACTION_BUTTON_MERGE_PREV" :allowedCondition = "allowedMergePrev"
                         actionName = "merge_left" @click = "mergeToPrev">
           <template v-slot:enabled><merge-left-icon /></template>
           <template v-slot:disabled><merge-left-icon /></template>
         </actions-button>
 
-        <actions-button tooltipMess = "ACTION_BUTTON_MERGE_RIGHT" :allowedCondition = "allowedMergeNext"
+        <actions-button tooltipMess = "ACTION_BUTTON_MERGE_NEXT" :allowedCondition = "allowedMergeNext"
                         actionName = "merge_right" @click = "mergeToNext">
           <template v-slot:enabled><merge-right-icon /></template>
           <template v-slot:disabled><merge-right-icon /></template>

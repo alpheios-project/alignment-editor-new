@@ -48136,7 +48136,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i548-delete-annotations.20211006667" : 0
+    return  true ? "i548-delete-annotations.20211006668" : 0
   }
 
   static get libName () {
@@ -65779,7 +65779,7 @@ var render = function() {
           _vm._v(" "),
           _c("actions-button", {
             attrs: {
-              tooltipMess: "ACTION_BUTTON_MERGE_LEFT",
+              tooltipMess: "ACTION_BUTTON_MERGE_PREV",
               allowedCondition: _vm.allowedMergePrev,
               actionName: "merge_left"
             },
@@ -65804,7 +65804,7 @@ var render = function() {
           _vm._v(" "),
           _c("actions-button", {
             attrs: {
-              tooltipMess: "ACTION_BUTTON_MERGE_RIGHT",
+              tooltipMess: "ACTION_BUTTON_MERGE_NEXT",
               allowedCondition: _vm.allowedMergeNext,
               actionName: "merge_right"
             },
