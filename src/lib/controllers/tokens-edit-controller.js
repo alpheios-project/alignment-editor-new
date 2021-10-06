@@ -36,6 +36,7 @@ export default class TokensEditController {
       this.store.commit('incrementTokenUpdated')
 
       await this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+      await this.deleteAllAnnotationsStorage()
       await StorageController.update(this.alignment)
       return true
     }
@@ -55,6 +56,7 @@ export default class TokensEditController {
       this.store.commit('incrementTokenUpdated')
 
       await this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+      await this.deleteAllAnnotationsStorage()
       await StorageController.update(this.alignment)
       return true
     }
@@ -89,6 +91,7 @@ export default class TokensEditController {
     if (this.alignment.splitToken(token, tokenWord)) {
       this.store.commit('incrementTokenUpdated')
       await this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+      await this.deleteAllAnnotationsStorage()
       await StorageController.update(this.alignment)
       return true
     }
@@ -106,6 +109,7 @@ export default class TokensEditController {
     if (this.alignment.addLineBreakAfterToken(token)) {
       this.store.commit('incrementTokenUpdated')
       await this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+      await this.deleteAllAnnotationsStorage()
       await StorageController.update(this.alignment)
       return true
     }
@@ -124,6 +128,7 @@ export default class TokensEditController {
       this.store.commit('incrementTokenUpdated')
 
       await this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+      await this.deleteAllAnnotationsStorage()
       await StorageController.update(this.alignment)
 
       return true
@@ -149,6 +154,7 @@ export default class TokensEditController {
 
       await this.deleteAllPartFromStorage(token.docSourceId, tokenSegmentIndex, tokenPartNum)
       await this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+      await this.deleteAllAnnotationsStorage()
 
       await StorageController.update(this.alignment)
       return true
@@ -265,6 +271,7 @@ export default class TokensEditController {
     if (data.result) {
       this.store.commit('incrementTokenUpdated')
       await this.deleteAllPartFromStorage(textId, data.segmentIndex, data.partNum)
+      await this.deleteAllAnnotationsStorage()
       await StorageController.update(this.alignment)
       return true
     }
@@ -282,6 +289,7 @@ export default class TokensEditController {
     if (this.alignment.deleteToken(token)) {
       this.store.commit('incrementTokenUpdated')
       await this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+      await this.deleteAllAnnotationsStorage()
       await StorageController.update(this.alignment)
       return true
     }
@@ -339,6 +347,8 @@ export default class TokensEditController {
         await this.deleteAllPartFromStorage(data.token.docSourceId, data.newSegmentIndex, data.newPartNum)
       }
     }
+
+    await this.deleteAllAnnotationsStorage()
   }
 
   deleteAllPartFromStorage (textId, segmentIndex, partNum) {
@@ -349,5 +359,12 @@ export default class TokensEditController {
       segmentIndex,
       partNum
     }, 'allPartNum')
+  }
+
+  deleteAllAnnotationsStorage () {
+    StorageController.deleteMany({
+      userID: this.alignment.userID,
+      alignmentID: this.alignment.id
+    }, 'allAnnotations')
   }
 }

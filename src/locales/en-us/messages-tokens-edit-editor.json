@@ -24,13 +24,13 @@
       "description": "A label for action menu buttons",
       "component": "ActionsMenuTokenEdit"
     },
-    "ACTION_BUTTON_MERGE_LEFT": {
-      "message": "Merge with a left token",
+    "ACTION_BUTTON_MERGE_PREV": {
+      "message": "Merge with a previous token",
       "description": "A label for action menu buttons",
       "component": "ActionsMenuTokenEdit"
     },
-    "ACTION_BUTTON_MERGE_RIGHT": {
-      "message": "Merge with a right token",
+    "ACTION_BUTTON_MERGE_NEXT": {
+      "message": "Merge with a next token",
       "description": "A label for action menu buttons",
       "component": "ActionsMenuTokenEdit"
     },

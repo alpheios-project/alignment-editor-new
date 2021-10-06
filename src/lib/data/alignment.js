@@ -880,8 +880,10 @@ export default class Alignment {
     }
 
     const result = this.tokensEditActions.mergeToken(token, direction, this.annotations)
-    delete this.annotations[result.wasIdWord[0]]
-    delete this.annotations[result.wasIdWord[1]]
+    // delete this.annotations[result.wasIdWord[0]]
+    // delete this.annotations[result.wasIdWord[1]]
+    this.deleteAnnotations(result.wasIdWord[0])
+    this.deleteAnnotations(result.wasIdWord[1])
     this.setUpdated()
     return result
   }
@@ -894,7 +896,8 @@ export default class Alignment {
   splitToken (token, tokenWord) {
     const result = this.tokensEditActions.splitToken(token, tokenWord, this.annotations[token.idWord])
 
-    delete this.annotations[result.wasIdWord]
+    // delete this.annotations[result.wasIdWord]
+    this.deleteAnnotations(result.wasIdWord)
     this.setUpdated()
     return result
   }
@@ -956,7 +959,8 @@ export default class Alignment {
    */
   deleteToken (token) {
     const result = this.tokensEditActions.deleteToken(token, this.annotations[token.idWord])
-    delete this.annotations[token.idWord]
+    this.deleteAnnotations(token.idWord)
+    // delete this.annotations[token.idWord]
     this.setUpdated()
     return result
   }
@@ -1467,7 +1471,8 @@ export default class Alignment {
     for (let i = 0; i < fromIdWord.length; i++) {
       if (this.annotations[fromIdWord[i]]) {
         annotations.push(...this.annotations[fromIdWord[i]])
-        delete this.annotations[fromIdWord[i]]
+        // delete this.annotations[fromIdWord[i]]
+        this.deleteAnnotations(fromIdWord[i])
       }
     }
     this.annotations[token.idWord] = annotations
@@ -1488,7 +1493,8 @@ export default class Alignment {
         this.annotations[token2.idWord] = annotationsForToken2
         this.annotations[token2.idWord].forEach(annot => { annot.token = token2 })
       }
-      delete this.annotations[fromIdWord]
+      // delete this.annotations[fromIdWord]
+      this.deleteAnnotations(fromIdWord)
     }
   }
 
@@ -1596,7 +1602,8 @@ export default class Alignment {
     if (annotationIndex >= 0) {
       this.annotations[token.idWord].splice(annotationIndex, 1)
       if (this.annotations[token.idWord].length === 0) {
-        delete this.annotations[token.idWord]
+        // delete this.annotations[token.idWord]
+        this.deleteAnnotations(token.idWord)
       }
       return true
     }
