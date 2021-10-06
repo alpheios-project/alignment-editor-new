@@ -164,7 +164,6 @@ export default class UploadController {
   }
 
   static async indexedDBUploadSingle (alData) {
-    console.info('indexedDBUploadSingle - started')
     const dbData = await StorageController.select(alData, 'alignmentByAlIDQuery')
     if (dbData) {
       const alignment = await Alignment.convertFromIndexedDB(dbData)

@@ -2369,12 +2369,16 @@ div.alpheios-alignment-annotation-mode-check-container .alpheios-switch-label {
   position: relative;
   padding: 4px;
 }
-.alpheios-alignment-editor-token-edit-input {
+input.alpheios-alignment-editor-token-edit-input {
   position: absolute;
   width: 100%;
   top: 0;
   left: 0;
   z-index: 10;
+}
+input.alpheios-alignment-editor-token-edit-input.alpheios-token-annotated {
+  border-width: 2px;
+  border-color: #ae0000;
 }
 .alpheios-alignment-editor-token-edit-span__activated {
   margin-top: 30px;

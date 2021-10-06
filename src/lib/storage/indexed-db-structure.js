@@ -606,9 +606,21 @@ export default class IndexedDBStructure {
       fullAlignmentByID: this.prepareDeleteFullAlignmentByID.bind(this),
       alignmentGroupByID: this.prepareDeleteAlignmentGroupByID.bind(this),
       allPartNum: this.prepareDeleteAllPartNum.bind(this),
-      annotationByID: this.prepareDeleteAnnotationByID.bind(this)
+      annotationByID: this.prepareDeleteAnnotationByID.bind(this),
+      allAnnotations: this.prepareDeleteAllAnnotations.bind(this)
     }
     return typeQueryList[typeQuery](indexData)
+  }
+
+  static prepareDeleteAllAnnotations (indexData) {
+    return [{
+      objectStoreName: this.allObjectStoreData.annotations.name,
+      condition: {
+        indexName: 'alignmentID',
+        value: indexData.alignmentID,
+        type: 'only'
+      }
+    }]
   }
 
   static prepareDeleteAnnotationByID (indexData) {

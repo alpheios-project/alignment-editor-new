@@ -140,4 +140,8 @@ export default class EditorHistory {
     this.currentStepIndex = null
     return true
   }
+
+  updateLastStepWithAnnotations () {
+
+  }
 }

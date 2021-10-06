@@ -880,7 +880,10 @@ export default class Alignment {
     }
 
     const result = this.tokensEditActions.mergeToken(token, direction, this.annotations)
-    this.updateAnnotationLinksSingle(result.token, result.wasIdWord)
+    // delete this.annotations[result.wasIdWord[0]]
+    // delete this.annotations[result.wasIdWord[1]]
+    this.deleteAnnotations(result.wasIdWord[0])
+    this.deleteAnnotations(result.wasIdWord[1])
     this.setUpdated()
     return result
   }
@@ -891,9 +894,10 @@ export default class Alignment {
    * @returns {Boolean}
    */
   splitToken (token, tokenWord) {
-    const result = this.tokensEditActions.splitToken(token, tokenWord)
+    const result = this.tokensEditActions.splitToken(token, tokenWord, this.annotations[token.idWord])
 
-    this.updateAnnotationLinksSingle(result.token, [result.wasIdWord])
+    // delete this.annotations[result.wasIdWord]
+    this.deleteAnnotations(result.wasIdWord)
     this.setUpdated()
     return result
   }
@@ -955,7 +959,8 @@ export default class Alignment {
    */
   deleteToken (token) {
     const result = this.tokensEditActions.deleteToken(token, this.annotations[token.idWord])
-    delete this.annotations[token.idWord]
+    this.deleteAnnotations(token.idWord)
+    // delete this.annotations[token.idWord]
     this.setUpdated()
     return result
   }
@@ -1044,11 +1049,24 @@ export default class Alignment {
 
   undoTokensEditStep () {
     const result = this.tokensEditHistory.undo()
+
+    if (result.data && result.data[0]) {
+      this.removeNewAnnotations(result.data[0].idWordNewAnnotations)
+    }
+
     if (result.data && result.data[0] && result.data[0].updateAnnotations) {
       if (result.data[0].type === 'multiple') {
         this.updateAnnotationLinksMultiple(result.data[0].newIdWord, { token: result.data[0].mergedToken, annotations: result.data[0].mergedAnnotations }, result.data[0].wasToken)
       } else if (result.data[0].type === 'local') {
-        this.updateAnnotationLinksLocal(result.data[0].token, result.data[0].annotations)
+        if (result.data[0].token) {
+          this.updateAnnotationLinksLocal(result.data[0].token, result.data[0].annotations)
+        }
+        if (result.data[0].mergedToken) {
+          this.updateAnnotationLinksLocal(result.data[0].mergedToken, result.data[0].annotations)
+        }
+        if (result.data[0].wasToken) {
+          this.updateAnnotationLinksLocal(result.data[0].wasToken, result.data[0].annotations)
+        }
       } else {
         this.updateAnnotationLinksSingle(result.data[0].token, result.data[0].wasIdWord)
       }
@@ -1058,16 +1076,42 @@ export default class Alignment {
 
   redoTokensEditStep () {
     const result = this.tokensEditHistory.redo()
+
     if (result.data && result.data[0] && result.data[0].updateAnnotations) {
       if (result.data[0].type === 'multiple') {
         this.updateAnnotationLinksMultiple(result.data[0].newIdWord, { token: result.data[0].mergedToken, annotations: result.data[0].mergedAnnotations }, result.data[0].wasToken)
       } if (result.data[0].type === 'delete') {
-        this.deleteAnnotations(result.data[0].token)
+        if (result.data[0].wasIdWord) {
+          result.data[0].wasIdWord.forEach(idWord => this.deleteAnnotations(idWord))
+        } else {
+          this.deleteAnnotations(result.data[0].token.idWord)
+        }
       } else {
         this.updateAnnotationLinksSingle(result.data[0].token, result.data[0].wasIdWord)
       }
     }
+
+    if (result.data && result.data[0]) {
+      this.uploadNewAnnotations(result.data[0].idWordNewAnnotations, result.data[0].newAnnotations)
+    }
     return result
+  }
+
+  removeNewAnnotations (idWord) {
+    if (!this.annotations[idWord]) { return }
+
+    this.tokensEditHistory.updateLastStepWithAnnotations(this.annotations, idWord)
+    this.annotations[idWord] = this.annotations[idWord].filter(annot => annot.tokenIdWordCreated !== idWord)
+  }
+
+  uploadNewAnnotations (idWord, annotations) {
+    if (!annotations || !annotations[idWord]) { return }
+
+    if (!this.annotations[idWord]) {
+      this.annotations[idWord] = []
+    }
+
+    this.annotations[idWord].push(...annotations[idWord])
   }
 
   /**
@@ -1427,7 +1471,8 @@ export default class Alignment {
     for (let i = 0; i < fromIdWord.length; i++) {
       if (this.annotations[fromIdWord[i]]) {
         annotations.push(...this.annotations[fromIdWord[i]])
-        delete this.annotations[fromIdWord[i]]
+        // delete this.annotations[fromIdWord[i]]
+        this.deleteAnnotations(fromIdWord[i])
       }
     }
     this.annotations[token.idWord] = annotations
@@ -1448,19 +1493,20 @@ export default class Alignment {
         this.annotations[token2.idWord] = annotationsForToken2
         this.annotations[token2.idWord].forEach(annot => { annot.token = token2 })
       }
-      delete this.annotations[fromIdWord]
+      // delete this.annotations[fromIdWord]
+      this.deleteAnnotations(fromIdWord)
     }
   }
 
   updateAnnotationLinksLocal (token, annotations) {
-    if (annotations) {
-      this.annotations[token.idWord] = annotations
+    if (annotations && annotations[token.idWord]) {
+      this.annotations[token.idWord] = annotations[token.idWord]
       this.annotations[token.idWord].forEach(annot => { annot.token = token })
     }
   }
 
-  deleteAnnotations (token) {
-    delete this.annotations[token.idWord]
+  deleteAnnotations (idWord) {
+    delete this.annotations[idWord]
   }
 
   /**
@@ -1556,7 +1602,8 @@ export default class Alignment {
     if (annotationIndex >= 0) {
       this.annotations[token.idWord].splice(annotationIndex, 1)
       if (this.annotations[token.idWord].length === 0) {
-        delete this.annotations[token.idWord]
+        // delete this.annotations[token.idWord]
+        this.deleteAnnotations(token.idWord)
       }
       return true
     }

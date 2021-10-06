@@ -10,7 +10,7 @@ import Segment from '@/lib/data/segment'
 
 import AlignmentHistory from '@/lib/data/history/alignment-history'
 
-describe('alignment-history-cases.test.js', () => {
+describe('alignment-annotations.test.js', () => {
   // console.error = function () {}
   console.log = function () {}
   console.warn = function () {}
@@ -32,6 +32,10 @@ describe('alignment-history-cases.test.js', () => {
     jest.spyOn(console, 'warn')
   })
 
+  const checkAnnotation = (alignment, idWord, text) => {
+    return alignment.annotations[idWord] && alignment.annotations[idWord].some(annot => annot.token.idWord === idWord && annot.text === text)
+  }
+
   it('1 Alignment Annotations - update annotations links on merge tokens', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
@@ -50,78 +54,46 @@ describe('alignment-history-cases.test.js', () => {
     const originToken1 = allSegments[0].origin.tokens[0]
     const originToken2 = allSegments[0].origin.tokens[1]
     
+    // add before editing
     alignment.addAnnotation({ token: originToken1, type: Annotation.types.COMMENT, text: 'test annotation 1' })
     alignment.addAnnotation({ token: originToken2, type: Annotation.types.COMMENT, text: 'test annotation 2' })
 
-    expect(Object.keys(alignment.annotations)).toEqual([ '1-0-0', '1-0-1' ])
+    expect(checkAnnotation(alignment, '1-0-0', 'test annotation 1')).toBeTruthy()
+    expect(checkAnnotation(alignment, '1-0-1', 'test annotation 2')).toBeTruthy()
 
     alignment.mergeToken(originToken1, 'next')
+
+    expect(checkAnnotation(alignment, '1-0-0', 'test annotation 1')).toBeFalsy()
+    expect(checkAnnotation(alignment, '1-0-1', 'test annotation 2')).toBeFalsy()
+    expect(checkAnnotation(alignment, '1-0-1-m-1', 'test annotation 1')).toBeFalsy()
+    expect(checkAnnotation(alignment, '1-0-1-m-1', 'test annotation 2')).toBeFalsy()
+
+    // add after editing
     alignment.addAnnotation({ token: allSegments[0].origin.tokens[0], type: Annotation.types.COMMENT, text: 'test annotation 3' })
 
-    expect(Object.keys(alignment.annotations)).toEqual([ '1-0-1-m-1' ])
-    expect(alignment.annotations[ '1-0-1-m-1' ].length).toEqual(3)
-
-    expect(alignment.annotations[ '1-0-1-m-1' ]).toEqual(expect.arrayContaining([
-      expect.objectContaining({
-        token: expect.objectContaining( { idWord: '1-0-1-m-1' }),
-        text: 'test annotation 1'
-      }),
-      expect.objectContaining({
-        token: expect.objectContaining( { idWord: '1-0-1-m-1' }),
-        text: 'test annotation 2'
-      }),
-      expect.objectContaining({
-        token: expect.objectContaining( { idWord: '1-0-1-m-1' }),
-        text: 'test annotation 3'
-      })
-    ]))
+    expect(checkAnnotation(alignment, '1-0-1-m-1', 'test annotation 3')).toBeTruthy()
 
     alignment.undoTokensEditStep()
 
-    expect(Object.keys(alignment.annotations)).toEqual([ '1-0-0', '1-0-1' ])
-
-    expect(alignment.annotations[ '1-0-0' ].length).toEqual(1)
-    expect(alignment.annotations[ '1-0-1' ].length).toEqual(2)
-
-    expect(alignment.annotations[ '1-0-0' ]).toEqual(expect.arrayContaining([
-      expect.objectContaining({
-        token: expect.objectContaining( { idWord: '1-0-0' }),
-        text: 'test annotation 1'
-      })
-    ])
-    )
-
-    expect(alignment.annotations[ '1-0-1' ]).toEqual(expect.arrayContaining([
-      expect.objectContaining({
-        token: expect.objectContaining( { idWord: '1-0-1' }),
-        text: 'test annotation 2'
-      }),
-      expect.objectContaining({
-        token: expect.objectContaining( { idWord: '1-0-1' }),
-        text: 'test annotation 3'
-      })
-    ])
-    )
+    expect(checkAnnotation(alignment, '1-0-0', 'test annotation 1')).toBeTruthy()
+    expect(checkAnnotation(alignment, '1-0-1', 'test annotation 2')).toBeTruthy()
+    
+    expect(checkAnnotation(alignment, '1-0-0', 'test annotation 3')).toBeFalsy()
+    expect(checkAnnotation(alignment, '1-0-1', 'test annotation 3')).toBeFalsy()
+    expect(checkAnnotation(alignment, '1-0-1-m-1', 'test annotation 1')).toBeFalsy()
+    expect(checkAnnotation(alignment, '1-0-1-m-1', 'test annotation 2')).toBeFalsy()
+    expect(checkAnnotation(alignment, '1-0-1-m-1', 'test annotation 3')).toBeFalsy()
 
     alignment.redoTokensEditStep()
 
-    expect(Object.keys(alignment.annotations)).toEqual([ '1-0-1-m-1' ])
-    expect(alignment.annotations[ '1-0-1-m-1' ].length).toEqual(3)
+    expect(checkAnnotation(alignment, '1-0-1-m-1', 'test annotation 1')).toBeFalsy()
+    expect(checkAnnotation(alignment, '1-0-1-m-1', 'test annotation 2')).toBeFalsy()
+    expect(checkAnnotation(alignment, '1-0-1-m-1', 'test annotation 3')).toBeTruthy()
 
-    expect(alignment.annotations[ '1-0-1-m-1' ]).toEqual(expect.arrayContaining([
-      expect.objectContaining({
-        token: expect.objectContaining( { idWord: '1-0-1-m-1' }),
-        text: 'test annotation 1'
-      }),
-      expect.objectContaining({
-        token: expect.objectContaining( { idWord: '1-0-1-m-1' }),
-        text: 'test annotation 2'
-      }),
-      expect.objectContaining({
-        token: expect.objectContaining( { idWord: '1-0-1-m-1' }),
-        text: 'test annotation 3'
-      })
-    ]))
+
+    expect(checkAnnotation(alignment, '1-0-0', 'test annotation 1')).toBeFalsy()
+    expect(checkAnnotation(alignment, '1-0-1', 'test annotation 2')).toBeFalsy()
+
   })
 
   it('2 Alignment Annotations - update annotations links on update token', async () => {
@@ -140,42 +112,32 @@ describe('alignment-history-cases.test.js', () => {
     await alignment.createAlignedTexts('simpleLocalTokenizer')
     const allSegments = alignment.allAlignedTextsSegments
     const originToken1 = allSegments[0].origin.tokens[0]
-    const originToken2 = allSegments[0].origin.tokens[1]
     
+    // add annotation before editing
     alignment.addAnnotation({ token: originToken1, type: Annotation.types.COMMENT, text: 'test annotation 1' })
-    
-    expect(Object.keys(alignment.annotations)).toEqual([ '1-0-0' ])
+    expect(checkAnnotation(alignment, '1-0-0', 'test annotation 1')).toBeTruthy()
     
     alignment.updateTokenWord(originToken1, 'soome')
+    expect(checkAnnotation(alignment, '1-0-0-e-1', 'test annotation 1')).toBeTruthy()
+    expect(checkAnnotation(alignment, '1-0-0', 'test annotation 1')).toBeFalsy()
 
-    expect(Object.keys(alignment.annotations)).toEqual([ '1-0-0-e-1' ])
-    expect(alignment.annotations[ '1-0-0-e-1' ]).toEqual(expect.arrayContaining([
-      expect.objectContaining({
-        token: expect.objectContaining( { idWord: '1-0-0-e-1' }),
-        text: 'test annotation 1'
-      })
-    ]))
+    // add annotation after editing
+    alignment.addAnnotation({ token: allSegments[0].origin.tokens[0], type: Annotation.types.COMMENT, text: 'test annotation 2' })
+    expect(checkAnnotation(alignment, '1-0-0-e-1', 'test annotation 2')).toBeTruthy()
 
     alignment.undoTokensEditStep()
 
-    expect(Object.keys(alignment.annotations)).toEqual([ '1-0-0' ])
-    expect(alignment.annotations[ '1-0-0' ]).toEqual(expect.arrayContaining([
-      expect.objectContaining({
-        token: expect.objectContaining( { idWord: '1-0-0' }),
-        text: 'test annotation 1'
-      })
-    ]))
+    expect(checkAnnotation(alignment, '1-0-0', 'test annotation 1')).toBeTruthy()
+    expect(checkAnnotation(alignment, '1-0-0', 'test annotation 2')).toBeFalsy()
+    expect(checkAnnotation(alignment, '1-0-0-e-1', 'test annotation 2')).toBeFalsy()
 
     alignment.redoTokensEditStep()
+    // console.info(Object.keys(alignment.annotations))
+    // console.info(Object.values(alignment.annotations))
 
-    expect(Object.keys(alignment.annotations)).toEqual([ '1-0-0-e-1' ])
-    expect(alignment.annotations[ '1-0-0-e-1' ]).toEqual(expect.arrayContaining([
-      expect.objectContaining({
-        token: expect.objectContaining( { idWord: '1-0-0-e-1' }),
-        text: 'test annotation 1'
-      })
-    ]))
-
+    expect(checkAnnotation(alignment, '1-0-0-e-1', 'test annotation 1')).toBeTruthy()
+    expect(checkAnnotation(alignment, '1-0-0-e-1', 'test annotation 2')).toBeTruthy()
+    expect(checkAnnotation(alignment, '1-0-0', 'test annotation 1')).toBeFalsy()
   })
 
   it('3 Alignment Annotations - update annotations links on addLineBreakAfterToken', async () => {
@@ -196,39 +158,36 @@ describe('alignment-history-cases.test.js', () => {
     const originToken1 = allSegments[0].origin.tokens[0]
     const originToken2 = allSegments[0].origin.tokens[1]
     
+    // add annotation before editing
     alignment.addAnnotation({ token: originToken1, type: Annotation.types.COMMENT, text: 'test annotation 1' })
-    
-    expect(Object.keys(alignment.annotations)).toEqual([ '1-0-0' ])
+    expect(checkAnnotation(alignment, '1-0-0', 'test annotation 1')).toBeTruthy()
     
     alignment.addLineBreakAfterToken(originToken1)
 
-    expect(Object.keys(alignment.annotations)).toEqual([ '1-0-0-al-1' ])
-    expect(alignment.annotations[ '1-0-0-al-1' ]).toEqual(expect.arrayContaining([
-      expect.objectContaining({
-        token: expect.objectContaining( { idWord: '1-0-0-al-1' }),
-        text: 'test annotation 1'
-      })
-    ]))
+    expect(checkAnnotation(alignment, '1-0-0', 'test annotation 1')).toBeFalsy()
+    expect(checkAnnotation(alignment, '1-0-0-al-1', 'test annotation 1')).toBeTruthy()
+
+    // add annotation after editing
+    alignment.addAnnotation({ token: allSegments[0].origin.tokens[0], type: Annotation.types.COMMENT, text: 'test annotation 2' })
+
+    expect(checkAnnotation(alignment, '1-0-0-al-1', 'test annotation 2')).toBeTruthy()
 
     alignment.undoTokensEditStep()
 
-    expect(Object.keys(alignment.annotations)).toEqual([ '1-0-0' ])
-    expect(alignment.annotations[ '1-0-0' ]).toEqual(expect.arrayContaining([
-      expect.objectContaining({
-        token: expect.objectContaining( { idWord: '1-0-0' }),
-        text: 'test annotation 1'
-      })
-    ]))
+    // console.info(Object.keys(alignment.annotations))
+    // console.info(Object.values(alignment.annotations))
+
+    expect(checkAnnotation(alignment, '1-0-0', 'test annotation 1')).toBeTruthy()
+    expect(checkAnnotation(alignment, '1-0-0-al-1', 'test annotation 1')).toBeFalsy()
+
+    expect(checkAnnotation(alignment, '1-0-0-al-1', 'test annotation 2')).toBeFalsy()
+    expect(checkAnnotation(alignment, '1-0-0', 'test annotation 2')).toBeFalsy()
 
     alignment.redoTokensEditStep()
 
-    expect(Object.keys(alignment.annotations)).toEqual([ '1-0-0-al-1' ])
-    expect(alignment.annotations[ '1-0-0-al-1' ]).toEqual(expect.arrayContaining([
-      expect.objectContaining({
-        token: expect.objectContaining( { idWord: '1-0-0-al-1' }),
-        text: 'test annotation 1'
-      })
-    ]))
+    expect(checkAnnotation(alignment, '1-0-0', 'test annotation 1')).toBeFalsy()
+    expect(checkAnnotation(alignment, '1-0-0-al-1', 'test annotation 1')).toBeTruthy()
+    expect(checkAnnotation(alignment, '1-0-0-al-1', 'test annotation 2')).toBeTruthy()
 
   })
 
@@ -249,39 +208,36 @@ describe('alignment-history-cases.test.js', () => {
     const allSegments = alignment.allAlignedTextsSegments
     const originToken1 = allSegments[0].origin.tokens[2]
     
+    // add annotation before editing
     alignment.addAnnotation({ token: originToken1, type: Annotation.types.COMMENT, text: 'test annotation 1' })
     
-    expect(Object.keys(alignment.annotations)).toEqual([ '1-0-2' ])
+    expect(checkAnnotation(alignment, '1-0-2', 'test annotation 1')).toBeTruthy()
     
     alignment.moveToSegment(originToken1, 'next')
 
-    expect(Object.keys(alignment.annotations)).toEqual([ '1-0-2-ns-1' ])
-    expect(alignment.annotations[ '1-0-2-ns-1' ]).toEqual(expect.arrayContaining([
-      expect.objectContaining({
-        token: expect.objectContaining( { idWord: '1-0-2-ns-1' }),
-        text: 'test annotation 1'
-      })
-    ]))
+    // add annotation after editing
+    alignment.addAnnotation({ token: allSegments[1].origin.tokens[0], type: Annotation.types.COMMENT, text: 'test annotation 2' })
+
+    expect(checkAnnotation(alignment, '1-0-2', 'test annotation 1')).toBeFalsy()
+    expect(checkAnnotation(alignment, '1-0-2-ns-1', 'test annotation 1')).toBeTruthy()
+    expect(checkAnnotation(alignment, '1-0-2-ns-1', 'test annotation 2')).toBeTruthy()
+
+    // console.info(Object.keys(alignment.annotations))
+    // console.info(Object.values(alignment.annotations))
 
     alignment.undoTokensEditStep()
 
-    expect(Object.keys(alignment.annotations)).toEqual([ '1-0-2' ])
-    expect(alignment.annotations[ '1-0-2' ]).toEqual(expect.arrayContaining([
-      expect.objectContaining({
-        token: expect.objectContaining( { idWord: '1-0-2' }),
-        text: 'test annotation 1'
-      })
-    ]))
+    expect(checkAnnotation(alignment, '1-0-2', 'test annotation 1')).toBeTruthy()
+    expect(checkAnnotation(alignment, '1-0-2-ns-1', 'test annotation 1')).toBeFalsy()
+    
+    expect(checkAnnotation(alignment, '1-0-2-ns-1', 'test annotation 2')).toBeFalsy()
+    expect(checkAnnotation(alignment, '1-0-2', 'test annotation 2')).toBeFalsy()
 
     alignment.redoTokensEditStep()
 
-    expect(Object.keys(alignment.annotations)).toEqual([ '1-0-2-ns-1' ])
-    expect(alignment.annotations[ '1-0-2-ns-1' ]).toEqual(expect.arrayContaining([
-      expect.objectContaining({
-        token: expect.objectContaining( { idWord: '1-0-2-ns-1' }),
-        text: 'test annotation 1'
-      })
-    ]))
+    expect(checkAnnotation(alignment, '1-0-2', 'test annotation 1')).toBeFalsy()
+    expect(checkAnnotation(alignment, '1-0-2-ns-1', 'test annotation 1')).toBeTruthy()
+    expect(checkAnnotation(alignment, '1-0-2-ns-1', 'test annotation 2')).toBeTruthy()
 
   })
 
@@ -302,38 +258,33 @@ describe('alignment-history-cases.test.js', () => {
     const allSegments = alignment.allAlignedTextsSegments
     const originToken1 = allSegments[0].origin.tokens[0]
     
+    // add annotation before editing
     alignment.addAnnotation({ token: originToken1, type: Annotation.types.COMMENT, text: 'test annotation 1' })
     
-    expect(Object.keys(alignment.annotations)).toEqual([ '1-0-0' ])
+    expect(checkAnnotation(alignment, '1-0-0', 'test annotation 1')).toBeTruthy()
 
     alignment.splitToken(originToken1, 'so me')
 
-    expect(Object.keys(alignment.annotations)).toEqual([ '1-0-0-s1-1' ])
-    expect(alignment.annotations[ '1-0-0-s1-1' ]).toEqual(expect.arrayContaining([
-      expect.objectContaining({
-        token: expect.objectContaining( { idWord: '1-0-0-s1-1' }),
-        text: 'test annotation 1'
-      })
-    ]))
+    expect(checkAnnotation(alignment, '1-0-0', 'test annotation 1')).toBeFalsy()
+    expect(checkAnnotation(alignment, '1-0-0-s1-1', 'test annotation 1')).toBeFalsy()
+
+    // add annotation after editing
+    alignment.addAnnotation({ token: originToken1, type: Annotation.types.COMMENT, text: 'test annotation 2' })
+    expect(checkAnnotation(alignment, '1-0-0-s1-1', 'test annotation 2')).toBeTruthy()
 
     alignment.undoTokensEditStep()
 
-    expect(Object.keys(alignment.annotations)).toEqual([ '1-0-0' ])
-    expect(alignment.annotations[ '1-0-0' ]).toEqual(expect.arrayContaining([
-      expect.objectContaining({
-        token: expect.objectContaining( { idWord: '1-0-0' }),
-        text: 'test annotation 1'
-      })
-    ]))
+    expect(checkAnnotation(alignment, '1-0-0', 'test annotation 1')).toBeTruthy()
+
+    expect(checkAnnotation(alignment, '1-0-0-s1-1', 'test annotation 1')).toBeFalsy()
+    expect(checkAnnotation(alignment, '1-0-0-s1-1', 'test annotation 2')).toBeFalsy()
+    expect(checkAnnotation(alignment, '1-0-0', 'test annotation 2')).toBeFalsy()
 
     alignment.redoTokensEditStep()
-    expect(Object.keys(alignment.annotations)).toEqual([ '1-0-0-s1-1' ])
-    expect(alignment.annotations[ '1-0-0-s1-1' ]).toEqual(expect.arrayContaining([
-      expect.objectContaining({
-        token: expect.objectContaining( { idWord: '1-0-0-s1-1' }),
-        text: 'test annotation 1'
-      })
-    ]))
+
+    expect(checkAnnotation(alignment, '1-0-0', 'test annotation 1')).toBeFalsy()
+    expect(checkAnnotation(alignment, '1-0-0-s1-1', 'test annotation 1')).toBeFalsy()
+    expect(checkAnnotation(alignment, '1-0-0-s1-1', 'test annotation 2')).toBeTruthy()
   })
  
 
@@ -460,4 +411,5 @@ describe('alignment-history-cases.test.js', () => {
     expect(resultedAnnot6.text).toEqual('test annotation 6')
     expect(resultedAnnot6.index).toEqual('1-0-0-2')
   })
+
 })

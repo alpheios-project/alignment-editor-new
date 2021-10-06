@@ -122,8 +122,18 @@ export default class TokensEditActions {
       position,
       newIdWord
     }
+
+    const deletedAnnotations = {}
+    if (annotations && annotations[wasIdWord]) {
+      deletedAnnotations[wasIdWord] = annotations[wasIdWord]
+    }
+
     if (annotations && annotations[token.idWord]) {
-      stepParams.wasAnnotations = [...annotations[token.idWord]]
+      deletedAnnotations[token.idWord] = annotations[token.idWord]
+    }
+
+    if (deletedAnnotations) {
+      stepParams.deletedAnnotations = deletedAnnotations
     }
 
     tokenResult.merge({ token, position, newIdWord })
@@ -144,7 +154,7 @@ export default class TokensEditActions {
    * @param {String} tokenWord - token's word with space
    * @returns {Boolean}
    */
-  splitToken (token, tokenWord) {
+  splitToken (token, tokenWord, annotations) {
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
     const alignedText = this.getAlignedTextByToken(token)
@@ -169,6 +179,10 @@ export default class TokensEditActions {
       wasWord: token.word,
       newIdWord1,
       newIdWord2
+    }
+
+    if (annotations) {
+      stepParams.deletedAnnotations = { [wasIdWord]: annotations }
     }
 
     const tokenWordParts = tokenWord.split(' ')
@@ -417,7 +431,7 @@ export default class TokensEditActions {
     if (deletedToken) {
       this.tokensEditHistory.truncateSteps()
       this.tokensEditHistory.addStep(null, HistoryStep.types.DELETE, {
-        segmentToDelete: segment, deleteIndex: tokenIndex, deletedToken, deletedAnnotations: annotations
+        segmentToDelete: segment, deleteIndex: tokenIndex, deletedToken, deletedAnnotations: { [deletedToken.idWord]: annotations }
       })
 
       this.reIndexSentence(segment)
@@ -438,7 +452,8 @@ export default class TokensEditActions {
         updateAnnotations: true,
         type: 'single',
         token: step.token,
-        wasIdWord: [step.params.newIdWord]
+        wasIdWord: [step.params.newIdWord],
+        idWordNewAnnotations: step.params.newIdWord
       }
     }
   }
@@ -447,13 +462,16 @@ export default class TokensEditActions {
     const segment = this.getSegmentByToken(step.token)
     step.token.update({ word: step.params.newWord, idWord: step.params.newIdWord })
     this.reIndexSentence(segment)
+
     return {
       result: true,
       data: {
         updateAnnotations: true,
         type: 'single',
         token: step.token,
-        wasIdWord: [step.params.wasIdWord]
+        wasIdWord: [step.params.wasIdWord],
+        idWordNewAnnotations: step.params.newIdWord,
+        newAnnotations: step.params.newAnnotations
       }
     }
   }
@@ -468,15 +486,17 @@ export default class TokensEditActions {
 
     segment.insertToken(step.params.mergedToken, insertPosition)
     this.reIndexSentence(segment)
+
     return {
       result: true,
       data: {
         updateAnnotations: true,
-        type: 'multiple',
+        type: 'local',
         mergedToken: step.params.mergedToken,
-        mergedAnnotations: step.params.wasAnnotations,
+        annotations: step.params.deletedAnnotations,
         wasToken: step.token,
-        newIdWord: step.params.newIdWord
+        newIdWord: step.params.newIdWord,
+        idWordNewAnnotations: step.params.newIdWord
       }
     }
   }
@@ -494,9 +514,11 @@ export default class TokensEditActions {
       result: true,
       data: {
         updateAnnotations: true,
-        type: 'single',
+        type: 'delete',
         token: step.token,
-        wasIdWord: [step.params.wasIdWord, step.params.mergedToken.idWord]
+        wasIdWord: [step.params.wasIdWord, step.params.mergedToken.idWord],
+        idWordNewAnnotations: step.params.newIdWord,
+        newAnnotations: step.params.newAnnotations
       }
     }
   }
@@ -512,9 +534,11 @@ export default class TokensEditActions {
       result: true,
       data: {
         updateAnnotations: true,
-        type: 'single',
+        type: 'local',
         token: step.token,
-        wasIdWord: [step.params.newIdWord1]
+        wasIdWord: [step.params.newIdWord1],
+        annotations: step.params.deletedAnnotations,
+        idWordNewAnnotations: step.params.newIdWord
       }
     }
   }
@@ -530,9 +554,11 @@ export default class TokensEditActions {
       result: true,
       data: {
         updateAnnotations: true,
-        type: 'single',
+        type: 'delete',
         token: step.token,
-        wasIdWord: [step.params.wasIdWord]
+        wasIdWord: [step.params.wasIdWord],
+        idWordNewAnnotations: step.params.newIdWord,
+        newAnnotations: step.params.newAnnotations
       }
     }
   }
@@ -545,7 +571,8 @@ export default class TokensEditActions {
         updateAnnotations: true,
         type: 'single',
         token: step.token,
-        wasIdWord: [step.params.newIdWord]
+        wasIdWord: [step.params.newIdWord],
+        idWordNewAnnotations: step.params.newIdWord
       }
     }
   }
@@ -558,7 +585,9 @@ export default class TokensEditActions {
         updateAnnotations: true,
         type: 'single',
         token: step.token,
-        wasIdWord: [step.params.wasIdWord]
+        wasIdWord: [step.params.wasIdWord],
+        idWordNewAnnotations: step.params.newIdWord,
+        newAnnotations: step.params.newAnnotations
       }
     }
   }
@@ -571,7 +600,8 @@ export default class TokensEditActions {
         updateAnnotations: true,
         type: 'single',
         token: step.token,
-        wasIdWord: [step.params.newIdWord]
+        wasIdWord: [step.params.newIdWord],
+        idWordNewAnnotations: step.params.newIdWord
       }
     }
   }
@@ -584,7 +614,9 @@ export default class TokensEditActions {
         updateAnnotations: true,
         type: 'single',
         token: step.token,
-        wasIdWord: [step.params.wasIdWord]
+        wasIdWord: [step.params.wasIdWord],
+        idWordNewAnnotations: step.params.newIdWord,
+        newAnnotations: step.params.newAnnotations
       }
     }
   }
@@ -610,7 +642,8 @@ export default class TokensEditActions {
         updateAnnotations: true,
         type: 'single',
         token: step.token,
-        wasIdWord: [step.params.newIdWord]
+        wasIdWord: [step.params.newIdWord],
+        idWordNewAnnotations: step.params.newIdWord
       }
     }
   }
@@ -636,7 +669,9 @@ export default class TokensEditActions {
         updateAnnotations: true,
         type: 'single',
         token: step.token,
-        wasIdWord: [step.params.wasIdWord]
+        wasIdWord: [step.params.wasIdWord],
+        idWordNewAnnotations: step.params.newIdWord,
+        newAnnotations: step.params.newAnnotations
       }
     }
   }

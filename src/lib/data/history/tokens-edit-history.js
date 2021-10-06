@@ -41,4 +41,13 @@ export default class TokensEditHistory extends EditorHistory {
   tokenWasEdited (token) {
     return this.steps.some(step => step.token === token)
   }
+
+  updateLastStepWithAnnotations (annotations, idWord) {
+    const step = this.steps[this.currentStepIndex + 1]
+    if (annotations[idWord]) {
+      step.params.newAnnotations = {
+        [idWord]: annotations[idWord].filter(annot => annot.tokenIdWordCreated === idWord)
+      }
+    }
+  }
 }
