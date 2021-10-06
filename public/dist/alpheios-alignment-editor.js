@@ -41438,7 +41438,6 @@ class UploadController {
   }
 
   static async indexedDBUploadSingle (alData) {
-    console.info('indexedDBUploadSingle - started')
     const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].select(alData, 'alignmentByAlIDQuery')
     if (dbData) {
       const alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_2__["default"].convertFromIndexedDB(dbData)
@@ -44013,7 +44012,6 @@ class Alignment {
   undoTokensEditStep () {
     const result = this.tokensEditHistory.undo()
 
-    // console.info('result.data[0] - ', result.data[0])
     if (result.data && result.data[0]) {
       this.removeNewAnnotations(result.data[0].idWordNewAnnotations)
     }
@@ -44066,7 +44064,6 @@ class Alignment {
 
     this.tokensEditHistory.updateLastStepWithAnnotations(this.annotations, idWord)
     this.annotations[idWord] = this.annotations[idWord].filter(annot => annot.tokenIdWordCreated !== idWord)
-    // delete this.annotations[idWord]
   }
 
   uploadNewAnnotations (idWord, annotations) {
@@ -44075,8 +44072,7 @@ class Alignment {
     if (!this.annotations[idWord]) {
       this.annotations[idWord] = []
     }
-    // console.info('this.annotations[idWord] - ', this.annotations[idWord])
-    // console.info('annotations - ', annotations)
+
     this.annotations[idWord].push(...annotations[idWord])
   }
 
@@ -45134,7 +45130,6 @@ class TokensEditHistory extends _lib_data_history_editor_history__WEBPACK_IMPORT
         [idWord]: annotations[idWord].filter(annot => annot.tokenIdWordCreated === idWord)
       }
     }
-    // console.info('step - ', step)
   }
 }
 
@@ -48105,7 +48100,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i548-delete-annotations.20211006637" : 0
+    return  true ? "i548-delete-annotations.20211006641" : 0
   }
 
   static get libName () {

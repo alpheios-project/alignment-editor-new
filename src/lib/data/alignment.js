@@ -1046,7 +1046,6 @@ export default class Alignment {
   undoTokensEditStep () {
     const result = this.tokensEditHistory.undo()
 
-    // console.info('result.data[0] - ', result.data[0])
     if (result.data && result.data[0]) {
       this.removeNewAnnotations(result.data[0].idWordNewAnnotations)
     }
@@ -1099,7 +1098,6 @@ export default class Alignment {
 
     this.tokensEditHistory.updateLastStepWithAnnotations(this.annotations, idWord)
     this.annotations[idWord] = this.annotations[idWord].filter(annot => annot.tokenIdWordCreated !== idWord)
-    // delete this.annotations[idWord]
   }
 
   uploadNewAnnotations (idWord, annotations) {
@@ -1108,8 +1106,7 @@ export default class Alignment {
     if (!this.annotations[idWord]) {
       this.annotations[idWord] = []
     }
-    // console.info('this.annotations[idWord] - ', this.annotations[idWord])
-    // console.info('annotations - ', annotations)
+
     this.annotations[idWord].push(...annotations[idWord])
   }
 

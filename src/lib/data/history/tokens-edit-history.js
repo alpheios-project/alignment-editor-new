@@ -49,6 +49,5 @@ export default class TokensEditHistory extends EditorHistory {
         [idWord]: annotations[idWord].filter(annot => annot.tokenIdWordCreated === idWord)
       }
     }
-    // console.info('step - ', step)
   }
 }
