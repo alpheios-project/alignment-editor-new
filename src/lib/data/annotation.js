@@ -7,6 +7,7 @@ export default class Annotation {
     this.type = type
     this.text = text
     this.index = index
+    this.tokenIdWordCreated = token.idWord
   }
 
   static get allTypes () {
