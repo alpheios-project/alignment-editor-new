@@ -43078,7 +43078,6 @@ class Alignment {
    * @returns
    */
   checkSize (maxCharactersPerTextValue) {
-    // return this.origin.docSource && (Object.values(this.targets).length > 0) && this.origin.docSource.checkSize(maxCharactersPerTextValue) && Object.values(this.targets).every(target => target.docSource.checkSize(maxCharactersPerTextValue))
     return this.checkSizeSourceId('origin', null, maxCharactersPerTextValue) && (Object.values(this.targets).length > 0) && Object.values(this.targets).every(target => this.checkSizeSourceId('target', target.docSource.id, maxCharactersPerTextValue))
   }
 
@@ -48149,7 +48148,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i532-max-per-text.20211007672" : 0
+    return  true ? "i532-max-per-text.20211007675" : 0
   }
 
   static get libName () {

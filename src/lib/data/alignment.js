@@ -91,7 +91,6 @@ export default class Alignment {
    * @returns
    */
   checkSize (maxCharactersPerTextValue) {
-    // return this.origin.docSource && (Object.values(this.targets).length > 0) && this.origin.docSource.checkSize(maxCharactersPerTextValue) && Object.values(this.targets).every(target => target.docSource.checkSize(maxCharactersPerTextValue))
     return this.checkSizeSourceId('origin', null, maxCharactersPerTextValue) && (Object.values(this.targets).length > 0) && Object.values(this.targets).every(target => this.checkSizeSourceId('target', target.docSource.id, maxCharactersPerTextValue))
   }
 
