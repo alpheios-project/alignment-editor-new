@@ -35,7 +35,11 @@ export default class TextsController {
    * @returns
    */
   checkSize () {
-    return Boolean(this.alignment) && this.alignment.checkSize(SettingsController.maxCharactersPerTextValue)
+    return Boolean(this.alignment) && (SettingsController.addIndexedDBSupport || this.alignment.checkSize(SettingsController.maxCharactersPerTextValue))
+  }
+
+  checkSizeSourceId (textType, docSourceId) {
+    return Boolean(this.alignment) && (SettingsController.addIndexedDBSupport || this.alignment.checkSizeSourceId(textType, docSourceId, SettingsController.maxCharactersPerTextValue))
   }
 
   /**
