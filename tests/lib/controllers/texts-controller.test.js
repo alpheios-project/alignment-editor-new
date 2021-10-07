@@ -534,20 +534,33 @@ describe('texts-controller.test.js', () => {
     expect(textsC.getAnnotations(tokenOrigin1).length).toEqual(1)
   })
 
-  it('21 TextsController - checkSize - checks if texts are less then the setting', () => {
+  it('21 TextsController - checkSize - checks if texts are less then the setting only if IndexedDB support is turned off', () => {
     const textsC = new TextsController(appC.store)
     const alignment = Alignment.convertFromJSON(LatEng)
     textsC.alignment = alignment
 
+    // indexedDB is turned on - all checks would be truthy
+    expect(SettingsController.addIndexedDBSupport).toBeTruthy()
+
     expect(SettingsController.maxCharactersPerTextValue).toEqual(5000)
     expect(alignment.origin.docSource.text.length).toEqual(38)
+
     expect(Object.values(alignment.targets)[0].docSource.text.length).toEqual(39)
 
     expect(textsC.checkSize()).toBeTruthy()
 
     SettingsController.allOptions.app.items.maxCharactersPerText.setValue(30)
 
+    expect(textsC.checkSize()).toBeTruthy()
+
+    // let's turn off indexedDB support
+    SettingsController.allOptions.app.items.addIndexedDBSupport.setValue(false)
+
+    // check for maxCharacters = 30, text = 38
     expect(textsC.checkSize()).toBeFalsy()
+
+    SettingsController.allOptions.app.items.maxCharactersPerText.setValue(50)
+    expect(textsC.checkSize()).toBeTruthy()
   })
 
   it('22 TextsController - addNewTarget - adds new empty target', async () => {

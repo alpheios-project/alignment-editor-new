@@ -39996,7 +39996,11 @@ class TextsController {
    * @returns
    */
   checkSize () {
-    return Boolean(this.alignment) && this.alignment.checkSize(_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].maxCharactersPerTextValue)
+    return Boolean(this.alignment) && (_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].addIndexedDBSupport || this.alignment.checkSize(_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].maxCharactersPerTextValue))
+  }
+
+  checkSizeSourceId (textType, docSourceId) {
+    return Boolean(this.alignment) && (_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].addIndexedDBSupport || this.alignment.checkSizeSourceId(textType, docSourceId, _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].maxCharactersPerTextValue))
   }
 
   /**
@@ -43074,7 +43078,15 @@ class Alignment {
    * @returns
    */
   checkSize (maxCharactersPerTextValue) {
-    return this.origin.docSource && (Object.values(this.targets).length > 0) && this.origin.docSource.checkSize(maxCharactersPerTextValue) && Object.values(this.targets).every(target => target.docSource.checkSize(maxCharactersPerTextValue))
+    return this.checkSizeSourceId('origin', null, maxCharactersPerTextValue) && (Object.values(this.targets).length > 0) && Object.values(this.targets).every(target => this.checkSizeSourceId('target', target.docSource.id, maxCharactersPerTextValue))
+  }
+
+  checkSizeSourceId (textType, docSourceId, maxCharactersPerTextValue) {
+    if (textType === 'origin') {
+      return this.origin.docSource && this.origin.docSource.checkSize(maxCharactersPerTextValue)
+    } else {
+      return this.targets[docSourceId].docSource.checkSize(maxCharactersPerTextValue)
+    }
   }
 
   /**
@@ -48136,7 +48148,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i548-delete-annotations.20211006668" : 0
+    return  true ? "i532-max-per-text.20211007675" : 0
   }
 
   static get libName () {
@@ -52195,6 +52207,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -52248,6 +52261,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     disableAnnotationsTypes () {
       return this.$store.state.updateAnnotations && this.$store.state.docSourceUpdated && this.$textC.hasAnnotations
+    },
+    addIndexedDBSupportValue () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].addIndexedDBSupport
     }
   },
   methods: {
@@ -53381,17 +53397,27 @@ __webpack_require__.r(__webpack_exports__);
     charactersClasses () {
       return {
         'alpheios-alignment-editor-hidden' : (this.textCharactersAmount === 0),
-        'alpheios-alignment-editor-red' : this.sourceType === 'text' && (this.textCharactersAmount > this.maxCharactersForTheText)
+        'alpheios-alignment-editor-red' : this.sourceType === 'text' && this.checkTextCharactersAmount && (this.textCharactersAmount > this.maxCharactersForTheText)
       }
+    },
+    checkTextCharactersAmount () {
+      return !this.addIndexedDBSupportValue
     },
     textCharactersAmount () {
       return this.text ? this.text.length : 0
+    },
+    addIndexedDBSupportValue () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].addIndexedDBSupport
     },
     maxCharactersForTheText () {
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].maxCharactersPerTextValue
     },
     charactersText () {
-      return `Characters count - ${this.textCharactersAmount} (max - ${this.maxCharactersForTheText})`
+      if (this.addIndexedDBSupportValue) {
+        return `Characters count - ${this.textCharactersAmount}`
+      } else {
+        return `Characters count - ${this.textCharactersAmount} (max - ${this.maxCharactersForTheText})`
+      }
     },
 
     updatedLocalOptions () {
@@ -63308,10 +63334,6 @@ var render = function() {
             }),
             _vm._v(" "),
             _c("option-item-block", {
-              attrs: { optionItem: _vm.maxCharactersOptionItem }
-            }),
-            _vm._v(" "),
-            _c("option-item-block", {
               attrs: { optionItem: _vm.useSpecificEnglishTokenizerOptionItem }
             }),
             _vm._v(" "),
@@ -63321,6 +63343,18 @@ var render = function() {
             _vm._v(" "),
             _c("option-item-block", {
               attrs: { optionItem: _vm.addIndexedDBSupportOptionItem }
+            }),
+            _vm._v(" "),
+            _c("option-item-block", {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: !_vm.addIndexedDBSupportValue,
+                  expression: "!addIndexedDBSupportValue"
+                }
+              ],
+              attrs: { optionItem: _vm.maxCharactersOptionItem }
             })
           ],
           1

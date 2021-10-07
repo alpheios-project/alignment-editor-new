@@ -295,17 +295,27 @@ export default {
     charactersClasses () {
       return {
         'alpheios-alignment-editor-hidden' : (this.textCharactersAmount === 0),
-        'alpheios-alignment-editor-red' : this.sourceType === 'text' && (this.textCharactersAmount > this.maxCharactersForTheText)
+        'alpheios-alignment-editor-red' : this.sourceType === 'text' && this.checkTextCharactersAmount && (this.textCharactersAmount > this.maxCharactersForTheText)
       }
+    },
+    checkTextCharactersAmount () {
+      return !this.addIndexedDBSupportValue
     },
     textCharactersAmount () {
       return this.text ? this.text.length : 0
+    },
+    addIndexedDBSupportValue () {
+      return this.$store.state.optionsUpdated && SettingsController.addIndexedDBSupport
     },
     maxCharactersForTheText () {
       return this.$store.state.optionsUpdated && SettingsController.maxCharactersPerTextValue
     },
     charactersText () {
-      return `Characters count - ${this.textCharactersAmount} (max - ${this.maxCharactersForTheText})`
+      if (this.addIndexedDBSupportValue) {
+        return `Characters count - ${this.textCharactersAmount}`
+      } else {
+        return `Characters count - ${this.textCharactersAmount} (max - ${this.maxCharactersForTheText})`
+      }
     },
 
     updatedLocalOptions () {

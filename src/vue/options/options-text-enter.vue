@@ -14,10 +14,11 @@
             <option-item-block :optionItem = "availableAnnotationTypesOptionItem"  :disabled = "disableAnnotationsTypes" />
             <option-item-block :optionItem = "maxCharactersAnnotationTextOptionItem" />
             <option-item-block :optionItem = "maxCharactersPerPart" />
-            <option-item-block :optionItem = "maxCharactersOptionItem" />
             <option-item-block :optionItem = "useSpecificEnglishTokenizerOptionItem" />
             <option-item-block :optionItem = "showSummaryPopupOptionItem" />
+
             <option-item-block :optionItem = "addIndexedDBSupportOptionItem"/>
+            <option-item-block :optionItem = "maxCharactersOptionItem" v-show="!addIndexedDBSupportValue"/>
         </div>
     </div>
     <div class="alpheios-modal-footer" >
@@ -89,6 +90,9 @@ export default {
     },
     disableAnnotationsTypes () {
       return this.$store.state.updateAnnotations && this.$store.state.docSourceUpdated && this.$textC.hasAnnotations
+    },
+    addIndexedDBSupportValue () {
+      return this.$store.state.optionsUpdated && SettingsController.addIndexedDBSupport
     }
   },
   methods: {
