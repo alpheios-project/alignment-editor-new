@@ -41313,7 +41313,7 @@ class UploadController {
   static get uploadMethods () {
     return {
       plainSourceUploadAll: { method: this.plainSourceUploadAll, fileUpload: true, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv', extensions: ['csv', 'tsv'] },
-      plainSourceUploadSingle: { method: this.plainSourceUploadSingle, fileUpload: true, allTexts: false, extensions: ['csv', 'tsv', 'xml', 'txt'] },
+      plainSourceUploadSingle: { method: this.plainSourceUploadSingle, fileUpload: true, allTexts: false, extensions: ['xml', 'txt'] },
       jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, fileUpload: true, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json', extensions: ['json'] },
       dtsAPIUpload: { method: this.dtsAPIUploadSingle, fileUpload: true, allTexts: false, name: 'dtsAPIUploadSingle', label: 'DTS API', extensions: ['xml'] },
       indexedDBUpload: { method: this.indexedDBUploadSingle, fileUpload: false, allTexts: true, name: 'indexedDBUploadSingle', label: 'IndexedDB', extensions: ['indexedDB-alignment'] }
@@ -48148,7 +48148,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i517-dts-upload-cancel.20211011345" : 0
+    return  true ? "i411-avail-single-ext.20211011389" : 0
   }
 
   static get libName () {
@@ -65356,7 +65356,7 @@ var render = function() {
         name: _vm.mname,
         draggable: true,
         height: "auto",
-        clickToClose: false
+        clickToClose: !_vm.showWaiting
       }
     },
     [
