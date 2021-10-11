@@ -48148,7 +48148,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i532-max-per-text.20211007675" : 0
+    return  true ? "i517-dts-upload-cancel.20211011345" : 0
   }
 
   static get libName () {
@@ -65661,6 +65661,7 @@ var render = function() {
           {
             staticClass:
               "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+            attrs: { disabled: _vm.showWaiting },
             on: { click: _vm.closeModal }
           },
           [_vm._v("Cancel")]

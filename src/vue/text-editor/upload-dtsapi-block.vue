@@ -53,7 +53,7 @@
 
       <div class="alpheios-modal-footer">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click = "getDocument" :disabled="uploadButtonDisabled">Upload</button>
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click="closeModal">Cancel</button>
+          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click="closeModal" :disabled="showWaiting">Cancel</button>
       </div>
     </modal>
 </template>
