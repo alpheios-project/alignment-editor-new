@@ -91,8 +91,8 @@ describe('upload-controller.test.js', () => {
 
     expect(UploadController.isExtensionAvailable('txt', false)).toBeTruthy()
     expect(UploadController.isExtensionAvailable('xml', false)).toBeTruthy()
-    expect(UploadController.isExtensionAvailable('csv', false)).toBeTruthy()
-    expect(UploadController.isExtensionAvailable('tsv', false)).toBeTruthy()
+    // expect(UploadController.isExtensionAvailable('csv', false)).toBeTruthy()
+    // expect(UploadController.isExtensionAvailable('tsv', false)).toBeTruthy()
   })
 
   it('7 UploadController - static defineUploadTypeByExtension defines upload type', () => {
@@ -102,8 +102,8 @@ describe('upload-controller.test.js', () => {
     expect(UploadController.defineUploadTypeByExtension('tsv')).toEqual('plainSourceUploadAll')
     expect(UploadController.defineUploadTypeByExtension('json', true)).toEqual('jsonSimpleUploadAll')
 
-    expect(UploadController.defineUploadTypeByExtension('csv', false)).toEqual('plainSourceUploadSingle')
-    expect(UploadController.defineUploadTypeByExtension('tsv', false)).toEqual('plainSourceUploadSingle')
+    // expect(UploadController.defineUploadTypeByExtension('csv', false)).toEqual('plainSourceUploadSingle')
+    // expect(UploadController.defineUploadTypeByExtension('tsv', false)).toEqual('plainSourceUploadSingle')
 
     expect(UploadController.defineUploadTypeByExtension('txt', false)).toEqual('plainSourceUploadSingle')
     expect(UploadController.defineUploadTypeByExtension('xml', false)).toEqual('plainSourceUploadSingle')
@@ -114,6 +114,7 @@ describe('upload-controller.test.js', () => {
   it('8 UploadController - static getAvailableExtensions returns an array of available file extensions', () => {
     expect(UploadController.getAvailableExtensions()).toEqual(['csv', 'tsv', 'json'])
     expect(UploadController.getAvailableExtensions(true)).toEqual(['csv', 'tsv', 'json'])  
-    expect(UploadController.getAvailableExtensions(false)).toEqual(['csv', 'tsv', 'xml', 'txt'])    
+    // expect(UploadController.getAvailableExtensions(false)).toEqual(['csv', 'tsv', 'xml', 'txt'])    
+    expect(UploadController.getAvailableExtensions(false)).toEqual(['xml', 'txt'])    
   })
 })

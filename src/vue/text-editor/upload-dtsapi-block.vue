@@ -1,5 +1,5 @@
 <template>
-    <modal :classes="classes" :name="mname"  :draggable="true" height="auto" :clickToClose="false">
+    <modal :classes="classes" :name="mname"  :draggable="true" height="auto" :clickToClose="!showWaiting">
       <div class="alpheios-modal-header" >
           <span class="alpheios-alignment-modal-close-icon" @click = "$emit('closeModal')">
               <x-close-icon />
