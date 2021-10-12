@@ -48156,7 +48156,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i565-hide-move-to-segment.20211012440" : 0
+    return  true ? "i564-prepare-button.20211012642" : 0
   }
 
   static get libName () {
@@ -53186,8 +53186,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 
@@ -53441,6 +53439,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     showAddTranslation () {
       return this.$store.state.docSourceUpdated && (this.textType === 'target') && (this.index === (this.$textC.allTargetTextsIds.length - 1)) && (this.text.length > 0)
+    },
+    showAlignButton () {
+      return this.showAddTranslation
     },
     showActionMenu () {
       return this.$store.state.docSourceUpdated && (this.showUploadMenu || this.showTextProps)
@@ -64487,7 +64488,13 @@ var render = function() {
     [
       _c(
         "p",
-        { staticClass: "alpheios-alignment-editor-text-blocks-single__title" },
+        {
+          staticClass: "alpheios-alignment-editor-text-blocks-single__title",
+          class: {
+            "alpheios-alignment-editor-text-blocks-single__title_less-margin":
+              _vm.showAlignButton
+          }
+        },
         [
           _c(
             "span",
@@ -64518,6 +64525,59 @@ var render = function() {
               }
             },
             [_c("plus-icon")],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "span",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.showAlignButton,
+                  expression: "showAlignButton"
+                }
+              ],
+              staticClass:
+                "alpheios-alignment-editor-text-blocks-single__align-button"
+            },
+            [
+              _c(
+                "tooltip",
+                {
+                  attrs: {
+                    tooltipText: _vm.l10n.getMsgS("ALIGN_TEXT_BUTTON_TOOLTIP"),
+                    tooltipDirection: "top"
+                  }
+                },
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "alpheios-editor-button-tertiary alpheios-actions-menu-button-align",
+                      attrs: {
+                        id: "alpheios-actions-menu-button__align",
+                        disabled: !_vm.alignAvailable
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.$emit("align-text")
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n              " +
+                          _vm._s(_vm.l10n.getMsgS("MAIN_MENU_ALIGN_TITLE")) +
+                          "\n          "
+                      )
+                    ]
+                  )
+                ]
+              )
+            ],
             1
           )
         ]
@@ -64867,54 +64927,7 @@ var render = function() {
           )
         ],
         1
-      ),
-      _vm._v(" "),
-      _vm.textType === "origin"
-        ? _c(
-            "div",
-            {
-              staticClass:
-                "alpheios-alignment-editor-text-blocks-single__align-button"
-            },
-            [
-              _c(
-                "tooltip",
-                {
-                  attrs: {
-                    tooltipText: _vm.l10n.getMsgS("ALIGN_TEXT_BUTTON_TOOLTIP"),
-                    tooltipDirection: "top"
-                  }
-                },
-                [
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "alpheios-editor-button-tertiary alpheios-actions-menu-button-align",
-                      attrs: {
-                        id: "alpheios-actions-menu-button__align",
-                        disabled: !_vm.alignAvailable
-                      },
-                      on: {
-                        click: function($event) {
-                          return _vm.$emit("align-text")
-                        }
-                      }
-                    },
-                    [
-                      _vm._v(
-                        "\n            " +
-                          _vm._s(_vm.l10n.getMsgS("MAIN_MENU_ALIGN_TITLE")) +
-                          "\n        "
-                      )
-                    ]
-                  )
-                ]
-              )
-            ],
-            1
-          )
-        : _vm._e()
+      )
     ],
     1
   )
@@ -67618,7 +67631,7 @@ module.exports = JSON.parse('{"LANG_ENG":{"message":"English","description":"Lan
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"MAIN_MENU_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_UPLOAD_TITLE":{"message":"Resume previous alignment","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_ALIGN_TITLE":{"message":"Prepare texts for alignment","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_REDO_TITLE":{"message":"Redo","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_UNDO_TITLE":{"message":"Undo","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_ADD_TARGET_TITLE":{"message":"Add translation","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_SHOW_OPTIONS_TITLE":{"message":"Show options","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_HIDE_OPTIONS_TITLE":{"message":"Hide options","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_CLEAR_TEXT":{"message":"Start new alignment","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_TEXT_ENTER_LINK":{"message":"Enter Text","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_TEXT_ALIGN_LINK":{"message":"Align Text","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_TEXT_EDIT_LINK":{"message":"Edit Text","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_CHOOSE_FILE":{"message":"Choose a file","description":"Button in main menu","component":"MainMenu"}}');
+module.exports = JSON.parse('{"MAIN_MENU_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_UPLOAD_TITLE":{"message":"Resume previous alignment","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_ALIGN_TITLE":{"message":"Done","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_REDO_TITLE":{"message":"Redo","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_UNDO_TITLE":{"message":"Undo","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_ADD_TARGET_TITLE":{"message":"Add translation","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_SHOW_OPTIONS_TITLE":{"message":"Show options","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_HIDE_OPTIONS_TITLE":{"message":"Hide options","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_CLEAR_TEXT":{"message":"Start new alignment","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_TEXT_ENTER_LINK":{"message":"Enter Text","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_TEXT_ALIGN_LINK":{"message":"Align Text","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_TEXT_EDIT_LINK":{"message":"Edit Text","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_CHOOSE_FILE":{"message":"Choose a file","description":"Button in main menu","component":"MainMenu"}}');
 
 /***/ }),
 
