@@ -25,12 +25,12 @@
       "component": "ActionsMenuTokenEdit"
     },
     "ACTION_BUTTON_MERGE_PREV": {
-      "message": "Merge with a previous token",
+      "message": "Merge with the previous token",
       "description": "A label for action menu buttons",
       "component": "ActionsMenuTokenEdit"
     },
     "ACTION_BUTTON_MERGE_NEXT": {
-      "message": "Merge with a next token",
+      "message": "Merge with the next token",
       "description": "A label for action menu buttons",
       "component": "ActionsMenuTokenEdit"
     },
