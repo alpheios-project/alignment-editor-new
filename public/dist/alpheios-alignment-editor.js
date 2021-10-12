@@ -48156,7 +48156,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i564-prepare-button.20211012642" : 0
+    return  true ? "i564-prepare-button.20211012654" : 0
   }
 
   static get libName () {
@@ -50355,6 +50355,7 @@ __webpack_require__.r(__webpack_exports__);
      * Starts align workflow
      */
     async alignTexts () {
+      console.info('starts alignTexts')
       this.$modal.show('waiting')
       const result = await this.$alignedGC.createAlignedTexts(this.$textC.alignment)
       this.$modal.hide('waiting')
@@ -65115,12 +65116,7 @@ var render = function() {
                 },
                 [
                   _c("text-editor-single-block", {
-                    attrs: { "text-type": "origin", "text-id": _vm.originId },
-                    on: {
-                      "align-text": function($event) {
-                        return _vm.$emit("align-text")
-                      }
-                    }
+                    attrs: { "text-type": "origin", "text-id": _vm.originId }
                   })
                 ],
                 1
@@ -65147,6 +65143,9 @@ var render = function() {
                         on: {
                           "add-translation": function($event) {
                             return _vm.$emit("add-translation")
+                          },
+                          "align-text": function($event) {
+                            return _vm.$emit("align-text")
                           }
                         }
                       })

@@ -172,6 +172,7 @@ export default {
      * Starts align workflow
      */
     async alignTexts () {
+      console.info('starts alignTexts')
       this.$modal.show('waiting')
       const result = await this.$alignedGC.createAlignedTexts(this.$textC.alignment)
       this.$modal.hide('waiting')
