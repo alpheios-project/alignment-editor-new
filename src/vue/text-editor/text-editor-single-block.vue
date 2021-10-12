@@ -1,11 +1,18 @@
 <template>
   <div class="alpheios-alignment-editor-text-blocks-single" v-show="dataUpdated" :id="containerId">
-      <p class="alpheios-alignment-editor-text-blocks-single__title">
+      <p class="alpheios-alignment-editor-text-blocks-single__title" :class="{ 'alpheios-alignment-editor-text-blocks-single__title_less-margin': showAlignButton }">
         <span class="alpheios-alignment-editor-text-blocks-single__title-text">{{ indexData }}{{ textBlockTitle }}</span>
         <span id="alpheios-alignment-editor-add-translation" class="alpheios-alignment-editor-add-translation" v-show="showAddTranslation" @click="$emit('add-translation')">
           <plus-icon />
         </span>
-
+        <span class="alpheios-alignment-editor-text-blocks-single__align-button" v-show="showAlignButton">
+          <tooltip :tooltipText="l10n.getMsgS('ALIGN_TEXT_BUTTON_TOOLTIP')" tooltipDirection="top">
+            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button-align"  id="alpheios-actions-menu-button__align"
+                @click="$emit('align-text')" :disabled="!alignAvailable" >
+                {{ l10n.getMsgS('MAIN_MENU_ALIGN_TITLE') }}
+            </button>
+          </tooltip>
+        </span>
       </p>
       <div v-show="showTypeUploadButtons" >
         <span class="alpheios-alignment-editor-text-blocks-single__type-label">{{ l10n.getMsgS('TEXT_SINGLE_TYPE_LABEL') }}</span>
@@ -64,15 +71,6 @@
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  :id="describeButtonId"
               @click="$modal.show(metadataModalName)" :disabled="!isMetadataAvailable" >
               {{ l10n.getMsgS('DESCRIBE_BUTTON_TITLE') }}
-          </button>
-        </tooltip>
-      </div>
-
-      <div class="alpheios-alignment-editor-text-blocks-single__align-button" v-if="textType === 'origin'">
-        <tooltip :tooltipText="l10n.getMsgS('ALIGN_TEXT_BUTTON_TOOLTIP')" tooltipDirection="top">
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button-align"  id="alpheios-actions-menu-button__align"
-              @click="$emit('align-text')" :disabled="!alignAvailable" >
-              {{ l10n.getMsgS('MAIN_MENU_ALIGN_TITLE') }}
           </button>
         </tooltip>
       </div>
@@ -331,6 +329,9 @@ export default {
     },
     showAddTranslation () {
       return this.$store.state.docSourceUpdated && (this.textType === 'target') && (this.index === (this.$textC.allTargetTextsIds.length - 1)) && (this.text.length > 0)
+    },
+    showAlignButton () {
+      return this.showAddTranslation
     },
     showActionMenu () {
       return this.$store.state.docSourceUpdated && (this.showUploadMenu || this.showTextProps)
@@ -631,6 +632,10 @@ export default {
       position: relative;
       font-size: 20px;
       font-weight: bold;
+
+      &.alpheios-alignment-editor-text-blocks-single__title_less-margin {
+        margin-bottom: 7px;
+      }
     }
 
 
@@ -733,8 +738,9 @@ export default {
     }
 
   .alpheios-alignment-editor-text-blocks-single__align-button {
-    margin-top: 30px;
     text-align: right;
+    display: inline-block;
+    padding-left: 20px;
   }
 
   .alpheios-alignment-editor-text-blocks-single__describe-button {
