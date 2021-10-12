@@ -1626,6 +1626,10 @@ export default class Alignment {
     return this.alignmentGroups.length > 0
   }
 
+  get hasOnlyOneSegment () {
+    return this.origin.alignedText.segments.length === 1
+  }
+
   get undoAvailableAlGroups () {
     return this.alignmentHistory.undoAvailable
   }
