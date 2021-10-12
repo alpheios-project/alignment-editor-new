@@ -322,6 +322,10 @@ export default class AlignedGroupsController {
     return this.alignment.getAmountOfSegments(segment)
   }
 
+  get hasOnlyOneSegment () {
+    return this.alignment.hasOnlyOneSegment
+  }
+
   getOpositeTokenTargetIdForScroll (token) {
     return this.alignment.getOpositeTokenTargetIdForScroll(token)
   }

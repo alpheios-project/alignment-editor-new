@@ -38898,6 +38898,10 @@ class AlignedGroupsController {
     return this.alignment.getAmountOfSegments(segment)
   }
 
+  get hasOnlyOneSegment () {
+    return this.alignment.hasOnlyOneSegment
+  }
+
   getOpositeTokenTargetIdForScroll (token) {
     return this.alignment.getOpositeTokenTargetIdForScroll(token)
   }
@@ -44613,6 +44617,10 @@ class Alignment {
     return this.alignmentGroups.length > 0
   }
 
+  get hasOnlyOneSegment () {
+    return this.origin.alignedText.segments.length === 1
+  }
+
   get undoAvailableAlGroups () {
     return this.alignmentHistory.undoAvailable
   }
@@ -48148,7 +48156,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i407-merge-tooltip-fix.20211012418" : 0
+    return  true ? "i565-hide-move-to-segment.20211012440" : 0
   }
 
   static get libName () {
@@ -54386,6 +54394,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -54493,6 +54505,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     allowedDelete () {
       return this.$store.state.optionsUpdated && this.$tokensEC.allowedDelete(this.token)
+    },
+    renderMoveToPrevSegment () {
+      return this.$store.state.alignmentRestarted && this.$store.state.uploadCheck && !this.$alignedGC.hasOnlyOneSegment
+    },
+    renderMoveToNextSegment () {
+      return this.$store.state.alignmentRestarted && this.$store.state.uploadCheck && !this.$alignedGC.hasOnlyOneSegment
     }
   },
   methods: {
@@ -54989,6 +55007,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/data/history/history-step.js */ "./lib/data/history/history-step.js");
 /* harmony import */ var _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/settings-controller */ "./lib/controllers/settings-controller.js");
+//
 //
 //
 //
@@ -65950,6 +65969,14 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("actions-button", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.renderMoveToPrevSegment,
+                expression: "renderMoveToPrevSegment"
+              }
+            ],
             attrs: {
               tooltipMess: "ACTION_BUTTON_TO_PREV_SEGMENT",
               allowedCondition: _vm.allowedToPrevSegment,
@@ -65979,6 +66006,14 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("actions-button", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.renderMoveToNextSegment,
+                expression: "renderMoveToNextSegment"
+              }
+            ],
             attrs: {
               tooltipMess: "ACTION_BUTTON_TO_NEXT_SEGMENT",
               allowedCondition: _vm.allowedToNextSegment,
@@ -66452,7 +66487,8 @@ var render = function() {
                 attrs: {
                   type: "text",
                   id: _vm.itemId,
-                  disabled: !_vm.isEditableToken
+                  disabled: !_vm.isEditableToken,
+                  autocomplete: "off"
                 },
                 domProps: { value: _vm.tokenWord },
                 on: {
