@@ -48156,7 +48156,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i564-prepare-button.20211012655" : 0
+    return  true ? "i570-dts-tokenization-bug.20211013384" : 0
   }
 
   static get libName () {
@@ -53639,6 +53639,7 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     uploadFromDTSAPI (filedata) {
+      this.localTextEditorOptions.sourceText.items.sourceType.setValue('tei')
       this.uploadSingle({ text: filedata.tei, lang: filedata.lang, extension: filedata.extension })
       this.showUploadMenu = false
     },

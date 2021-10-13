@@ -529,6 +529,7 @@ export default {
     },
 
     uploadFromDTSAPI (filedata) {
+      this.localTextEditorOptions.sourceText.items.sourceType.setValue('tei')
       this.uploadSingle({ text: filedata.tei, lang: filedata.lang, extension: filedata.extension })
       this.showUploadMenu = false
     },
