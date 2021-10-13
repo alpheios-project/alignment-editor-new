@@ -41316,7 +41316,7 @@ class UploadController {
   // plainSourceDownloadAll: { method: this.plainSourceDownloadAll, allTexts: true, name: 'plainSourceDownloadAll', label: 'Short to csv' },
   static get uploadMethods () {
     return {
-      plainSourceUploadAll: { method: this.plainSourceUploadAll, fileUpload: true, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv', extensions: ['csv', 'tsv'] },
+      plainSourceUploadAll: { method: this.plainSourceUploadAll, fileUpload: true, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv', extensions: [] },
       plainSourceUploadSingle: { method: this.plainSourceUploadSingle, fileUpload: true, allTexts: false, extensions: ['xml', 'txt'] },
       jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, fileUpload: true, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json', extensions: ['json'] },
       dtsAPIUpload: { method: this.dtsAPIUploadSingle, fileUpload: true, allTexts: false, name: 'dtsAPIUploadSingle', label: 'DTS API', extensions: ['xml'] },
@@ -44199,6 +44199,7 @@ class Alignment {
   }
 
   static convertFromJSON (data) {
+    if (!data.origin) { return }
     const createdDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_14__["default"].convertStringToDate(data.createdDT)
     const updatedDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_14__["default"].convertStringToDate(data.updatedDT)
     const alignment = new Alignment({
@@ -48156,7 +48157,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i570-dts-tokenization-bug.20211013384" : 0
+    return  true ? "i411-resume-extensions.20211013401" : 0
   }
 
   static get libName () {

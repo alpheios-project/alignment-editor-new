@@ -17,7 +17,7 @@ export default class UploadController {
   // plainSourceDownloadAll: { method: this.plainSourceDownloadAll, allTexts: true, name: 'plainSourceDownloadAll', label: 'Short to csv' },
   static get uploadMethods () {
     return {
-      plainSourceUploadAll: { method: this.plainSourceUploadAll, fileUpload: true, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv', extensions: ['csv', 'tsv'] },
+      plainSourceUploadAll: { method: this.plainSourceUploadAll, fileUpload: true, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv', extensions: [] },
       plainSourceUploadSingle: { method: this.plainSourceUploadSingle, fileUpload: true, allTexts: false, extensions: ['xml', 'txt'] },
       jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, fileUpload: true, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json', extensions: ['json'] },
       dtsAPIUpload: { method: this.dtsAPIUploadSingle, fileUpload: true, allTexts: false, name: 'dtsAPIUploadSingle', label: 'DTS API', extensions: ['xml'] },

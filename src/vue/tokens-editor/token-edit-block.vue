@@ -225,6 +225,7 @@ export default {
     vertical-align: baseline;
     position: relative;
     padding: 4px;
+    color: #000;
   }
 
   input.alpheios-alignment-editor-token-edit-input {

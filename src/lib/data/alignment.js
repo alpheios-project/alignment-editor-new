@@ -1208,6 +1208,7 @@ export default class Alignment {
   }
 
   static convertFromJSON (data) {
+    if (!data.origin) { return }
     const createdDT = ConvertUtility.convertStringToDate(data.createdDT)
     const updatedDT = ConvertUtility.convertStringToDate(data.updatedDT)
     const alignment = new Alignment({
