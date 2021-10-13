@@ -268,7 +268,7 @@ export default class SettingsController {
     _instance.options.sourceText.checkAndUploadValuesFromArray(_instance.valuesClassesList)
     Object.values(_instance.options.sourceText.items).forEach(optionItem => this.changeOption(optionItem))
 
-    _instance.store.commit('incrementResetOptions')
+    _instance.store.commit('incrementResetOptions', 'resetAllOptions')
   }
 }
 

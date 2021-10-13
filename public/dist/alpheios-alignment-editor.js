@@ -39848,7 +39848,7 @@ class SettingsController {
     _instance.options.sourceText.checkAndUploadValuesFromArray(_instance.valuesClassesList)
     Object.values(_instance.options.sourceText.items).forEach(optionItem => this.changeOption(optionItem))
 
-    _instance.store.commit('incrementResetOptions')
+    _instance.store.commit('incrementResetOptions', 'resetAllOptions')
   }
 }
 
@@ -40257,6 +40257,7 @@ class TextsController {
     const uploadType = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].defineUploadTypeByExtension(fileData.extension, false)
 
     const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].upload(uploadType, { fileData, textType, textId, tokenization })
+
     if (result) {
       if (textType === 'origin') {
         const resultUpdate = await this.updateOriginDocSource(result)
@@ -48148,7 +48149,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i411-avail-single-ext.20211011389" : 0
+    return  true ? "development.20211013379" : 0
   }
 
   static get libName () {
@@ -53630,6 +53631,7 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     uploadFromDTSAPI (filedata) {
+      this.localTextEditorOptions.sourceText.items.sourceType.setValue('tei')
       this.uploadSingle({ text: filedata.tei, lang: filedata.lang, extension: filedata.extension })
       this.showUploadMenu = false
     },
