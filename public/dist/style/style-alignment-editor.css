@@ -2372,6 +2372,7 @@ div.alpheios-alignment-annotation-mode-check-container .alpheios-switch-label {
   vertical-align: baseline;
   position: relative;
   padding: 4px;
+  color: #000;
 }
 input.alpheios-alignment-editor-token-edit-input {
   position: absolute;
