@@ -40,13 +40,17 @@
         </actions-button>
 
         <actions-button tooltipMess = "ACTION_BUTTON_TO_PREV_SEGMENT" :allowedCondition = "allowedToPrevSegment"
-                        actionName = "move_to_prev_segment" @click = "$emit('moveToPrevSegment', token)">
+                        actionName = "move_to_prev_segment" @click = "$emit('moveToPrevSegment', token)"
+                        v-show="renderMoveToPrevSegment"
+                        >
           <template v-slot:enabled><prev-icon /></template>
           <template v-slot:disabled><prev-icon /></template>
         </actions-button>
 
         <actions-button tooltipMess = "ACTION_BUTTON_TO_NEXT_SEGMENT" :allowedCondition = "allowedToNextSegment"
-                        actionName = "move_to_next_segment" @click = "$emit('moveToNextSegment', token)">
+                        actionName = "move_to_next_segment" @click = "$emit('moveToNextSegment', token)"
+                        v-show="renderMoveToNextSegment"
+                        >
           <template v-slot:enabled><next-icon /></template>
           <template v-slot:disabled><next-icon /></template>
         </actions-button>
@@ -166,6 +170,12 @@ export default {
     },
     allowedDelete () {
       return this.$store.state.optionsUpdated && this.$tokensEC.allowedDelete(this.token)
+    },
+    renderMoveToPrevSegment () {
+      return this.$store.state.alignmentRestarted && this.$store.state.uploadCheck && !this.$alignedGC.hasOnlyOneSegment
+    },
+    renderMoveToNextSegment () {
+      return this.$store.state.alignmentRestarted && this.$store.state.uploadCheck && !this.$alignedGC.hasOnlyOneSegment
     }
   },
   methods: {

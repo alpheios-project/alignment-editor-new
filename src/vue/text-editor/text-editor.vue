@@ -31,7 +31,6 @@
             <text-editor-single-block 
                 text-type="origin" 
                 :text-id = "originId"
-                @align-text = "$emit('align-text')"
             />
           </div>
 
@@ -42,6 +41,7 @@
                 :text-id = "targetTextId && targetTextId.targetId"
                 :index = "targetTextId && targetTextId.targetIndex"
                 @add-translation="$emit('add-translation')"
+                @align-text = "$emit('align-text')"
             />
           </div>
 

@@ -20,6 +20,7 @@
               @keydown="checkKeyPres"
               :ref = "itemId"
               :class="tokenClasses"
+              autocomplete="off"
           >
         </span>
       {{ token.afterWord }}

@@ -38898,6 +38898,10 @@ class AlignedGroupsController {
     return this.alignment.getAmountOfSegments(segment)
   }
 
+  get hasOnlyOneSegment () {
+    return this.alignment.hasOnlyOneSegment
+  }
+
   getOpositeTokenTargetIdForScroll (token) {
     return this.alignment.getOpositeTokenTargetIdForScroll(token)
   }
@@ -44613,6 +44617,10 @@ class Alignment {
     return this.alignmentGroups.length > 0
   }
 
+  get hasOnlyOneSegment () {
+    return this.origin.alignedText.segments.length === 1
+  }
+
   get undoAvailableAlGroups () {
     return this.alignmentHistory.undoAvailable
   }
@@ -48148,7 +48156,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i570-dts-tokenization-bug.20211013383" : 0
+    return  true ? "i570-dts-tokenization-bug.20211013384" : 0
   }
 
   static get libName () {
@@ -53178,8 +53186,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 
@@ -53433,6 +53439,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     showAddTranslation () {
       return this.$store.state.docSourceUpdated && (this.textType === 'target') && (this.index === (this.$textC.allTargetTextsIds.length - 1)) && (this.text.length > 0)
+    },
+    showAlignButton () {
+      return this.showAddTranslation
     },
     showActionMenu () {
       return this.$store.state.docSourceUpdated && (this.showUploadMenu || this.showTextProps)
@@ -54387,6 +54396,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -54494,6 +54507,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     allowedDelete () {
       return this.$store.state.optionsUpdated && this.$tokensEC.allowedDelete(this.token)
+    },
+    renderMoveToPrevSegment () {
+      return this.$store.state.alignmentRestarted && this.$store.state.uploadCheck && !this.$alignedGC.hasOnlyOneSegment
+    },
+    renderMoveToNextSegment () {
+      return this.$store.state.alignmentRestarted && this.$store.state.uploadCheck && !this.$alignedGC.hasOnlyOneSegment
     }
   },
   methods: {
@@ -54990,6 +55009,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/data/history/history-step.js */ "./lib/data/history/history-step.js");
 /* harmony import */ var _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/settings-controller */ "./lib/controllers/settings-controller.js");
+//
 //
 //
 //
@@ -64469,7 +64489,13 @@ var render = function() {
     [
       _c(
         "p",
-        { staticClass: "alpheios-alignment-editor-text-blocks-single__title" },
+        {
+          staticClass: "alpheios-alignment-editor-text-blocks-single__title",
+          class: {
+            "alpheios-alignment-editor-text-blocks-single__title_less-margin":
+              _vm.showAlignButton
+          }
+        },
         [
           _c(
             "span",
@@ -64500,6 +64526,59 @@ var render = function() {
               }
             },
             [_c("plus-icon")],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "span",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.showAlignButton,
+                  expression: "showAlignButton"
+                }
+              ],
+              staticClass:
+                "alpheios-alignment-editor-text-blocks-single__align-button"
+            },
+            [
+              _c(
+                "tooltip",
+                {
+                  attrs: {
+                    tooltipText: _vm.l10n.getMsgS("ALIGN_TEXT_BUTTON_TOOLTIP"),
+                    tooltipDirection: "top"
+                  }
+                },
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "alpheios-editor-button-tertiary alpheios-actions-menu-button-align",
+                      attrs: {
+                        id: "alpheios-actions-menu-button__align",
+                        disabled: !_vm.alignAvailable
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.$emit("align-text")
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n              " +
+                          _vm._s(_vm.l10n.getMsgS("MAIN_MENU_ALIGN_TITLE")) +
+                          "\n          "
+                      )
+                    ]
+                  )
+                ]
+              )
+            ],
             1
           )
         ]
@@ -64849,54 +64928,7 @@ var render = function() {
           )
         ],
         1
-      ),
-      _vm._v(" "),
-      _vm.textType === "origin"
-        ? _c(
-            "div",
-            {
-              staticClass:
-                "alpheios-alignment-editor-text-blocks-single__align-button"
-            },
-            [
-              _c(
-                "tooltip",
-                {
-                  attrs: {
-                    tooltipText: _vm.l10n.getMsgS("ALIGN_TEXT_BUTTON_TOOLTIP"),
-                    tooltipDirection: "top"
-                  }
-                },
-                [
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "alpheios-editor-button-tertiary alpheios-actions-menu-button-align",
-                      attrs: {
-                        id: "alpheios-actions-menu-button__align",
-                        disabled: !_vm.alignAvailable
-                      },
-                      on: {
-                        click: function($event) {
-                          return _vm.$emit("align-text")
-                        }
-                      }
-                    },
-                    [
-                      _vm._v(
-                        "\n            " +
-                          _vm._s(_vm.l10n.getMsgS("MAIN_MENU_ALIGN_TITLE")) +
-                          "\n        "
-                      )
-                    ]
-                  )
-                ]
-              )
-            ],
-            1
-          )
-        : _vm._e()
+      )
     ],
     1
   )
@@ -65084,12 +65116,7 @@ var render = function() {
                 },
                 [
                   _c("text-editor-single-block", {
-                    attrs: { "text-type": "origin", "text-id": _vm.originId },
-                    on: {
-                      "align-text": function($event) {
-                        return _vm.$emit("align-text")
-                      }
-                    }
+                    attrs: { "text-type": "origin", "text-id": _vm.originId }
                   })
                 ],
                 1
@@ -65116,6 +65143,9 @@ var render = function() {
                         on: {
                           "add-translation": function($event) {
                             return _vm.$emit("add-translation")
+                          },
+                          "align-text": function($event) {
+                            return _vm.$emit("align-text")
                           }
                         }
                       })
@@ -65951,6 +65981,14 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("actions-button", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.renderMoveToPrevSegment,
+                expression: "renderMoveToPrevSegment"
+              }
+            ],
             attrs: {
               tooltipMess: "ACTION_BUTTON_TO_PREV_SEGMENT",
               allowedCondition: _vm.allowedToPrevSegment,
@@ -65980,6 +66018,14 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("actions-button", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.renderMoveToNextSegment,
+                expression: "renderMoveToNextSegment"
+              }
+            ],
             attrs: {
               tooltipMess: "ACTION_BUTTON_TO_NEXT_SEGMENT",
               allowedCondition: _vm.allowedToNextSegment,
@@ -66453,7 +66499,8 @@ var render = function() {
                 attrs: {
                   type: "text",
                   id: _vm.itemId,
-                  disabled: !_vm.isEditableToken
+                  disabled: !_vm.isEditableToken,
+                  autocomplete: "off"
                 },
                 domProps: { value: _vm.tokenWord },
                 on: {
@@ -67583,7 +67630,7 @@ module.exports = JSON.parse('{"LANG_ENG":{"message":"English","description":"Lan
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"MAIN_MENU_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_UPLOAD_TITLE":{"message":"Resume previous alignment","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_ALIGN_TITLE":{"message":"Prepare texts for alignment","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_REDO_TITLE":{"message":"Redo","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_UNDO_TITLE":{"message":"Undo","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_ADD_TARGET_TITLE":{"message":"Add translation","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_SHOW_OPTIONS_TITLE":{"message":"Show options","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_HIDE_OPTIONS_TITLE":{"message":"Hide options","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_CLEAR_TEXT":{"message":"Start new alignment","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_TEXT_ENTER_LINK":{"message":"Enter Text","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_TEXT_ALIGN_LINK":{"message":"Align Text","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_TEXT_EDIT_LINK":{"message":"Edit Text","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_CHOOSE_FILE":{"message":"Choose a file","description":"Button in main menu","component":"MainMenu"}}');
+module.exports = JSON.parse('{"MAIN_MENU_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_UPLOAD_TITLE":{"message":"Resume previous alignment","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_ALIGN_TITLE":{"message":"Done","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_REDO_TITLE":{"message":"Redo","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_UNDO_TITLE":{"message":"Undo","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_ADD_TARGET_TITLE":{"message":"Add translation","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_SHOW_OPTIONS_TITLE":{"message":"Show options","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_HIDE_OPTIONS_TITLE":{"message":"Hide options","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_CLEAR_TEXT":{"message":"Start new alignment","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_TEXT_ENTER_LINK":{"message":"Enter Text","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_TEXT_ALIGN_LINK":{"message":"Align Text","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_TEXT_EDIT_LINK":{"message":"Edit Text","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_CHOOSE_FILE":{"message":"Choose a file","description":"Button in main menu","component":"MainMenu"}}');
 
 /***/ }),
 
@@ -67627,7 +67674,7 @@ module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Enter text","des
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit text","description":"A heading for text editor","component":"TokensEditor"},"TOKENS_EDITOR_LINK":{"message":"Edit","description":"A heading for text editor","component":"TokensEditor"},"TOKENS_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TokensEditor"},"TOKENS_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TokensEditor"},"ACTION_BUTTON_UPDATE_TOKEN":{"message":"Update a token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_PREV":{"message":"Merge with a previous token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_NEXT":{"message":"Merge with a next token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_SPLIT_TOKEN":{"message":"Split a token to 2 tokens by space","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_ADD_LINEBREAK":{"message":"Add line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_REMOVE_LINEBREAK":{"message":"Remove line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_DELETE":{"message":"Delete token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP":{"message":"This token is inside a created alignment group, you should ungroup it first in the alignment editor.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP":{"message":"The merging token is inside a created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"Alignment"},"TOKENS_EDIT_SPLIT_NO_SPACES":{"message":"The token word must contain at least one space for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_SPLIT_SEVERAL_SPACES":{"message":"Only one space is allowed for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_ALREADY_HAS_LINE_BREAK":{"message":"The token already has a line break.","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_NEXT_SEGMENT":{"message":"Move the token to the next segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_PREV_SEGMENT":{"message":"Move the token to the previous segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTIONS_UNDO_TITLE":{"message":"Undo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"ACTIONS_REDO_TITLE":{"message":"Redo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"TOKENS_EDIT_UNDO_ERROR":{"message":"Nothing to undo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_REDO_ERROR":{"message":"Nothing to redo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_INSERT_DESCRIPTION_START":{"message":"Add space between tokens. Click Enter to insert tokens to the start.","description":"A description for insert tokens input","component":"EmptyTokensInput"},"TOKENS_EDIT_INSERT_DESCRIPTION_END":{"message":"Add space between tokens. Click Enter to insert tokens to the end.","description":"A description for insert tokens input","component":"EmptyTokensInput"}}');
+module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit text","description":"A heading for text editor","component":"TokensEditor"},"TOKENS_EDITOR_LINK":{"message":"Edit","description":"A heading for text editor","component":"TokensEditor"},"TOKENS_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TokensEditor"},"TOKENS_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TokensEditor"},"ACTION_BUTTON_UPDATE_TOKEN":{"message":"Update a token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_PREV":{"message":"Merge with the previous token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_NEXT":{"message":"Merge with the next token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_SPLIT_TOKEN":{"message":"Split a token to 2 tokens by space","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_ADD_LINEBREAK":{"message":"Add line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_REMOVE_LINEBREAK":{"message":"Remove line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_DELETE":{"message":"Delete token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP":{"message":"This token is inside a created alignment group, you should ungroup it first in the alignment editor.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP":{"message":"The merging token is inside a created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"Alignment"},"TOKENS_EDIT_SPLIT_NO_SPACES":{"message":"The token word must contain at least one space for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_SPLIT_SEVERAL_SPACES":{"message":"Only one space is allowed for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_ALREADY_HAS_LINE_BREAK":{"message":"The token already has a line break.","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_NEXT_SEGMENT":{"message":"Move the token to the next segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_PREV_SEGMENT":{"message":"Move the token to the previous segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTIONS_UNDO_TITLE":{"message":"Undo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"ACTIONS_REDO_TITLE":{"message":"Redo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"TOKENS_EDIT_UNDO_ERROR":{"message":"Nothing to undo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_REDO_ERROR":{"message":"Nothing to redo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_INSERT_DESCRIPTION_START":{"message":"Add space between tokens. Click Enter to insert tokens to the start.","description":"A description for insert tokens input","component":"EmptyTokensInput"},"TOKENS_EDIT_INSERT_DESCRIPTION_END":{"message":"Add space between tokens. Click Enter to insert tokens to the end.","description":"A description for insert tokens input","component":"EmptyTokensInput"}}');
 
 /***/ }),
 
