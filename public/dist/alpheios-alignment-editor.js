@@ -39848,7 +39848,7 @@ class SettingsController {
     _instance.options.sourceText.checkAndUploadValuesFromArray(_instance.valuesClassesList)
     Object.values(_instance.options.sourceText.items).forEach(optionItem => this.changeOption(optionItem))
 
-    _instance.store.commit('incrementResetOptions', 'resetAllOptions')
+    _instance.store.commit('incrementResetOptions')
   }
 }
 
@@ -40257,7 +40257,6 @@ class TextsController {
     const uploadType = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].defineUploadTypeByExtension(fileData.extension, false)
 
     const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].upload(uploadType, { fileData, textType, textId, tokenization })
-
     if (result) {
       if (textType === 'origin') {
         const resultUpdate = await this.updateOriginDocSource(result)
@@ -48149,7 +48148,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "development.20211013379" : 0
+    return  true ? "i570-dts-tokenization-bug.20211013383" : 0
   }
 
   static get libName () {

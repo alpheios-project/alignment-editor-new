@@ -296,7 +296,6 @@ export default class TextsController {
     const uploadType = UploadController.defineUploadTypeByExtension(fileData.extension, false)
 
     const result = UploadController.upload(uploadType, { fileData, textType, textId, tokenization })
-
     if (result) {
       if (textType === 'origin') {
         const resultUpdate = await this.updateOriginDocSource(result)
