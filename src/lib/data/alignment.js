@@ -1359,6 +1359,9 @@ export default class Alignment {
       token.grouped = this.tokenIsGrouped(token)
       if (token.grouped) {
         const tokenGroups = this.findAllAlignmentGroups(token)
+
+        console.info('tokenGroups - ', tokenGroups)
+
         if (!token.groupData) { token.groupData = [] }
         tokenGroups.forEach(tokenGroup => {
           token.groupData.push({
@@ -1643,6 +1646,7 @@ export default class Alignment {
     this.alHistoryActions.activeAlignmentGroup = this.activeAlignmentGroup
 
     const result = this.alignmentHistory.undo()
+
     if (result.data[0]) {
       if (result.data[0].defineFirstStepToken && this.hasActiveAlignmentGroup) {
         this.activeAlignmentGroup.defineFirstStepToken(this.alignmentHistory, true)

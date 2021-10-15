@@ -1,14 +1,17 @@
 <template>
     <span class = "alpheios-token" :class="tokenClasses"
           :id = "elementId" :ref = "elementId"
-          @mouseenter = "$emit('addHoverToken', token)"
-          @mouseleave = "$emit('removeHoverToken', token)"
+          @mouseenter = "addHoverToken"
+          @mouseleave = "removeHoverToken"
           @click = "checkAnnotations"
     >
-        {{ token.beforeWord }}{{ token.word }}{{ token.afterWord }}
+        <span class = "alpheios-token-inner"> {{ token.beforeWord }}{{ token.word }}{{ token.afterWord }} </span>
+        <span class = "alpheios-token-translation" v-if="interlinearly && grouped">{{ token.word }}</span>
     </span>
 </template>
 <script>
+import GroupUtility from '@/_output/utility/group-utility.js'
+
 export default {
   name: 'TokenBlock',
   props: {
@@ -22,6 +25,11 @@ export default {
       default: false
     },
     grouped: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    interlinearly: {
       type: Boolean,
       required: false,
       default: false
@@ -44,6 +52,16 @@ export default {
       if (this.token.annotated) {
         this.$modal.show('annotations', { token: this.token })
       }
+    },
+    addHoverToken () {
+      if (!this.interlinearly) {
+        this.$emit('addHoverToken', token)
+      }
+    },
+    removeHoverToken () {
+      if (!this.interlinearly) {
+        this.$emit('removeHoverToken', token)
+      }
     }
   }
 }
@@ -60,6 +78,17 @@ export default {
 
           &.alpheios-token-annotated {
             border-bottom: 1px solid;
+          }
+
+          .alpheios-token-inner ,
+          .alpheios-token-translation {
+            display: block;
+            text-align: left;
+          }
+
+          .alpheios-token-translation {
+            color: #9a9a9a;
+            font-size: 95%;
           }
       }
   }

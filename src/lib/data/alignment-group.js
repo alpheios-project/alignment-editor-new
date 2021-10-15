@@ -55,6 +55,10 @@ export default class AlignmentGroup {
     return this.alignmentGroupActions.segmentIndex
   }
 
+  get words () {
+    return this.alignmentGroupActions.words
+  }
+
   /**
    * Return ids from all tokens included to the group
    * @returns {Array[String]}
@@ -235,6 +239,7 @@ export default class AlignmentGroup {
     const alGroup = new AlignmentGroup(null, null, true, data.id)
 
     alGroup.alignmentGroupActions = AlignmentGroupActions.convertFromJSON(data.actions)
+
     return alGroup
   }
 

@@ -374,7 +374,8 @@ export default class IndexedDBStructure {
         segmentIndex: alGroupItem.actions.segmentIndex,
         targetId: alGroupItem.actions.targetId,
         origin: alGroupItem.actions.origin,
-        target: alGroupItem.actions.target
+        target: alGroupItem.actions.target,
+        words: alGroupItem.actions.words
       })
     }
 

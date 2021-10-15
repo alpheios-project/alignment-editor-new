@@ -64,6 +64,7 @@ export default class GroupUtility {
    *          {Object} targets - empty object
    */
   static allOriginSegments (fullData) {
+    console.info('fullData - ', fullData)
     let allS = [] // eslint-disable-line prefer-const
 
     fullData.getSegments('origin').forEach((segment, indexS) => {
