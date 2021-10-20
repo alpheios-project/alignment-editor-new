@@ -893,8 +893,28 @@ describe('alignment-group.test.js', () => {
     expect(htmlRes.origin.segments[0].tokens[5].groupDataTrans[0].word).toEqual('results')
     expect(htmlRes.origin.segments[0].tokens[5].groupDataTrans[1].word).toEqual('resultados')
 
-    // console.info(htmlRes.origin.segments[0].tokens[4])
-    // console.info(htmlRes.origin.segments[0].tokens[5].groupData)
+    // group that has 1 origin and 1 target  only for one language - animis / minds ; quas / que
+    alignment.startNewAlignmentGroup(allSegments[0].origin.tokens[7], targetId1) // eng
+    alignment.addToAlignmentGroup(allSegments[0].targets[targetId1].tokens[11], targetId1)
+    alignment.finishActiveAlignmentGroup()
+
+    alignment.startNewAlignmentGroup(allSegments[0].origin.tokens[8], targetId2) // spa
+    alignment.addToAlignmentGroup(allSegments[0].targets[targetId2].tokens[16], targetId2)
+    alignment.finishActiveAlignmentGroup()
+
+    htmlRes = JSON.parse(alignment.convertToHTML())
+
+    expect(htmlRes.origin.segments[0].tokens[7].groupDataTrans.length).toEqual(2)
+    expect(htmlRes.origin.segments[0].tokens[7].groupDataTrans[0].targetLang).toEqual('eng')
+    expect(htmlRes.origin.segments[0].tokens[7].groupDataTrans[1].targetLang).toEqual('spa')
+    expect(htmlRes.origin.segments[0].tokens[7].groupDataTrans[0].word).toEqual('minds')
+    expect(htmlRes.origin.segments[0].tokens[7].groupDataTrans[1].word).toBeUndefined()
+
+    expect(htmlRes.origin.segments[0].tokens[8].groupDataTrans.length).toEqual(2)
+    expect(htmlRes.origin.segments[0].tokens[8].groupDataTrans[0].targetLang).toEqual('eng')
+    expect(htmlRes.origin.segments[0].tokens[8].groupDataTrans[1].targetLang).toEqual('spa')
+    expect(htmlRes.origin.segments[0].tokens[8].groupDataTrans[0].word).toBeUndefined()
+    expect(htmlRes.origin.segments[0].tokens[8].groupDataTrans[1].word).toEqual('que')
   })
 })
 

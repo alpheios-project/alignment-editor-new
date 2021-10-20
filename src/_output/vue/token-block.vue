@@ -15,7 +15,6 @@
     </span>
 </template>
 <script>
-import GroupUtility from '@/_output/utility/group-utility.js'
 
 export default {
   name: 'TokenBlock',
