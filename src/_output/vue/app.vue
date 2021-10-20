@@ -80,7 +80,7 @@ export default {
         { value: 'viewSentence', label: 'Sentence'},
         { value: 'viewInterlinearly', label: 'Interlinearly'}
       ],
-      viewType: 'viewInterlinearly',
+      viewType: 'viewFull',
       sentenceCount: 0,
       languagesList: []
     }

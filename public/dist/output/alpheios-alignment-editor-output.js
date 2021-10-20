@@ -13251,7 +13251,7 @@ __webpack_require__.r(__webpack_exports__);
         { value: 'viewSentence', label: 'Sentence'},
         { value: 'viewInterlinearly', label: 'Interlinearly'}
       ],
-      viewType: 'viewInterlinearly',
+      viewType: 'viewFull',
       sentenceCount: 0,
       languagesList: []
     }
