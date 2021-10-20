@@ -1305,6 +1305,7 @@ describe('alignment.test.js', () => {
     const alGroup = alignment.activeAlignmentGroup
 
     alignment.undoAlGroups() // undo adding targetToken1
+
     alignment.undoAlGroups() // undo adding originToken2
 
     alignment.undoAlGroups() // as we have the last item we should undo the whole group

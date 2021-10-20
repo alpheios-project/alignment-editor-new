@@ -38,6 +38,7 @@
             <al-groups-view-short :fullData="fullData" :languageTargetIds = "languageTargetIds"  v-if="viewType === 'viewShort'" />
             <al-groups-view-sentence :fullData="fullData" :languageTargetIds = "languageTargetIds"  :sentence-count = "sentenceCount" v-if="viewType === 'viewSentence'" />
             <al-groups-view-equivalence :fullData="fullData" :languageTargetIds = "languageTargetIds"  v-if="viewType === 'viewEquivalence'" />
+            <al-groups-view-interlinearly :fullData="fullData" :languageTargetIds = "languageTargetIds"  v-if="viewType === 'viewInterlinearly'" />
         </div>
         <annotation-block />
     </div>
@@ -54,6 +55,7 @@ import AlGroupsViewShort from '@/_output/vue/views/al-groups-view-short.vue'
 import AlGroupsViewSentence from '@/_output/vue/views/al-groups-view-sentence.vue'
 import AlGroupsViewEquivalence from '@/_output/vue/views/al-groups-view-equivalence.vue'
 import AlGroupsViewColumns from '@/_output/vue/views/al-groups-view-columns.vue'
+import AlGroupsViewInterlinearly from '@/_output/vue/views/al-groups-view-interlinearly.vue'
 
 export default {
   name: 'App',
@@ -65,7 +67,8 @@ export default {
     alGroupsViewShort: AlGroupsViewShort,
     alGroupsViewSentence: AlGroupsViewSentence,
     alGroupsViewEquivalence: AlGroupsViewEquivalence,
-    alGroupsViewColumns: AlGroupsViewColumns
+    alGroupsViewColumns: AlGroupsViewColumns,
+    alGroupsViewInterlinearly: AlGroupsViewInterlinearly
   },
   data () {
     return {
@@ -74,7 +77,8 @@ export default {
         { value: 'view3Columns', label: '3 columns'},
         { value: 'viewShort', label: 'Short'},
         { value: 'viewEquivalence', label: 'Equivalence'},
-        { value: 'viewSentence', label: 'Sentence'}
+        { value: 'viewSentence', label: 'Sentence'},
+        { value: 'viewInterlinearly', label: 'Interlinearly'}
       ],
       viewType: 'viewFull',
       sentenceCount: 0,

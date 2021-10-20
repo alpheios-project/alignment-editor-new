@@ -720,6 +720,15 @@ body, html {
 .alpheios-al-editor-container-inner span.alpheios-token.alpheios-token-annotated {
   border-bottom: 1px solid;
 }
+.alpheios-al-editor-container-inner span.alpheios-token .alpheios-token-inner,
+.alpheios-al-editor-container-inner span.alpheios-token .alpheios-token-translation {
+  display: block;
+  text-align: left;
+}
+.alpheios-al-editor-container-inner span.alpheios-token .alpheios-token-translation {
+  color: #9a9a9a;
+  font-size: 95%;
+}
 .alpheios-al-editor-segment-cell-origin-row {
   position: relative;
   padding: 10px;
@@ -957,6 +966,16 @@ body, html {
   vertical-align: top;
   width: 33.33%;
   border-right: 2px solid #d8d8d8;
+}
+.alpheios-al-editor-table-view {
+  display: table;
+  width: 100%;
+  vertical-align: top;
+}
+.alpheios-al-editor-table-view .alpheios-al-editor-segment-block-all-origins {
+  width: 70%;
+  display: table-cell;
+  vertical-align: top;
 }
 .alpheios-alignment-editor-container {
   padding: 15px;

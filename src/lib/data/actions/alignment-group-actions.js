@@ -8,6 +8,7 @@ export default class AlignmentGroupActions {
     this.target = []
     this.originPartNums = []
     this.targetPartNums = []
+    this.words = {}
   }
 
   /**
@@ -53,6 +54,7 @@ export default class AlignmentGroupActions {
     }
 
     this[token.textType].push(token.idWord)
+    this.words[token.idWord] = token.word
     return true
   }
 
@@ -67,9 +69,9 @@ export default class AlignmentGroupActions {
     }
 
     const tokenIndex = this[token.textType].findIndex(tokenId => tokenId === token.idWord)
-
     if (tokenIndex >= 0) {
       this[token.textType].splice(tokenIndex, 1)
+      delete this.words[token.idWord]
       return true
     }
     return false
@@ -83,6 +85,10 @@ export default class AlignmentGroupActions {
   merge (tokensGroup, indexDeleted) {
     this.origin.push(...tokensGroup.origin)
     this.target.push(...tokensGroup.target)
+
+    Object.keys(tokensGroup.words).forEach(idWord => {
+      this.words[idWord] = tokensGroup.words[idWord]
+    })
   }
 
   /**
@@ -100,6 +106,7 @@ export default class AlignmentGroupActions {
       const tokenIndex = this.origin.findIndex(tokenId => tokenId === tokenIdWord)
       if (tokenIndex >= 0) {
         this.origin.splice(tokenIndex, 1)
+        delete this.words[tokenIdWord]
       }
     }
 
@@ -108,6 +115,7 @@ export default class AlignmentGroupActions {
       const tokenIndex = this.target.findIndex(tokenId => tokenId === tokenIdWord)
       if (tokenIndex >= 0) {
         this.target.splice(tokenIndex, 1)
+        delete this.words[tokenIdWord]
       }
     }
     return {
@@ -121,7 +129,8 @@ export default class AlignmentGroupActions {
       segmentIndex: this.segmentIndex,
       targetId: this.targetId,
       origin: this.origin,
-      target: this.target
+      target: this.target,
+      words: this.words
     }
   }
 
@@ -130,6 +139,7 @@ export default class AlignmentGroupActions {
     actions.segmentIndex = data.segmentIndex
     actions.origin = data.origin
     actions.target = data.target
+    actions.words = data.words
 
     return actions
   }
