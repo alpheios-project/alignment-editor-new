@@ -42790,6 +42790,27 @@ class AlignmentGroup {
     return this.alignmentGroupActions.words
   }
 
+  get translationWords () {
+    return this.target.map(idWord => this.words[idWord])
+  }
+
+  translationWordForToken (originTokenIdWord) {
+    const translationWordsCnt = this.target.length
+
+    if (translationWordsCnt === 1) {
+      return this.words[this.target[0]]
+    }
+
+    const originWordsCnt = this.origin.length
+    const originIndex = this.origin.findIndex(idWord => idWord === originTokenIdWord)
+
+    if (translationWordsCnt <= originWordsCnt) {
+      return originIndex < translationWordsCnt ? this.words[this.target[originIndex]] : ''
+    }
+
+    return originIndex < (originWordsCnt - 1) ? this.words[this.target[originIndex]] : this.target.slice(originIndex).map(idWord => this.words[idWord]).join(' ')
+  }
+
   /**
    * Return ids from all tokens included to the group
    * @returns {Array[String]}
@@ -44374,15 +44395,18 @@ class Alignment {
       if (token.grouped) {
         const tokenGroups = this.findAllAlignmentGroups(token)
 
-        console.info('tokenGroups - ', tokenGroups)
-
         if (!token.groupData) { token.groupData = [] }
         tokenGroups.forEach(tokenGroup => {
-          token.groupData.push({
+          const groupDataItem = {
             groupId: tokenGroup.id,
             targetId: tokenGroup.targetId
-          })
+          }
+          token.groupData.push(groupDataItem)
         })
+
+        if (!token.groupDataTrans && (token.textType === 'origin')) {
+          token.groupDataTrans = this.collectGroupedTranslationWordsToken(token, tokenGroups)
+        }
       }
     }
 
@@ -44410,6 +44434,42 @@ class Alignment {
     })
 
     return JSON.stringify({ origin, targets })
+  }
+
+  collectGroupedTranslationWordsToken (originToken, allTokenGroups) {
+    const groupData = []
+    allTokenGroups.forEach(tokenGroup => {
+      const groupDataItem = {
+        groupId: tokenGroup.id,
+        targetId: tokenGroup.targetId
+      }
+      groupDataItem.targetLang = this.targets[tokenGroup.targetId].docSource.lang
+      groupDataItem.word = tokenGroup.translationWordForToken(originToken.idWord)
+      groupData.push(groupDataItem)
+    })
+
+    const allTragetIds = this.allGroupedTargetIds
+    const groupTargetIds = groupData.map(groupDataItem => groupDataItem.targetId)
+
+    if (allTragetIds.length > groupTargetIds.length) {
+      allTragetIds.forEach(targetId => {
+        if (!groupTargetIds.includes(targetId)) {
+          groupData.push({
+            targetId,
+            targetLang: this.targets[targetId].docSource.lang
+          })
+        }
+      })
+    }
+
+    groupData.sort((a, b) => allTragetIds.indexOf(a.targetId) - allTragetIds.indexOf(b.targetId))
+
+    return groupData
+  }
+
+  get allGroupedTargetIds () {
+    const groupedTargetIds = this.alignmentGroups.map(alGroup => alGroup.targetId)
+    return groupedTargetIds.filter((item, pos) => groupedTargetIds.indexOf(item) === pos)
   }
 
   findTokenByTokenShortJSON ({ textType, idWord, segmentIndex, docSourceId }) {
@@ -48185,7 +48245,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i65-interlinearly.20211015642" : 0
+    return  true ? "i65-interlinearly.20211020543" : 0
   }
 
   static get libName () {
@@ -67549,7 +67609,7 @@ render._withStripped = true
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/texts-controller.test.js --coverage","test-b":"jest tests/vue/align-editor/segment-block.test.js --coverage","test-c":"jest tests/lib/data/actions/tokens-edit-actions.test.js","test-f":"jest tests/lib/data/alignment.test.js","test-d":"jest tests/lib/storage/indexed-db-adapter.test.js","test-e":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.6.0","@babel/core":"^7.15.5","@babel/plugin-proposal-object-rest-spread":"^7.15.6","@babel/plugin-transform-modules-commonjs":"^7.15.4","@babel/plugin-transform-runtime":"^7.15.0","@babel/preset-env":"^7.15.6","@babel/register":"^7.15.3","@babel/runtime":"^7.15.4","@vue/test-utils":"^1.2.2","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.2.0","coveralls":"^3.1.1","css-loader":"^3.6.0","eslint":"^7.32.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.24.2","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.3","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.9.2","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.8","papaparse":"^5.3.1","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.42.1","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.14","vue-eslint-parser":"^7.11.0","vue-jest":"^3.0.7","vue-js-modal":"^2.0.1","vue-loader":"^15.9.8","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.14","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.55.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
+module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/texts-controller.test.js --coverage","test-b":"jest tests/vue/align-editor/segment-block.test.js --coverage","test-c":"jest tests/lib/data/actions/tokens-edit-actions.test.js","test-f":"jest tests/lib/data/alignment-group.test.js","test-d":"jest tests/lib/storage/indexed-db-adapter.test.js","test-e":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.6.0","@babel/core":"^7.15.5","@babel/plugin-proposal-object-rest-spread":"^7.15.6","@babel/plugin-transform-modules-commonjs":"^7.15.4","@babel/plugin-transform-runtime":"^7.15.0","@babel/preset-env":"^7.15.6","@babel/register":"^7.15.3","@babel/runtime":"^7.15.4","@vue/test-utils":"^1.2.2","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.2.0","coveralls":"^3.1.1","css-loader":"^3.6.0","eslint":"^7.32.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.24.2","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.3","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.9.2","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.8","papaparse":"^5.3.1","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.42.1","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.14","vue-eslint-parser":"^7.11.0","vue-jest":"^3.0.7","vue-js-modal":"^2.0.1","vue-loader":"^15.9.8","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.14","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.55.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
 
 /***/ }),
 

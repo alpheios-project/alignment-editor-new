@@ -16,6 +16,7 @@
                               @addHoverToken = "$emit('addHoverToken', token)"
                               @removeHoverToken = "$emit('removeHoverToken', token)"
                               :interlinearly = "interlinearly"
+                              :shownTabs = "shownTabs"
               />
               <br v-if="token.hasLineBreak" />
           </template>

@@ -1,6 +1,10 @@
 <template>
     <div class="alpheios-al-editor-container alpheios-al-editor-view-interlinearly" v-if="fullData">
-        
+      <editor-tabs 
+          v-if="languageTargetIds.length > 1"
+          :tabs = "languageTargetIds" @selectTab = "selectTab"
+          :tabsTooltips = "targetDataForTabs"
+      />
       <div class ="alpheios-al-editor-container-inner alpheios-al-editor-segment-view">
 
           <div class="alpheios-al-editor-segment-row"
@@ -12,7 +16,7 @@
                 :segmentData = "segmentData.origin" :segIndex = "segIndex"
                 :dir = "fullData.getDir('origin')" :lang = "fullData.getLang('origin')" 
                 :langName = "fullData.getLangName('origin')" :metadata = "fullData.getMetadata('origin')"
-                :shownTabs = "languageTargetIds" :interlinearly = "true"
+                :shownTabs = "shownTabs" :interlinearly = "true"
               />
             </div><!-- alpheios-al-editor-segment-cell -->
           </div>
@@ -20,6 +24,7 @@
     </div>
 </template>
 <script>
+import EditorTabs from '@/_output/vue/editor-tabs.vue'
 import TokenBlock from '@/_output/vue/token-block.vue'
 import SegmentBlock from '@/_output/vue/segment-block.vue'
 
@@ -28,6 +33,7 @@ import GroupUtility from '@/_output/utility/group-utility.js'
 export default {
   name: 'AlGroupsViewInterlinearly',
   components: {
+    editorTabs: EditorTabs,
     tokenBlock: TokenBlock,
     segmentBlock: SegmentBlock
   },
@@ -43,17 +49,40 @@ export default {
   },
   data () {
     return {
+      shownTabs: []
     }
+  },
+  watch: {
+    languageTargetIds () {
+      this.initShownTabs()
+    }
+  },
+  mounted () {
+    this.initShownTabs()
   },
   computed: {
     allOriginSegments () {
       return GroupUtility.allOriginSegments(this.fullData)
+    },
+    targetDataForTabs () {
+      return GroupUtility.targetDataForTabs(this.fullData)
     }
   },
   methods: {
-    
+    initShownTabs () {
+      this.shownTabs.splice(0, this.shownTabs.length)
+      this.shownTabs.push(this.languageTargetIds[0])
+    },
     getIndex (textType, index, additionalIndex = 0) {
       return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
+    },
+    selectTab (targetId) {
+      if ((this.shownTabs.length > 1) && this.shownTabs.includes(targetId)) {
+        this.shownTabs.splice(this.shownTabs.indexOf(targetId), 1)
+
+      } else if (!this.shownTabs.includes(targetId)) {
+        this.shownTabs.push(targetId)
+      }     
     }
   }
 }

@@ -1360,15 +1360,18 @@ export default class Alignment {
       if (token.grouped) {
         const tokenGroups = this.findAllAlignmentGroups(token)
 
-        console.info('tokenGroups - ', tokenGroups)
-
         if (!token.groupData) { token.groupData = [] }
         tokenGroups.forEach(tokenGroup => {
-          token.groupData.push({
+          const groupDataItem = {
             groupId: tokenGroup.id,
             targetId: tokenGroup.targetId
-          })
+          }
+          token.groupData.push(groupDataItem)
         })
+
+        if (!token.groupDataTrans && (token.textType === 'origin')) {
+          token.groupDataTrans = this.collectGroupedTranslationWordsToken(token, tokenGroups)
+        }
       }
     }
 
@@ -1396,6 +1399,42 @@ export default class Alignment {
     })
 
     return JSON.stringify({ origin, targets })
+  }
+
+  collectGroupedTranslationWordsToken (originToken, allTokenGroups) {
+    const groupData = []
+    allTokenGroups.forEach(tokenGroup => {
+      const groupDataItem = {
+        groupId: tokenGroup.id,
+        targetId: tokenGroup.targetId
+      }
+      groupDataItem.targetLang = this.targets[tokenGroup.targetId].docSource.lang
+      groupDataItem.word = tokenGroup.translationWordForToken(originToken.idWord)
+      groupData.push(groupDataItem)
+    })
+
+    const allTragetIds = this.allGroupedTargetIds
+    const groupTargetIds = groupData.map(groupDataItem => groupDataItem.targetId)
+
+    if (allTragetIds.length > groupTargetIds.length) {
+      allTragetIds.forEach(targetId => {
+        if (!groupTargetIds.includes(targetId)) {
+          groupData.push({
+            targetId,
+            targetLang: this.targets[targetId].docSource.lang
+          })
+        }
+      })
+    }
+
+    groupData.sort((a, b) => allTragetIds.indexOf(a.targetId) - allTragetIds.indexOf(b.targetId))
+
+    return groupData
+  }
+
+  get allGroupedTargetIds () {
+    const groupedTargetIds = this.alignmentGroups.map(alGroup => alGroup.targetId)
+    return groupedTargetIds.filter((item, pos) => groupedTargetIds.indexOf(item) === pos)
   }
 
   findTokenByTokenShortJSON ({ textType, idWord, segmentIndex, docSourceId }) {

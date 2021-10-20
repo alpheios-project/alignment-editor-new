@@ -12659,7 +12659,6 @@ class GroupUtility {
    *          {Object} targets - empty object
    */
   static allOriginSegments (fullData) {
-    console.info('fullData - ', fullData)
     let allS = [] // eslint-disable-line prefer-const
 
     fullData.getSegments('origin').forEach((segment, indexS) => {
@@ -13603,6 +13602,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -13794,6 +13794,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -13818,6 +13823,11 @@ __webpack_require__.r(__webpack_exports__);
       type: Boolean,
       required: false,
       default: false
+    },
+    shownTabs: {
+      type: Array,
+      required: false,
+      default: () => { return [] }
     }
   },
   computed: {
@@ -13830,6 +13840,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     elementId () {
       return `token-${this.token.idWord}`
+    },
+    filteredGroupData () {
+      return this.interlinearly && this.grouped && this.shownTabs && this.token.groupDataTrans ? this.token.groupDataTrans.filter(groupDataItem => this.shownTabs.includes(groupDataItem.targetId) ) : null
     }
   },
   methods: {
@@ -13840,13 +13853,16 @@ __webpack_require__.r(__webpack_exports__);
     },
     addHoverToken () {
       if (!this.interlinearly) {
-        this.$emit('addHoverToken', token)
+        this.$emit('addHoverToken', this.token)
       }
     },
     removeHoverToken () {
       if (!this.interlinearly) {
-        this.$emit('removeHoverToken', token)
+        this.$emit('removeHoverToken', this.token)
       }
+    },
+    translationWord (groupDataItem) {
+      return groupDataItem.word ? groupDataItem.word : '&nbsp;'
     }
   }
 });
@@ -14457,9 +14473,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _output_vue_token_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/_output/vue/token-block.vue */ "./_output/vue/token-block.vue");
-/* harmony import */ var _output_vue_segment_block_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/_output/vue/segment-block.vue */ "./_output/vue/segment-block.vue");
-/* harmony import */ var _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/_output/utility/group-utility.js */ "./_output/utility/group-utility.js");
+/* harmony import */ var _output_vue_editor_tabs_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/_output/vue/editor-tabs.vue */ "./_output/vue/editor-tabs.vue");
+/* harmony import */ var _output_vue_token_block_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/_output/vue/token-block.vue */ "./_output/vue/token-block.vue");
+/* harmony import */ var _output_vue_segment_block_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/_output/vue/segment-block.vue */ "./_output/vue/segment-block.vue");
+/* harmony import */ var _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/_output/utility/group-utility.js */ "./_output/utility/group-utility.js");
 //
 //
 //
@@ -14481,6 +14498,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
 
 
 
@@ -14490,8 +14512,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AlGroupsViewInterlinearly',
   components: {
-    tokenBlock: _output_vue_token_block_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    segmentBlock: _output_vue_segment_block_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    editorTabs: _output_vue_editor_tabs_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    tokenBlock: _output_vue_token_block_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    segmentBlock: _output_vue_segment_block_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   props: {
     fullData: {
@@ -14505,17 +14528,40 @@ __webpack_require__.r(__webpack_exports__);
   },
   data () {
     return {
+      shownTabs: []
     }
+  },
+  watch: {
+    languageTargetIds () {
+      this.initShownTabs()
+    }
+  },
+  mounted () {
+    this.initShownTabs()
   },
   computed: {
     allOriginSegments () {
-      return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_2__["default"].allOriginSegments(this.fullData)
+      return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOriginSegments(this.fullData)
+    },
+    targetDataForTabs () {
+      return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_3__["default"].targetDataForTabs(this.fullData)
     }
   },
   methods: {
-    
+    initShownTabs () {
+      this.shownTabs.splice(0, this.shownTabs.length)
+      this.shownTabs.push(this.languageTargetIds[0])
+    },
     getIndex (textType, index, additionalIndex = 0) {
       return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
+    },
+    selectTab (targetId) {
+      if ((this.shownTabs.length > 1) && this.shownTabs.includes(targetId)) {
+        this.shownTabs.splice(this.shownTabs.indexOf(targetId), 1)
+
+      } else if (!this.shownTabs.includes(targetId)) {
+        this.shownTabs.push(targetId)
+      }     
     }
   }
 });
@@ -16787,7 +16833,8 @@ var render = function() {
               token: token,
               selected: _vm.selectedToken(token),
               grouped: _vm.groupedToken(token),
-              interlinearly: _vm.interlinearly
+              interlinearly: _vm.interlinearly,
+              shownTabs: _vm.shownTabs
             },
             on: {
               addHoverToken: function($event) {
@@ -16853,12 +16900,16 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _vm.interlinearly && _vm.grouped
-        ? _c("span", { staticClass: "alpheios-token-translation" }, [
-            _vm._v(_vm._s(_vm.token.word))
-          ])
-        : _vm._e()
-    ]
+      _vm._l(_vm.filteredGroupData, function(groupDataItem, groupDataIndex) {
+        return _c("span", {
+          key: groupDataIndex,
+          staticClass: "alpheios-token-translation",
+          attrs: { lang: groupDataItem.targetLang },
+          domProps: { innerHTML: _vm._s(_vm.translationWord(groupDataItem)) }
+        })
+      })
+    ],
+    2
   )
 }
 var staticRenderFns = []
@@ -17420,6 +17471,16 @@ var render = function() {
             "alpheios-al-editor-container alpheios-al-editor-view-interlinearly"
         },
         [
+          _vm.languageTargetIds.length > 1
+            ? _c("editor-tabs", {
+                attrs: {
+                  tabs: _vm.languageTargetIds,
+                  tabsTooltips: _vm.targetDataForTabs
+                },
+                on: { selectTab: _vm.selectTab }
+              })
+            : _vm._e(),
+          _vm._v(" "),
           _c(
             "div",
             {
@@ -17454,7 +17515,7 @@ var render = function() {
                           lang: _vm.fullData.getLang("origin"),
                           langName: _vm.fullData.getLangName("origin"),
                           metadata: _vm.fullData.getMetadata("origin"),
-                          shownTabs: _vm.languageTargetIds,
+                          shownTabs: _vm.shownTabs,
                           interlinearly: true
                         }
                       })
@@ -17466,7 +17527,8 @@ var render = function() {
             }),
             0
           )
-        ]
+        ],
+        1
       )
     : _vm._e()
 }

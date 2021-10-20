@@ -5,7 +5,7 @@ import AppController from '@/lib/controllers/app-controller.js'
 import Token from '@/lib/data/token'
 import HistoryStep from '@/lib/data/history/history-step.js'
 import AlignmentStep from '@/lib/data/history/alignment-step.js'
-
+import SourceText from '@/lib/data/source-text'
 import Alignment from '@/lib/data/alignment'
 
 describe('alignment-group.test.js', () => {
@@ -714,8 +714,6 @@ describe('alignment-group.test.js', () => {
 
     const resJSON = alGroup.convertToJSON()
 
-    console.info('resJSON', resJSON)
-
     const resGroup = AlignmentGroup.convertFromJSON(resJSON)
     expect(alGroup.origin).toEqual(resGroup.origin)
     expect(alGroup.target).toEqual(resGroup.target)
@@ -751,6 +749,154 @@ describe('alignment-group.test.js', () => {
     expect(alGroup.target).toEqual(resGroup.target)
     expect(alGroup.words).toEqual(resGroup.words)
   })
+
+  it('32 AlignmentGroup - translationWords, translationWordForToken', async () => {
+    const originDocSource = new SourceText('origin', {
+      text: 'Post emensos insuperabilis expeditionis eventus languentibus partium animis, quas periculorum varietas fregerat et laborum, nondum tubarum cessante clangore vel milite locato per stationes hibernas', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    const targetDocSource1 = new SourceText('target', {
+      text: 'After the passing of the insurmountable results of the expedition, the minds of the party languishing, which the variety of dangers and labors had broken, had not yet ceased, even with the sound of the trumpets, and the soldiers stationed in our winter-stations', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource2 = new SourceText('target', {
+      text: 'Tras el paso de los insuperables resultados de la expedición, las mentes del grupo languideciendo, que la variedad de peligros y labores habían roto, aún no habían cesado, ni siquiera con el sonido de las trompetas, y los soldados estacionados en nuestras estaciones invernales.', direction: 'ltr', lang: 'spa', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    let alignment = new Alignment()
+    alignment.updateOriginDocSource(originDocSource)
+    alignment.updateTargetDocSource(targetDocSource1)
+
+    alignment.updateTargetDocSource(targetDocSource2)
+
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
+
+    const targetId1 = alignment.allTargetTextsIds[0]
+    const targetId2 = alignment.allTargetTextsIds[1]
+
+    const allSegments = alignment.allAlignedTextsSegments
+
+    const originToken1 = allSegments[0].origin.tokens[0]
+    const targetToken1 = allSegments[0].targets[targetId1].tokens[0]
+    
+    let testGroup
+
+    // group that has 1 origin and 1 target - Post / After
+
+    alignment.startNewAlignmentGroup(originToken1, targetId1)
+    alignment.addToAlignmentGroup(targetToken1, targetId1)
+    alignment.finishActiveAlignmentGroup()
+
+    testGroup = alignment.alignmentGroups[0]
+
+    expect(testGroup.translationWords).toEqual([ 'After' ])
+    expect(testGroup.translationWordForToken(originToken1.idWord)).toEqual( 'After' )
+
+    // group that has 2 origin and 2 target - eventus languentibus / insurmountable results
+
+    alignment.startNewAlignmentGroup(allSegments[0].origin.tokens[4], targetId1)
+    alignment.addToAlignmentGroup(allSegments[0].origin.tokens[5], targetId1)
+    alignment.addToAlignmentGroup(allSegments[0].targets[targetId1].tokens[5], targetId1)
+    alignment.addToAlignmentGroup(allSegments[0].targets[targetId1].tokens[6], targetId1)
+    alignment.finishActiveAlignmentGroup()
+
+    testGroup = alignment.alignmentGroups[1]
+    expect(testGroup.translationWords).toEqual([ 'insurmountable', 'results' ])
+    expect(testGroup.translationWordForToken(allSegments[0].origin.tokens[4].idWord)).toEqual( 'insurmountable' )
+    expect(testGroup.translationWordForToken(allSegments[0].origin.tokens[5].idWord)).toEqual( 'results' )
+
+    // group that has 2 origin and 3 target - quas periculorum varietas / which the variety of dangers
+    alignment.startNewAlignmentGroup(allSegments[0].origin.tokens[8], targetId1)
+    alignment.addToAlignmentGroup(allSegments[0].origin.tokens[9], targetId1)
+    alignment.addToAlignmentGroup(allSegments[0].origin.tokens[10], targetId1)
+    alignment.addToAlignmentGroup(allSegments[0].targets[targetId1].tokens[16], targetId1)
+    alignment.addToAlignmentGroup(allSegments[0].targets[targetId1].tokens[17], targetId1)
+    alignment.addToAlignmentGroup(allSegments[0].targets[targetId1].tokens[18], targetId1)
+    alignment.addToAlignmentGroup(allSegments[0].targets[targetId1].tokens[19], targetId1)
+    alignment.addToAlignmentGroup(allSegments[0].targets[targetId1].tokens[20], targetId1)
+    alignment.finishActiveAlignmentGroup()
+
+    testGroup = alignment.alignmentGroups[2]
+    expect(testGroup.translationWords).toEqual([ 'which', 'the', 'variety', 'of', 'dangers' ])
+    expect(testGroup.translationWordForToken(allSegments[0].origin.tokens[8].idWord)).toEqual( 'which' )
+    expect(testGroup.translationWordForToken(allSegments[0].origin.tokens[9].idWord)).toEqual( 'the' )
+    expect(testGroup.translationWordForToken(allSegments[0].origin.tokens[10].idWord)).toEqual( 'variety of dangers' )
+  })
+
+  it('32 AlignmentGroup - convertToHTML - groupdData - translations', async () => {
+    const originDocSource = new SourceText('origin', {
+      text: 'Post emensos insuperabilis expeditionis eventus languentibus partium animis, quas periculorum varietas fregerat et laborum, nondum tubarum cessante clangore vel milite locato per stationes hibernas', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    const targetDocSource1 = new SourceText('target', {
+      text: 'After the passing of the insurmountable results of the expedition, the minds of the party languishing, which the variety of dangers and labors had broken, had not yet ceased, even with the sound of the trumpets, and the soldiers stationed in our winter-stations', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource2 = new SourceText('target', {
+      text: 'Tras el paso de los insuperables resultados de la expedición, las mentes del grupo languideciendo, que la variedad de peligros y labores habían roto, aún no habían cesado, ni siquiera con el sonido de las trompetas, y los soldados estacionados en nuestras estaciones invernales.', direction: 'ltr', lang: 'spa', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    let alignment = new Alignment()
+    alignment.updateOriginDocSource(originDocSource)
+    alignment.updateTargetDocSource(targetDocSource1)
+
+    alignment.updateTargetDocSource(targetDocSource2)
+
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
+
+    const targetId1 = alignment.allTargetTextsIds[0]
+    const targetId2 = alignment.allTargetTextsIds[1]
+
+    const allSegments = alignment.allAlignedTextsSegments
+
+    // group that has 1 origin and 1 target - Post / After / Tras
+
+    alignment.startNewAlignmentGroup(allSegments[0].origin.tokens[0], targetId1)
+    alignment.addToAlignmentGroup(allSegments[0].targets[targetId1].tokens[0], targetId1)
+    alignment.finishActiveAlignmentGroup()
+
+    alignment.startNewAlignmentGroup(allSegments[0].origin.tokens[0], targetId2)
+    alignment.addToAlignmentGroup(allSegments[0].targets[targetId2].tokens[0], targetId2)
+    alignment.finishActiveAlignmentGroup()
+
+    let htmlRes = JSON.parse(alignment.convertToHTML())
+
+    expect(htmlRes.origin.segments[0].tokens[0].groupDataTrans.length).toEqual(2)
+    expect(htmlRes.origin.segments[0].tokens[0].groupDataTrans[0].targetLang).toEqual('eng')
+    expect(htmlRes.origin.segments[0].tokens[0].groupDataTrans[1].targetLang).toEqual('spa')
+    expect(htmlRes.origin.segments[0].tokens[0].groupDataTrans[0].word).toEqual('After')
+    expect(htmlRes.origin.segments[0].tokens[0].groupDataTrans[1].word).toEqual('Tras')
+
+    // group that has 2 origin and 2 target - eventus languentibus / insurmountable results / insuperables resultados
+
+    alignment.startNewAlignmentGroup(allSegments[0].origin.tokens[4], targetId1)
+    alignment.addToAlignmentGroup(allSegments[0].origin.tokens[5], targetId1)
+    alignment.addToAlignmentGroup(allSegments[0].targets[targetId1].tokens[5], targetId1)
+    alignment.addToAlignmentGroup(allSegments[0].targets[targetId1].tokens[6], targetId1)
+    alignment.finishActiveAlignmentGroup()
+
+    alignment.startNewAlignmentGroup(allSegments[0].origin.tokens[4], targetId2)
+    alignment.addToAlignmentGroup(allSegments[0].origin.tokens[5], targetId2)
+    alignment.addToAlignmentGroup(allSegments[0].targets[targetId2].tokens[5], targetId2)
+    alignment.addToAlignmentGroup(allSegments[0].targets[targetId2].tokens[6], targetId2)
+    alignment.finishActiveAlignmentGroup()
+
+    htmlRes = JSON.parse(alignment.convertToHTML())
+
+    expect(htmlRes.origin.segments[0].tokens[4].groupDataTrans.length).toEqual(2)
+    expect(htmlRes.origin.segments[0].tokens[4].groupDataTrans[0].targetLang).toEqual('eng')
+    expect(htmlRes.origin.segments[0].tokens[4].groupDataTrans[1].targetLang).toEqual('spa')
+    expect(htmlRes.origin.segments[0].tokens[4].groupDataTrans[0].word).toEqual('insurmountable')
+    expect(htmlRes.origin.segments[0].tokens[4].groupDataTrans[1].word).toEqual('insuperables')
+
+    expect(htmlRes.origin.segments[0].tokens[5].groupDataTrans.length).toEqual(2)
+    expect(htmlRes.origin.segments[0].tokens[5].groupDataTrans[0].targetLang).toEqual('eng')
+    expect(htmlRes.origin.segments[0].tokens[5].groupDataTrans[1].targetLang).toEqual('spa')
+    expect(htmlRes.origin.segments[0].tokens[5].groupDataTrans[0].word).toEqual('results')
+    expect(htmlRes.origin.segments[0].tokens[5].groupDataTrans[1].word).toEqual('resultados')
+
+    // console.info(htmlRes.origin.segments[0].tokens[4])
+    // console.info(htmlRes.origin.segments[0].tokens[5].groupData)
+  })
 })
+
 
 
