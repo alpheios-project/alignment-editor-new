@@ -48245,7 +48245,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i65-interlinearly.20211020556" : 0
+    return  true ? "i65-interlinearly-links.20211021239" : 0
   }
 
   static get libName () {
@@ -67631,7 +67631,7 @@ module.exports = JSON.parse('[{"value":"eng","label":"English"},{"value":"lat","
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"params":["theme","stylePath","jsPath","pageTitle","fullData"],"stylePath":"C:/_Alpheios/alignment-editor/public/dist/output/style/style-alignment-editor-output.css","jsPath":"C:/_Alpheios/alignment-editor/public/dist/output/alpheios-alignment-editor-output.js","stylePath2":"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/dist/output/style/style-alignment-editor-output.css","jsPath2":"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/dist/output/alpheios-alignment-editor-output.js","pageTitle":"Alpheios Alignment Editor|Result","layout":"<!DOCTYPE html> <html class=\\"{{theme}}\\"> <head> <meta charset=\\"UTF-8\\"> <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\"> <title>{{pageTitle}}</title> <link rel=\\"icon\\" type=\\"image/x-icon\\" href=\\"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/logo.ico\\"> <link rel=\\"stylesheet\\" href=\\"{{stylePath}}\\"/> <script src=\\"{{jsPath}}\\"></script> </head> <body class=\\"{{theme}}\\"> <div class=\\"container\\"> <div id=\\"alpheios-alignment-editor-output\\"></div> </div> <script> document.addEventListener(\\"DOMContentLoaded\\", function(event) { new window.AlignmentEditorOutput.AppController({{fullData}}) }) </script> </body> </html>"}');
+module.exports = JSON.parse('{"params":["theme","stylePath","jsPath","pageTitle","fullData"],"stylePath":"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/dist/output/style/style-alignment-editor-output.css","jsPath":"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/dist/output/alpheios-alignment-editor-output.js","pageTitle":"Alpheios Alignment Editor|Result","layout":"<!DOCTYPE html> <html class=\\"{{theme}}\\"> <head> <meta charset=\\"UTF-8\\"> <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\"> <title>{{pageTitle}}</title> <link rel=\\"icon\\" type=\\"image/x-icon\\" href=\\"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/logo.ico\\"> <link rel=\\"stylesheet\\" href=\\"{{stylePath}}\\"/> <script src=\\"{{jsPath}}\\"></script> </head> <body class=\\"{{theme}}\\"> <div class=\\"container\\"> <div id=\\"alpheios-alignment-editor-output\\"></div> </div> <script> document.addEventListener(\\"DOMContentLoaded\\", function(event) { new window.AlignmentEditorOutput.AppController({{fullData}}) }) </script> </body> </html>"}');
 
 /***/ }),
 
