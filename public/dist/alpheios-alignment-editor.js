@@ -41880,7 +41880,10 @@ class TokensEditActions {
    * @returns {Boolean}
    */
   mergeToken (token, direction, annotations) {
+    console.info('mergeToken - 1', token.idWord, direction)
     const { segment, tokenIndex, tokenResult, position } = this.getNextPrevToken(token, direction)
+
+    console.info('mergeToken - 2', tokenIndex, tokenResult.idWord, position)
 
     const alignedText = this.getAlignedTextByToken(token)
     const newIdWord = alignedText.getNewIdWord({
@@ -42278,11 +42281,20 @@ class TokensEditActions {
 
   applyStepMerge (step) {
     const segment = this.getSegmentByToken(step.token)
-    step.token.update({ word: step.params.newWord, idWord: step.params.newIdWord })
+    console.info('segment.tokens before', segment.tokens.map(token => token.idWord))
+    const tokenRef = segment.getTokenById(step.token.idWord)
+    tokenRef.update({ word: step.params.newWord, idWord: step.params.newIdWord })
+    step.token = tokenRef
+    console.info('segment.tokens after', segment.tokens.map(token => token.idWord))
+    console.info('step', step)
 
-    const tokenIndex = segment.getTokenIndex(step.token)
-    const deleteIndex = (step.params.position === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV) ? tokenIndex - 1 : tokenIndex + 1
-    segment.deleteToken(deleteIndex)
+    console.info('step.token - ', step.token.idWord, step.token.word)
+
+    const tokenIndex = segment.getTokenIndex(step.params.mergedToken)
+    console.info('step.meregdToken - ', tokenIndex, step.params.mergedToken.idWord, step.params.mergedToken.word)
+    // const deleteIndex = (step.params.position === HistoryStep.directions.PREV) ? tokenIndex - 1 : tokenIndex + 1
+    // console.info('deleteIndex - ', deleteIndex)
+    segment.deleteToken(tokenIndex)
     this.reIndexSentence(segment)
 
     return {
@@ -44994,6 +45006,7 @@ class EditorHistory {
 
   addStep (token, stepType, params) {
     this.steps.push(new this.stepClass(token, stepType, params)) // eslint-disable-line new-cap
+    // console.info('this.steps - ', this.steps)
     this.defineCurrentStepIndex()
   }
 
@@ -45056,6 +45069,7 @@ class EditorHistory {
     }
 
     this.currentStepIndex = stepIndex
+    // console.info('this.steps - ', this.steps)
     return {
       result, data, dataIndexedDB
     }
@@ -45100,10 +45114,6 @@ class EditorHistory {
     this.steps = []
     this.currentStepIndex = null
     return true
-  }
-
-  updateLastStepWithAnnotations () {
-
   }
 }
 
@@ -48245,7 +48255,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i65-interlinearly-fix2.20211021599" : 0
+    return  true ? "i538-edit-token-bug.20211025572" : 0
   }
 
   static get libName () {
@@ -54979,6 +54989,9 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.uploadPartNum && this.$store.state.reuploadTextsParts ? this.segment.currentPartNums : []
     },
     allTokens () {    
+      if (this.textType === 'origin') {
+        // console.info('this.segment.tokens - ', this.segment.tokens.map(token => token.idWord))
+      }
       return  this.$store.state.tokenUpdated && this.$store.state.uploadPartNum && this.$store.state.reuploadTextsParts ? this.segment.tokens : []
     },
     amountOfSegments () {
