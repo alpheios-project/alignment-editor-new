@@ -440,4 +440,104 @@ describe('tokens-edit-history-cases.test.js', () => {
     expect(alignment.annotations['1-0-0']).toBeUndefined()
   })
 
+  it('9 Tokens Edit History Cases - split + merge (complex scenario) - undo/redo', async () => {
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    const targetDocSource1 = new SourceText('target', {
+      text: 'some target text', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    let alignment = new Alignment()
+    alignment.updateOriginDocSource(originDocSource)
+    alignment.updateTargetDocSource(targetDocSource1)
+
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
+
+    const allSegments = alignment.allAlignedTextsSegments
+
+    expect(allSegments[0].origin.tokens.map(token => { return { word: token.word, idWord: token.idWord } })).toEqual([
+      { word: 'some', idWord: '1-0-0' },
+      { word: 'origin', idWord: '1-0-1' },
+      { word: 'text', idWord: '1-0-2' }
+    ])
+
+    alignment.splitToken(allSegments[0].origin.tokens[1], 'origin lilu')
+
+    expect(allSegments[0].origin.tokens.map(token => { return { word: token.word, idWord: token.idWord } })).toEqual([
+      { word: 'some', idWord: '1-0-0' },
+      { word: 'origin', idWord: '1-0-1-s1-1' },
+      { word: 'lilu', idWord: '1-0-1-s2-1' },
+      { word: 'text', idWord: '1-0-2' }
+    ])
+
+    alignment.splitToken(allSegments[0].origin.tokens[3], 'text uli')
+
+    expect(allSegments[0].origin.tokens.map(token => { return { word: token.word, idWord: token.idWord } })).toEqual([
+      { word: 'some', idWord: '1-0-0' },
+      { word: 'origin', idWord: '1-0-1-s1-1' },
+      { word: 'lilu', idWord: '1-0-1-s2-1' },
+      { word: 'text', idWord: '1-0-2-s1-1' },
+      { word: 'uli', idWord: '1-0-2-s2-1' }
+    ])
+
+    alignment.mergeToken(allSegments[0].origin.tokens[3], 'prev')
+
+    expect(allSegments[0].origin.tokens.map(token => { return { word: token.word, idWord: token.idWord } })).toEqual([
+      { word: 'some', idWord: '1-0-0' },
+      { word: 'origin', idWord: '1-0-1-s1-1' },
+      { word: 'lilu text', idWord: '1-0-1-s2-1-m-1' },
+      { word: 'uli', idWord: '1-0-2-s2-1' },
+    ])
+
+    alignment.undoTokensEditStep()
+    expect(allSegments[0].origin.tokens.map(token => { return { word: token.word, idWord: token.idWord } })).toEqual([
+      { word: 'some', idWord: '1-0-0' },
+      { word: 'origin', idWord: '1-0-1-s1-1' },
+      { word: 'lilu', idWord: '1-0-1-s2-1' },
+      { word: 'text', idWord: '1-0-2-s1-1' },
+      { word: 'uli', idWord: '1-0-2-s2-1' }
+    ])
+
+    alignment.undoTokensEditStep()
+    expect(allSegments[0].origin.tokens.map(token => { return { word: token.word, idWord: token.idWord } })).toEqual([
+      { word: 'some', idWord: '1-0-0' },
+      { word: 'origin', idWord: '1-0-1-s1-1' },
+      { word: 'lilu', idWord: '1-0-1-s2-1' },
+      { word: 'text', idWord: '1-0-2' }
+    ])
+
+    alignment.undoTokensEditStep()
+    expect(allSegments[0].origin.tokens.map(token => { return { word: token.word, idWord: token.idWord } })).toEqual([
+      { word: 'some', idWord: '1-0-0' },
+      { word: 'origin', idWord: '1-0-1' },
+      { word: 'text', idWord: '1-0-2' }
+    ])
+
+    alignment.redoTokensEditStep()
+    expect(allSegments[0].origin.tokens.map(token => { return { word: token.word, idWord: token.idWord } })).toEqual([
+      { word: 'some', idWord: '1-0-0' },
+      { word: 'origin', idWord: '1-0-1-s1-1' },
+      { word: 'lilu', idWord: '1-0-1-s2-1' },
+      { word: 'text', idWord: '1-0-2' }
+    ])
+
+    alignment.redoTokensEditStep()
+    expect(allSegments[0].origin.tokens.map(token => { return { word: token.word, idWord: token.idWord } })).toEqual([
+      { word: 'some', idWord: '1-0-0' },
+      { word: 'origin', idWord: '1-0-1-s1-1' },
+      { word: 'lilu', idWord: '1-0-1-s2-1' },
+      { word: 'text', idWord: '1-0-2-s1-1' },
+      { word: 'uli', idWord: '1-0-2-s2-1' }
+    ])
+
+    alignment.redoTokensEditStep()
+    expect(allSegments[0].origin.tokens.map(token => { return { word: token.word, idWord: token.idWord } })).toEqual([
+      { word: 'some', idWord: '1-0-0' },
+      { word: 'origin', idWord: '1-0-1-s1-1' },
+      { word: 'lilu text', idWord: '1-0-1-s2-1-m-1' },
+      { word: 'uli', idWord: '1-0-2-s2-1' },
+    ])
+  })
 })

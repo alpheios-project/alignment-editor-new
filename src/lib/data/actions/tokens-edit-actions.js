@@ -503,11 +503,12 @@ export default class TokensEditActions {
 
   applyStepMerge (step) {
     const segment = this.getSegmentByToken(step.token)
-    step.token.update({ word: step.params.newWord, idWord: step.params.newIdWord })
+    const tokenRef = segment.getTokenById(step.token.idWord)
+    tokenRef.update({ word: step.params.newWord, idWord: step.params.newIdWord })
+    step.token = tokenRef
 
-    const tokenIndex = segment.getTokenIndex(step.token)
-    const deleteIndex = (step.params.position === HistoryStep.directions.PREV) ? tokenIndex - 1 : tokenIndex + 1
-    segment.deleteToken(deleteIndex)
+    const tokenIndex = segment.getTokenIndex(step.params.mergedToken)
+    segment.deleteToken(tokenIndex)
     this.reIndexSentence(segment)
 
     return {
