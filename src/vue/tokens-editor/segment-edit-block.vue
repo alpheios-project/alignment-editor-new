@@ -195,9 +195,6 @@ export default {
       return this.$store.state.uploadPartNum && this.$store.state.reuploadTextsParts ? this.segment.currentPartNums : []
     },
     allTokens () {    
-      if (this.textType === 'origin') {
-        // console.info('this.segment.tokens - ', this.segment.tokens.map(token => token.idWord))
-      }
       return  this.$store.state.tokenUpdated && this.$store.state.uploadPartNum && this.$store.state.reuploadTextsParts ? this.segment.tokens : []
     },
     amountOfSegments () {

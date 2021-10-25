@@ -33,7 +33,6 @@ export default class EditorHistory {
 
   addStep (token, stepType, params) {
     this.steps.push(new this.stepClass(token, stepType, params)) // eslint-disable-line new-cap
-    // console.info('this.steps - ', this.steps)
     this.defineCurrentStepIndex()
   }
 
@@ -96,7 +95,6 @@ export default class EditorHistory {
     }
 
     this.currentStepIndex = stepIndex
-    // console.info('this.steps - ', this.steps)
     return {
       result, data, dataIndexedDB
     }
