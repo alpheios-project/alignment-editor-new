@@ -16717,11 +16717,11 @@ var render = function() {
             end: _vm.endDrag
           }
         },
-        _vm._l(_vm.languagesList, function(langData) {
+        _vm._l(_vm.languagesList, function(langData, langIndex) {
           return _c(
             "div",
             {
-              key: langData.lang,
+              key: langIndex,
               class: _vm.langClasses(langData),
               on: {
                 click: function($event) {

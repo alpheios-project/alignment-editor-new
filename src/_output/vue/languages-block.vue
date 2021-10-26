@@ -8,8 +8,8 @@
         @end="endDrag"
       >
         <div
-          v-for="langData in languagesList"
-          :key="langData.lang"
+          v-for="(langData, langIndex) in languagesList"
+          :key="langIndex"
           :class="langClasses(langData)"
           @click = "toggleLangDataVisibility(langData)"
         >
