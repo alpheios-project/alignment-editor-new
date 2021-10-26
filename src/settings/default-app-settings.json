@@ -136,6 +136,21 @@
       "minValue": 1,
       "maxValue": 5000,
       "values": []
+    },
+    "enableTokensEditor": {
+      "defaultValue": false,
+      "labelText": "Enable Tokens Editor Screen",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "Yes"
+        },
+        {
+          "value": false,
+          "text": "No"
+        }
+      ]
     }
   }
 }

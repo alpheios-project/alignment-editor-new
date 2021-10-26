@@ -39672,6 +39672,10 @@ class SettingsController {
     return _instance.options.app && _instance.options.app.items.maxCharactersPerPart ? _instance.options.app.items.maxCharactersPerPart.currentValue : 1000
   }
 
+  static get enableTokensEditor () {
+    return _instance.options.app && _instance.options.app.items.enableTokensEditor ? _instance.options.app.items.enableTokensEditor.currentValue : false
+  }
+
   static get addIndexedDBSupport () {
     return _instance.options.app && _instance.options.app.items.addIndexedDBSupport ? _instance.options.app.items.addIndexedDBSupport.currentValue : 1000
   }
@@ -48242,7 +48246,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i538-edit-token-bug.20211025653" : 0
+    return  true ? "i575-turn-off-tokens-edit.20211026596" : 0
   }
 
   static get libName () {
@@ -49295,7 +49299,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_common_save_popup_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/common/save-popup.vue */ "./vue/common/save-popup.vue");
 /* harmony import */ var _vue_options_options_text_align_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/options/options-text-align.vue */ "./vue/options/options-text-align.vue");
 /* harmony import */ var _vue_align_editor_annotation_block_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/align-editor/annotation-block.vue */ "./vue/align-editor/annotation-block.vue");
-/* harmony import */ var _vue_help_blocks_eng_help_block_align_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/help-blocks/eng/help-block-align.vue */ "./vue/help-blocks/eng/help-block-align.vue");
+/* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
+/* harmony import */ var _vue_help_blocks_eng_help_block_align_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/help-blocks/eng/help-block-align.vue */ "./vue/help-blocks/eng/help-block-align.vue");
 //
 //
 //
@@ -49344,6 +49349,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -49363,7 +49369,7 @@ __webpack_require__.r(__webpack_exports__);
     alignEditorViewMode: _vue_align_editor_align_editor_view_mode_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     helpPopup: _vue_common_help_popup_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     savePopup: _vue_common_save_popup_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-    helpBlockAlign: _vue_help_blocks_eng_help_block_align_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+    helpBlockAlign: _vue_help_blocks_eng_help_block_align_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
     optionsTextAlignPopup: _vue_options_options_text_align_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     annotationBlockPopup: _vue_align_editor_annotation_block_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
@@ -49385,7 +49391,13 @@ __webpack_require__.r(__webpack_exports__);
     renderAlignEditor ()  {
       this.annotationMode = false
       return this.$store.state.alignmentUpdated && this.$store.state.uploadCheck &&this.$alignedGC.alignmentGroupsWorkflowStarted
-    }
+    },
+    enableTokensEditorOptionItemValue () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].enableTokensEditor
+    },
+    tokensEditAvailable () {
+      return this.enableTokensEditorOptionItemValue
+    },
   },
   methods: {
     updateAnnotation (token) {
@@ -52302,6 +52314,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -52334,6 +52347,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     showSummaryPopupOptionItem () {
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOptions.app.items.showSummaryPopup
+    },
+    enableTokensEditorOptionItem () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOptions.app.items.enableTokensEditor
     },
 
     addIndexedDBSupportOptionItem () {
@@ -53751,8 +53767,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
 /* harmony import */ var _vue_common_help_popup_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/common/help-popup.vue */ "./vue/common/help-popup.vue");
 /* harmony import */ var _vue_common_save_popup_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/common/save-popup.vue */ "./vue/common/save-popup.vue");
-/* harmony import */ var _vue_options_options_text_enter_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/options/options-text-enter.vue */ "./vue/options/options-text-enter.vue");
-/* harmony import */ var _vue_help_blocks_eng_help_block_enter_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/help-blocks/eng/help-block-enter.vue */ "./vue/help-blocks/eng/help-block-enter.vue");
+/* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
+/* harmony import */ var _vue_options_options_text_enter_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/options/options-text-enter.vue */ "./vue/options/options-text-enter.vue");
+/* harmony import */ var _vue_help_blocks_eng_help_block_enter_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/help-blocks/eng/help-block-enter.vue */ "./vue/help-blocks/eng/help-block-enter.vue");
 //
 //
 //
@@ -53811,6 +53828,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -53829,8 +53847,8 @@ __webpack_require__.r(__webpack_exports__);
     tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     helpPopup: _vue_common_help_popup_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
     savePopup: _vue_common_save_popup_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-    helpBlockEnter: _vue_help_blocks_eng_help_block_enter_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
-    optionsTextEnterPopup: _vue_options_options_text_enter_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+    helpBlockEnter: _vue_help_blocks_eng_help_block_enter_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
+    optionsTextEnterPopup: _vue_options_options_text_enter_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
   props: {  
   },
@@ -53865,6 +53883,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     alignEditAvailable () {
       return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
+    },
+    enableTokensEditorOptionItemValue () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__["default"].enableTokensEditor
+    },
+    tokensEditAvailable () {
+      return this.enableTokensEditorOptionItemValue && this.enableTokensEditorOptionItemValue
     },
     downloadAvailable () {
       return Boolean(this.$store.state.docSourceUpdated) && this.$textC.originDocSourceHasText
@@ -60037,19 +60061,21 @@ var render = function() {
                 [_vm._v(_vm._s(_vm.l10n.getMsgS("ALIGN_EDITOR_HEADING")))]
               ),
               _vm._v(" "),
-              _c(
-                "span",
-                {
-                  staticClass:
-                    "alpheios-alignment-text-editor-block__header-link",
-                  on: {
-                    click: function($event) {
-                      return _vm.$emit("showTokensEditor")
-                    }
-                  }
-                },
-                [_vm._v(_vm._s(_vm.l10n.getMsgS("TOKENS_EDITOR_LINK")))]
-              ),
+              _vm.tokensEditAvailable
+                ? _c(
+                    "span",
+                    {
+                      staticClass:
+                        "alpheios-alignment-text-editor-block__header-link",
+                      on: {
+                        click: function($event) {
+                          return _vm.$emit("showTokensEditor")
+                        }
+                      }
+                    },
+                    [_vm._v(_vm._s(_vm.l10n.getMsgS("TOKENS_EDITOR_LINK")))]
+                  )
+                : _vm._e(),
               _vm._v(" "),
               _c(
                 "div",
@@ -63449,6 +63475,10 @@ var render = function() {
             }),
             _vm._v(" "),
             _c("option-item-block", {
+              attrs: { optionItem: _vm.enableTokensEditorOptionItem }
+            }),
+            _vm._v(" "),
+            _c("option-item-block", {
               attrs: { optionItem: _vm.addIndexedDBSupportOptionItem }
             }),
             _vm._v(" "),
@@ -65082,7 +65112,7 @@ var render = function() {
                   )
                 : _vm._e(),
               _vm._v(" "),
-              _vm.alignEditAvailable
+              _vm.tokensEditAvailable
                 ? _c(
                     "span",
                     {
@@ -67771,7 +67801,7 @@ module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit text","de
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"1","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":true,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":true,"labelText":"Show language check before text would be prepared","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerPart":{"defaultValue":1000,"labelText":"Max characters per part (recommended for performance), to be used in Align Text","number":true,"minValue":1,"maxValue":50000,"values":[]},"addIndexedDBSupport":{"defaultValue":true,"labelText":"Add IndexedDB support","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"availableAnnotationTypes":{"defaultValue":["COMMENT","LEMMAID","MORPHOLOGY"],"labelText":"Available Annotation Types","multiValue":true,"values":[{"value":"COMMENT","text":"comment"},{"value":"LEMMAID","text":"lemmaID"},{"value":"MORPHOLOGY","text":"morphology"}]},"maxCharactersAnnotationText":{"defaultValue":500,"labelText":"Max characters in annotation text","number":true,"minValue":1,"maxValue":5000,"values":[]}}}');
+module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"1","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":true,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":true,"labelText":"Show language check before text would be prepared","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerPart":{"defaultValue":1000,"labelText":"Max characters per part (recommended for performance), to be used in Align Text","number":true,"minValue":1,"maxValue":50000,"values":[]},"addIndexedDBSupport":{"defaultValue":true,"labelText":"Add IndexedDB support","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"availableAnnotationTypes":{"defaultValue":["COMMENT","LEMMAID","MORPHOLOGY"],"labelText":"Available Annotation Types","multiValue":true,"values":[{"value":"COMMENT","text":"comment"},{"value":"LEMMAID","text":"lemmaID"},{"value":"MORPHOLOGY","text":"morphology"}]},"maxCharactersAnnotationText":{"defaultValue":500,"labelText":"Max characters in annotation text","number":true,"minValue":1,"maxValue":5000,"values":[]},"enableTokensEditor":{"defaultValue":false,"labelText":"Enable Tokens Editor Screen","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]}}}');
 
 /***/ }),
 
