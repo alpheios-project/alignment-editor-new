@@ -16,6 +16,7 @@
             <option-item-block :optionItem = "maxCharactersPerPart" />
             <option-item-block :optionItem = "useSpecificEnglishTokenizerOptionItem" />
             <option-item-block :optionItem = "showSummaryPopupOptionItem" />
+            <option-item-block :optionItem = "enableTokensEditorOptionItem" />
 
             <option-item-block :optionItem = "addIndexedDBSupportOptionItem"/>
             <option-item-block :optionItem = "maxCharactersOptionItem" v-show="!addIndexedDBSupportValue"/>
@@ -69,6 +70,9 @@ export default {
     },
     showSummaryPopupOptionItem () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.showSummaryPopup
+    },
+    enableTokensEditorOptionItem () {
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableTokensEditor
     },
 
     addIndexedDBSupportOptionItem () {

@@ -4,7 +4,7 @@
         <span class="alpheios-alignment-text-editor-block__part alpheios-alignment-text-editor-block__part-1">
           <span class="alpheios-alignment-text-editor-block__header-link" @click="$emit('showSourceTextEditor')">{{ l10n.getMsgS('TEXT_EDITOR_LINK') }}</span>
           <span class="alpheios-alignment-text-editor-block__header-label">{{ l10n.getMsgS('ALIGN_EDITOR_HEADING') }}</span>
-          <span class="alpheios-alignment-text-editor-block__header-link" @click="$emit('showTokensEditor')">{{ l10n.getMsgS('TOKENS_EDITOR_LINK') }}</span>
+          <span class="alpheios-alignment-text-editor-block__header-link" v-if="tokensEditAvailable" @click="$emit('showTokensEditor')">{{ l10n.getMsgS('TOKENS_EDITOR_LINK') }}</span>
           
           <div class="alpheios-alignment-toggle-block alpheios-alignment-annotation-mode-check-container">
             <label class="alpheios-switch">
@@ -56,6 +56,7 @@ import HelpPopup from '@/vue/common/help-popup.vue'
 import SavePopup from '@/vue/common/save-popup.vue'
 import OptionsTextAlign from '@/vue/options/options-text-align.vue'
 import AnnotationBlockPopup from '@/vue/align-editor/annotation-block.vue'
+import SettingsController from '@/lib/controllers/settings-controller.js'
 
 import HelpBlockAlign from '@/vue/help-blocks/eng/help-block-align.vue'
 
@@ -87,7 +88,13 @@ export default {
     renderAlignEditor ()  {
       this.annotationMode = false
       return this.$store.state.alignmentUpdated && this.$store.state.uploadCheck &&this.$alignedGC.alignmentGroupsWorkflowStarted
-    }
+    },
+    enableTokensEditorOptionItemValue () {
+      return this.$store.state.optionsUpdated && SettingsController.enableTokensEditor
+    },
+    tokensEditAvailable () {
+      return this.enableTokensEditorOptionItemValue
+    },
   },
   methods: {
     updateAnnotation (token) {

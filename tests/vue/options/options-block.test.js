@@ -58,6 +58,6 @@ describe('options-block.test.js', () => {
     })
     
     const optionItems = cmp.findAll(OptionItemBlock)
-    expect(optionItems.length).toEqual(10)
+    expect(optionItems.length).toEqual(11)
   })
 })

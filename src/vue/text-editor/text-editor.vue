@@ -4,7 +4,7 @@
         <span class="alpheios-alignment-text-editor-block__part">
           <span class="alpheios-alignment-text-editor-block__header-label">{{ l10n.getMsgS('TEXT_EDITOR_HEADING') }}</span>
           <span class="alpheios-alignment-text-editor-block__header-link" v-if="alignEditAvailable" @click="$emit('showAlignmentGroupsEditor')">{{ l10n.getMsgS('ALIGN_EDITOR_LINK') }}</span>
-          <span class="alpheios-alignment-text-editor-block__header-link" v-if="alignEditAvailable" @click="$emit('showTokensEditor')">{{ l10n.getMsgS('TOKENS_EDITOR_LINK') }}</span>
+          <span class="alpheios-alignment-text-editor-block__header-link" v-if="tokensEditAvailable" @click="$emit('showTokensEditor')">{{ l10n.getMsgS('TOKENS_EDITOR_LINK') }}</span>
         </span>
         <span class="alpheios-alignment-text-editor-block__part">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-help"
@@ -62,6 +62,7 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import Tooltip from '@/vue/common/tooltip.vue'
 import HelpPopup from '@/vue/common/help-popup.vue'
 import SavePopup from '@/vue/common/save-popup.vue'
+import SettingsController from '@/lib/controllers/settings-controller.js'
 
 import OptionsTextEnter from '@/vue/options/options-text-enter.vue'
 
@@ -110,6 +111,12 @@ export default {
     },
     alignEditAvailable () {
       return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
+    },
+    enableTokensEditorOptionItemValue () {
+      return this.$store.state.optionsUpdated && SettingsController.enableTokensEditor
+    },
+    tokensEditAvailable () {
+      return this.enableTokensEditorOptionItemValue && this.enableTokensEditorOptionItemValue
     },
     downloadAvailable () {
       return Boolean(this.$store.state.docSourceUpdated) && this.$textC.originDocSourceHasText
