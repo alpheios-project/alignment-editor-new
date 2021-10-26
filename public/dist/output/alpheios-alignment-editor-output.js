@@ -13751,7 +13751,8 @@ __webpack_require__.r(__webpack_exports__);
      * Checks if the token is grouped and visible on the screen
      */
     groupedToken (token) {
-      return token.grouped && ((this.shownTabs.length === 0) || token.groupData.some(groupdataItem => this.isShownTab(groupdataItem.targetId)))
+
+      return token.grouped && (token.groupData.some(groupdataItem => this.isShownTab(groupdataItem.targetId)))
     },
     isTokenInHoveredGroups (token) {
       return token.groupData.some(groupDataItem => this.hoveredGroupsId.includes(groupDataItem.groupId) ) 
