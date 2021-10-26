@@ -165,14 +165,14 @@ export default {
      * Checks if translation with targetId is visible on the screen
      */
     isShownTab (targetId) {
-      return this.shownTabs.length === 0 || this.shownTabs.includes(targetId)
+      return this.shownTabs.includes(targetId)
     },
     /**
      * Checks if the token is grouped and visible on the screen
      */
     groupedToken (token) {
-
-      return token.grouped && (token.groupData.some(groupdataItem => this.isShownTab(groupdataItem.targetId)))
+      
+      return token.grouped && ((this.shownTabs.length === 0) || token.groupData.some(groupdataItem => this.isShownTab(groupdataItem.targetId)))
     },
     isTokenInHoveredGroups (token) {
       return token.groupData.some(groupDataItem => this.hoveredGroupsId.includes(groupDataItem.groupId) ) 
