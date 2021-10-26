@@ -171,7 +171,7 @@ export default {
      * Checks if the token is grouped and visible on the screen
      */
     groupedToken (token) {
-      console.info('targetIdIndex - ', targetIdIndex)
+      console.info('targetIdIndex - ', this.targetIdIndex)
       return token.grouped && ((this.shownTabs.length === 0) || token.groupData.some(groupdataItem => this.isShownTab(groupdataItem.targetId)))
     },
     isTokenInHoveredGroups (token) {
