@@ -87,11 +87,14 @@ export default {
           cursor: pointer;
           padding: 2px 2px 0 2px;
           margin-bottom: 2px;
-          border: 1px solid transparent;
           display: inline-block;
           vertical-align: top;
 
-          &.alpheios-token-annotated {
+          .alpheios-token-inner {
+            border: 1px solid transparent;
+          }
+
+          &.alpheios-token-annotated .alpheios-token-inner {
             border-bottom: 1px solid;
           }
 
