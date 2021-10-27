@@ -77,7 +77,7 @@ export default {
         { value: 'view3Columns', label: '3 columns'},
         { value: 'viewShort', label: 'Short'},
         { value: 'viewEquivalence', label: 'Equivalence'},
-        { value: 'viewInterlinearly', label: 'Interlinearly'},
+        { value: 'viewInterlinearly', label: 'Interlinear'},
         { value: 'viewSentence', label: 'Sentence'}
       ],
       viewType: 'viewFull',

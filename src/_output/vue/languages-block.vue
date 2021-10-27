@@ -18,7 +18,7 @@
           <span class="alpheios-icon-button alpheios-al-editor-languages-hide alpheios-icon-button__inactive" v-show="langData.hidden">
             <hide-icon />
           </span>
-          <span class="alpheios-icon-button alpheios-al-editor-languages-show" v-show="!langData.hidden">
+          <span class="alpheios-icon-button alpheios-al-editor-languages-show" v-show="!langData.hidden && langFilteringAvailable">
             <show-icon />
           </span>
         </div>
@@ -54,6 +54,15 @@ export default {
   created() {
     this.languagesList = GroupUtility.allLanguagesTargets(this.fullData)
   },
+  computed: {
+    avaliableLangs () {
+      return this.languagesList.filter(langDataItem => !langDataItem.hidden).length
+    },
+    langFilteringAvailable () {
+      return this.avaliableLangs > 1
+    }
+
+  },
   methods: {
     endDrag (e) {
       this.dragging = false
@@ -66,13 +75,16 @@ export default {
     langClasses (langData) {
       return {
         'alpheios-al-editor-languages-list-item': true,
+        'alpheios-al-editor-languages-list-item-clickable': this.langFilteringAvailable || langData.hidden,
         'alpheios-al-editor-languages-list-item__inactive': langData.hidden
       }
     },
 
     toggleLangDataVisibility (langData) {
-      langData.hidden = !langData.hidden
-      this.$emit('updateVisibility', langData)
+      if (this.langFilteringAvailable || langData.hidden) {
+        langData.hidden = !langData.hidden
+        this.$emit('updateVisibility', langData)
+      }
     }
   }
 }
@@ -87,7 +99,11 @@ export default {
     border: 1px solid #ddd;
     background: #fff;
     padding: 5px 10px;
-    cursor: pointer;
+    
+
+    &.alpheios-al-editor-languages-list-item-clickable {
+      cursor: pointer;
+    }
   }
 
   .alpheios-icon-button {
