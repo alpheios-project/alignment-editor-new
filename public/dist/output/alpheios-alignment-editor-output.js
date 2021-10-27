@@ -13293,7 +13293,7 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     updateVisibility (langData) {
-      this.languagesList.find(curLangData => curLangData.lang === langData.lang).hidden = langData.hidden
+      this.languagesList.find(curLangData => curLangData.targetId === langData.targetId).hidden = langData.hidden
     }
   }
 });
@@ -13852,8 +13852,6 @@ __webpack_require__.r(__webpack_exports__);
       return `token-${this.token.idWord}`
     },
     filteredGroupData () {
-      console.info('this.shownTabs - ', this.shownTabs)
-      console.info(this.token.idWord, this.token.groupDataTrans)
       return this.interlinearly && this.grouped && this.shownTabs && this.token.groupDataTrans ? this.token.groupDataTrans.filter(groupDataItem => this.shownTabs.includes(groupDataItem.targetId) ) : null
     }
   },
@@ -16730,11 +16728,11 @@ var render = function() {
             end: _vm.endDrag
           }
         },
-        _vm._l(_vm.languagesList, function(langData, langIndex) {
+        _vm._l(_vm.languagesList, function(langData) {
           return _c(
             "div",
             {
-              key: langIndex,
+              key: langData.targetId,
               class: _vm.langClasses(langData),
               on: {
                 click: function($event) {

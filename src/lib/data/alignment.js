@@ -1427,8 +1427,8 @@ export default class Alignment {
       })
     }
 
-    groupData.sort((a, b) => allTragetIds.indexOf(a.targetId) - allTragetIds.indexOf(b.targetId))
-
+    const allTargetTextsIdsForSorting = this.allTargetTextsIds
+    groupData.sort((a, b) => allTargetTextsIdsForSorting.indexOf(a.targetId) - allTargetTextsIdsForSorting.indexOf(b.targetId))
     return groupData
   }
 

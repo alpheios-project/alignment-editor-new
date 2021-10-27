@@ -122,7 +122,7 @@ export default {
     },
 
     updateVisibility (langData) {
-      this.languagesList.find(curLangData => curLangData.lang === langData.lang).hidden = langData.hidden
+      this.languagesList.find(curLangData => curLangData.targetId === langData.targetId).hidden = langData.hidden
     }
   }
 }
