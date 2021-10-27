@@ -77,7 +77,7 @@ export default {
         { value: 'view3Columns', label: '3 columns'},
         { value: 'viewShort', label: 'Short'},
         { value: 'viewEquivalence', label: 'Equivalence'},
-        { value: 'viewInterlinearly', label: 'Interlinearly'},
+        { value: 'viewInterlinearly', label: 'Interlinear'},
         { value: 'viewSentence', label: 'Sentence'}
       ],
       viewType: 'viewFull',
@@ -122,7 +122,7 @@ export default {
     },
 
     updateVisibility (langData) {
-      this.languagesList.find(curLangData => curLangData.lang === langData.lang).hidden = langData.hidden
+      this.languagesList.find(curLangData => curLangData.targetId === langData.targetId).hidden = langData.hidden
     }
   }
 }

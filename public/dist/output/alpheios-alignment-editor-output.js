@@ -13248,7 +13248,7 @@ __webpack_require__.r(__webpack_exports__);
         { value: 'view3Columns', label: '3 columns'},
         { value: 'viewShort', label: 'Short'},
         { value: 'viewEquivalence', label: 'Equivalence'},
-        { value: 'viewInterlinearly', label: 'Interlinearly'},
+        { value: 'viewInterlinearly', label: 'Interlinear'},
         { value: 'viewSentence', label: 'Sentence'}
       ],
       viewType: 'viewFull',
@@ -13293,7 +13293,7 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     updateVisibility (langData) {
-      this.languagesList.find(curLangData => curLangData.lang === langData.lang).hidden = langData.hidden
+      this.languagesList.find(curLangData => curLangData.targetId === langData.targetId).hidden = langData.hidden
     }
   }
 });
@@ -13539,6 +13539,15 @@ __webpack_require__.r(__webpack_exports__);
   created() {
     this.languagesList = _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_3__["default"].allLanguagesTargets(this.fullData)
   },
+  computed: {
+    avaliableLangs () {
+      return this.languagesList.filter(langDataItem => !langDataItem.hidden).length
+    },
+    langFilteringAvailable () {
+      return this.avaliableLangs > 1
+    }
+
+  },
   methods: {
     endDrag (e) {
       this.dragging = false
@@ -13551,13 +13560,16 @@ __webpack_require__.r(__webpack_exports__);
     langClasses (langData) {
       return {
         'alpheios-al-editor-languages-list-item': true,
+        'alpheios-al-editor-languages-list-item-clickable': this.langFilteringAvailable || langData.hidden,
         'alpheios-al-editor-languages-list-item__inactive': langData.hidden
       }
     },
 
     toggleLangDataVisibility (langData) {
-      langData.hidden = !langData.hidden
-      this.$emit('updateVisibility', langData)
+      if (this.langFilteringAvailable || langData.hidden) {
+        langData.hidden = !langData.hidden
+        this.$emit('updateVisibility', langData)
+      }
     }
   }
 });
@@ -16720,7 +16732,7 @@ var render = function() {
           return _c(
             "div",
             {
-              key: langData.lang,
+              key: langData.targetId,
               class: _vm.langClasses(langData),
               on: {
                 click: function($event) {
@@ -16755,8 +16767,8 @@ var render = function() {
                     {
                       name: "show",
                       rawName: "v-show",
-                      value: !langData.hidden,
-                      expression: "!langData.hidden"
+                      value: !langData.hidden && _vm.langFilteringAvailable,
+                      expression: "!langData.hidden && langFilteringAvailable"
                     }
                   ],
                   staticClass:

@@ -92,13 +92,14 @@ export default {
 
           .alpheios-token-inner {
             border: 1px solid transparent;
+            display: inline-block;
+            text-align: left;
           }
 
           &.alpheios-token-annotated .alpheios-token-inner {
             border-bottom: 1px solid;
           }
 
-          .alpheios-token-inner ,
           .alpheios-token-translation {
             display: block;
             text-align: left;
