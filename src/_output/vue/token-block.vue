@@ -56,6 +56,8 @@ export default {
       return `token-${this.token.idWord}`
     },
     filteredGroupData () {
+      console.info('this.shownTabs - ', this.shownTabs)
+      console.info(this.token.idWord, this.token.groupDataTrans)
       return this.interlinearly && this.grouped && this.shownTabs && this.token.groupDataTrans ? this.token.groupDataTrans.filter(groupDataItem => this.shownTabs.includes(groupDataItem.targetId) ) : null
     }
   },
