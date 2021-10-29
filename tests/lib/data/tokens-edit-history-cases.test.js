@@ -540,4 +540,48 @@ describe('tokens-edit-history-cases.test.js', () => {
       { word: 'uli', idWord: '1-0-2-s2-1' },
     ])
   })
+
+  it('10 Tokens Edit History Cases - delete in the middle - undo/redo', async () => {
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    const targetDocSource1 = new SourceText('target', {
+      text: 'some target text', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    let alignment = new Alignment()
+    alignment.updateOriginDocSource(originDocSource)
+    alignment.updateTargetDocSource(targetDocSource1)
+
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
+
+    const allSegments = alignment.allAlignedTextsSegments
+
+    expect(allSegments[0].origin.tokens.map(token => { return { word: token.word, idWord: token.idWord } })).toEqual([
+      { word: 'some', idWord: '1-0-0' },
+      { word: 'origin', idWord: '1-0-1' },
+      { word: 'text', idWord: '1-0-2' }
+    ])
+
+    alignment.deleteToken(allSegments[0].origin.tokens[1])
+
+    expect(allSegments[0].origin.tokens.map(token => { return { word: token.word, idWord: token.idWord } })).toEqual([
+      { word: 'some', idWord: '1-0-0' },
+      { word: 'text', idWord: '1-0-2' }
+    ])
+
+    alignment.undoTokensEditStep()
+    expect(allSegments[0].origin.tokens.map(token => { return { word: token.word, idWord: token.idWord } })).toEqual([
+      { word: 'some', idWord: '1-0-0' },
+      { word: 'origin', idWord: '1-0-1' },
+      { word: 'text', idWord: '1-0-2' }
+    ])
+
+    alignment.redoTokensEditStep()
+    expect(allSegments[0].origin.tokens.map(token => { return { word: token.word, idWord: token.idWord } })).toEqual([
+      { word: 'some', idWord: '1-0-0' },
+      { word: 'text', idWord: '1-0-2' }
+    ])
+  })
 })

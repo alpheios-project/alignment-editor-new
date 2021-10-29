@@ -42137,11 +42137,12 @@ class TokensEditActions {
    * @returns {Boolean}
    */
   allowedDelete (token) {
-    const alignedText = this.getAlignedTextByToken(token)
+    // const alignedText = this.getAlignedTextByToken(token)
     const segment = this.getSegmentByToken(token)
-    return segment.tokens.length > 1 &&
-           ((!this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV) && (token.segmentIndex === alignedText.segments[0].index)) ||
-           (!this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.NEXT) && (token.segmentIndex === alignedText.segments[alignedText.segments.length - 1].index)))
+    return segment.tokens.length > 1 /* &&
+           ((!this.getNextPrevToken(token, HistoryStep.directions.PREV) && (token.segmentIndex === alignedText.segments[0].index)) ||
+           (!this.getNextPrevToken(token, HistoryStep.directions.NEXT) && (token.segmentIndex === alignedText.segments[alignedText.segments.length - 1].index)))
+           */
   }
 
   /**
@@ -42494,7 +42495,7 @@ class TokensEditActions {
   }
 
   applyStepDeleteToken (step) {
-    step.params.segmentToDelete.deleteToken(step.params.tokenIndex)
+    step.params.segmentToDelete.deleteToken(step.params.deleteIndex)
     this.reIndexSentence(step.params.segmentToDelete)
     return {
       result: true,
@@ -48246,7 +48247,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i579-html-filter.20211027609" : 0
+    return  true ? "i576-insert-tokens.20211029377" : 0
   }
 
   static get libName () {

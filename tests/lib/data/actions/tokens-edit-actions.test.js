@@ -478,19 +478,17 @@ describe('tokens-edit-actions.test.js', () => {
     const tokenNN1 = nextNextSegment.tokens[1] 
 
     expect(tokensEditActions.allowedDelete(tokenC0)).toBeTruthy()
-    expect(tokensEditActions.allowedDelete(tokenC1)).toBeFalsy()
-    expect(tokensEditActions.allowedDelete(tokenC2)).toBeFalsy()
-
-    expect(tokensEditActions.allowedDelete(tokenN0)).toBeFalsy()
-    
-    expect(tokensEditActions.allowedDelete(tokenNN0)).toBeFalsy()
-    expect(tokensEditActions.allowedDelete(tokenNN1)).toBeTruthy()
-
-    tokensEditActions.deleteToken(tokenC0)
-
     expect(tokensEditActions.allowedDelete(tokenC1)).toBeTruthy()
-    tokensEditActions.deleteToken(tokenC1)
+    expect(tokensEditActions.allowedDelete(tokenC2)).toBeTruthy()
 
-    expect(tokensEditActions.allowedDelete(tokenC2)).toBeFalsy() // it is the last token in the first segment
+    expect(currentSegment.tokens.length).toEqual(3)
+
+    tokensEditActions.deleteToken(currentSegment.tokens[0])
+    expect(currentSegment.tokens.length).toEqual(2)
+
+    tokensEditActions.deleteToken(currentSegment.tokens[1])
+    expect(currentSegment.tokens.length).toEqual(1)
+
+    expect(tokensEditActions.allowedDelete(currentSegment.tokens[0])).toBeFalsy() // it is not allowed to delete the only token in a segment
   })
 })

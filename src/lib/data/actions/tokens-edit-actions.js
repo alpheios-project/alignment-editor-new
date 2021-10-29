@@ -358,11 +358,12 @@ export default class TokensEditActions {
    * @returns {Boolean}
    */
   allowedDelete (token) {
-    const alignedText = this.getAlignedTextByToken(token)
+    // const alignedText = this.getAlignedTextByToken(token)
     const segment = this.getSegmentByToken(token)
-    return segment.tokens.length > 1 &&
+    return segment.tokens.length > 1 /* &&
            ((!this.getNextPrevToken(token, HistoryStep.directions.PREV) && (token.segmentIndex === alignedText.segments[0].index)) ||
            (!this.getNextPrevToken(token, HistoryStep.directions.NEXT) && (token.segmentIndex === alignedText.segments[alignedText.segments.length - 1].index)))
+           */
   }
 
   /**
@@ -715,7 +716,7 @@ export default class TokensEditActions {
   }
 
   applyStepDeleteToken (step) {
-    step.params.segmentToDelete.deleteToken(step.params.tokenIndex)
+    step.params.segmentToDelete.deleteToken(step.params.deleteIndex)
     this.reIndexSentence(step.params.segmentToDelete)
     return {
       result: true,
