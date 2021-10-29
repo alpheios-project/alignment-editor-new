@@ -55,6 +55,12 @@
           <template v-slot:disabled><next-icon /></template>
         </actions-button>
 
+        <actions-button tooltipMess = "ACTION_BUTTON_INSERT" :allowedCondition = "allowedInsert"
+                        actionName = "insert" @click = "$emit('insertTokens', token)">
+          <template v-slot:enabled><big-plus-icon /></template>
+          <template v-slot:disabled><big-plus-icon /></template>
+        </actions-button>
+
         <actions-button tooltipMess = "ACTION_BUTTON_DELETE" :allowedCondition = "allowedDelete"
                         actionName = "delete" @click = "$emit('deleteToken', token)">
           <template v-slot:enabled><delete-icon /></template>
@@ -77,7 +83,7 @@ import PrevIcon from '@/inline-icons/prev.svg'
 
 import DeleteIcon from '@/inline-icons/delete.svg'
 
-import Tooltip from '@/vue/common/tooltip.vue'
+import BigPlusIcon from '@/inline-icons/big-plus.svg'
 
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
@@ -97,7 +103,8 @@ export default {
     nextIcon: NextIcon,
     prevIcon: PrevIcon,
     deleteIcon: DeleteIcon,
-    actionsButton: ActionsButtonTokenEdit
+    actionsButton: ActionsButtonTokenEdit,
+    bigPlusIcon: BigPlusIcon
   },
   props: {
     token: {
@@ -170,6 +177,9 @@ export default {
     },
     allowedDelete () {
       return this.$store.state.optionsUpdated && this.$tokensEC.allowedDelete(this.token)
+    },
+    allowedInsert () {
+      return true
     },
     renderMoveToPrevSegment () {
       return this.$store.state.alignmentRestarted && this.$store.state.uploadCheck && !this.$alignedGC.hasOnlyOneSegment

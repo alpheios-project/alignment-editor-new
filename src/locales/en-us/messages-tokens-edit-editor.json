@@ -54,6 +54,11 @@
       "description": "A label for action menu buttons",
       "component": "ActionsMenuTokenEdit"
     },
+    "ACTION_BUTTON_INSERT": {
+      "message": "Insert tokens",
+      "description": "A label for action menu buttons",
+      "component": "ActionsMenuTokenEdit"
+    },
     "TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP": {
       "message": "This token is inside a created alignment group, you should ungroup it first in the alignment editor.",
       "description": "An error message for token edit workflow",

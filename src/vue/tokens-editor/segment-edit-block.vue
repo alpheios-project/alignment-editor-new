@@ -24,8 +24,6 @@
             @moveToPrevSegment = "moveToPrevSegment"
             @deleteToken = "deleteToken"
         />
-        <empty-tokens-input :text-type = "textType" :textId="targetId" input-type="start" v-if="showEmptyTokensStart"/>
-
       <div class="alpheios-alignment-editor-align-text-segment-tokens" :id = "cssId" :dir = "direction" :lang = "lang" >
 
           <template v-for = "(token, tokenIndex) in allTokens">
@@ -47,7 +45,6 @@
             <br v-if="$store.state.tokenUpdated && token.hasLineBreak" />
           </template>
         </div>
-        <empty-tokens-input :text-type = "textType" :textId="targetId" input-type="end" v-if="showEmptyTokensEnd"/>
     </div>
 </template>
 <script>
@@ -213,14 +210,6 @@ export default {
     },
     allPartsKeys () {
       return  this.$store.state.tokenUpdated && this.$store.state.reuploadTextsParts && this.segment.allPartNums ? this.segment.allPartNums : []
-    },
-
-    showEmptyTokensStart () {
-      return (this.segment.index === 1) && !this.showPrev
-    },
-
-    showEmptyTokensEnd () {
-      return (this.segment.index === this.amountOfSegments) && !this.showNext
     }
   },
   methods: {

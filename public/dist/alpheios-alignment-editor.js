@@ -42137,12 +42137,8 @@ class TokensEditActions {
    * @returns {Boolean}
    */
   allowedDelete (token) {
-    // const alignedText = this.getAlignedTextByToken(token)
     const segment = this.getSegmentByToken(token)
-    return segment.tokens.length > 1 /* &&
-           ((!this.getNextPrevToken(token, HistoryStep.directions.PREV) && (token.segmentIndex === alignedText.segments[0].index)) ||
-           (!this.getNextPrevToken(token, HistoryStep.directions.NEXT) && (token.segmentIndex === alignedText.segments[alignedText.segments.length - 1].index)))
-           */
+    return segment.tokens.length > 1
   }
 
   /**
@@ -48247,7 +48243,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i576-insert-tokens.20211029377" : 0
+    return  true ? "i576-insert-tokens.20211029478" : 0
   }
 
   static get libName () {
@@ -54441,11 +54437,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inline_icons_prev_svg__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_prev_svg__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/inline-icons/delete.svg */ "./inline-icons/delete.svg");
 /* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
+/* harmony import */ var _inline_icons_big_plus_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/inline-icons/big-plus.svg */ "./inline-icons/big-plus.svg");
+/* harmony import */ var _inline_icons_big_plus_svg__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_big_plus_svg__WEBPACK_IMPORTED_MODULE_9__);
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/lib/data/history/history-step.js */ "./lib/data/history/history-step.js");
 /* harmony import */ var _vue_tokens_editor_actions_button_token_edit_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/vue/tokens-editor/actions-button-token-edit.vue */ "./vue/tokens-editor/actions-button-token-edit.vue");
 /* harmony import */ var _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/lib/controllers/settings-controller */ "./lib/controllers/settings-controller.js");
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -54545,7 +54548,8 @@ __webpack_require__.r(__webpack_exports__);
     nextIcon: (_inline_icons_next_svg__WEBPACK_IMPORTED_MODULE_6___default()),
     prevIcon: (_inline_icons_prev_svg__WEBPACK_IMPORTED_MODULE_7___default()),
     deleteIcon: (_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_8___default()),
-    actionsButton: _vue_tokens_editor_actions_button_token_edit_vue__WEBPACK_IMPORTED_MODULE_12__["default"]
+    actionsButton: _vue_tokens_editor_actions_button_token_edit_vue__WEBPACK_IMPORTED_MODULE_12__["default"],
+    bigPlusIcon: (_inline_icons_big_plus_svg__WEBPACK_IMPORTED_MODULE_9___default())
   },
   props: {
     token: {
@@ -54618,6 +54622,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     allowedDelete () {
       return this.$store.state.optionsUpdated && this.$tokensEC.allowedDelete(this.token)
+    },
+    allowedInsert () {
+      return true
     },
     renderMoveToPrevSegment () {
       return this.$store.state.alignmentRestarted && this.$store.state.uploadCheck && !this.$alignedGC.hasOnlyOneSegment
@@ -54853,9 +54860,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 
 
@@ -55019,14 +55023,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     allPartsKeys () {
       return  this.$store.state.tokenUpdated && this.$store.state.reuploadTextsParts && this.segment.allPartNums ? this.segment.allPartNums : []
-    },
-
-    showEmptyTokensStart () {
-      return (this.segment.index === 1) && !this.showPrev
-    },
-
-    showEmptyTokensEnd () {
-      return (this.segment.index === this.amountOfSegments) && !this.showNext
     }
   },
   methods: {
@@ -66173,6 +66169,35 @@ var render = function() {
           _vm._v(" "),
           _c("actions-button", {
             attrs: {
+              tooltipMess: "ACTION_BUTTON_INSERT",
+              allowedCondition: _vm.allowedInsert,
+              actionName: "insert"
+            },
+            on: {
+              click: function($event) {
+                return _vm.$emit("insertTokens", _vm.token)
+              }
+            },
+            scopedSlots: _vm._u([
+              {
+                key: "enabled",
+                fn: function() {
+                  return [_c("big-plus-icon")]
+                },
+                proxy: true
+              },
+              {
+                key: "disabled",
+                fn: function() {
+                  return [_c("big-plus-icon")]
+                },
+                proxy: true
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c("actions-button", {
+            attrs: {
               tooltipMess: "ACTION_BUTTON_DELETE",
               allowedCondition: _vm.allowedDelete,
               actionName: "delete"
@@ -66436,16 +66461,6 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _vm.showEmptyTokensStart
-        ? _c("empty-tokens-input", {
-            attrs: {
-              "text-type": _vm.textType,
-              textId: _vm.targetId,
-              "input-type": "start"
-            }
-          })
-        : _vm._e(),
-      _vm._v(" "),
       _c(
         "div",
         {
@@ -66501,17 +66516,7 @@ var render = function() {
           })
         ],
         2
-      ),
-      _vm._v(" "),
-      _vm.showEmptyTokensEnd
-        ? _c("empty-tokens-input", {
-            attrs: {
-              "text-type": _vm.textType,
-              textId: _vm.targetId,
-              "input-type": "end"
-            }
-          })
-        : _vm._e()
+      )
     ],
     1
   )
@@ -66961,6 +66966,43 @@ var staticRenderFns = []
 render._withStripped = true
 
 
+
+/***/ }),
+
+/***/ "./inline-icons/big-plus.svg":
+/*!***********************************!*\
+  !*** ./inline-icons/big-plus.svg ***!
+  \***********************************/
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"width":"300","height":"300","viewBox":"0 0 79.375 79.375","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M46.315 47.605v24.66q0 1.589-.581 2.21-.517.622-2.003.622h-9.173q-1.486 0-2.067-.622-.517-.621-.517-2.21v-24.66H8.977q-1.486 0-2.067-.622-.582-.621-.582-2.28v-9.049q0-1.657.582-2.28.581-.62 2.067-.62h22.997V7.745q0-1.589.517-2.21.581-.622 2.067-.622h9.173q1.486 0 2.003.622.581.621.581 2.21v25.007h23.386q1.55 0 2.132.622.581.622.581 2.28v9.049q0 1.658-.581 2.28-.582.621-2.132.621z"}})])
+          )
+        }
+      }
+    
 
 /***/ }),
 
@@ -67437,7 +67479,7 @@ render._withStripped = true
               attrs: Object.assign({"width":"300","height":"300","viewBox":"0 0 79.375 79.375","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('ellipse',{attrs:{"cx":"39.688","cy":"39.688","rx":"36.67","ry":"35.795","fill":"none","opacity":".99","stroke":"#000","stroke-linecap":"round","stroke-width":"3.748"}}),_c('path',{attrs:{"d":"M44.237 44.986v16.16q0 1.041-.407 1.448-.363.408-1.404.408h-6.428q-1.04 0-1.448-.407-.362-.408-.362-1.449v-16.16H18.073q-1.041 0-1.449-.407t-.407-1.494v-5.93q0-1.087.407-1.494t1.449-.407h16.115V18.867q0-1.042.362-1.449.407-.407 1.448-.407h6.428q1.041 0 1.404.407.407.407.407 1.449v16.387h16.387q1.086 0 1.494.407t.407 1.494v5.93q0 1.086-.407 1.494t-1.494.407z"}})])
+            children.concat([_c('path',{attrs:{"d":"M76.358 39.688a36.67 35.795 0 01-36.67 35.795 36.67 35.795 0 01-36.67-35.795 36.67 35.795 0 0136.67-35.795 36.67 35.795 0 0136.67 35.795z","fill":"none","opacity":".99","stroke":"#000","stroke-linecap":"round","stroke-width":"3.748"}}),_c('path',{attrs:{"d":"M44.237 44.986v16.16q0 1.041-.407 1.448-.363.408-1.404.408h-6.428q-1.04 0-1.448-.407-.362-.408-.362-1.449v-16.16H18.073q-1.041 0-1.449-.407t-.407-1.494v-5.93q0-1.087.407-1.494t1.449-.407h16.115V18.867q0-1.042.362-1.449.407-.407 1.448-.407h6.428q1.041 0 1.404.407.407.407.407 1.449v16.387h16.387q1.086 0 1.494.407t.407 1.494v5.93q0 1.086-.407 1.494t-1.494.407z"}})])
           )
         }
       }
@@ -67791,7 +67833,7 @@ module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Enter text","des
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit text","description":"A heading for text editor","component":"TokensEditor"},"TOKENS_EDITOR_LINK":{"message":"Edit","description":"A heading for text editor","component":"TokensEditor"},"TOKENS_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TokensEditor"},"TOKENS_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TokensEditor"},"ACTION_BUTTON_UPDATE_TOKEN":{"message":"Update a token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_PREV":{"message":"Merge with the previous token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_NEXT":{"message":"Merge with the next token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_SPLIT_TOKEN":{"message":"Split a token to 2 tokens by space","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_ADD_LINEBREAK":{"message":"Add line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_REMOVE_LINEBREAK":{"message":"Remove line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_DELETE":{"message":"Delete token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP":{"message":"This token is inside a created alignment group, you should ungroup it first in the alignment editor.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP":{"message":"The merging token is inside a created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"Alignment"},"TOKENS_EDIT_SPLIT_NO_SPACES":{"message":"The token word must contain at least one space for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_SPLIT_SEVERAL_SPACES":{"message":"Only one space is allowed for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_ALREADY_HAS_LINE_BREAK":{"message":"The token already has a line break.","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_NEXT_SEGMENT":{"message":"Move the token to the next segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_PREV_SEGMENT":{"message":"Move the token to the previous segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTIONS_UNDO_TITLE":{"message":"Undo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"ACTIONS_REDO_TITLE":{"message":"Redo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"TOKENS_EDIT_UNDO_ERROR":{"message":"Nothing to undo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_REDO_ERROR":{"message":"Nothing to redo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_INSERT_DESCRIPTION_START":{"message":"Add space between tokens. Click Enter to insert tokens to the start.","description":"A description for insert tokens input","component":"EmptyTokensInput"},"TOKENS_EDIT_INSERT_DESCRIPTION_END":{"message":"Add space between tokens. Click Enter to insert tokens to the end.","description":"A description for insert tokens input","component":"EmptyTokensInput"}}');
+module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit text","description":"A heading for text editor","component":"TokensEditor"},"TOKENS_EDITOR_LINK":{"message":"Edit","description":"A heading for text editor","component":"TokensEditor"},"TOKENS_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TokensEditor"},"TOKENS_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TokensEditor"},"ACTION_BUTTON_UPDATE_TOKEN":{"message":"Update a token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_PREV":{"message":"Merge with the previous token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_NEXT":{"message":"Merge with the next token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_SPLIT_TOKEN":{"message":"Split a token to 2 tokens by space","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_ADD_LINEBREAK":{"message":"Add line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_REMOVE_LINEBREAK":{"message":"Remove line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_DELETE":{"message":"Delete token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_INSERT":{"message":"Insert tokens","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP":{"message":"This token is inside a created alignment group, you should ungroup it first in the alignment editor.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP":{"message":"The merging token is inside a created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"Alignment"},"TOKENS_EDIT_SPLIT_NO_SPACES":{"message":"The token word must contain at least one space for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_SPLIT_SEVERAL_SPACES":{"message":"Only one space is allowed for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_ALREADY_HAS_LINE_BREAK":{"message":"The token already has a line break.","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_NEXT_SEGMENT":{"message":"Move the token to the next segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_PREV_SEGMENT":{"message":"Move the token to the previous segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTIONS_UNDO_TITLE":{"message":"Undo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"ACTIONS_REDO_TITLE":{"message":"Redo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"TOKENS_EDIT_UNDO_ERROR":{"message":"Nothing to undo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_REDO_ERROR":{"message":"Nothing to redo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_INSERT_DESCRIPTION_START":{"message":"Add space between tokens. Click Enter to insert tokens to the start.","description":"A description for insert tokens input","component":"EmptyTokensInput"},"TOKENS_EDIT_INSERT_DESCRIPTION_END":{"message":"Add space between tokens. Click Enter to insert tokens to the end.","description":"A description for insert tokens input","component":"EmptyTokensInput"}}');
 
 /***/ }),
 
