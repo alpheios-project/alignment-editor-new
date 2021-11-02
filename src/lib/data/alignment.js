@@ -954,8 +954,8 @@ export default class Alignment {
    * @param {String} textId - docSourceId
    * @param {String} insertType - start (insert to the start of the first segment), end (insert to the end of the last segment)
    */
-  insertTokens (tokensText, textType, textId, insertType) {
-    const result = this.tokensEditActions.insertTokens(tokensText, textType, textId, insertType)
+  insertTokens (tokensText, token, direction) {
+    const result = this.tokensEditActions.insertTokens(tokensText, token, direction)
     this.setUpdated()
     return result
   }

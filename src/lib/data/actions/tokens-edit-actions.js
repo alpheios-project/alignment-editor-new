@@ -362,50 +362,45 @@ export default class TokensEditActions {
     return segment.tokens.length > 1
   }
 
-  /**
-   *
-   * @param {String} tokensText - string that would be converted to tokens
-   * @param {String} textType - origin/target
-   * @param {String} textId - docSourceId
-   * @param {String} insertType - start (insert to the start of the first segment), end (insert to the end of the last segment)
-   */
-  insertTokens (tokensText, textType, textId, insertType) {
-    const alignedText = (textType === 'origin') ? this.origin.alignedText : this.targets[textId].alignedText
-    const segmentToInsert = (insertType === 'start') ? alignedText.segments[0] : alignedText.segments[alignedText.segments.length - 1]
-
-    const partNum = (insertType === 'start') ? 1 : segmentToInsert.allPartNums[segmentToInsert.allPartNums.length - 1].partNum
+  insertTokens (tokensText, token, direction) {
+    const alignedText = this.getAlignedTextByToken(token)
+    const segment = this.getSegmentByToken(token)
 
     let words = tokensText.split(' ')
-    if (insertType === 'start') { words = words.reverse() }
 
+    if (direction === HistoryStep.directions.PREV) { words = words.reverse() }
+
+    let tokenIndex = segment.getTokenIndex(token)
     const createdTokens = []
-    words.forEach(word => {
-      const baseToken = (insertType === 'start') ? segmentToInsert.tokens[0] : segmentToInsert.tokens[segmentToInsert.tokens.length - 1]
 
+    const changeType = (direction === HistoryStep.directions.PREV) ? HistoryStep.types.NEW_BEFORE : HistoryStep.types.NEW_AFTER
+    let baseToken = token
+    words.forEach(word => {
       const newIdWord = alignedText.getNewIdWord({
         token: baseToken,
-        segment: segmentToInsert,
-        changeType: HistoryStep.types.NEW,
-        insertType
+        segment,
+        changeType,
+        insertType: direction
       })
+      tokenIndex = (direction === HistoryStep.directions.PREV) ? tokenIndex - 1 : tokenIndex + 1
+      const tokenNew = segment.addNewToken(tokenIndex, newIdWord, word, false)
+      tokenIndex = segment.getTokenIndex(tokenNew)
 
-      const insertPosition = (insertType === 'start') ? -1 : segmentToInsert.tokens.length - 1
-      const token = segmentToInsert.addNewToken(insertPosition, newIdWord, word, false)
-
-      createdTokens.push(token)
+      createdTokens.push(tokenNew)
+      baseToken = tokenNew
     })
 
     this.tokensEditHistory.truncateSteps()
-    this.tokensEditHistory.addStep(null, HistoryStep.types.NEW, {
-      createdTokens, segmentToInsert, insertType
+    this.tokensEditHistory.addStep(token, HistoryStep.types.NEW, {
+      createdTokens, segment, insertType: direction
     })
 
-    this.reIndexSentence(segmentToInsert)
+    this.reIndexSentence(segment)
     // add new partNum
     return {
       result: true,
-      segmentIndex: segmentToInsert.index,
-      partNum
+      segmentIndex: segment.index,
+      partNum: token.partNum
     }
   }
 
@@ -675,22 +670,25 @@ export default class TokensEditActions {
   }
 
   removeStepInsertTokens (step) {
+    // console.info('removeStepInsertTokens - 1', step)
     step.params.createdTokens.forEach((token) => {
-      const tokenIndex = step.params.segmentToInsert.getTokenIndex(token)
-      step.params.segmentToInsert.deleteToken(tokenIndex)
+      const tokenIndex = step.params.segment.getTokenIndex(token)
+      step.params.segment.deleteToken(tokenIndex)
     })
-    this.reIndexSentence(step.params.segmentToInsert)
+
+    this.reIndexSentence(step.params.segment)
     return {
       result: true
     }
   }
 
   applyStepInsertTokens (step) {
+    let tokenIndex = step.params.segment.getTokenIndex(step.token)
     step.params.createdTokens.forEach((token) => {
-      const insertPosition = (step.params.insertType === 'start') ? 0 : step.params.segmentToInsert.tokens.length
-      step.params.segmentToInsert.insertToken(token, insertPosition)
+      step.params.segment.insertToken(token, tokenIndex)
+      tokenIndex = step.params.segment.getTokenIndex(token)
     })
-    this.reIndexSentence(step.params.segmentToInsert)
+    this.reIndexSentence(step.params.segment)
     return {
       result: true
     }

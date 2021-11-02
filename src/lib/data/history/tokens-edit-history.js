@@ -30,9 +30,6 @@ export default class TokensEditHistory extends EditorHistory {
       }
 
       return { type: step.type, token: step.token, newSegmentIndex, newPartNum }
-    } else if (step.type === HistoryStep.types.NEW) {
-      const checkToken = (step.params.insertType === 'start') ? step.params.segmentToInsert.tokens[0] : step.params.segmentToInsert.tokens[step.params.segmentToInsert.tokens.length - 1]
-      return { type: step.type, token: checkToken }
     } else if (step.type === HistoryStep.types.DELETE) {
       return { type: step.type, token: step.params.deletedToken }
     }

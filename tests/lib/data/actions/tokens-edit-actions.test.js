@@ -310,31 +310,40 @@ describe('tokens-edit-actions.test.js', () => {
     expect(tokensEditActions.tokensEditHistory.steps[1].type).toEqual(HistoryStep.types.TO_PREV_SEGMENT)
   })
 
-  it('11 TokensEditActions - insertTokens - inserts tokens to the start/end', async () => {
+  it('11 TokensEditActions - insertTokens - inserts tokens to any place in the segment', async () => {
     const params = await prepareParams()
 
     const tokensEditActions = new TokensEditActions(params)
 
     // insert to start
     const firstSegment = Object.values(params.targets)[0].alignedText.segments[0] 
-    const lastSegment = Object.values(params.targets)[0].alignedText.segments[2] 
+    const secondSegment = Object.values(params.targets)[0].alignedText.segments[1] 
+    const thirdSegment = Object.values(params.targets)[0].alignedText.segments[2] 
 
-    tokensEditActions.insertTokens('Test start', 'target', Object.keys(params.targets)[0], 'start')
-
-    expect(firstSegment.tokens.map(token => token.word)).toEqual(['Test', 'start', 'male', 'female'])
-
-    expect(firstSegment.tokens[0].idWord).toEqual('2-0-0-n-2')
-    expect(firstSegment.tokens[1].idWord).toEqual('2-0-0-n-1')
+    tokensEditActions.insertTokens('Some text', firstSegment.tokens[0], 'prev')
+    expect(firstSegment.tokens.map(token => token.word)).toEqual(['Some', 'text', 'male', 'female'])
+    expect(firstSegment.tokens.map(token => token.idWord)).toEqual(['2-0-0-nb-2', '2-0-0-nb-1', '2-0-0', '2-0-1'])
 
     // insert to end
 
-    tokensEditActions.insertTokens('End test', 'target', Object.keys(params.targets)[0], 'end')
+    const numTokens = secondSegment.tokens.length
+    tokensEditActions.insertTokens('End text', secondSegment.tokens[numTokens-1], 'next')
 
-    expect(lastSegment.tokens.map(token => token.word)).toEqual(['male', 'female', 'End', 'test'])
+    // console.info('1 - ', secondSegment.tokens.map(token => token.word))
+    // console.info('2 - ', secondSegment.tokens.map(token => token.idWord))
+    expect(secondSegment.tokens.map(token => token.word)).toEqual(['male', 'female', 'End', 'text'])
+    expect(secondSegment.tokens.map(token => token.idWord)).toEqual(['2-1-0', '2-1-1', '2-1-1-na-1', '2-1-1-na-2'])
 
-    expect(lastSegment.tokens[2].idWord).toEqual('2-2-1-n-1')
-    expect(lastSegment.tokens[3].idWord).toEqual('2-2-1-n-2')
+    // insert to middle
 
+    tokensEditActions.insertTokens('Middle text before', thirdSegment.tokens[1], 'prev')
+    tokensEditActions.insertTokens('Middle text after', thirdSegment.tokens[4], 'next')
+
+    // console.info('1 - ', thirdSegment.tokens.map(token => token.word))
+    // console.info('2 - ', thirdSegment.tokens.map(token => token.idWord))
+
+    expect(thirdSegment.tokens.map(token => token.word)).toEqual(['male', 'Middle', 'text', 'before', 'female', 'Middle', 'text', 'after'])
+    expect(thirdSegment.tokens.map(token => token.idWord)).toEqual(['2-2-0', '2-2-1-nb-3', '2-2-1-nb-2', '2-2-1-nb-1', '2-2-1', '2-2-1-na-1', '2-2-1-na-2', '2-2-1-na-3'])
   })
 
   it('12 TokensEditActions - allowedMergePrev - true - if there is a left token, otherwise - false', async () => {

@@ -1,6 +1,6 @@
 <template>
   <div class="alpheios-alignment-editor-tokens-edit-editor-container">
-    <actions-menu-tokens-editor @blockTokensActions = "blockTokensActions" />
+    <actions-menu-tokens-editor @blockTokensActions = "blockTokensActions"/>
     <editor-tabs 
       v-if="allTokenizedTargetTextsIds.length > 1"
       :tabs = "allTokenizedTargetTextsIds" @selectTab = "selectTab"
@@ -16,7 +16,7 @@
           <segment-edit-block 
                   :currentTargetId = "currentTargetId" :blockTokensActionsFlag = "blockTokensActionsFlag"
                   :segmentIndex = "segmentData.origin.index" textType = "origin" :textId = "segmentData.origin.docSourceId"
-                   @removeAllActivated = "removeAllActivated"
+                   @removeAllActivated = "removeAllActivated" @insertTokens = "insertTokens"
           />
         </div>
 
@@ -26,7 +26,7 @@
                   :isLast = "lastTargetId && (targetId === lastTargetId)" :currentTargetId = "currentTargetId"
                   v-show="isShownTab(targetId)"
                   :blockTokensActionsFlag = "blockTokensActionsFlag"
-                  @removeAllActivated = "removeAllActivated"
+                  @removeAllActivated = "removeAllActivated" @insertTokens = "insertTokens"
           />
         </div>
 
@@ -152,6 +152,10 @@ export default {
 
     removeAllActivated () {
       this.blockTokensActions()
+    },
+
+    insertTokens (token) {
+      this.$emit('insertTokens', token)
     }
   } 
 }

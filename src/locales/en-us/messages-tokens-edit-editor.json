@@ -123,6 +123,22 @@
       "message": "Add space between tokens. Click Enter to insert tokens to the end.",
       "description": "A description for insert tokens input",
       "component": "EmptyTokensInput"
+    },
+    "INSERT_TOKENS_BLOCK_HEADER": {
+      "message": "Insert tokens near { word }:",
+      "description": "A title for modal",
+      "component": "SegmentEditBlock",
+      "params": ["word"]
+    },
+    "INSERT_TOKENS_BLOCK_SAVE_BUTTON": {
+      "message": "Insert",
+      "description": "Save button in modal",
+      "component": "InsertTokensBlock"
+    },
+    "INSERT_TOKENS_BLOCK_CANCEL_BUTTON": {
+      "message": "Cancel",
+      "description": "Cancel button in modal",
+      "component": "InsertTokensBlock"
     }
 
 }

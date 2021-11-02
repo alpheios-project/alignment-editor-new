@@ -21,7 +21,7 @@
   },
   "TEXT_EDITOR_TEXT_BLOCK_TITLE": {
     "message": "{ textType } text:",
-    "description": "A tytle for text block area",
+    "description": "A title for text block area",
     "component": "TextEditorSingleBlock",
     "params": ["textType"]
   },

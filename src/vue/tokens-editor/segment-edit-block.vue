@@ -23,6 +23,7 @@
             @moveToNextSegment = "moveToNextSegment"
             @moveToPrevSegment = "moveToPrevSegment"
             @deleteToken = "deleteToken"
+            @insertTokens = "insertTokens"
         />
       <div class="alpheios-alignment-editor-align-text-segment-tokens" :id = "cssId" :dir = "direction" :lang = "lang" >
 
@@ -112,7 +113,9 @@ export default {
       mergeTokenNextIdWord: null,
       splitTokenIdWord: null,
       addLineBreakIdWord: null,
-      removeLineBreakIdWord: null
+      removeLineBreakIdWord: null,
+
+      edittedToken: null
     }
   },
   watch: {
@@ -279,6 +282,10 @@ export default {
     deleteToken (token) {
       this.$tokensEC.deleteToken(token)
       this.removeAllActivated()
+    },
+
+    insertTokens (token) {
+      this.$emit('insertTokens', token)
     }
   }
 

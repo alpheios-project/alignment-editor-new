@@ -364,13 +364,13 @@ describe('tokens-edit-history-cases.test.js', () => {
     expect(alignment.origin.alignedText.segments[0].tokens[0].idWord).toEqual('1-0-0')
     expect(alignment.origin.alignedText.segments[0].tokens[0].word).toEqual('some')
 
-    alignment.insertTokens('new tokens', 'origin', alignment.origin.alignedText.id, 'start')
+    alignment.insertTokens('new tokens', alignment.origin.alignedText.segments[0].tokens[0], 'prev')
     
     expect(alignment.origin.alignedText.segments[0].tokens.length).toEqual(5)
-    expect(alignment.origin.alignedText.segments[0].tokens[0].idWord).toEqual('1-0-0-n-2')
+    expect(alignment.origin.alignedText.segments[0].tokens[0].idWord).toEqual('1-0-0-nb-2')
     expect(alignment.origin.alignedText.segments[0].tokens[0].word).toEqual('new')
     
-    expect(alignment.origin.alignedText.segments[0].tokens[1].idWord).toEqual('1-0-0-n-1')
+    expect(alignment.origin.alignedText.segments[0].tokens[1].idWord).toEqual('1-0-0-nb-1')
     expect(alignment.origin.alignedText.segments[0].tokens[1].word).toEqual('tokens')
 
     expect(alignment.origin.alignedText.segments[0].tokens[2].idWord).toEqual('1-0-0')
@@ -383,15 +383,18 @@ describe('tokens-edit-history-cases.test.js', () => {
     expect(alignment.origin.alignedText.segments[0].tokens[0].word).toEqual('some')
 
     alignment.redoTokensEditStep()
+    // console.info(alignment.origin.alignedText.segments[0].tokens.map(token => { return { idWord: token.idWord, word: token.word }}))
+    
     expect(alignment.origin.alignedText.segments[0].tokens.length).toEqual(5)
-    expect(alignment.origin.alignedText.segments[0].tokens[0].idWord).toEqual('1-0-0-n-2')
+    expect(alignment.origin.alignedText.segments[0].tokens[0].idWord).toEqual('1-0-0-nb-2')
     expect(alignment.origin.alignedText.segments[0].tokens[0].word).toEqual('new')
     
-    expect(alignment.origin.alignedText.segments[0].tokens[1].idWord).toEqual('1-0-0-n-1')
+    expect(alignment.origin.alignedText.segments[0].tokens[1].idWord).toEqual('1-0-0-nb-1')
     expect(alignment.origin.alignedText.segments[0].tokens[1].word).toEqual('tokens')
 
     expect(alignment.origin.alignedText.segments[0].tokens[2].idWord).toEqual('1-0-0')
     expect(alignment.origin.alignedText.segments[0].tokens[2].word).toEqual('some')
+
   })
 
   it('8 Tokens Edit History Cases - deleteToken - undo/redo', async () => {
@@ -584,4 +587,5 @@ describe('tokens-edit-history-cases.test.js', () => {
       { word: 'text', idWord: '1-0-2' }
     ])
   })
+
 })

@@ -192,9 +192,11 @@ export default class Segment {
       partNum: 1
     }, this.index, this.docSourceId)
 
+    // console.info('newToken - 1', newToken)
     if (updateLastToken) { this.lastTokenIdWord = newIdWord }
 
     if (this.insertToken(newToken, tokenIndex + 1)) {
+      // console.info('newToken - 2', this.tokens.map(token => { return { idWord: token.idWord, word: token.word } }))
       const tokenForDefinePart = (tokenIndex === -1) ? this.tokens[0] : this.tokens[tokenIndex]
       newToken.update({ partNum: tokenForDefinePart.partNum })
       return newToken

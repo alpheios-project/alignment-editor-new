@@ -90,7 +90,8 @@ export default class AlignedText {
    * @param {Number} indexWord - used only for split = the order number of result tokens
    * @returns {String} - idWord
    */
-  getNewIdWord ({ segment, token, changeType, indexWord }) {
+  getNewIdWord ({ segment, token, changeType, indexWord } = {}) {
+    // console.info('getNewIdWord - token', token)
     const getNextIdWordMethod = TokenizeController.getNextTokenIdWordMethod(this.tokenization.tokenizer)
 
     return getNextIdWordMethod({

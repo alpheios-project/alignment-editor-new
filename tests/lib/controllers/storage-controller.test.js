@@ -410,7 +410,7 @@ describe('storage-controller.test.js', () => {
   })
 
 
-  it('7 StorageController - use case - edit tokens in IndexedDB', async () => {
+  it('7 StorageController - use case - edit tokens in IndexedDB - update', async () => {
     StorageController.definedDBAdapter()
     const alignment = new Alignment()
     const originDocSource = new SourceText('origin', {
@@ -441,6 +441,30 @@ describe('storage-controller.test.js', () => {
         textType: 'origin', word: 'not-origin'
       })]))
 
+    StorageController.clear()
+  })
+
+  it('8 StorageController - use case - move tokens to segment in IndexedDB - merge', async () => {
+    StorageController.definedDBAdapter()
+    const alignment = new Alignment()
+    const originDocSource = new SourceText('origin', {
+      text: 'origin test text', sourceType: 'text', lang: 'grc', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'target test text', sourceType: 'text', lang: 'aha', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    alignment.updateOriginDocSource(originDocSource)
+    alignment.updateTargetDocSource(targetDocSource)
+    await alignment.createAlignedTexts()
+
+    await StorageController.update(alignment, false, false)
+    let alignmentDB = await StorageController.select({ userID, alignmentID: alignment.id }, 'alignmentByAlIDQuery') 
+
+    expect(alignmentDB.tokens.length).toEqual(6)
+    const originTokens = alignment.origin.alignedText.segments[0].tokens
+    const targetTokens = Object.values(alignment.targets)[0].alignedText.segments[0].tokens
+
     // merge token
     alignment.mergeToken(originTokens[1], 'next')
 
@@ -452,12 +476,36 @@ describe('storage-controller.test.js', () => {
       textType: 'origin', word: 'test text'
     })]))
 
+    StorageController.clear()
+  })
+
+  it('9 StorageController - use case - move tokens to segment in IndexedDB - split', async () => {
+    StorageController.definedDBAdapter()
+    const alignment = new Alignment()
+    const originDocSource = new SourceText('origin', {
+      text: 'origin test text', sourceType: 'text', lang: 'grc', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'target test text', sourceType: 'text', lang: 'aha', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    alignment.updateOriginDocSource(originDocSource)
+    alignment.updateTargetDocSource(targetDocSource)
+    await alignment.createAlignedTexts()
+
+    await StorageController.update(alignment, false, false)
+    let alignmentDB = await StorageController.select({ userID, alignmentID: alignment.id }, 'alignmentByAlIDQuery') 
+
+    expect(alignmentDB.tokens.length).toEqual(6)
+    const originTokens = alignment.origin.alignedText.segments[0].tokens
+    const targetTokens = Object.values(alignment.targets)[0].alignedText.segments[0].tokens
+
     // splitToken token
     alignment.splitToken(targetTokens[0], 'tar get')
     await StorageController.update(alignment, true, false)
     alignmentDB = await StorageController.select({ userID, alignmentID: alignment.id }, 'alignmentByAlIDQuery') 
 
-    expect(alignmentDB.tokens.length).toEqual(6)
+    expect(alignmentDB.tokens.length).toEqual(7)
     expect(alignmentDB.tokens).toEqual(expect.arrayContaining([expect.objectContaining({
       textType: 'target', word: 'tar'
     })]))
@@ -465,29 +513,80 @@ describe('storage-controller.test.js', () => {
       textType: 'target', word: 'get'
     })]))
 
+    StorageController.clear()
+  })
+
+  it('10 StorageController - use case - move tokens to segment in IndexedDB - line break', async () => {
+    StorageController.definedDBAdapter()
+    const alignment = new Alignment()
+    const originDocSource = new SourceText('origin', {
+      text: 'origin test text', sourceType: 'text', lang: 'grc', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'target test text', sourceType: 'text', lang: 'aha', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    alignment.updateOriginDocSource(originDocSource)
+    alignment.updateTargetDocSource(targetDocSource)
+    await alignment.createAlignedTexts()
+
+    await StorageController.update(alignment, false, false)
+    let alignmentDB = await StorageController.select({ userID, alignmentID: alignment.id }, 'alignmentByAlIDQuery') 
+
+    expect(alignmentDB.tokens.length).toEqual(6)
+    const originTokens = alignment.origin.alignedText.segments[0].tokens
+    const targetTokens = Object.values(alignment.targets)[0].alignedText.segments[0].tokens
+
     // add line break
     alignment.addLineBreakAfterToken(targetTokens[1])
     await StorageController.update(alignment, true, false)
     alignmentDB = await StorageController.select({ userID, alignmentID: alignment.id }, 'alignmentByAlIDQuery') 
 
+    // console.info(alignmentDB.tokens.map(token => { return { textType: token.textType, idWord: token.idWord, word: token.word, hasLineBreak: token.hasLineBreak } }))
+
     expect(alignmentDB.tokens.length).toEqual(6)
     expect(alignmentDB.tokens).toEqual(expect.arrayContaining([expect.objectContaining({
-      textType: 'target', word: 'get', hasLineBreak: true
+      textType: 'target', word: 'test', hasLineBreak: true
     })]))
 
     // remove line break
     alignment.removeLineBreakAfterToken(targetTokens[1])
+    
     await StorageController.update(alignment, true, false)
     alignmentDB = await StorageController.select({ userID, alignmentID: alignment.id }, 'alignmentByAlIDQuery') 
 
     expect(alignmentDB.tokens.length).toEqual(6)
     expect(alignmentDB.tokens).toEqual(expect.arrayContaining([expect.objectContaining({
-      textType: 'target', word: 'get', hasLineBreak: false
+      textType: 'target', word: 'test', hasLineBreak: false
     })]))
+
+    StorageController.clear()
+  })
+
+  it('11 StorageController - use case - move tokens to segment in IndexedDB - insert/delete', async () => {
+    StorageController.definedDBAdapter()
+    const alignment = new Alignment()
+    const originDocSource = new SourceText('origin', {
+      text: 'origin test text', sourceType: 'text', lang: 'grc', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'target test text', sourceType: 'text', lang: 'aha', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    alignment.updateOriginDocSource(originDocSource)
+    alignment.updateTargetDocSource(targetDocSource)
+    await alignment.createAlignedTexts()
+
+    await StorageController.update(alignment, false, false)
+    let alignmentDB = await StorageController.select({ userID, alignmentID: alignment.id }, 'alignmentByAlIDQuery') 
+
+    expect(alignmentDB.tokens.length).toEqual(6)
+    const originTokens = alignment.origin.alignedText.segments[0].tokens
+    const targetTokens = Object.values(alignment.targets)[0].alignedText.segments[0].tokens
 
     // deleteToken
 
-    alignment.deleteToken(targetTokens[3])
+    alignment.deleteToken(targetTokens[2])
     await StorageController.update(alignment, true, false)
     alignmentDB = await StorageController.select({ userID, alignmentID: alignment.id }, 'alignmentByAlIDQuery') 
 
@@ -497,14 +596,18 @@ describe('storage-controller.test.js', () => {
     })]))
 
     // insertTokens
-    alignment.insertTokens('insert tokens', 'origin', originDocSource.id, 'end')
+    alignment.insertTokens('insert tokens', originTokens[1], 'next')
     await StorageController.update(alignment, true, false)
     alignmentDB = await StorageController.select({ userID, alignmentID: alignment.id }, 'alignmentByAlIDQuery') 
 
+    // console.info(alignmentDB.tokens.map(token => { return { textType: token.textType, idWord: token.idWord, word: token.word, hasLineBreak: token.hasLineBreak } }))
+
     expect(alignmentDB.tokens.length).toEqual(7)
+
     expect(alignmentDB.tokens).toEqual(expect.arrayContaining([expect.objectContaining({
       textType: 'origin', word: 'insert'
     })]))
+
     expect(alignmentDB.tokens).toEqual(expect.arrayContaining([expect.objectContaining({
       textType: 'origin', word: 'tokens'
     })]))
@@ -532,11 +635,10 @@ describe('storage-controller.test.js', () => {
     expect(alignmentDB.tokens).toEqual(expect.arrayContaining([expect.objectContaining({
       textType: 'origin', word: 'tokens'
     })]))
-
     StorageController.clear()
   })
 
-  it('7 StorageController - use case - move tokens to segment in IndexedDB', async () => {
+  it('12 StorageController - use case - move tokens to segment in IndexedDB', async () => {
     StorageController.definedDBAdapter()
     const alignment = new Alignment()
     const originDocSource = new SourceText('origin', {

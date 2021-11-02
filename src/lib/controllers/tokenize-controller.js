@@ -188,7 +188,9 @@ export default class TokenizeController {
       [HistoryStep.types.REMOVE_LINE_BREAK]: 'rl',
       [HistoryStep.types.TO_NEXT_SEGMENT]: 'ns',
       [HistoryStep.types.TO_PREV_SEGMENT]: 'ps',
-      [HistoryStep.types.NEW]: 'n'
+      [HistoryStep.types.NEW]: 'n',
+      [HistoryStep.types.NEW_BEFORE]: 'nb',
+      [HistoryStep.types.NEW_AFTER]: 'na'
 
     }
 
