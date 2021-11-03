@@ -30,9 +30,6 @@ export default class TokensEditHistory extends EditorHistory {
       }
 
       return { type: step.type, token: step.token, newSegmentIndex, newPartNum }
-    } else if (step.type === HistoryStep.types.NEW) {
-      const checkToken = (step.params.insertType === 'start') ? step.params.segmentToInsert.tokens[0] : step.params.segmentToInsert.tokens[step.params.segmentToInsert.tokens.length - 1]
-      return { type: step.type, token: checkToken }
     } else if (step.type === HistoryStep.types.DELETE) {
       return { type: step.type, token: step.params.deletedToken }
     }
@@ -44,10 +41,10 @@ export default class TokensEditHistory extends EditorHistory {
 
   updateLastStepWithAnnotations (annotations, idWord) {
     const step = this.steps[this.currentStepIndex + 1]
+
     if (annotations[idWord]) {
-      step.params.newAnnotations = {
-        [idWord]: annotations[idWord].filter(annot => annot.tokenIdWordCreated === idWord)
-      }
+      if (!step.params.newAnnotations) { step.params.newAnnotations = {} }
+      step.params.newAnnotations[idWord] = annotations[idWord].filter(annot => annot.tokenIdWordCreated === idWord)
     }
   }
 }

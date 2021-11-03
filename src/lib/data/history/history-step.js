@@ -52,6 +52,10 @@ HistoryStep.types = {
   //
   NEW: 'new',
   //
+  NEW_AFTER: 'new_after',
+  //
+  NEW_BEFORE: 'new_before',
+  //
   DELETE: 'delete',
   //
   START_GROUP: 'start group',

@@ -271,4 +271,30 @@ describe('tokens-edit-controller.test.js', () => {
     expect(tokenForBreak.hasLineBreak).toBeFalsy()
   })
 
+  it('9 TokensEditController - insertTokens - in different places in a segment', async () => {
+    const tokensEC = new TokensEditController(appC.store)
+
+    const originDocSource = new SourceText('origin', {
+      text: 'origin text here', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'target one there', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    const alignment = new Alignment() 
+    alignment.updateOriginDocSource(originDocSource)
+    alignment.updateTargetDocSource(targetDocSource)
+    const targetIds = alignment.allTargetTextsIds
+    tokensEC.loadAlignment(alignment)
+
+    const alignedGC = new AlignedGroupsController(appC.store)
+    await alignedGC.createAlignedTexts(alignment)
+
+    const tokenForInsert = alignment.origin.alignedText.segments[0].tokens[0]
+    const result1 = await tokensEC.insertTokens('some test text', tokenForInsert, 'prev')
+    expect(result1).toBeTruthy()
+
+    expect(alignment.origin.alignedText.segments[0].tokens.map(token => token.idWord)).toEqual([ '1-0-0-nb-3', '1-0-0-nb-2', '1-0-0-nb-1', '1-0-0', '1-0-1', '1-0-2' ])
+    expect(alignment.origin.alignedText.segments[0].tokens.map(token => token.word)).toEqual([ 'some', 'test', 'text', 'origin', 'text', 'here' ])
+  })
 })

@@ -2494,6 +2494,25 @@ input.alpheios-alignment-editor-token-edit-input.alpheios-token-annotated {
 .alpheios-alignment-editor-modal-options .alpheios-alignment-editor-modal-header {
   margin-bottom: 10px;
 }
+.alpheios-alignment-editor-modal-insert-tokens .alpheios-modal-body {
+  border: 0;
+  padding: 0;
+}
+.alpheios-alignment-editor-modal-insert-tokens .alpheios-alignment-radio-block {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+.alpheios-alignment-editor-modal-insert-tokens .alpheios-alignment-radio-block span {
+  display: inline-block;
+  margin-right: 20px;
+  vertical-align: middle;
+}
+.alpheios-alignment-editor-modal-insert-tokens .alpheios-alignment-editor-text-blocks-textarea {
+  padding: 10px 55px 10px 10px;
+  width: 100%;
+  min-height: 100px;
+  font-size: inherit;
+}
 .alpheios-alignment-tokens-editor-block.alpheios-alignment-editor-container {
   padding: 20px 30px 20px 40px;
 }

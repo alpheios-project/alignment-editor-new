@@ -24,12 +24,13 @@
         </span>
       </h2>
 
-    <tokens-editor-inner-block v-if="renderTokensEditor"/>
+    <tokens-editor-inner-block v-if="renderTokensEditor" @insertTokens="startInsertTokens" />
     <help-popup @closeModal = "$modal.hide('help-edit')" mname = "help-edit">
       <template v-slot:content > <help-block-edit /> </template>
     </help-popup>
     <save-popup @closeModal = "$modal.hide('save-edit')" mname = "save-edit"/>
     <options-text-edit-popup @closeModal = "$modal.hide('options-edit')" />
+    <insert-tokens-popup @closeModal = "closeInsertTokens"  :token = "edittedToken"  />
   </div>
 </template>
 <script>
@@ -43,6 +44,8 @@ import SavePopup from '@/vue/common/save-popup.vue'
 import HelpBlockEdit from '@/vue/help-blocks/eng/help-block-edit.vue'
 import OptionsTextEdit from '@/vue/options/options-text-edit.vue'
 
+import InsertTokensBlock from '@/vue/tokens-editor/insert-tokens-block.vue'
+
 export default {
   name: 'TokensEditor',
   components: {
@@ -50,7 +53,8 @@ export default {
     helpPopup: HelpPopup,
     savePopup: SavePopup,
     helpBlockEdit: HelpBlockEdit,
-    optionsTextEditPopup: OptionsTextEdit
+    optionsTextEditPopup: OptionsTextEdit,
+    insertTokensPopup: InsertTokensBlock
   },
   props: {
     renderEditor: {
@@ -61,7 +65,8 @@ export default {
   data () {
     return {
       renderTokensEditor: false,
-      showModalOptions: false
+      showModalOptions: false,
+      edittedToken: null
     }
   },
   watch: {
@@ -81,6 +86,14 @@ export default {
     }
   },
   methods: {
+    startInsertTokens (token) {
+      this.edittedToken = token
+      this.$modal.show('insert-tokens')
+    },
+    closeInsertTokens () {
+      this.edittedToken = null
+      this.$modal.hide('insert-tokens')
+    }
   }
 }
 </script>

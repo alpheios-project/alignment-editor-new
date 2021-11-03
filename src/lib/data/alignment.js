@@ -954,8 +954,8 @@ export default class Alignment {
    * @param {String} textId - docSourceId
    * @param {String} insertType - start (insert to the start of the first segment), end (insert to the end of the last segment)
    */
-  insertTokens (tokensText, textType, textId, insertType) {
-    const result = this.tokensEditActions.insertTokens(tokensText, textType, textId, insertType)
+  insertTokens (tokensText, token, direction) {
+    const result = this.tokensEditActions.insertTokens(tokensText, token, direction)
     this.setUpdated()
     return result
   }
@@ -1100,16 +1100,26 @@ export default class Alignment {
     }
 
     if (result.data && result.data[0]) {
-      this.uploadNewAnnotations(result.data[0].idWordNewAnnotations, result.data[0].newAnnotations)
+      const idWords = Array.isArray(result.data[0].idWordNewAnnotations) ? result.data[0].idWordNewAnnotations : [result.data[0].idWordNewAnnotations]
+      idWords.forEach(idWord => this.uploadNewAnnotations(idWord, result.data[0].newAnnotations))
     }
     return result
   }
 
-  removeNewAnnotations (idWord) {
-    if (!this.annotations[idWord]) { return }
+  removeNewAnnotations (idWords) {
+    if (!Array.isArray(idWords)) { idWords = [idWords] }
 
-    this.tokensEditHistory.updateLastStepWithAnnotations(this.annotations, idWord)
-    this.annotations[idWord] = this.annotations[idWord].filter(annot => annot.tokenIdWordCreated !== idWord)
+    for (let i = 0; i < idWords.length; i++) {
+      const idWord = idWords[i]
+
+      if (!this.annotations[idWord]) { continue }
+
+      this.tokensEditHistory.updateLastStepWithAnnotations(this.annotations, idWord)
+      this.annotations[idWord] = this.annotations[idWord].filter(annot => annot.tokenIdWordCreated !== idWord)
+      if (this.annotations[idWord].length === 0) {
+        delete this.annotations[idWord]
+      }
+    }
   }
 
   uploadNewAnnotations (idWord, annotations) {

@@ -259,18 +259,11 @@ export default class TokensEditController {
     return Boolean(token) && this.alignment.allowedDelete(token)
   }
 
-  /**
-   *
-   * @param {String} tokensText - string that would be converted to tokens
-   * @param {String} textType - origin/target
-   * @param {String} textId - docSourceId
-   * @param {String} insertType - start (insert to the start of the first segment), end (insert to the end of the last segment)
-   */
-  async insertTokens (tokensText, textType, textId, insertType) {
-    const data = this.alignment.insertTokens(tokensText, textType, textId, insertType)
+  async insertTokens (tokensText, token, direction) {
+    const data = this.alignment.insertTokens(tokensText, token, direction)
     if (data.result) {
       this.store.commit('incrementTokenUpdated')
-      await this.deleteAllPartFromStorage(textId, data.segmentIndex, data.partNum)
+      await this.deleteAllPartFromStorage(token.docSourceId, data.segmentIndex, data.partNum)
       await this.deleteAllAnnotationsStorage()
       await StorageController.update(this.alignment)
       return true
@@ -332,6 +325,7 @@ export default class TokensEditController {
 
     for (let i = 0; i < dataIndexedDB.length; i++) {
       const data = dataIndexedDB[i]
+      if (!data || !data.type) { continue }
       if (onlyToken.includes(data.type)) {
         await this.deleteAllPartFromStorage(data.token.docSourceId, data.token.segmentIndex, data.token.partNum)
       } else if (data.type === HistoryStep.types.MERGE) {

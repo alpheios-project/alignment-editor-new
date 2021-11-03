@@ -54,6 +54,11 @@
       "description": "A label for action menu buttons",
       "component": "ActionsMenuTokenEdit"
     },
+    "ACTION_BUTTON_INSERT": {
+      "message": "Insert tokens",
+      "description": "A label for action menu buttons",
+      "component": "ActionsMenuTokenEdit"
+    },
     "TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP": {
       "message": "This token is inside a created alignment group, you should ungroup it first in the alignment editor.",
       "description": "An error message for token edit workflow",
@@ -118,6 +123,31 @@
       "message": "Add space between tokens. Click Enter to insert tokens to the end.",
       "description": "A description for insert tokens input",
       "component": "EmptyTokensInput"
+    },
+    "INSERT_TOKENS_BLOCK_HEADER": {
+      "message": "Insert tokens near { word }:",
+      "description": "A title for modal",
+      "component": "SegmentEditBlock",
+      "params": ["word"]
+    },
+    "INSERT_TOKENS_BLOCK_SAVE_BUTTON": {
+      "message": "Insert",
+      "description": "Save button in modal",
+      "component": "InsertTokensBlock"
+    },
+    "INSERT_TOKENS_BLOCK_CANCEL_BUTTON": {
+      "message": "Cancel",
+      "description": "Cancel button in modal",
+      "component": "InsertTokensBlock"
+    },
+    "INSERT_TOKENS_DIR_PREV": {
+      "message": "before token",
+      "description": "Radio buttons for insert tokens modal",
+      "component": "InsertTokensBlock"
+    },
+    "INSERT_TOKENS_DIR_NEXT": {
+      "message": "after token",
+      "description": "Radio buttons for insert tokens modal",
+      "component": "InsertTokensBlock"
     }
-
 }

@@ -132,8 +132,6 @@ describe('alignment-annotations.test.js', () => {
     expect(checkAnnotation(alignment, '1-0-0-e-1', 'test annotation 2')).toBeFalsy()
 
     alignment.redoTokensEditStep()
-    // console.info(Object.keys(alignment.annotations))
-    // console.info(Object.values(alignment.annotations))
 
     expect(checkAnnotation(alignment, '1-0-0-e-1', 'test annotation 1')).toBeTruthy()
     expect(checkAnnotation(alignment, '1-0-0-e-1', 'test annotation 2')).toBeTruthy()
@@ -173,9 +171,6 @@ describe('alignment-annotations.test.js', () => {
     expect(checkAnnotation(alignment, '1-0-0-al-1', 'test annotation 2')).toBeTruthy()
 
     alignment.undoTokensEditStep()
-
-    // console.info(Object.keys(alignment.annotations))
-    // console.info(Object.values(alignment.annotations))
 
     expect(checkAnnotation(alignment, '1-0-0', 'test annotation 1')).toBeTruthy()
     expect(checkAnnotation(alignment, '1-0-0-al-1', 'test annotation 1')).toBeFalsy()
@@ -221,9 +216,6 @@ describe('alignment-annotations.test.js', () => {
     expect(checkAnnotation(alignment, '1-0-2', 'test annotation 1')).toBeFalsy()
     expect(checkAnnotation(alignment, '1-0-2-ns-1', 'test annotation 1')).toBeTruthy()
     expect(checkAnnotation(alignment, '1-0-2-ns-1', 'test annotation 2')).toBeTruthy()
-
-    // console.info(Object.keys(alignment.annotations))
-    // console.info(Object.values(alignment.annotations))
 
     alignment.undoTokensEditStep()
 

@@ -648,7 +648,6 @@ describe('texts-controller.test.js', () => {
     StorageController.select = jest.fn()
     
     const res = await textsC.uploadDataFromDB(true)
-    console.info('res - ', res)
     expect(StorageController.select).toHaveBeenCalledWith(true, 'alignmentByAlIDQuery')
   })
 })

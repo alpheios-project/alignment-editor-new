@@ -401,6 +401,16 @@
 
 /***/ }),
 
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/insert-tokens-block.vue?vue&type=style&index=0&lang=scss&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/insert-tokens-block.vue?vue&type=style&index=0&lang=scss& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (() => {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/segment-edit-block.vue?vue&type=style&index=0&lang=scss&":
 /*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/segment-edit-block.vue?vue&type=style&index=0&lang=scss& ***!
@@ -40843,7 +40853,9 @@ class TokenizeController {
       [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_5__["default"].types.REMOVE_LINE_BREAK]: 'rl',
       [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_5__["default"].types.TO_NEXT_SEGMENT]: 'ns',
       [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_5__["default"].types.TO_PREV_SEGMENT]: 'ps',
-      [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_5__["default"].types.NEW]: 'n'
+      [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_5__["default"].types.NEW]: 'n',
+      [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_5__["default"].types.NEW_BEFORE]: 'nb',
+      [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_5__["default"].types.NEW_AFTER]: 'na'
 
     }
 
@@ -41170,18 +41182,11 @@ class TokensEditController {
     return Boolean(token) && this.alignment.allowedDelete(token)
   }
 
-  /**
-   *
-   * @param {String} tokensText - string that would be converted to tokens
-   * @param {String} textType - origin/target
-   * @param {String} textId - docSourceId
-   * @param {String} insertType - start (insert to the start of the first segment), end (insert to the end of the last segment)
-   */
-  async insertTokens (tokensText, textType, textId, insertType) {
-    const data = this.alignment.insertTokens(tokensText, textType, textId, insertType)
+  async insertTokens (tokensText, token, direction) {
+    const data = this.alignment.insertTokens(tokensText, token, direction)
     if (data.result) {
       this.store.commit('incrementTokenUpdated')
-      await this.deleteAllPartFromStorage(textId, data.segmentIndex, data.partNum)
+      await this.deleteAllPartFromStorage(token.docSourceId, data.segmentIndex, data.partNum)
       await this.deleteAllAnnotationsStorage()
       await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].update(this.alignment)
       return true
@@ -41243,6 +41248,7 @@ class TokensEditController {
 
     for (let i = 0; i < dataIndexedDB.length; i++) {
       const data = dataIndexedDB[i]
+      if (!data || !data.type) { continue }
       if (onlyToken.includes(data.type)) {
         await this.deleteAllPartFromStorage(data.token.docSourceId, data.token.segmentIndex, data.token.partNum)
       } else if (data.type === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_3__["default"].types.MERGE) {
@@ -42137,57 +42143,49 @@ class TokensEditActions {
    * @returns {Boolean}
    */
   allowedDelete (token) {
-    const alignedText = this.getAlignedTextByToken(token)
     const segment = this.getSegmentByToken(token)
-    return segment.tokens.length > 1 &&
-           ((!this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV) && (token.segmentIndex === alignedText.segments[0].index)) ||
-           (!this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.NEXT) && (token.segmentIndex === alignedText.segments[alignedText.segments.length - 1].index)))
+    return segment.tokens.length > 1
   }
 
-  /**
-   *
-   * @param {String} tokensText - string that would be converted to tokens
-   * @param {String} textType - origin/target
-   * @param {String} textId - docSourceId
-   * @param {String} insertType - start (insert to the start of the first segment), end (insert to the end of the last segment)
-   */
-  insertTokens (tokensText, textType, textId, insertType) {
-    const alignedText = (textType === 'origin') ? this.origin.alignedText : this.targets[textId].alignedText
-    const segmentToInsert = (insertType === 'start') ? alignedText.segments[0] : alignedText.segments[alignedText.segments.length - 1]
-
-    const partNum = (insertType === 'start') ? 1 : segmentToInsert.allPartNums[segmentToInsert.allPartNums.length - 1].partNum
+  insertTokens (tokensText, token, direction) {
+    const alignedText = this.getAlignedTextByToken(token)
+    const segment = this.getSegmentByToken(token)
 
     let words = tokensText.split(' ')
-    if (insertType === 'start') { words = words.reverse() }
 
+    if (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV) { words = words.reverse() }
+
+    let tokenIndex = segment.getTokenIndex(token)
     const createdTokens = []
-    words.forEach(word => {
-      const baseToken = (insertType === 'start') ? segmentToInsert.tokens[0] : segmentToInsert.tokens[segmentToInsert.tokens.length - 1]
 
+    const changeType = (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV) ? _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].types.NEW_BEFORE : _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].types.NEW_AFTER
+    let baseToken = token
+    words.forEach(word => {
       const newIdWord = alignedText.getNewIdWord({
         token: baseToken,
-        segment: segmentToInsert,
-        changeType: _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].types.NEW,
-        insertType
+        segment,
+        changeType,
+        insertType: direction
       })
+      tokenIndex = (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV) ? tokenIndex - 1 : tokenIndex
+      const tokenNew = segment.addNewToken(tokenIndex, newIdWord, word, false)
+      tokenIndex = segment.getTokenIndex(tokenNew)
 
-      const insertPosition = (insertType === 'start') ? -1 : segmentToInsert.tokens.length - 1
-      const token = segmentToInsert.addNewToken(insertPosition, newIdWord, word, false)
-
-      createdTokens.push(token)
+      createdTokens.push(tokenNew)
+      baseToken = tokenNew
     })
 
     this.tokensEditHistory.truncateSteps()
-    this.tokensEditHistory.addStep(null, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].types.NEW, {
-      createdTokens, segmentToInsert, insertType
+    this.tokensEditHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].types.NEW, {
+      createdTokens, segment, insertType: direction
     })
 
-    this.reIndexSentence(segmentToInsert)
+    this.reIndexSentence(segment)
     // add new partNum
     return {
       result: true,
-      segmentIndex: segmentToInsert.index,
-      partNum
+      segmentIndex: segment.index,
+      partNum: token.partNum
     }
   }
 
@@ -42458,23 +42456,38 @@ class TokensEditActions {
 
   removeStepInsertTokens (step) {
     step.params.createdTokens.forEach((token) => {
-      const tokenIndex = step.params.segmentToInsert.getTokenIndex(token)
-      step.params.segmentToInsert.deleteToken(tokenIndex)
+      const tokenIndex = step.params.segment.getTokenIndex(token)
+      step.params.segment.deleteToken(tokenIndex)
     })
-    this.reIndexSentence(step.params.segmentToInsert)
+
+    this.reIndexSentence(step.params.segment)
     return {
-      result: true
+      result: true,
+      data: {
+        token: step.token,
+        idWordNewAnnotations: step.params.createdTokens.map(token => token.idWord)
+      }
     }
   }
 
   applyStepInsertTokens (step) {
+    let tokenIndex = step.params.segment.getTokenIndex(step.token)
+
     step.params.createdTokens.forEach((token) => {
-      const insertPosition = (step.params.insertType === 'start') ? 0 : step.params.segmentToInsert.tokens.length
-      step.params.segmentToInsert.insertToken(token, insertPosition)
+      tokenIndex = (step.params.insertType === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV) ? tokenIndex : tokenIndex + 1
+      step.params.segment.insertToken(token, tokenIndex)
+
+      tokenIndex = step.params.segment.getTokenIndex(token)
     })
-    this.reIndexSentence(step.params.segmentToInsert)
+    this.reIndexSentence(step.params.segment)
+
     return {
-      result: true
+      result: true,
+      data: {
+        token: step.token,
+        idWordNewAnnotations: step.params.createdTokens.map(token => token.idWord),
+        newAnnotations: step.params.newAnnotations
+      }
     }
   }
 
@@ -42494,7 +42507,7 @@ class TokensEditActions {
   }
 
   applyStepDeleteToken (step) {
-    step.params.segmentToDelete.deleteToken(step.params.tokenIndex)
+    step.params.segmentToDelete.deleteToken(step.params.deleteIndex)
     this.reIndexSentence(step.params.segmentToDelete)
     return {
       result: true,
@@ -42616,7 +42629,7 @@ class AlignedText {
    * @param {Number} indexWord - used only for split = the order number of result tokens
    * @returns {String} - idWord
    */
-  getNewIdWord ({ segment, token, changeType, indexWord }) {
+  getNewIdWord ({ segment, token, changeType, indexWord } = {}) {
     const getNextIdWordMethod = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_0__["default"].getNextTokenIdWordMethod(this.tokenization.tokenizer)
 
     return getNextIdWordMethod({
@@ -43994,8 +44007,8 @@ class Alignment {
    * @param {String} textId - docSourceId
    * @param {String} insertType - start (insert to the start of the first segment), end (insert to the end of the last segment)
    */
-  insertTokens (tokensText, textType, textId, insertType) {
-    const result = this.tokensEditActions.insertTokens(tokensText, textType, textId, insertType)
+  insertTokens (tokensText, token, direction) {
+    const result = this.tokensEditActions.insertTokens(tokensText, token, direction)
     this.setUpdated()
     return result
   }
@@ -44140,16 +44153,26 @@ class Alignment {
     }
 
     if (result.data && result.data[0]) {
-      this.uploadNewAnnotations(result.data[0].idWordNewAnnotations, result.data[0].newAnnotations)
+      const idWords = Array.isArray(result.data[0].idWordNewAnnotations) ? result.data[0].idWordNewAnnotations : [result.data[0].idWordNewAnnotations]
+      idWords.forEach(idWord => this.uploadNewAnnotations(idWord, result.data[0].newAnnotations))
     }
     return result
   }
 
-  removeNewAnnotations (idWord) {
-    if (!this.annotations[idWord]) { return }
+  removeNewAnnotations (idWords) {
+    if (!Array.isArray(idWords)) { idWords = [idWords] }
 
-    this.tokensEditHistory.updateLastStepWithAnnotations(this.annotations, idWord)
-    this.annotations[idWord] = this.annotations[idWord].filter(annot => annot.tokenIdWordCreated !== idWord)
+    for (let i = 0; i < idWords.length; i++) {
+      const idWord = idWords[i]
+
+      if (!this.annotations[idWord]) { continue }
+
+      this.tokensEditHistory.updateLastStepWithAnnotations(this.annotations, idWord)
+      this.annotations[idWord] = this.annotations[idWord].filter(annot => annot.tokenIdWordCreated !== idWord)
+      if (this.annotations[idWord].length === 0) {
+        delete this.annotations[idWord]
+      }
+    }
   }
 
   uploadNewAnnotations (idWord, annotations) {
@@ -45179,6 +45202,10 @@ HistoryStep.types = {
   //
   NEW: 'new',
   //
+  NEW_AFTER: 'new_after',
+  //
+  NEW_BEFORE: 'new_before',
+  //
   DELETE: 'delete',
   //
   START_GROUP: 'start group',
@@ -45244,9 +45271,6 @@ class TokensEditHistory extends _lib_data_history_editor_history__WEBPACK_IMPORT
       }
 
       return { type: step.type, token: step.token, newSegmentIndex, newPartNum }
-    } else if (step.type === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].types.NEW) {
-      const checkToken = (step.params.insertType === 'start') ? step.params.segmentToInsert.tokens[0] : step.params.segmentToInsert.tokens[step.params.segmentToInsert.tokens.length - 1]
-      return { type: step.type, token: checkToken }
     } else if (step.type === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].types.DELETE) {
       return { type: step.type, token: step.params.deletedToken }
     }
@@ -45258,10 +45282,10 @@ class TokensEditHistory extends _lib_data_history_editor_history__WEBPACK_IMPORT
 
   updateLastStepWithAnnotations (annotations, idWord) {
     const step = this.steps[this.currentStepIndex + 1]
+
     if (annotations[idWord]) {
-      step.params.newAnnotations = {
-        [idWord]: annotations[idWord].filter(annot => annot.tokenIdWordCreated === idWord)
-      }
+      if (!step.params.newAnnotations) { step.params.newAnnotations = {} }
+      step.params.newAnnotations[idWord] = annotations[idWord].filter(annot => annot.tokenIdWordCreated === idWord)
     }
   }
 }
@@ -48246,7 +48270,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i579-html-filter.20211027609" : 0
+    return  true ? "i576-insert-tokens.20211103585" : 0
   }
 
   static get libName () {
@@ -54440,11 +54464,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inline_icons_prev_svg__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_prev_svg__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/inline-icons/delete.svg */ "./inline-icons/delete.svg");
 /* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
+/* harmony import */ var _inline_icons_big_plus_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/inline-icons/big-plus.svg */ "./inline-icons/big-plus.svg");
+/* harmony import */ var _inline_icons_big_plus_svg__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_big_plus_svg__WEBPACK_IMPORTED_MODULE_9__);
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/lib/data/history/history-step.js */ "./lib/data/history/history-step.js");
 /* harmony import */ var _vue_tokens_editor_actions_button_token_edit_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/vue/tokens-editor/actions-button-token-edit.vue */ "./vue/tokens-editor/actions-button-token-edit.vue");
 /* harmony import */ var _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/lib/controllers/settings-controller */ "./lib/controllers/settings-controller.js");
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -54544,7 +54575,8 @@ __webpack_require__.r(__webpack_exports__);
     nextIcon: (_inline_icons_next_svg__WEBPACK_IMPORTED_MODULE_6___default()),
     prevIcon: (_inline_icons_prev_svg__WEBPACK_IMPORTED_MODULE_7___default()),
     deleteIcon: (_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_8___default()),
-    actionsButton: _vue_tokens_editor_actions_button_token_edit_vue__WEBPACK_IMPORTED_MODULE_12__["default"]
+    actionsButton: _vue_tokens_editor_actions_button_token_edit_vue__WEBPACK_IMPORTED_MODULE_12__["default"],
+    bigPlusIcon: (_inline_icons_big_plus_svg__WEBPACK_IMPORTED_MODULE_9___default())
   },
   props: {
     token: {
@@ -54617,6 +54649,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     allowedDelete () {
       return this.$store.state.optionsUpdated && this.$tokensEC.allowedDelete(this.token)
+    },
+    allowedInsert () {
+      return true
     },
     renderMoveToPrevSegment () {
       return this.$store.state.alignmentRestarted && this.$store.state.uploadCheck && !this.$alignedGC.hasOnlyOneSegment
@@ -54787,6 +54822,107 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/insert-tokens-block.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/insert-tokens-block.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/inline-icons/x-close.svg */ "./inline-icons/x-close.svg");
+/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/data/history/history-step.js */ "./lib/data/history/history-step.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'InsertTokensBlock',
+  components: {
+    xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_0___default())
+  },
+  props: {
+    token: {
+      type: Object,
+      required: false
+    }
+  },
+  data () {
+    return {
+      curDirection: null,
+      words: null
+    }
+  },
+  computed: {
+    l10n () {
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__["default"]
+    },
+    directions () {
+      this.curDirection = _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].directions.PREV
+      return [ 
+              { label: this.l10n.getMsgS('INSERT_TOKENS_DIR_PREV'), value: _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].directions.PREV },
+              { label: this.l10n.getMsgS('INSERT_TOKENS_DIR_NEXT'), value: _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].directions.NEXT }
+            ]
+    }
+  },
+  methods: {
+    initData () {
+      this.words = null
+      this.curDirection = null
+    },
+
+    itemIdWithValue (dir) {
+      return `alpheios-alignment-radio-direction-${dir}`
+    },
+    async insertTokens () {
+      await this.$tokensEC.insertTokens(this.words, this.token, this.curDirection)
+      this.closeModal()
+    },
+    closeModal () {
+      this.$emit('closeModal')
+      this.initData()
+    }
+  }
+});
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/segment-edit-block.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/segment-edit-block.vue?vue&type=script&lang=js& ***!
@@ -54803,8 +54939,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_tokens_editor_actions_menu_token_edit_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/tokens-editor/actions-menu-token-edit.vue */ "./vue/tokens-editor/actions-menu-token-edit.vue");
 /* harmony import */ var _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/data/history/history-step.js */ "./lib/data/history/history-step.js");
 /* harmony import */ var _vue_tokens_editor_empty_tokens_input_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/tokens-editor/empty-tokens-input.vue */ "./vue/tokens-editor/empty-tokens-input.vue");
-//
-//
 //
 //
 //
@@ -54920,7 +55054,9 @@ __webpack_require__.r(__webpack_exports__);
       mergeTokenNextIdWord: null,
       splitTokenIdWord: null,
       addLineBreakIdWord: null,
-      removeLineBreakIdWord: null
+      removeLineBreakIdWord: null,
+
+      edittedToken: null
     }
   },
   watch: {
@@ -55018,14 +55154,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     allPartsKeys () {
       return  this.$store.state.tokenUpdated && this.$store.state.reuploadTextsParts && this.segment.allPartNums ? this.segment.allPartNums : []
-    },
-
-    showEmptyTokensStart () {
-      return (this.segment.index === 1) && !this.showPrev
-    },
-
-    showEmptyTokensEnd () {
-      return (this.segment.index === this.amountOfSegments) && !this.showNext
     }
   },
   methods: {
@@ -55095,6 +55223,10 @@ __webpack_require__.r(__webpack_exports__);
     deleteToken (token) {
       this.$tokensEC.deleteToken(token)
       this.removeAllActivated()
+    },
+
+    insertTokens (token) {
+      this.$emit('insertTokens', token)
     }
   }
 
@@ -55497,6 +55629,10 @@ __webpack_require__.r(__webpack_exports__);
 
     removeAllActivated () {
       this.blockTokensActions()
+    },
+
+    insertTokens (token) {
+      this.$emit('insertTokens', token)
     }
   } 
 });
@@ -55521,6 +55657,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_common_save_popup_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/common/save-popup.vue */ "./vue/common/save-popup.vue");
 /* harmony import */ var _vue_help_blocks_eng_help_block_edit_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/help-blocks/eng/help-block-edit.vue */ "./vue/help-blocks/eng/help-block-edit.vue");
 /* harmony import */ var _vue_options_options_text_edit_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/options/options-text-edit.vue */ "./vue/options/options-text-edit.vue");
+/* harmony import */ var _vue_tokens_editor_insert_tokens_block_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/tokens-editor/insert-tokens-block.vue */ "./vue/tokens-editor/insert-tokens-block.vue");
 //
 //
 //
@@ -55555,6 +55692,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
+
 
 
 
@@ -55573,7 +55713,8 @@ __webpack_require__.r(__webpack_exports__);
     helpPopup: _vue_common_help_popup_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     savePopup: _vue_common_save_popup_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
     helpBlockEdit: _vue_help_blocks_eng_help_block_edit_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-    optionsTextEditPopup: _vue_options_options_text_edit_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+    optionsTextEditPopup: _vue_options_options_text_edit_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+    insertTokensPopup: _vue_tokens_editor_insert_tokens_block_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
   props: {
     renderEditor: {
@@ -55584,7 +55725,8 @@ __webpack_require__.r(__webpack_exports__);
   data () {
     return {
       renderTokensEditor: false,
-      showModalOptions: false
+      showModalOptions: false,
+      edittedToken: null
     }
   },
   watch: {
@@ -55604,6 +55746,14 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    startInsertTokens (token) {
+      this.edittedToken = token
+      this.$modal.show('insert-tokens')
+    },
+    closeInsertTokens () {
+      this.edittedToken = null
+      this.$modal.hide('insert-tokens')
+    }
   }
 });
 
@@ -57365,6 +57515,47 @@ component.options.__file = "vue/tokens-editor/empty-tokens-input.vue"
 
 /***/ }),
 
+/***/ "./vue/tokens-editor/insert-tokens-block.vue":
+/*!***************************************************!*\
+  !*** ./vue/tokens-editor/insert-tokens-block.vue ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _insert_tokens_block_vue_vue_type_template_id_fe988890___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./insert-tokens-block.vue?vue&type=template&id=fe988890& */ "./vue/tokens-editor/insert-tokens-block.vue?vue&type=template&id=fe988890&");
+/* harmony import */ var _insert_tokens_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./insert-tokens-block.vue?vue&type=script&lang=js& */ "./vue/tokens-editor/insert-tokens-block.vue?vue&type=script&lang=js&");
+/* harmony import */ var _insert_tokens_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./insert-tokens-block.vue?vue&type=style&index=0&lang=scss& */ "./vue/tokens-editor/insert-tokens-block.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _insert_tokens_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _insert_tokens_block_vue_vue_type_template_id_fe988890___WEBPACK_IMPORTED_MODULE_0__.render,
+  _insert_tokens_block_vue_vue_type_template_id_fe988890___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/tokens-editor/insert-tokens-block.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./vue/tokens-editor/segment-edit-block.vue":
 /*!**************************************************!*\
   !*** ./vue/tokens-editor/segment-edit-block.vue ***!
@@ -58192,6 +58383,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./vue/tokens-editor/insert-tokens-block.vue?vue&type=style&index=0&lang=scss&":
+/*!*************************************************************************************!*\
+  !*** ./vue/tokens-editor/insert-tokens-block.vue?vue&type=style&index=0&lang=scss& ***!
+  \*************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_insert_tokens_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./insert-tokens-block.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/insert-tokens-block.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_insert_tokens_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_insert_tokens_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_insert_tokens_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_insert_tokens_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
+
+/***/ }),
+
 /***/ "./vue/tokens-editor/segment-edit-block.vue?vue&type=style&index=0&lang=scss&":
 /*!************************************************************************************!*\
   !*** ./vue/tokens-editor/segment-edit-block.vue?vue&type=style&index=0&lang=scss& ***!
@@ -58945,6 +59153,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_empty_tokens_input_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./empty-tokens-input.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/empty-tokens-input.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_empty_tokens_input_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./vue/tokens-editor/insert-tokens-block.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./vue/tokens-editor/insert-tokens-block.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_insert_tokens_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./insert-tokens-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/insert-tokens-block.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_insert_tokens_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -59739,6 +59963,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_empty_tokens_input_vue_vue_type_template_id_5fdb8c3d___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_empty_tokens_input_vue_vue_type_template_id_5fdb8c3d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./empty-tokens-input.vue?vue&type=template&id=5fdb8c3d& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/empty-tokens-input.vue?vue&type=template&id=5fdb8c3d&");
+
+
+/***/ }),
+
+/***/ "./vue/tokens-editor/insert-tokens-block.vue?vue&type=template&id=fe988890&":
+/*!**********************************************************************************!*\
+  !*** ./vue/tokens-editor/insert-tokens-block.vue?vue&type=template&id=fe988890& ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_insert_tokens_block_vue_vue_type_template_id_fe988890___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_insert_tokens_block_vue_vue_type_template_id_fe988890___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_insert_tokens_block_vue_vue_type_template_id_fe988890___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./insert-tokens-block.vue?vue&type=template&id=fe988890& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/insert-tokens-block.vue?vue&type=template&id=fe988890&");
 
 
 /***/ }),
@@ -66172,6 +66413,35 @@ var render = function() {
           _vm._v(" "),
           _c("actions-button", {
             attrs: {
+              tooltipMess: "ACTION_BUTTON_INSERT",
+              allowedCondition: _vm.allowedInsert,
+              actionName: "insert"
+            },
+            on: {
+              click: function($event) {
+                return _vm.$emit("insertTokens", _vm.token)
+              }
+            },
+            scopedSlots: _vm._u([
+              {
+                key: "enabled",
+                fn: function() {
+                  return [_c("big-plus-icon")]
+                },
+                proxy: true
+              },
+              {
+                key: "disabled",
+                fn: function() {
+                  return [_c("big-plus-icon")]
+                },
+                proxy: true
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c("actions-button", {
+            attrs: {
               tooltipMess: "ACTION_BUTTON_DELETE",
               allowedCondition: _vm.allowedDelete,
               actionName: "delete"
@@ -66363,6 +66633,191 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/insert-tokens-block.vue?vue&type=template&id=fe988890&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/insert-tokens-block.vue?vue&type=template&id=fe988890& ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "modal",
+    {
+      attrs: {
+        classes: "alpheios-alignment-editor-modal-insert-tokens",
+        name: "insert-tokens",
+        draggable: true,
+        height: "auto"
+      }
+    },
+    [
+      _vm.token
+        ? _c("div", { staticClass: "alpheios-modal-header" }, [
+            _c(
+              "span",
+              {
+                staticClass: "alpheios-alignment-modal-close-icon",
+                on: {
+                  click: function($event) {
+                    return _vm.$emit("closeModal")
+                  }
+                }
+              },
+              [_c("x-close-icon")],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "h3",
+              { staticClass: "alpheios-alignment-editor-modal-header" },
+              [
+                _vm._v(
+                  _vm._s(
+                    _vm.l10n.getMsgS("INSERT_TOKENS_BLOCK_HEADER", {
+                      word: _vm.token.word
+                    })
+                  )
+                )
+              ]
+            )
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.token
+        ? _c("div", { staticClass: "alpheios-modal-body" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "alpheios-alignment-radio-block alpheios-alignment-option-item__control"
+              },
+              _vm._l(_vm.directions, function(dir, dirIndex) {
+                return _c("span", { key: dirIndex }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.curDirection,
+                        expression: "curDirection"
+                      }
+                    ],
+                    attrs: {
+                      type: "radio",
+                      id: _vm.itemIdWithValue(dir.value)
+                    },
+                    domProps: {
+                      value: dir.value,
+                      checked: _vm._q(_vm.curDirection, dir.value)
+                    },
+                    on: {
+                      change: function($event) {
+                        _vm.curDirection = dir.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    { attrs: { for: _vm.itemIdWithValue(dir.value) } },
+                    [_vm._v(_vm._s(dir.label))]
+                  )
+                ])
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c(
+              "textarea",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.words,
+                    expression: "words"
+                  }
+                ],
+                staticClass: "alpheios-alignment-editor-text-blocks-textarea",
+                attrs: { id: "alpheios-alignment-insert-tokens-textarea" },
+                domProps: { value: _vm.words },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.words = $event.target.value
+                  }
+                }
+              },
+              [_vm._v("    >")]
+            )
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.token
+        ? _c("div", { staticClass: "alpheios-modal-footer" }, [
+            _c(
+              "p",
+              { staticClass: "alpheios-alignment-annotations-footer__buttons" },
+              [
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "alpheios-editor-button-tertiary alpheios-annotation-save-button",
+                    attrs: { disabled: false },
+                    on: { click: _vm.insertTokens }
+                  },
+                  [
+                    _vm._v(
+                      "\n          " +
+                        _vm._s(
+                          _vm.l10n.getMsgS("INSERT_TOKENS_BLOCK_SAVE_BUTTON")
+                        ) +
+                        "\n      "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+                    on: { click: _vm.closeModal }
+                  },
+                  [
+                    _vm._v(
+                      _vm._s(
+                        _vm.l10n.getMsgS("INSERT_TOKENS_BLOCK_CANCEL_BUTTON")
+                      )
+                    )
+                  ]
+                )
+              ]
+            )
+          ])
+        : _vm._e()
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/segment-edit-block.vue?vue&type=template&id=eba38d6c&":
 /*!**************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/segment-edit-block.vue?vue&type=template&id=eba38d6c& ***!
@@ -66431,19 +66886,10 @@ var render = function() {
           removeLineBreak: _vm.removeLineBreak,
           moveToNextSegment: _vm.moveToNextSegment,
           moveToPrevSegment: _vm.moveToPrevSegment,
-          deleteToken: _vm.deleteToken
+          deleteToken: _vm.deleteToken,
+          insertTokens: _vm.insertTokens
         }
       }),
-      _vm._v(" "),
-      _vm.showEmptyTokensStart
-        ? _c("empty-tokens-input", {
-            attrs: {
-              "text-type": _vm.textType,
-              textId: _vm.targetId,
-              "input-type": "start"
-            }
-          })
-        : _vm._e(),
       _vm._v(" "),
       _c(
         "div",
@@ -66500,17 +66946,7 @@ var render = function() {
           })
         ],
         2
-      ),
-      _vm._v(" "),
-      _vm.showEmptyTokensEnd
-        ? _c("empty-tokens-input", {
-            attrs: {
-              "text-type": _vm.textType,
-              textId: _vm.targetId,
-              "input-type": "end"
-            }
-          })
-        : _vm._e()
+      )
     ],
     1
   )
@@ -66714,7 +67150,10 @@ var render = function() {
                       textType: "origin",
                       textId: segmentData.origin.docSourceId
                     },
-                    on: { removeAllActivated: _vm.removeAllActivated }
+                    on: {
+                      removeAllActivated: _vm.removeAllActivated,
+                      insertTokens: _vm.insertTokens
+                    }
                   })
                 ],
                 1
@@ -66745,7 +67184,10 @@ var render = function() {
                       currentTargetId: _vm.currentTargetId,
                       blockTokensActionsFlag: _vm.blockTokensActionsFlag
                     },
-                    on: { removeAllActivated: _vm.removeAllActivated }
+                    on: {
+                      removeAllActivated: _vm.removeAllActivated,
+                      insertTokens: _vm.insertTokens
+                    }
                   })
                 }),
                 1
@@ -66916,7 +67358,11 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _vm.renderTokensEditor ? _c("tokens-editor-inner-block") : _vm._e(),
+      _vm.renderTokensEditor
+        ? _c("tokens-editor-inner-block", {
+            on: { insertTokens: _vm.startInsertTokens }
+          })
+        : _vm._e(),
       _vm._v(" "),
       _c("help-popup", {
         attrs: { mname: "help-edit" },
@@ -66951,6 +67397,11 @@ var render = function() {
             return _vm.$modal.hide("options-edit")
           }
         }
+      }),
+      _vm._v(" "),
+      _c("insert-tokens-popup", {
+        attrs: { token: _vm.edittedToken },
+        on: { closeModal: _vm.closeInsertTokens }
       })
     ],
     1
@@ -66960,6 +67411,43 @@ var staticRenderFns = []
 render._withStripped = true
 
 
+
+/***/ }),
+
+/***/ "./inline-icons/big-plus.svg":
+/*!***********************************!*\
+  !*** ./inline-icons/big-plus.svg ***!
+  \***********************************/
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"width":"300","height":"300","viewBox":"0 0 79.375 79.375","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M46.315 47.605v24.66q0 1.589-.581 2.21-.517.622-2.003.622h-9.173q-1.486 0-2.067-.622-.517-.621-.517-2.21v-24.66H8.977q-1.486 0-2.067-.622-.582-.621-.582-2.28v-9.049q0-1.657.582-2.28.581-.62 2.067-.62h22.997V7.745q0-1.589.517-2.21.581-.622 2.067-.622h9.173q1.486 0 2.003.622.581.621.581 2.21v25.007h23.386q1.55 0 2.132.622.581.622.581 2.28v9.049q0 1.658-.581 2.28-.582.621-2.132.621z"}})])
+          )
+        }
+      }
+    
 
 /***/ }),
 
@@ -67436,7 +67924,7 @@ render._withStripped = true
               attrs: Object.assign({"width":"300","height":"300","viewBox":"0 0 79.375 79.375","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('ellipse',{attrs:{"cx":"39.688","cy":"39.688","rx":"36.67","ry":"35.795","fill":"none","opacity":".99","stroke":"#000","stroke-linecap":"round","stroke-width":"3.748"}}),_c('path',{attrs:{"d":"M44.237 44.986v16.16q0 1.041-.407 1.448-.363.408-1.404.408h-6.428q-1.04 0-1.448-.407-.362-.408-.362-1.449v-16.16H18.073q-1.041 0-1.449-.407t-.407-1.494v-5.93q0-1.087.407-1.494t1.449-.407h16.115V18.867q0-1.042.362-1.449.407-.407 1.448-.407h6.428q1.041 0 1.404.407.407.407.407 1.449v16.387h16.387q1.086 0 1.494.407t.407 1.494v5.93q0 1.086-.407 1.494t-1.494.407z"}})])
+            children.concat([_c('path',{attrs:{"d":"M76.358 39.688a36.67 35.795 0 01-36.67 35.795 36.67 35.795 0 01-36.67-35.795 36.67 35.795 0 0136.67-35.795 36.67 35.795 0 0136.67 35.795z","fill":"none","opacity":".99","stroke":"#000","stroke-linecap":"round","stroke-width":"3.748"}}),_c('path',{attrs:{"d":"M44.237 44.986v16.16q0 1.041-.407 1.448-.363.408-1.404.408h-6.428q-1.04 0-1.448-.407-.362-.408-.362-1.449v-16.16H18.073q-1.041 0-1.449-.407t-.407-1.494v-5.93q0-1.087.407-1.494t1.449-.407h16.115V18.867q0-1.042.362-1.449.407-.407 1.448-.407h6.428q1.041 0 1.404.407.407.407.407 1.449v16.387h16.387q1.086 0 1.494.407t.407 1.494v5.93q0 1.086-.407 1.494t-1.494.407z"}})])
           )
         }
       }
@@ -67636,7 +68124,7 @@ render._withStripped = true
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/texts-controller.test.js --coverage","test-b":"jest tests/vue/align-editor/segment-block.test.js --coverage","test-c":"jest tests/lib/data/actions/tokens-edit-actions.test.js","test-f":"jest tests/lib/data/tokens-edit-history-cases.test.js","test-d":"jest tests/lib/storage/indexed-db-adapter.test.js","test-e":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.6.0","@babel/core":"^7.15.5","@babel/plugin-proposal-object-rest-spread":"^7.15.6","@babel/plugin-transform-modules-commonjs":"^7.15.4","@babel/plugin-transform-runtime":"^7.15.0","@babel/preset-env":"^7.15.6","@babel/register":"^7.15.3","@babel/runtime":"^7.15.4","@vue/test-utils":"^1.2.2","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.2.0","coveralls":"^3.1.1","css-loader":"^3.6.0","eslint":"^7.32.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.24.2","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.3","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.9.2","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.8","papaparse":"^5.3.1","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.42.1","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.14","vue-eslint-parser":"^7.11.0","vue-jest":"^3.0.7","vue-js-modal":"^2.0.1","vue-loader":"^15.9.8","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.14","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.55.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
+module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/tokens-edit-indexeddb-controller.test.js","test-b":"jest tests/vue/align-editor/segment-block.test.js","test-c":"jest tests/lib/data/actions/tokens-edit-actions.test.js","test-f":"jest tests/lib/data/tokens-edit-history-cases.test.js","test-d":"jest tests/lib/storage/indexed-db-adapter.test.js","test-e":"jest tests/_output/vue/app.test.js","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.6.0","@babel/core":"^7.15.5","@babel/plugin-proposal-object-rest-spread":"^7.15.6","@babel/plugin-transform-modules-commonjs":"^7.15.4","@babel/plugin-transform-runtime":"^7.15.0","@babel/preset-env":"^7.15.6","@babel/register":"^7.15.3","@babel/runtime":"^7.15.4","@vue/test-utils":"^1.2.2","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.2.0","coveralls":"^3.1.1","css-loader":"^3.6.0","eslint":"^7.32.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.24.2","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.3","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.9.2","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.8","papaparse":"^5.3.1","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.42.1","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.14","vue-eslint-parser":"^7.11.0","vue-jest":"^3.0.7","vue-js-modal":"^2.0.1","vue-loader":"^15.9.8","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.14","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.55.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
 
 /***/ }),
 
@@ -67779,7 +68267,7 @@ module.exports = JSON.parse('{"OPTIONS_BLOCK_APPLICATION":{"message":"Applicatio
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Enter text","description":"A heading for text editor","component":"TextEditor"},"TEXT_EDITOR_LINK":{"message":"Enter","description":"A heading for text editor","component":"TextEditor"},"TEXT_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_TEXT_BLOCK_TITLE":{"message":"{ textType } text:","description":"A tytle for text block area","component":"TextEditorSingleBlock","params":["textType"]},"RADIO_BLOCK_DIRECTION_LABEL":{"message":"Text Direction:","description":"A label for text direction select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_LTR":{"message":"Left to Right","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_RTL":{"message":"Right to Left","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"TEXT_EDITOR_AVA_LANGUAGE_TITLE":{"message":"{ textType } Language:","description":"A title for available languages select","component":"TextEditorSingleBlock","params":["textType"]},"TEXT_EDITOR_LANGUAGE_OTHER_LABEL":{"message":"Or Other Language:","description":"A label for other language text input","component":"TextEditorSingleBlock"},"TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION":{"message":"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages","description":"A description for other language text input","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_LABEL":{"message":"Text type:","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEXT":{"message":"Text","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEI":{"message":"TEI","description":"A label for text type select","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS":{"message":"Tokenize options for Alpheios Remote Servise","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT":{"message":"TEXT","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI":{"message":"TEI","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"ACTIONS_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"ACTIONS_UPLOAD_TITLE":{"message":"Upload text","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_HIDE_TITLE":{"message":"Hide metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_SHOW_TITLE":{"message":"Show metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_CLEAR_TEXT_TITLE":{"message":"Restart","description":"Button in main menu","component":"MainMenu"},"UPLOAD_DTSAPI_TITLE":{"message":"Upload texts from DTS API","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_TITLE":{"message":"You can either upload the entire document or selected passages:","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_DETAILS":{"message":"<li>Select one reference that you want to upload.</li><li>Select multiple references to upload as a range from the minimum to the maximum number. For example, if you choose 2, 5 and 8, the range from 2 to 8 references will be uploaded.</li>","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_ENTIRE_DOCUMENT":{"message":"Entire document","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_GO_TO_PAGE":{"message":"go to","description":"Title in upload block","component":"UploadDTSAPIBlock"},"TEXT_SINGLE_TYPE_BUTTON":{"message":"Type/paste in","description":"Title in text editor block","component":"TextEditorSingleBlock"},"TEXT_SINGLE_TYPE_LABEL":{"message":"Type or paste in text or","description":"Title in text editor block","component":"TextEditorSingleBlock"},"TEXT_SINGLE_UPLOAD_BUTTON":{"message":"Choose text to upload","description":"Title in text editor block","component":"TextEditorSingleBlock"},"NO_METADATA_ICON":{"message":"Metadata is empty for the text","description":"Tooltip for no metadata icon","component":"TextEditorSingleBlock"},"HAS_METADATA_ICON":{"message":"You could check and update metadata here","description":"Tooltip for has metadata icon","component":"TextEditorSingleBlock"},"NO_LANG_DETECTED_ICON":{"message":"Language was not detected, please recheck it manually.","description":"Tooltip for no lang detected icon","component":"TextEditorSingleBlock"},"SUMMARY_POPUP_HEADER":{"message":"Alpheios believes your texts are in the following languages.<br />Please review and correct if necessary","description":"Header in a summary popup component","component":"SummaryPopup"},"SUMMARY_POPUP_TABEL_TH_ORIGINAL":{"message":"Original","description":"Table title","component":"SummaryPopup"},"SUMMARY_POPUP_TABEL_TH_TRANSLATION":{"message":"Translation","description":"Table title","component":"SummaryPopup"},"SUMMARY_POPUP_TABEL_TH_ISTEI":{"message":"TEI","description":"Table title","component":"SummaryPopup"},"SUMMARY_POPUP_SHOW_OPTION_LABEL":{"message":"Show this popup for each text preparation","description":"Label for the option","component":"SummaryPopup"},"SUMMARY_POPUP_OK_BUTTON":{"message":"All Ok","description":"Button label","component":"SummaryPopup"},"SUMMARY_POPUP_CANCEL_BUTTON":{"message":"Cancel","description":"Button label","component":"SummaryPopup"},"ALIGN_TEXT_BUTTON_TOOLTIP":{"message":"Start tokenizing texts","description":"Tooltip for align texts button","component":"TextEditorSingleBlock"},"TEXT_EDITOR_HEADER_SAVE":{"message":"Save locally","description":"Tooltip for header buttons","component":"TextEditor"},"TEXT_EDITOR_HEADER_OPTIONS":{"message":"Options","description":"Tooltip for header buttons","component":"TextEditor"},"TEXT_EDITOR_HEADER_HELP":{"message":"Help","description":"Tooltip for header buttons","component":"TextEditor"},"DESCRIBE_BUTTON_TOOLTIP":{"message":"You could fill in metadata here","description":"Tooltip for describe texts button","component":"TextEditorSingleBlock"},"DESCRIBE_BUTTON_TITLE":{"message":"Describe","description":"Button\'s title","component":"TextEditorSingleBlock"}}');
+module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Enter text","description":"A heading for text editor","component":"TextEditor"},"TEXT_EDITOR_LINK":{"message":"Enter","description":"A heading for text editor","component":"TextEditor"},"TEXT_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_TEXT_BLOCK_TITLE":{"message":"{ textType } text:","description":"A title for text block area","component":"TextEditorSingleBlock","params":["textType"]},"RADIO_BLOCK_DIRECTION_LABEL":{"message":"Text Direction:","description":"A label for text direction select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_LTR":{"message":"Left to Right","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_RTL":{"message":"Right to Left","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"TEXT_EDITOR_AVA_LANGUAGE_TITLE":{"message":"{ textType } Language:","description":"A title for available languages select","component":"TextEditorSingleBlock","params":["textType"]},"TEXT_EDITOR_LANGUAGE_OTHER_LABEL":{"message":"Or Other Language:","description":"A label for other language text input","component":"TextEditorSingleBlock"},"TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION":{"message":"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages","description":"A description for other language text input","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_LABEL":{"message":"Text type:","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEXT":{"message":"Text","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEI":{"message":"TEI","description":"A label for text type select","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS":{"message":"Tokenize options for Alpheios Remote Servise","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT":{"message":"TEXT","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI":{"message":"TEI","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"ACTIONS_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"ACTIONS_UPLOAD_TITLE":{"message":"Upload text","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_HIDE_TITLE":{"message":"Hide metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_SHOW_TITLE":{"message":"Show metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_CLEAR_TEXT_TITLE":{"message":"Restart","description":"Button in main menu","component":"MainMenu"},"UPLOAD_DTSAPI_TITLE":{"message":"Upload texts from DTS API","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_TITLE":{"message":"You can either upload the entire document or selected passages:","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_DETAILS":{"message":"<li>Select one reference that you want to upload.</li><li>Select multiple references to upload as a range from the minimum to the maximum number. For example, if you choose 2, 5 and 8, the range from 2 to 8 references will be uploaded.</li>","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_ENTIRE_DOCUMENT":{"message":"Entire document","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_GO_TO_PAGE":{"message":"go to","description":"Title in upload block","component":"UploadDTSAPIBlock"},"TEXT_SINGLE_TYPE_BUTTON":{"message":"Type/paste in","description":"Title in text editor block","component":"TextEditorSingleBlock"},"TEXT_SINGLE_TYPE_LABEL":{"message":"Type or paste in text or","description":"Title in text editor block","component":"TextEditorSingleBlock"},"TEXT_SINGLE_UPLOAD_BUTTON":{"message":"Choose text to upload","description":"Title in text editor block","component":"TextEditorSingleBlock"},"NO_METADATA_ICON":{"message":"Metadata is empty for the text","description":"Tooltip for no metadata icon","component":"TextEditorSingleBlock"},"HAS_METADATA_ICON":{"message":"You could check and update metadata here","description":"Tooltip for has metadata icon","component":"TextEditorSingleBlock"},"NO_LANG_DETECTED_ICON":{"message":"Language was not detected, please recheck it manually.","description":"Tooltip for no lang detected icon","component":"TextEditorSingleBlock"},"SUMMARY_POPUP_HEADER":{"message":"Alpheios believes your texts are in the following languages.<br />Please review and correct if necessary","description":"Header in a summary popup component","component":"SummaryPopup"},"SUMMARY_POPUP_TABEL_TH_ORIGINAL":{"message":"Original","description":"Table title","component":"SummaryPopup"},"SUMMARY_POPUP_TABEL_TH_TRANSLATION":{"message":"Translation","description":"Table title","component":"SummaryPopup"},"SUMMARY_POPUP_TABEL_TH_ISTEI":{"message":"TEI","description":"Table title","component":"SummaryPopup"},"SUMMARY_POPUP_SHOW_OPTION_LABEL":{"message":"Show this popup for each text preparation","description":"Label for the option","component":"SummaryPopup"},"SUMMARY_POPUP_OK_BUTTON":{"message":"All Ok","description":"Button label","component":"SummaryPopup"},"SUMMARY_POPUP_CANCEL_BUTTON":{"message":"Cancel","description":"Button label","component":"SummaryPopup"},"ALIGN_TEXT_BUTTON_TOOLTIP":{"message":"Start tokenizing texts","description":"Tooltip for align texts button","component":"TextEditorSingleBlock"},"TEXT_EDITOR_HEADER_SAVE":{"message":"Save locally","description":"Tooltip for header buttons","component":"TextEditor"},"TEXT_EDITOR_HEADER_OPTIONS":{"message":"Options","description":"Tooltip for header buttons","component":"TextEditor"},"TEXT_EDITOR_HEADER_HELP":{"message":"Help","description":"Tooltip for header buttons","component":"TextEditor"},"DESCRIBE_BUTTON_TOOLTIP":{"message":"You could fill in metadata here","description":"Tooltip for describe texts button","component":"TextEditorSingleBlock"},"DESCRIBE_BUTTON_TITLE":{"message":"Describe","description":"Button\'s title","component":"TextEditorSingleBlock"}}');
 
 /***/ }),
 
@@ -67790,7 +68278,7 @@ module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Enter text","des
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit text","description":"A heading for text editor","component":"TokensEditor"},"TOKENS_EDITOR_LINK":{"message":"Edit","description":"A heading for text editor","component":"TokensEditor"},"TOKENS_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TokensEditor"},"TOKENS_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TokensEditor"},"ACTION_BUTTON_UPDATE_TOKEN":{"message":"Update a token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_PREV":{"message":"Merge with the previous token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_NEXT":{"message":"Merge with the next token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_SPLIT_TOKEN":{"message":"Split a token to 2 tokens by space","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_ADD_LINEBREAK":{"message":"Add line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_REMOVE_LINEBREAK":{"message":"Remove line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_DELETE":{"message":"Delete token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP":{"message":"This token is inside a created alignment group, you should ungroup it first in the alignment editor.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP":{"message":"The merging token is inside a created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"Alignment"},"TOKENS_EDIT_SPLIT_NO_SPACES":{"message":"The token word must contain at least one space for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_SPLIT_SEVERAL_SPACES":{"message":"Only one space is allowed for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_ALREADY_HAS_LINE_BREAK":{"message":"The token already has a line break.","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_NEXT_SEGMENT":{"message":"Move the token to the next segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_PREV_SEGMENT":{"message":"Move the token to the previous segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTIONS_UNDO_TITLE":{"message":"Undo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"ACTIONS_REDO_TITLE":{"message":"Redo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"TOKENS_EDIT_UNDO_ERROR":{"message":"Nothing to undo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_REDO_ERROR":{"message":"Nothing to redo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_INSERT_DESCRIPTION_START":{"message":"Add space between tokens. Click Enter to insert tokens to the start.","description":"A description for insert tokens input","component":"EmptyTokensInput"},"TOKENS_EDIT_INSERT_DESCRIPTION_END":{"message":"Add space between tokens. Click Enter to insert tokens to the end.","description":"A description for insert tokens input","component":"EmptyTokensInput"}}');
+module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit text","description":"A heading for text editor","component":"TokensEditor"},"TOKENS_EDITOR_LINK":{"message":"Edit","description":"A heading for text editor","component":"TokensEditor"},"TOKENS_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TokensEditor"},"TOKENS_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TokensEditor"},"ACTION_BUTTON_UPDATE_TOKEN":{"message":"Update a token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_PREV":{"message":"Merge with the previous token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_NEXT":{"message":"Merge with the next token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_SPLIT_TOKEN":{"message":"Split a token to 2 tokens by space","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_ADD_LINEBREAK":{"message":"Add line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_REMOVE_LINEBREAK":{"message":"Remove line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_DELETE":{"message":"Delete token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_INSERT":{"message":"Insert tokens","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP":{"message":"This token is inside a created alignment group, you should ungroup it first in the alignment editor.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP":{"message":"The merging token is inside a created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"Alignment"},"TOKENS_EDIT_SPLIT_NO_SPACES":{"message":"The token word must contain at least one space for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_SPLIT_SEVERAL_SPACES":{"message":"Only one space is allowed for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_ALREADY_HAS_LINE_BREAK":{"message":"The token already has a line break.","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_NEXT_SEGMENT":{"message":"Move the token to the next segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_PREV_SEGMENT":{"message":"Move the token to the previous segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTIONS_UNDO_TITLE":{"message":"Undo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"ACTIONS_REDO_TITLE":{"message":"Redo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"TOKENS_EDIT_UNDO_ERROR":{"message":"Nothing to undo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_REDO_ERROR":{"message":"Nothing to redo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_INSERT_DESCRIPTION_START":{"message":"Add space between tokens. Click Enter to insert tokens to the start.","description":"A description for insert tokens input","component":"EmptyTokensInput"},"TOKENS_EDIT_INSERT_DESCRIPTION_END":{"message":"Add space between tokens. Click Enter to insert tokens to the end.","description":"A description for insert tokens input","component":"EmptyTokensInput"},"INSERT_TOKENS_BLOCK_HEADER":{"message":"Insert tokens near { word }:","description":"A title for modal","component":"SegmentEditBlock","params":["word"]},"INSERT_TOKENS_BLOCK_SAVE_BUTTON":{"message":"Insert","description":"Save button in modal","component":"InsertTokensBlock"},"INSERT_TOKENS_BLOCK_CANCEL_BUTTON":{"message":"Cancel","description":"Cancel button in modal","component":"InsertTokensBlock"},"INSERT_TOKENS_DIR_PREV":{"message":"before token","description":"Radio buttons for insert tokens modal","component":"InsertTokensBlock"},"INSERT_TOKENS_DIR_NEXT":{"message":"after token","description":"Radio buttons for insert tokens modal","component":"InsertTokensBlock"}}');
 
 /***/ }),
 
