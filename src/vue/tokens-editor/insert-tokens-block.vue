@@ -18,7 +18,7 @@
     </div>
     <div class="alpheios-modal-footer" v-if="token">
       <p class="alpheios-alignment-annotations-footer__buttons" >
-        <button class="alpheios-editor-button-tertiary alpheios-annotation-save-button" 
+        <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"
             @click="insertTokens" :disabled="false">
             {{ l10n.getMsgS('INSERT_TOKENS_BLOCK_SAVE_BUTTON') }}
         </button>
@@ -64,7 +64,7 @@ export default {
   methods: {
     initData () {
       this.words = null
-      this.curDirection = null
+      this.curDirection = HistoryStep.directions.PREV
     },
 
     itemIdWithValue (dir) {

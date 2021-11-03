@@ -48270,7 +48270,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i576-insert-tokens.20211103585" : 0
+    return  true ? "i576-insert-tokens-2.20211103614" : 0
   }
 
   static get libName () {
@@ -54903,7 +54903,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     initData () {
       this.words = null
-      this.curDirection = null
+      this.curDirection = _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].directions.PREV
     },
 
     itemIdWithValue (dir) {
@@ -66774,7 +66774,7 @@ var render = function() {
                   "button",
                   {
                     staticClass:
-                      "alpheios-editor-button-tertiary alpheios-annotation-save-button",
+                      "alpheios-editor-button-tertiary alpheios-actions-menu-button",
                     attrs: { disabled: false },
                     on: { click: _vm.insertTokens }
                   },
