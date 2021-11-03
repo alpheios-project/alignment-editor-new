@@ -343,60 +343,6 @@ describe('tokens-edit-history-cases.test.js', () => {
     expect(alignment.annotations['1-0-2-ns-1'][0].text).toEqual('test annotation')
   })
 
-  it('7 Tokens Edit History Cases - insertTokens - undo/redo', async () => {
-    const originDocSource = new SourceText('origin', {
-      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
-    })
-
-    const targetDocSource1 = new SourceText('target', {
-      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
-    })
-
-    let alignment = new Alignment()
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource1)
-
-    await alignment.createAlignedTexts('simpleLocalTokenizer')
-
-    const allSegments = alignment.allAlignedTextsSegments
-
-    expect(alignment.origin.alignedText.segments[0].tokens.length).toEqual(3)
-    expect(alignment.origin.alignedText.segments[0].tokens[0].idWord).toEqual('1-0-0')
-    expect(alignment.origin.alignedText.segments[0].tokens[0].word).toEqual('some')
-
-    alignment.insertTokens('new tokens', alignment.origin.alignedText.segments[0].tokens[0], 'prev')
-    
-    expect(alignment.origin.alignedText.segments[0].tokens.length).toEqual(5)
-    expect(alignment.origin.alignedText.segments[0].tokens[0].idWord).toEqual('1-0-0-nb-2')
-    expect(alignment.origin.alignedText.segments[0].tokens[0].word).toEqual('new')
-    
-    expect(alignment.origin.alignedText.segments[0].tokens[1].idWord).toEqual('1-0-0-nb-1')
-    expect(alignment.origin.alignedText.segments[0].tokens[1].word).toEqual('tokens')
-
-    expect(alignment.origin.alignedText.segments[0].tokens[2].idWord).toEqual('1-0-0')
-    expect(alignment.origin.alignedText.segments[0].tokens[2].word).toEqual('some')
-
-    alignment.undoTokensEditStep()
-
-    expect(alignment.origin.alignedText.segments[0].tokens.length).toEqual(3)
-    expect(alignment.origin.alignedText.segments[0].tokens[0].idWord).toEqual('1-0-0')
-    expect(alignment.origin.alignedText.segments[0].tokens[0].word).toEqual('some')
-
-    alignment.redoTokensEditStep()
-    // console.info(alignment.origin.alignedText.segments[0].tokens.map(token => { return { idWord: token.idWord, word: token.word }}))
-    
-    expect(alignment.origin.alignedText.segments[0].tokens.length).toEqual(5)
-    expect(alignment.origin.alignedText.segments[0].tokens[0].idWord).toEqual('1-0-0-nb-2')
-    expect(alignment.origin.alignedText.segments[0].tokens[0].word).toEqual('new')
-    
-    expect(alignment.origin.alignedText.segments[0].tokens[1].idWord).toEqual('1-0-0-nb-1')
-    expect(alignment.origin.alignedText.segments[0].tokens[1].word).toEqual('tokens')
-
-    expect(alignment.origin.alignedText.segments[0].tokens[2].idWord).toEqual('1-0-0')
-    expect(alignment.origin.alignedText.segments[0].tokens[2].word).toEqual('some')
-
-  })
-
   it('8 Tokens Edit History Cases - deleteToken - undo/redo', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
@@ -588,4 +534,117 @@ describe('tokens-edit-history-cases.test.js', () => {
     ])
   })
 
+  it('10 Tokens Edit History Cases - insertTokens - undo/redo - prev', async () => {
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    const targetDocSource1 = new SourceText('target', {
+      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    let alignment = new Alignment()
+    alignment.updateOriginDocSource(originDocSource)
+    alignment.updateTargetDocSource(targetDocSource1)
+
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
+
+    const allSegments = alignment.allAlignedTextsSegments
+
+    expect(alignment.origin.alignedText.segments[0].tokens.length).toEqual(3)
+    expect(alignment.origin.alignedText.segments[0].tokens[0].idWord).toEqual('1-0-0')
+    expect(alignment.origin.alignedText.segments[0].tokens[0].word).toEqual('some')
+
+    alignment.insertTokens('new tokens', alignment.origin.alignedText.segments[0].tokens[0], 'prev')
+    
+    expect(alignment.origin.alignedText.segments[0].tokens.length).toEqual(5)
+    expect(alignment.origin.alignedText.segments[0].tokens[0].idWord).toEqual('1-0-0-nb-2')
+    expect(alignment.origin.alignedText.segments[0].tokens[0].word).toEqual('new')
+    
+    expect(alignment.origin.alignedText.segments[0].tokens[1].idWord).toEqual('1-0-0-nb-1')
+    expect(alignment.origin.alignedText.segments[0].tokens[1].word).toEqual('tokens')
+
+    expect(alignment.origin.alignedText.segments[0].tokens[2].idWord).toEqual('1-0-0')
+    expect(alignment.origin.alignedText.segments[0].tokens[2].word).toEqual('some')
+
+    alignment.undoTokensEditStep()
+
+    expect(alignment.origin.alignedText.segments[0].tokens.length).toEqual(3)
+    expect(alignment.origin.alignedText.segments[0].tokens[0].idWord).toEqual('1-0-0')
+    expect(alignment.origin.alignedText.segments[0].tokens[0].word).toEqual('some')
+
+    alignment.redoTokensEditStep()
+    // console.info(alignment.origin.alignedText.segments[0].tokens.map(token => { return { idWord: token.idWord, word: token.word }}))
+    
+    expect(alignment.origin.alignedText.segments[0].tokens.length).toEqual(5)
+    expect(alignment.origin.alignedText.segments[0].tokens[0].idWord).toEqual('1-0-0-nb-2')
+    expect(alignment.origin.alignedText.segments[0].tokens[0].word).toEqual('new')
+    
+    expect(alignment.origin.alignedText.segments[0].tokens[1].idWord).toEqual('1-0-0-nb-1')
+    expect(alignment.origin.alignedText.segments[0].tokens[1].word).toEqual('tokens')
+
+    expect(alignment.origin.alignedText.segments[0].tokens[2].idWord).toEqual('1-0-0')
+    expect(alignment.origin.alignedText.segments[0].tokens[2].word).toEqual('some')
+
+  })
+
+  it('11 Tokens Edit History Cases - insertTokens - undo/redo - next', async () => {
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    const targetDocSource1 = new SourceText('target', {
+      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    let alignment = new Alignment()
+    alignment.updateOriginDocSource(originDocSource)
+    alignment.updateTargetDocSource(targetDocSource1)
+
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
+
+    const allSegments = alignment.allAlignedTextsSegments
+    const originSeg = alignment.origin.alignedText.segments[0]
+    expect(originSeg.tokens.length).toEqual(3)
+    expect(originSeg.tokens[0].idWord).toEqual('1-0-0')
+    expect(originSeg.tokens[0].word).toEqual('some')
+
+    // console.info(originSeg.tokens.map(token => { return { idWord: token.idWord, word: token.word }}))
+
+    alignment.insertTokens('new tokens', originSeg.tokens[0], 'next')
+
+    // console.info(originSeg.tokens.map(token => { return { idWord: token.idWord, word: token.word }}))
+
+    expect(alignment.origin.alignedText.segments[0].tokens.length).toEqual(5)
+
+    expect(alignment.origin.alignedText.segments[0].tokens[0].idWord).toEqual('1-0-0')
+    expect(alignment.origin.alignedText.segments[0].tokens[0].word).toEqual('some')
+
+    expect(alignment.origin.alignedText.segments[0].tokens[1].idWord).toEqual('1-0-0-na-1')
+    expect(alignment.origin.alignedText.segments[0].tokens[1].word).toEqual('new')
+    
+    expect(alignment.origin.alignedText.segments[0].tokens[2].idWord).toEqual('1-0-0-na-2')
+    expect(alignment.origin.alignedText.segments[0].tokens[2].word).toEqual('tokens')
+
+    alignment.undoTokensEditStep()
+
+    // console.info(alignment.origin.alignedText.segments[0].tokens.map(token => { return { idWord: token.idWord, word: token.word }}))
+    expect(alignment.origin.alignedText.segments[0].tokens.length).toEqual(3)
+    expect(alignment.origin.alignedText.segments[0].tokens[0].idWord).toEqual('1-0-0')
+    expect(alignment.origin.alignedText.segments[0].tokens[0].word).toEqual('some')
+
+    alignment.redoTokensEditStep()
+    // console.info(alignment.origin.alignedText.segments[0].tokens.map(token => { return { idWord: token.idWord, word: token.word }}))
+    
+    expect(alignment.origin.alignedText.segments[0].tokens.length).toEqual(5)
+    expect(alignment.origin.alignedText.segments[0].tokens[0].idWord).toEqual('1-0-0')
+    expect(alignment.origin.alignedText.segments[0].tokens[0].word).toEqual('some')
+
+    expect(alignment.origin.alignedText.segments[0].tokens[1].idWord).toEqual('1-0-0-na-1')
+    expect(alignment.origin.alignedText.segments[0].tokens[1].word).toEqual('new')
+    
+    expect(alignment.origin.alignedText.segments[0].tokens[2].idWord).toEqual('1-0-0-na-2')
+    expect(alignment.origin.alignedText.segments[0].tokens[2].word).toEqual('tokens')
+
+  })
 })

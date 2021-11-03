@@ -325,6 +325,7 @@ export default class TokensEditController {
 
     for (let i = 0; i < dataIndexedDB.length; i++) {
       const data = dataIndexedDB[i]
+      if (!data || !data.type) { continue }
       if (onlyToken.includes(data.type)) {
         await this.deleteAllPartFromStorage(data.token.docSourceId, data.token.segmentIndex, data.token.partNum)
       } else if (data.type === HistoryStep.types.MERGE) {

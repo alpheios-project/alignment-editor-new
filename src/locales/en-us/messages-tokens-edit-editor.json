@@ -139,6 +139,15 @@
       "message": "Cancel",
       "description": "Cancel button in modal",
       "component": "InsertTokensBlock"
+    },
+    "INSERT_TOKENS_DIR_PREV": {
+      "message": "before token",
+      "description": "Radio buttons for insert tokens modal",
+      "component": "InsertTokensBlock"
+    },
+    "INSERT_TOKENS_DIR_NEXT": {
+      "message": "after token",
+      "description": "Radio buttons for insert tokens modal",
+      "component": "InsertTokensBlock"
     }
-
 }

@@ -41248,6 +41248,7 @@ class TokensEditController {
 
     for (let i = 0; i < dataIndexedDB.length; i++) {
       const data = dataIndexedDB[i]
+      if (!data || !data.type) { continue }
       if (onlyToken.includes(data.type)) {
         await this.deleteAllPartFromStorage(data.token.docSourceId, data.token.segmentIndex, data.token.partNum)
       } else if (data.type === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_3__["default"].types.MERGE) {
@@ -42155,6 +42156,7 @@ class TokensEditActions {
     if (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV) { words = words.reverse() }
 
     let tokenIndex = segment.getTokenIndex(token)
+    // console.info('starting tokenIndex', tokenIndex)
     const createdTokens = []
 
     const changeType = (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV) ? _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].types.NEW_BEFORE : _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].types.NEW_AFTER
@@ -42166,7 +42168,8 @@ class TokensEditActions {
         changeType,
         insertType: direction
       })
-      tokenIndex = (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV) ? tokenIndex - 1 : tokenIndex + 1
+      tokenIndex = (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV) ? tokenIndex - 1 : tokenIndex
+      // console.info('middle tokenIndex', tokenIndex)
       const tokenNew = segment.addNewToken(tokenIndex, newIdWord, word, false)
       tokenIndex = segment.getTokenIndex(tokenNew)
 
@@ -42454,7 +42457,6 @@ class TokensEditActions {
   }
 
   removeStepInsertTokens (step) {
-    // console.info('removeStepInsertTokens - 1', step)
     step.params.createdTokens.forEach((token) => {
       const tokenIndex = step.params.segment.getTokenIndex(token)
       step.params.segment.deleteToken(tokenIndex)
@@ -42462,19 +42464,32 @@ class TokensEditActions {
 
     this.reIndexSentence(step.params.segment)
     return {
-      result: true
+      result: true,
+      data: {
+        token: step.params.token
+      }
     }
   }
 
   applyStepInsertTokens (step) {
+    // console.info('apply - ', step)
     let tokenIndex = step.params.segment.getTokenIndex(step.token)
+
+    // console.info('apply - start tokenIndex', tokenIndex)
     step.params.createdTokens.forEach((token) => {
+      tokenIndex = (step.params.insertType === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV) ? tokenIndex : tokenIndex + 1
+      // console.info('apply - middle tokenIndex', tokenIndex)
       step.params.segment.insertToken(token, tokenIndex)
+
       tokenIndex = step.params.segment.getTokenIndex(token)
+      // console.info('apply - middle after tokenIndex', tokenIndex)
     })
     this.reIndexSentence(step.params.segment)
     return {
-      result: true
+      result: true,
+      data: {
+        token: step.params.token
+      }
     }
   }
 
@@ -48250,7 +48265,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i576-insert-tokens.20211102547" : 0
+    return  true ? "i576-insert-tokens.20211103401" : 0
   }
 
   static get libName () {
@@ -54816,6 +54831,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/inline-icons/x-close.svg */ "./inline-icons/x-close.svg");
 /* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/data/history/history-step.js */ "./lib/data/history/history-step.js");
 //
 //
 //
@@ -54838,6 +54854,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -54855,19 +54879,38 @@ __webpack_require__.r(__webpack_exports__);
   },
   data () {
     return {
+      curDirection: null,
+      words: null
     }
   },
   computed: {
     l10n () {
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__["default"]
+    },
+    directions () {
+      this.curDirection = _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].directions.PREV
+      return [ 
+              { label: this.l10n.getMsgS('INSERT_TOKENS_DIR_PREV'), value: _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].directions.PREV },
+              { label: this.l10n.getMsgS('INSERT_TOKENS_DIR_NEXT'), value: _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].directions.NEXT }
+            ]
     }
   },
   methods: {
-    insertTokens () {
-      this.$emit('closeModal')
+    initData () {
+      this.words = null
+      this.curDirection = null
+    },
+
+    itemIdWithValue (dir) {
+      return `alpheios-alignment-radio-direction-${dir}`
+    },
+    async insertTokens () {
+      await this.$tokensEC.insertTokens(this.words, this.token, this.curDirection)
+      this.closeModal()
     },
     closeModal () {
       this.$emit('closeModal')
+      this.initData()
     }
   }
 });
@@ -66644,7 +66687,77 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _vm.token ? _c("div", { staticClass: "alpheios-modal-body" }) : _vm._e(),
+      _vm.token
+        ? _c("div", { staticClass: "alpheios-modal-body" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "alpheios-alignment-radio-block alpheios-alignment-option-item__control"
+              },
+              _vm._l(_vm.directions, function(dir, dirIndex) {
+                return _c("span", { key: dirIndex }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.curDirection,
+                        expression: "curDirection"
+                      }
+                    ],
+                    attrs: {
+                      type: "radio",
+                      id: _vm.itemIdWithValue(dir.value)
+                    },
+                    domProps: {
+                      value: dir.value,
+                      checked: _vm._q(_vm.curDirection, dir.value)
+                    },
+                    on: {
+                      change: function($event) {
+                        _vm.curDirection = dir.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    { attrs: { for: _vm.itemIdWithValue(dir.value) } },
+                    [_vm._v(_vm._s(dir.label))]
+                  )
+                ])
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c(
+              "textarea",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.words,
+                    expression: "words"
+                  }
+                ],
+                staticClass: "alpheios-alignment-editor-text-blocks-textarea",
+                attrs: { id: "alpheios-alignment-insert-tokens-textarea" },
+                domProps: { value: _vm.words },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.words = $event.target.value
+                  }
+                }
+              },
+              [_vm._v("    >")]
+            )
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _vm.token
         ? _c("div", { staticClass: "alpheios-modal-footer" }, [
@@ -68160,7 +68273,7 @@ module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Enter text","des
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit text","description":"A heading for text editor","component":"TokensEditor"},"TOKENS_EDITOR_LINK":{"message":"Edit","description":"A heading for text editor","component":"TokensEditor"},"TOKENS_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TokensEditor"},"TOKENS_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TokensEditor"},"ACTION_BUTTON_UPDATE_TOKEN":{"message":"Update a token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_PREV":{"message":"Merge with the previous token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_NEXT":{"message":"Merge with the next token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_SPLIT_TOKEN":{"message":"Split a token to 2 tokens by space","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_ADD_LINEBREAK":{"message":"Add line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_REMOVE_LINEBREAK":{"message":"Remove line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_DELETE":{"message":"Delete token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_INSERT":{"message":"Insert tokens","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP":{"message":"This token is inside a created alignment group, you should ungroup it first in the alignment editor.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP":{"message":"The merging token is inside a created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"Alignment"},"TOKENS_EDIT_SPLIT_NO_SPACES":{"message":"The token word must contain at least one space for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_SPLIT_SEVERAL_SPACES":{"message":"Only one space is allowed for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_ALREADY_HAS_LINE_BREAK":{"message":"The token already has a line break.","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_NEXT_SEGMENT":{"message":"Move the token to the next segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_PREV_SEGMENT":{"message":"Move the token to the previous segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTIONS_UNDO_TITLE":{"message":"Undo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"ACTIONS_REDO_TITLE":{"message":"Redo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"TOKENS_EDIT_UNDO_ERROR":{"message":"Nothing to undo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_REDO_ERROR":{"message":"Nothing to redo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_INSERT_DESCRIPTION_START":{"message":"Add space between tokens. Click Enter to insert tokens to the start.","description":"A description for insert tokens input","component":"EmptyTokensInput"},"TOKENS_EDIT_INSERT_DESCRIPTION_END":{"message":"Add space between tokens. Click Enter to insert tokens to the end.","description":"A description for insert tokens input","component":"EmptyTokensInput"},"INSERT_TOKENS_BLOCK_HEADER":{"message":"Insert tokens near { word }:","description":"A title for modal","component":"SegmentEditBlock","params":["word"]},"INSERT_TOKENS_BLOCK_SAVE_BUTTON":{"message":"Insert","description":"Save button in modal","component":"InsertTokensBlock"},"INSERT_TOKENS_BLOCK_CANCEL_BUTTON":{"message":"Cancel","description":"Cancel button in modal","component":"InsertTokensBlock"}}');
+module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit text","description":"A heading for text editor","component":"TokensEditor"},"TOKENS_EDITOR_LINK":{"message":"Edit","description":"A heading for text editor","component":"TokensEditor"},"TOKENS_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TokensEditor"},"TOKENS_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TokensEditor"},"ACTION_BUTTON_UPDATE_TOKEN":{"message":"Update a token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_PREV":{"message":"Merge with the previous token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_NEXT":{"message":"Merge with the next token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_SPLIT_TOKEN":{"message":"Split a token to 2 tokens by space","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_ADD_LINEBREAK":{"message":"Add line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_REMOVE_LINEBREAK":{"message":"Remove line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_DELETE":{"message":"Delete token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_INSERT":{"message":"Insert tokens","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP":{"message":"This token is inside a created alignment group, you should ungroup it first in the alignment editor.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP":{"message":"The merging token is inside a created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"Alignment"},"TOKENS_EDIT_SPLIT_NO_SPACES":{"message":"The token word must contain at least one space for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_SPLIT_SEVERAL_SPACES":{"message":"Only one space is allowed for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_ALREADY_HAS_LINE_BREAK":{"message":"The token already has a line break.","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_NEXT_SEGMENT":{"message":"Move the token to the next segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_PREV_SEGMENT":{"message":"Move the token to the previous segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTIONS_UNDO_TITLE":{"message":"Undo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"ACTIONS_REDO_TITLE":{"message":"Redo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"TOKENS_EDIT_UNDO_ERROR":{"message":"Nothing to undo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_REDO_ERROR":{"message":"Nothing to redo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_INSERT_DESCRIPTION_START":{"message":"Add space between tokens. Click Enter to insert tokens to the start.","description":"A description for insert tokens input","component":"EmptyTokensInput"},"TOKENS_EDIT_INSERT_DESCRIPTION_END":{"message":"Add space between tokens. Click Enter to insert tokens to the end.","description":"A description for insert tokens input","component":"EmptyTokensInput"},"INSERT_TOKENS_BLOCK_HEADER":{"message":"Insert tokens near { word }:","description":"A title for modal","component":"SegmentEditBlock","params":["word"]},"INSERT_TOKENS_BLOCK_SAVE_BUTTON":{"message":"Insert","description":"Save button in modal","component":"InsertTokensBlock"},"INSERT_TOKENS_BLOCK_CANCEL_BUTTON":{"message":"Cancel","description":"Cancel button in modal","component":"InsertTokensBlock"},"INSERT_TOKENS_DIR_PREV":{"message":"before token","description":"Radio buttons for insert tokens modal","component":"InsertTokensBlock"},"INSERT_TOKENS_DIR_NEXT":{"message":"after token","description":"Radio buttons for insert tokens modal","component":"InsertTokensBlock"}}');
 
 /***/ }),
 
