@@ -647,4 +647,107 @@ describe('tokens-edit-history-cases.test.js', () => {
     expect(alignment.origin.alignedText.segments[0].tokens[2].word).toEqual('tokens')
 
   })
+
+  it('12 Tokens Edit History Cases - insertTokens - undo/redo - prev - with one annotation', async () => {
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    const targetDocSource1 = new SourceText('target', {
+      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    let alignment = new Alignment()
+    alignment.updateOriginDocSource(originDocSource)
+    alignment.updateTargetDocSource(targetDocSource1)
+
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
+
+    const allSegments = alignment.allAlignedTextsSegments
+    const originSegment = alignment.origin.alignedText.segments[0]
+
+    expect(originSegment.tokens.length).toEqual(3)
+    expect(originSegment.tokens.map(token => token.idWord)).toEqual([ '1-0-0', '1-0-1', '1-0-2' ])
+    expect(originSegment.tokens.map(token => token.word)).toEqual([ 'some', 'origin', 'text' ])
+
+    alignment.insertTokens('after', originSegment.tokens[1], 'next')
+
+    expect(originSegment.tokens.map(token => token.idWord)).toEqual([ '1-0-0', '1-0-1', '1-0-1-na-1', '1-0-2' ])
+    expect(originSegment.tokens.map(token => token.word)).toEqual([ 'some', 'origin', 'after', 'text' ])
+
+    alignment.addAnnotation({
+      token: originSegment.tokens[2],
+      type: Annotation.types.COMMENT,
+      text: 'test annotation'
+    })
+
+    expect(alignment.annotations['1-0-1-na-1'].length).toEqual(1)
+    expect(alignment.annotations['1-0-1-na-1'][0].text).toEqual('test annotation')
+
+    alignment.undoTokensEditStep()
+    expect(alignment.annotations['1-0-1-na-1']).toBeUndefined()
+
+    alignment.redoTokensEditStep()
+    expect(alignment.annotations['1-0-1-na-1'].length).toEqual(1)
+    expect(alignment.annotations['1-0-1-na-1'][0].text).toEqual('test annotation')
+  })
+
+  it('13 Tokens Edit History Cases - insertTokens - undo/redo - prev - with two annotation', async () => {
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    const targetDocSource1 = new SourceText('target', {
+      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    let alignment = new Alignment()
+    alignment.updateOriginDocSource(originDocSource)
+    alignment.updateTargetDocSource(targetDocSource1)
+
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
+
+    const allSegments = alignment.allAlignedTextsSegments
+    const originSegment = alignment.origin.alignedText.segments[0]
+
+    expect(originSegment.tokens.length).toEqual(3)
+    expect(originSegment.tokens.map(token => token.idWord)).toEqual([ '1-0-0', '1-0-1', '1-0-2' ])
+    expect(originSegment.tokens.map(token => token.word)).toEqual([ 'some', 'origin', 'text' ])
+
+    alignment.insertTokens('after word', originSegment.tokens[1], 'next')
+
+    expect(originSegment.tokens.map(token => token.idWord)).toEqual([ '1-0-0', '1-0-1', '1-0-1-na-1', '1-0-1-na-2', '1-0-2' ])
+    expect(originSegment.tokens.map(token => token.word)).toEqual([ 'some', 'origin', 'after', 'word', 'text' ])
+
+    alignment.addAnnotation({
+      token: originSegment.tokens[2],
+      type: Annotation.types.COMMENT,
+      text: 'test annotation1'
+    })
+
+    alignment.addAnnotation({
+      token: originSegment.tokens[3],
+      type: Annotation.types.COMMENT,
+      text: 'test annotation2'
+    })
+
+    expect(alignment.annotations['1-0-1-na-1'].length).toEqual(1)
+    expect(alignment.annotations['1-0-1-na-1'][0].text).toEqual('test annotation1')
+
+    expect(alignment.annotations['1-0-1-na-2'].length).toEqual(1)
+    expect(alignment.annotations['1-0-1-na-2'][0].text).toEqual('test annotation2')
+
+    alignment.undoTokensEditStep()
+    expect(alignment.annotations['1-0-1-na-1']).toBeUndefined()
+    expect(alignment.annotations['1-0-1-na-2']).toBeUndefined()
+
+    alignment.redoTokensEditStep()
+ 
+    expect(alignment.annotations['1-0-1-na-1'].length).toEqual(1)
+    expect(alignment.annotations['1-0-1-na-1'][0].text).toEqual('test annotation1')
+
+    expect(alignment.annotations['1-0-1-na-2'].length).toEqual(1)
+    expect(alignment.annotations['1-0-1-na-2'][0].text).toEqual('test annotation2')
+
+  })
 })

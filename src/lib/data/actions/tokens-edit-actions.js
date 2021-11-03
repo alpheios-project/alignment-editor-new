@@ -371,7 +371,6 @@ export default class TokensEditActions {
     if (direction === HistoryStep.directions.PREV) { words = words.reverse() }
 
     let tokenIndex = segment.getTokenIndex(token)
-    // console.info('starting tokenIndex', tokenIndex)
     const createdTokens = []
 
     const changeType = (direction === HistoryStep.directions.PREV) ? HistoryStep.types.NEW_BEFORE : HistoryStep.types.NEW_AFTER
@@ -384,7 +383,6 @@ export default class TokensEditActions {
         insertType: direction
       })
       tokenIndex = (direction === HistoryStep.directions.PREV) ? tokenIndex - 1 : tokenIndex
-      // console.info('middle tokenIndex', tokenIndex)
       const tokenNew = segment.addNewToken(tokenIndex, newIdWord, word, false)
       tokenIndex = segment.getTokenIndex(tokenNew)
 
@@ -681,29 +679,29 @@ export default class TokensEditActions {
     return {
       result: true,
       data: {
-        token: step.params.token
+        token: step.token,
+        idWordNewAnnotations: step.params.createdTokens.map(token => token.idWord)
       }
     }
   }
 
   applyStepInsertTokens (step) {
-    // console.info('apply - ', step)
     let tokenIndex = step.params.segment.getTokenIndex(step.token)
 
-    // console.info('apply - start tokenIndex', tokenIndex)
     step.params.createdTokens.forEach((token) => {
       tokenIndex = (step.params.insertType === HistoryStep.directions.PREV) ? tokenIndex : tokenIndex + 1
-      // console.info('apply - middle tokenIndex', tokenIndex)
       step.params.segment.insertToken(token, tokenIndex)
 
       tokenIndex = step.params.segment.getTokenIndex(token)
-      // console.info('apply - middle after tokenIndex', tokenIndex)
     })
     this.reIndexSentence(step.params.segment)
+
     return {
       result: true,
       data: {
-        token: step.params.token
+        token: step.token,
+        idWordNewAnnotations: step.params.createdTokens.map(token => token.idWord),
+        newAnnotations: step.params.newAnnotations
       }
     }
   }

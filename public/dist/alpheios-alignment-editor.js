@@ -42156,7 +42156,6 @@ class TokensEditActions {
     if (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV) { words = words.reverse() }
 
     let tokenIndex = segment.getTokenIndex(token)
-    // console.info('starting tokenIndex', tokenIndex)
     const createdTokens = []
 
     const changeType = (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV) ? _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].types.NEW_BEFORE : _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].types.NEW_AFTER
@@ -42169,7 +42168,6 @@ class TokensEditActions {
         insertType: direction
       })
       tokenIndex = (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV) ? tokenIndex - 1 : tokenIndex
-      // console.info('middle tokenIndex', tokenIndex)
       const tokenNew = segment.addNewToken(tokenIndex, newIdWord, word, false)
       tokenIndex = segment.getTokenIndex(tokenNew)
 
@@ -42466,29 +42464,29 @@ class TokensEditActions {
     return {
       result: true,
       data: {
-        token: step.params.token
+        token: step.token,
+        idWordNewAnnotations: step.params.createdTokens.map(token => token.idWord)
       }
     }
   }
 
   applyStepInsertTokens (step) {
-    // console.info('apply - ', step)
     let tokenIndex = step.params.segment.getTokenIndex(step.token)
 
-    // console.info('apply - start tokenIndex', tokenIndex)
     step.params.createdTokens.forEach((token) => {
       tokenIndex = (step.params.insertType === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].directions.PREV) ? tokenIndex : tokenIndex + 1
-      // console.info('apply - middle tokenIndex', tokenIndex)
       step.params.segment.insertToken(token, tokenIndex)
 
       tokenIndex = step.params.segment.getTokenIndex(token)
-      // console.info('apply - middle after tokenIndex', tokenIndex)
     })
     this.reIndexSentence(step.params.segment)
+
     return {
       result: true,
       data: {
-        token: step.params.token
+        token: step.token,
+        idWordNewAnnotations: step.params.createdTokens.map(token => token.idWord),
+        newAnnotations: step.params.newAnnotations
       }
     }
   }
@@ -42632,7 +42630,6 @@ class AlignedText {
    * @returns {String} - idWord
    */
   getNewIdWord ({ segment, token, changeType, indexWord } = {}) {
-    // console.info('getNewIdWord - token', token)
     const getNextIdWordMethod = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_0__["default"].getNextTokenIdWordMethod(this.tokenization.tokenizer)
 
     return getNextIdWordMethod({
@@ -44156,16 +44153,26 @@ class Alignment {
     }
 
     if (result.data && result.data[0]) {
-      this.uploadNewAnnotations(result.data[0].idWordNewAnnotations, result.data[0].newAnnotations)
+      const idWords = Array.isArray(result.data[0].idWordNewAnnotations) ? result.data[0].idWordNewAnnotations : [result.data[0].idWordNewAnnotations]
+      idWords.forEach(idWord => this.uploadNewAnnotations(idWord, result.data[0].newAnnotations))
     }
     return result
   }
 
-  removeNewAnnotations (idWord) {
-    if (!this.annotations[idWord]) { return }
+  removeNewAnnotations (idWords) {
+    if (!Array.isArray(idWords)) { idWords = [idWords] }
 
-    this.tokensEditHistory.updateLastStepWithAnnotations(this.annotations, idWord)
-    this.annotations[idWord] = this.annotations[idWord].filter(annot => annot.tokenIdWordCreated !== idWord)
+    for (let i = 0; i < idWords.length; i++) {
+      const idWord = idWords[i]
+
+      if (!this.annotations[idWord]) { continue }
+
+      this.tokensEditHistory.updateLastStepWithAnnotations(this.annotations, idWord)
+      this.annotations[idWord] = this.annotations[idWord].filter(annot => annot.tokenIdWordCreated !== idWord)
+      if (this.annotations[idWord].length === 0) {
+        delete this.annotations[idWord]
+      }
+    }
   }
 
   uploadNewAnnotations (idWord, annotations) {
@@ -45275,10 +45282,10 @@ class TokensEditHistory extends _lib_data_history_editor_history__WEBPACK_IMPORT
 
   updateLastStepWithAnnotations (annotations, idWord) {
     const step = this.steps[this.currentStepIndex + 1]
+
     if (annotations[idWord]) {
-      step.params.newAnnotations = {
-        [idWord]: annotations[idWord].filter(annot => annot.tokenIdWordCreated === idWord)
-      }
+      if (!step.params.newAnnotations) { step.params.newAnnotations = {} }
+      step.params.newAnnotations[idWord] = annotations[idWord].filter(annot => annot.tokenIdWordCreated === idWord)
     }
   }
 }
@@ -45905,11 +45912,9 @@ class Segment {
       partNum: 1
     }, this.index, this.docSourceId)
 
-    // console.info('newToken - 1', newToken)
     if (updateLastToken) { this.lastTokenIdWord = newIdWord }
 
     if (this.insertToken(newToken, tokenIndex + 1)) {
-      // console.info('newToken - 2', this.tokens.map(token => { return { idWord: token.idWord, word: token.word } }))
       const tokenForDefinePart = (tokenIndex === -1) ? this.tokens[0] : this.tokens[tokenIndex]
       newToken.update({ partNum: tokenForDefinePart.partNum })
       return newToken
@@ -48265,7 +48270,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i576-insert-tokens.20211103401" : 0
+    return  true ? "i576-insert-tokens.20211103585" : 0
   }
 
   static get libName () {

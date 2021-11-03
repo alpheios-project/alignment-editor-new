@@ -91,7 +91,6 @@ export default class AlignedText {
    * @returns {String} - idWord
    */
   getNewIdWord ({ segment, token, changeType, indexWord } = {}) {
-    // console.info('getNewIdWord - token', token)
     const getNextIdWordMethod = TokenizeController.getNextTokenIdWordMethod(this.tokenization.tokenizer)
 
     return getNextIdWordMethod({
