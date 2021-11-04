@@ -128,9 +128,11 @@ export default {
         const alignment = await this.$textC.uploadDataFromDB(alData)
         if (alignment instanceof Alignment) {
           return this.startOver(alignment)
+        } else {
+          console.error('Something went wrong with uploading data - ', alignment)
         }
       }
-      this.showSourceTextEditor()
+      // this.showSourceTextEditor()
     },
 
     async deleteDataFromDB (alData) {

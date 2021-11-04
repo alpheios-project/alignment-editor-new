@@ -20,6 +20,11 @@
         "description": "An error message for upload data from file.",
         "component": "TextsController"
     },
+    "TEXTS_CONTROLLER_INCORRECT_DB_DATA": {
+        "message": "This alignment data is corrupted in database and could not be uploaded.",
+        "description": "An error message for upload data from database.",
+        "component": "TextsController"
+    },
     "TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP": {
         "message": "You should start from defining original text first.",
         "description": "An error message creating alignment.",

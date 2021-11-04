@@ -1304,6 +1304,7 @@ export default class Alignment {
   static async convertFromIndexedDB (dbData) {
     const createdDT = ConvertUtility.convertStringToDate(dbData.createdDT)
     const updatedDT = ConvertUtility.convertStringToDate(dbData.updatedDT)
+
     const alignment = new Alignment({
       id: dbData.alignmentID, createdDT, updatedDT, userID: dbData.userID
     })
@@ -1335,7 +1336,7 @@ export default class Alignment {
 
     if (dbData.annotations) {
       dbData.annotations.forEach(annotData => {
-        if (annotData.tokenData) {
+        if (annotData.tokenData && annotData.tokenData.idWord) {
           if (!alignment.annotations[annotData.tokenData.idWord]) {
             alignment.annotations[annotData.tokenData.idWord] = []
           }
@@ -1346,7 +1347,7 @@ export default class Alignment {
       })
     }
 
-    if (alignment.origin.alignedText) {
+    if (alignment.origin && alignment.origin.alignedText) {
       document.dispatchEvent(new Event('AlpheiosAlignmentGroupsWorkflowStarted'))
     }
     return alignment
