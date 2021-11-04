@@ -226,9 +226,18 @@ export default class TextsController {
       })
       return
     }
+    let alignment
 
-    const alignment = await UploadController.upload('indexedDBUpload', alData)
-    return alignment
+    try {
+      alignment = await UploadController.upload('indexedDBUpload', alData)
+      return alignment
+    } catch (error) {
+      console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_INCORRECT_DB_DATA'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('TEXTS_CONTROLLER_INCORRECT_DB_DATA'),
+        type: NotificationSingleton.types.ERROR
+      })
+    }
   }
 
   uploadDataFromFile (fileData, tokenizerOptionValue, extension) {
