@@ -36,7 +36,13 @@ export default class TokensEditHistory extends EditorHistory {
   }
 
   tokenWasEdited (token) {
-    return this.steps.some(step => step.token === token)
+    return this.steps.some(step => {
+      if (step.type === HistoryStep.types.NEW) {
+        return step.params.createdTokens.some(createdToken => createdToken.idWord === token.idWord)
+      } else {
+        return step.token.idWord === token.idWord
+      }
+    })
   }
 
   updateLastStepWithAnnotations (annotations, idWord) {
