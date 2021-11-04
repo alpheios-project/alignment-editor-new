@@ -45277,7 +45277,13 @@ class TokensEditHistory extends _lib_data_history_editor_history__WEBPACK_IMPORT
   }
 
   tokenWasEdited (token) {
-    return this.steps.some(step => step.token === token)
+    return this.steps.some(step => {
+      if (step.type === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].types.NEW) {
+        return step.params.createdTokens.some(createdToken => createdToken.idWord === token.idWord)
+      } else {
+        return step.token.idWord === token.idWord
+      }
+    })
   }
 
   updateLastStepWithAnnotations (annotations, idWord) {
@@ -48270,7 +48276,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i576-insert-tokens-2.20211103614" : 0
+    return  true ? "i592-clear-history-bug.20211104320" : 0
   }
 
   static get libName () {
