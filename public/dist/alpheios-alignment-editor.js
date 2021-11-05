@@ -45290,6 +45290,8 @@ class TokensEditHistory extends _lib_data_history_editor_history__WEBPACK_IMPORT
     return this.steps.some(step => {
       if (step.type === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].types.NEW) {
         return step.params.createdTokens.some(createdToken => createdToken.idWord === token.idWord)
+      } else if (step.type === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].types.DELETE) {
+        return step.params.deletedToken.idWord === token.idWord
       } else {
         return step.token.idWord === token.idWord
       }
@@ -48286,7 +48288,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i588-upload-check.20211104507" : 0
+    return  true ? "i596-delete-undo-group.20211105389" : 0
   }
 
   static get libName () {
