@@ -39352,17 +39352,6 @@ class DownloadController {
     return false
   }
 
-  static timeNow () {
-    const month = (((this.getMonth() + 1) < 10) ? '0' : '') + (this.getMonth() + 1)
-    const day = ((this.getDate() < 10) ? '0' : '') + this.getDate()
-
-    const hours = ((this.getHours() < 10) ? '0' : '') + this.getHours()
-    const minutes = ((this.getMinutes() < 10) ? '0' : '') + this.getMinutes()
-    // const seconds = ((this.getSeconds() < 10) ? '0' : '') + this.getSeconds()
-
-    return `${day}-${month}_${hours}-${minutes}`
-  }
-
   /**
    * Executes download workflow for downloading: one origin, each target text - only source state
    * Data.originDocSource and data.targetDocSource - are obligatory data
@@ -39395,7 +39384,7 @@ class DownloadController {
       if (!langs.includes(targetText.lang)) { langs.push(targetText.lang) }
     })
 
-    const now = DownloadController.timeNow.bind(new Date())()
+    const now = _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__["default"].timeNow.bind(new Date())()
     const fileName = `${now}-alignment-${data.originDocSource.lang}-${langs.join('-')}`
     const exportFields = ['header', 'direction', 'lang', 'sourceType']
     return _lib_download_download_file_csv_js__WEBPACK_IMPORTED_MODULE_0__["default"].download(fields, exportFields, fileName)
@@ -39423,7 +39412,7 @@ class DownloadController {
 
     const exportFields = ['header', 'direction', 'lang', 'sourceType']
 
-    const now = DownloadController.timeNow.bind(new Date())()
+    const now = _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__["default"].timeNow.bind(new Date())()
     const fileName = `${now}-alignment-${data.docSource.lang}`
     return _lib_download_download_file_csv_js__WEBPACK_IMPORTED_MODULE_0__["default"].download(fields, exportFields, fileName)
   }
@@ -39435,7 +39424,7 @@ class DownloadController {
       langs.push(target.docSource.lang)
     })
 
-    const now = DownloadController.timeNow.bind(new Date())()
+    const now = _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__["default"].timeNow.bind(new Date())()
 
     const filePrefixName = data.origin.alignedText ? 'full-alignment' : 'alignment'
     const fileName = `${now}-${filePrefixName}-${data.origin.docSource.lang}-${langs.join('-')}`
@@ -39454,7 +39443,7 @@ class DownloadController {
       }
     })
 
-    const now = DownloadController.timeNow.bind(new Date())()
+    const now = _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__["default"].timeNow.bind(new Date())()
 
     const fileName = `${now}-alignment-html-output-${data.langs.join('-')}`
     return _lib_download_download_file_html_js__WEBPACK_IMPORTED_MODULE_2__["default"].download(layout, fileName)
@@ -40205,18 +40194,9 @@ class TextsController {
       })
       return
     }
-    let alignment
 
-    try {
-      alignment = await _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].upload('indexedDBUpload', alData)
-      return alignment
-    } catch (error) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__["default"].getMsgS('TEXTS_CONTROLLER_INCORRECT_DB_DATA'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__["default"].addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__["default"].getMsgS('TEXTS_CONTROLLER_INCORRECT_DB_DATA'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__["default"].types.ERROR
-      })
-    }
+    const alignment = await _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].upload('indexedDBUpload', alData)
+    return alignment
   }
 
   uploadDataFromFile (fileData, tokenizerOptionValue, extension) {
@@ -41316,6 +41296,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_upload_upload_file_csv_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/upload/upload-file-csv.js */ "./lib/upload/upload-file-csv.js");
 /* harmony import */ var _lib_upload_upload_dts_api_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/upload/upload-dts-api.js */ "./lib/upload/upload-dts-api.js");
 /* harmony import */ var _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/controllers/storage-controller.js */ "./lib/controllers/storage-controller.js");
+/* harmony import */ var _lib_download_download_file_json_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/download/download-file-json.js */ "./lib/download/download-file-json.js");
+
+
 
 
 
@@ -41484,8 +41467,20 @@ class UploadController {
   static async indexedDBUploadSingle (alData) {
     const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].select(alData, 'alignmentByAlIDQuery')
     if (dbData) {
-      const alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_2__["default"].convertFromIndexedDB(dbData)
-      return alignment
+      try {
+        const alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_2__["default"].convertFromIndexedDB(dbData)
+        return alignment
+      } catch (error) {
+        const now = _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].timeNow.bind(new Date())()
+        const fileName = `${now}-corrupted-alignment`
+        _lib_download_download_file_json_js__WEBPACK_IMPORTED_MODULE_7__["default"].download(alData, fileName)
+
+        console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"].getMsgS('TEXTS_CONTROLLER_INCORRECT_DB_DATA'))
+        _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].addNotification({
+          text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"].getMsgS('TEXTS_CONTROLLER_INCORRECT_DB_DATA'),
+          type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].types.ERROR
+        })
+      }
     }
     return null
   }
@@ -47152,6 +47147,17 @@ class NotificationSingleton {
     notificationModuleInstance.store.commit('clearNotificationMessages')
     notificationModuleInstance.store.commit('incrementNotificationUpdated')
   }
+
+  static timeNow () {
+    const month = (((this.getMonth() + 1) < 10) ? '0' : '') + (this.getMonth() + 1)
+    const day = ((this.getDate() < 10) ? '0' : '') + this.getDate()
+
+    const hours = ((this.getHours() < 10) ? '0' : '') + this.getHours()
+    const minutes = ((this.getMinutes() < 10) ? '0' : '') + this.getMinutes()
+    // const seconds = ((this.getSeconds() < 10) ? '0' : '') + this.getSeconds()
+
+    return `${day}-${month}_${hours}-${minutes}`
+  }
 }
 
 NotificationSingleton.types = {
@@ -48288,7 +48294,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i596-delete-undo-group.20211105389" : 0
+    return  true ? "i588-corrupted-check.20211105570" : 0
   }
 
   static get libName () {

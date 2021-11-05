@@ -35,6 +35,17 @@ export default class NotificationSingleton {
     notificationModuleInstance.store.commit('clearNotificationMessages')
     notificationModuleInstance.store.commit('incrementNotificationUpdated')
   }
+
+  static timeNow () {
+    const month = (((this.getMonth() + 1) < 10) ? '0' : '') + (this.getMonth() + 1)
+    const day = ((this.getDate() < 10) ? '0' : '') + this.getDate()
+
+    const hours = ((this.getHours() < 10) ? '0' : '') + this.getHours()
+    const minutes = ((this.getMinutes() < 10) ? '0' : '') + this.getMinutes()
+    // const seconds = ((this.getSeconds() < 10) ? '0' : '') + this.getSeconds()
+
+    return `${day}-${month}_${hours}-${minutes}`
+  }
 }
 
 NotificationSingleton.types = {

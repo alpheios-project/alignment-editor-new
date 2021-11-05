@@ -8,6 +8,8 @@ import UploadFileCSV from '@/lib/upload/upload-file-csv.js'
 import UploadDTSAPI from '@/lib/upload/upload-dts-api.js'
 import StorageController from '@/lib/controllers/storage-controller.js'
 
+import DownloadFileJSON from '@/lib/download/download-file-json.js'
+
 export default class UploadController {
   /**
    * The list with registered variants of upload workflows
@@ -166,8 +168,20 @@ export default class UploadController {
   static async indexedDBUploadSingle (alData) {
     const dbData = await StorageController.select(alData, 'alignmentByAlIDQuery')
     if (dbData) {
-      const alignment = await Alignment.convertFromIndexedDB(dbData)
-      return alignment
+      try {
+        const alignment = await Alignment.convertFromIndexedDB(dbData)
+        return alignment
+      } catch (error) {
+        const now = NotificationSingleton.timeNow.bind(new Date())()
+        const fileName = `${now}-corrupted-alignment`
+        DownloadFileJSON.download(alData, fileName)
+
+        console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_INCORRECT_DB_DATA'))
+        NotificationSingleton.addNotification({
+          text: L10nSingleton.getMsgS('TEXTS_CONTROLLER_INCORRECT_DB_DATA'),
+          type: NotificationSingleton.types.ERROR
+        })
+      }
     }
     return null
   }

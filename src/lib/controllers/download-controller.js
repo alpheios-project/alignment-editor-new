@@ -63,17 +63,6 @@ export default class DownloadController {
     return false
   }
 
-  static timeNow () {
-    const month = (((this.getMonth() + 1) < 10) ? '0' : '') + (this.getMonth() + 1)
-    const day = ((this.getDate() < 10) ? '0' : '') + this.getDate()
-
-    const hours = ((this.getHours() < 10) ? '0' : '') + this.getHours()
-    const minutes = ((this.getMinutes() < 10) ? '0' : '') + this.getMinutes()
-    // const seconds = ((this.getSeconds() < 10) ? '0' : '') + this.getSeconds()
-
-    return `${day}-${month}_${hours}-${minutes}`
-  }
-
   /**
    * Executes download workflow for downloading: one origin, each target text - only source state
    * Data.originDocSource and data.targetDocSource - are obligatory data
@@ -106,7 +95,7 @@ export default class DownloadController {
       if (!langs.includes(targetText.lang)) { langs.push(targetText.lang) }
     })
 
-    const now = DownloadController.timeNow.bind(new Date())()
+    const now = NotificationSingleton.timeNow.bind(new Date())()
     const fileName = `${now}-alignment-${data.originDocSource.lang}-${langs.join('-')}`
     const exportFields = ['header', 'direction', 'lang', 'sourceType']
     return DownloadFileCSV.download(fields, exportFields, fileName)
@@ -134,7 +123,7 @@ export default class DownloadController {
 
     const exportFields = ['header', 'direction', 'lang', 'sourceType']
 
-    const now = DownloadController.timeNow.bind(new Date())()
+    const now = NotificationSingleton.timeNow.bind(new Date())()
     const fileName = `${now}-alignment-${data.docSource.lang}`
     return DownloadFileCSV.download(fields, exportFields, fileName)
   }
@@ -146,7 +135,7 @@ export default class DownloadController {
       langs.push(target.docSource.lang)
     })
 
-    const now = DownloadController.timeNow.bind(new Date())()
+    const now = NotificationSingleton.timeNow.bind(new Date())()
 
     const filePrefixName = data.origin.alignedText ? 'full-alignment' : 'alignment'
     const fileName = `${now}-${filePrefixName}-${data.origin.docSource.lang}-${langs.join('-')}`
@@ -165,7 +154,7 @@ export default class DownloadController {
       }
     })
 
-    const now = DownloadController.timeNow.bind(new Date())()
+    const now = NotificationSingleton.timeNow.bind(new Date())()
 
     const fileName = `${now}-alignment-html-output-${data.langs.join('-')}`
     return DownloadFileHTML.download(layout, fileName)
