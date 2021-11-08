@@ -2,12 +2,8 @@
 /* eslint-disable no-unused-vars */
 import Alignment from '@/lib/data/alignment'
 import AppController from '@/lib/controllers/app-controller.js'
-import SourceText from '@/lib/data/source-text'
-import AlignedText from '@/lib/data/aligned-text'
-import AlignmentGroup from '@/lib/data/alignment-group'
-import Segment from '@/lib/data/segment'
 
-import AlignmentSource1 from '@tests/corrupted/json/1-05-11_14-29-corrupted-alignment.json'
+// import AlignmentSource1 from '@tests/corrupted/json/1-05-11_14-29-corrupted-alignment.json'
 
 describe('alignment.test.js', () => {
   // console.error = function () {}
@@ -32,7 +28,7 @@ describe('alignment.test.js', () => {
   })
 
 
-  it('1 Corrupted Alignment - #588 2021-11-08 - alignment', async () => {
+  it.skip('1 Corrupted Alignment - #588 2021-11-08 - alignment', async () => {
     const sourceJSON1 = AlignmentSource1
     const alignment = await Alignment.convertFromIndexedDB(sourceJSON1)
 
