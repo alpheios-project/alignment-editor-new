@@ -260,6 +260,7 @@ export default class TokensEditController {
   }
 
   async insertTokens (tokensText, token, direction) {
+    if (!this.checkEditable(token)) { return false }
     const data = this.alignment.insertTokens(tokensText, token, direction)
     if (data.result) {
       this.store.commit('incrementTokenUpdated')

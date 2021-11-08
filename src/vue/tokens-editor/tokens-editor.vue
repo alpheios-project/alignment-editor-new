@@ -2,8 +2,8 @@
   <div class="alpheios-alignment-tokens-editor-block alpheios-alignment-editor-container">
       <h2 class="alpheios-alignment-text-editor-block__header">
         <span class="alpheios-alignment-text-editor-block__part">
-          <span class="alpheios-alignment-text-editor-block__header-link" @click="$emit('showSourceTextEditor')">{{ l10n.getMsgS('TEXT_EDITOR_LINK') }}</span>
-          <span class="alpheios-alignment-text-editor-block__header-link" @click="$emit('showAlignmentGroupsEditor')">{{ l10n.getMsgS('ALIGN_EDITOR_LINK') }}</span>
+          <span class="alpheios-alignment-text-editor-block__header-link" @click="goToTextEnterScreen">{{ l10n.getMsgS('TEXT_EDITOR_LINK') }}</span>
+          <span class="alpheios-alignment-text-editor-block__header-link" @click="goToAlignTextScreen">{{ l10n.getMsgS('ALIGN_EDITOR_LINK') }}</span>
           <span class="alpheios-alignment-text-editor-block__header-label">{{ l10n.getMsgS('TOKENS_EDITOR_HEADING') }}</span>
         </span>
         <span class="alpheios-alignment-text-editor-block__part">
@@ -24,7 +24,7 @@
         </span>
       </h2>
 
-    <tokens-editor-inner-block v-if="renderTokensEditor" @insertTokens="startInsertTokens" />
+    <tokens-editor-inner-block v-if="renderTokensEditor" @insertTokens="startInsertTokens" :removeAllActivatedFlag = "removeAllActivatedFlag"/>
     <help-popup @closeModal = "$modal.hide('help-edit')" mname = "help-edit">
       <template v-slot:content > <help-block-edit /> </template>
     </help-popup>
@@ -66,7 +66,8 @@ export default {
     return {
       renderTokensEditor: false,
       showModalOptions: false,
-      edittedToken: null
+      edittedToken: null,
+      removeAllActivatedFlag: 1
     }
   },
   watch: {
@@ -93,6 +94,14 @@ export default {
     closeInsertTokens () {
       this.edittedToken = null
       this.$modal.hide('insert-tokens')
+    },
+    goToTextEnterScreen () {
+      this.removeAllActivatedFlag = this.removeAllActivatedFlag + 1
+      this.$emit('showSourceTextEditor')
+    },
+    goToAlignTextScreen () {
+      this.removeAllActivatedFlag = this.removeAllActivatedFlag + 1
+      this.$emit('showAlignmentGroupsEditor')
     }
   }
 }

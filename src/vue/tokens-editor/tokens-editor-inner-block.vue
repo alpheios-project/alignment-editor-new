@@ -49,6 +49,11 @@ export default {
     actionsMenuTokensEditor: ActionsMenuTokensEditor
   },
   props: {
+    removeAllActivatedFlag: {
+      type: Number,
+      required: false,
+      default: 1
+    }
   },
   data () {
     return {
@@ -63,6 +68,9 @@ export default {
     },
     '$store.state.uploadCheck' () {
       this.shownTabsInited = false
+    },
+    'removeAllActivatedFlag' () {
+      this.removeAllActivated()
     }
   },
   computed: {

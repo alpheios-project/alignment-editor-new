@@ -41172,6 +41172,7 @@ class TokensEditController {
   }
 
   async insertTokens (tokensText, token, direction) {
+    if (!this.checkEditable(token)) { return false }
     const data = this.alignment.insertTokens(tokensText, token, direction)
     if (data.result) {
       this.store.commit('incrementTokenUpdated')
@@ -48294,7 +48295,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i595-icons-update.20211108587" : 0
+    return  true ? "i599-update-menu-state.20211108612" : 0
   }
 
   static get libName () {
@@ -55552,6 +55553,11 @@ __webpack_require__.r(__webpack_exports__);
     actionsMenuTokensEditor: _vue_tokens_editor_actions_menu_tokens_editor_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   props: {
+    removeAllActivatedFlag: {
+      type: Number,
+      required: false,
+      default: 1
+    }
   },
   data () {
     return {
@@ -55566,6 +55572,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     '$store.state.uploadCheck' () {
       this.shownTabsInited = false
+    },
+    'removeAllActivatedFlag' () {
+      this.removeAllActivated()
     }
   },
   computed: {
@@ -55752,7 +55761,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       renderTokensEditor: false,
       showModalOptions: false,
-      edittedToken: null
+      edittedToken: null,
+      removeAllActivatedFlag: 1
     }
   },
   watch: {
@@ -55779,6 +55789,14 @@ __webpack_require__.r(__webpack_exports__);
     closeInsertTokens () {
       this.edittedToken = null
       this.$modal.hide('insert-tokens')
+    },
+    goToTextEnterScreen () {
+      this.removeAllActivatedFlag = this.removeAllActivatedFlag + 1
+      this.$emit('showSourceTextEditor')
+    },
+    goToAlignTextScreen () {
+      this.removeAllActivatedFlag = this.removeAllActivatedFlag + 1
+      this.$emit('showAlignmentGroupsEditor')
     }
   }
 });
@@ -67270,11 +67288,7 @@ var render = function() {
                 {
                   staticClass:
                     "alpheios-alignment-text-editor-block__header-link",
-                  on: {
-                    click: function($event) {
-                      return _vm.$emit("showSourceTextEditor")
-                    }
-                  }
+                  on: { click: _vm.goToTextEnterScreen }
                 },
                 [_vm._v(_vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_LINK")))]
               ),
@@ -67284,11 +67298,7 @@ var render = function() {
                 {
                   staticClass:
                     "alpheios-alignment-text-editor-block__header-link",
-                  on: {
-                    click: function($event) {
-                      return _vm.$emit("showAlignmentGroupsEditor")
-                    }
-                  }
+                  on: { click: _vm.goToAlignTextScreen }
                 },
                 [_vm._v(_vm._s(_vm.l10n.getMsgS("ALIGN_EDITOR_LINK")))]
               ),
@@ -67386,6 +67396,7 @@ var render = function() {
       _vm._v(" "),
       _vm.renderTokensEditor
         ? _c("tokens-editor-inner-block", {
+            attrs: { removeAllActivatedFlag: _vm.removeAllActivatedFlag },
             on: { insertTokens: _vm.startInsertTokens }
           })
         : _vm._e(),
