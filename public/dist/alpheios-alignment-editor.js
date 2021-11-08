@@ -48294,7 +48294,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i588-corrupted-alignment.20211108368" : 0
+    return  true ? "i595-icons-update.20211108587" : 0
   }
 
   static get libName () {
@@ -54653,13 +54653,13 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_13__["default"].allowUpdateTokenWordOptionValue
     },
     allowedMergePrev () {
-      return this.$store.state.optionsUpdated && this.$tokensEC.allowedMergePrev(this.token)
+      return this.$store.state.optionsUpdated && this.$store.state.tokenUpdated && this.$tokensEC.allowedMergePrev(this.token)
     },
     allowedMergeNext () {
-      return this.$store.state.optionsUpdated && this.$tokensEC.allowedMergeNext(this.token)
+      return this.$store.state.optionsUpdated && this.$store.state.tokenUpdated && this.$tokensEC.allowedMergeNext(this.token)
     },
     allowedSplit () {
-      return this.$store.state.optionsUpdated && this.$tokensEC.allowedSplit(this.token)
+      return this.$store.state.optionsUpdated && this.$store.state.tokenUpdated && this.$tokensEC.allowedSplit(this.token)
     },
     allowedAddLineBreak () {
       return this.$store.state.optionsUpdated && this.$tokensEC.allowedAddLineBreak(this.token)
@@ -54674,7 +54674,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.optionsUpdated && this.$tokensEC.allowedToPrevSegment(this.token)
     },
     allowedDelete () {
-      return this.$store.state.optionsUpdated && this.$tokensEC.allowedDelete(this.token)
+      return this.$store.state.optionsUpdated && this.$store.state.tokenUpdated && this.$tokensEC.allowedDelete(this.token)
     },
     allowedInsert () {
       return true
