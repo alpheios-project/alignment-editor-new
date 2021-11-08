@@ -155,13 +155,13 @@ export default {
       return this.$store.state.optionsUpdated && SettingsController.allowUpdateTokenWordOptionValue
     },
     allowedMergePrev () {
-      return this.$store.state.optionsUpdated && this.$tokensEC.allowedMergePrev(this.token)
+      return this.$store.state.optionsUpdated && this.$store.state.tokenUpdated && this.$tokensEC.allowedMergePrev(this.token)
     },
     allowedMergeNext () {
-      return this.$store.state.optionsUpdated && this.$tokensEC.allowedMergeNext(this.token)
+      return this.$store.state.optionsUpdated && this.$store.state.tokenUpdated && this.$tokensEC.allowedMergeNext(this.token)
     },
     allowedSplit () {
-      return this.$store.state.optionsUpdated && this.$tokensEC.allowedSplit(this.token)
+      return this.$store.state.optionsUpdated && this.$store.state.tokenUpdated && this.$tokensEC.allowedSplit(this.token)
     },
     allowedAddLineBreak () {
       return this.$store.state.optionsUpdated && this.$tokensEC.allowedAddLineBreak(this.token)
@@ -176,7 +176,7 @@ export default {
       return this.$store.state.optionsUpdated && this.$tokensEC.allowedToPrevSegment(this.token)
     },
     allowedDelete () {
-      return this.$store.state.optionsUpdated && this.$tokensEC.allowedDelete(this.token)
+      return this.$store.state.optionsUpdated && this.$store.state.tokenUpdated && this.$tokensEC.allowedDelete(this.token)
     },
     allowedInsert () {
       return true
