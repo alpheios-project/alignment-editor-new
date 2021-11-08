@@ -173,8 +173,8 @@ export default class UploadController {
         return alignment
       } catch (error) {
         const now = NotificationSingleton.timeNow.bind(new Date())()
-        const fileName = `${now}-corrupted-alignment`
-        DownloadFileJSON.download(alData, fileName)
+        const fileName2 = `${now}-corrupted-alignment-dbData`
+        DownloadFileJSON.download(dbData, fileName2)
 
         console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_INCORRECT_DB_DATA'))
         NotificationSingleton.addNotification({
