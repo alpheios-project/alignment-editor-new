@@ -286,6 +286,7 @@ export default {
 
     insertTokens (token) {
       this.$emit('insertTokens', token)
+      this.removeAllActivated()
     }
   }
 

@@ -956,6 +956,7 @@ export default class Alignment {
    */
   insertTokens (tokensText, token, direction) {
     const result = this.tokensEditActions.insertTokens(tokensText, token, direction)
+    this.updateAnnotationLinksSingle(token, [result.wasIdWord])
     this.setUpdated()
     return result
   }
