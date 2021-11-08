@@ -9,7 +9,7 @@ export default class TokensEditHistory extends EditorHistory {
   }
 
   prepareDataForIndexedDBCorrect (step) {
-    const onlyToken = [HistoryStep.types.UPDATE, HistoryStep.types.SPLIT, HistoryStep.types.ADD_LINE_BREAK, HistoryStep.types.REMOVE_LINE_BREAK]
+    const onlyToken = [HistoryStep.types.UPDATE, HistoryStep.types.SPLIT, HistoryStep.types.ADD_LINE_BREAK, HistoryStep.types.REMOVE_LINE_BREAK, HistoryStep.types.NEW]
 
     if (onlyToken.includes(step.type)) {
       return { type: step.type, token: step.token }

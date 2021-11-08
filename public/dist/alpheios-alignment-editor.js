@@ -40844,7 +40844,8 @@ class TokenizeController {
       [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_5__["default"].types.TO_PREV_SEGMENT]: 'ps',
       [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_5__["default"].types.NEW]: 'n',
       [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_5__["default"].types.NEW_BEFORE]: 'nb',
-      [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_5__["default"].types.NEW_AFTER]: 'na'
+      [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_5__["default"].types.NEW_AFTER]: 'na',
+      [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_5__["default"].types.NEW_SOURCE]: 'nn'
 
     }
 
@@ -41235,7 +41236,6 @@ class TokensEditController {
 
   async prepareDeleteFromStorage (dataIndexedDB) {
     const onlyToken = [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_3__["default"].types.UPDATE, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_3__["default"].types.SPLIT, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_3__["default"].types.ADD_LINE_BREAK, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_3__["default"].types.REMOVE_LINE_BREAK, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_3__["default"].types.NEW, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_3__["default"].types.DELETE]
-
     for (let i = 0; i < dataIndexedDB.length; i++) {
       const data = dataIndexedDB[i]
       if (!data || !data.type) { continue }
@@ -42180,9 +42180,22 @@ class TokensEditActions {
       baseToken = tokenNew
     })
 
+    const newIdWordSource = alignedText.getNewIdWord({
+      token,
+      segment,
+      changeType: _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].types.NEW_SOURCE
+    })
+    const wasIdWordSource = token.idWord
+
+    token.update({ idWord: newIdWordSource })
+
     this.tokensEditHistory.truncateSteps()
     this.tokensEditHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__["default"].types.NEW, {
-      createdTokens, segment, insertType: direction
+      createdTokens,
+      segment,
+      insertType: direction,
+      wasIdWord: wasIdWordSource,
+      newIdWord: newIdWordSource
     })
 
     this.reIndexSentence(segment)
@@ -42190,7 +42203,8 @@ class TokensEditActions {
     return {
       result: true,
       segmentIndex: segment.index,
-      partNum: token.partNum
+      partNum: token.partNum,
+      wasIdWord: wasIdWordSource
     }
   }
 
@@ -42465,12 +42479,18 @@ class TokensEditActions {
       step.params.segment.deleteToken(tokenIndex)
     })
 
+    step.token.update({ idWord: step.params.wasIdWord })
+
     this.reIndexSentence(step.params.segment)
     return {
       result: true,
       data: {
         token: step.token,
-        idWordNewAnnotations: step.params.createdTokens.map(token => token.idWord)
+        idWordNewAnnotations: step.params.createdTokens.map(token => token.idWord),
+
+        updateAnnotations: true,
+        type: 'single',
+        wasIdWord: [step.params.newIdWord]
       }
     }
   }
@@ -42484,6 +42504,9 @@ class TokensEditActions {
 
       tokenIndex = step.params.segment.getTokenIndex(token)
     })
+
+    step.token.update({ idWord: step.params.newIdWord })
+
     this.reIndexSentence(step.params.segment)
 
     return {
@@ -42491,7 +42514,12 @@ class TokensEditActions {
       data: {
         token: step.token,
         idWordNewAnnotations: step.params.createdTokens.map(token => token.idWord),
-        newAnnotations: step.params.newAnnotations
+        newAnnotations: step.params.newAnnotations,
+
+        updateAnnotations: true,
+        type: 'single',
+        wasIdWord: [step.params.wasIdWord]
+
       }
     }
   }
@@ -44014,6 +44042,7 @@ class Alignment {
    */
   insertTokens (tokensText, token, direction) {
     const result = this.tokensEditActions.insertTokens(tokensText, token, direction)
+    this.updateAnnotationLinksSingle(token, [result.wasIdWord])
     this.setUpdated()
     return result
   }
@@ -45208,9 +45237,11 @@ HistoryStep.types = {
   //
   NEW: 'new',
   //
-  NEW_AFTER: 'new_after',
+  NEW_AFTER: 'new after',
   //
-  NEW_BEFORE: 'new_before',
+  NEW_BEFORE: 'new before',
+  //
+  NEW_SOURCE: 'source for new',
   //
   DELETE: 'delete',
   //
@@ -45256,7 +45287,7 @@ class TokensEditHistory extends _lib_data_history_editor_history__WEBPACK_IMPORT
   }
 
   prepareDataForIndexedDBCorrect (step) {
-    const onlyToken = [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].types.UPDATE, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].types.SPLIT, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].types.ADD_LINE_BREAK, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].types.REMOVE_LINE_BREAK]
+    const onlyToken = [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].types.UPDATE, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].types.SPLIT, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].types.ADD_LINE_BREAK, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].types.REMOVE_LINE_BREAK, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].types.NEW]
 
     if (onlyToken.includes(step.type)) {
       return { type: step.type, token: step.token }
@@ -48295,7 +48326,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i599-update-menu-state.20211108612" : 0
+    return  true ? "i600-insert-tokens-twice.20211108651" : 0
   }
 
   static get libName () {

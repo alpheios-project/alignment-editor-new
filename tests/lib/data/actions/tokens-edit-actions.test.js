@@ -322,7 +322,7 @@ describe('tokens-edit-actions.test.js', () => {
 
     tokensEditActions.insertTokens('Some text', firstSegment.tokens[0], 'prev')
     expect(firstSegment.tokens.map(token => token.word)).toEqual(['Some', 'text', 'male', 'female'])
-    expect(firstSegment.tokens.map(token => token.idWord)).toEqual(['2-0-0-nb-2', '2-0-0-nb-1', '2-0-0', '2-0-1'])
+    expect(firstSegment.tokens.map(token => token.idWord)).toEqual(['2-0-0-nb-2', '2-0-0-nb-1', '2-0-0-nn-1', '2-0-1'])
 
     // insert to end
 
@@ -332,7 +332,7 @@ describe('tokens-edit-actions.test.js', () => {
     // console.info('1 - ', secondSegment.tokens.map(token => token.word))
     // console.info('2 - ', secondSegment.tokens.map(token => token.idWord))
     expect(secondSegment.tokens.map(token => token.word)).toEqual(['male', 'female', 'End', 'text'])
-    expect(secondSegment.tokens.map(token => token.idWord)).toEqual(['2-1-0', '2-1-1', '2-1-1-na-1', '2-1-1-na-2'])
+    expect(secondSegment.tokens.map(token => token.idWord)).toEqual(['2-1-0', '2-1-1-nn-1', '2-1-1-na-1', '2-1-1-na-2'])
 
     // insert to middle
 
@@ -343,7 +343,12 @@ describe('tokens-edit-actions.test.js', () => {
     // console.info('2 - ', thirdSegment.tokens.map(token => token.idWord))
 
     expect(thirdSegment.tokens.map(token => token.word)).toEqual(['male', 'Middle', 'text', 'before', 'female', 'Middle', 'text', 'after'])
-    expect(thirdSegment.tokens.map(token => token.idWord)).toEqual(['2-2-0', '2-2-1-nb-3', '2-2-1-nb-2', '2-2-1-nb-1', '2-2-1', '2-2-1-na-1', '2-2-1-na-2', '2-2-1-na-3'])
+    expect(thirdSegment.tokens.map(token => token.idWord)).toEqual(['2-2-0', '2-2-1-nb-3', '2-2-1-nb-2', '2-2-1-nb-1', '2-2-1-nn-2', '2-2-1-nn-1-na-1', '2-2-1-nn-1-na-2', '2-2-1-nn-1-na-3'])
+
+    tokensEditActions.insertTokens('One more', thirdSegment.tokens[4], 'next')
+
+    expect(thirdSegment.tokens.map(token => token.word)).toEqual(['male', 'Middle', 'text', 'before', 'female', 'One', 'more', 'Middle', 'text', 'after'])
+    expect(thirdSegment.tokens.map(token => token.idWord)).toEqual(['2-2-0', '2-2-1-nb-3', '2-2-1-nb-2', '2-2-1-nb-1', '2-2-1-nn-3', '2-2-1-nn-2-na-1', '2-2-1-nn-2-na-2', '2-2-1-nn-1-na-1', '2-2-1-nn-1-na-2', '2-2-1-nn-1-na-3'])
   })
 
   it('12 TokensEditActions - allowedMergePrev - true - if there is a left token, otherwise - false', async () => {
@@ -500,4 +505,5 @@ describe('tokens-edit-actions.test.js', () => {
 
     expect(tokensEditActions.allowedDelete(currentSegment.tokens[0])).toBeFalsy() // it is not allowed to delete the only token in a segment
   })
+
 })

@@ -323,7 +323,6 @@ export default class TokensEditController {
 
   async prepareDeleteFromStorage (dataIndexedDB) {
     const onlyToken = [HistoryStep.types.UPDATE, HistoryStep.types.SPLIT, HistoryStep.types.ADD_LINE_BREAK, HistoryStep.types.REMOVE_LINE_BREAK, HistoryStep.types.NEW, HistoryStep.types.DELETE]
-
     for (let i = 0; i < dataIndexedDB.length; i++) {
       const data = dataIndexedDB[i]
       if (!data || !data.type) { continue }

@@ -190,7 +190,8 @@ export default class TokenizeController {
       [HistoryStep.types.TO_PREV_SEGMENT]: 'ps',
       [HistoryStep.types.NEW]: 'n',
       [HistoryStep.types.NEW_BEFORE]: 'nb',
-      [HistoryStep.types.NEW_AFTER]: 'na'
+      [HistoryStep.types.NEW_AFTER]: 'na',
+      [HistoryStep.types.NEW_SOURCE]: 'nn'
 
     }
 

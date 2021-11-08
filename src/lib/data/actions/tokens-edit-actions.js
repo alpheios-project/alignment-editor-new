@@ -390,9 +390,22 @@ export default class TokensEditActions {
       baseToken = tokenNew
     })
 
+    const newIdWordSource = alignedText.getNewIdWord({
+      token,
+      segment,
+      changeType: HistoryStep.types.NEW_SOURCE
+    })
+    const wasIdWordSource = token.idWord
+
+    token.update({ idWord: newIdWordSource })
+
     this.tokensEditHistory.truncateSteps()
     this.tokensEditHistory.addStep(token, HistoryStep.types.NEW, {
-      createdTokens, segment, insertType: direction
+      createdTokens,
+      segment,
+      insertType: direction,
+      wasIdWord: wasIdWordSource,
+      newIdWord: newIdWordSource
     })
 
     this.reIndexSentence(segment)
@@ -400,7 +413,8 @@ export default class TokensEditActions {
     return {
       result: true,
       segmentIndex: segment.index,
-      partNum: token.partNum
+      partNum: token.partNum,
+      wasIdWord: wasIdWordSource
     }
   }
 
@@ -675,12 +689,18 @@ export default class TokensEditActions {
       step.params.segment.deleteToken(tokenIndex)
     })
 
+    step.token.update({ idWord: step.params.wasIdWord })
+
     this.reIndexSentence(step.params.segment)
     return {
       result: true,
       data: {
         token: step.token,
-        idWordNewAnnotations: step.params.createdTokens.map(token => token.idWord)
+        idWordNewAnnotations: step.params.createdTokens.map(token => token.idWord),
+
+        updateAnnotations: true,
+        type: 'single',
+        wasIdWord: [step.params.newIdWord]
       }
     }
   }
@@ -694,6 +714,9 @@ export default class TokensEditActions {
 
       tokenIndex = step.params.segment.getTokenIndex(token)
     })
+
+    step.token.update({ idWord: step.params.newIdWord })
+
     this.reIndexSentence(step.params.segment)
 
     return {
@@ -701,7 +724,12 @@ export default class TokensEditActions {
       data: {
         token: step.token,
         idWordNewAnnotations: step.params.createdTokens.map(token => token.idWord),
-        newAnnotations: step.params.newAnnotations
+        newAnnotations: step.params.newAnnotations,
+
+        updateAnnotations: true,
+        type: 'single',
+        wasIdWord: [step.params.wasIdWord]
+
       }
     }
   }
