@@ -48326,7 +48326,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i600-insert-tokens-twice.20211108651" : 0
+    return  true ? "i600-insert-tokens-twice.20211108653" : 0
   }
 
   static get libName () {
@@ -55285,6 +55285,7 @@ __webpack_require__.r(__webpack_exports__);
 
     insertTokens (token) {
       this.$emit('insertTokens', token)
+      this.removeAllActivated()
     }
   }
 
