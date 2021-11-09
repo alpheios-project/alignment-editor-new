@@ -1340,11 +1340,10 @@ export default class Alignment {
         if (annotData.tokenData && annotData.tokenData.idWord) {
           const token = alignment.findTokenByTokenShortJSON(annotData.tokenData)
           if (token) {
-
             if (!alignment.annotations[annotData.tokenData.idWord]) {
               alignment.annotations[annotData.tokenData.idWord] = []
             }
-         
+
             alignment.annotations[annotData.tokenData.idWord].push(Annotation.convertFromJSON(annotData, token))
           }
         }
