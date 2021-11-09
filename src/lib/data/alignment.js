@@ -1338,12 +1338,14 @@ export default class Alignment {
     if (dbData.annotations) {
       dbData.annotations.forEach(annotData => {
         if (annotData.tokenData && annotData.tokenData.idWord) {
-          if (!alignment.annotations[annotData.tokenData.idWord]) {
-            alignment.annotations[annotData.tokenData.idWord] = []
-          }
           const token = alignment.findTokenByTokenShortJSON(annotData.tokenData)
+          if (token) {
+            if (!alignment.annotations[annotData.tokenData.idWord]) {
+              alignment.annotations[annotData.tokenData.idWord] = []
+            }
 
-          alignment.annotations[annotData.tokenData.idWord].push(Annotation.convertFromJSON(annotData, token))
+            alignment.annotations[annotData.tokenData.idWord].push(Annotation.convertFromJSON(annotData, token))
+          }
         }
       })
     }

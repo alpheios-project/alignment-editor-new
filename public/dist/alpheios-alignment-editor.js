@@ -44424,12 +44424,14 @@ class Alignment {
     if (dbData.annotations) {
       dbData.annotations.forEach(annotData => {
         if (annotData.tokenData && annotData.tokenData.idWord) {
-          if (!alignment.annotations[annotData.tokenData.idWord]) {
-            alignment.annotations[annotData.tokenData.idWord] = []
-          }
           const token = alignment.findTokenByTokenShortJSON(annotData.tokenData)
+          if (token) {
+            if (!alignment.annotations[annotData.tokenData.idWord]) {
+              alignment.annotations[annotData.tokenData.idWord] = []
+            }
 
-          alignment.annotations[annotData.tokenData.idWord].push(_lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__["default"].convertFromJSON(annotData, token))
+            alignment.annotations[annotData.tokenData.idWord].push(_lib_data_annotation__WEBPACK_IMPORTED_MODULE_4__["default"].convertFromJSON(annotData, token))
+          }
         }
       })
     }
@@ -48326,7 +48328,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i600-insert-tokens-twice.20211108653" : 0
+    return  true ? "i588-corrupted-alignments-2.20211109540" : 0
   }
 
   static get libName () {
