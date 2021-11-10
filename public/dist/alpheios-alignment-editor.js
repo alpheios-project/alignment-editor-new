@@ -38719,6 +38719,9 @@ class AlignedGroupsController {
         checkHistory = true
       }
     }
+    // console.info('checkHistory - ', token.idWord, checkHistory)
+    // console.info('tokenWasEdited - ', token.idWord, this.tokenWasEdited(token))
+
     if (checkHistory && this.tokenWasEdited(token)) {
       this.clearTokensEditHistory()
     }
@@ -43974,8 +43977,6 @@ class Alignment {
     }
 
     const result = this.tokensEditActions.mergeToken(token, direction, this.annotations)
-    // delete this.annotations[result.wasIdWord[0]]
-    // delete this.annotations[result.wasIdWord[1]]
     this.deleteAnnotations(result.wasIdWord[0])
     this.deleteAnnotations(result.wasIdWord[1])
     this.setUpdated()
@@ -45318,9 +45319,13 @@ class TokensEditHistory extends _lib_data_history_editor_history__WEBPACK_IMPORT
   tokenWasEdited (token) {
     return this.steps.some(step => {
       if (step.type === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].types.NEW) {
-        return step.params.createdTokens.some(createdToken => createdToken.idWord === token.idWord)
+        return step.params.createdTokens.some(createdToken => createdToken.idWord === token.idWord) || step.token.idWord === token.idWord
       } else if (step.type === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].types.DELETE) {
         return step.params.deletedToken.idWord === token.idWord
+      } else if (step.type === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].types.SPLIT) {
+        return step.params.newIdWord1 === token.idWord || step.params.newIdWord2 === token.idWord
+      } else if (step.type === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__["default"].types.MERGE) {
+        return step.params.mergedToken.idWord === token.idWord || step.token.idWord === token.idWord
       } else {
         return step.token.idWord === token.idWord
       }
@@ -48328,7 +48333,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i588-corrupted-alignments-2.20211109540" : 0
+    return  true ? "i596-clear-history-2.20211110548" : 0
   }
 
   static get libName () {

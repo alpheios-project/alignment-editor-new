@@ -133,6 +133,9 @@ export default class AlignedGroupsController {
         checkHistory = true
       }
     }
+    // console.info('checkHistory - ', token.idWord, checkHistory)
+    // console.info('tokenWasEdited - ', token.idWord, this.tokenWasEdited(token))
+
     if (checkHistory && this.tokenWasEdited(token)) {
       this.clearTokensEditHistory()
     }

@@ -38,9 +38,13 @@ export default class TokensEditHistory extends EditorHistory {
   tokenWasEdited (token) {
     return this.steps.some(step => {
       if (step.type === HistoryStep.types.NEW) {
-        return step.params.createdTokens.some(createdToken => createdToken.idWord === token.idWord)
+        return step.params.createdTokens.some(createdToken => createdToken.idWord === token.idWord) || step.token.idWord === token.idWord
       } else if (step.type === HistoryStep.types.DELETE) {
         return step.params.deletedToken.idWord === token.idWord
+      } else if (step.type === HistoryStep.types.SPLIT) {
+        return step.params.newIdWord1 === token.idWord || step.params.newIdWord2 === token.idWord
+      } else if (step.type === HistoryStep.types.MERGE) {
+        return step.params.mergedToken.idWord === token.idWord || step.token.idWord === token.idWord
       } else {
         return step.token.idWord === token.idWord
       }
