@@ -888,8 +888,6 @@ export default class Alignment {
     }
 
     const result = this.tokensEditActions.mergeToken(token, direction, this.annotations)
-    // delete this.annotations[result.wasIdWord[0]]
-    // delete this.annotations[result.wasIdWord[1]]
     this.deleteAnnotations(result.wasIdWord[0])
     this.deleteAnnotations(result.wasIdWord[1])
     this.setUpdated()
