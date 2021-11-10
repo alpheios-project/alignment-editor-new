@@ -38719,8 +38719,6 @@ class AlignedGroupsController {
         checkHistory = true
       }
     }
-    // console.info('checkHistory - ', token.idWord, checkHistory)
-    // console.info('tokenWasEdited - ', token.idWord, this.tokenWasEdited(token))
 
     if (checkHistory && this.tokenWasEdited(token)) {
       this.clearTokensEditHistory()
@@ -48333,7 +48331,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i596-clear-history-2.20211110548" : 0
+    return  true ? "i575-hide-edit-tokens-menu.20211110611" : 0
   }
 
   static get libName () {
@@ -51533,13 +51531,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/download-controller.js */ "./lib/controllers/download-controller.js");
-/* harmony import */ var _inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/inline-icons/download.svg */ "./inline-icons/download.svg");
-/* harmony import */ var _inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/inline-icons/upload.svg */ "./inline-icons/upload.svg");
-/* harmony import */ var _inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/inline-icons/x-close.svg */ "./inline-icons/x-close.svg");
-/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
+/* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
+/* harmony import */ var _inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/inline-icons/download.svg */ "./inline-icons/download.svg");
+/* harmony import */ var _inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/inline-icons/upload.svg */ "./inline-icons/upload.svg");
+/* harmony import */ var _inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/inline-icons/x-close.svg */ "./inline-icons/x-close.svg");
+/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
 //
 //
 //
@@ -51587,6 +51586,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -51599,10 +51599,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'MainMenu',
   components: {
-    downloadIcon: (_inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_2___default()),
-    uploadIcon: (_inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_3___default()),
-    xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_4___default()),
-    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+    downloadIcon: (_inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_3___default()),
+    uploadIcon: (_inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_4___default()),
+    xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_5___default()),
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
   props: {
     menuShow: {
@@ -51664,6 +51664,12 @@ __webpack_require__.r(__webpack_exports__);
     downloadTypes () {
       return Boolean(this.$store.state.alignmentUpdated) && 
              Object.values(_lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__["default"].downloadMethods).filter(method => method.allTexts && (!method.alignmentStarted || this.$alignedGC.alignmentGroupsWorkflowAvailable))
+    },
+    enableTokensEditorOptionItemValue () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].enableTokensEditor
+    },
+    tokensEditAvailable () {
+      return this.alignEditAvailable && this.enableTokensEditorOptionItemValue
     }
   },
   methods: {
@@ -53977,7 +53983,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__["default"].enableTokensEditor
     },
     tokensEditAvailable () {
-      return this.enableTokensEditorOptionItemValue && this.enableTokensEditorOptionItemValue
+      return this.alignEditAvailable && this.enableTokensEditorOptionItemValue
     },
     downloadAvailable () {
       return Boolean(this.$store.state.docSourceUpdated) && this.$textC.originDocSourceHasText
@@ -62852,7 +62858,7 @@ var render = function() {
                   },
                   attrs: {
                     id: "alpheios-main-menu-tokens-editor",
-                    disabled: !_vm.alignEditAvailable
+                    disabled: !_vm.tokensEditAvailable
                   },
                   on: { click: _vm.showTokensEditor }
                 },

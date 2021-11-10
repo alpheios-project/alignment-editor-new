@@ -116,7 +116,7 @@ export default {
       return this.$store.state.optionsUpdated && SettingsController.enableTokensEditor
     },
     tokensEditAvailable () {
-      return this.enableTokensEditorOptionItemValue && this.enableTokensEditorOptionItemValue
+      return this.alignEditAvailable && this.enableTokensEditorOptionItemValue
     },
     downloadAvailable () {
       return Boolean(this.$store.state.docSourceUpdated) && this.$textC.originDocSourceHasText
