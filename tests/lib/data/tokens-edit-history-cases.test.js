@@ -6,7 +6,10 @@ import SourceText from '@/lib/data/source-text'
 import Annotation from '@/lib/data/annotation'
 import AlignedText from '@/lib/data/aligned-text'
 import AlignmentGroup from '@/lib/data/alignment-group'
+import HistoryStep from '@/lib/data/history/history-step'
 import Segment from '@/lib/data/segment'
+
+import AlignedGroupsController from '@/lib/controllers/aligned-groups-controller.js'
 
 import TokensEditHistory from '@/lib/data/history/tokens-edit-history'
 
@@ -15,8 +18,9 @@ describe('tokens-edit-history-cases.test.js', () => {
   console.log = function () {}
   console.warn = function () {}
   
+  let appC
   beforeAll(async () => {
-    const appC = new AppController({
+    appC = new AppController({
       appId:'alpheios-alignment-editor'
     })
     appC.defineStore()
@@ -798,5 +802,262 @@ describe('tokens-edit-history-cases.test.js', () => {
     expect(alignment.annotations['1-0-1']).not.toBeDefined()
     expect(alignment.annotations['1-0-1-nn-1']).toBeDefined()
 
+  })
+
+  it('14 Tokens Edit History Cases - clear history after grouping  - merging', async () => {
+
+    const originDocSource = new SourceText('origin', {
+      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    const targetDocSource1 = new SourceText('target', {
+      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    const alignedGC = new AlignedGroupsController(appC.store)
+
+    let alignment = new Alignment()
+    alignment.updateOriginDocSource(originDocSource)
+    alignment.updateTargetDocSource(targetDocSource1)
+    await alignedGC.createAlignedTexts(alignment)
+
+    const allSegments = alignment.allAlignedTextsSegments
+    const originSegment = alignment.origin.alignedText.segments[0]
+
+    expect(originSegment.tokens.map(token => token.idWord)).toEqual([ '1-0-0', '1-0-1', '1-0-2', '1-0-3', '1-0-4' ])
+    expect(originSegment.tokens.map(token => token.word)).toEqual([ 'quae', 'sensu', 'volvuntur', 'vota', 'diurno' ])
+
+    alignment.mergeToken(originSegment.tokens[1], 'next')
+    expect(originSegment.tokens.map(token => token.idWord)).toEqual([ '1-0-0', '1-0-2-m-1', '1-0-3', '1-0-4' ])
+    expect(originSegment.tokens.map(token => token.word)).toEqual([ 'quae', 'sensu volvuntur', 'vota', 'diurno' ])
+
+    expect(alignment.tokensEditHistory.steps.length).toEqual(1)
+    expect(alignment.tokensEditHistory.steps[0].type).toEqual(HistoryStep.types.MERGE)
+
+    // we grouped not editted token - history is not cleared
+    await alignedGC.clickToken(originSegment.tokens[0])
+
+    expect(alignment.tokensEditHistory.steps.length).toEqual(1)
+    expect(alignment.tokensEditHistory.steps[0].type).toEqual(HistoryStep.types.MERGE)
+
+    await alignedGC.clickToken(originSegment.tokens[1])
+
+    expect(alignment.tokensEditHistory.steps.length).toEqual(0)
+  })
+
+  it('15 Tokens Edit History Cases - clear history after grouping  - splitting', async () => {
+
+    const originDocSource = new SourceText('origin', {
+      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    const targetDocSource1 = new SourceText('target', {
+      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    const alignedGC = new AlignedGroupsController(appC.store)
+
+    let alignment = new Alignment()
+    alignment.updateOriginDocSource(originDocSource)
+    alignment.updateTargetDocSource(targetDocSource1)
+    await alignedGC.createAlignedTexts(alignment)
+
+    const allSegments = alignment.allAlignedTextsSegments
+    const originSegment = alignment.origin.alignedText.segments[0]
+
+    expect(originSegment.tokens.map(token => token.idWord)).toEqual([ '1-0-0', '1-0-1', '1-0-2', '1-0-3', '1-0-4' ])
+    expect(originSegment.tokens.map(token => token.word)).toEqual([ 'quae', 'sensu', 'volvuntur', 'vota', 'diurno' ])
+
+    alignment.splitToken(originSegment.tokens[1], 'sen su')
+
+    expect(originSegment.tokens.map(token => token.idWord)).toEqual([ '1-0-0', '1-0-1-s1-1', '1-0-1-s2-1', '1-0-2', '1-0-3', '1-0-4' ])
+    expect(originSegment.tokens.map(token => token.word)).toEqual([ 'quae', 'sen', 'su', 'volvuntur', 'vota', 'diurno' ])
+
+    expect(alignment.tokensEditHistory.steps.length).toEqual(1)
+    expect(alignment.tokensEditHistory.steps[0].type).toEqual(HistoryStep.types.SPLIT)
+
+    // we grouped not editted token - history is not cleared
+    await alignedGC.clickToken(originSegment.tokens[0])
+
+    expect(alignment.tokensEditHistory.steps.length).toEqual(1)
+    expect(alignment.tokensEditHistory.steps[0].type).toEqual(HistoryStep.types.SPLIT)
+
+    await alignedGC.clickToken(originSegment.tokens[1])
+
+    expect(alignment.tokensEditHistory.steps.length).toEqual(0)
+  })
+
+  it('16 Tokens Edit History Cases - clear history after grouping  - inserting - source', async () => {
+
+    const originDocSource = new SourceText('origin', {
+      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    const targetDocSource1 = new SourceText('target', {
+      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    const alignedGC = new AlignedGroupsController(appC.store)
+
+    let alignment = new Alignment()
+    alignment.updateOriginDocSource(originDocSource)
+    alignment.updateTargetDocSource(targetDocSource1)
+    await alignedGC.createAlignedTexts(alignment)
+
+    const allSegments = alignment.allAlignedTextsSegments
+    const originSegment = alignment.origin.alignedText.segments[0]
+
+    expect(originSegment.tokens.map(token => token.idWord)).toEqual([ '1-0-0', '1-0-1', '1-0-2', '1-0-3', '1-0-4' ])
+    expect(originSegment.tokens.map(token => token.word)).toEqual([ 'quae', 'sensu', 'volvuntur', 'vota', 'diurno' ])
+
+    alignment.insertTokens('Irina test', originSegment.tokens[1], 'next')
+
+    expect(originSegment.tokens.map(token => token.idWord)).toEqual([ '1-0-0', '1-0-1-nn-1', '1-0-1-na-1', '1-0-1-na-2', '1-0-2', '1-0-3', '1-0-4' ])
+    expect(originSegment.tokens.map(token => token.word)).toEqual([ 'quae', 'sensu', 'Irina', 'test', 'volvuntur', 'vota', 'diurno' ])
+
+    expect(alignment.tokensEditHistory.steps.length).toEqual(1)
+    expect(alignment.tokensEditHistory.steps[0].type).toEqual(HistoryStep.types.NEW)
+
+    // we grouped not editted token - history is not cleared
+    await alignedGC.clickToken(originSegment.tokens[0])
+
+    expect(alignment.tokensEditHistory.steps.length).toEqual(1)
+    expect(alignment.tokensEditHistory.steps[0].type).toEqual(HistoryStep.types.NEW)
+
+    await alignedGC.clickToken(originSegment.tokens[1])
+
+    expect(alignment.tokensEditHistory.steps.length).toEqual(0)
+  })
+
+  it('17 Tokens Edit History Cases - clear history after grouping  - inserting - target', async () => {
+
+    const originDocSource = new SourceText('origin', {
+      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    const targetDocSource1 = new SourceText('target', {
+      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    const alignedGC = new AlignedGroupsController(appC.store)
+
+    let alignment = new Alignment()
+    alignment.updateOriginDocSource(originDocSource)
+    alignment.updateTargetDocSource(targetDocSource1)
+    await alignedGC.createAlignedTexts(alignment)
+
+    const allSegments = alignment.allAlignedTextsSegments
+    const originSegment = alignment.origin.alignedText.segments[0]
+
+    expect(originSegment.tokens.map(token => token.idWord)).toEqual([ '1-0-0', '1-0-1', '1-0-2', '1-0-3', '1-0-4' ])
+    expect(originSegment.tokens.map(token => token.word)).toEqual([ 'quae', 'sensu', 'volvuntur', 'vota', 'diurno' ])
+
+    alignment.insertTokens('Irina test', originSegment.tokens[1], 'next')
+
+    expect(originSegment.tokens.map(token => token.idWord)).toEqual([ '1-0-0', '1-0-1-nn-1', '1-0-1-na-1', '1-0-1-na-2', '1-0-2', '1-0-3', '1-0-4' ])
+    expect(originSegment.tokens.map(token => token.word)).toEqual([ 'quae', 'sensu', 'Irina', 'test', 'volvuntur', 'vota', 'diurno' ])
+
+    expect(alignment.tokensEditHistory.steps.length).toEqual(1)
+    expect(alignment.tokensEditHistory.steps[0].type).toEqual(HistoryStep.types.NEW)
+
+    // we grouped not editted token - history is not cleared
+    await alignedGC.clickToken(originSegment.tokens[0])
+
+    expect(alignment.tokensEditHistory.steps.length).toEqual(1)
+    expect(alignment.tokensEditHistory.steps[0].type).toEqual(HistoryStep.types.NEW)
+
+    await alignedGC.clickToken(originSegment.tokens[2])
+
+    expect(alignment.tokensEditHistory.steps.length).toEqual(0)
+  })
+
+  it('18 Tokens Edit History Cases - clear history after grouping  - merging after undo', async () => {
+
+    const originDocSource = new SourceText('origin', {
+      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    const targetDocSource1 = new SourceText('target', {
+      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    const alignedGC = new AlignedGroupsController(appC.store)
+
+    let alignment = new Alignment()
+    alignment.updateOriginDocSource(originDocSource)
+    alignment.updateTargetDocSource(targetDocSource1)
+    await alignedGC.createAlignedTexts(alignment)
+
+    const allSegments = alignment.allAlignedTextsSegments
+    const originSegment = alignment.origin.alignedText.segments[0]
+
+    expect(originSegment.tokens.map(token => token.idWord)).toEqual([ '1-0-0', '1-0-1', '1-0-2', '1-0-3', '1-0-4' ])
+    expect(originSegment.tokens.map(token => token.word)).toEqual([ 'quae', 'sensu', 'volvuntur', 'vota', 'diurno' ])
+
+    alignment.mergeToken(originSegment.tokens[1], 'next')
+    expect(originSegment.tokens.map(token => token.idWord)).toEqual([ '1-0-0', '1-0-2-m-1', '1-0-3', '1-0-4' ])
+    expect(originSegment.tokens.map(token => token.word)).toEqual([ 'quae', 'sensu volvuntur', 'vota', 'diurno' ])
+
+    expect(alignment.tokensEditHistory.steps.length).toEqual(1)
+    expect(alignment.tokensEditHistory.steps[0].type).toEqual(HistoryStep.types.MERGE)
+
+    // we grouped not editted token - history is not cleared
+    await alignedGC.clickToken(originSegment.tokens[0])
+
+    expect(alignment.tokensEditHistory.steps.length).toEqual(1)
+    expect(alignment.tokensEditHistory.steps[0].type).toEqual(HistoryStep.types.MERGE)
+
+    alignment.undoTokensEditStep()
+    expect(originSegment.tokens.map(token => token.idWord)).toEqual([ '1-0-0', '1-0-1', '1-0-2', '1-0-3', '1-0-4' ])
+    expect(originSegment.tokens.map(token => token.word)).toEqual([ 'quae', 'sensu', 'volvuntur', 'vota', 'diurno' ])
+
+    expect(alignment.tokensEditHistory.steps.length).toEqual(1)
+    expect(alignment.tokensEditHistory.steps[0].type).toEqual(HistoryStep.types.MERGE)
+
+    await alignedGC.clickToken(originSegment.tokens[1])
+
+    expect(alignment.tokensEditHistory.steps.length).toEqual(0)
+  })
+
+  it('19 Tokens Edit History Cases - clear history after grouping  - deleting after undo', async () => {
+
+    const originDocSource = new SourceText('origin', {
+      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    const targetDocSource1 = new SourceText('target', {
+      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    const alignedGC = new AlignedGroupsController(appC.store)
+
+    let alignment = new Alignment()
+    alignment.updateOriginDocSource(originDocSource)
+    alignment.updateTargetDocSource(targetDocSource1)
+    await alignedGC.createAlignedTexts(alignment)
+
+    const allSegments = alignment.allAlignedTextsSegments
+    const originSegment = alignment.origin.alignedText.segments[0]
+
+    expect(originSegment.tokens.map(token => token.idWord)).toEqual([ '1-0-0', '1-0-1', '1-0-2', '1-0-3', '1-0-4' ])
+    expect(originSegment.tokens.map(token => token.word)).toEqual([ 'quae', 'sensu', 'volvuntur', 'vota', 'diurno' ])
+
+    alignment.deleteToken(originSegment.tokens[1])
+    expect(originSegment.tokens.map(token => token.idWord)).toEqual([ '1-0-0', '1-0-2', '1-0-3', '1-0-4' ])
+    expect(originSegment.tokens.map(token => token.word)).toEqual([ 'quae', 'volvuntur', 'vota', 'diurno' ])
+
+    expect(alignment.tokensEditHistory.steps.length).toEqual(1)
+    expect(alignment.tokensEditHistory.steps[0].type).toEqual(HistoryStep.types.DELETE)
+
+    alignment.undoTokensEditStep()
+    expect(originSegment.tokens.map(token => token.idWord)).toEqual([ '1-0-0', '1-0-1', '1-0-2', '1-0-3', '1-0-4' ])
+    expect(originSegment.tokens.map(token => token.word)).toEqual([ 'quae', 'sensu', 'volvuntur', 'vota', 'diurno' ])
+
+    expect(alignment.tokensEditHistory.steps.length).toEqual(1)
+    expect(alignment.tokensEditHistory.steps[0].type).toEqual(HistoryStep.types.DELETE)
+
+    await alignedGC.clickToken(originSegment.tokens[1])
+
+    expect(alignment.tokensEditHistory.steps.length).toEqual(0)
   })
 })
