@@ -15,7 +15,7 @@
                   {{ l10n.getMsgS('MAIN_MENU_TEXT_ALIGN_LINK') }}
           </button>
           <button class="alpheios-app-menu-link" id ="alpheios-main-menu-tokens-editor" :class="{ 'alpheios-app-menu-link-current': currentPage === 'tokens-editor-page' }"
-                  @click="showTokensEditor" :disabled="!alignEditAvailable">
+                  @click="showTokensEditor" :disabled="!tokensEditAvailable">
                   {{ l10n.getMsgS('MAIN_MENU_TEXT_EDIT_LINK') }}
           </button>
         </div>
@@ -48,6 +48,7 @@
 <script>
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import DownloadController from '@/lib/controllers/download-controller.js'
+import SettingsController from '@/lib/controllers/settings-controller.js'
 
 import DownloadIcon from '@/inline-icons/download.svg'
 import UploadIcon from '@/inline-icons/upload.svg'
@@ -122,6 +123,12 @@ export default {
     downloadTypes () {
       return Boolean(this.$store.state.alignmentUpdated) && 
              Object.values(DownloadController.downloadMethods).filter(method => method.allTexts && (!method.alignmentStarted || this.$alignedGC.alignmentGroupsWorkflowAvailable))
+    },
+    enableTokensEditorOptionItemValue () {
+      return this.$store.state.optionsUpdated && SettingsController.enableTokensEditor
+    },
+    tokensEditAvailable () {
+      return this.alignEditAvailable && this.enableTokensEditorOptionItemValue
     }
   },
   methods: {
