@@ -12,7 +12,7 @@
               {{ l10n.getMsgS('TEXT_EDITOR_HEADER_HELP') }}
           </button>
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-options"
-              @click="$modal.show('options-enter')">
+              @click="$modal.show('options-presets')">
               {{ l10n.getMsgS('TEXT_EDITOR_HEADER_OPTIONS') }}
           </button>
         </span>
@@ -53,7 +53,7 @@
       </help-popup>
       <save-popup @closeModal = "$modal.hide('save-enter')" mname = "save-enter" />
 
-      <options-text-enter-popup @closeModal = "$modal.hide('options-enter')" />
+      <options-presets-popup @closeModal = "$modal.hide('options-presets')" />
   </div>
 </template>
 <script>
@@ -64,7 +64,7 @@ import HelpPopup from '@/vue/common/help-popup.vue'
 import SavePopup from '@/vue/common/save-popup.vue'
 import SettingsController from '@/lib/controllers/settings-controller.js'
 
-import OptionsTextEnter from '@/vue/options/options-text-enter.vue'
+import OptionsPresetsList from '@/vue/options/options-presets-list.vue'
 
 import HelpBlockEnter from '@/vue/help-blocks/eng/help-block-enter.vue'
 
@@ -76,7 +76,7 @@ export default {
     helpPopup: HelpPopup,
     savePopup: SavePopup,
     helpBlockEnter: HelpBlockEnter,
-    optionsTextEnterPopup: OptionsTextEnter
+    optionsPresetsPopup: OptionsPresetsList
   },
   props: {  
   },

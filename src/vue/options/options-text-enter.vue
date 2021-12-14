@@ -89,9 +89,7 @@ export default {
     maxCharactersPerPart () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.maxCharactersPerPart
     }, 
-    versionData () {
-      return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`
-    },
+
     disableAnnotationsTypes () {
       return this.$store.state.updateAnnotations && this.$store.state.docSourceUpdated && this.$textC.hasAnnotations
     },

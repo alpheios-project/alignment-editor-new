@@ -64,6 +64,12 @@ div.alpheios-alignment-checkbox-block {
     }
   }
 
+  &.alpheios-alignment-checkbox-block__disabled {
+    label {
+      color: #8e8e8e;
+    }
+  }
+
   input[type="checkbox"] + label::after {
     content: none;
   }

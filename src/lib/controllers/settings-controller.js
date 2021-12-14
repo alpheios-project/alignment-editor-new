@@ -2,6 +2,7 @@ import { Options, LocalStorageArea, PsEvent, TempStorageArea } from 'alpheios-da
 
 import DefaultAppSettings from '@/settings/default-app-settings.json'
 import DefaultSourceTextSettings from '@/settings/default-source-text-settings.json'
+import DefaultInnerSettings from '@/settings/default-inner-settings.json'
 
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 
@@ -21,7 +22,8 @@ export default class SettingsController {
 
     this.defaultSettings = {
       app: DefaultAppSettings,
-      sourceText: DefaultSourceTextSettings
+      sourceText: DefaultSourceTextSettings,
+      inner: DefaultInnerSettings
     }
 
     this.options = {}
@@ -47,6 +49,8 @@ export default class SettingsController {
 
     await Promise.all(optionsPromises)
     Object.values(_instance.options.app.items).forEach(optionItem => this.changeOption(optionItem))
+    Object.values(_instance.options.inner.items).forEach(optionItem => this.changeOption(optionItem))
+
     this.submitEventUpdateTheme()
   }
 
@@ -271,6 +275,9 @@ export default class SettingsController {
     await _instance.options.sourceText.reset()
     _instance.options.sourceText.checkAndUploadValuesFromArray(_instance.valuesClassesList)
     Object.values(_instance.options.sourceText.items).forEach(optionItem => this.changeOption(optionItem))
+
+    await _instance.options.inner.reset()
+    Object.values(_instance.options.inner.items).forEach(optionItem => this.changeOption(optionItem))
 
     _instance.store.commit('incrementResetOptions')
   }

@@ -6,6 +6,38 @@ import DefaultAppSettings from '@/settings/default-app-settings.json'
 import { Options, TempStorageArea } from 'alpheios-data-models'
 
 export default class OptionsPreset {
+  constructor (defaults, storageAdapter) {
+    if (!defaults || !defaults.domain || !defaults.items || !defaults.version) {
+      throw new Error('Defaults have no obligatory "domain", "version" and "items" properties')
+    }
+    if (!storageAdapter) {
+      throw new Error('No storage adapter implementation provided')
+    }
+
+    this.defaults = defaults
+    this.domain = defaults.domain
+    this.version = defaults.version.toString()
+    this.storageAdapter = storageAdapter
+    this.items = defaults.items
+  }
+
+  save () {
+    const items = JSON.stringify(this.items)
+
+    this.storageAdapter.set(items).then(
+      () => {
+        // Options storage succeeded
+      },
+      (errorMessage) => {
+        console.error(`Unexpected error storing Alpheios options preset ${this.domain}: ${errorMessage}`)
+      }
+    )
+  }
+
+  async load () {
+    const values = await this.storageAdapter.get()
+    console.info('load - ', values)
+  }
 
   static get defaultPreset () {
     return 'standard'

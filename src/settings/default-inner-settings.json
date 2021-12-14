@@ -1,0 +1,25 @@
+{
+    "domain": "alpheios-alignment-editor-inner",
+    "version": "1",
+    "items": {
+      "preset": {
+        "defaultValue": "standard",
+        "labelText": "Preset",
+        "radio": true,
+        "values": [
+          {
+            "value": "standard",
+            "text": "Standard"
+          },
+          {
+            "value": "advanced",
+            "text": "Advanced"
+          },
+          {
+            "value": "custom",
+            "text": "Custom"
+          }
+        ]
+      }
+    }
+}
