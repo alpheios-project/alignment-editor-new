@@ -1,8 +1,8 @@
 {
   "type": "preset",
-  "domain": "alpheios-alignment-editor-standard-preset",
-  "name": "standard",
-  "label": "Standard",
+  "domain": "alpheios-alignment-editor-custom-preset",
+  "name": "custom",
+  "label": "Custom",
   "version": "1",
   "items": {
     "theme": "v1-theme",

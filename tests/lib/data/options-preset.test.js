@@ -32,7 +32,7 @@ describe('options-preset.test.js', () => {
     jest.spyOn(console, 'warn')
   })
 
-  it('1 OptionsPreset - availablePresets', () => {
+  it.skip('1 OptionsPreset - availablePresets', () => {
     const availablePresets = OptionsPreset.availablePresets
 
     expect(Object.keys(availablePresets).length).toEqual(2)
@@ -40,7 +40,7 @@ describe('options-preset.test.js', () => {
     expect(availablePresets.advanced).toEqual(PresetAdvancedAppSettings)
   })
 
-  it('2 OptionsPreset - upload - uploads preset values to given options', () => {
+  it.skip('2 OptionsPreset - upload - uploads preset values to given options', () => {
     const availablePresets = OptionsPreset.availablePresets
 
     const testAppOptions = new Options(DefaultAppSettings, new LocalStorageArea('alpheios-app-options'))
@@ -56,7 +56,7 @@ describe('options-preset.test.js', () => {
     expect(testAppOptions.items.enableTokensEditor.currentValue).toEqual(false) // it is for standard preset
   })
 
-  it('3 OptionsPreset - upload - if it is incorrect presetName it uploads deafult preset', () => {
+  it.skip('3 OptionsPreset - upload - if it is incorrect presetName it uploads deafult preset', () => {
     const testAppOptions = new Options(DefaultAppSettings, new LocalStorageArea('alpheios-app-options'))
     
     testAppOptions.items.enableTokensEditor.setValue(true) // now it is not as in default preset standard
@@ -65,7 +65,7 @@ describe('options-preset.test.js', () => {
     expect(testAppOptions.items.enableTokensEditor.currentValue).toEqual(false) // it is upload from standard
   })
 
-  it('4 OptionsPreset - prepareTemplateAppOptionsByPreset - prepares Options', () => {
+  it.skip('4 OptionsPreset - prepareTemplateAppOptionsByPreset - prepares Options', () => {
     const testAppOptions1 = OptionsPreset.prepareTemplateAppOptionsByPreset('standard')
 
     expect(testAppOptions1).toBeInstanceOf(Options)

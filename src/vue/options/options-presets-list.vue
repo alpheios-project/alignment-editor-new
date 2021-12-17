@@ -22,7 +22,9 @@
                 </span>
             </p>
 
-            <options-preset-details v-show="showOptions" :readOnly = "readOnlyPresetDetails"/>
+            <options-preset-details 
+                  v-show="showOptions" v-if = "optionsForPresetDetails" :readOnly = "readOnlyPresetDetails" 
+                  :options = "optionsForPresetDetails" @updateData = "updatePreset"/>
           </div>
 
 
@@ -59,7 +61,8 @@ export default {
       shownPreset: null,
       showOptions: false,
       showPresets: true,
-      readOnlyPresetDetails: true
+      readOnlyPresetDetails: true,
+      optionsForPresetDetails: null
     }
   },
   mounted () {
@@ -83,6 +86,9 @@ export default {
     },
     presetItem () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.inner.items.preset
+    },
+    appOptions () {
+      return SettingsController.allOptions.app
     }
   },
   methods: {
@@ -94,6 +100,14 @@ export default {
       this.presetItem.setValue(this.selectedPreset)
       
       SettingsController.changeOption(this.presetItem)
+
+      this.saveOptionsFromPreset()
+    },
+    saveOptionsFromPreset () {
+      const preset = SettingsController.allOptionsPresets[this.presetItem.currentValue]
+      preset.upload(this.appOptions)
+
+      Object.values(this.appOptions.items).forEach(optionItem => SettingsController.changeOption(optionItem))
     },
     presetValsClass (value) {
       return {
@@ -101,16 +115,21 @@ export default {
         'alpheios-preset-item-value-block-selected': this.selectedPreset === value
       }
     },
-    showPresetDetailsModal (preset) {
-      this.readOnlyPresetDetails = (preset.value === 'custom') ? false : true
-      this.shownPreset = preset
+    showPresetDetailsModal (presetData) {
+      this.readOnlyPresetDetails = (presetData.value === 'custom') ? false : true
+      this.shownPreset = presetData
 
       this.showPresets = false
+
+      const preset = SettingsController.allOptionsPresets[presetData.value]
+      this.optionsForPresetDetails = preset.prepareTemplateAppOptionsByPreset()
+
       this.showOptions = true
       
     },
     showPresetsModal () {
       this.showOptions = false
+      this.optionsForPresetDetails = null
       this.showPresets = true
 
       this.shownPreset = null
@@ -120,6 +139,19 @@ export default {
         this.$emit('closeModal')
       } else {
         this.showPresetsModal()
+      }
+    },
+
+    updatePreset (optionName) {
+      const preset = SettingsController.allOptionsPresets[this.shownPreset.value]
+
+      if (optionName && this.showOptions && preset.storageAdapter) {
+        preset.items[optionName] = this.optionsForPresetDetails.items[optionName].currentValue
+        preset.save()
+      }
+
+      if (preset.name === this.selectedPreset) {
+        this.saveOptionsFromPreset()
       }
     }
   }

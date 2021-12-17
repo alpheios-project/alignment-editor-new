@@ -1,5 +1,6 @@
 {
   "type": "preset",
+  "domain": "alpheios-alignment-editor-standard-preset",
   "name": "standard",
   "label": "Standard",
   "version": "1",
