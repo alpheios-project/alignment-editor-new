@@ -284,6 +284,9 @@ div.alpheios-alignment-checkbox-block {
   left: 3px;
   top: 6px;
 }
+.alpheios-alignment-checkbox-block.alpheios-alignment-checkbox-block__disabled label {
+  color: #8e8e8e;
+}
 .alpheios-alignment-checkbox-block input[type=checkbox] + label::after {
   content: none;
 }
@@ -1443,6 +1446,12 @@ button.alpheios-app-menu-link:-moz-focusring {
   margin-top: 0;
   margin-bottom: 0;
 }
+.alpheios-alignment-option-item p.alpheios-alignment-radio-block > span {
+  display: inline-block;
+}
+.alpheios-alignment-option-item p.alpheios-alignment-radio-block.alpheios-each-line-radio > span {
+  display: block;
+}
 .alpheios-alignment-option-item .alpheios-alignment-select-input__select-container span,
 .alpheios-alignment-option-item .alpheios-alignment-select-input__input-container span {
   min-width: 160px;
@@ -2007,12 +2016,46 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 }
 .alpheios-alignment-editor-modal-options .alpheios-alignment-editor-modal-options-block {
   padding: 10px;
+  text-align: center;
 }
-.alpheios-alignment-editor-modal-options .alpheios-alignment-editor-modal-header {
-  margin-bottom: 10px;
+.alpheios-alignment-editor-modal-options .alpheios-preset-item-value-block {
+  display: inline-block;
+  border: 2px solid #e8e8e8;
+  padding: 20px;
+  background: #ddd;
+  margin: 10px;
+  cursor: pointer;
+  min-width: 110px;
+  font-weight: bold;
+  border-radius: 10px;
 }
-.alpheios-alignment-editor-modal-options .alpheios-alignment-options__buttons {
-  margin: 0;
+.alpheios-alignment-editor-modal-options .alpheios-preset-item-value-block .alpheios-preset-item-value-block__text {
+  display: block;
+  text-align: center;
+}
+.alpheios-alignment-editor-modal-options .alpheios-preset-item-value-block .alpheios-preset-item-value-block__icons {
+  display: block;
+  text-align: center;
+}
+.alpheios-alignment-editor-modal-options .alpheios-preset-item-value-block .alpheios-preset-item-value-block__icons .alpheios-alignment-icon {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+.alpheios-alignment-editor-modal-options .alpheios-preset-item-value-block .alpheios-preset-item-value-block__icons .alpheios-alignment-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  fill: #000;
+}
+.alpheios-alignment-editor-modal-options .alpheios-preset-item-value-block.alpheios-preset-item-value-block-selected {
+  border-color: #588598;
+  background: #46788d;
+  color: #fff;
+}
+.alpheios-alignment-editor-modal-options .alpheios-preset-item-value-block.alpheios-preset-item-value-block-selected .alpheios-preset-item-value-block__icons .alpheios-alignment-icon svg {
+  fill: #fff;
 }
 .alpheios-editor-help-content {
   text-indent: 10px;

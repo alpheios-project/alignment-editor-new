@@ -57,6 +57,11 @@ export default class StoreDefinition {
         libBuildName: this.libBuildName,
         libBuildNameForDisplay: this.libBuildNameForDisplay
       },
+      getters: {
+        libVersionData (state) {
+          return `${state.libName} ${state.libVersion} (${state.libBuildNameForDisplay})`
+        }
+      },
       mutations: {
         incrementAlignmentUpdated (state) {
           state.alignmentUpdated++

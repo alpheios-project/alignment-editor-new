@@ -49,14 +49,15 @@
         @change = "changeOption"
     >
 
-    <div class="alpheios-alignment-checkbox-block alpheios-alignment-option-item__control" v-if="optionType === 'boolean'">
-      <input type="checkbox" v-model="selected" :id="itemId" @change = "changeOption">
+    <div class="alpheios-alignment-checkbox-block alpheios-alignment-option-item__control" v-if="optionType === 'boolean'"
+         :class = "{ 'alpheios-alignment-checkbox-block__disabled': disabled }">
+      <input type="checkbox" v-model="selected" :id="itemId" @change = "changeOption" :disabled="disabled">
       <label :for="itemId" >{{ checkboxLabel }}
         <span v-html="labelText" v-if="showCheckboxTitle"></span>
       </label>
     </div>
 
-    <p class = "alpheios-alignment-radio-block alpheios-alignment-option-item__control" v-if="optionType === 'radio'">
+    <p class = "alpheios-alignment-radio-block alpheios-alignment-option-item__control" v-if="optionType === 'radio'" :class = "radioClasses">
         <span v-for="item in values" :key="item.value">
             <input type="radio" :id="itemIdWithValue(item.value)" :value="item.value" v-model="selected"
                    @change="changeOption" :disabled="disabled" >
@@ -125,6 +126,11 @@ export default {
       type: String,
       required: false,
       default: ''
+    },
+    inline: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   data () {
@@ -201,6 +207,11 @@ export default {
     },
     selectedSI () {
       return this.selectedI ? this.selectedI : this.selectedS
+    },
+    radioClasses () {
+      return {
+        'alpheios-each-line-radio': !this.inline
+      }
     }
   },
   methods: {
@@ -279,6 +290,15 @@ export default {
   p.alpheios-alignment-radio-block {
     margin-top: 0;
     margin-bottom: 0;
+
+    & > span {
+      display: inline-block;
+    }
+    &.alpheios-each-line-radio {
+      & > span  {
+        display: block;
+      }
+    }
   }
 
   .alpheios-alignment-select-input__select-container,
