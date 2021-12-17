@@ -16,7 +16,18 @@ export default class OptionsPreset {
     this.domain = defaults.domain
     this.version = defaults.version.toString()
     this.storageAdapter = storageAdapter
-    this.items = defaults.items
+    this.items = Object.assign({}, defaults.items)
+  }
+
+  static get defaultPreset () {
+    return 'standard'
+  }
+
+  static get availablePresets () {
+    return {
+      standard: PresetStandardAppSettings,
+      advanced: PresetAdvancedAppSettings
+    }
   }
 
   get formattedItemsForStorage () {
@@ -29,7 +40,7 @@ export default class OptionsPreset {
     return items
   }
 
-  formatValuesFromStorage (values) {
+  formatAndUploadItemsValuesFromStorage (values) {
     const defaults = DefaultAppSettings.items
 
     Object.keys(values).forEach(itemKeyFormatted => {
@@ -63,18 +74,7 @@ export default class OptionsPreset {
   async load () {
     if (!this.storageAdapter) { return }
     const values = await this.storageAdapter.get()
-    this.formatValuesFromStorage(values)
-  }
-
-  static get defaultPreset () {
-    return 'standard'
-  }
-
-  static get availablePresets () {
-    return {
-      standard: PresetStandardAppSettings,
-      advanced: PresetAdvancedAppSettings
-    }
+    this.formatAndUploadItemsValuesFromStorage(values)
   }
 
   static getPresetByName (presetName) {
@@ -102,5 +102,19 @@ export default class OptionsPreset {
     const optionsTemplate = new Options(DefaultAppSettings, new TempStorageArea(presetDefaults.domain))
 
     return this.upload(optionsTemplate)
+  }
+
+  async reset () {
+    if (this.hasStorageClearAll) {
+      await this.storageAdapter.clearAll()
+    }
+    this.items = Object.assign({}, this.defaults.items)
+  }
+
+  get hasStorageClearAll () {
+    const hasClearAll = ['ExtensionSyncStorage', 'LocalStorageArea', 'RemoteAuthStorageArea']
+
+    const storageConstructor = this.storageAdapter.storageConstructor
+    return hasClearAll.includes(storageConstructor)
   }
 }

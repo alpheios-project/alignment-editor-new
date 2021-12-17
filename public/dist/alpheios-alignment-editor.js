@@ -46060,7 +46060,18 @@ class OptionsPreset {
     this.domain = defaults.domain
     this.version = defaults.version.toString()
     this.storageAdapter = storageAdapter
-    this.items = defaults.items
+    this.items = Object.assign({}, defaults.items)
+  }
+
+  static get defaultPreset () {
+    return 'standard'
+  }
+
+  static get availablePresets () {
+    return {
+      standard: _settings_preset_standard_app_settings_json__WEBPACK_IMPORTED_MODULE_0__,
+      advanced: _settings_preset_advanced_app_settings_json__WEBPACK_IMPORTED_MODULE_1__
+    }
   }
 
   get formattedItemsForStorage () {
@@ -46073,7 +46084,7 @@ class OptionsPreset {
     return items
   }
 
-  formatValuesFromStorage (values) {
+  formatAndUploadItemsValuesFromStorage (values) {
     const defaults = _settings_default_app_settings_json__WEBPACK_IMPORTED_MODULE_2__.items
 
     Object.keys(values).forEach(itemKeyFormatted => {
@@ -46107,18 +46118,7 @@ class OptionsPreset {
   async load () {
     if (!this.storageAdapter) { return }
     const values = await this.storageAdapter.get()
-    this.formatValuesFromStorage(values)
-  }
-
-  static get defaultPreset () {
-    return 'standard'
-  }
-
-  static get availablePresets () {
-    return {
-      standard: _settings_preset_standard_app_settings_json__WEBPACK_IMPORTED_MODULE_0__,
-      advanced: _settings_preset_advanced_app_settings_json__WEBPACK_IMPORTED_MODULE_1__
-    }
+    this.formatAndUploadItemsValuesFromStorage(values)
   }
 
   static getPresetByName (presetName) {
@@ -46146,6 +46146,20 @@ class OptionsPreset {
     const optionsTemplate = new alpheios_data_models__WEBPACK_IMPORTED_MODULE_3__.Options(_settings_default_app_settings_json__WEBPACK_IMPORTED_MODULE_2__, new alpheios_data_models__WEBPACK_IMPORTED_MODULE_3__.TempStorageArea(presetDefaults.domain))
 
     return this.upload(optionsTemplate)
+  }
+
+  async reset () {
+    if (this.hasStorageClearAll) {
+      await this.storageAdapter.clearAll()
+    }
+    this.items = Object.assign({}, this.defaults.items)
+  }
+
+  get hasStorageClearAll () {
+    const hasClearAll = ['ExtensionSyncStorage', 'LocalStorageArea', 'RemoteAuthStorageArea']
+
+    const storageConstructor = this.storageAdapter.storageConstructor
+    return hasClearAll.includes(storageConstructor)
   }
 }
 
@@ -48732,7 +48746,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i6177-options-presets.20211217345" : 0
+    return  true ? "i6177-options-presets.20211217549" : 0
   }
 
   static get libName () {
@@ -52749,7 +52763,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inline_icons_show_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/inline-icons/show.svg */ "./inline-icons/show.svg");
 /* harmony import */ var _inline_icons_show_svg__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_show_svg__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
-/* harmony import */ var _vue_options_options_preset_details_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/options/options-preset-details.vue */ "./vue/options/options-preset-details.vue");
+/* harmony import */ var _lib_data_options_preset_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/data/options-preset.js */ "./lib/data/options-preset.js");
+/* harmony import */ var _vue_options_options_preset_details_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/options/options-preset-details.vue */ "./vue/options/options-preset-details.vue");
 //
 //
 //
@@ -52790,6 +52805,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 
 
@@ -52803,7 +52828,7 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_1___default()),
     showIcon: (_inline_icons_show_svg__WEBPACK_IMPORTED_MODULE_2___default()),
-    optionsPresetDetails: _vue_options_options_preset_details_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+    optionsPresetDetails: _vue_options_options_preset_details_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
   props: {
   },
@@ -52905,6 +52930,16 @@ __webpack_require__.r(__webpack_exports__);
       if (preset.name === this.selectedPreset) {
         this.saveOptionsFromPreset()
       }
+    },
+
+    async resetOptions () {
+      const customPreset = _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_0__["default"].allOptionsPresets.custom
+
+      await customPreset.reset()
+
+      await _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_0__["default"].allOptions.inner.reset()
+
+      this.changeOption(_lib_data_options_preset_js__WEBPACK_IMPORTED_MODULE_4__["default"].defaultPreset)
     }
   }
 });
@@ -64506,16 +64541,40 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "alpheios-alignment-options__aboutcont" }, [
-        _c("h3", [
-          _vm._v(_vm._s(_vm.l10n.getMsgS("OPTIONS_BLOCK_INFO_ABOUT")))
+      _c("div", { staticClass: "alpheios-modal-footer" }, [
+        _c("p", { staticClass: "alpheios-alignment-options__buttons" }, [
+          _c(
+            "button",
+            {
+              staticClass:
+                "alpheios-editor-button-tertiary alpheios-options-button alpheios-options-reset-all",
+              on: { click: _vm.resetOptions }
+            },
+            [
+              _vm._v(
+                "\n              " +
+                  _vm._s(_vm.l10n.getMsgS("OPTIONS_BLOCK_RESET_ALL")) +
+                  "\n          "
+              )
+            ]
+          )
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "alpheios-alignment-options__versiontext" }, [
-          _vm._v(
-            "\n          " +
-              _vm._s(_vm.$store.getters.libVersionData) +
-              "\n          "
+        _c("div", { staticClass: "alpheios-alignment-options__aboutcont" }, [
+          _c("h3", [
+            _vm._v(_vm._s(_vm.l10n.getMsgS("OPTIONS_BLOCK_INFO_ABOUT")))
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "alpheios-alignment-options__versiontext" },
+            [
+              _vm._v(
+                "\n            " +
+                  _vm._s(_vm.$store.getters.libVersionData) +
+                  "\n          "
+              )
+            ]
           )
         ])
       ])
@@ -69279,7 +69338,7 @@ module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-source-text","
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"type":"preset","domain":"alpheios-alignment-editor-advanced-preset","name":"advanced","label":"Advanced","version":"1","items":{"theme":"standard-theme","tokenizer":"alpheiosRemoteTokenizer","allowUpdateTokenWord":true,"maxCharactersPerText":5000,"useSpecificEnglishTokenizer":false,"showSummaryPopup":true,"maxCharactersPerPart":1000,"addIndexedDBSupport":true,"availableAnnotationTypes":["COMMENT","LEMMAID","MORPHOLOGY"],"maxCharactersAnnotationText":500,"enableTokensEditor":true}}');
+module.exports = JSON.parse('{"type":"preset","domain":"alpheios-alignment-editor-advanced-preset","name":"advanced","label":"Advanced","version":"1","items":{"theme":"v1-theme","tokenizer":"alpheiosRemoteTokenizer","allowUpdateTokenWord":true,"maxCharactersPerText":5000,"useSpecificEnglishTokenizer":false,"showSummaryPopup":true,"maxCharactersPerPart":1000,"addIndexedDBSupport":true,"availableAnnotationTypes":["COMMENT","LEMMAID","MORPHOLOGY"],"maxCharactersAnnotationText":500,"enableTokensEditor":true}}');
 
 /***/ }),
 

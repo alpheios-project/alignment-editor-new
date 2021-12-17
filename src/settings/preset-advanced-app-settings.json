@@ -5,7 +5,7 @@
   "label": "Advanced",
   "version": "1",
   "items": {
-    "theme": "standard-theme",
+    "theme": "v1-theme",
     "tokenizer": "alpheiosRemoteTokenizer",
     "allowUpdateTokenWord": true,
     "maxCharactersPerText": 5000,

@@ -3,12 +3,14 @@
 
 import PresetStandardAppSettings from '@/settings/preset-standard-app-settings.json'
 import PresetAdvancedAppSettings from '@/settings/preset-advanced-app-settings.json'
+import PresetCustomAppSettings from '@/settings/preset-custom-app-settings.json'
+
 import DefaultAppSettings from '@/settings/default-app-settings.json'
 
 import OptionsPreset from '@/lib/data/options-preset.js'
 import AppController from '@/lib/controllers/app-controller.js'
 
-import { LocalStorageArea, Options } from 'alpheios-data-models'
+import { LocalStorageArea, TempStorageArea, Options } from 'alpheios-data-models'
 
 describe('options-preset.test.js', () => {
   console.error = function () {}
@@ -32,7 +34,7 @@ describe('options-preset.test.js', () => {
     jest.spyOn(console, 'warn')
   })
 
-  it.skip('1 OptionsPreset - availablePresets', () => {
+  it('1 OptionsPreset - availablePresets', () => {
     const availablePresets = OptionsPreset.availablePresets
 
     expect(Object.keys(availablePresets).length).toEqual(2)
@@ -40,40 +42,88 @@ describe('options-preset.test.js', () => {
     expect(availablePresets.advanced).toEqual(PresetAdvancedAppSettings)
   })
 
-  it.skip('2 OptionsPreset - upload - uploads preset values to given options', () => {
-    const availablePresets = OptionsPreset.availablePresets
-
-    const testAppOptions = new Options(DefaultAppSettings, new LocalStorageArea('alpheios-app-options'))
-
-    expect(testAppOptions.items.enableTokensEditor.currentValue).toEqual(false) // it is default value
-
-    OptionsPreset.upload('advanced', testAppOptions)
-
-    expect(testAppOptions.items.enableTokensEditor.currentValue).toEqual(true) // it is for advanced preset
-
-    OptionsPreset.upload('standard', testAppOptions)
-
-    expect(testAppOptions.items.enableTokensEditor.currentValue).toEqual(false) // it is for standard preset
+  it('2 OptionsPreset - defaultPreset', () => {
+    expect(OptionsPreset.defaultPreset).toEqual('standard')
   })
 
-  it.skip('3 OptionsPreset - upload - if it is incorrect presetName it uploads deafult preset', () => {
-    const testAppOptions = new Options(DefaultAppSettings, new LocalStorageArea('alpheios-app-options'))
+  it('3 OptionsPreset - new OptionsPreset', () => {   
+    const defaults = PresetStandardAppSettings
+    const standardPreset = new OptionsPreset(defaults, new TempStorageArea('alpheios-preset-test'))
     
-    testAppOptions.items.enableTokensEditor.setValue(true) // now it is not as in default preset standard
+    expect(standardPreset.defaults).toEqual(defaults)
+    expect(standardPreset.name).toEqual(defaults.name)
+    expect(standardPreset.domain).toEqual(defaults.domain)
+    expect(standardPreset.version).toEqual(defaults.version)
+    expect(standardPreset.storageAdapter).toBeInstanceOf(TempStorageArea)
 
-    OptionsPreset.upload('fake', testAppOptions)
-    expect(testAppOptions.items.enableTokensEditor.currentValue).toEqual(false) // it is upload from standard
+    expect(standardPreset.items.length).toEqual(defaults.items.length)
   })
 
-  it.skip('4 OptionsPreset - prepareTemplateAppOptionsByPreset - prepares Options', () => {
-    const testAppOptions1 = OptionsPreset.prepareTemplateAppOptionsByPreset('standard')
+
+  it('4 OptionsPreset - formattedItemsForStorage', () => {   
+    const defaults = PresetStandardAppSettings
+    const standardPreset = new OptionsPreset(defaults, new TempStorageArea('alpheios-preset-test'))
+    
+    const unformattedItemsKeys = Object.keys(standardPreset.items)
+    expect(unformattedItemsKeys.every(itemKey => itemKey.indexOf('alpheios-standard-') === -1)).toBeTruthy()
+
+    const formattedKeys = Object.keys(standardPreset.formattedItemsForStorage)
+    expect(formattedKeys.every(itemKey => itemKey.indexOf('alpheios-standard-') === 0)).toBeTruthy()
+  })
+
+  it('5 OptionsPreset - formatAndUploadItemsValuesFromStorage', async () => {   
+    const defaults = PresetStandardAppSettings
+    const standardPreset = new OptionsPreset(defaults, new TempStorageArea('alpheios-preset-test'))
+
+    const formattedItems = standardPreset.formattedItemsForStorage
+    let finalItemsFromStorage = {}
+
+    Object.keys(formattedItems).forEach(itemKey => {
+      finalItemsFromStorage[itemKey] = formattedItems[itemKey].toString()
+    })
+
+    expect(standardPreset.items.enableTokensEditor).toBeFalsy()
+    
+    finalItemsFromStorage['alpheios-standard-enableTokensEditor'] = 'true'
+
+    standardPreset.formatAndUploadItemsValuesFromStorage(finalItemsFromStorage)
+
+    expect(standardPreset.items.enableTokensEditor).toBeTruthy()
+
+    await standardPreset.reset()
+
+    expect(standardPreset.items.enableTokensEditor).toBeFalsy()
+  })
+
+  it('6 OptionsPreset - upload - uploads preset values to given options', () => {
+    const standardPreset = new OptionsPreset(PresetStandardAppSettings, new TempStorageArea('alpheios-preset-test'))
+    const advancedPreset = new OptionsPreset(PresetAdvancedAppSettings, new TempStorageArea('alpheios-preset-test'))
+
+    const testAppOptions = new Options(DefaultAppSettings, new LocalStorageArea('alpheios-app-options'))
+
+    expect(testAppOptions.items.enableTokensEditor.currentValue).toBeFalsy() // it is default value
+
+    advancedPreset.upload(testAppOptions)
+
+    expect(testAppOptions.items.enableTokensEditor.currentValue).toBeTruthy() // it is for advanced preset
+
+    standardPreset.upload(testAppOptions)
+
+    expect(testAppOptions.items.enableTokensEditor.currentValue).toBeFalsy() // it is for standard preset
+  })
+
+  it('7 OptionsPreset - prepareTemplateAppOptionsByPreset - prepares Options', () => {
+    const standardPreset = new OptionsPreset(PresetStandardAppSettings, new TempStorageArea('alpheios-preset-test'))
+    const advancedPreset = new OptionsPreset(PresetAdvancedAppSettings, new TempStorageArea('alpheios-preset-test'))
+
+    const testAppOptions1 = standardPreset.prepareTemplateAppOptionsByPreset()
 
     expect(testAppOptions1).toBeInstanceOf(Options)
-    expect(testAppOptions1.items.enableTokensEditor.currentValue).toEqual(false) // it is standard
+    expect(testAppOptions1.items.enableTokensEditor.currentValue).toBeFalsy() // it is standard
 
-    const testAppOptions2 = OptionsPreset.prepareTemplateAppOptionsByPreset('advanced')
+    const testAppOptions2 = advancedPreset.prepareTemplateAppOptionsByPreset()
 
     expect(testAppOptions2).toBeInstanceOf(Options)
-    expect(testAppOptions2.items.enableTokensEditor.currentValue).toEqual(true) // it is advanced
+    expect(testAppOptions2.items.enableTokensEditor.currentValue).toBeTruthy() // it is advanced
   })
 })

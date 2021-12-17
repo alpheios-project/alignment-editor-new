@@ -30,11 +30,19 @@
 
         </div>
 
-        <div class="alpheios-alignment-options__aboutcont">
+        <div class="alpheios-modal-footer" >
+          <p class="alpheios-alignment-options__buttons">
+            <button class="alpheios-editor-button-tertiary alpheios-options-button alpheios-options-reset-all" 
+                @click="resetOptions" >
+                {{ l10n.getMsgS('OPTIONS_BLOCK_RESET_ALL') }}
+            </button>
+          </p>
+          <div class="alpheios-alignment-options__aboutcont">
             <h3>{{ l10n.getMsgS('OPTIONS_BLOCK_INFO_ABOUT') }}</h3>
             <div class="alpheios-alignment-options__versiontext">
-            {{ $store.getters.libVersionData }}
+              {{ $store.getters.libVersionData }}
             </div>
+          </div>
         </div>
   </modal>
 </template>
@@ -43,6 +51,8 @@ import SettingsController from '@/lib/controllers/settings-controller.js'
 import XCloseIcon from '@/inline-icons/x-close.svg'
 import ShowIcon from '@/inline-icons/show.svg'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
+
+import OptionsPreset from '@/lib/data/options-preset.js'
 
 import OptionsPresetDetails from '@/vue/options/options-preset-details.vue'
 
@@ -153,6 +163,16 @@ export default {
       if (preset.name === this.selectedPreset) {
         this.saveOptionsFromPreset()
       }
+    },
+
+    async resetOptions () {
+      const customPreset = SettingsController.allOptionsPresets['custom']
+
+      await customPreset.reset()
+
+      await SettingsController.allOptions.inner.reset()
+
+      this.changeOption(OptionsPreset.defaultPreset)
     }
   }
 }
