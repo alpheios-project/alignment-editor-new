@@ -48746,7 +48746,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i6177-options-presets.20211217549" : 0
+    return  true ? "i618-update-book-icon.20220114330" : 0
   }
 
   static get libName () {
