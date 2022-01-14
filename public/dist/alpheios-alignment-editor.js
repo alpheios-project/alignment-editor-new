@@ -39937,6 +39937,10 @@ class SettingsController {
     return _instance.options.app && _instance.options.app.items.enableTokensEditor ? _instance.options.app.items.enableTokensEditor.currentValue : false
   }
 
+  static get enableDTSAPIUpload () {
+    return _instance.options.app && _instance.options.app.items.enableDTSAPIUpload ? _instance.options.app.items.enableDTSAPIUpload.currentValue : false
+  }
+
   static get addIndexedDBSupport () {
     return _instance.options.app && _instance.options.app.items.addIndexedDBSupport ? _instance.options.app.items.addIndexedDBSupport.currentValue : 1000
   }
@@ -48746,7 +48750,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i618-update-book-icon.20220114331" : 0
+    return  true ? "i617-dts-option.20220114401" : 0
   }
 
   static get libName () {
@@ -52679,6 +52683,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -52718,7 +52725,9 @@ __webpack_require__.r(__webpack_exports__);
     enableTokensEditorOptionItem () {
       return this.options.items.enableTokensEditor
     },
-
+    enableDTSAPIUploadOptionItem () {
+      return this.options.items.enableDTSAPIUpload
+    },
     addIndexedDBSupportOptionItem () {
       return this.options.items.addIndexedDBSupport
     },
@@ -54275,6 +54284,10 @@ __webpack_require__.r(__webpack_exports__);
       return {
         'alpheios-alignment-editor-text-blocks-single__lang-icon_disabled': this.sourceTypeDisabled
       }
+    },
+
+    enableDTSAPIUploadValue () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].enableDTSAPIUpload
     }
   },
   methods: {
@@ -64289,6 +64302,19 @@ var render = function() {
       _vm._v(" "),
       _c("option-item-block", {
         attrs: {
+          optionItem: _vm.enableDTSAPIUploadOptionItem,
+          disabled: _vm.readOnly,
+          emitUpdateData: true
+        },
+        on: {
+          updateData: function($event) {
+            return _vm.$emit("updateData", "enableDTSAPIUpload")
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("option-item-block", {
+        attrs: {
           optionItem: _vm.availableAnnotationTypesOptionItem,
           disabled: _vm.disableAnnotationsTypes || _vm.readOnly,
           emitUpdateData: true
@@ -65934,8 +65960,8 @@ var render = function() {
             {
               name: "show",
               rawName: "v-show",
-              value: _vm.showTypeUploadButtons,
-              expression: "showTypeUploadButtons"
+              value: _vm.showTypeUploadButtons || !_vm.enableDTSAPIUploadValue,
+              expression: "showTypeUploadButtons || !enableDTSAPIUploadValue"
             }
           ]
         },
@@ -65952,6 +65978,14 @@ var render = function() {
           _c(
             "button",
             {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.enableDTSAPIUploadValue,
+                  expression: "enableDTSAPIUploadValue"
+                }
+              ],
               staticClass:
                 "alpheios-editor-button-tertiary alpheios-actions-menu-button",
               attrs: { id: "alpheios-actions-menu-button__uploadtext" },
@@ -65975,8 +66009,8 @@ var render = function() {
             {
               name: "show",
               rawName: "v-show",
-              value: _vm.showUploadMenu,
-              expression: "showUploadMenu"
+              value: _vm.showUploadMenu || !_vm.enableDTSAPIUploadValue,
+              expression: "showUploadMenu || !enableDTSAPIUploadValue"
             }
           ],
           staticClass: "alpheios-alignment-editor-actions-menu__upload-block"
@@ -65988,20 +66022,22 @@ var render = function() {
             on: { change: _vm.loadTextFromFile }
           }),
           _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass:
-                "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-              attrs: { id: "alpheios-actions-menu-button__metadata" },
-              on: {
-                click: function($event) {
-                  return _vm.$modal.show(_vm.uploadDtsModalName)
-                }
-              }
-            },
-            [_vm._v("\n            DTSAPI\n        ")]
-          )
+          _vm.enableDTSAPIUploadValue
+            ? _c(
+                "button",
+                {
+                  staticClass:
+                    "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+                  attrs: { id: "alpheios-actions-menu-button__metadata" },
+                  on: {
+                    click: function($event) {
+                      return _vm.$modal.show(_vm.uploadDtsModalName)
+                    }
+                  }
+                },
+                [_vm._v("\n            DTSAPI\n        ")]
+              )
+            : _vm._e()
         ]
       ),
       _vm._v(" "),
@@ -69305,7 +69341,7 @@ module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit text","de
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"1","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":true,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":true,"labelText":"Show language check before text would be prepared","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerPart":{"defaultValue":1000,"labelText":"Max characters per part (recommended for performance), to be used in Align Text","number":true,"minValue":1,"maxValue":50000,"values":[]},"addIndexedDBSupport":{"defaultValue":true,"labelText":"Add IndexedDB support","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"availableAnnotationTypes":{"defaultValue":["COMMENT","LEMMAID","MORPHOLOGY"],"labelText":"Available Annotation Types","multiValue":true,"values":[{"value":"COMMENT","text":"comment"},{"value":"LEMMAID","text":"lemmaID"},{"value":"MORPHOLOGY","text":"morphology"}]},"maxCharactersAnnotationText":{"defaultValue":500,"labelText":"Max characters in annotation text","number":true,"minValue":1,"maxValue":5000,"values":[]},"enableTokensEditor":{"defaultValue":false,"labelText":"Enable Tokens Editor Screen","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]}}}');
+module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"2","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":true,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":true,"labelText":"Show language check before text would be prepared","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerPart":{"defaultValue":1000,"labelText":"Max characters per part (recommended for performance), to be used in Align Text","number":true,"minValue":1,"maxValue":50000,"values":[]},"addIndexedDBSupport":{"defaultValue":true,"labelText":"Add IndexedDB support","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"availableAnnotationTypes":{"defaultValue":["COMMENT","LEMMAID","MORPHOLOGY"],"labelText":"Available Annotation Types","multiValue":true,"values":[{"value":"COMMENT","text":"comment"},{"value":"LEMMAID","text":"lemmaID"},{"value":"MORPHOLOGY","text":"morphology"}]},"maxCharactersAnnotationText":{"defaultValue":500,"labelText":"Max characters in annotation text","number":true,"minValue":1,"maxValue":5000,"values":[]},"enableTokensEditor":{"defaultValue":false,"labelText":"Enable Tokens Editor Screen","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableDTSAPIUpload":{"defaultValue":false,"labelText":"Enable upload from DTS API","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]}}}');
 
 /***/ }),
 
@@ -69338,7 +69374,7 @@ module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-source-text","
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"type":"preset","domain":"alpheios-alignment-editor-advanced-preset","name":"advanced","label":"Advanced","version":"1","items":{"theme":"v1-theme","tokenizer":"alpheiosRemoteTokenizer","allowUpdateTokenWord":true,"maxCharactersPerText":5000,"useSpecificEnglishTokenizer":false,"showSummaryPopup":true,"maxCharactersPerPart":1000,"addIndexedDBSupport":true,"availableAnnotationTypes":["COMMENT","LEMMAID","MORPHOLOGY"],"maxCharactersAnnotationText":500,"enableTokensEditor":true}}');
+module.exports = JSON.parse('{"type":"preset","domain":"alpheios-alignment-editor-advanced-preset","name":"advanced","label":"Advanced","version":"2","items":{"theme":"v1-theme","tokenizer":"alpheiosRemoteTokenizer","allowUpdateTokenWord":true,"maxCharactersPerText":5000,"useSpecificEnglishTokenizer":false,"showSummaryPopup":true,"maxCharactersPerPart":1000,"addIndexedDBSupport":true,"availableAnnotationTypes":["COMMENT","LEMMAID","MORPHOLOGY"],"maxCharactersAnnotationText":500,"enableTokensEditor":true,"enableDTSAPIUpload":true}}');
 
 /***/ }),
 
@@ -69349,7 +69385,7 @@ module.exports = JSON.parse('{"type":"preset","domain":"alpheios-alignment-edito
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"type":"preset","domain":"alpheios-alignment-editor-custom-preset","name":"custom","label":"Custom","version":"1","items":{"theme":"v1-theme","tokenizer":"alpheiosRemoteTokenizer","allowUpdateTokenWord":true,"maxCharactersPerText":5000,"useSpecificEnglishTokenizer":false,"showSummaryPopup":true,"maxCharactersPerPart":1000,"addIndexedDBSupport":true,"availableAnnotationTypes":["COMMENT","LEMMAID","MORPHOLOGY"],"maxCharactersAnnotationText":500,"enableTokensEditor":false}}');
+module.exports = JSON.parse('{"type":"preset","domain":"alpheios-alignment-editor-custom-preset","name":"custom","label":"Custom","version":"2","items":{"theme":"v1-theme","tokenizer":"alpheiosRemoteTokenizer","allowUpdateTokenWord":true,"maxCharactersPerText":5000,"useSpecificEnglishTokenizer":false,"showSummaryPopup":true,"maxCharactersPerPart":1000,"addIndexedDBSupport":true,"availableAnnotationTypes":["COMMENT","LEMMAID","MORPHOLOGY"],"maxCharactersAnnotationText":500,"enableTokensEditor":false,"enableDTSAPIUpload":false}}');
 
 /***/ }),
 
@@ -69360,7 +69396,7 @@ module.exports = JSON.parse('{"type":"preset","domain":"alpheios-alignment-edito
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"type":"preset","domain":"alpheios-alignment-editor-standard-preset","name":"standard","label":"Standard","version":"1","items":{"theme":"v1-theme","tokenizer":"alpheiosRemoteTokenizer","allowUpdateTokenWord":true,"maxCharactersPerText":5000,"useSpecificEnglishTokenizer":false,"showSummaryPopup":true,"maxCharactersPerPart":1000,"addIndexedDBSupport":true,"availableAnnotationTypes":["COMMENT","LEMMAID","MORPHOLOGY"],"maxCharactersAnnotationText":500,"enableTokensEditor":false}}');
+module.exports = JSON.parse('{"type":"preset","domain":"alpheios-alignment-editor-standard-preset","name":"standard","label":"Standard","version":"2","items":{"theme":"v1-theme","tokenizer":"alpheiosRemoteTokenizer","allowUpdateTokenWord":true,"maxCharactersPerText":5000,"useSpecificEnglishTokenizer":false,"showSummaryPopup":true,"maxCharactersPerPart":1000,"addIndexedDBSupport":true,"availableAnnotationTypes":["COMMENT","LEMMAID","MORPHOLOGY"],"maxCharactersAnnotationText":500,"enableTokensEditor":false,"enableDTSAPIUpload":false}}');
 
 /***/ })
 

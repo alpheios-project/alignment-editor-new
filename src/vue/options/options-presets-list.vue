@@ -198,9 +198,6 @@ export default {
 
   .alpheios-preset-item-value-block {
     display: inline-block;
-    border: 2px solid #e8e8e8;
-    padding: 20px;
-    background: #ddd;
     margin:10px;
     cursor: pointer;
     min-width: 110px;
@@ -209,6 +206,13 @@ export default {
     border-radius: 10px;
 
     .alpheios-preset-item-value-block__text {
+      border: 2px solid #e8e8e8;
+      padding: 10px;
+      background: #ddd;
+
+      margin-bottom: 10px;
+      border-radius: 10px;
+
       display: block;
       text-align: center;
     }
@@ -234,13 +238,15 @@ export default {
 
 
     &.alpheios-preset-item-value-block-selected {
-      border-color: #588598;
-      background: #46788d;
-      color: #fff;
+      .alpheios-preset-item-value-block__text {
+        border-color: #588598;
+        background: #46788d;
+        color: #fff;
+      }
 
       .alpheios-preset-item-value-block__icons .alpheios-alignment-icon {
         svg {
-          fill: #fff;
+          fill: #46788d;
         }
       }
     } 

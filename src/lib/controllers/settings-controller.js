@@ -113,6 +113,10 @@ export default class SettingsController {
     return _instance.options.app && _instance.options.app.items.enableTokensEditor ? _instance.options.app.items.enableTokensEditor.currentValue : false
   }
 
+  static get enableDTSAPIUpload () {
+    return _instance.options.app && _instance.options.app.items.enableDTSAPIUpload ? _instance.options.app.items.enableDTSAPIUpload.currentValue : false
+  }
+
   static get addIndexedDBSupport () {
     return _instance.options.app && _instance.options.app.items.addIndexedDBSupport ? _instance.options.app.items.addIndexedDBSupport.currentValue : 1000
   }

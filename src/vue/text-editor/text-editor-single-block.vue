@@ -14,17 +14,17 @@
           </tooltip>
         </span>
       </p>
-      <div v-show="showTypeUploadButtons" >
+      <div v-show="showTypeUploadButtons || !enableDTSAPIUploadValue" >
         <span class="alpheios-alignment-editor-text-blocks-single__type-label">{{ l10n.getMsgS('TEXT_SINGLE_TYPE_LABEL') }}</span>
         <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  id="alpheios-actions-menu-button__uploadtext"
-            @click="selectUploadText">
+            @click="selectUploadText" v-show="enableDTSAPIUploadValue">
             {{ l10n.getMsgS('TEXT_SINGLE_UPLOAD_BUTTON') }}
         </button>
       </div>
-      <div class="alpheios-alignment-editor-actions-menu__upload-block" v-show="showUploadMenu" >
+      <div class="alpheios-alignment-editor-actions-menu__upload-block" v-show="showUploadMenu || !enableDTSAPIUploadValue" >
           <input type="file" @change="loadTextFromFile" ref="fileupload">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__metadata"
-              @click="$modal.show(uploadDtsModalName)">
+              @click="$modal.show(uploadDtsModalName)" v-if="enableDTSAPIUploadValue">
               DTSAPI
           </button>
       </div>
@@ -349,6 +349,10 @@ export default {
       return {
         'alpheios-alignment-editor-text-blocks-single__lang-icon_disabled': this.sourceTypeDisabled
       }
+    },
+
+    enableDTSAPIUploadValue () {
+      return this.$store.state.optionsUpdated && SettingsController.enableDTSAPIUpload
     }
   },
   methods: {

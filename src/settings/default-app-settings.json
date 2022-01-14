@@ -1,6 +1,6 @@
 {
   "domain": "alpheios-alignment-editor-app",
-  "version": "1",
+  "version": "2",
   "items": {
     "theme": {
       "defaultValue": "v1-theme",
@@ -140,6 +140,21 @@
     "enableTokensEditor": {
       "defaultValue": false,
       "labelText": "Enable Tokens Editor Screen",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "Yes"
+        },
+        {
+          "value": false,
+          "text": "No"
+        }
+      ]
+    },
+    "enableDTSAPIUpload": {
+      "defaultValue": false,
+      "labelText": "Enable upload from DTS API",
       "boolean": true,
       "values": [
         {
