@@ -3,7 +3,7 @@
   "domain": "alpheios-alignment-editor-custom-preset",
   "name": "custom",
   "label": "Custom",
-  "version": "1",
+  "version": "2",
   "items": {
     "theme": "v1-theme",
     "tokenizer": "alpheiosRemoteTokenizer",
@@ -17,6 +17,7 @@
       "COMMENT", "LEMMAID", "MORPHOLOGY"
     ],
     "maxCharactersAnnotationText": 500,
-    "enableTokensEditor": false
+    "enableTokensEditor": false,
+    "enableDTSAPIUpload": false
   }
 }

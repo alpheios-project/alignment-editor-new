@@ -139,7 +139,7 @@ describe('option-item-block.test.js', () => {
       })
     
     expect(cmp.vm.optionType).toEqual('select')
-    expect(cmp.vm.itemId).toEqual('alpheios-alignment-editor-app__1__theme-id')
+    expect(cmp.vm.itemId).toEqual('alpheios-alignment-editor-app__2__theme-id')
 
     expect(cmp.find(`#${cmp.vm.itemId}`).isVisible()).toBeTruthy()
 
@@ -175,7 +175,7 @@ describe('option-item-block.test.js', () => {
       })
     
     expect(cmp.vm.optionType).toEqual('number')
-    expect(cmp.vm.itemId).toEqual('alpheios-alignment-editor-app__1__maxCharactersPerText-id')
+    expect(cmp.vm.itemId).toEqual('alpheios-alignment-editor-app__2__maxCharactersPerText-id')
 
     expect(cmp.find(`#${cmp.vm.itemId}`).isVisible()).toBeTruthy()
 
@@ -212,7 +212,7 @@ describe('option-item-block.test.js', () => {
       })
     
     expect(cmp.vm.optionType).toEqual('boolean')
-    expect(cmp.vm.itemId).toEqual('alpheios-alignment-editor-app__1__showSummaryPopup-id')
+    expect(cmp.vm.itemId).toEqual('alpheios-alignment-editor-app__2__showSummaryPopup-id')
 
     expect(cmp.find(`#${cmp.vm.itemId}`).isVisible()).toBeTruthy()
 
