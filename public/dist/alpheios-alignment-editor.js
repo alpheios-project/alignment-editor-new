@@ -39477,7 +39477,7 @@ class DetectTextController {
    * @returns {String} - tei/text
    */
   static checkXML (sourceText) {
-    const checkRegExp = new RegExp('</[ ]*tei[ ]*>', 'i')
+    const checkRegExp = new RegExp('</[ ]*tei>', 'i')
     return checkRegExp.test(sourceText.text) ? 'tei' : 'text'
   }
 
@@ -46559,6 +46559,7 @@ class SourceText {
     this.text = docSource && docSource.text ? docSource.text : ''
     this.direction = docSource && docSource.direction ? docSource.direction : this.defaultDirection
     this.lang = docSource && docSource.lang ? docSource.lang : this.defaultLang
+
     this.sourceType = docSource && docSource.sourceType ? docSource.sourceType : this.defaultSourceType
     this.tokenization = docSource && docSource.tokenization ? docSource.tokenization : {}
 
@@ -48750,7 +48751,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i617-dts-option.20220114401" : 0
+    return  true ? "i622-checkxml-update.20220117606" : 0
   }
 
   static get libName () {

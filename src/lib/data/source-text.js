@@ -25,6 +25,7 @@ export default class SourceText {
     this.text = docSource && docSource.text ? docSource.text : ''
     this.direction = docSource && docSource.direction ? docSource.direction : this.defaultDirection
     this.lang = docSource && docSource.lang ? docSource.lang : this.defaultLang
+
     this.sourceType = docSource && docSource.sourceType ? docSource.sourceType : this.defaultSourceType
     this.tokenization = docSource && docSource.tokenization ? docSource.tokenization : {}
 
