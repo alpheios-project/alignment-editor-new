@@ -39477,7 +39477,7 @@ class DetectTextController {
    * @returns {String} - tei/text
    */
   static checkXML (sourceText) {
-    const checkRegExp = new RegExp('</[ ]*tei>', 'i')
+    const checkRegExp = new RegExp('<[ ]*tei', 'i')
     return checkRegExp.test(sourceText.text) ? 'tei' : 'text'
   }
 
@@ -43499,7 +43499,7 @@ class Alignment {
 
   createNewDocSource (textType, docSource, targetId = null, skipTextCheck = false) {
     if (skipTextCheck || (docSource.text && docSource.text.length > 0)) {
-      return new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__["default"](textType, docSource, targetId)
+      return new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__["default"](textType, docSource, targetId, docSource instanceof _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__["default"])
     }
     return false
   }
@@ -46559,7 +46559,6 @@ class SourceText {
     this.text = docSource && docSource.text ? docSource.text : ''
     this.direction = docSource && docSource.direction ? docSource.direction : this.defaultDirection
     this.lang = docSource && docSource.lang ? docSource.lang : this.defaultLang
-
     this.sourceType = docSource && docSource.sourceType ? docSource.sourceType : this.defaultSourceType
     this.tokenization = docSource && docSource.tokenization ? docSource.tokenization : {}
 
@@ -48751,7 +48750,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i622-checkxml-update.20220117606" : 0
+    return  true ? "i617-file-input-visibility.20220119417" : 0
   }
 
   static get libName () {
