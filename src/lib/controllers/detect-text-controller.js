@@ -63,7 +63,7 @@ export default class DetectTextController {
    * @returns {String} - tei/text
    */
   static checkXML (sourceText) {
-    const checkRegExp = new RegExp('</[ ]*tei>', 'i')
+    const checkRegExp = new RegExp('<[ ]*tei', 'i')
     return checkRegExp.test(sourceText.text) ? 'tei' : 'text'
   }
 

@@ -133,7 +133,7 @@ export default class Alignment {
 
   createNewDocSource (textType, docSource, targetId = null, skipTextCheck = false) {
     if (skipTextCheck || (docSource.text && docSource.text.length > 0)) {
-      return new SourceText(textType, docSource, targetId)
+      return new SourceText(textType, docSource, targetId, docSource instanceof SourceText)
     }
     return false
   }

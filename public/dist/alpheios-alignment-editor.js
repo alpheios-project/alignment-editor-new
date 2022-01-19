@@ -39477,7 +39477,7 @@ class DetectTextController {
    * @returns {String} - tei/text
    */
   static checkXML (sourceText) {
-    const checkRegExp = new RegExp('</[ ]*tei>', 'i')
+    const checkRegExp = new RegExp('<[ ]*tei', 'i')
     return checkRegExp.test(sourceText.text) ? 'tei' : 'text'
   }
 
@@ -43499,7 +43499,7 @@ class Alignment {
 
   createNewDocSource (textType, docSource, targetId = null, skipTextCheck = false) {
     if (skipTextCheck || (docSource.text && docSource.text.length > 0)) {
-      return new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__["default"](textType, docSource, targetId)
+      return new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__["default"](textType, docSource, targetId, docSource instanceof _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__["default"])
     }
     return false
   }
@@ -46559,7 +46559,6 @@ class SourceText {
     this.text = docSource && docSource.text ? docSource.text : ''
     this.direction = docSource && docSource.direction ? docSource.direction : this.defaultDirection
     this.lang = docSource && docSource.lang ? docSource.lang : this.defaultLang
-
     this.sourceType = docSource && docSource.sourceType ? docSource.sourceType : this.defaultSourceType
     this.tokenization = docSource && docSource.tokenization ? docSource.tokenization : {}
 
@@ -48751,7 +48750,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i622-checkxml-update.20220117606" : 0
+    return  true ? "i617-file-input-visibility.20220119438" : 0
   }
 
   static get libName () {
@@ -54100,6 +54099,9 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.localTextEditorOptions.ready && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].tokenizerOptionsLoaded) {
         this.prepareDefaultTextEditorOptions()
       }
+      if (this.text.length === 0) {
+        this.initDataProps()
+      }
     },
     async '$store.state.uploadCheck' () {
       await this.updateFromExternal()
@@ -54302,7 +54304,7 @@ __webpack_require__.r(__webpack_exports__);
       this.showTypeUploadButtons = true
 
       this.showTextProps = false
-      this.showUploadMenu = false
+      this.showUploadMenu = !this.enableDTSAPIUploadValue
     },
 
     /**
@@ -54327,9 +54329,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$refs.fileupload.value = ''
       this.prepareDefaultTextEditorOptions()
 
-      this.showTypeUploadButtons = true
-      this.showTextProps = false
-      this.showUploadMenu = false
+      this.initDataProps()
       this.$textC.deleteText(this.textType, this.textId)
     },
 
@@ -54359,6 +54359,7 @@ __webpack_require__.r(__webpack_exports__);
         setTimeout(() => {
           this.showTypeUploadButtons = false
           this.showTextProps = true
+          this.showUploadMenu = false
         }, 100)
         
       }
@@ -54383,6 +54384,7 @@ __webpack_require__.r(__webpack_exports__);
         if (this.$textC.checkDetectedProps(this.textType, this.textId) || (this.text && this.text.length > 0)) {
           this.showTypeUploadButtons = false
           this.showTextProps = true
+          this.showUploadMenu = false
         }
       }
     },
@@ -54409,7 +54411,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$textC.deleteText(this.textType, this.textId)
       setTimeout(() => {
         this.showTypeUploadButtons = true
-        this.showUploadMenu = false
+        this.showUploadMenu =  false || !this.enableDTSAPIUploadValue
       }, 150)
     },
 
@@ -54437,7 +54439,7 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         this.showTypeUploadButtons = true
         this.showTextProps = false
-        this.showUploadMenu = false
+        this.showUploadMenu =  false || !this.enableDTSAPIUploadValue
       }
     },
 
@@ -65961,8 +65963,8 @@ var render = function() {
             {
               name: "show",
               rawName: "v-show",
-              value: _vm.showTypeUploadButtons || !_vm.enableDTSAPIUploadValue,
-              expression: "showTypeUploadButtons || !enableDTSAPIUploadValue"
+              value: _vm.showTypeUploadButtons,
+              expression: "showTypeUploadButtons"
             }
           ]
         },
@@ -66010,8 +66012,8 @@ var render = function() {
             {
               name: "show",
               rawName: "v-show",
-              value: _vm.showUploadMenu || !_vm.enableDTSAPIUploadValue,
-              expression: "showUploadMenu || !enableDTSAPIUploadValue"
+              value: _vm.showUploadMenu,
+              expression: "showUploadMenu"
             }
           ],
           staticClass: "alpheios-alignment-editor-actions-menu__upload-block"
