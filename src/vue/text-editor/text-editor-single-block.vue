@@ -14,14 +14,14 @@
           </tooltip>
         </span>
       </p>
-      <div v-show="showTypeUploadButtons || !enableDTSAPIUploadValue" >
+      <div v-show="showTypeUploadButtons" >
         <span class="alpheios-alignment-editor-text-blocks-single__type-label">{{ l10n.getMsgS('TEXT_SINGLE_TYPE_LABEL') }}</span>
         <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  id="alpheios-actions-menu-button__uploadtext"
             @click="selectUploadText" v-show="enableDTSAPIUploadValue">
             {{ l10n.getMsgS('TEXT_SINGLE_UPLOAD_BUTTON') }}
         </button>
       </div>
-      <div class="alpheios-alignment-editor-actions-menu__upload-block" v-show="showUploadMenu || !enableDTSAPIUploadValue" >
+      <div class="alpheios-alignment-editor-actions-menu__upload-block" v-show="showUploadMenu" >
           <input type="file" @change="loadTextFromFile" ref="fileupload">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__metadata"
               @click="$modal.show(uploadDtsModalName)" v-if="enableDTSAPIUploadValue">
@@ -163,6 +163,9 @@ export default {
     async '$store.state.optionsUpdated' () {
       if (!this.localTextEditorOptions.ready && SettingsController.tokenizerOptionsLoaded) {
         this.prepareDefaultTextEditorOptions()
+      }
+      if (this.text.length === 0) {
+        this.initDataProps()
       }
     },
     async '$store.state.uploadCheck' () {
@@ -366,7 +369,7 @@ export default {
       this.showTypeUploadButtons = true
 
       this.showTextProps = false
-      this.showUploadMenu = false
+      this.showUploadMenu = !this.enableDTSAPIUploadValue
     },
 
     /**
@@ -391,9 +394,7 @@ export default {
       this.$refs.fileupload.value = ''
       this.prepareDefaultTextEditorOptions()
 
-      this.showTypeUploadButtons = true
-      this.showTextProps = false
-      this.showUploadMenu = false
+      this.initDataProps()
       this.$textC.deleteText(this.textType, this.textId)
     },
 
@@ -423,6 +424,7 @@ export default {
         setTimeout(() => {
           this.showTypeUploadButtons = false
           this.showTextProps = true
+          this.showUploadMenu = false
         }, 100)
         
       }
@@ -447,6 +449,7 @@ export default {
         if (this.$textC.checkDetectedProps(this.textType, this.textId) || (this.text && this.text.length > 0)) {
           this.showTypeUploadButtons = false
           this.showTextProps = true
+          this.showUploadMenu = false
         }
       }
     },
@@ -473,7 +476,7 @@ export default {
       this.$textC.deleteText(this.textType, this.textId)
       setTimeout(() => {
         this.showTypeUploadButtons = true
-        this.showUploadMenu = false
+        this.showUploadMenu = false || !this.enableDTSAPIUploadValue
       }, 150)
     },
 
@@ -501,7 +504,7 @@ export default {
       } else {
         this.showTypeUploadButtons = true
         this.showTextProps = false
-        this.showUploadMenu = false
+        this.showUploadMenu = false || !this.enableDTSAPIUploadValue
       }
     },
 
