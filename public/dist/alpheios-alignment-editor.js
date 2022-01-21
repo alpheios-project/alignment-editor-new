@@ -40492,15 +40492,17 @@ class TextsController {
     const uploadType = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].defineUploadTypeByExtension(extension)
     const uploadPrepareMethods = {
       plainSourceUploadAll: this.uploadDocSourceFromFileAll.bind(this),
-      jsonSimpleUploadAll: this.uploadFullDataJSON.bind(this)
+      jsonSimpleUploadAll: this.uploadFullDataSimple.bind(this),
+      xmlUploadAll: this.uploadFullDataSimple.bind(this)
     }
 
     const alignment = uploadPrepareMethods[uploadType](fileData, tokenizerOptionValue, uploadType)
     _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].update(alignment, true)
+    this.store.commit('incrementUploadCheck')
     return alignment
   }
 
-  uploadFullDataJSON (fileData, tokenizerOptionValue, uploadType) {
+  uploadFullDataSimple (fileData, tokenizerOptionValue, uploadType) {
     const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].upload(uploadType, fileData)
     this.store.commit('incrementUploadCheck')
     return result
@@ -41602,6 +41604,7 @@ class UploadController {
       plainSourceUploadAll: { method: this.plainSourceUploadAll, fileUpload: true, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv', extensions: [] },
       plainSourceUploadSingle: { method: this.plainSourceUploadSingle, fileUpload: true, allTexts: false, extensions: ['xml', 'txt'] },
       jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, fileUpload: true, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json', extensions: ['json'] },
+      xmlUploadAll: { method: this.xmlUploadAll, fileUpload: true, allTexts: true, name: 'xmlUploadAll', label: 'Full from XML (Alphveios v1)', extensions: ['xml'] },
       dtsAPIUpload: { method: this.dtsAPIUploadSingle, fileUpload: true, allTexts: false, name: 'dtsAPIUploadSingle', label: 'DTS API', extensions: ['xml'] },
       indexedDBUpload: { method: this.indexedDBUploadSingle, fileUpload: false, allTexts: true, name: 'indexedDBUploadSingle', label: 'IndexedDB', extensions: ['indexedDB-alignment'] }
     }
@@ -41730,6 +41733,20 @@ class UploadController {
   static jsonSimpleUploadAll (fileData) {
     const fileJSON = JSON.parse(fileData)
     return _lib_data_alignment__WEBPACK_IMPORTED_MODULE_2__["default"].convertFromJSON(fileJSON)
+  }
+
+  static xmlUploadAll (fileData) {
+    // console.info('xmlUploadAll - ', fileData)
+    const parser = new DOMParser()
+    const alDoc = parser.parseFromString(fileData, 'application/xml')
+    if (alDoc.documentElement.nodeName === 'aligned-text') {
+      return _lib_data_alignment__WEBPACK_IMPORTED_MODULE_2__["default"].convertFromXML(alDoc)
+    }
+    console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"].getMsgS('UPLOAD_CONTROLLER_INCORRECT_XML_DATA'))
+    _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].addNotification({
+      text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"].getMsgS('UPLOAD_CONTROLLER_INCORRECT_XML_DATA'),
+      type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].types.ERROR
+    })
   }
 
   static async dtsAPIUploadSingle ({ linkData, objType = 'collection', refParams } = {}) {
@@ -42862,14 +42879,22 @@ class AlignedText {
   constructor ({ docSource, tokenPrefix } = {}) {
     this.id = docSource.id
     this.textType = docSource.textType
-    this.direction = docSource.direction
+    this.direction = docSource.direction || this.defaultDirection
     this.lang = docSource.lang
 
     this.langName = this.defineLangName()
 
-    this.sourceType = docSource.sourceType
+    this.sourceType = docSource.sourceType || this.defaultSourceType
     this.tokenization = docSource.tokenization
     this.tokenPrefix = tokenPrefix || this.defaultTokenPrefix
+  }
+
+  get defaultDirection () {
+    return 'ltr'
+  }
+
+  get defaultSourceType () {
+    return 'text'
   }
 
   /**
@@ -43025,6 +43050,23 @@ class AlignedText {
 
     alignedText.segments = segmentsDbDataFiltered.map(seg => _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__["default"].convertFromIndexedDB(seg, dbTokens, dbAllPartNums)).sort((a, b) => a.index - b.index)
 
+    return alignedText
+  }
+
+  static convertFromDataFromXML (xmlFormattedData) {
+    console.info('xmlFormattedData - ', xmlFormattedData)
+
+    const alignedText = new AlignedText({
+      docSource: {
+        id: xmlFormattedData.docSourceId,
+        textType: xmlFormattedData.textType,
+        lang: xmlFormattedData.lang
+      }
+    })
+
+    alignedText.segments = [
+      _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__["default"].convertFromDataFromXML(xmlFormattedData)
+    ]
     return alignedText
   }
 
@@ -44624,6 +44666,81 @@ class Alignment {
     return alignment
   }
 
+  static convertFromXML (xmlDoc) {
+    const alignment = new Alignment()
+    const docLangs = xmlDoc.getElementsByTagName('language')
+
+    if (docLangs.length > 1) {
+      const texts = { origin: [], targets: {} }
+      const segmentsData = { origin: {}, target: {} }
+      const ids = { origin: '', targets: [] }
+
+      alignment.origin.docSource = _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__["default"].convertFromXML(xmlDoc, 0)
+
+      ids.origin = alignment.origin.docSource.id
+      for (let i = 1; i < docLangs.length; i++) {
+        const targetSourceDoc = _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__["default"].convertFromXML(xmlDoc, i)
+        alignment.targets[targetSourceDoc.id] = { docSource: targetSourceDoc }
+
+        texts.targets[targetSourceDoc.id] = ''
+        ids.targets.push(targetSourceDoc.id)
+      }
+
+      const sentences = xmlDoc.getElementsByTagName('sentence')
+      for (let i = 0; i < sentences.length; i++) {
+        const curSentence = sentences[i]
+
+        const docsSent = curSentence.getElementsByTagName('wds')
+        const numSent = curSentence.getAttribute('n')
+
+        for (let j = 0; j < docsSent.length; j++) {
+          const curId = docsSent[j].getAttribute('lnum')
+          const textType = (curId === ids.origin) ? 'origin' : 'target'
+          const lang = (textType === 'origin') ? alignment.origin.docSource.lang : alignment.targets[curId].docSource.lang
+
+          if (!segmentsData[textType][curId]) {
+            segmentsData[textType][curId] = { index: numSent, textType, lang, docSourceId: curId, tokens: [] }
+          }
+
+          const segmentItem = segmentsData[textType][curId]
+
+          const words = docsSent[j].getElementsByTagName('w')
+          for (let k = 0; k < words.length; k++) {
+            const idWord = words[k].getAttribute('n')
+            let word = words[k].getElementsByTagName('text')[0].textContent
+            if (word === '###') {
+              word = '\n'
+              segmentItem.tokens[segmentItem.tokens.length - 1].hasLineBreak = true
+            } else {
+              segmentItem.tokens.push({
+                textType, idWord, word, segmentIndex: numSent, docSourceId: curId
+              })
+            }
+
+            if (textType === 'origin') {
+              texts.origin.push(word)
+            } else {
+              if (!texts.targets[curId]) { texts.targets[curId] = [] }
+              texts.targets[curId].push(word)
+            }
+          }
+        }
+      }
+
+      alignment.origin.docSource.update({ text: texts.origin.join(' ') })
+      Object.keys(texts.targets).forEach(docId => alignment.targets[docId].docSource.update({ text: texts.targets[docId].join(' ') }))
+
+      alignment.origin.alignedText = _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__["default"].convertFromDataFromXML(segmentsData.origin[ids.origin])
+
+      ids.targets.forEach(idTarget => {
+        alignment.targets[idTarget].alignedText = _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__["default"].convertFromDataFromXML(segmentsData.target[idTarget])
+      })
+    }
+
+    console.info('alignment - ', alignment)
+    return alignment
+  }
+
   convertToIndexedDB ({ textAsBlob } = {}) {
     const origin = {
       docSource: this.origin.docSource.convertToIndexedDB(textAsBlob)
@@ -46201,7 +46318,7 @@ class Segment {
     this.textType = textType
     this.lang = lang
     this.langName = this.defineLangName()
-    this.direction = direction
+    this.direction = direction || this.defaultDirection
     this.docSourceId = docSourceId
 
     if (tokens) {
@@ -46214,6 +46331,10 @@ class Segment {
     } else {
       this.defineAllPartNums()
     }
+  }
+
+  get defaultDirection () {
+    return 'ltr'
   }
 
   /**
@@ -46438,6 +46559,16 @@ class Segment {
       direction: data.direction,
       docSourceId: data.docSourceId,
       tokens: data.tokens.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__["default"].convertFromJSON(token)).sort((a, b) => a.tokenIndex - b.tokenIndex)
+    })
+  }
+
+  static convertFromDataFromXML (xmlFormattedData) {
+    return new Segment({
+      index: parseInt(xmlFormattedData.index),
+      textType: xmlFormattedData.textType,
+      lang: xmlFormattedData.lang,
+      docSourceId: xmlFormattedData.docSourceId,
+      tokens: xmlFormattedData.tokens.map((tokenData, tokenIndex) => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__["default"].convertFromDataFromXML(tokenData, tokenIndex))
     })
   }
 
@@ -46785,6 +46916,18 @@ class SourceText {
     sourceText.skipDetected = true
     return sourceText
   }
+
+  static convertFromXML (xmlDoc, index) {
+    const docLangs = xmlDoc.getElementsByTagName('language')
+    const textType = index === 0 ? 'origin' : 'target'
+
+    const lang = docLangs[index].getAttribute('xml:lang').toLowerCase()
+    const id = docLangs[index].getAttribute('lnum')
+
+    const text = 'test'
+
+    return new SourceText(textType, { text, lang, id, sourceType: 'text' }, null, true)
+  }
 }
 
 
@@ -46938,6 +47081,16 @@ class Token {
       sentenceIndex: data.sentenceIndex,
       tokenIndex: data.tokenIndex
     }, data.segmentIndex, data.docSourceId)
+  }
+
+  static convertFromDataFromXML (tokenData, tokenIndex) {
+    return new Token({
+      textType: tokenData.textType,
+      idWord: tokenData.idWord,
+      word: tokenData.word,
+      hasLineBreak: tokenData.hasLineBreak,
+      tokenIndex
+    }, parseInt(tokenData.index), tokenData.docSourceId)
   }
 
   convertToHTML () {
@@ -48750,7 +48903,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i617-file-input-visibility.20220119438" : 0
+    return  true ? "i176-ugarit-upload.20220121542" : 0
   }
 
   static get libName () {
@@ -54312,6 +54465,7 @@ __webpack_require__.r(__webpack_exports__);
      */
     async updateFromExternal () {
       const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
+
       if (sourceTextData && sourceTextData.text) {
         this.text = sourceTextData.text
         _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
@@ -69256,7 +69410,7 @@ module.exports = JSON.parse('{"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED":{"message
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"DOWNLOAD_CONTROLLER_ERROR_TYPE":{"message":"Download type {downloadType} is not defined.","description":"An error message for download process","component":"DownloadController","params":["downloadType"]},"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS":{"message":"You should define original and translation texts first","description":"An error message for download process","component":"DownloadController"},"TEXTS_CONTROLLER_EMPTY_FILE_DATA":{"message":"The file doesn\'t have all the required fields. Text won\'t be created.","description":"An error message for upload data from file.","component":"TextsController"},"TEXTS_CONTROLLER_EMPTY_DB_DATA":{"message":"There is not enough information for retrieving alignment from DB.","description":"An error message for upload data from file.","component":"TextsController"},"TEXTS_CONTROLLER_INCORRECT_DB_DATA":{"message":"This alignment data is corrupted in database and could not be uploaded.","description":"An error message for upload data from database.","component":"TextsController"},"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP":{"message":"You should start from defining original text first.","description":"An error message creating alignment.","component":"TextsController"},"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION":{"message":"Document source texts are not ready for tokenization.","description":"An error message creating alignment.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS":{"message":"The tokenization process was cancelled because original and translation texts don\'t have the same amount of segments.","description":"An error message creating alignment.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_TOKENIZATION_STARTED":{"message":"Tokenization process has started.","description":"An info message that is published before tokenization started.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_TOKENIZATION_FINISHED":{"message":"Tokenization process has finished.","description":"An info message that is published after tokenization finished.","component":"AlignedGroupsController"},"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED":{"message":"Tokenizer method {tokenizer} is not registered","description":"An error message for tokenization workflow","component":"TokenizeController","params":["tokenizer"]},"UPLOAD_CONTROLLER_ERROR_TYPE":{"message":"Upload type {uploadType} is not defined.","description":"An error message for upload workflow","component":"UploadController","params":["uploadType"]},"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT":{"message":"Uploaded file has wrong format for the type - plainSourceUploadFromFile.","description":"An error message for upload workflow","component":"UploadController"},"SETTINGS_CONTROLLER_NO_VALUES_CLASS":{"message":"There is no class for uploading settings values that is regestered as {className}","description":"An error message for settings upload workflow","component":"SettingsController","params":["className"]},"TOKENS_EDIT_IS_NOT_EDITABLE_ERROR":{"message":"This token is inside created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"TokenEditController"},"UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE":{"message":"File extension {extension} is not supported. Use the following - {availableExtensions}.","description":"An error message for upload workflow","component":"TextsController","params":["extension","availableExtensions"]},"DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL":{"message":"Short to tsv","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL":{"message":"Full to json","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP":{"message":"download only source texts without tokens and alignment groups","description":"Download type tooltip","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP":{"message":"download source texts, tokens and segments, alignment groups","description":"Download type tooltip","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_HTML_LABEL":{"message":"Html","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_HTML_TOOLTIP":{"message":"download html with alignment result","description":"Download type tooltip","component":"DownloadController"}}');
+module.exports = JSON.parse('{"DOWNLOAD_CONTROLLER_ERROR_TYPE":{"message":"Download type {downloadType} is not defined.","description":"An error message for download process","component":"DownloadController","params":["downloadType"]},"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS":{"message":"You should define original and translation texts first","description":"An error message for download process","component":"DownloadController"},"TEXTS_CONTROLLER_EMPTY_FILE_DATA":{"message":"The file doesn\'t have all the required fields. Text won\'t be created.","description":"An error message for upload data from file.","component":"TextsController"},"TEXTS_CONTROLLER_EMPTY_DB_DATA":{"message":"There is not enough information for retrieving alignment from DB.","description":"An error message for upload data from file.","component":"TextsController"},"TEXTS_CONTROLLER_INCORRECT_DB_DATA":{"message":"This alignment data is corrupted in database and could not be uploaded.","description":"An error message for upload data from database.","component":"TextsController"},"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP":{"message":"You should start from defining original text first.","description":"An error message creating alignment.","component":"TextsController"},"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION":{"message":"Document source texts are not ready for tokenization.","description":"An error message creating alignment.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS":{"message":"The tokenization process was cancelled because original and translation texts don\'t have the same amount of segments.","description":"An error message creating alignment.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_TOKENIZATION_STARTED":{"message":"Tokenization process has started.","description":"An info message that is published before tokenization started.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_TOKENIZATION_FINISHED":{"message":"Tokenization process has finished.","description":"An info message that is published after tokenization finished.","component":"AlignedGroupsController"},"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED":{"message":"Tokenizer method {tokenizer} is not registered","description":"An error message for tokenization workflow","component":"TokenizeController","params":["tokenizer"]},"UPLOAD_CONTROLLER_ERROR_TYPE":{"message":"Upload type {uploadType} is not defined.","description":"An error message for upload workflow","component":"UploadController","params":["uploadType"]},"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT":{"message":"Uploaded file has wrong format for the type - plainSourceUploadFromFile.","description":"An error message for upload workflow","component":"UploadController"},"SETTINGS_CONTROLLER_NO_VALUES_CLASS":{"message":"There is no class for uploading settings values that is regestered as {className}","description":"An error message for settings upload workflow","component":"SettingsController","params":["className"]},"TOKENS_EDIT_IS_NOT_EDITABLE_ERROR":{"message":"This token is inside created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"TokenEditController"},"UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE":{"message":"File extension {extension} is not supported. Use the following - {availableExtensions}.","description":"An error message for upload workflow","component":"UploadController","params":["extension","availableExtensions"]},"UPLOAD_CONTROLLER_INCORRECT_XML_DATA":{"message":"This xml file does not have AlpheiosV1 format and could not be uploaded.","description":"An error message for upload data from xml file.","component":"UploadController"},"DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL":{"message":"Short to tsv","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL":{"message":"Full to json","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP":{"message":"download only source texts without tokens and alignment groups","description":"Download type tooltip","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP":{"message":"download source texts, tokens and segments, alignment groups","description":"Download type tooltip","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_HTML_LABEL":{"message":"Html","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_HTML_TOOLTIP":{"message":"download html with alignment result","description":"Download type tooltip","component":"DownloadController"}}');
 
 /***/ }),
 

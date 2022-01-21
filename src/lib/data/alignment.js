@@ -1258,6 +1258,81 @@ export default class Alignment {
     return alignment
   }
 
+  static convertFromXML (xmlDoc) {
+    const alignment = new Alignment()
+    const docLangs = xmlDoc.getElementsByTagName('language')
+
+    if (docLangs.length > 1) {
+      const texts = { origin: [], targets: {} }
+      const segmentsData = { origin: {}, target: {} }
+      const ids = { origin: '', targets: [] }
+
+      alignment.origin.docSource = SourceText.convertFromXML(xmlDoc, 0)
+
+      ids.origin = alignment.origin.docSource.id
+      for (let i = 1; i < docLangs.length; i++) {
+        const targetSourceDoc = SourceText.convertFromXML(xmlDoc, i)
+        alignment.targets[targetSourceDoc.id] = { docSource: targetSourceDoc }
+
+        texts.targets[targetSourceDoc.id] = ''
+        ids.targets.push(targetSourceDoc.id)
+      }
+
+      const sentences = xmlDoc.getElementsByTagName('sentence')
+      for (let i = 0; i < sentences.length; i++) {
+        const curSentence = sentences[i]
+
+        const docsSent = curSentence.getElementsByTagName('wds')
+        const numSent = curSentence.getAttribute('n')
+
+        for (let j = 0; j < docsSent.length; j++) {
+          const curId = docsSent[j].getAttribute('lnum')
+          const textType = (curId === ids.origin) ? 'origin' : 'target'
+          const lang = (textType === 'origin') ? alignment.origin.docSource.lang : alignment.targets[curId].docSource.lang
+
+          if (!segmentsData[textType][curId]) {
+            segmentsData[textType][curId] = { index: numSent, textType, lang, docSourceId: curId, tokens: [] }
+          }
+
+          const segmentItem = segmentsData[textType][curId]
+
+          const words = docsSent[j].getElementsByTagName('w')
+          for (let k = 0; k < words.length; k++) {
+            const idWord = words[k].getAttribute('n')
+            let word = words[k].getElementsByTagName('text')[0].textContent
+            if (word === '###') {
+              word = '\n'
+              segmentItem.tokens[segmentItem.tokens.length - 1].hasLineBreak = true
+            } else {
+              segmentItem.tokens.push({
+                textType, idWord, word, segmentIndex: numSent, docSourceId: curId
+              })
+            }
+
+            if (textType === 'origin') {
+              texts.origin.push(word)
+            } else {
+              if (!texts.targets[curId]) { texts.targets[curId] = [] }
+              texts.targets[curId].push(word)
+            }
+          }
+        }
+      }
+
+      alignment.origin.docSource.update({ text: texts.origin.join(' ') })
+      Object.keys(texts.targets).forEach(docId => alignment.targets[docId].docSource.update({ text: texts.targets[docId].join(' ') }))
+
+      alignment.origin.alignedText = AlignedText.convertFromDataFromXML(segmentsData.origin[ids.origin])
+
+      ids.targets.forEach(idTarget => {
+        alignment.targets[idTarget].alignedText = AlignedText.convertFromDataFromXML(segmentsData.target[idTarget])
+      })
+    }
+
+    console.info('alignment - ', alignment)
+    return alignment
+  }
+
   convertToIndexedDB ({ textAsBlob } = {}) {
     const origin = {
       docSource: this.origin.docSource.convertToIndexedDB(textAsBlob)

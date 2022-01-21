@@ -377,6 +377,7 @@ export default {
      */
     async updateFromExternal () {
       const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
+
       if (sourceTextData && sourceTextData.text) {
         this.text = sourceTextData.text
         SettingsController.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
