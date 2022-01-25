@@ -1185,6 +1185,9 @@ export default class Alignment {
     }
   }
 
+  /**
+   * Convert existed alignment to JSON format for download
+   */
   convertToJSON () {
     const origin = {
       docSource: this.origin.docSource.convertToJSON(),
@@ -1216,6 +1219,9 @@ export default class Alignment {
     }
   }
 
+  /*
+  * Convert from our JSON format to an alignment object
+  */
   static convertFromJSON (data) {
     if (!data.origin) { return }
     const createdDT = ConvertUtility.convertStringToDate(data.createdDT)
@@ -1258,6 +1264,9 @@ export default class Alignment {
     return alignment
   }
 
+  /*
+  * Convert from Ugarit (Alpheios v1 format) to Alignment object
+  */
   static convertFromXML (xmlDoc) {
     const alignment = new Alignment()
     const docLangs = xmlDoc.getElementsByTagName('language')
@@ -1266,6 +1275,7 @@ export default class Alignment {
       const texts = { origin: [], targets: {} }
       const segmentsData = { origin: {}, target: {} }
       const ids = { origin: '', targets: [] }
+      const groups = {}
 
       alignment.origin.docSource = SourceText.convertFromXML(xmlDoc, 0)
 
@@ -1283,7 +1293,7 @@ export default class Alignment {
         const curSentence = sentences[i]
 
         const docsSent = curSentence.getElementsByTagName('wds')
-        const numSent = curSentence.getAttribute('n')
+        const numSent = parseInt(curSentence.getAttribute('n'))
 
         for (let j = 0; j < docsSent.length; j++) {
           const curId = docsSent[j].getAttribute('lnum')
@@ -1311,6 +1321,29 @@ export default class Alignment {
 
             if (textType === 'origin') {
               texts.origin.push(word)
+
+              const refs = words[k].getElementsByTagName('refs')[0].getAttribute('nrefs').trim()
+
+              if (refs.length > 0) {
+                const textsRefs = refs.split('|')
+                const textsRefsItems = textsRefs.map(itemsString => itemsString.trim().split(' '))
+                console.info('textsRefsItems - ', textsRefsItems)
+
+                textsRefs.forEach((refTextString, index) => {
+                  const title = refTextString.trim()
+                  if (!groups[title]) {
+                    groups[title] = {
+                      actions: {
+                        origin: [],
+                        target: textsRefsItems[index],
+                        targetId: ids.targets[index],
+                        segmentIndex: numSent
+                      }
+                    }
+                  }
+                  groups[title].actions.origin.push(idWord)
+                })
+              }
             } else {
               if (!texts.targets[curId]) { texts.targets[curId] = [] }
               texts.targets[curId].push(word)
@@ -1319,6 +1352,7 @@ export default class Alignment {
         }
       }
 
+      // console.info('groups - ', groups)
       alignment.origin.docSource.update({ text: texts.origin.join(' ') })
       Object.keys(texts.targets).forEach(docId => alignment.targets[docId].docSource.update({ text: texts.targets[docId].join(' ') }))
 
@@ -1327,11 +1361,19 @@ export default class Alignment {
       ids.targets.forEach(idTarget => {
         alignment.targets[idTarget].alignedText = AlignedText.convertFromDataFromXML(segmentsData.target[idTarget])
       })
+
+      if (Object.keys(groups).length > 0) {
+        Object.values(groups).forEach(alGroup => alignment.alignmentGroups.push(AlignmentGroup.convertFromJSON(alGroup)))
+      }
     }
 
     console.info('alignment - ', alignment)
     return alignment
   }
+
+  /*
+  * Convert Alignment object to IndexedDB format
+  */
 
   convertToIndexedDB ({ textAsBlob } = {}) {
     const origin = {

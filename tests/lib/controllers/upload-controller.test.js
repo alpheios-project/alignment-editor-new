@@ -30,12 +30,13 @@ describe('upload-controller.test.js', () => {
   it('1 UploadController - static uploadMethods return an object with registered workflows ', () => {
     const uploadMethods = UploadController.uploadMethods
   
-    expect(Object.keys(uploadMethods).length).toEqual(5)
+    expect(Object.keys(uploadMethods).length).toEqual(6)
     expect(Object.keys(uploadMethods)[0]).toEqual('plainSourceUploadAll')
     expect(Object.keys(uploadMethods)[1]).toEqual('plainSourceUploadSingle')
     expect(Object.keys(uploadMethods)[2]).toEqual('jsonSimpleUploadAll')
-    expect(Object.keys(uploadMethods)[3]).toEqual('dtsAPIUpload')
-    expect(Object.keys(uploadMethods)[4]).toEqual('indexedDBUpload')
+    expect(Object.keys(uploadMethods)[3]).toEqual('xmlUploadAll')
+    expect(Object.keys(uploadMethods)[4]).toEqual('dtsAPIUpload')
+    expect(Object.keys(uploadMethods)[5]).toEqual('indexedDBUpload')
   })
 
   it('2 UploadController - static upload method prints error if uploadType is not registered ', () => {
@@ -87,7 +88,7 @@ describe('upload-controller.test.js', () => {
     expect(UploadController.isExtensionAvailable('json')).toBeTruthy()
 
     expect(UploadController.isExtensionAvailable('txt', true)).toBeFalsy()
-    expect(UploadController.isExtensionAvailable('xml', true)).toBeFalsy()
+    expect(UploadController.isExtensionAvailable('xml', true)).toBeTruthy()
 
     expect(UploadController.isExtensionAvailable('txt', false)).toBeTruthy()
     expect(UploadController.isExtensionAvailable('xml', false)).toBeTruthy()
@@ -112,8 +113,8 @@ describe('upload-controller.test.js', () => {
   })
   
   it('8 UploadController - static getAvailableExtensions returns an array of available file extensions', () => {
-    expect(UploadController.getAvailableExtensions()).toEqual(['json'])
-    expect(UploadController.getAvailableExtensions(true)).toEqual(['json'])  
+    expect(UploadController.getAvailableExtensions()).toEqual(['json', 'xml'])
+    expect(UploadController.getAvailableExtensions(true)).toEqual(['json', 'xml'])  
     // expect(UploadController.getAvailableExtensions(false)).toEqual(['csv', 'tsv', 'xml', 'txt'])    
     expect(UploadController.getAvailableExtensions(false)).toEqual(['xml', 'txt'])    
   })

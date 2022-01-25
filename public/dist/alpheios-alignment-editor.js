@@ -44593,6 +44593,9 @@ class Alignment {
     }
   }
 
+  /**
+   * Convert existed alignment to JSON format for download
+   */
   convertToJSON () {
     const origin = {
       docSource: this.origin.docSource.convertToJSON(),
@@ -44624,6 +44627,9 @@ class Alignment {
     }
   }
 
+  /*
+  * Convert from our JSON format to an alignment object
+  */
   static convertFromJSON (data) {
     if (!data.origin) { return }
     const createdDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_14__["default"].convertStringToDate(data.createdDT)
@@ -44666,6 +44672,9 @@ class Alignment {
     return alignment
   }
 
+  /*
+  * Convert from Ugarit (Alpheios v1 format) to Alignment object
+  */
   static convertFromXML (xmlDoc) {
     const alignment = new Alignment()
     const docLangs = xmlDoc.getElementsByTagName('language')
@@ -44674,6 +44683,7 @@ class Alignment {
       const texts = { origin: [], targets: {} }
       const segmentsData = { origin: {}, target: {} }
       const ids = { origin: '', targets: [] }
+      const groups = {}
 
       alignment.origin.docSource = _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__["default"].convertFromXML(xmlDoc, 0)
 
@@ -44691,7 +44701,7 @@ class Alignment {
         const curSentence = sentences[i]
 
         const docsSent = curSentence.getElementsByTagName('wds')
-        const numSent = curSentence.getAttribute('n')
+        const numSent = parseInt(curSentence.getAttribute('n'))
 
         for (let j = 0; j < docsSent.length; j++) {
           const curId = docsSent[j].getAttribute('lnum')
@@ -44719,6 +44729,29 @@ class Alignment {
 
             if (textType === 'origin') {
               texts.origin.push(word)
+
+              const refs = words[k].getElementsByTagName('refs')[0].getAttribute('nrefs').trim()
+
+              if (refs.length > 0) {
+                const textsRefs = refs.split('|')
+                const textsRefsItems = textsRefs.map(itemsString => itemsString.trim().split(' '))
+                console.info('textsRefsItems - ', textsRefsItems)
+
+                textsRefs.forEach((refTextString, index) => {
+                  const title = refTextString.trim()
+                  if (!groups[title]) {
+                    groups[title] = {
+                      actions: {
+                        origin: [],
+                        target: textsRefsItems[index],
+                        targetId: ids.targets[index],
+                        segmentIndex: numSent
+                      }
+                    }
+                  }
+                  groups[title].actions.origin.push(idWord)
+                })
+              }
             } else {
               if (!texts.targets[curId]) { texts.targets[curId] = [] }
               texts.targets[curId].push(word)
@@ -44727,6 +44760,7 @@ class Alignment {
         }
       }
 
+      // console.info('groups - ', groups)
       alignment.origin.docSource.update({ text: texts.origin.join(' ') })
       Object.keys(texts.targets).forEach(docId => alignment.targets[docId].docSource.update({ text: texts.targets[docId].join(' ') }))
 
@@ -44735,11 +44769,19 @@ class Alignment {
       ids.targets.forEach(idTarget => {
         alignment.targets[idTarget].alignedText = _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__["default"].convertFromDataFromXML(segmentsData.target[idTarget])
       })
+
+      if (Object.keys(groups).length > 0) {
+        Object.values(groups).forEach(alGroup => alignment.alignmentGroups.push(_lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__["default"].convertFromJSON(alGroup)))
+      }
     }
 
     console.info('alignment - ', alignment)
     return alignment
   }
+
+  /*
+  * Convert Alignment object to IndexedDB format
+  */
 
   convertToIndexedDB ({ textAsBlob } = {}) {
     const origin = {
@@ -48903,7 +48945,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i176-ugarit-upload.20220121542" : 0
+    return  true ? "i176-ugarit-upload.20220125528" : 0
   }
 
   static get libName () {
