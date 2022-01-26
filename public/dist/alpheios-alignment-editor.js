@@ -41736,7 +41736,6 @@ class UploadController {
   }
 
   static xmlUploadAll (fileData) {
-    // console.info('xmlUploadAll - ', fileData)
     const parser = new DOMParser()
     const alDoc = parser.parseFromString(fileData, 'application/xml')
     if (alDoc.documentElement.nodeName === 'aligned-text') {
@@ -43054,8 +43053,6 @@ class AlignedText {
   }
 
   static convertFromDataFromXML (xmlFormattedData) {
-    console.info('xmlFormattedData - ', xmlFormattedData)
-
     const alignedText = new AlignedText({
       docSource: {
         id: xmlFormattedData.docSourceId,
@@ -44735,21 +44732,22 @@ class Alignment {
               if (refs.length > 0) {
                 const textsRefs = refs.split('|')
                 const textsRefsItems = textsRefs.map(itemsString => itemsString.trim().split(' '))
-                console.info('textsRefsItems - ', textsRefsItems)
 
                 textsRefs.forEach((refTextString, index) => {
                   const title = refTextString.trim()
-                  if (!groups[title]) {
-                    groups[title] = {
-                      actions: {
-                        origin: [],
-                        target: textsRefsItems[index],
-                        targetId: ids.targets[index],
-                        segmentIndex: numSent
+                  if (title.length > 0) {
+                    if (!groups[title]) {
+                      groups[title] = {
+                        actions: {
+                          origin: [],
+                          target: textsRefsItems[index],
+                          targetId: ids.targets[index],
+                          segmentIndex: numSent
+                        }
                       }
                     }
+                    groups[title].actions.origin.push(idWord)
                   }
-                  groups[title].actions.origin.push(idWord)
                 })
               }
             } else {
@@ -44760,7 +44758,6 @@ class Alignment {
         }
       }
 
-      // console.info('groups - ', groups)
       alignment.origin.docSource.update({ text: texts.origin.join(' ') })
       Object.keys(texts.targets).forEach(docId => alignment.targets[docId].docSource.update({ text: texts.targets[docId].join(' ') }))
 
@@ -44775,7 +44772,6 @@ class Alignment {
       }
     }
 
-    console.info('alignment - ', alignment)
     return alignment
   }
 
@@ -48945,7 +48941,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i176-ugarit-upload.20220125528" : 0
+    return  true ? "i176-ugarit-upload.20220126586" : 0
   }
 
   static get libName () {

@@ -154,7 +154,6 @@ export default class UploadController {
   }
 
   static xmlUploadAll (fileData) {
-    // console.info('xmlUploadAll - ', fileData)
     const parser = new DOMParser()
     const alDoc = parser.parseFromString(fileData, 'application/xml')
     if (alDoc.documentElement.nodeName === 'aligned-text') {

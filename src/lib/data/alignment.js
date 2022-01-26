@@ -1327,21 +1327,22 @@ export default class Alignment {
               if (refs.length > 0) {
                 const textsRefs = refs.split('|')
                 const textsRefsItems = textsRefs.map(itemsString => itemsString.trim().split(' '))
-                console.info('textsRefsItems - ', textsRefsItems)
 
                 textsRefs.forEach((refTextString, index) => {
                   const title = refTextString.trim()
-                  if (!groups[title]) {
-                    groups[title] = {
-                      actions: {
-                        origin: [],
-                        target: textsRefsItems[index],
-                        targetId: ids.targets[index],
-                        segmentIndex: numSent
+                  if (title.length > 0) {
+                    if (!groups[title]) {
+                      groups[title] = {
+                        actions: {
+                          origin: [],
+                          target: textsRefsItems[index],
+                          targetId: ids.targets[index],
+                          segmentIndex: numSent
+                        }
                       }
                     }
+                    groups[title].actions.origin.push(idWord)
                   }
-                  groups[title].actions.origin.push(idWord)
                 })
               }
             } else {
@@ -1352,7 +1353,6 @@ export default class Alignment {
         }
       }
 
-      // console.info('groups - ', groups)
       alignment.origin.docSource.update({ text: texts.origin.join(' ') })
       Object.keys(texts.targets).forEach(docId => alignment.targets[docId].docSource.update({ text: texts.targets[docId].join(' ') }))
 
@@ -1367,7 +1367,6 @@ export default class Alignment {
       }
     }
 
-    console.info('alignment - ', alignment)
     return alignment
   }
 

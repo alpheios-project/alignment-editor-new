@@ -185,8 +185,6 @@ export default class AlignedText {
   }
 
   static convertFromDataFromXML (xmlFormattedData) {
-    console.info('xmlFormattedData - ', xmlFormattedData)
-
     const alignedText = new AlignedText({
       docSource: {
         id: xmlFormattedData.docSourceId,
