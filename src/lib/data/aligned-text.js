@@ -10,14 +10,22 @@ export default class AlignedText {
   constructor ({ docSource, tokenPrefix } = {}) {
     this.id = docSource.id
     this.textType = docSource.textType
-    this.direction = docSource.direction
+    this.direction = docSource.direction || this.defaultDirection
     this.lang = docSource.lang
 
     this.langName = this.defineLangName()
 
-    this.sourceType = docSource.sourceType
+    this.sourceType = docSource.sourceType || this.defaultSourceType
     this.tokenization = docSource.tokenization
     this.tokenPrefix = tokenPrefix || this.defaultTokenPrefix
+  }
+
+  get defaultDirection () {
+    return 'ltr'
+  }
+
+  get defaultSourceType () {
+    return 'text'
   }
 
   /**
@@ -173,6 +181,21 @@ export default class AlignedText {
 
     alignedText.segments = segmentsDbDataFiltered.map(seg => Segment.convertFromIndexedDB(seg, dbTokens, dbAllPartNums)).sort((a, b) => a.index - b.index)
 
+    return alignedText
+  }
+
+  static convertFromDataFromXML (xmlFormattedData) {
+    const alignedText = new AlignedText({
+      docSource: {
+        id: xmlFormattedData.docSourceId,
+        textType: xmlFormattedData.textType,
+        lang: xmlFormattedData.lang
+      }
+    })
+
+    alignedText.segments = [
+      Segment.convertFromDataFromXML(xmlFormattedData)
+    ]
     return alignedText
   }
 

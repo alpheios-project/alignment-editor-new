@@ -251,4 +251,16 @@ export default class SourceText {
     sourceText.skipDetected = true
     return sourceText
   }
+
+  static convertFromXML (xmlDoc, index) {
+    const docLangs = xmlDoc.getElementsByTagName('language')
+    const textType = index === 0 ? 'origin' : 'target'
+
+    const lang = docLangs[index].getAttribute('xml:lang').toLowerCase()
+    const id = docLangs[index].getAttribute('lnum')
+
+    const text = 'test'
+
+    return new SourceText(textType, { text, lang, id, sourceType: 'text' }, null, true)
+  }
 }

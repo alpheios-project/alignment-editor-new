@@ -81,8 +81,13 @@
     "UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE": {
         "message": "File extension {extension} is not supported. Use the following - {availableExtensions}.",
         "description": "An error message for upload workflow",
-        "component": "TextsController",
+        "component": "UploadController",
         "params": ["extension", "availableExtensions"]
+    },
+    "UPLOAD_CONTROLLER_INCORRECT_XML_DATA": {
+        "message": "This xml file does not have AlpheiosV1 format and could not be uploaded.",
+        "description": "An error message for upload data from xml file.",
+        "component": "UploadController"
     },
     "DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL": {
         "message": "Short to tsv",

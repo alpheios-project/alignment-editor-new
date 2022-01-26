@@ -12,7 +12,7 @@ export default class Segment {
     this.textType = textType
     this.lang = lang
     this.langName = this.defineLangName()
-    this.direction = direction
+    this.direction = direction || this.defaultDirection
     this.docSourceId = docSourceId
 
     if (tokens) {
@@ -25,6 +25,10 @@ export default class Segment {
     } else {
       this.defineAllPartNums()
     }
+  }
+
+  get defaultDirection () {
+    return 'ltr'
   }
 
   /**
@@ -249,6 +253,16 @@ export default class Segment {
       direction: data.direction,
       docSourceId: data.docSourceId,
       tokens: data.tokens.map(token => Token.convertFromJSON(token)).sort((a, b) => a.tokenIndex - b.tokenIndex)
+    })
+  }
+
+  static convertFromDataFromXML (xmlFormattedData) {
+    return new Segment({
+      index: parseInt(xmlFormattedData.index),
+      textType: xmlFormattedData.textType,
+      lang: xmlFormattedData.lang,
+      docSourceId: xmlFormattedData.docSourceId,
+      tokens: xmlFormattedData.tokens.map((tokenData, tokenIndex) => Token.convertFromDataFromXML(tokenData, tokenIndex))
     })
   }
 

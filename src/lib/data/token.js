@@ -136,6 +136,16 @@ export default class Token {
     }, data.segmentIndex, data.docSourceId)
   }
 
+  static convertFromDataFromXML (tokenData, tokenIndex) {
+    return new Token({
+      textType: tokenData.textType,
+      idWord: tokenData.idWord,
+      word: tokenData.word,
+      hasLineBreak: tokenData.hasLineBreak,
+      tokenIndex
+    }, parseInt(tokenData.index), tokenData.docSourceId)
+  }
+
   convertToHTML () {
     return {
       textType: this.textType,

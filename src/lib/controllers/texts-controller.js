@@ -244,15 +244,17 @@ export default class TextsController {
     const uploadType = UploadController.defineUploadTypeByExtension(extension)
     const uploadPrepareMethods = {
       plainSourceUploadAll: this.uploadDocSourceFromFileAll.bind(this),
-      jsonSimpleUploadAll: this.uploadFullDataJSON.bind(this)
+      jsonSimpleUploadAll: this.uploadFullDataSimple.bind(this),
+      xmlUploadAll: this.uploadFullDataSimple.bind(this)
     }
 
     const alignment = uploadPrepareMethods[uploadType](fileData, tokenizerOptionValue, uploadType)
     StorageController.update(alignment, true)
+    this.store.commit('incrementUploadCheck')
     return alignment
   }
 
-  uploadFullDataJSON (fileData, tokenizerOptionValue, uploadType) {
+  uploadFullDataSimple (fileData, tokenizerOptionValue, uploadType) {
     const result = UploadController.upload(uploadType, fileData)
     this.store.commit('incrementUploadCheck')
     return result

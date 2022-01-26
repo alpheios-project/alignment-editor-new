@@ -22,6 +22,7 @@ export default class UploadController {
       plainSourceUploadAll: { method: this.plainSourceUploadAll, fileUpload: true, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv', extensions: [] },
       plainSourceUploadSingle: { method: this.plainSourceUploadSingle, fileUpload: true, allTexts: false, extensions: ['xml', 'txt'] },
       jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, fileUpload: true, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json', extensions: ['json'] },
+      xmlUploadAll: { method: this.xmlUploadAll, fileUpload: true, allTexts: true, name: 'xmlUploadAll', label: 'Full from XML (Alphveios v1)', extensions: ['xml'] },
       dtsAPIUpload: { method: this.dtsAPIUploadSingle, fileUpload: true, allTexts: false, name: 'dtsAPIUploadSingle', label: 'DTS API', extensions: ['xml'] },
       indexedDBUpload: { method: this.indexedDBUploadSingle, fileUpload: false, allTexts: true, name: 'indexedDBUploadSingle', label: 'IndexedDB', extensions: ['indexedDB-alignment'] }
     }
@@ -150,6 +151,19 @@ export default class UploadController {
   static jsonSimpleUploadAll (fileData) {
     const fileJSON = JSON.parse(fileData)
     return Alignment.convertFromJSON(fileJSON)
+  }
+
+  static xmlUploadAll (fileData) {
+    const parser = new DOMParser()
+    const alDoc = parser.parseFromString(fileData, 'application/xml')
+    if (alDoc.documentElement.nodeName === 'aligned-text') {
+      return Alignment.convertFromXML(alDoc)
+    }
+    console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_INCORRECT_XML_DATA'))
+    NotificationSingleton.addNotification({
+      text: L10nSingleton.getMsgS('UPLOAD_CONTROLLER_INCORRECT_XML_DATA'),
+      type: NotificationSingleton.types.ERROR
+    })
   }
 
   static async dtsAPIUploadSingle ({ linkData, objType = 'collection', refParams } = {}) {
