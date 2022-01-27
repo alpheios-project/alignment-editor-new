@@ -1,6 +1,6 @@
 <template>
   <div id="alpheios-alignment-editor-app-container" class="alpheios-alignment-editor-app-container">
-      <span class="alpheios-alignment-app-menu-open-icon" @click = "menuShow++">
+      <span class="alpheios-alignment-app-menu-open-icon" @click = "menuShow++" v-show="!showInitialScreenBlock">
         <navbar-icon />
       </span>
       <main-menu 

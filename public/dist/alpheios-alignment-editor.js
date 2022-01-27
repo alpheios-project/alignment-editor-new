@@ -48941,7 +48941,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i617-dtsAPI-feature.20220127419" : 0
+    return  true ? "i617-dtsAPI-feature.20220127589" : 0
   }
 
   static get libName () {
@@ -62337,6 +62337,14 @@ var render = function() {
       _c(
         "span",
         {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: !_vm.showInitialScreenBlock,
+              expression: "!showInitialScreenBlock"
+            }
+          ],
           staticClass: "alpheios-alignment-app-menu-open-icon",
           on: {
             click: function($event) {
