@@ -48941,7 +48941,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i617-dtsAPI-feature.20220127589" : 0
+    return  true ? "i617-dtsAPI-feature.20220127611" : 0
   }
 
   static get libName () {
@@ -54692,6 +54692,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
 /* harmony import */ var _vue_options_options_presets_list_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/options/options-presets-list.vue */ "./vue/options/options-presets-list.vue");
 /* harmony import */ var _vue_help_blocks_eng_help_block_enter_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/help-blocks/eng/help-block-enter.vue */ "./vue/help-blocks/eng/help-block-enter.vue");
+/* harmony import */ var _inline_icons_question_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/inline-icons/question.svg */ "./inline-icons/question.svg");
+/* harmony import */ var _inline_icons_question_svg__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_question_svg__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _inline_icons_gear_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/inline-icons/gear.svg */ "./inline-icons/gear.svg");
+/* harmony import */ var _inline_icons_gear_svg__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_gear_svg__WEBPACK_IMPORTED_MODULE_9__);
 //
 //
 //
@@ -54750,6 +54754,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
+
+
 
 
 
@@ -54770,7 +54781,10 @@ __webpack_require__.r(__webpack_exports__);
     helpPopup: _vue_common_help_popup_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
     savePopup: _vue_common_save_popup_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     helpBlockEnter: _vue_help_blocks_eng_help_block_enter_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
-    optionsPresetsPopup: _vue_options_options_presets_list_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+    optionsPresetsPopup: _vue_options_options_presets_list_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+
+    questionIcon: (_inline_icons_question_svg__WEBPACK_IMPORTED_MODULE_8___default()),
+    gearIcon: (_inline_icons_gear_svg__WEBPACK_IMPORTED_MODULE_9___default())
   },
   props: {  
   },
@@ -66598,13 +66612,15 @@ var render = function() {
           _vm._v(" "),
           _c(
             "span",
-            { staticClass: "alpheios-alignment-text-editor-block__part" },
+            {
+              staticClass: "alpheios-alignment-text-editor-block-buttons__part"
+            },
             [
               _c(
                 "button",
                 {
                   staticClass:
-                    "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+                    "alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon",
                   attrs: { id: "alpheios-actions-menu-button__enter-help" },
                   on: {
                     click: function($event) {
@@ -66613,10 +66629,11 @@ var render = function() {
                   }
                 },
                 [
-                  _vm._v(
-                    "\n            " +
-                      _vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_HEADER_HELP")) +
-                      "\n        "
+                  _c(
+                    "span",
+                    { staticClass: "alpheios-alignment-button-icon" },
+                    [_c("question-icon")],
+                    1
                   )
                 ]
               ),
@@ -66625,7 +66642,7 @@ var render = function() {
                 "button",
                 {
                   staticClass:
-                    "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+                    "alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon",
                   attrs: { id: "alpheios-actions-menu-button__enter-options" },
                   on: {
                     click: function($event) {
@@ -66634,10 +66651,11 @@ var render = function() {
                   }
                 },
                 [
-                  _vm._v(
-                    "\n            " +
-                      _vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_HEADER_OPTIONS")) +
-                      "\n        "
+                  _c(
+                    "span",
+                    { staticClass: "alpheios-alignment-button-icon" },
+                    [_c("gear-icon")],
+                    1
                   )
                 ]
               )
@@ -66646,7 +66664,10 @@ var render = function() {
           _vm._v(" "),
           _c(
             "span",
-            { staticClass: "alpheios-alignment-text-editor-block__part" },
+            {
+              staticClass:
+                "alpheios-alignment-text-editor-block__part alpheios-alignment-text-editor-block__part-right"
+            },
             [
               _c(
                 "button",
@@ -68817,6 +68838,43 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./inline-icons/gear.svg":
+/*!*******************************!*\
+  !*** ./inline-icons/gear.svg ***!
+  \*******************************/
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"viewBox":"0 0 250 250","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M125 57.5c-37.22 0-67.5 30.28-67.5 67.5s30.28 67.5 67.5 67.5 67.5-30.28 67.5-67.5-30.28-67.5-67.5-67.5zm0 120c-28.948 0-52.5-23.551-52.5-52.5S96.052 72.5 125 72.5s52.5 23.551 52.5 52.5-23.552 52.5-52.5 52.5z"}}),_c('path',{attrs:{"d":"M226.47 187.58l-8.555-8.555a106.241 106.241 0 0011.025-26.524H241a7.5 7.5 0 007.5-7.5v-40a7.5 7.5 0 00-7.5-7.5h-12.06a106.263 106.263 0 00-11.025-26.524l8.555-8.555a7.5 7.5 0 000-10.606l-28.284-28.284a7.5 7.5 0 00-10.607 0l-8.554 8.554a106.285 106.285 0 00-26.524-11.025V9.001a7.5 7.5 0 00-7.5-7.5h-40a7.5 7.5 0 00-7.5 7.5v12.06a106.307 106.307 0 00-26.525 11.025l-8.554-8.554a7.5 7.5 0 00-10.608 0L23.53 51.815a7.5 7.5 0 000 10.606l8.555 8.555A106.21 106.21 0 0021.06 97.5H9a7.5 7.5 0 00-7.5 7.5v40a7.5 7.5 0 007.5 7.5h12.06a106.248 106.248 0 0011.025 26.524l-8.555 8.555a7.5 7.5 0 000 10.606l28.283 28.284a7.5 7.5 0 0010.608 0l8.554-8.554A106.307 106.307 0 0097.5 228.94V241a7.5 7.5 0 007.5 7.5h40a7.5 7.5 0 007.5-7.5v-12.06a106.285 106.285 0 0026.524-11.025l8.554 8.554a7.5 7.5 0 0010.607 0l28.284-28.284a7.499 7.499 0 00.001-10.605zm-10.829-44.071c-2.349 11.573-6.888 22.497-13.491 32.469a7.5 7.5 0 00.949 9.444l7.461 7.46-17.678 17.678-7.46-7.46a7.501 7.501 0 00-9.444-.95c-9.972 6.603-20.896 11.143-32.47 13.492a7.5 7.5 0 00-6.008 7.35V233.5h-25v-10.508a7.5 7.5 0 00-6.008-7.35c-11.574-2.35-22.499-6.889-32.471-13.492a7.5 7.5 0 00-9.444.95l-7.46 7.46-17.677-17.677 7.461-7.46a7.5 7.5 0 00.949-9.444c-6.603-9.971-11.143-20.896-13.493-32.47a7.5 7.5 0 00-7.35-6.007H16.5v-25h10.508a7.5 7.5 0 007.35-6.007c2.351-11.574 6.891-22.499 13.493-32.47a7.5 7.5 0 00-.949-9.444l-7.461-7.46 17.677-17.677 7.46 7.46a7.501 7.501 0 009.444.95c9.972-6.603 20.896-11.143 32.471-13.492a7.5 7.5 0 006.008-7.35V16.501h25v10.508a7.5 7.5 0 006.008 7.35c11.574 2.35 22.498 6.889 32.47 13.492a7.5 7.5 0 009.444-.95l7.46-7.46 17.678 17.678-7.461 7.46a7.5 7.5 0 00-.949 9.444c6.604 9.972 11.143 20.896 13.491 32.469a7.5 7.5 0 007.351 6.008H233.5v25h-10.509a7.502 7.502 0 00-7.35 6.009z"}}),_c('path',{attrs:{"d":"M125 89.5c-19.575 0-35.5 15.925-35.5 35.5s15.925 35.5 35.5 35.5 35.5-15.925 35.5-35.5-15.925-35.5-35.5-35.5zm0 56c-11.304 0-20.5-9.196-20.5-20.5s9.196-20.5 20.5-20.5 20.5 9.196 20.5 20.5-9.196 20.5-20.5 20.5z"}})])
+          )
+        }
+      }
+    
+
+/***/ }),
+
 /***/ "./inline-icons/has-metadata.svg":
 /*!***************************************!*\
   !*** ./inline-icons/has-metadata.svg ***!
@@ -69180,6 +69238,43 @@ render._withStripped = true
               ...rest,
             },
             children.concat([_c('path',{attrs:{"d":"M121.247 207.366c6.44-6.44 11.707-11.777 11.707-11.86 0-.144-54.344-54.423-75.835-75.744l-10.35-10.269 18.023-17.897a33438.47 33438.47 0 0043.16-42.97l25.134-25.074L109.537-.001-.003 109.539l109.54 109.54zm78.383-.332l11.773-11.776-42.73-42.72c-23.502-23.496-42.73-42.848-42.73-43.003 0-.156 19.23-19.505 42.73-43l42.73-42.717L187.68.132l-33.466 33.602c-58.009 58.244-74.837 75.289-74.837 75.8 0 .286 3.988 4.513 9.655 10.234 23.492 23.714 98.543 99.043 98.678 99.043.082 0 5.447-5.3 11.922-11.776z"}})])
+          )
+        }
+      }
+    
+
+/***/ }),
+
+/***/ "./inline-icons/question.svg":
+/*!***********************************!*\
+  !*** ./inline-icons/question.svg ***!
+  \***********************************/
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"width":"548.03","height":"548.03","viewBox":"0 0 145 145","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M53.38 100.14q-.906-2.356-1.45-5.256-.453-2.99-.453-5.618 0-4.168.816-7.611.815-3.444 2.446-6.434 1.631-3.08 4.078-5.8 2.446-2.808 5.709-5.527 3.443-2.9 5.98-5.346 2.628-2.537 4.44-4.984 1.812-2.537 2.719-5.165.906-2.718.906-5.98 0-2.81-.997-5.165-.997-2.447-2.9-4.168-1.812-1.722-4.53-2.719-2.628-.997-5.89-.997-7.068 0-14.68 2.99-7.612 2.9-14.408 8.88V13.967q6.977-4.168 15.223-6.253Q58.635 5.63 67.424 5.63q8.427 0 15.676 1.903 7.249 1.813 12.595 5.8 5.437 3.987 8.427 10.239 3.08 6.161 3.08 14.86 0 5.528-1.268 10.059-1.269 4.44-3.715 8.427-2.447 3.987-6.071 7.702-3.625 3.624-8.337 7.52-3.171 2.629-5.618 4.894-2.356 2.265-3.987 4.53-1.54 2.175-2.356 4.713-.815 2.446-.815 5.618 0 2.174.543 4.44.634 2.265 1.631 3.806zm13.23 39.689q-7.25 0-12.052-4.35-4.803-4.53-4.803-10.692 0-6.343 4.803-10.602t12.052-4.258q7.159 0 11.87 4.258 4.712 4.169 4.712 10.602 0 6.525-4.621 10.783-4.712 4.26-11.961 4.26z","stroke-width":"1.856","aria-label":"?"}})])
           )
         }
       }
