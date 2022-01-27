@@ -6,9 +6,6 @@
         <option-item-block :optionItem = "tokenizerOptionItem" :disabled = "readOnly" 
             :emitUpdateData = "true" @updateData = "$emit('updateData', 'tokenizer')"/>
 
-        <option-item-block :optionItem = "enableDTSAPIUploadOptionItem" :disabled = "readOnly" 
-            :emitUpdateData = "true" @updateData = "$emit('updateData', 'enableDTSAPIUpload')"/>
-
         <option-item-block :optionItem = "availableAnnotationTypesOptionItem"  :disabled = "disableAnnotationsTypes || readOnly" 
             :emitUpdateData = "true" @updateData = "$emit('updateData', 'availableAnnotationTypes')"/>
 
@@ -18,6 +15,9 @@
         <option-item-block :optionItem = "maxCharactersPerPartOptionItem" :disabled = "readOnly" 
             :emitUpdateData = "true" @updateData = "$emit('updateData', 'maxCharactersPerPart')"/>
 
+        <option-item-block :optionItem = "enableDTSAPIUploadOptionItem" :disabled = "readOnly" 
+            :emitUpdateData = "true" @updateData = "$emit('updateData', 'enableDTSAPIUpload')"/>
+            
         <option-item-block :optionItem = "useSpecificEnglishTokenizerOptionItem" :disabled = "readOnly" 
             :emitUpdateData = "true" @updateData = "$emit('updateData', 'useSpecificEnglishTokenizer')"/>
 

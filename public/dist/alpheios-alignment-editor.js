@@ -48941,7 +48941,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i176-ugarit-upload.20220126586" : 0
+    return  true ? "i617-dtsAPI-feature.20220127419" : 0
   }
 
   static get libName () {
@@ -64497,19 +64497,6 @@ var render = function() {
       _vm._v(" "),
       _c("option-item-block", {
         attrs: {
-          optionItem: _vm.enableDTSAPIUploadOptionItem,
-          disabled: _vm.readOnly,
-          emitUpdateData: true
-        },
-        on: {
-          updateData: function($event) {
-            return _vm.$emit("updateData", "enableDTSAPIUpload")
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c("option-item-block", {
-        attrs: {
           optionItem: _vm.availableAnnotationTypesOptionItem,
           disabled: _vm.disableAnnotationsTypes || _vm.readOnly,
           emitUpdateData: true
@@ -64543,6 +64530,19 @@ var render = function() {
         on: {
           updateData: function($event) {
             return _vm.$emit("updateData", "maxCharactersPerPart")
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("option-item-block", {
+        attrs: {
+          optionItem: _vm.enableDTSAPIUploadOptionItem,
+          disabled: _vm.readOnly,
+          emitUpdateData: true
+        },
+        on: {
+          updateData: function($event) {
+            return _vm.$emit("updateData", "enableDTSAPIUpload")
           }
         }
       }),
