@@ -1,7 +1,7 @@
 <template>
   <div class="alpheios-alignment-editor-text-blocks-single" v-show="dataUpdated" :id="containerId">
       <p class="alpheios-alignment-editor-text-blocks-single__title" :class="{ 'alpheios-alignment-editor-text-blocks-single__title_less-margin': showAlignButton }">
-        <span class="alpheios-alignment-editor-text-blocks-single__title-text">{{ indexData }}{{ textBlockTitle }}</span>
+        <span class="alpheios-alignment-editor-text-blocks-single__title-text">{{ indexData }}{{ textTypeFormatted }}</span>
         <span id="alpheios-alignment-editor-add-translation" class="alpheios-alignment-editor-add-translation" v-show="showAddTranslation" @click="$emit('add-translation')">
           <plus-icon />
         </span>

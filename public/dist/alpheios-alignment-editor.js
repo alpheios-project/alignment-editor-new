@@ -48941,7 +48941,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i617-dtsAPI-feature.20220127618" : 0
+    return  true ? "i617-dtsAPI-feature.20220127621" : 0
   }
 
   static get libName () {
@@ -66121,7 +66121,7 @@ var render = function() {
               staticClass:
                 "alpheios-alignment-editor-text-blocks-single__title-text"
             },
-            [_vm._v(_vm._s(_vm.indexData) + _vm._s(_vm.textBlockTitle))]
+            [_vm._v(_vm._s(_vm.indexData) + _vm._s(_vm.textTypeFormatted))]
           ),
           _vm._v(" "),
           _c(
