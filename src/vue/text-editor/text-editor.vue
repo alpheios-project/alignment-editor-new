@@ -6,17 +6,21 @@
           <span class="alpheios-alignment-text-editor-block__header-link" v-if="alignEditAvailable" @click="$emit('showAlignmentGroupsEditor')">{{ l10n.getMsgS('ALIGN_EDITOR_LINK') }}</span>
           <span class="alpheios-alignment-text-editor-block__header-link" v-if="tokensEditAvailable" @click="$emit('showTokensEditor')">{{ l10n.getMsgS('TOKENS_EDITOR_LINK') }}</span>
         </span>
-        <span class="alpheios-alignment-text-editor-block__part">
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-help"
+        <span class="alpheios-alignment-text-editor-block-buttons__part">
+          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-help"
               @click="$modal.show('help-enter')">
-              {{ l10n.getMsgS('TEXT_EDITOR_HEADER_HELP') }}
+              <span class="alpheios-alignment-button-icon">
+                <question-icon />
+              </span>
           </button>
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-options"
+          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-options"
               @click="$modal.show('options-presets')">
-              {{ l10n.getMsgS('TEXT_EDITOR_HEADER_OPTIONS') }}
+              <span class="alpheios-alignment-button-icon">
+                <gear-icon />
+              </span>
           </button>
         </span>
-        <span class="alpheios-alignment-text-editor-block__part">
+        <span class="alpheios-alignment-text-editor-block__part alpheios-alignment-text-editor-block__part-right">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-save"
               @click="$modal.show('save-enter')" :disabled="!downloadAvailable">
               {{ l10n.getMsgS('TEXT_EDITOR_HEADER_SAVE') }}
@@ -68,6 +72,9 @@ import OptionsPresetsList from '@/vue/options/options-presets-list.vue'
 
 import HelpBlockEnter from '@/vue/help-blocks/eng/help-block-enter.vue'
 
+import QuestionIcon from '@/inline-icons/question.svg'
+import GearIcon from '@/inline-icons/gear.svg'
+
 export default {
   name: 'TextEditor',
   components: {
@@ -76,7 +83,10 @@ export default {
     helpPopup: HelpPopup,
     savePopup: SavePopup,
     helpBlockEnter: HelpBlockEnter,
-    optionsPresetsPopup: OptionsPresetsList
+    optionsPresetsPopup: OptionsPresetsList,
+
+    questionIcon: QuestionIcon,
+    gearIcon: GearIcon
   },
   props: {  
   },
@@ -132,10 +142,14 @@ export default {
     display: flex;
     justify-content: space-between;
 
-    .alpheios-alignment-text-editor-block__part {
+    .alpheios-alignment-text-editor-block__part{
       button {
         text-transform: uppercase;
       }
+    }
+
+    .alpheios-alignment-text-editor-block__part-right {
+      text-align: right;
     }
 
     .alpheios-alignment-text-editor-block__header-label {
@@ -194,5 +208,22 @@ export default {
       font-size: 90%;
       text-decoration: underline;
       color: #185F6D;
+    }
+    
+    button.alpheios-actions-menu-button.alpheios-actions-menu-button-with-icon {
+      padding: 5px;
+      margin: 0 2px;
+      .alpheios-alignment-button-icon {
+          display: inline-block;
+          width: 25px;
+          height: 25px;
+
+          svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+            fill: #fff;
+          }
+      }
     }
 </style>
