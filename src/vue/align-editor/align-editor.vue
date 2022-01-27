@@ -16,16 +16,22 @@
 
 
         </span>
-        <span class="alpheios-alignment-text-editor-block__part alpheios-alignment-text-editor-block__part-2">
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-help"
+        
+        <span class="alpheios-alignment-text-editor-block-buttons__part alpheios-alignment-text-editor-block__part-2">
+          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-help"
               @click="$modal.show('help-align')">
-              {{ l10n.getMsgS("ALIGN_EDITOR_HELP") }}
+              <span class="alpheios-alignment-button-icon">
+                <question-icon />
+              </span>
           </button>
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-options"
+          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-options"
               @click="$modal.show('options-align')" :disabled="true">
-              {{ l10n.getMsgS("ALIGN_EDITOR_OPTIONS") }}
+              <span class="alpheios-alignment-button-icon">
+                <gear-icon />
+              </span>
           </button>
         </span>
+
         <span class="alpheios-alignment-text-editor-block__part alpheios-alignment-text-editor-block__part-3">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-save"
               @click="$modal.show('save-align')">
@@ -60,6 +66,9 @@ import SettingsController from '@/lib/controllers/settings-controller.js'
 
 import HelpBlockAlign from '@/vue/help-blocks/eng/help-block-align.vue'
 
+import QuestionIcon from '@/inline-icons/question.svg'
+import GearIcon from '@/inline-icons/gear.svg'
+
 export default {
   name: 'AlignEditor',
   components: {
@@ -68,7 +77,10 @@ export default {
     savePopup: SavePopup,
     helpBlockAlign: HelpBlockAlign,
     optionsTextAlignPopup: OptionsTextAlign,
-    annotationBlockPopup: AnnotationBlockPopup
+    annotationBlockPopup: AnnotationBlockPopup,
+
+    questionIcon: QuestionIcon,
+    gearIcon: GearIcon
   },
   props: {
   },

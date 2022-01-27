@@ -48941,7 +48941,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i617-dtsAPI-feature.20220127611" : 0
+    return  true ? "i617-dtsAPI-feature.20220127618" : 0
   }
 
   static get libName () {
@@ -50001,6 +50001,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_align_editor_annotation_block_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/align-editor/annotation-block.vue */ "./vue/align-editor/annotation-block.vue");
 /* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
 /* harmony import */ var _vue_help_blocks_eng_help_block_align_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/help-blocks/eng/help-block-align.vue */ "./vue/help-blocks/eng/help-block-align.vue");
+/* harmony import */ var _inline_icons_question_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/inline-icons/question.svg */ "./inline-icons/question.svg");
+/* harmony import */ var _inline_icons_question_svg__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_question_svg__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _inline_icons_gear_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/inline-icons/gear.svg */ "./inline-icons/gear.svg");
+/* harmony import */ var _inline_icons_gear_svg__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_gear_svg__WEBPACK_IMPORTED_MODULE_9__);
 //
 //
 //
@@ -50049,6 +50053,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
+
+
 
 
 
@@ -50071,7 +50084,10 @@ __webpack_require__.r(__webpack_exports__);
     savePopup: _vue_common_save_popup_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
     helpBlockAlign: _vue_help_blocks_eng_help_block_align_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
     optionsTextAlignPopup: _vue_options_options_text_align_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-    annotationBlockPopup: _vue_align_editor_annotation_block_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+    annotationBlockPopup: _vue_align_editor_annotation_block_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+
+    questionIcon: (_inline_icons_question_svg__WEBPACK_IMPORTED_MODULE_8___default()),
+    gearIcon: (_inline_icons_gear_svg__WEBPACK_IMPORTED_MODULE_9___default())
   },
   props: {
   },
@@ -56579,6 +56595,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_help_blocks_eng_help_block_edit_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/help-blocks/eng/help-block-edit.vue */ "./vue/help-blocks/eng/help-block-edit.vue");
 /* harmony import */ var _vue_options_options_text_edit_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/options/options-text-edit.vue */ "./vue/options/options-text-edit.vue");
 /* harmony import */ var _vue_tokens_editor_insert_tokens_block_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/tokens-editor/insert-tokens-block.vue */ "./vue/tokens-editor/insert-tokens-block.vue");
+/* harmony import */ var _inline_icons_question_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/inline-icons/question.svg */ "./inline-icons/question.svg");
+/* harmony import */ var _inline_icons_question_svg__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_question_svg__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _inline_icons_gear_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/inline-icons/gear.svg */ "./inline-icons/gear.svg");
+/* harmony import */ var _inline_icons_gear_svg__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_gear_svg__WEBPACK_IMPORTED_MODULE_8__);
 //
 //
 //
@@ -56614,6 +56634,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
+
+
 
 
 
@@ -56635,7 +56662,10 @@ __webpack_require__.r(__webpack_exports__);
     savePopup: _vue_common_save_popup_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
     helpBlockEdit: _vue_help_blocks_eng_help_block_edit_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     optionsTextEditPopup: _vue_options_options_text_edit_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
-    insertTokensPopup: _vue_tokens_editor_insert_tokens_block_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+    insertTokensPopup: _vue_tokens_editor_insert_tokens_block_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+
+    questionIcon: (_inline_icons_question_svg__WEBPACK_IMPORTED_MODULE_7___default()),
+    gearIcon: (_inline_icons_gear_svg__WEBPACK_IMPORTED_MODULE_8___default())
   },
   props: {
     renderEditor: {
@@ -61389,14 +61419,14 @@ var render = function() {
             "span",
             {
               staticClass:
-                "alpheios-alignment-text-editor-block__part alpheios-alignment-text-editor-block__part-2"
+                "alpheios-alignment-text-editor-block-buttons__part alpheios-alignment-text-editor-block__part-2"
             },
             [
               _c(
                 "button",
                 {
                   staticClass:
-                    "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+                    "alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon",
                   attrs: { id: "alpheios-actions-menu-button__enter-help" },
                   on: {
                     click: function($event) {
@@ -61405,10 +61435,11 @@ var render = function() {
                   }
                 },
                 [
-                  _vm._v(
-                    "\n            " +
-                      _vm._s(_vm.l10n.getMsgS("ALIGN_EDITOR_HELP")) +
-                      "\n        "
+                  _c(
+                    "span",
+                    { staticClass: "alpheios-alignment-button-icon" },
+                    [_c("question-icon")],
+                    1
                   )
                 ]
               ),
@@ -61417,7 +61448,7 @@ var render = function() {
                 "button",
                 {
                   staticClass:
-                    "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+                    "alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon",
                   attrs: {
                     id: "alpheios-actions-menu-button__enter-options",
                     disabled: true
@@ -61429,10 +61460,11 @@ var render = function() {
                   }
                 },
                 [
-                  _vm._v(
-                    "\n            " +
-                      _vm._s(_vm.l10n.getMsgS("ALIGN_EDITOR_OPTIONS")) +
-                      "\n        "
+                  _c(
+                    "span",
+                    { staticClass: "alpheios-alignment-button-icon" },
+                    [_c("gear-icon")],
+                    1
                   )
                 ]
               )
@@ -68518,13 +68550,15 @@ var render = function() {
           _vm._v(" "),
           _c(
             "span",
-            { staticClass: "alpheios-alignment-text-editor-block__part" },
+            {
+              staticClass: "alpheios-alignment-text-editor-block-buttons__part"
+            },
             [
               _c(
                 "button",
                 {
                   staticClass:
-                    "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+                    "alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon",
                   attrs: { id: "alpheios-actions-menu-button__enter-help" },
                   on: {
                     click: function($event) {
@@ -68533,10 +68567,11 @@ var render = function() {
                   }
                 },
                 [
-                  _vm._v(
-                    "\n            " +
-                      _vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_HEADER_HELP")) +
-                      "\n        "
+                  _c(
+                    "span",
+                    { staticClass: "alpheios-alignment-button-icon" },
+                    [_c("question-icon")],
+                    1
                   )
                 ]
               ),
@@ -68545,7 +68580,7 @@ var render = function() {
                 "button",
                 {
                   staticClass:
-                    "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+                    "alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon",
                   attrs: {
                     id: "alpheios-actions-menu-button__enter-options",
                     disabled: true
@@ -68557,10 +68592,11 @@ var render = function() {
                   }
                 },
                 [
-                  _vm._v(
-                    "\n            " +
-                      _vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_HEADER_OPTIONS")) +
-                      "\n        "
+                  _c(
+                    "span",
+                    { staticClass: "alpheios-alignment-button-icon" },
+                    [_c("gear-icon")],
+                    1
                   )
                 ]
               )
@@ -68569,7 +68605,10 @@ var render = function() {
           _vm._v(" "),
           _c(
             "span",
-            { staticClass: "alpheios-alignment-text-editor-block__part" },
+            {
+              staticClass:
+                "alpheios-alignment-text-editor-block__part alpheios-alignment-text-editor-block__part-right"
+            },
             [
               _c(
                 "button",
