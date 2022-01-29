@@ -14,6 +14,8 @@
             <option-item-block :optionItem = "availableAnnotationTypesOptionItem"  :disabled = "disableAnnotationsTypes" />
             <option-item-block :optionItem = "maxCharactersAnnotationTextOptionItem" />
             <option-item-block :optionItem = "maxCharactersPerPart" />
+            
+            <option-item-block :optionItem = "enableDTSAPIUploadOptionItem" />
             <option-item-block :optionItem = "useSpecificEnglishTokenizerOptionItem" />
             <option-item-block :optionItem = "showSummaryPopupOptionItem" />
             <option-item-block :optionItem = "enableTokensEditorOptionItem" />
@@ -74,7 +76,9 @@ export default {
     enableTokensEditorOptionItem () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableTokensEditor
     },
-
+    enableDTSAPIUploadOptionItem () {
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableDTSAPIUpload
+    },
     addIndexedDBSupportOptionItem () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.addIndexedDBSupport
     },

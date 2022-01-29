@@ -2,16 +2,9 @@ import { Options, LocalStorageArea, PsEvent, TempStorageArea } from 'alpheios-da
 
 import DefaultAppSettings from '@/settings/default-app-settings.json'
 import DefaultSourceTextSettings from '@/settings/default-source-text-settings.json'
-import DefaultInnerSettings from '@/settings/default-inner-settings.json'
-
-import DefaultStandardPresetValues from '@/settings/preset-standard-app-settings.json'
-import DefaultAdvancedPresetValues from '@/settings/preset-advanced-app-settings.json'
-import DefaultCustomPresetValues from '@/settings/preset-custom-app-settings.json'
 
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 import StorageController from '@/lib/controllers/storage-controller'
-
-import OptionsPreset from '@/lib/data/options-preset'
 
 import Langs from '@/lib/data/langs/langs.js'
 
@@ -28,18 +21,10 @@ export default class SettingsController {
 
     this.defaultSettings = {
       app: DefaultAppSettings,
-      sourceText: DefaultSourceTextSettings,
-      inner: DefaultInnerSettings
-    }
-
-    this.defaultPresetDetails = {
-      standard: { defaults: DefaultStandardPresetValues, hasStorage: false },
-      advanced: { defaults: DefaultAdvancedPresetValues, hasStorage: false },
-      custom: { defaults: DefaultCustomPresetValues, hasStorage: true }
+      sourceText: DefaultSourceTextSettings
     }
 
     this.options = {}
-    this.optionsPresets = {}
 
     Langs.collectLangsData()
     this.valuesClassesList = {
@@ -63,12 +48,8 @@ export default class SettingsController {
     await Promise.all(optionsPromises)
 
     Object.values(_instance.options.app.items).forEach(optionItem => this.changeOption(optionItem))
-    Object.values(_instance.options.inner.items).forEach(optionItem => this.changeOption(optionItem))
 
     this.submitEventUpdateTheme()
-
-    const optionsPresetsPromises = Object.values(_instance.optionsPresets).map(optionsPreset => optionsPreset.load())
-    await Promise.all(optionsPresetsPromises)
   }
 
   static getStorageAdapter () {
@@ -158,10 +139,6 @@ export default class SettingsController {
     return _instance.options
   }
 
-  static get allOptionsPresets () {
-    return _instance.optionsPresets
-  }
-
   /**
    * Creates all type of options from default data
    */
@@ -173,13 +150,6 @@ export default class SettingsController {
       optionsGroup.checkAndUploadValuesFromArray(_instance.valuesClassesList)
     })
     this.submitEventUpdateTheme()
-
-    Object.keys(_instance.defaultPresetDetails).forEach(defaultPresetName => {
-      const presetData = _instance.defaultPresetDetails[defaultPresetName]
-
-      const presetStorage = presetData.hasStorage ? new _instance.storageAdapter(presetData.defaults.domain) : null // eslint-disable-line new-cap
-      _instance.optionsPresets[defaultPresetName] = new OptionsPreset(presetData.defaults, presetStorage)
-    })
   }
 
   /**
@@ -307,9 +277,6 @@ export default class SettingsController {
     await _instance.options.sourceText.reset()
     _instance.options.sourceText.checkAndUploadValuesFromArray(_instance.valuesClassesList)
     Object.values(_instance.options.sourceText.items).forEach(optionItem => this.changeOption(optionItem))
-
-    await _instance.options.inner.reset()
-    Object.values(_instance.options.inner.items).forEach(optionItem => this.changeOption(optionItem))
 
     _instance.store.commit('incrementResetOptions')
   }

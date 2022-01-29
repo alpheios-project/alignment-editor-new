@@ -14,7 +14,7 @@
               </span>
           </button>
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-options"
-              @click="$modal.show('options-presets')">
+              @click="$modal.show('options-enter')">
               <span class="alpheios-alignment-button-icon">
                 <gear-icon />
               </span>
@@ -57,7 +57,7 @@
       </help-popup>
       <save-popup @closeModal = "$modal.hide('save-enter')" mname = "save-enter" />
 
-      <options-presets-popup @closeModal = "$modal.hide('options-presets')" />
+      <options-text-enter-popup @closeModal = "$modal.hide('options-enter')" />
   </div>
 </template>
 <script>
@@ -68,7 +68,7 @@ import HelpPopup from '@/vue/common/help-popup.vue'
 import SavePopup from '@/vue/common/save-popup.vue'
 import SettingsController from '@/lib/controllers/settings-controller.js'
 
-import OptionsPresetsList from '@/vue/options/options-presets-list.vue'
+import OptionsTextEnter from '@/vue/options/options-text-enter.vue'
 
 import HelpBlockEnter from '@/vue/help-blocks/eng/help-block-enter.vue'
 
@@ -83,7 +83,7 @@ export default {
     helpPopup: HelpPopup,
     savePopup: SavePopup,
     helpBlockEnter: HelpBlockEnter,
-    optionsPresetsPopup: OptionsPresetsList,
+    optionsTextEnterPopup: OptionsTextEnter,
 
     questionIcon: QuestionIcon,
     gearIcon: GearIcon
@@ -212,7 +212,7 @@ export default {
     
     button.alpheios-actions-menu-button.alpheios-actions-menu-button-with-icon {
       padding: 5px;
-      margin: 0 2px;
+      margin: 0 5px;
       .alpheios-alignment-button-icon {
           display: inline-block;
           width: 25px;
