@@ -71,7 +71,7 @@
       ]
     },
     "showSummaryPopup": {
-      "defaultValue": true,
+      "defaultValue": false,
       "labelText": "Show language check before text would be prepared",
       "boolean": true,
       "values": [
@@ -155,6 +155,51 @@
     "enableDTSAPIUpload": {
       "defaultValue": false,
       "labelText": "Enable upload from DTS API",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "Yes"
+        },
+        {
+          "value": false,
+          "text": "No"
+        }
+      ]
+    },
+    "isAdvancedMode": {
+      "defaultValue": false,
+      "labelText": "Is advanced mode",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "Yes"
+        },
+        {
+          "value": false,
+          "text": "No"
+        }
+      ]
+    },
+    "enableAnnotatios": {
+      "defaultValue": false,
+      "labelText": "Enable annotations",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "Yes"
+        },
+        {
+          "value": false,
+          "text": "No"
+        }
+      ]
+    },
+    "enableMetadata": {
+      "defaultValue": false,
+      "labelText": "Enable metadata",
       "boolean": true,
       "values": [
         {

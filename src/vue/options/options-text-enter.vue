@@ -8,31 +8,51 @@
         <h2 class="alpheios-alignment-editor-modal-header">{{ l10n.getMsgS('OPTIONS_TITLE_TEXT_ENTER') }}</h2>
     </div>
     <div class="alpheios-modal-body" >
-        <div class="alpheios-alignment-editor-modal-options-block">
-            <option-item-block :optionItem = "themeOptionItem" />
-            <option-item-block :optionItem = "tokenizerOptionItem" />
-            <option-item-block :optionItem = "availableAnnotationTypesOptionItem"  :disabled = "disableAnnotationsTypes" />
-            <option-item-block :optionItem = "maxCharactersAnnotationTextOptionItem" />
-            <option-item-block :optionItem = "maxCharactersPerPart" />
-            <option-item-block :optionItem = "useSpecificEnglishTokenizerOptionItem" />
-            <option-item-block :optionItem = "showSummaryPopupOptionItem" />
-            <option-item-block :optionItem = "enableTokensEditorOptionItem" />
-
-            <option-item-block :optionItem = "addIndexedDBSupportOptionItem"/>
-            <option-item-block :optionItem = "maxCharactersOptionItem" v-show="!addIndexedDBSupportValue"/>
-        </div>
-    </div>
-    <div class="alpheios-modal-footer" >
       <p class="alpheios-alignment-options__buttons">
         <button class="alpheios-editor-button-tertiary alpheios-options-button alpheios-options-reset-all" 
             @click="resetOptions" >
             {{ l10n.getMsgS('OPTIONS_BLOCK_RESET_ALL') }}
         </button>
       </p>
+        <div class="alpheios-alignment-editor-modal-options-block">
+            <option-item-block :optionItem = "enableAnnotatiosOptionItem" />
+
+            <fieldset v-show = "enableAnnotatiosValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
+              <option-item-block :optionItem = "availableAnnotationTypesOptionItem"  :disabled = "disableAnnotationsTypes" />
+              <option-item-block :optionItem = "maxCharactersAnnotationTextOptionItem" />
+            </fieldset>
+
+            <option-item-block :optionItem = "enableTokensEditorOptionItem" />
+            <option-item-block :optionItem = "enableMetadataOptionItem" />
+            
+            <fieldset v-show = "isAdvancedModeValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
+              <option-item-block :optionItem = "tokenizerOptionItem" />
+              <option-item-block :optionItem = "useSpecificEnglishTokenizerOptionItem" />
+            </fieldset>
+
+            <fieldset v-show = "isAdvancedModeValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
+              <option-item-block :optionItem = "enableDTSAPIUploadOptionItem" />
+              <option-item-block :optionItem = "showSummaryPopupOptionItem" />
+            </fieldset>
+
+            <fieldset  v-show = "isAdvancedModeValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
+              <option-item-block :optionItem = "addIndexedDBSupportOptionItem" />
+              <option-item-block :optionItem = "maxCharactersOptionItem" v-show="!addIndexedDBSupportValue"/>
+              <option-item-block :optionItem = "maxCharactersPerPartOptionItem" v-show = "addIndexedDBSupportValue"/>
+            </fieldset>
+        </div>
+        <p class="alpheios-alignment-options__buttons">
+          <button class="alpheios-editor-button-tertiary alpheios-options-button alpheios-options-reset-all" 
+              @click="setOptionsToAdvanced" >
+              {{ l10n.getMsgS('OPTIONS_BLOCK_SET_ADVANCED') }}
+          </button>
+        </p>
+    </div>
+    <div class="alpheios-modal-footer" >
       <div class="alpheios-alignment-options__aboutcont">
         <h3>{{ l10n.getMsgS('OPTIONS_BLOCK_INFO_ABOUT') }}</h3>
         <div class="alpheios-alignment-options__versiontext">
-          {{ versionData }}
+          {{ $store.getters.libVersionData }}
         </div>
       </div>
     </div>
@@ -51,6 +71,7 @@ export default {
     xCloseIcon: XCloseIcon
   },
   props: {
+    isAdvanced: false
   },
   computed: {
     l10n () {
@@ -74,7 +95,9 @@ export default {
     enableTokensEditorOptionItem () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableTokensEditor
     },
-
+    enableDTSAPIUploadOptionItem () {
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableDTSAPIUpload
+    },
     addIndexedDBSupportOptionItem () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.addIndexedDBSupport
     },
@@ -86,20 +109,44 @@ export default {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.maxCharactersAnnotationText
     },
 
-    maxCharactersPerPart () {
+    maxCharactersPerPartOptionItem () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.maxCharactersPerPart
     }, 
+
+    enableAnnotatiosOptionItem () {
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableAnnotatios
+    },
+
+    enableMetadataOptionItem () {
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableMetadata
+    },
 
     disableAnnotationsTypes () {
       return this.$store.state.updateAnnotations && this.$store.state.docSourceUpdated && this.$textC.hasAnnotations
     },
     addIndexedDBSupportValue () {
       return this.$store.state.optionsUpdated && SettingsController.addIndexedDBSupport
+    },
+    
+    enableAnnotatiosValue () {
+      return this.$store.state.optionsUpdated && SettingsController.enableAnnotatios
+    },
+
+    isAdvancedModeValue () {
+      return this.$store.state.optionsUpdated && SettingsController.isAdvancedMode
+    },
+
+    isAdvancedModeOptionItem () {
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.isAdvancedMode
     }
   },
   methods: {
     async resetOptions () {
       await SettingsController.resetAllOptions()
+    },
+
+    setOptionsToAdvanced () {
+      SettingsController.updateToAdvancedDefaultValues()
     }
   }
 }
@@ -127,6 +174,14 @@ export default {
 
   .alpheios-alignment-options__buttons {
     margin: 0;
+  }
+
+  .alpheios-alignment-editor-modal-options-block-fieldset {
+    margin: 0 0 20px;
+    border-color: #eeee;
+    border-width: 1px;
+    border-image: none;
+    padding: 10px 10px 0;
   }
 }
 </style>

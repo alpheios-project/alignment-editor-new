@@ -6,7 +6,7 @@
           <p class="alpheios-alignment-editor-align-text-segment-row" v-if="isFirst">
             <span class="alpheios-alignment-editor-align-text-segment-row__langname" >{{ segment.langName }}</span>
 
-            <metadata-icons :text-type = "textType" :text-id = "segment.docSourceId" @showModalMetadata = "$modal.show(metadataModalName)" />
+            <metadata-icons :text-type = "textType" :text-id = "segment.docSourceId" @showModalMetadata = "$modal.show(metadataModalName)" v-show="enableMetadataValue"/>
           </p>
 
           <p class="alpheios-alignment-editor-align-text-parts" v-if="allPartsKeys.length > 1">
@@ -61,6 +61,8 @@ import HasMetadataIcon from '@/inline-icons/has-metadata.svg'
 import Tooltip from '@/vue/common/tooltip.vue'
 import MetadataBlock from '@/vue/text-editor/metadata-block.vue'
 import MetadataIcons from '@/vue/common/metadata-icons.vue'
+
+import SettingsController from '@/lib/controllers/settings-controller.js'
 
 export default {
   name: 'SegmentBlock',
@@ -265,6 +267,10 @@ export default {
 
     showNext () {
       return this.allPartsKeys.length > 0 && (Math.max(...this.currentPartIndexes) < this.allPartsKeys[this.allPartsKeys.length-1].partNum)
+    },
+
+    enableMetadataValue () {
+      return this.$store.state.optionsUpdated && SettingsController.enableMetadata
     }
   },
   methods: {

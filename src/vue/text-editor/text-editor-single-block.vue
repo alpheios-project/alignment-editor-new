@@ -54,7 +54,7 @@
             </tooltip>
           </span>
 
-          <metadata-icons :text-type = "textType" :text-id = "textId" @showModalMetadata = "$modal.show(metadataModalName)" />
+          <metadata-icons :text-type = "textType" :text-id = "textId" @showModalMetadata = "$modal.show(metadataModalName)" v-show="enableMetadataValue"/>
 
         </p>
         <span :id="removeId" class="alpheios-alignment-editor-text-blocks-single__remove" v-show="showDeleteIcon" @click="deleteText">
@@ -356,6 +356,9 @@ export default {
 
     enableDTSAPIUploadValue () {
       return this.$store.state.optionsUpdated && SettingsController.enableDTSAPIUpload
+    },
+    enableMetadataValue () {
+      return this.$store.state.optionsUpdated && SettingsController.enableMetadata
     }
   },
   methods: {
