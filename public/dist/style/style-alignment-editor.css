@@ -2023,6 +2023,12 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 .alpheios-alignment-editor-modal-options .alpheios-alignment-options__buttons {
   margin: 0;
 }
+.alpheios-alignment-editor-modal-options .alpheios-alignment-editor-modal-options-block-fieldset {
+  margin: 0 0 20px;
+  border-color: #eeee;
+  border-width: 1px;
+  border-image: none;
+}
 .alpheios-editor-help-content {
   text-indent: 10px;
   text-align: justify;

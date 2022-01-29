@@ -98,6 +98,14 @@ export default class SettingsController {
     return _instance.options.app && _instance.options.app.items.enableDTSAPIUpload ? _instance.options.app.items.enableDTSAPIUpload.currentValue : false
   }
 
+  static get isAdvancedMode () {
+    return _instance.options.app && _instance.options.app.items.isAdvancedMode ? _instance.options.app.items.isAdvancedMode.currentValue : false
+  }
+
+  static get enableAnnotatios () {
+    return _instance.options.app && _instance.options.app.items.enableAnnotatios ? _instance.options.app.items.enableAnnotatios.currentValue : false
+  }
+
   static get addIndexedDBSupport () {
     return _instance.options.app && _instance.options.app.items.addIndexedDBSupport ? _instance.options.app.items.addIndexedDBSupport.currentValue : 1000
   }

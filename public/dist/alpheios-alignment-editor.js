@@ -39917,6 +39917,14 @@ class SettingsController {
     return _instance.options.app && _instance.options.app.items.enableDTSAPIUpload ? _instance.options.app.items.enableDTSAPIUpload.currentValue : false
   }
 
+  static get isAdvancedMode () {
+    return _instance.options.app && _instance.options.app.items.isAdvancedMode ? _instance.options.app.items.isAdvancedMode.currentValue : false
+  }
+
+  static get enableAnnotatios () {
+    return _instance.options.app && _instance.options.app.items.enableAnnotatios ? _instance.options.app.items.enableAnnotatios.currentValue : false
+  }
+
   static get addIndexedDBSupport () {
     return _instance.options.app && _instance.options.app.items.addIndexedDBSupport ? _instance.options.app.items.addIndexedDBSupport.currentValue : 1000
   }
@@ -48763,7 +48771,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i634-remove-options-presets.20220129522" : 0
+    return  true ? "i634-remove-options-presets.20220129542" : 0
   }
 
   static get libName () {
@@ -52876,6 +52884,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -52889,6 +52910,7 @@ __webpack_require__.r(__webpack_exports__);
     xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_2___default())
   },
   props: {
+    isAdvanced: false
   },
   computed: {
     l10n () {
@@ -52926,20 +52948,41 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOptions.app.items.maxCharactersAnnotationText
     },
 
-    maxCharactersPerPart () {
+    maxCharactersPerPartOptionItem () {
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOptions.app.items.maxCharactersPerPart
     }, 
+
+    enableAnnotatiosOptionItem () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOptions.app.items.enableAnnotatios
+    },
 
     disableAnnotationsTypes () {
       return this.$store.state.updateAnnotations && this.$store.state.docSourceUpdated && this.$textC.hasAnnotations
     },
     addIndexedDBSupportValue () {
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].addIndexedDBSupport
+    },
+    
+    enableAnnotatiosValue () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].enableAnnotatios
+    },
+
+    isAdvancedModeValue () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].isAdvancedMode
+    },
+
+    isAdvancedModeOptionItem () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOptions.app.items.isAdvancedMode
     }
   },
   methods: {
     async resetOptions () {
       await _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].resetAllOptions()
+    },
+
+    setOptionsToAdvanced () {
+      this.isAdvancedModeOptionItem.setValue(true)
+      _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].changeOption(this.isAdvancedModeOptionItem)
     }
   }
 });
@@ -64289,70 +64332,6 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "alpheios-modal-body" }, [
-        _c(
-          "div",
-          { staticClass: "alpheios-alignment-editor-modal-options-block" },
-          [
-            _c("option-item-block", {
-              attrs: { optionItem: _vm.themeOptionItem }
-            }),
-            _vm._v(" "),
-            _c("option-item-block", {
-              attrs: { optionItem: _vm.tokenizerOptionItem }
-            }),
-            _vm._v(" "),
-            _c("option-item-block", {
-              attrs: {
-                optionItem: _vm.availableAnnotationTypesOptionItem,
-                disabled: _vm.disableAnnotationsTypes
-              }
-            }),
-            _vm._v(" "),
-            _c("option-item-block", {
-              attrs: { optionItem: _vm.maxCharactersAnnotationTextOptionItem }
-            }),
-            _vm._v(" "),
-            _c("option-item-block", {
-              attrs: { optionItem: _vm.maxCharactersPerPart }
-            }),
-            _vm._v(" "),
-            _c("option-item-block", {
-              attrs: { optionItem: _vm.enableDTSAPIUploadOptionItem }
-            }),
-            _vm._v(" "),
-            _c("option-item-block", {
-              attrs: { optionItem: _vm.useSpecificEnglishTokenizerOptionItem }
-            }),
-            _vm._v(" "),
-            _c("option-item-block", {
-              attrs: { optionItem: _vm.showSummaryPopupOptionItem }
-            }),
-            _vm._v(" "),
-            _c("option-item-block", {
-              attrs: { optionItem: _vm.enableTokensEditorOptionItem }
-            }),
-            _vm._v(" "),
-            _c("option-item-block", {
-              attrs: { optionItem: _vm.addIndexedDBSupportOptionItem }
-            }),
-            _vm._v(" "),
-            _c("option-item-block", {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: !_vm.addIndexedDBSupportValue,
-                  expression: "!addIndexedDBSupportValue"
-                }
-              ],
-              attrs: { optionItem: _vm.maxCharactersOptionItem }
-            })
-          ],
-          1
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "alpheios-modal-footer" }, [
         _c("p", { staticClass: "alpheios-alignment-options__buttons" }, [
           _c(
             "button",
@@ -64371,6 +64350,162 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "alpheios-alignment-editor-modal-options-block" },
+          [
+            _c("option-item-block", {
+              attrs: { optionItem: _vm.enableAnnotatiosOptionItem }
+            }),
+            _vm._v(" "),
+            _c(
+              "fieldset",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.enableAnnotatiosValue,
+                    expression: "enableAnnotatiosValue"
+                  }
+                ],
+                staticClass:
+                  "alpheios-alignment-editor-modal-options-block-fieldset"
+              },
+              [
+                _c("legend", [
+                  _vm._v(
+                    _vm._s(_vm.l10n.getMsgS("OPTIONS_FIELDSET_ANNOTATIONS"))
+                  )
+                ]),
+                _vm._v(" "),
+                _c("option-item-block", {
+                  attrs: {
+                    optionItem: _vm.availableAnnotationTypesOptionItem,
+                    disabled: _vm.disableAnnotationsTypes
+                  }
+                }),
+                _vm._v(" "),
+                _c("option-item-block", {
+                  attrs: {
+                    optionItem: _vm.maxCharactersAnnotationTextOptionItem
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("option-item-block", {
+              attrs: { optionItem: _vm.enableTokensEditorOptionItem }
+            }),
+            _vm._v(" "),
+            _c("option-item-block", {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.isAdvancedModeValue,
+                  expression: "isAdvancedModeValue"
+                }
+              ],
+              attrs: { optionItem: _vm.tokenizerOptionItem }
+            }),
+            _vm._v(" "),
+            _c("option-item-block", {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.isAdvancedModeValue,
+                  expression: "isAdvancedModeValue"
+                }
+              ],
+              attrs: { optionItem: _vm.useSpecificEnglishTokenizerOptionItem }
+            }),
+            _vm._v(" "),
+            _c("option-item-block", {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.isAdvancedModeValue,
+                  expression: "isAdvancedModeValue"
+                }
+              ],
+              attrs: { optionItem: _vm.enableDTSAPIUploadOptionItem }
+            }),
+            _vm._v(" "),
+            _c("option-item-block", {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.isAdvancedModeValue,
+                  expression: "isAdvancedModeValue"
+                }
+              ],
+              attrs: { optionItem: _vm.showSummaryPopupOptionItem }
+            }),
+            _vm._v(" "),
+            _c("option-item-block", {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.isAdvancedModeValue,
+                  expression: "isAdvancedModeValue"
+                }
+              ],
+              attrs: { optionItem: _vm.addIndexedDBSupportOptionItem }
+            }),
+            _vm._v(" "),
+            _c("option-item-block", {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: !_vm.addIndexedDBSupportValue,
+                  expression: "!addIndexedDBSupportValue"
+                }
+              ],
+              attrs: { optionItem: _vm.maxCharactersOptionItem }
+            }),
+            _vm._v(" "),
+            _c("option-item-block", {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.isAdvancedModeValue,
+                  expression: "isAdvancedModeValue"
+                }
+              ],
+              attrs: { optionItem: _vm.maxCharactersPerPartOptionItem }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("p", { staticClass: "alpheios-alignment-options__buttons" }, [
+          _c(
+            "button",
+            {
+              staticClass:
+                "alpheios-editor-button-tertiary alpheios-options-button alpheios-options-reset-all",
+              on: { click: _vm.setOptionsToAdvanced }
+            },
+            [
+              _vm._v(
+                "\n            " +
+                  _vm._s(_vm.l10n.getMsgS("OPTIONS_BLOCK_SET_ADVANCED")) +
+                  "\n        "
+              )
+            ]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "alpheios-modal-footer" }, [
         _c("div", { staticClass: "alpheios-alignment-options__aboutcont" }, [
           _c("h3", [
             _vm._v(_vm._s(_vm.l10n.getMsgS("OPTIONS_BLOCK_INFO_ABOUT")))
@@ -64379,7 +64514,13 @@ var render = function() {
           _c(
             "div",
             { staticClass: "alpheios-alignment-options__versiontext" },
-            [_vm._v("\n        " + _vm._s(_vm.versionData) + "\n      ")]
+            [
+              _vm._v(
+                "\n        " +
+                  _vm._s(_vm.$store.getters.libVersionData) +
+                  "\n      "
+              )
+            ]
           )
         ])
       ])
@@ -68960,7 +69101,7 @@ module.exports = JSON.parse('{"METADATA_TERM_LABEL_IDENTIFIER":{"message":"Ident
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"OPTIONS_BLOCK_APPLICATION":{"message":"Application options","description":"Fieldset inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_RESET_ALL":{"message":"Reset all","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_INFO_ABOUT":{"message":"About Alpheios","description":"Title of the build info block","component":"OptionsBlock"},"OPTIONS_TITLE":{"message":"Options","description":"Title of the options popup","component":"OptionsTextEnter"},"OPTIONS_TITLE_TEXT_ENTER":{"message":"Options for Enter Text","description":"Title of the options popup","component":"OptionsTextEnter"},"OPTIONS_TITLE_TEXT_ALIGN":{"message":"Options for Align Text","description":"Title of the options popup","component":"OptionsTextEdit"},"OPTIONS_TITLE_TEXT_EDIT":{"message":"Options for Edit Text","description":"Title of the options popup","component":"OptionsTextEdit"}}');
+module.exports = JSON.parse('{"OPTIONS_BLOCK_APPLICATION":{"message":"Application options","description":"Fieldset inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_RESET_ALL":{"message":"Reset all to default options","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_SET_ADVANCED":{"message":"Set all to advanced","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_INFO_ABOUT":{"message":"About Alpheios","description":"Title of the build info block","component":"OptionsBlock"},"OPTIONS_TITLE":{"message":"Options","description":"Title of the options popup","component":"OptionsTextEnter"},"OPTIONS_TITLE_TEXT_ENTER":{"message":"Options for Enter Text","description":"Title of the options popup","component":"OptionsTextEnter"},"OPTIONS_TITLE_TEXT_ALIGN":{"message":"Options for Align Text","description":"Title of the options popup","component":"OptionsTextEdit"},"OPTIONS_TITLE_TEXT_EDIT":{"message":"Options for Edit Text","description":"Title of the options popup","component":"OptionsTextEdit"},"OPTIONS_FIELDSET_ANNOTATIONS":{"message":"Annotations block:","description":"Options fieldset","component":"OptionsTextEdit"}}');
 
 /***/ }),
 
@@ -68993,7 +69134,7 @@ module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit text","de
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"2","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":true,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":true,"labelText":"Show language check before text would be prepared","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerPart":{"defaultValue":1000,"labelText":"Max characters per part (recommended for performance), to be used in Align Text","number":true,"minValue":1,"maxValue":50000,"values":[]},"addIndexedDBSupport":{"defaultValue":true,"labelText":"Add IndexedDB support","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"availableAnnotationTypes":{"defaultValue":["COMMENT","LEMMAID","MORPHOLOGY"],"labelText":"Available Annotation Types","multiValue":true,"values":[{"value":"COMMENT","text":"comment"},{"value":"LEMMAID","text":"lemmaID"},{"value":"MORPHOLOGY","text":"morphology"}]},"maxCharactersAnnotationText":{"defaultValue":500,"labelText":"Max characters in annotation text","number":true,"minValue":1,"maxValue":5000,"values":[]},"enableTokensEditor":{"defaultValue":false,"labelText":"Enable Tokens Editor Screen","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableDTSAPIUpload":{"defaultValue":false,"labelText":"Enable upload from DTS API","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]}}}');
+module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"2","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":true,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":true,"labelText":"Show language check before text would be prepared","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerPart":{"defaultValue":1000,"labelText":"Max characters per part (recommended for performance), to be used in Align Text","number":true,"minValue":1,"maxValue":50000,"values":[]},"addIndexedDBSupport":{"defaultValue":true,"labelText":"Add IndexedDB support","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"availableAnnotationTypes":{"defaultValue":["COMMENT","LEMMAID","MORPHOLOGY"],"labelText":"Available Annotation Types","multiValue":true,"values":[{"value":"COMMENT","text":"comment"},{"value":"LEMMAID","text":"lemmaID"},{"value":"MORPHOLOGY","text":"morphology"}]},"maxCharactersAnnotationText":{"defaultValue":500,"labelText":"Max characters in annotation text","number":true,"minValue":1,"maxValue":5000,"values":[]},"enableTokensEditor":{"defaultValue":false,"labelText":"Enable Tokens Editor Screen","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableDTSAPIUpload":{"defaultValue":false,"labelText":"Enable upload from DTS API","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"isAdvancedMode":{"defaultValue":false,"labelText":"Is advanced mode","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAnnotatios":{"defaultValue":false,"labelText":"Enable annotations","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]}}}');
 
 /***/ }),
 

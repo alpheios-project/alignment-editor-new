@@ -166,6 +166,36 @@
           "text": "No"
         }
       ]
+    },
+    "isAdvancedMode": {
+      "defaultValue": false,
+      "labelText": "Is advanced mode",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "Yes"
+        },
+        {
+          "value": false,
+          "text": "No"
+        }
+      ]
+    },
+    "enableAnnotatios": {
+      "defaultValue": false,
+      "labelText": "Enable annotations",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "Yes"
+        },
+        {
+          "value": false,
+          "text": "No"
+        }
+      ]
     }
   }
 }
