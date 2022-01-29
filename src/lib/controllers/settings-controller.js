@@ -60,6 +60,27 @@ export default class SettingsController {
     return _instance.store
   }
 
+  static get advancedDefaultValues () {
+    return {
+      enableAnnotatios: true,
+      enableTokensEditor: true,
+      enableDTSAPIUpload: true,
+      showSummaryPopup: true,
+      enableMetadata: true
+    }
+  }
+
+  static updateToAdvancedDefaultValues () {
+    _instance.options.app.items.isAdvancedMode.setValue(true)
+
+    Object.keys(this.advancedDefaultValues).forEach(optionName => {
+      const optionValue = this.advancedDefaultValues[optionName]
+
+      _instance.options.app.items[optionName].setValue(optionValue)
+      this.changeOption(_instance.options.app.items[optionName])
+    })
+  }
+
   /**
    * @returns {String} - theme option value
    */
@@ -104,6 +125,10 @@ export default class SettingsController {
 
   static get enableAnnotatios () {
     return _instance.options.app && _instance.options.app.items.enableAnnotatios ? _instance.options.app.items.enableAnnotatios.currentValue : false
+  }
+
+  static get enableMetadata () {
+    return _instance.options.app && _instance.options.app.items.enableMetadata ? _instance.options.app.items.enableMetadata.currentValue : false
   }
 
   static get addIndexedDBSupport () {

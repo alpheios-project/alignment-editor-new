@@ -18,23 +18,28 @@
             <option-item-block :optionItem = "enableAnnotatiosOptionItem" />
 
             <fieldset v-show = "enableAnnotatiosValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
-              <legend>{{ l10n.getMsgS('OPTIONS_FIELDSET_ANNOTATIONS') }}</legend>
               <option-item-block :optionItem = "availableAnnotationTypesOptionItem"  :disabled = "disableAnnotationsTypes" />
               <option-item-block :optionItem = "maxCharactersAnnotationTextOptionItem" />
             </fieldset>
 
             <option-item-block :optionItem = "enableTokensEditorOptionItem" />
+            <option-item-block :optionItem = "enableMetadataOptionItem" />
+            
+            <fieldset v-show = "isAdvancedModeValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
+              <option-item-block :optionItem = "tokenizerOptionItem" />
+              <option-item-block :optionItem = "useSpecificEnglishTokenizerOptionItem" />
+            </fieldset>
 
-            <option-item-block :optionItem = "tokenizerOptionItem" v-show = "isAdvancedModeValue"/>
-            <option-item-block :optionItem = "useSpecificEnglishTokenizerOptionItem" v-show = "isAdvancedModeValue"/>
+            <fieldset v-show = "isAdvancedModeValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
+              <option-item-block :optionItem = "enableDTSAPIUploadOptionItem" />
+              <option-item-block :optionItem = "showSummaryPopupOptionItem" />
+            </fieldset>
 
-            <option-item-block :optionItem = "enableDTSAPIUploadOptionItem" v-show = "isAdvancedModeValue" />
-            <option-item-block :optionItem = "showSummaryPopupOptionItem" v-show = "isAdvancedModeValue" />
-
-            <option-item-block :optionItem = "addIndexedDBSupportOptionItem" v-show = "isAdvancedModeValue"/>
-            <option-item-block :optionItem = "maxCharactersOptionItem" v-show="!addIndexedDBSupportValue"/>
-            <option-item-block :optionItem = "maxCharactersPerPartOptionItem" v-show = "isAdvancedModeValue"/>
-
+            <fieldset  v-show = "isAdvancedModeValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
+              <option-item-block :optionItem = "addIndexedDBSupportOptionItem" />
+              <option-item-block :optionItem = "maxCharactersOptionItem" v-show="!addIndexedDBSupportValue"/>
+              <option-item-block :optionItem = "maxCharactersPerPartOptionItem" v-show = "addIndexedDBSupportValue"/>
+            </fieldset>
         </div>
         <p class="alpheios-alignment-options__buttons">
           <button class="alpheios-editor-button-tertiary alpheios-options-button alpheios-options-reset-all" 
@@ -112,6 +117,10 @@ export default {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableAnnotatios
     },
 
+    enableMetadataOptionItem () {
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableMetadata
+    },
+
     disableAnnotationsTypes () {
       return this.$store.state.updateAnnotations && this.$store.state.docSourceUpdated && this.$textC.hasAnnotations
     },
@@ -137,8 +146,7 @@ export default {
     },
 
     setOptionsToAdvanced () {
-      this.isAdvancedModeOptionItem.setValue(true)
-      SettingsController.changeOption(this.isAdvancedModeOptionItem)
+      SettingsController.updateToAdvancedDefaultValues()
     }
   }
 }
@@ -173,6 +181,7 @@ export default {
     border-color: #eeee;
     border-width: 1px;
     border-image: none;
+    padding: 10px 10px 0;
   }
 }
 </style>

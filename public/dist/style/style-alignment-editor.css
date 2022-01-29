@@ -2028,6 +2028,7 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   border-color: #eeee;
   border-width: 1px;
   border-image: none;
+  padding: 10px 10px 0;
 }
 .alpheios-editor-help-content {
   text-indent: 10px;
