@@ -6,7 +6,7 @@
           <span class="alpheios-alignment-text-editor-block__header-label">{{ l10n.getMsgS('ALIGN_EDITOR_HEADING') }}</span>
           <span class="alpheios-alignment-text-editor-block__header-link" v-if="tokensEditAvailable" @click="$emit('showTokensEditor')">{{ l10n.getMsgS('TOKENS_EDITOR_LINK') }}</span>
           
-          <div class="alpheios-alignment-toggle-block alpheios-alignment-annotation-mode-check-container">
+          <div class="alpheios-alignment-toggle-block alpheios-alignment-annotation-mode-check-container" v-if="enableAnnotatiosValue">
             <label class="alpheios-switch">
               <input type="checkbox" v-model="annotationMode" id="alpheios-alignment-annotation-mode-check">
               <span class="alpheios-slider alpheios-round"></span>
@@ -107,6 +107,10 @@ export default {
     tokensEditAvailable () {
       return this.enableTokensEditorOptionItemValue
     },
+    enableAnnotatiosValue () {
+      if (!SettingsController.enableAnnotatios) { this.annotationMode = false }
+      return this.$store.state.optionsUpdated && SettingsController.enableAnnotatios
+    }
   },
   methods: {
     updateAnnotation (token) {

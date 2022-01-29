@@ -10,6 +10,8 @@
     </span>
 </template>
 <script>
+import SettingsController from '@/lib/controllers/settings-controller.js'
+
 export default {
   name: 'TokenBlock',
   props: {
@@ -75,7 +77,10 @@ export default {
       return this.annotationMode ? this.updateAnnotation : this.updateAlignmentGroup
     },
     hasAnnotations () {
-      return this.$store.state.updateAnnotations && this.$textC.getAnnotations(this.token).length > 0
+      return this.enableAnnotatiosValue && this.$store.state.updateAnnotations && this.$textC.getAnnotations(this.token).length > 0
+    },
+    enableAnnotatiosValue () {
+      return this.$store.state.optionsUpdated && SettingsController.enableAnnotatios
     }
   },
   methods: {

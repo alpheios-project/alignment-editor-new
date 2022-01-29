@@ -48771,7 +48771,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i634-remove-options-presets.20220129542" : 0
+    return  true ? "i634-remove-options-presets.20220129565" : 0
   }
 
   static get libName () {
@@ -49944,6 +49944,10 @@ __webpack_require__.r(__webpack_exports__);
     tokensEditAvailable () {
       return this.enableTokensEditorOptionItemValue
     },
+    enableAnnotatiosValue () {
+      if (!_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].enableAnnotatios) { this.annotationMode = false }
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].enableAnnotatios
+    }
   },
   methods: {
     updateAnnotation (token) {
@@ -50592,6 +50596,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
 //
 //
 //
@@ -50603,6 +50608,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'TokenBlock',
@@ -50669,7 +50676,10 @@ __webpack_require__.r(__webpack_exports__);
       return this.annotationMode ? this.updateAnnotation : this.updateAlignmentGroup
     },
     hasAnnotations () {
-      return this.$store.state.updateAnnotations && this.$textC.getAnnotations(this.token).length > 0
+      return this.enableAnnotatiosValue && this.$store.state.updateAnnotations && this.$textC.getAnnotations(this.token).length > 0
+    },
+    enableAnnotatiosValue () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_0__["default"].enableAnnotatios
     }
   },
   methods: {
@@ -60952,68 +60962,72 @@ var render = function() {
                   )
                 : _vm._e(),
               _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "alpheios-alignment-toggle-block alpheios-alignment-annotation-mode-check-container"
-                },
-                [
-                  _c("label", { staticClass: "alpheios-switch" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.annotationMode,
-                          expression: "annotationMode"
-                        }
-                      ],
-                      attrs: {
-                        type: "checkbox",
-                        id: "alpheios-alignment-annotation-mode-check"
-                      },
-                      domProps: {
-                        checked: Array.isArray(_vm.annotationMode)
-                          ? _vm._i(_vm.annotationMode, null) > -1
-                          : _vm.annotationMode
-                      },
-                      on: {
-                        change: function($event) {
-                          var $$a = _vm.annotationMode,
-                            $$el = $event.target,
-                            $$c = $$el.checked ? true : false
-                          if (Array.isArray($$a)) {
-                            var $$v = null,
-                              $$i = _vm._i($$a, $$v)
-                            if ($$el.checked) {
-                              $$i < 0 &&
-                                (_vm.annotationMode = $$a.concat([$$v]))
-                            } else {
-                              $$i > -1 &&
-                                (_vm.annotationMode = $$a
-                                  .slice(0, $$i)
-                                  .concat($$a.slice($$i + 1)))
+              _vm.enableAnnotatiosValue
+                ? _c(
+                    "div",
+                    {
+                      staticClass:
+                        "alpheios-alignment-toggle-block alpheios-alignment-annotation-mode-check-container"
+                    },
+                    [
+                      _c("label", { staticClass: "alpheios-switch" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.annotationMode,
+                              expression: "annotationMode"
                             }
-                          } else {
-                            _vm.annotationMode = $$c
+                          ],
+                          attrs: {
+                            type: "checkbox",
+                            id: "alpheios-alignment-annotation-mode-check"
+                          },
+                          domProps: {
+                            checked: Array.isArray(_vm.annotationMode)
+                              ? _vm._i(_vm.annotationMode, null) > -1
+                              : _vm.annotationMode
+                          },
+                          on: {
+                            change: function($event) {
+                              var $$a = _vm.annotationMode,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    (_vm.annotationMode = $$a.concat([$$v]))
+                                } else {
+                                  $$i > -1 &&
+                                    (_vm.annotationMode = $$a
+                                      .slice(0, $$i)
+                                      .concat($$a.slice($$i + 1)))
+                                }
+                              } else {
+                                _vm.annotationMode = $$c
+                              }
+                            }
                           }
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("span", {
-                      staticClass: "alpheios-slider alpheios-round"
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "alpheios-switch-label" }, [
-                    _vm._v(
-                      _vm._s(_vm.l10n.getMsgS("ALIGN_EDITOR_ANNOTATION_MODE"))
-                    )
-                  ])
-                ]
-              )
+                        }),
+                        _vm._v(" "),
+                        _c("span", {
+                          staticClass: "alpheios-slider alpheios-round"
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "alpheios-switch-label" }, [
+                        _vm._v(
+                          _vm._s(
+                            _vm.l10n.getMsgS("ALIGN_EDITOR_ANNOTATION_MODE")
+                          )
+                        )
+                      ])
+                    ]
+                  )
+                : _vm._e()
             ]
           ),
           _vm._v(" "),
