@@ -43052,13 +43052,18 @@ class AlignedText {
       docSource: {
         id: xmlFormattedData.docSourceId,
         textType: xmlFormattedData.textType,
-        lang: xmlFormattedData.lang
+        lang: xmlFormattedData.lang,
+        tokenization: {
+          tokenizer: 'alpheiosRemoteTokenizer',
+          segments: 'onesegment'
+        }
       }
     })
 
     alignedText.segments = [
       _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__["default"].convertFromDataFromXML(xmlFormattedData)
     ]
+
     return alignedText
   }
 
@@ -46197,6 +46202,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_data_langs_langs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/data/langs/langs */ "./lib/data/langs/langs.js");
 /* harmony import */ var _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/settings-controller */ "./lib/controllers/settings-controller.js");
 /* harmony import */ var _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/controllers/storage-controller.js */ "./lib/controllers/storage-controller.js");
+/* harmony import */ var _lib_controllers_tokenize_controller__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller */ "./lib/controllers/tokenize-controller.js");
+
 
 
 
@@ -46456,13 +46463,16 @@ class Segment {
   }
 
   static convertFromDataFromXML (xmlFormattedData) {
-    return new Segment({
+    const seg = new Segment({
       index: parseInt(xmlFormattedData.index),
       textType: xmlFormattedData.textType,
       lang: xmlFormattedData.lang,
       docSourceId: xmlFormattedData.docSourceId,
       tokens: xmlFormattedData.tokens.map((tokenData, tokenIndex) => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__["default"].convertFromDataFromXML(tokenData, tokenIndex))
     })
+
+    _lib_controllers_tokenize_controller__WEBPACK_IMPORTED_MODULE_5__["default"].reIndexSentences(seg)
+    return seg
   }
 
   convertToIndexedDB () {
@@ -46981,9 +46991,9 @@ class Token {
       textType: tokenData.textType,
       idWord: tokenData.idWord,
       word: tokenData.word,
-      hasLineBreak: tokenData.hasLineBreak,
+      hasLineBreak: tokenData.hasLineBreak || false,
       tokenIndex
-    }, parseInt(tokenData.index), tokenData.docSourceId)
+    }, parseInt(tokenData.segmentIndex), tokenData.docSourceId)
   }
 
   convertToHTML () {
@@ -48796,7 +48806,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i634-remove-options-presets.20220129646" : 0
+    return  true ? "i632-ugarit-bugs.20220131648" : 0
   }
 
   static get libName () {

@@ -189,13 +189,18 @@ export default class AlignedText {
       docSource: {
         id: xmlFormattedData.docSourceId,
         textType: xmlFormattedData.textType,
-        lang: xmlFormattedData.lang
+        lang: xmlFormattedData.lang,
+        tokenization: {
+          tokenizer: 'alpheiosRemoteTokenizer',
+          segments: 'onesegment'
+        }
       }
     })
 
     alignedText.segments = [
       Segment.convertFromDataFromXML(xmlFormattedData)
     ]
+
     return alignedText
   }
 

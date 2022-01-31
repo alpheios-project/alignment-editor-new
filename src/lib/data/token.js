@@ -141,9 +141,9 @@ export default class Token {
       textType: tokenData.textType,
       idWord: tokenData.idWord,
       word: tokenData.word,
-      hasLineBreak: tokenData.hasLineBreak,
+      hasLineBreak: tokenData.hasLineBreak || false,
       tokenIndex
-    }, parseInt(tokenData.index), tokenData.docSourceId)
+    }, parseInt(tokenData.segmentIndex), tokenData.docSourceId)
   }
 
   convertToHTML () {

@@ -4,6 +4,7 @@ import Token from '@/lib/data/token'
 import Langs from '@/lib/data/langs/langs'
 import SettingsController from '@/lib/controllers/settings-controller'
 import StorageController from '@/lib/controllers/storage-controller.js'
+import TokenizeController from '@/lib/controllers/tokenize-controller'
 
 export default class Segment {
   constructor ({ id, index, textType, lang, direction, tokens, docSourceId, allPartNums } = {}) {
@@ -257,13 +258,16 @@ export default class Segment {
   }
 
   static convertFromDataFromXML (xmlFormattedData) {
-    return new Segment({
+    const seg = new Segment({
       index: parseInt(xmlFormattedData.index),
       textType: xmlFormattedData.textType,
       lang: xmlFormattedData.lang,
       docSourceId: xmlFormattedData.docSourceId,
       tokens: xmlFormattedData.tokens.map((tokenData, tokenIndex) => Token.convertFromDataFromXML(tokenData, tokenIndex))
     })
+
+    TokenizeController.reIndexSentences(seg)
+    return seg
   }
 
   convertToIndexedDB () {
