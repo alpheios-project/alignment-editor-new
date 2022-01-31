@@ -7,18 +7,22 @@
           <span class="alpheios-alignment-text-editor-block__header-label">{{ l10n.getMsgS('TOKENS_EDITOR_HEADING') }}</span>
         </span>
         <span class="alpheios-alignment-text-editor-block-buttons__part">
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-help"
-              @click="$modal.show('help-edit')">
-              <span class="alpheios-alignment-button-icon">
-                <question-icon />
-              </span>
-          </button>
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-options" :disabled = "true"
-              @click="$modal.show('options-edit')">
-              <span class="alpheios-alignment-button-icon">
-                <gear-icon />
-              </span>
-          </button>
+          <tooltip :tooltipText = "l10n.getMsgS('TEXT_EDITOR_HEADER_HELP')" tooltipDirection = "top">
+            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-help"
+                @click="$modal.show('help-edit')">
+                <span class="alpheios-alignment-button-icon">
+                  <question-icon />
+                </span>
+            </button>
+          </tooltip>
+          <tooltip :tooltipText = "l10n.getMsgS('TEXT_EDITOR_HEADER_OPTIONS')" tooltipDirection = "top">
+            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-options" :disabled = "true"
+                @click="$modal.show('options-edit')">
+                <span class="alpheios-alignment-button-icon">
+                  <gear-icon />
+                </span>
+            </button>
+          </tooltip>
         </span>
         <span class="alpheios-alignment-text-editor-block__part alpheios-alignment-text-editor-block__part-right">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-save"
@@ -47,7 +51,7 @@ import HelpPopup from '@/vue/common/help-popup.vue'
 import SavePopup from '@/vue/common/save-popup.vue'
 import HelpBlockEdit from '@/vue/help-blocks/eng/help-block-edit.vue'
 import OptionsTextEdit from '@/vue/options/options-text-edit.vue'
-
+import Tooltip from '@/vue/common/tooltip.vue'
 import InsertTokensBlock from '@/vue/tokens-editor/insert-tokens-block.vue'
 
 import QuestionIcon from '@/inline-icons/question.svg'
@@ -63,6 +67,7 @@ export default {
     optionsTextEditPopup: OptionsTextEdit,
     insertTokensPopup: InsertTokensBlock,
 
+    tooltip: Tooltip,
     questionIcon: QuestionIcon,
     gearIcon: GearIcon
   },
