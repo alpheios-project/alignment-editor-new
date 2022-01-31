@@ -43052,13 +43052,18 @@ class AlignedText {
       docSource: {
         id: xmlFormattedData.docSourceId,
         textType: xmlFormattedData.textType,
-        lang: xmlFormattedData.lang
+        lang: xmlFormattedData.lang,
+        tokenization: {
+          tokenizer: 'alpheiosRemoteTokenizer',
+          segments: 'onesegment'
+        }
       }
     })
 
     alignedText.segments = [
       _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__["default"].convertFromDataFromXML(xmlFormattedData)
     ]
+
     return alignedText
   }
 
@@ -46197,6 +46202,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_data_langs_langs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/data/langs/langs */ "./lib/data/langs/langs.js");
 /* harmony import */ var _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/settings-controller */ "./lib/controllers/settings-controller.js");
 /* harmony import */ var _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/controllers/storage-controller.js */ "./lib/controllers/storage-controller.js");
+/* harmony import */ var _lib_controllers_tokenize_controller__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller */ "./lib/controllers/tokenize-controller.js");
+
 
 
 
@@ -46456,13 +46463,16 @@ class Segment {
   }
 
   static convertFromDataFromXML (xmlFormattedData) {
-    return new Segment({
+    const seg = new Segment({
       index: parseInt(xmlFormattedData.index),
       textType: xmlFormattedData.textType,
       lang: xmlFormattedData.lang,
       docSourceId: xmlFormattedData.docSourceId,
       tokens: xmlFormattedData.tokens.map((tokenData, tokenIndex) => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__["default"].convertFromDataFromXML(tokenData, tokenIndex))
     })
+
+    _lib_controllers_tokenize_controller__WEBPACK_IMPORTED_MODULE_5__["default"].reIndexSentences(seg)
+    return seg
   }
 
   convertToIndexedDB () {
@@ -46981,9 +46991,9 @@ class Token {
       textType: tokenData.textType,
       idWord: tokenData.idWord,
       word: tokenData.word,
-      hasLineBreak: tokenData.hasLineBreak,
+      hasLineBreak: tokenData.hasLineBreak || false,
       tokenIndex
-    }, parseInt(tokenData.index), tokenData.docSourceId)
+    }, parseInt(tokenData.segmentIndex), tokenData.docSourceId)
   }
 
   convertToHTML () {
@@ -48796,7 +48806,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i634-remove-options-presets.20220129646" : 0
+    return  true ? "i632-ugarit-bugs.20220131663" : 0
   }
 
   static get libName () {
@@ -49855,11 +49865,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_options_options_text_align_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/options/options-text-align.vue */ "./vue/options/options-text-align.vue");
 /* harmony import */ var _vue_align_editor_annotation_block_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/align-editor/annotation-block.vue */ "./vue/align-editor/annotation-block.vue");
 /* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
-/* harmony import */ var _vue_help_blocks_eng_help_block_align_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/help-blocks/eng/help-block-align.vue */ "./vue/help-blocks/eng/help-block-align.vue");
-/* harmony import */ var _inline_icons_question_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/inline-icons/question.svg */ "./inline-icons/question.svg");
-/* harmony import */ var _inline_icons_question_svg__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_question_svg__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _inline_icons_gear_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/inline-icons/gear.svg */ "./inline-icons/gear.svg");
-/* harmony import */ var _inline_icons_gear_svg__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_gear_svg__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
+/* harmony import */ var _vue_help_blocks_eng_help_block_align_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/help-blocks/eng/help-block-align.vue */ "./vue/help-blocks/eng/help-block-align.vue");
+/* harmony import */ var _inline_icons_question_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/inline-icons/question.svg */ "./inline-icons/question.svg");
+/* harmony import */ var _inline_icons_question_svg__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_question_svg__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _inline_icons_gear_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/inline-icons/gear.svg */ "./inline-icons/gear.svg");
+/* harmony import */ var _inline_icons_gear_svg__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_gear_svg__WEBPACK_IMPORTED_MODULE_10__);
 //
 //
 //
@@ -49914,6 +49925,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
 
 
 
@@ -49937,12 +49953,13 @@ __webpack_require__.r(__webpack_exports__);
     alignEditorViewMode: _vue_align_editor_align_editor_view_mode_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     helpPopup: _vue_common_help_popup_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     savePopup: _vue_common_save_popup_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-    helpBlockAlign: _vue_help_blocks_eng_help_block_align_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
+    helpBlockAlign: _vue_help_blocks_eng_help_block_align_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
     optionsTextAlignPopup: _vue_options_options_text_align_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     annotationBlockPopup: _vue_align_editor_annotation_block_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
 
-    questionIcon: (_inline_icons_question_svg__WEBPACK_IMPORTED_MODULE_8___default()),
-    gearIcon: (_inline_icons_gear_svg__WEBPACK_IMPORTED_MODULE_9___default())
+    questionIcon: (_inline_icons_question_svg__WEBPACK_IMPORTED_MODULE_9___default()),
+    gearIcon: (_inline_icons_gear_svg__WEBPACK_IMPORTED_MODULE_10___default())
   },
   props: {
   },
@@ -54501,6 +54518,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -56321,11 +56342,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_common_save_popup_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/common/save-popup.vue */ "./vue/common/save-popup.vue");
 /* harmony import */ var _vue_help_blocks_eng_help_block_edit_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/help-blocks/eng/help-block-edit.vue */ "./vue/help-blocks/eng/help-block-edit.vue");
 /* harmony import */ var _vue_options_options_text_edit_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/options/options-text-edit.vue */ "./vue/options/options-text-edit.vue");
-/* harmony import */ var _vue_tokens_editor_insert_tokens_block_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/tokens-editor/insert-tokens-block.vue */ "./vue/tokens-editor/insert-tokens-block.vue");
-/* harmony import */ var _inline_icons_question_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/inline-icons/question.svg */ "./inline-icons/question.svg");
-/* harmony import */ var _inline_icons_question_svg__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_question_svg__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _inline_icons_gear_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/inline-icons/gear.svg */ "./inline-icons/gear.svg");
-/* harmony import */ var _inline_icons_gear_svg__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_gear_svg__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
+/* harmony import */ var _vue_tokens_editor_insert_tokens_block_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/tokens-editor/insert-tokens-block.vue */ "./vue/tokens-editor/insert-tokens-block.vue");
+/* harmony import */ var _inline_icons_question_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/inline-icons/question.svg */ "./inline-icons/question.svg");
+/* harmony import */ var _inline_icons_question_svg__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_question_svg__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _inline_icons_gear_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/inline-icons/gear.svg */ "./inline-icons/gear.svg");
+/* harmony import */ var _inline_icons_gear_svg__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_gear_svg__WEBPACK_IMPORTED_MODULE_9__);
+//
+//
+//
+//
 //
 //
 //
@@ -56389,10 +56415,11 @@ __webpack_require__.r(__webpack_exports__);
     savePopup: _vue_common_save_popup_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
     helpBlockEdit: _vue_help_blocks_eng_help_block_edit_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     optionsTextEditPopup: _vue_options_options_text_edit_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
-    insertTokensPopup: _vue_tokens_editor_insert_tokens_block_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+    insertTokensPopup: _vue_tokens_editor_insert_tokens_block_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
 
-    questionIcon: (_inline_icons_question_svg__WEBPACK_IMPORTED_MODULE_7___default()),
-    gearIcon: (_inline_icons_gear_svg__WEBPACK_IMPORTED_MODULE_8___default())
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+    questionIcon: (_inline_icons_question_svg__WEBPACK_IMPORTED_MODULE_8___default()),
+    gearIcon: (_inline_icons_gear_svg__WEBPACK_IMPORTED_MODULE_9___default())
   },
   props: {
     renderEditor: {
@@ -61082,52 +61109,75 @@ var render = function() {
             },
             [
               _c(
-                "button",
+                "tooltip",
                 {
-                  staticClass:
-                    "alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon",
-                  attrs: { id: "alpheios-actions-menu-button__enter-help" },
-                  on: {
-                    click: function($event) {
-                      return _vm.$modal.show("help-align")
-                    }
+                  attrs: {
+                    tooltipText: _vm.l10n.getMsgS("TEXT_EDITOR_HEADER_HELP"),
+                    tooltipDirection: "top"
                   }
                 },
                 [
                   _c(
-                    "span",
-                    { staticClass: "alpheios-alignment-button-icon" },
-                    [_c("question-icon")],
-                    1
+                    "button",
+                    {
+                      staticClass:
+                        "alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon",
+                      attrs: { id: "alpheios-actions-menu-button__enter-help" },
+                      on: {
+                        click: function($event) {
+                          return _vm.$modal.show("help-align")
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "span",
+                        { staticClass: "alpheios-alignment-button-icon" },
+                        [_c("question-icon")],
+                        1
+                      )
+                    ]
                   )
                 ]
               ),
               _vm._v(" "),
               _c(
-                "button",
+                "tooltip",
                 {
-                  staticClass:
-                    "alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon",
                   attrs: {
-                    id: "alpheios-actions-menu-button__enter-options",
-                    disabled: true
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.$modal.show("options-align")
-                    }
+                    tooltipText: _vm.l10n.getMsgS("TEXT_EDITOR_HEADER_OPTIONS"),
+                    tooltipDirection: "top"
                   }
                 },
                 [
                   _c(
-                    "span",
-                    { staticClass: "alpheios-alignment-button-icon" },
-                    [_c("gear-icon")],
-                    1
+                    "button",
+                    {
+                      staticClass:
+                        "alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon",
+                      attrs: {
+                        id: "alpheios-actions-menu-button__enter-options",
+                        disabled: true
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.$modal.show("options-align")
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "span",
+                        { staticClass: "alpheios-alignment-button-icon" },
+                        [_c("gear-icon")],
+                        1
+                      )
+                    ]
                   )
                 ]
               )
-            ]
+            ],
+            1
           ),
           _vm._v(" "),
           _c(
@@ -66229,49 +66279,74 @@ var render = function() {
             },
             [
               _c(
-                "button",
+                "tooltip",
                 {
-                  staticClass:
-                    "alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon",
-                  attrs: { id: "alpheios-actions-menu-button__enter-help" },
-                  on: {
-                    click: function($event) {
-                      return _vm.$modal.show("help-enter")
-                    }
+                  attrs: {
+                    tooltipText: _vm.l10n.getMsgS("TEXT_EDITOR_HEADER_HELP"),
+                    tooltipDirection: "top"
                   }
                 },
                 [
                   _c(
-                    "span",
-                    { staticClass: "alpheios-alignment-button-icon" },
-                    [_c("question-icon")],
-                    1
+                    "button",
+                    {
+                      staticClass:
+                        "alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon",
+                      attrs: { id: "alpheios-actions-menu-button__enter-help" },
+                      on: {
+                        click: function($event) {
+                          return _vm.$modal.show("help-enter")
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "span",
+                        { staticClass: "alpheios-alignment-button-icon" },
+                        [_c("question-icon")],
+                        1
+                      )
+                    ]
                   )
                 ]
               ),
               _vm._v(" "),
               _c(
-                "button",
+                "tooltip",
                 {
-                  staticClass:
-                    "alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon",
-                  attrs: { id: "alpheios-actions-menu-button__enter-options" },
-                  on: {
-                    click: function($event) {
-                      return _vm.$modal.show("options-enter")
-                    }
+                  attrs: {
+                    tooltipText: _vm.l10n.getMsgS("TEXT_EDITOR_HEADER_OPTIONS"),
+                    tooltipDirection: "top"
                   }
                 },
                 [
                   _c(
-                    "span",
-                    { staticClass: "alpheios-alignment-button-icon" },
-                    [_c("gear-icon")],
-                    1
+                    "button",
+                    {
+                      staticClass:
+                        "alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon",
+                      attrs: {
+                        id: "alpheios-actions-menu-button__enter-options"
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.$modal.show("options-enter")
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "span",
+                        { staticClass: "alpheios-alignment-button-icon" },
+                        [_c("gear-icon")],
+                        1
+                      )
+                    ]
                   )
                 ]
               )
-            ]
+            ],
+            1
           ),
           _vm._v(" "),
           _c(
@@ -68135,52 +68210,75 @@ var render = function() {
             },
             [
               _c(
-                "button",
+                "tooltip",
                 {
-                  staticClass:
-                    "alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon",
-                  attrs: { id: "alpheios-actions-menu-button__enter-help" },
-                  on: {
-                    click: function($event) {
-                      return _vm.$modal.show("help-edit")
-                    }
+                  attrs: {
+                    tooltipText: _vm.l10n.getMsgS("TEXT_EDITOR_HEADER_HELP"),
+                    tooltipDirection: "top"
                   }
                 },
                 [
                   _c(
-                    "span",
-                    { staticClass: "alpheios-alignment-button-icon" },
-                    [_c("question-icon")],
-                    1
+                    "button",
+                    {
+                      staticClass:
+                        "alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon",
+                      attrs: { id: "alpheios-actions-menu-button__enter-help" },
+                      on: {
+                        click: function($event) {
+                          return _vm.$modal.show("help-edit")
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "span",
+                        { staticClass: "alpheios-alignment-button-icon" },
+                        [_c("question-icon")],
+                        1
+                      )
+                    ]
                   )
                 ]
               ),
               _vm._v(" "),
               _c(
-                "button",
+                "tooltip",
                 {
-                  staticClass:
-                    "alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon",
                   attrs: {
-                    id: "alpheios-actions-menu-button__enter-options",
-                    disabled: true
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.$modal.show("options-edit")
-                    }
+                    tooltipText: _vm.l10n.getMsgS("TEXT_EDITOR_HEADER_OPTIONS"),
+                    tooltipDirection: "top"
                   }
                 },
                 [
                   _c(
-                    "span",
-                    { staticClass: "alpheios-alignment-button-icon" },
-                    [_c("gear-icon")],
-                    1
+                    "button",
+                    {
+                      staticClass:
+                        "alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon",
+                      attrs: {
+                        id: "alpheios-actions-menu-button__enter-options",
+                        disabled: true
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.$modal.show("options-edit")
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "span",
+                        { staticClass: "alpheios-alignment-button-icon" },
+                        [_c("gear-icon")],
+                        1
+                      )
+                    ]
                   )
                 ]
               )
-            ]
+            ],
+            1
           ),
           _vm._v(" "),
           _c(

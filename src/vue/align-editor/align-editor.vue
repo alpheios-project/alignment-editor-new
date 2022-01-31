@@ -18,18 +18,22 @@
         </span>
         
         <span class="alpheios-alignment-text-editor-block-buttons__part alpheios-alignment-text-editor-block__part-2">
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-help"
-              @click="$modal.show('help-align')">
-              <span class="alpheios-alignment-button-icon">
-                <question-icon />
-              </span>
-          </button>
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-options"
-              @click="$modal.show('options-align')" :disabled="true">
-              <span class="alpheios-alignment-button-icon">
-                <gear-icon />
-              </span>
-          </button>
+          <tooltip :tooltipText = "l10n.getMsgS('TEXT_EDITOR_HEADER_HELP')" tooltipDirection = "top">
+            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-help"
+                @click="$modal.show('help-align')">
+                <span class="alpheios-alignment-button-icon">
+                  <question-icon />
+                </span>
+            </button>
+          </tooltip>
+          <tooltip :tooltipText = "l10n.getMsgS('TEXT_EDITOR_HEADER_OPTIONS')" tooltipDirection = "top">
+            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-options"
+                @click="$modal.show('options-align')" :disabled="true">
+                <span class="alpheios-alignment-button-icon">
+                  <gear-icon />
+                </span>
+            </button>
+          </tooltip>
         </span>
 
         <span class="alpheios-alignment-text-editor-block__part alpheios-alignment-text-editor-block__part-3">
@@ -63,6 +67,7 @@ import SavePopup from '@/vue/common/save-popup.vue'
 import OptionsTextAlign from '@/vue/options/options-text-align.vue'
 import AnnotationBlockPopup from '@/vue/align-editor/annotation-block.vue'
 import SettingsController from '@/lib/controllers/settings-controller.js'
+import Tooltip from '@/vue/common/tooltip.vue'
 
 import HelpBlockAlign from '@/vue/help-blocks/eng/help-block-align.vue'
 
@@ -78,6 +83,7 @@ export default {
     helpBlockAlign: HelpBlockAlign,
     optionsTextAlignPopup: OptionsTextAlign,
     annotationBlockPopup: AnnotationBlockPopup,
+    tooltip: Tooltip,
 
     questionIcon: QuestionIcon,
     gearIcon: GearIcon

@@ -7,18 +7,22 @@
           <span class="alpheios-alignment-text-editor-block__header-link" v-if="tokensEditAvailable" @click="$emit('showTokensEditor')">{{ l10n.getMsgS('TOKENS_EDITOR_LINK') }}</span>
         </span>
         <span class="alpheios-alignment-text-editor-block-buttons__part">
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-help"
-              @click="$modal.show('help-enter')">
-              <span class="alpheios-alignment-button-icon">
-                <question-icon />
-              </span>
-          </button>
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-options"
-              @click="$modal.show('options-enter')">
-              <span class="alpheios-alignment-button-icon">
-                <gear-icon />
-              </span>
-          </button>
+          <tooltip :tooltipText = "l10n.getMsgS('TEXT_EDITOR_HEADER_HELP')" tooltipDirection = "top">
+            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-help"
+                @click="$modal.show('help-enter')">
+                <span class="alpheios-alignment-button-icon">
+                  <question-icon />
+                </span>
+            </button>
+          </tooltip>
+          <tooltip :tooltipText = "l10n.getMsgS('TEXT_EDITOR_HEADER_OPTIONS')" tooltipDirection = "top">
+            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-options"
+                @click="$modal.show('options-enter')">
+                <span class="alpheios-alignment-button-icon">
+                  <gear-icon />
+                </span>
+            </button>
+          </tooltip>
         </span>
         <span class="alpheios-alignment-text-editor-block__part alpheios-alignment-text-editor-block__part-right">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-save"
