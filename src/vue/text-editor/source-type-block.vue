@@ -47,7 +47,7 @@ export default {
   },
   computed: {
     docSourceEditAvailable () {
-      return Boolean(this.$store.state.docSourceUpdated) && 
+      return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && 
              !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
     },
     hasTokenizerOptions () {

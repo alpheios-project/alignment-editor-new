@@ -48806,7 +48806,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i634-describe-button.20220203335" : 0
+    return  true ? "i616-change-toc-opt.20220203349" : 0
   }
 
   static get libName () {
@@ -53833,7 +53833,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     docSourceEditAvailable () {
-      return Boolean(this.$store.state.docSourceUpdated) && 
+      return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && 
              !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
     },
     hasTokenizerOptions () {
