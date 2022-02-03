@@ -28,13 +28,13 @@
         </actions-button>
 
         <actions-button tooltipMess = "ACTION_BUTTON_ADD_LINEBREAK" :allowedCondition = "allowedAddLineBreak"
-                        actionName = "enter" @click = "$emit('addLineBreak', token)">
+                        actionName = "enter" @click = "$emit('addLineBreak', token)" v-show="enableAddDeleteNewLinesValue">
           <template v-slot:enabled><enter-icon /></template>
           <template v-slot:disabled><enter-icon /></template>
         </actions-button>
 
         <actions-button tooltipMess = "ACTION_BUTTON_REMOVE_LINEBREAK" :allowedCondition = "allowedRemoveLineBreak"
-                        actionName = "remove_enter" @click = "$emit('removeLineBreak', token)">
+                        actionName = "remove_enter" @click = "$emit('removeLineBreak', token)" v-show="enableAddDeleteNewLinesValue">
           <template v-slot:enabled><remove-enter-icon /></template>
           <template v-slot:disabled><remove-enter-icon /></template>
         </actions-button>
@@ -186,6 +186,9 @@ export default {
     },
     renderMoveToNextSegment () {
       return this.$store.state.alignmentRestarted && this.$store.state.uploadCheck && !this.$alignedGC.hasOnlyOneSegment
+    },
+    enableAddDeleteNewLinesValue () {
+      return this.$store.state.optionsUpdated && SettingsController.enableAddDeleteNewLines
     }
   },
   methods: {

@@ -135,6 +135,10 @@ export default class SettingsController {
     return _instance.options.app && _instance.options.app.items.addIndexedDBSupport ? _instance.options.app.items.addIndexedDBSupport.currentValue : 1000
   }
 
+  static get enableAddDeleteNewLines () {
+    return _instance.options.app && _instance.options.app.items.enableAddDeleteNewLines ? _instance.options.app.items.enableAddDeleteNewLines.currentValue : 1000
+  }
+
   /**
    * @returns {Boolean} - allowUpdateTokenWord optin value
    */

@@ -23,6 +23,8 @@
             </fieldset>
 
             <option-item-block :optionItem = "enableTokensEditorOptionItem" />
+            <select-edit-icons v-show="enableTokensEditorValue" />
+
             <option-item-block :optionItem = "enableMetadataOptionItem" />
             
             <fieldset v-show = "isAdvancedModeValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
@@ -64,11 +66,14 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import XCloseIcon from '@/inline-icons/x-close.svg'
 import SettingsController from '@/lib/controllers/settings-controller.js'
 
+import SelectEditIcons from '@/vue/options/select-edit-icons.vue'
+
 export default {
   name: 'OptionsTextEnter',
   components: {
     optionItemBlock: OptionItemBlock,
-    xCloseIcon: XCloseIcon
+    xCloseIcon: XCloseIcon,
+    selectEditIcons: SelectEditIcons
   },
   props: {
     isAdvanced: false
@@ -130,6 +135,10 @@ export default {
     
     enableAnnotatiosValue () {
       return this.$store.state.optionsUpdated && SettingsController.enableAnnotatios
+    },
+
+    enableTokensEditorValue () {
+      return this.$store.state.optionsUpdated && SettingsController.enableTokensEditor
     },
 
     isAdvancedModeValue () {

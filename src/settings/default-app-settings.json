@@ -211,6 +211,21 @@
           "text": "No"
         }
       ]
+    },
+    "enableAddDeleteNewLines": {
+      "defaultValue": true,
+      "labelText": "",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "add and delete newlines"
+        },
+        {
+          "value": false,
+          "text": "add and delete newlines"
+        }
+      ]
     }
   }
 }
