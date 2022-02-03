@@ -48806,7 +48806,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i632-ugarit-bugs.20220131663" : 0
+    return  true ? "i634-describe-button.20220203335" : 0
   }
 
   static get libName () {
@@ -66146,6 +66146,14 @@ var render = function() {
       _c(
         "div",
         {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.enableMetadataValue,
+              expression: "enableMetadataValue"
+            }
+          ],
           staticClass:
             "alpheios-alignment-editor-text-blocks-single__describe-button"
         },
