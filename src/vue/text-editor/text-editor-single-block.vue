@@ -66,7 +66,7 @@
       </div>
 
 
-      <div class="alpheios-alignment-editor-text-blocks-single__describe-button" >
+      <div class="alpheios-alignment-editor-text-blocks-single__describe-button" v-show="enableMetadataValue">
         <tooltip :tooltipText="l10n.getMsgS('DESCRIBE_BUTTON_TOOLTIP')" tooltipDirection="top">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  :id="describeButtonId"
               @click="$modal.show(metadataModalName)" :disabled="!isMetadataAvailable" >
