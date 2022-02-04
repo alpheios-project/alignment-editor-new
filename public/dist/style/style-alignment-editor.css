@@ -255,8 +255,9 @@ div.alpheios-alignment-checkbox-block {
   user-select: none;
   vertical-align: top;
   /*16px width of fake checkbox + 6px distance between fake checkbox and text*/
-  padding-left: 22px;
+  padding-left: 25px;
   padding-top: 2px;
+  line-height: 100%;
 }
 .alpheios-alignment-checkbox-block label::before, .alpheios-alignment-checkbox-block label::after {
   position: absolute;

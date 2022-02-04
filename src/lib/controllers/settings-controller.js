@@ -66,7 +66,13 @@ export default class SettingsController {
       enableTokensEditor: true,
       enableDTSAPIUpload: true,
       showSummaryPopup: true,
-      enableMetadata: true
+      enableMetadata: true,
+
+      enableAddDeleteNewLines: true,
+      enableAddDeleteTokens: true,
+      enableMergeSplitTokens: true,
+      enableMoveTokensToSegment: true,
+      enableEditTokens: true
     }
   }
 
@@ -133,6 +139,26 @@ export default class SettingsController {
 
   static get addIndexedDBSupport () {
     return _instance.options.app && _instance.options.app.items.addIndexedDBSupport ? _instance.options.app.items.addIndexedDBSupport.currentValue : 1000
+  }
+
+  static get enableAddDeleteNewLines () {
+    return _instance.options.app && _instance.options.app.items.enableAddDeleteNewLines ? _instance.options.app.items.enableAddDeleteNewLines.currentValue : 1000
+  }
+
+  static get enableAddDeleteTokens () {
+    return _instance.options.app && _instance.options.app.items.enableAddDeleteTokens ? _instance.options.app.items.enableAddDeleteTokens.currentValue : 1000
+  }
+
+  static get enableMergeSplitTokens () {
+    return _instance.options.app && _instance.options.app.items.enableMergeSplitTokens ? _instance.options.app.items.enableMergeSplitTokens.currentValue : 1000
+  }
+
+  static get enableMoveTokensToSegment () {
+    return _instance.options.app && _instance.options.app.items.enableMoveTokensToSegment ? _instance.options.app.items.enableMoveTokensToSegment.currentValue : 1000
+  }
+
+  static get enableEditTokens () {
+    return _instance.options.app && _instance.options.app.items.enableEditTokens ? _instance.options.app.items.enableEditTokens.currentValue : 1000
   }
 
   /**

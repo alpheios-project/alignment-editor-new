@@ -13,7 +13,7 @@
     "test-lib": "jest tests/lib --coverage",
     "test-vue": "jest tests/vue --coverage",
     "test-a": "jest tests/lib/controllers/tokens-edit-indexeddb-controller.test.js",
-    "test-b": "jest tests/vue/align-editor/segment-block.test.js",
+    "test-b": "jest tests/vue/tokens-editor/actions-menu-token-edit.test.js",
     "test-c": "jest tests/lib/data/actions/tokens-edit-actions.test.js",
     "test-f": "jest tests/lib/data/options-preset.test.js",
     "test-d": "jest tests/lib/storage/indexed-db-adapter.test.js",

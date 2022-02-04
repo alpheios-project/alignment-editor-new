@@ -211,6 +211,81 @@
           "text": "No"
         }
       ]
+    },
+    "enableAddDeleteNewLines": {
+      "defaultValue": false,
+      "labelText": "",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "add and delete newlines"
+        },
+        {
+          "value": false,
+          "text": "add and delete newlines"
+        }
+      ]
+    },
+    "enableAddDeleteTokens": {
+      "defaultValue": false,
+      "labelText": "",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "add and delete tokens"
+        },
+        {
+          "value": false,
+          "text": "add and delete tokens"
+        }
+      ]
+    },
+    "enableMergeSplitTokens": {
+      "defaultValue": false,
+      "labelText": "",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "merge and split tokens"
+        },
+        {
+          "value": false,
+          "text": "merge and split tokens"
+        }
+      ]
+    },
+    "enableMoveTokensToSegment": {
+      "defaultValue": false,
+      "labelText": "",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "move tokens to a segment"
+        },
+        {
+          "value": false,
+          "text": "move tokens to a segment"
+        }
+      ]
+    },
+    "enableEditTokens": {
+      "defaultValue": false,
+      "labelText": "",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "edit tokens"
+        },
+        {
+          "value": false,
+          "text": "edit tokens"
+        }
+      ]
     }
   }
 }

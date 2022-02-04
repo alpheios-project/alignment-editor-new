@@ -39885,7 +39885,13 @@ class SettingsController {
       enableTokensEditor: true,
       enableDTSAPIUpload: true,
       showSummaryPopup: true,
-      enableMetadata: true
+      enableMetadata: true,
+
+      enableAddDeleteNewLines: true,
+      enableAddDeleteTokens: true,
+      enableMergeSplitTokens: true,
+      enableMoveTokensToSegment: true,
+      enableEditTokens: true
     }
   }
 
@@ -39952,6 +39958,26 @@ class SettingsController {
 
   static get addIndexedDBSupport () {
     return _instance.options.app && _instance.options.app.items.addIndexedDBSupport ? _instance.options.app.items.addIndexedDBSupport.currentValue : 1000
+  }
+
+  static get enableAddDeleteNewLines () {
+    return _instance.options.app && _instance.options.app.items.enableAddDeleteNewLines ? _instance.options.app.items.enableAddDeleteNewLines.currentValue : 1000
+  }
+
+  static get enableAddDeleteTokens () {
+    return _instance.options.app && _instance.options.app.items.enableAddDeleteTokens ? _instance.options.app.items.enableAddDeleteTokens.currentValue : 1000
+  }
+
+  static get enableMergeSplitTokens () {
+    return _instance.options.app && _instance.options.app.items.enableMergeSplitTokens ? _instance.options.app.items.enableMergeSplitTokens.currentValue : 1000
+  }
+
+  static get enableMoveTokensToSegment () {
+    return _instance.options.app && _instance.options.app.items.enableMoveTokensToSegment ? _instance.options.app.items.enableMoveTokensToSegment.currentValue : 1000
+  }
+
+  static get enableEditTokens () {
+    return _instance.options.app && _instance.options.app.items.enableEditTokens ? _instance.options.app.items.enableEditTokens.currentValue : 1000
   }
 
   /**
@@ -48806,7 +48832,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i616-change-toc-opt.20220203349" : 0
+    return  true ? "i613-select-icons.20220204382" : 0
   }
 
   static get libName () {
@@ -52901,6 +52927,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/inline-icons/x-close.svg */ "./inline-icons/x-close.svg");
 /* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
+/* harmony import */ var _vue_options_select_edit_icons_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/options/select-edit-icons.vue */ "./vue/options/select-edit-icons.vue");
 //
 //
 //
@@ -52961,6 +52988,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
+
 
 
 
@@ -52971,7 +53002,8 @@ __webpack_require__.r(__webpack_exports__);
   name: 'OptionsTextEnter',
   components: {
     optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_2___default())
+    xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_2___default()),
+    selectEditIcons: _vue_options_select_edit_icons_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
   props: {
     isAdvanced: false
@@ -53035,6 +53067,10 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].enableAnnotatios
     },
 
+    enableTokensEditorValue () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].enableTokensEditor
+    },
+
     isAdvancedModeValue () {
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].isAdvancedMode
     },
@@ -53050,6 +53086,62 @@ __webpack_require__.r(__webpack_exports__);
 
     setOptionsToAdvanced () {
       _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].updateToAdvancedDefaultValues()
+    }
+  }
+});
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/options/select-edit-icons.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/options/select-edit-icons.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
+/* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'SelectEditIcons',
+  components: {
+    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  props: {},
+  computed: {
+    enableAddDeleteNewLinesOptionItem () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_1__["default"].allOptions.app.items.enableAddDeleteNewLines
+    },
+    enableAddDeleteTokensOptionItem () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_1__["default"].allOptions.app.items.enableAddDeleteTokens
+    },
+    enableMergeSplitTokensOptionItem () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_1__["default"].allOptions.app.items.enableMergeSplitTokens
+    },
+    enableMoveTokensToSegmentOptionItem () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_1__["default"].allOptions.app.items.enableMoveTokensToSegment
+    },
+    enableEditTokensOptionItem () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_1__["default"].allOptions.app.items.enableEditTokens
     }
   }
 });
@@ -55334,6 +55426,21 @@ __webpack_require__.r(__webpack_exports__);
     },
     renderMoveToNextSegment () {
       return this.$store.state.alignmentRestarted && this.$store.state.uploadCheck && !this.$alignedGC.hasOnlyOneSegment
+    },
+    enableAddDeleteNewLinesValue () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_13__["default"].enableAddDeleteNewLines
+    },
+    enableAddDeleteTokensValue () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_13__["default"].enableAddDeleteTokens
+    },
+    enableMergeSplitTokensValue () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_13__["default"].enableMergeSplitTokens
+    },
+    enableMoveTokensToSegmentValue () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_13__["default"].enableMoveTokensToSegment
+    },
+    enableEditTokensValue () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_13__["default"].enableEditTokens
     }
   },
   methods: {
@@ -57534,6 +57641,45 @@ component.options.__file = "vue/options/options-text-enter.vue"
 
 /***/ }),
 
+/***/ "./vue/options/select-edit-icons.vue":
+/*!*******************************************!*\
+  !*** ./vue/options/select-edit-icons.vue ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _select_edit_icons_vue_vue_type_template_id_23179cf0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./select-edit-icons.vue?vue&type=template&id=23179cf0& */ "./vue/options/select-edit-icons.vue?vue&type=template&id=23179cf0&");
+/* harmony import */ var _select_edit_icons_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./select-edit-icons.vue?vue&type=script&lang=js& */ "./vue/options/select-edit-icons.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _select_edit_icons_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _select_edit_icons_vue_vue_type_template_id_23179cf0___WEBPACK_IMPORTED_MODULE_0__.render,
+  _select_edit_icons_vue_vue_type_template_id_23179cf0___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/options/select-edit-icons.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./vue/summary-popup.vue":
 /*!*******************************!*\
   !*** ./vue/summary-popup.vue ***!
@@ -59598,6 +59744,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./vue/options/select-edit-icons.vue?vue&type=script&lang=js&":
+/*!********************************************************************!*\
+  !*** ./vue/options/select-edit-icons.vue?vue&type=script&lang=js& ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_select_edit_icons_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./select-edit-icons.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/options/select-edit-icons.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_select_edit_icons_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./vue/summary-popup.vue?vue&type=script&lang=js&":
 /*!********************************************************!*\
   !*** ./vue/summary-popup.vue?vue&type=script&lang=js& ***!
@@ -60388,6 +60550,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_options_text_enter_vue_vue_type_template_id_1938cae2___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_options_text_enter_vue_vue_type_template_id_1938cae2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./options-text-enter.vue?vue&type=template&id=1938cae2& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/options/options-text-enter.vue?vue&type=template&id=1938cae2&");
+
+
+/***/ }),
+
+/***/ "./vue/options/select-edit-icons.vue?vue&type=template&id=23179cf0&":
+/*!**************************************************************************!*\
+  !*** ./vue/options/select-edit-icons.vue?vue&type=template&id=23179cf0& ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_select_edit_icons_vue_vue_type_template_id_23179cf0___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_select_edit_icons_vue_vue_type_template_id_23179cf0___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_select_edit_icons_vue_vue_type_template_id_23179cf0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./select-edit-icons.vue?vue&type=template&id=23179cf0& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/options/select-edit-icons.vue?vue&type=template&id=23179cf0&");
 
 
 /***/ }),
@@ -64508,6 +64687,17 @@ var render = function() {
               attrs: { optionItem: _vm.enableTokensEditorOptionItem }
             }),
             _vm._v(" "),
+            _c("select-edit-icons", {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.enableTokensEditorValue,
+                  expression: "enableTokensEditorValue"
+                }
+              ]
+            }),
+            _vm._v(" "),
             _c("option-item-block", {
               attrs: { optionItem: _vm.enableMetadataOptionItem }
             }),
@@ -64655,6 +64845,73 @@ var render = function() {
       ])
     ]
   )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/options/select-edit-icons.vue?vue&type=template&id=23179cf0&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/options/select-edit-icons.vue?vue&type=template&id=23179cf0& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "alpheios-alignment-editor-options-block" }, [
+    _c(
+      "fieldset",
+      { staticClass: "alpheios-alignment-editor-modal-options-block-fieldset" },
+      [
+        _c("option-item-block", {
+          attrs: {
+            optionItem: _vm.enableAddDeleteNewLinesOptionItem,
+            showCheckboxTitle: true
+          }
+        }),
+        _vm._v(" "),
+        _c("option-item-block", {
+          attrs: {
+            optionItem: _vm.enableAddDeleteTokensOptionItem,
+            showCheckboxTitle: true
+          }
+        }),
+        _vm._v(" "),
+        _c("option-item-block", {
+          attrs: {
+            optionItem: _vm.enableMergeSplitTokensOptionItem,
+            showCheckboxTitle: true
+          }
+        }),
+        _vm._v(" "),
+        _c("option-item-block", {
+          attrs: {
+            optionItem: _vm.enableMoveTokensToSegmentOptionItem,
+            showCheckboxTitle: true
+          }
+        }),
+        _vm._v(" "),
+        _c("option-item-block", {
+          attrs: {
+            optionItem: _vm.enableEditTokensOptionItem,
+            showCheckboxTitle: true
+          }
+        })
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -67113,6 +67370,14 @@ var render = function() {
         },
         [
           _c("actions-button", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.enableEditTokensValue,
+                expression: "enableEditTokensValue"
+              }
+            ],
             attrs: {
               tooltipMess: "ACTION_BUTTON_UPDATE_TOKEN",
               allowedCondition: _vm.allowedUpdateTokenWord,
@@ -67142,6 +67407,14 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("actions-button", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.enableMergeSplitTokensValue,
+                expression: "enableMergeSplitTokensValue"
+              }
+            ],
             attrs: {
               tooltipMess: "ACTION_BUTTON_MERGE_PREV",
               allowedCondition: _vm.allowedMergePrev,
@@ -67167,6 +67440,14 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("actions-button", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.enableMergeSplitTokensValue,
+                expression: "enableMergeSplitTokensValue"
+              }
+            ],
             attrs: {
               tooltipMess: "ACTION_BUTTON_MERGE_NEXT",
               allowedCondition: _vm.allowedMergeNext,
@@ -67192,6 +67473,14 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("actions-button", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.enableMergeSplitTokensValue,
+                expression: "enableMergeSplitTokensValue"
+              }
+            ],
             attrs: {
               tooltipMess: "ACTION_BUTTON_SPLIT_TOKEN",
               allowedCondition: _vm.allowedSplit,
@@ -67221,6 +67510,14 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("actions-button", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.enableAddDeleteNewLinesValue,
+                expression: "enableAddDeleteNewLinesValue"
+              }
+            ],
             attrs: {
               tooltipMess: "ACTION_BUTTON_ADD_LINEBREAK",
               allowedCondition: _vm.allowedAddLineBreak,
@@ -67250,6 +67547,14 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("actions-button", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.enableAddDeleteNewLinesValue,
+                expression: "enableAddDeleteNewLinesValue"
+              }
+            ],
             attrs: {
               tooltipMess: "ACTION_BUTTON_REMOVE_LINEBREAK",
               allowedCondition: _vm.allowedRemoveLineBreak,
@@ -67283,8 +67588,11 @@ var render = function() {
               {
                 name: "show",
                 rawName: "v-show",
-                value: _vm.renderMoveToPrevSegment,
-                expression: "renderMoveToPrevSegment"
+                value:
+                  _vm.enableMoveTokensToSegmentValue &&
+                  _vm.renderMoveToPrevSegment,
+                expression:
+                  "enableMoveTokensToSegmentValue && renderMoveToPrevSegment"
               }
             ],
             attrs: {
@@ -67320,8 +67628,11 @@ var render = function() {
               {
                 name: "show",
                 rawName: "v-show",
-                value: _vm.renderMoveToNextSegment,
-                expression: "renderMoveToNextSegment"
+                value:
+                  _vm.enableMoveTokensToSegmentValue &&
+                  _vm.renderMoveToNextSegment,
+                expression:
+                  "enableMoveTokensToSegmentValue && renderMoveToNextSegment"
               }
             ],
             attrs: {
@@ -67353,6 +67664,14 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("actions-button", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.enableAddDeleteTokensValue,
+                expression: "enableAddDeleteTokensValue"
+              }
+            ],
             attrs: {
               tooltipMess: "ACTION_BUTTON_INSERT",
               allowedCondition: _vm.allowedInsert,
@@ -67382,6 +67701,14 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("actions-button", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.enableAddDeleteTokensValue,
+                expression: "enableAddDeleteTokensValue"
+              }
+            ],
             attrs: {
               tooltipMess: "ACTION_BUTTON_DELETE",
               allowedCondition: _vm.allowedDelete,
@@ -69162,7 +69489,7 @@ render._withStripped = true
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/tokens-edit-indexeddb-controller.test.js","test-b":"jest tests/vue/align-editor/segment-block.test.js","test-c":"jest tests/lib/data/actions/tokens-edit-actions.test.js","test-f":"jest tests/lib/data/options-preset.test.js","test-d":"jest tests/lib/storage/indexed-db-adapter.test.js","test-e":"jest tests/_output/vue/app.test.js","test-g":"jest tests/corrupted/corrupted-alignments.test.js","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.6.0","@babel/core":"^7.15.5","@babel/plugin-proposal-object-rest-spread":"^7.15.6","@babel/plugin-transform-modules-commonjs":"^7.15.4","@babel/plugin-transform-runtime":"^7.15.0","@babel/preset-env":"^7.15.6","@babel/register":"^7.15.3","@babel/runtime":"^7.15.4","@vue/test-utils":"^1.2.2","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.2.0","coveralls":"^3.1.1","css-loader":"^3.6.0","eslint":"^7.32.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.24.2","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.3","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.9.2","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.8","papaparse":"^5.3.1","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.42.1","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.14","vue-eslint-parser":"^7.11.0","vue-jest":"^3.0.7","vue-js-modal":"^2.0.1","vue-loader":"^15.9.8","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.14","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.55.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
+module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/tokens-edit-indexeddb-controller.test.js","test-b":"jest tests/vue/options/select-edit-icons.test.js","test-c":"jest tests/lib/data/actions/tokens-edit-actions.test.js","test-f":"jest tests/lib/data/options-preset.test.js","test-d":"jest tests/lib/storage/indexed-db-adapter.test.js","test-e":"jest tests/_output/vue/app.test.js","test-g":"jest tests/corrupted/corrupted-alignments.test.js","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.6.0","@babel/core":"^7.15.5","@babel/plugin-proposal-object-rest-spread":"^7.15.6","@babel/plugin-transform-modules-commonjs":"^7.15.4","@babel/plugin-transform-runtime":"^7.15.0","@babel/preset-env":"^7.15.6","@babel/register":"^7.15.3","@babel/runtime":"^7.15.4","@vue/test-utils":"^1.2.2","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.2.0","coveralls":"^3.1.1","css-loader":"^3.6.0","eslint":"^7.32.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.24.2","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.3","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.9.2","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.8","papaparse":"^5.3.1","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.42.1","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.14","vue-eslint-parser":"^7.11.0","vue-jest":"^3.0.7","vue-js-modal":"^2.0.1","vue-loader":"^15.9.8","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.14","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.55.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
 
 /***/ }),
 
@@ -69327,7 +69654,7 @@ module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit text","de
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"2","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":true,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":false,"labelText":"Show language check before text would be prepared","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerPart":{"defaultValue":1000,"labelText":"Max characters per part (recommended for performance), to be used in Align Text","number":true,"minValue":1,"maxValue":50000,"values":[]},"addIndexedDBSupport":{"defaultValue":true,"labelText":"Add IndexedDB support","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"availableAnnotationTypes":{"defaultValue":["COMMENT","LEMMAID","MORPHOLOGY"],"labelText":"Available Annotation Types","multiValue":true,"values":[{"value":"COMMENT","text":"comment"},{"value":"LEMMAID","text":"lemmaID"},{"value":"MORPHOLOGY","text":"morphology"}]},"maxCharactersAnnotationText":{"defaultValue":500,"labelText":"Max characters in annotation text","number":true,"minValue":1,"maxValue":5000,"values":[]},"enableTokensEditor":{"defaultValue":false,"labelText":"Enable Tokens Editor Screen","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableDTSAPIUpload":{"defaultValue":false,"labelText":"Enable upload from DTS API","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"isAdvancedMode":{"defaultValue":false,"labelText":"Is advanced mode","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAnnotatios":{"defaultValue":false,"labelText":"Enable annotations","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableMetadata":{"defaultValue":false,"labelText":"Enable metadata","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]}}}');
+module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"2","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":true,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":false,"labelText":"Show language check before text would be prepared","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerPart":{"defaultValue":1000,"labelText":"Max characters per part (recommended for performance), to be used in Align Text","number":true,"minValue":1,"maxValue":50000,"values":[]},"addIndexedDBSupport":{"defaultValue":true,"labelText":"Add IndexedDB support","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"availableAnnotationTypes":{"defaultValue":["COMMENT","LEMMAID","MORPHOLOGY"],"labelText":"Available Annotation Types","multiValue":true,"values":[{"value":"COMMENT","text":"comment"},{"value":"LEMMAID","text":"lemmaID"},{"value":"MORPHOLOGY","text":"morphology"}]},"maxCharactersAnnotationText":{"defaultValue":500,"labelText":"Max characters in annotation text","number":true,"minValue":1,"maxValue":5000,"values":[]},"enableTokensEditor":{"defaultValue":false,"labelText":"Enable Tokens Editor Screen","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableDTSAPIUpload":{"defaultValue":false,"labelText":"Enable upload from DTS API","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"isAdvancedMode":{"defaultValue":false,"labelText":"Is advanced mode","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAnnotatios":{"defaultValue":false,"labelText":"Enable annotations","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableMetadata":{"defaultValue":false,"labelText":"Enable metadata","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAddDeleteNewLines":{"defaultValue":false,"labelText":"","boolean":true,"values":[{"value":true,"text":"add and delete newlines"},{"value":false,"text":"add and delete newlines"}]},"enableAddDeleteTokens":{"defaultValue":false,"labelText":"","boolean":true,"values":[{"value":true,"text":"add and delete tokens"},{"value":false,"text":"add and delete tokens"}]},"enableMergeSplitTokens":{"defaultValue":false,"labelText":"","boolean":true,"values":[{"value":true,"text":"merge and split tokens"},{"value":false,"text":"merge and split tokens"}]},"enableMoveTokensToSegment":{"defaultValue":false,"labelText":"","boolean":true,"values":[{"value":true,"text":"move tokens to a segment"},{"value":false,"text":"move tokens to a segment"}]},"enableEditTokens":{"defaultValue":false,"labelText":"","boolean":true,"values":[{"value":true,"text":"edit tokens"},{"value":false,"text":"edit tokens"}]}}}');
 
 /***/ }),
 
