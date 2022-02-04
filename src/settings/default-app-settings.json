@@ -213,7 +213,7 @@
       ]
     },
     "enableAddDeleteNewLines": {
-      "defaultValue": true,
+      "defaultValue": false,
       "labelText": "",
       "boolean": true,
       "values": [
@@ -228,7 +228,7 @@
       ]
     },
     "enableAddDeleteTokens": {
-      "defaultValue": true,
+      "defaultValue": false,
       "labelText": "",
       "boolean": true,
       "values": [
@@ -243,7 +243,7 @@
       ]
     },
     "enableMergeSplitTokens": {
-      "defaultValue": true,
+      "defaultValue": false,
       "labelText": "",
       "boolean": true,
       "values": [
@@ -258,7 +258,7 @@
       ]
     },
     "enableMoveTokensToSegment": {
-      "defaultValue": true,
+      "defaultValue": false,
       "labelText": "",
       "boolean": true,
       "values": [
@@ -273,7 +273,7 @@
       ]
     },
     "enableEditTokens": {
-      "defaultValue": true,
+      "defaultValue": false,
       "labelText": "",
       "boolean": true,
       "values": [
