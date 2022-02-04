@@ -4,25 +4,25 @@
     >
       <div class="alpheios-token-edit-actions-inner" ref="actionsInner">
         <actions-button tooltipMess = "ACTION_BUTTON_UPDATE_TOKEN" :allowedCondition = "allowedUpdateTokenWord"
-                        actionName = "update_token" @click = "$emit('updateTokenWord', token)">
+                        actionName = "update_token" @click = "$emit('updateTokenWord', token)" v-show="enableEditTokensValue">
           <template v-slot:enabled><pen-icon /></template>
           <template v-slot:disabled><pen-icon /></template>
         </actions-button>
 
         <actions-button tooltipMess = "ACTION_BUTTON_MERGE_PREV" :allowedCondition = "allowedMergePrev"
-                        actionName = "merge_left" @click = "mergeToPrev">
+                        actionName = "merge_left" @click = "mergeToPrev" v-show="enableMergeSplitTokensValue">
           <template v-slot:enabled><merge-left-icon /></template>
           <template v-slot:disabled><merge-left-icon /></template>
         </actions-button>
 
         <actions-button tooltipMess = "ACTION_BUTTON_MERGE_NEXT" :allowedCondition = "allowedMergeNext"
-                        actionName = "merge_right" @click = "mergeToNext">
+                        actionName = "merge_right" @click = "mergeToNext" v-show="enableMergeSplitTokensValue">
           <template v-slot:enabled><merge-right-icon /></template>
           <template v-slot:disabled><merge-right-icon /></template>
         </actions-button>
 
         <actions-button tooltipMess = "ACTION_BUTTON_SPLIT_TOKEN" :allowedCondition = "allowedSplit"
-                        actionName = "split" @click = "$emit('splitToken', token)">
+                        actionName = "split" @click = "$emit('splitToken', token)" v-show="enableMergeSplitTokensValue">
           <template v-slot:enabled><split-icon /></template>
           <template v-slot:disabled><split-icon /></template>
         </actions-button>
@@ -41,7 +41,7 @@
 
         <actions-button tooltipMess = "ACTION_BUTTON_TO_PREV_SEGMENT" :allowedCondition = "allowedToPrevSegment"
                         actionName = "move_to_prev_segment" @click = "$emit('moveToPrevSegment', token)"
-                        v-show="renderMoveToPrevSegment"
+                        v-show="enableMoveTokensToSegmentValue && renderMoveToPrevSegment"
                         >
           <template v-slot:enabled><prev-icon /></template>
           <template v-slot:disabled><prev-icon /></template>
@@ -49,20 +49,20 @@
 
         <actions-button tooltipMess = "ACTION_BUTTON_TO_NEXT_SEGMENT" :allowedCondition = "allowedToNextSegment"
                         actionName = "move_to_next_segment" @click = "$emit('moveToNextSegment', token)"
-                        v-show="renderMoveToNextSegment"
+                        v-show="enableMoveTokensToSegmentValue && renderMoveToNextSegment"
                         >
           <template v-slot:enabled><next-icon /></template>
           <template v-slot:disabled><next-icon /></template>
         </actions-button>
 
         <actions-button tooltipMess = "ACTION_BUTTON_INSERT" :allowedCondition = "allowedInsert"
-                        actionName = "insert" @click = "$emit('insertTokens', token)">
+                        actionName = "insert" @click = "$emit('insertTokens', token)" v-show="enableAddDeleteTokensValue">
           <template v-slot:enabled><big-plus-icon /></template>
           <template v-slot:disabled><big-plus-icon /></template>
         </actions-button>
 
         <actions-button tooltipMess = "ACTION_BUTTON_DELETE" :allowedCondition = "allowedDelete"
-                        actionName = "delete" @click = "$emit('deleteToken', token)">
+                        actionName = "delete" @click = "$emit('deleteToken', token)" v-show="enableAddDeleteTokensValue">
           <template v-slot:enabled><delete-icon /></template>
           <template v-slot:disabled><delete-icon /></template>
         </actions-button>
@@ -189,6 +189,18 @@ export default {
     },
     enableAddDeleteNewLinesValue () {
       return this.$store.state.optionsUpdated && SettingsController.enableAddDeleteNewLines
+    },
+    enableAddDeleteTokensValue () {
+      return this.$store.state.optionsUpdated && SettingsController.enableAddDeleteTokens
+    },
+    enableMergeSplitTokensValue () {
+      return this.$store.state.optionsUpdated && SettingsController.enableMergeSplitTokens
+    },
+    enableMoveTokensToSegmentValue () {
+      return this.$store.state.optionsUpdated && SettingsController.enableMoveTokensToSegment
+    },
+    enableEditTokensValue () {
+      return this.$store.state.optionsUpdated && SettingsController.enableEditTokens
     }
   },
   methods: {

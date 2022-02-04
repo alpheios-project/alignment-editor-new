@@ -39885,7 +39885,13 @@ class SettingsController {
       enableTokensEditor: true,
       enableDTSAPIUpload: true,
       showSummaryPopup: true,
-      enableMetadata: true
+      enableMetadata: true,
+
+      enableAddDeleteNewLines: true,
+      enableAddDeleteTokens: true,
+      enableMergeSplitTokens: true,
+      enableMoveTokensToSegment: true,
+      enableEditTokens: true
     }
   }
 
@@ -39956,6 +39962,22 @@ class SettingsController {
 
   static get enableAddDeleteNewLines () {
     return _instance.options.app && _instance.options.app.items.enableAddDeleteNewLines ? _instance.options.app.items.enableAddDeleteNewLines.currentValue : 1000
+  }
+
+  static get enableAddDeleteTokens () {
+    return _instance.options.app && _instance.options.app.items.enableAddDeleteTokens ? _instance.options.app.items.enableAddDeleteTokens.currentValue : 1000
+  }
+
+  static get enableMergeSplitTokens () {
+    return _instance.options.app && _instance.options.app.items.enableMergeSplitTokens ? _instance.options.app.items.enableMergeSplitTokens.currentValue : 1000
+  }
+
+  static get enableMoveTokensToSegment () {
+    return _instance.options.app && _instance.options.app.items.enableMoveTokensToSegment ? _instance.options.app.items.enableMoveTokensToSegment.currentValue : 1000
+  }
+
+  static get enableEditTokens () {
+    return _instance.options.app && _instance.options.app.items.enableEditTokens ? _instance.options.app.items.enableEditTokens.currentValue : 1000
   }
 
   /**
@@ -48810,7 +48832,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i613-select-icons.20220203613" : 0
+    return  true ? "i613-select-icons.20220204358" : 0
   }
 
   static get libName () {
@@ -53091,6 +53113,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -53104,6 +53130,18 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     enableAddDeleteNewLinesOptionItem () {
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_1__["default"].allOptions.app.items.enableAddDeleteNewLines
+    },
+    enableAddDeleteTokensOptionItem () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_1__["default"].allOptions.app.items.enableAddDeleteTokens
+    },
+    enableMergeSplitTokensOptionItem () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_1__["default"].allOptions.app.items.enableMergeSplitTokens
+    },
+    enableMoveTokensToSegmentOptionItem () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_1__["default"].allOptions.app.items.enableMoveTokensToSegment
+    },
+    enableEditTokensOptionItem () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_1__["default"].allOptions.app.items.enableEditTokens
     }
   }
 });
@@ -55391,6 +55429,18 @@ __webpack_require__.r(__webpack_exports__);
     },
     enableAddDeleteNewLinesValue () {
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_13__["default"].enableAddDeleteNewLines
+    },
+    enableAddDeleteTokensValue () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_13__["default"].enableAddDeleteTokens
+    },
+    enableMergeSplitTokensValue () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_13__["default"].enableMergeSplitTokens
+    },
+    enableMoveTokensToSegmentValue () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_13__["default"].enableMoveTokensToSegment
+    },
+    enableEditTokensValue () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_13__["default"].enableEditTokens
     }
   },
   methods: {
@@ -64829,6 +64879,34 @@ var render = function() {
             optionItem: _vm.enableAddDeleteNewLinesOptionItem,
             showCheckboxTitle: true
           }
+        }),
+        _vm._v(" "),
+        _c("option-item-block", {
+          attrs: {
+            optionItem: _vm.enableAddDeleteTokensOptionItem,
+            showCheckboxTitle: true
+          }
+        }),
+        _vm._v(" "),
+        _c("option-item-block", {
+          attrs: {
+            optionItem: _vm.enableMergeSplitTokensOptionItem,
+            showCheckboxTitle: true
+          }
+        }),
+        _vm._v(" "),
+        _c("option-item-block", {
+          attrs: {
+            optionItem: _vm.enableMoveTokensToSegmentOptionItem,
+            showCheckboxTitle: true
+          }
+        }),
+        _vm._v(" "),
+        _c("option-item-block", {
+          attrs: {
+            optionItem: _vm.enableEditTokensOptionItem,
+            showCheckboxTitle: true
+          }
         })
       ],
       1
@@ -67292,6 +67370,14 @@ var render = function() {
         },
         [
           _c("actions-button", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.enableEditTokensValue,
+                expression: "enableEditTokensValue"
+              }
+            ],
             attrs: {
               tooltipMess: "ACTION_BUTTON_UPDATE_TOKEN",
               allowedCondition: _vm.allowedUpdateTokenWord,
@@ -67321,6 +67407,14 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("actions-button", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.enableMergeSplitTokensValue,
+                expression: "enableMergeSplitTokensValue"
+              }
+            ],
             attrs: {
               tooltipMess: "ACTION_BUTTON_MERGE_PREV",
               allowedCondition: _vm.allowedMergePrev,
@@ -67346,6 +67440,14 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("actions-button", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.enableMergeSplitTokensValue,
+                expression: "enableMergeSplitTokensValue"
+              }
+            ],
             attrs: {
               tooltipMess: "ACTION_BUTTON_MERGE_NEXT",
               allowedCondition: _vm.allowedMergeNext,
@@ -67371,6 +67473,14 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("actions-button", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.enableMergeSplitTokensValue,
+                expression: "enableMergeSplitTokensValue"
+              }
+            ],
             attrs: {
               tooltipMess: "ACTION_BUTTON_SPLIT_TOKEN",
               allowedCondition: _vm.allowedSplit,
@@ -67478,8 +67588,11 @@ var render = function() {
               {
                 name: "show",
                 rawName: "v-show",
-                value: _vm.renderMoveToPrevSegment,
-                expression: "renderMoveToPrevSegment"
+                value:
+                  _vm.enableMoveTokensToSegmentValue &&
+                  _vm.renderMoveToPrevSegment,
+                expression:
+                  "enableMoveTokensToSegmentValue && renderMoveToPrevSegment"
               }
             ],
             attrs: {
@@ -67515,8 +67628,11 @@ var render = function() {
               {
                 name: "show",
                 rawName: "v-show",
-                value: _vm.renderMoveToNextSegment,
-                expression: "renderMoveToNextSegment"
+                value:
+                  _vm.enableMoveTokensToSegmentValue &&
+                  _vm.renderMoveToNextSegment,
+                expression:
+                  "enableMoveTokensToSegmentValue && renderMoveToNextSegment"
               }
             ],
             attrs: {
@@ -67548,6 +67664,14 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("actions-button", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.enableAddDeleteTokensValue,
+                expression: "enableAddDeleteTokensValue"
+              }
+            ],
             attrs: {
               tooltipMess: "ACTION_BUTTON_INSERT",
               allowedCondition: _vm.allowedInsert,
@@ -67577,6 +67701,14 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("actions-button", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.enableAddDeleteTokensValue,
+                expression: "enableAddDeleteTokensValue"
+              }
+            ],
             attrs: {
               tooltipMess: "ACTION_BUTTON_DELETE",
               allowedCondition: _vm.allowedDelete,
@@ -69522,7 +69654,7 @@ module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit text","de
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"2","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":true,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":false,"labelText":"Show language check before text would be prepared","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerPart":{"defaultValue":1000,"labelText":"Max characters per part (recommended for performance), to be used in Align Text","number":true,"minValue":1,"maxValue":50000,"values":[]},"addIndexedDBSupport":{"defaultValue":true,"labelText":"Add IndexedDB support","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"availableAnnotationTypes":{"defaultValue":["COMMENT","LEMMAID","MORPHOLOGY"],"labelText":"Available Annotation Types","multiValue":true,"values":[{"value":"COMMENT","text":"comment"},{"value":"LEMMAID","text":"lemmaID"},{"value":"MORPHOLOGY","text":"morphology"}]},"maxCharactersAnnotationText":{"defaultValue":500,"labelText":"Max characters in annotation text","number":true,"minValue":1,"maxValue":5000,"values":[]},"enableTokensEditor":{"defaultValue":false,"labelText":"Enable Tokens Editor Screen","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableDTSAPIUpload":{"defaultValue":false,"labelText":"Enable upload from DTS API","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"isAdvancedMode":{"defaultValue":false,"labelText":"Is advanced mode","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAnnotatios":{"defaultValue":false,"labelText":"Enable annotations","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableMetadata":{"defaultValue":false,"labelText":"Enable metadata","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAddDeleteNewLines":{"defaultValue":true,"labelText":"","boolean":true,"values":[{"value":true,"text":"add and delete newlines"},{"value":false,"text":"add and delete newlines"}]}}}');
+module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"2","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":true,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":false,"labelText":"Show language check before text would be prepared","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerPart":{"defaultValue":1000,"labelText":"Max characters per part (recommended for performance), to be used in Align Text","number":true,"minValue":1,"maxValue":50000,"values":[]},"addIndexedDBSupport":{"defaultValue":true,"labelText":"Add IndexedDB support","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"availableAnnotationTypes":{"defaultValue":["COMMENT","LEMMAID","MORPHOLOGY"],"labelText":"Available Annotation Types","multiValue":true,"values":[{"value":"COMMENT","text":"comment"},{"value":"LEMMAID","text":"lemmaID"},{"value":"MORPHOLOGY","text":"morphology"}]},"maxCharactersAnnotationText":{"defaultValue":500,"labelText":"Max characters in annotation text","number":true,"minValue":1,"maxValue":5000,"values":[]},"enableTokensEditor":{"defaultValue":false,"labelText":"Enable Tokens Editor Screen","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableDTSAPIUpload":{"defaultValue":false,"labelText":"Enable upload from DTS API","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"isAdvancedMode":{"defaultValue":false,"labelText":"Is advanced mode","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAnnotatios":{"defaultValue":false,"labelText":"Enable annotations","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableMetadata":{"defaultValue":false,"labelText":"Enable metadata","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAddDeleteNewLines":{"defaultValue":true,"labelText":"","boolean":true,"values":[{"value":true,"text":"add and delete newlines"},{"value":false,"text":"add and delete newlines"}]},"enableAddDeleteTokens":{"defaultValue":true,"labelText":"","boolean":true,"values":[{"value":true,"text":"add and delete tokens"},{"value":false,"text":"add and delete tokens"}]},"enableMergeSplitTokens":{"defaultValue":true,"labelText":"","boolean":true,"values":[{"value":true,"text":"merge and split tokens"},{"value":false,"text":"merge and split tokens"}]},"enableMoveTokensToSegment":{"defaultValue":true,"labelText":"","boolean":true,"values":[{"value":true,"text":"move tokens to a segment"},{"value":false,"text":"move tokens to a segment"}]},"enableEditTokens":{"defaultValue":true,"labelText":"","boolean":true,"values":[{"value":true,"text":"edit tokens"},{"value":false,"text":"edit tokens"}]}}}');
 
 /***/ }),
 
