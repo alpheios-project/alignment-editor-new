@@ -247,6 +247,7 @@ export default {
       } else if (this.optionItem.maxValue && (this.optionItem.maxValue < this.selected)) {
         this.selected = this.optionItem.maxValue
       }
+
       this.optionItem.setValue(this.selected)
       
       SettingsController.changeOption(this.optionItem)

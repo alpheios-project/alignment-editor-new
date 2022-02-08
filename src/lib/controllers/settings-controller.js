@@ -50,6 +50,7 @@ export default class SettingsController {
     Object.values(_instance.options.app.items).forEach(optionItem => this.changeOption(optionItem))
 
     this.submitEventUpdateTheme()
+    this.submitEventUpdateAlpheiosReadingToolsToolbar()
   }
 
   static getStorageAdapter () {
@@ -138,27 +139,31 @@ export default class SettingsController {
   }
 
   static get addIndexedDBSupport () {
-    return _instance.options.app && _instance.options.app.items.addIndexedDBSupport ? _instance.options.app.items.addIndexedDBSupport.currentValue : 1000
+    return _instance.options.app && _instance.options.app.items.addIndexedDBSupport ? _instance.options.app.items.addIndexedDBSupport.currentValue : false
   }
 
   static get enableAddDeleteNewLines () {
-    return _instance.options.app && _instance.options.app.items.enableAddDeleteNewLines ? _instance.options.app.items.enableAddDeleteNewLines.currentValue : 1000
+    return _instance.options.app && _instance.options.app.items.enableAddDeleteNewLines ? _instance.options.app.items.enableAddDeleteNewLines.currentValue : false
   }
 
   static get enableAddDeleteTokens () {
-    return _instance.options.app && _instance.options.app.items.enableAddDeleteTokens ? _instance.options.app.items.enableAddDeleteTokens.currentValue : 1000
+    return _instance.options.app && _instance.options.app.items.enableAddDeleteTokens ? _instance.options.app.items.enableAddDeleteTokens.currentValue : false
   }
 
   static get enableMergeSplitTokens () {
-    return _instance.options.app && _instance.options.app.items.enableMergeSplitTokens ? _instance.options.app.items.enableMergeSplitTokens.currentValue : 1000
+    return _instance.options.app && _instance.options.app.items.enableMergeSplitTokens ? _instance.options.app.items.enableMergeSplitTokens.currentValue : false
   }
 
   static get enableMoveTokensToSegment () {
-    return _instance.options.app && _instance.options.app.items.enableMoveTokensToSegment ? _instance.options.app.items.enableMoveTokensToSegment.currentValue : 1000
+    return _instance.options.app && _instance.options.app.items.enableMoveTokensToSegment ? _instance.options.app.items.enableMoveTokensToSegment.currentValue : false
   }
 
   static get enableEditTokens () {
-    return _instance.options.app && _instance.options.app.items.enableEditTokens ? _instance.options.app.items.enableEditTokens.currentValue : 1000
+    return _instance.options.app && _instance.options.app.items.enableEditTokens ? _instance.options.app.items.enableEditTokens.currentValue : false
+  }
+
+  static get enableAlpheiosReadingTools () {
+    return _instance.options.app && _instance.options.app.items.enableAlpheiosReadingTools ? _instance.options.app.items.enableAlpheiosReadingTools.currentValue : false
   }
 
   /**
@@ -209,6 +214,7 @@ export default class SettingsController {
       optionsGroup.checkAndUploadValuesFromArray(_instance.valuesClassesList)
     })
     this.submitEventUpdateTheme()
+    this.submitEventUpdateAlpheiosReadingToolsToolbar()
   }
 
   /**
@@ -218,6 +224,15 @@ export default class SettingsController {
     SettingsController.evt.SETTINGS_CONTROLLER_THEME_UPDATED.pub({
       theme: _instance.options.app.items.theme.currentValue,
       themesList: _instance.options.app.items.theme.values.map(val => val.value)
+    })
+  }
+
+  /**
+   * Publish event for change css class to show/hide Alpheios Reading Tools Toolbar - event subscribers are defined in AppContoller
+   */
+  static submitEventUpdateAlpheiosReadingToolsToolbar () {
+    SettingsController.evt.SETTINGS_CONTROLLER_READING_TOOLS_CLASS_UPDATED.pub({
+      value: this.enableAlpheiosReadingTools
     })
   }
 
@@ -255,6 +270,8 @@ export default class SettingsController {
       StorageController.changeIndexedDBSupport(optionItem.currentValue)
     } else if (optionNameParts[2] === 'tokenizer') {
       _instance.store.commit('incrementTokenizerUpdated')
+    } else if (optionNameParts[2] === 'enableAlpheiosReadingTools') {
+      this.submitEventUpdateAlpheiosReadingToolsToolbar()
     }
     _instance.store.commit('incrementOptionsUpdated')
   }
@@ -345,5 +362,7 @@ export default class SettingsController {
  * This is a description of a SettingsController event interface.
  */
 SettingsController.evt = {
-  SETTINGS_CONTROLLER_THEME_UPDATED: new PsEvent('Theme Option is updated', SettingsController)
+  SETTINGS_CONTROLLER_THEME_UPDATED: new PsEvent('Theme Option is updated', SettingsController),
+
+  SETTINGS_CONTROLLER_READING_TOOLS_CLASS_UPDATED: new PsEvent('EnableAlpheiosReadingTools Option is updated', SettingsController)
 }

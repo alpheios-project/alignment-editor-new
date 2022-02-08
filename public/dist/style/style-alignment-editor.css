@@ -1075,6 +1075,10 @@ body.alpheios-initial-page .header.alpheios-header {
 body.alpheios-initial-page .alpheios-alignment-app-menu-open-icon svg {
   fill: #fff;
 }
+
+.alpehios-hide-readding-tools-toolbar .alpheios-toolbar {
+  display: none;
+}
 .alpheios-alignment-editor-alignments-table td {
   text-align: left;
   padding: 5px;

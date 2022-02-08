@@ -50,6 +50,8 @@ export default class AppController {
     if (this.pageSettings && this.pageSettings.appId) {
       this.attachVueComponents()
     }
+
+    this.defineClassReadingTools({ value: SettingsController.enableAlpheiosReadingTools })
   }
 
   /**
@@ -65,6 +67,17 @@ export default class AppController {
 
     document.documentElement.classList.add(`alpheios-${theme}`)
     document.body.classList.add(`alpheios-${theme}`)
+  }
+
+  defineClassReadingTools ({ value }) {
+    const hideClassName = 'alpehios-hide-readding-tools-toolbar'
+    if (!value) {
+      document.documentElement.classList.add(hideClassName)
+      document.body.classList.add(hideClassName)
+    } else {
+      document.documentElement.classList.remove(hideClassName)
+      document.body.classList.remove(hideClassName)
+    }
   }
 
   /**
@@ -97,6 +110,7 @@ export default class AppController {
 
   defineEvents () {
     SettingsController.evt.SETTINGS_CONTROLLER_THEME_UPDATED.sub(this.defineColorTheme.bind(this))
+    SettingsController.evt.SETTINGS_CONTROLLER_READING_TOOLS_CLASS_UPDATED.sub(this.defineClassReadingTools.bind(this))
   }
 
   /**

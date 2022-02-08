@@ -286,6 +286,21 @@
           "text": "edit tokens"
         }
       ]
+    },
+    "enableAlpheiosReadingTools": {
+      "defaultValue": false,
+      "labelText": "Enable Alpheios Reading Tools Toolbar",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "Yes"
+        },
+        {
+          "value": false,
+          "text": "No"
+        }
+      ]
     }
   }
 }
