@@ -54,7 +54,7 @@
             </tooltip>
           </span>
 
-          <metadata-icons :text-type = "textType" :text-id = "textId" @showModalMetadata = "$modal.show(metadataModalName)" v-show="enableMetadataValue"/>
+          <metadata-icons :text-type = "textType" :text-id = "textId" @showModalMetadata = "$modal.show(metadataModalName)" />
 
         </p>
         <span :id="removeId" class="alpheios-alignment-editor-text-blocks-single__remove" v-show="showDeleteIcon" @click="deleteText">
@@ -66,7 +66,7 @@
       </div>
 
 
-      <div class="alpheios-alignment-editor-text-blocks-single__describe-button" v-show="enableMetadataValue">
+      <div class="alpheios-alignment-editor-text-blocks-single__describe-button" >
         <tooltip :tooltipText="l10n.getMsgS('DESCRIBE_BUTTON_TOOLTIP')" tooltipDirection="top">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  :id="describeButtonId"
               @click="$modal.show(metadataModalName)" :disabled="!isMetadataAvailable" >
@@ -356,9 +356,6 @@ export default {
 
     enableDTSAPIUploadValue () {
       return this.$store.state.optionsUpdated && SettingsController.enableDTSAPIUpload
-    },
-    enableMetadataValue () {
-      return this.$store.state.optionsUpdated && SettingsController.enableMetadata
     }
   },
   methods: {

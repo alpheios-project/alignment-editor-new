@@ -25,8 +25,6 @@
             <option-item-block :optionItem = "enableTokensEditorOptionItem" />
             <select-edit-icons v-show="enableTokensEditorValue" />
 
-            <option-item-block :optionItem = "enableMetadataOptionItem" />
-
             <option-item-block :optionItem = "enableAlpheiosReadingToolsOptionItem" />
             
             
@@ -123,10 +121,6 @@ export default {
 
     enableAnnotatiosOptionItem () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableAnnotatios
-    },
-
-    enableMetadataOptionItem () {
-      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableMetadata
     },
 
     enableAlpheiosReadingToolsOptionItem  () {

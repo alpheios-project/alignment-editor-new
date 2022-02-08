@@ -67,7 +67,6 @@ export default class SettingsController {
       enableTokensEditor: true,
       enableDTSAPIUpload: true,
       showSummaryPopup: true,
-      enableMetadata: true,
 
       enableAddDeleteNewLines: true,
       enableAddDeleteTokens: true,
@@ -132,10 +131,6 @@ export default class SettingsController {
 
   static get enableAnnotatios () {
     return _instance.options.app && _instance.options.app.items.enableAnnotatios ? _instance.options.app.items.enableAnnotatios.currentValue : false
-  }
-
-  static get enableMetadata () {
-    return _instance.options.app && _instance.options.app.items.enableMetadata ? _instance.options.app.items.enableMetadata.currentValue : false
   }
 
   static get addIndexedDBSupport () {

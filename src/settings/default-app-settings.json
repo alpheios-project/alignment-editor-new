@@ -197,21 +197,6 @@
         }
       ]
     },
-    "enableMetadata": {
-      "defaultValue": false,
-      "labelText": "Enable metadata",
-      "boolean": true,
-      "values": [
-        {
-          "value": true,
-          "text": "Yes"
-        },
-        {
-          "value": false,
-          "text": "No"
-        }
-      ]
-    },
     "enableAddDeleteNewLines": {
       "defaultValue": false,
       "labelText": "",
