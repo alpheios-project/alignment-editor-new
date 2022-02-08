@@ -39263,6 +39263,8 @@ class AppController {
     if (this.pageSettings && this.pageSettings.appId) {
       this.attachVueComponents()
     }
+
+    this.defineClassReadingTools({ value: _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__["default"].enableAlpheiosReadingTools })
   }
 
   /**
@@ -39278,6 +39280,17 @@ class AppController {
 
     document.documentElement.classList.add(`alpheios-${theme}`)
     document.body.classList.add(`alpheios-${theme}`)
+  }
+
+  defineClassReadingTools ({ value }) {
+    const hideClassName = 'alpehios-hide-readding-tools-toolbar'
+    if (!value) {
+      document.documentElement.classList.add(hideClassName)
+      document.body.classList.add(hideClassName)
+    } else {
+      document.documentElement.classList.remove(hideClassName)
+      document.body.classList.remove(hideClassName)
+    }
   }
 
   /**
@@ -39310,6 +39323,7 @@ class AppController {
 
   defineEvents () {
     _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__["default"].evt.SETTINGS_CONTROLLER_THEME_UPDATED.sub(this.defineColorTheme.bind(this))
+    _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__["default"].evt.SETTINGS_CONTROLLER_READING_TOOLS_CLASS_UPDATED.sub(this.defineClassReadingTools.bind(this))
   }
 
   /**
@@ -39869,6 +39883,7 @@ class SettingsController {
     Object.values(_instance.options.app.items).forEach(optionItem => this.changeOption(optionItem))
 
     this.submitEventUpdateTheme()
+    this.submitEventUpdateAlpheiosReadingToolsToolbar()
   }
 
   static getStorageAdapter () {
@@ -39885,7 +39900,6 @@ class SettingsController {
       enableTokensEditor: true,
       enableDTSAPIUpload: true,
       showSummaryPopup: true,
-      enableMetadata: true,
 
       enableAddDeleteNewLines: true,
       enableAddDeleteTokens: true,
@@ -39952,32 +39966,32 @@ class SettingsController {
     return _instance.options.app && _instance.options.app.items.enableAnnotatios ? _instance.options.app.items.enableAnnotatios.currentValue : false
   }
 
-  static get enableMetadata () {
-    return _instance.options.app && _instance.options.app.items.enableMetadata ? _instance.options.app.items.enableMetadata.currentValue : false
-  }
-
   static get addIndexedDBSupport () {
-    return _instance.options.app && _instance.options.app.items.addIndexedDBSupport ? _instance.options.app.items.addIndexedDBSupport.currentValue : 1000
+    return _instance.options.app && _instance.options.app.items.addIndexedDBSupport ? _instance.options.app.items.addIndexedDBSupport.currentValue : false
   }
 
   static get enableAddDeleteNewLines () {
-    return _instance.options.app && _instance.options.app.items.enableAddDeleteNewLines ? _instance.options.app.items.enableAddDeleteNewLines.currentValue : 1000
+    return _instance.options.app && _instance.options.app.items.enableAddDeleteNewLines ? _instance.options.app.items.enableAddDeleteNewLines.currentValue : false
   }
 
   static get enableAddDeleteTokens () {
-    return _instance.options.app && _instance.options.app.items.enableAddDeleteTokens ? _instance.options.app.items.enableAddDeleteTokens.currentValue : 1000
+    return _instance.options.app && _instance.options.app.items.enableAddDeleteTokens ? _instance.options.app.items.enableAddDeleteTokens.currentValue : false
   }
 
   static get enableMergeSplitTokens () {
-    return _instance.options.app && _instance.options.app.items.enableMergeSplitTokens ? _instance.options.app.items.enableMergeSplitTokens.currentValue : 1000
+    return _instance.options.app && _instance.options.app.items.enableMergeSplitTokens ? _instance.options.app.items.enableMergeSplitTokens.currentValue : false
   }
 
   static get enableMoveTokensToSegment () {
-    return _instance.options.app && _instance.options.app.items.enableMoveTokensToSegment ? _instance.options.app.items.enableMoveTokensToSegment.currentValue : 1000
+    return _instance.options.app && _instance.options.app.items.enableMoveTokensToSegment ? _instance.options.app.items.enableMoveTokensToSegment.currentValue : false
   }
 
   static get enableEditTokens () {
-    return _instance.options.app && _instance.options.app.items.enableEditTokens ? _instance.options.app.items.enableEditTokens.currentValue : 1000
+    return _instance.options.app && _instance.options.app.items.enableEditTokens ? _instance.options.app.items.enableEditTokens.currentValue : false
+  }
+
+  static get enableAlpheiosReadingTools () {
+    return _instance.options.app && _instance.options.app.items.enableAlpheiosReadingTools ? _instance.options.app.items.enableAlpheiosReadingTools.currentValue : false
   }
 
   /**
@@ -40028,6 +40042,7 @@ class SettingsController {
       optionsGroup.checkAndUploadValuesFromArray(_instance.valuesClassesList)
     })
     this.submitEventUpdateTheme()
+    this.submitEventUpdateAlpheiosReadingToolsToolbar()
   }
 
   /**
@@ -40037,6 +40052,15 @@ class SettingsController {
     SettingsController.evt.SETTINGS_CONTROLLER_THEME_UPDATED.pub({
       theme: _instance.options.app.items.theme.currentValue,
       themesList: _instance.options.app.items.theme.values.map(val => val.value)
+    })
+  }
+
+  /**
+   * Publish event for change css class to show/hide Alpheios Reading Tools Toolbar - event subscribers are defined in AppContoller
+   */
+  static submitEventUpdateAlpheiosReadingToolsToolbar () {
+    SettingsController.evt.SETTINGS_CONTROLLER_READING_TOOLS_CLASS_UPDATED.pub({
+      value: this.enableAlpheiosReadingTools
     })
   }
 
@@ -40074,6 +40098,8 @@ class SettingsController {
       _lib_controllers_storage_controller__WEBPACK_IMPORTED_MODULE_4__["default"].changeIndexedDBSupport(optionItem.currentValue)
     } else if (optionNameParts[2] === 'tokenizer') {
       _instance.store.commit('incrementTokenizerUpdated')
+    } else if (optionNameParts[2] === 'enableAlpheiosReadingTools') {
+      this.submitEventUpdateAlpheiosReadingToolsToolbar()
     }
     _instance.store.commit('incrementOptionsUpdated')
   }
@@ -40164,7 +40190,9 @@ class SettingsController {
  * This is a description of a SettingsController event interface.
  */
 SettingsController.evt = {
-  SETTINGS_CONTROLLER_THEME_UPDATED: new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.PsEvent('Theme Option is updated', SettingsController)
+  SETTINGS_CONTROLLER_THEME_UPDATED: new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.PsEvent('Theme Option is updated', SettingsController),
+
+  SETTINGS_CONTROLLER_READING_TOOLS_CLASS_UPDATED: new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.PsEvent('EnableAlpheiosReadingTools Option is updated', SettingsController)
 }
 
 
@@ -48832,7 +48860,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i613-select-icons.20220204382" : 0
+    return  true ? "i645-show-tools-option.20220208488" : 0
   }
 
   static get libName () {
@@ -50547,10 +50575,6 @@ __webpack_require__.r(__webpack_exports__);
 
     showNext () {
       return this.allPartsKeys.length > 0 && (Math.max(...this.currentPartIndexes) < this.allPartsKeys[this.allPartsKeys.length-1].partNum)
-    },
-
-    enableMetadataValue () {
-      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_8__["default"].enableMetadata
     }
   },
   methods: {
@@ -52660,6 +52684,7 @@ __webpack_require__.r(__webpack_exports__);
       } else if (this.optionItem.maxValue && (this.optionItem.maxValue < this.selected)) {
         this.selected = this.optionItem.maxValue
       }
+
       this.optionItem.setValue(this.selected)
       
       _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_1__["default"].changeOption(this.optionItem)
@@ -52990,6 +53015,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -53052,8 +53078,8 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOptions.app.items.enableAnnotatios
     },
 
-    enableMetadataOptionItem () {
-      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOptions.app.items.enableMetadata
+    enableAlpheiosReadingToolsOptionItem  () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOptions.app.items.enableAlpheiosReadingTools
     },
 
     disableAnnotationsTypes () {
@@ -54331,9 +54357,6 @@ __webpack_require__.r(__webpack_exports__);
 
     enableDTSAPIUploadValue () {
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].enableDTSAPIUpload
-    },
-    enableMetadataValue () {
-      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].enableMetadata
     }
   },
   methods: {
@@ -61897,14 +61920,6 @@ var render = function() {
               ),
               _vm._v(" "),
               _c("metadata-icons", {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.enableMetadataValue,
-                    expression: "enableMetadataValue"
-                  }
-                ],
                 attrs: {
                   "text-type": _vm.textType,
                   "text-id": _vm.segment.docSourceId
@@ -64699,7 +64714,7 @@ var render = function() {
             }),
             _vm._v(" "),
             _c("option-item-block", {
-              attrs: { optionItem: _vm.enableMetadataOptionItem }
+              attrs: { optionItem: _vm.enableAlpheiosReadingToolsOptionItem }
             }),
             _vm._v(" "),
             _c(
@@ -66324,14 +66339,6 @@ var render = function() {
               ),
               _vm._v(" "),
               _c("metadata-icons", {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.enableMetadataValue,
-                    expression: "enableMetadataValue"
-                  }
-                ],
                 attrs: { "text-type": _vm.textType, "text-id": _vm.textId },
                 on: {
                   showModalMetadata: function($event) {
@@ -66403,14 +66410,6 @@ var render = function() {
       _c(
         "div",
         {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.enableMetadataValue,
-              expression: "enableMetadataValue"
-            }
-          ],
           staticClass:
             "alpheios-alignment-editor-text-blocks-single__describe-button"
         },
@@ -69489,7 +69488,7 @@ render._withStripped = true
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/tokens-edit-indexeddb-controller.test.js","test-b":"jest tests/vue/options/select-edit-icons.test.js","test-c":"jest tests/lib/data/actions/tokens-edit-actions.test.js","test-f":"jest tests/lib/data/options-preset.test.js","test-d":"jest tests/lib/storage/indexed-db-adapter.test.js","test-e":"jest tests/_output/vue/app.test.js","test-g":"jest tests/corrupted/corrupted-alignments.test.js","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.6.0","@babel/core":"^7.15.5","@babel/plugin-proposal-object-rest-spread":"^7.15.6","@babel/plugin-transform-modules-commonjs":"^7.15.4","@babel/plugin-transform-runtime":"^7.15.0","@babel/preset-env":"^7.15.6","@babel/register":"^7.15.3","@babel/runtime":"^7.15.4","@vue/test-utils":"^1.2.2","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.2.0","coveralls":"^3.1.1","css-loader":"^3.6.0","eslint":"^7.32.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.24.2","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.3","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.9.2","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.8","papaparse":"^5.3.1","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.42.1","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.14","vue-eslint-parser":"^7.11.0","vue-jest":"^3.0.7","vue-js-modal":"^2.0.1","vue-loader":"^15.9.8","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.14","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.55.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
+module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/tokens-edit-indexeddb-controller.test.js","test-b":"jest tests/vue/tokens-editor/actions-menu-token-edit.test.js","test-c":"jest tests/lib/data/actions/tokens-edit-actions.test.js","test-f":"jest tests/lib/data/options-preset.test.js","test-d":"jest tests/lib/storage/indexed-db-adapter.test.js","test-e":"jest tests/_output/vue/app.test.js","test-g":"jest tests/corrupted/corrupted-alignments.test.js","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.6.0","@babel/core":"^7.15.5","@babel/plugin-proposal-object-rest-spread":"^7.15.6","@babel/plugin-transform-modules-commonjs":"^7.15.4","@babel/plugin-transform-runtime":"^7.15.0","@babel/preset-env":"^7.15.6","@babel/register":"^7.15.3","@babel/runtime":"^7.15.4","@vue/test-utils":"^1.2.2","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.2.0","coveralls":"^3.1.1","css-loader":"^3.6.0","eslint":"^7.32.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.24.2","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.3","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.9.2","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.8","papaparse":"^5.3.1","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.42.1","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.14","vue-eslint-parser":"^7.11.0","vue-jest":"^3.0.7","vue-js-modal":"^2.0.1","vue-loader":"^15.9.8","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.14","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.55.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
 
 /***/ }),
 
@@ -69654,7 +69653,7 @@ module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit text","de
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"2","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":true,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":false,"labelText":"Show language check before text would be prepared","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerPart":{"defaultValue":1000,"labelText":"Max characters per part (recommended for performance), to be used in Align Text","number":true,"minValue":1,"maxValue":50000,"values":[]},"addIndexedDBSupport":{"defaultValue":true,"labelText":"Add IndexedDB support","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"availableAnnotationTypes":{"defaultValue":["COMMENT","LEMMAID","MORPHOLOGY"],"labelText":"Available Annotation Types","multiValue":true,"values":[{"value":"COMMENT","text":"comment"},{"value":"LEMMAID","text":"lemmaID"},{"value":"MORPHOLOGY","text":"morphology"}]},"maxCharactersAnnotationText":{"defaultValue":500,"labelText":"Max characters in annotation text","number":true,"minValue":1,"maxValue":5000,"values":[]},"enableTokensEditor":{"defaultValue":false,"labelText":"Enable Tokens Editor Screen","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableDTSAPIUpload":{"defaultValue":false,"labelText":"Enable upload from DTS API","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"isAdvancedMode":{"defaultValue":false,"labelText":"Is advanced mode","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAnnotatios":{"defaultValue":false,"labelText":"Enable annotations","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableMetadata":{"defaultValue":false,"labelText":"Enable metadata","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAddDeleteNewLines":{"defaultValue":false,"labelText":"","boolean":true,"values":[{"value":true,"text":"add and delete newlines"},{"value":false,"text":"add and delete newlines"}]},"enableAddDeleteTokens":{"defaultValue":false,"labelText":"","boolean":true,"values":[{"value":true,"text":"add and delete tokens"},{"value":false,"text":"add and delete tokens"}]},"enableMergeSplitTokens":{"defaultValue":false,"labelText":"","boolean":true,"values":[{"value":true,"text":"merge and split tokens"},{"value":false,"text":"merge and split tokens"}]},"enableMoveTokensToSegment":{"defaultValue":false,"labelText":"","boolean":true,"values":[{"value":true,"text":"move tokens to a segment"},{"value":false,"text":"move tokens to a segment"}]},"enableEditTokens":{"defaultValue":false,"labelText":"","boolean":true,"values":[{"value":true,"text":"edit tokens"},{"value":false,"text":"edit tokens"}]}}}');
+module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"2","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":true,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":false,"labelText":"Show language check before text would be prepared","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerPart":{"defaultValue":1000,"labelText":"Max characters per part (recommended for performance), to be used in Align Text","number":true,"minValue":1,"maxValue":50000,"values":[]},"addIndexedDBSupport":{"defaultValue":true,"labelText":"Add IndexedDB support","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"availableAnnotationTypes":{"defaultValue":["COMMENT","LEMMAID","MORPHOLOGY"],"labelText":"Available Annotation Types","multiValue":true,"values":[{"value":"COMMENT","text":"comment"},{"value":"LEMMAID","text":"lemmaID"},{"value":"MORPHOLOGY","text":"morphology"}]},"maxCharactersAnnotationText":{"defaultValue":500,"labelText":"Max characters in annotation text","number":true,"minValue":1,"maxValue":5000,"values":[]},"enableTokensEditor":{"defaultValue":false,"labelText":"Enable Tokens Editor Screen","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableDTSAPIUpload":{"defaultValue":false,"labelText":"Enable upload from DTS API","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"isAdvancedMode":{"defaultValue":false,"labelText":"Is advanced mode","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAnnotatios":{"defaultValue":false,"labelText":"Enable annotations","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAddDeleteNewLines":{"defaultValue":false,"labelText":"","boolean":true,"values":[{"value":true,"text":"add and delete newlines"},{"value":false,"text":"add and delete newlines"}]},"enableAddDeleteTokens":{"defaultValue":false,"labelText":"","boolean":true,"values":[{"value":true,"text":"add and delete tokens"},{"value":false,"text":"add and delete tokens"}]},"enableMergeSplitTokens":{"defaultValue":false,"labelText":"","boolean":true,"values":[{"value":true,"text":"merge and split tokens"},{"value":false,"text":"merge and split tokens"}]},"enableMoveTokensToSegment":{"defaultValue":false,"labelText":"","boolean":true,"values":[{"value":true,"text":"move tokens to a segment"},{"value":false,"text":"move tokens to a segment"}]},"enableEditTokens":{"defaultValue":false,"labelText":"","boolean":true,"values":[{"value":true,"text":"edit tokens"},{"value":false,"text":"edit tokens"}]},"enableAlpheiosReadingTools":{"defaultValue":false,"labelText":"Enable Alpheios Reading Tools Toolbar","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]}}}');
 
 /***/ }),
 

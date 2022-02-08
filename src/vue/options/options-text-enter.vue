@@ -25,7 +25,8 @@
             <option-item-block :optionItem = "enableTokensEditorOptionItem" />
             <select-edit-icons v-show="enableTokensEditorValue" />
 
-            <option-item-block :optionItem = "enableMetadataOptionItem" />
+            <option-item-block :optionItem = "enableAlpheiosReadingToolsOptionItem" />
+            
             
             <fieldset v-show = "isAdvancedModeValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
               <option-item-block :optionItem = "tokenizerOptionItem" />
@@ -122,8 +123,8 @@ export default {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableAnnotatios
     },
 
-    enableMetadataOptionItem () {
-      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableMetadata
+    enableAlpheiosReadingToolsOptionItem  () {
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableAlpheiosReadingTools
     },
 
     disableAnnotationsTypes () {
