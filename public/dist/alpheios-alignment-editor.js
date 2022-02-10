@@ -39927,6 +39927,10 @@ class SettingsController {
     return _instance.options.app && _instance.options.app.items.theme ? _instance.options.app.items.theme.currentValue : ''
   }
 
+  static get allTokenizationOptions () {
+    return _instance.options.app && _instance.options.app.items.tokenizer ? _instance.options.tokenize[this.tokenizerOptionValue] : {}
+  }
+
   /**
    * @returns {String} - tokenizer option value
    */
@@ -40127,6 +40131,7 @@ class SettingsController {
         clonedOpts[sourceType] = _instance.options.tokenize[this.tokenizerOptionValue][sourceType].clone(`${typeText}-${indexText}`, _instance.textPropsStorageAdapter)
       })
     }
+
     return clonedOpts
   }
 
@@ -40582,7 +40587,7 @@ class TextsController {
    * Parses data from file and updated source document texts in the alignment
    * @param {String} fileData - a content of the uploaded file
    */
-  async uploadDocSourceFromFileSingle (fileData, { textType, textId, tokenization }) {
+  async uploadDocSourceFromFileSingle (fileData, { textType, textId }) {
     if (!fileData) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__["default"].getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__["default"].addNotification({
@@ -40594,7 +40599,7 @@ class TextsController {
 
     const uploadType = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].defineUploadTypeByExtension(fileData.extension, false)
 
-    const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].upload(uploadType, { fileData, textType, textId, tokenization })
+    const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].upload(uploadType, { fileData, textType, textId })
     if (result) {
       if (textType === 'origin') {
         const resultUpdate = await this.updateOriginDocSource(result)
@@ -41628,7 +41633,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_upload_upload_file_csv_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/upload/upload-file-csv.js */ "./lib/upload/upload-file-csv.js");
 /* harmony import */ var _lib_upload_upload_dts_api_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/upload/upload-dts-api.js */ "./lib/upload/upload-dts-api.js");
 /* harmony import */ var _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/controllers/storage-controller.js */ "./lib/controllers/storage-controller.js");
-/* harmony import */ var _lib_download_download_file_json_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/download/download-file-json.js */ "./lib/download/download-file-json.js");
+/* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
+/* harmony import */ var _lib_download_download_file_json_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/lib/download/download-file-json.js */ "./lib/download/download-file-json.js");
+
 
 
 
@@ -41757,7 +41764,7 @@ class UploadController {
    *        {String} tokenization - tokenizer name (used for creating sourceText)
     * @return {SourceText}
    */
-  static plainSourceUploadSingle ({ fileData, textId, textType, tokenization }) {
+  static plainSourceUploadSingle ({ fileData, textId, textType }) {
     if (fileData.text.indexOf('HEADER:') === 0) {
       const fileDataArr = fileData.text.split(/\r\n|\r|\n/)
       if (fileDataArr.length < 2) {
@@ -41771,10 +41778,24 @@ class UploadController {
 
       const result = _lib_upload_upload_file_csv_js__WEBPACK_IMPORTED_MODULE_4__["default"].upload(fileDataArr)
 
+      const tokenization = { tokenizer: _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].tokenizerOptionValue }
+      const optionsSet = _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].allTokenizationOptions.text
+      Object.keys(optionsSet.items).forEach(optItemName => {
+        tokenization[optItemName] = optionsSet.items[optItemName].currentValue
+      })
+
       return _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__["default"].convertFromJSON(textType, { textId, tokenization, text: result[0].text, direction: result[0].direction, lang: result[0].lang, sourceType: result[0].sourceType })
     } else {
       const fileExtension = fileData.extension
       const sourceType = (fileExtension === 'xml') ? 'tei' : 'text'
+
+      const tokenization = { tokenizer: _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].tokenizerOptionValue }
+
+      const optionsSet = _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].allTokenizationOptions[sourceType]
+      Object.keys(optionsSet.items).forEach(optItemName => {
+        tokenization[optItemName] = optionsSet.items[optItemName].currentValue
+      })
+
       return _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__["default"].convertFromJSON(textType, { textId, tokenization, text: fileData.text, sourceType, lang: fileData.lang })
     }
   }
@@ -41819,7 +41840,7 @@ class UploadController {
       } catch (error) {
         const now = _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].timeNow.bind(new Date())()
         const fileName2 = `${now}-corrupted-alignment-dbData`
-        _lib_download_download_file_json_js__WEBPACK_IMPORTED_MODULE_7__["default"].download(dbData, fileName2)
+        _lib_download_download_file_json_js__WEBPACK_IMPORTED_MODULE_8__["default"].download(dbData, fileName2)
 
         console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"].getMsgS('TEXTS_CONTROLLER_INCORRECT_DB_DATA'))
         _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].addNotification({
@@ -43621,6 +43642,7 @@ class Alignment {
 
     if (!this.originDocSourceDefined) {
       const docResult = this.createNewDocSource('origin', docSource)
+
       if (!docResult) { return false }
       this.origin.docSource = docResult
     } else {
@@ -46685,7 +46707,7 @@ class SourceText {
   }
 
   get langData () {
-    const textPart = this.text.substr(0, 10)
+    const textPart = this.text.slice(0, 9)
     const langName = _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_6__["default"].defineLangName(this.lang)
     return {
       textPart: textPart.length < this.text.length ? `${textPart.trim()}...` : textPart,
@@ -48860,7 +48882,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i645-show-tools-option.20220208488" : 0
+    return  true ? "toc-i46-tei-options.20220210375" : 0
   }
 
   static get libName () {
@@ -54321,6 +54343,7 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     updatedLocalOptions () {
+      
       return this.updatedLocalOptionsFlag && this.localTextEditorOptions
     },
     isMetadataAvailable () {
@@ -54498,8 +54521,7 @@ __webpack_require__.r(__webpack_exports__);
     async uploadSingle (fileData) {
       const result = await this.$textC.uploadDocSourceFromFileSingle(fileData, {
         textType: this.textType,
-        textId: this.textId,
-        tokenization: this.tokenization
+        textId: this.textId
       })
       if (result.resultUpdate) {
         this.showTypeTextBlock = true

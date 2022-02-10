@@ -285,7 +285,7 @@ export default class TextsController {
    * Parses data from file and updated source document texts in the alignment
    * @param {String} fileData - a content of the uploaded file
    */
-  async uploadDocSourceFromFileSingle (fileData, { textType, textId, tokenization }) {
+  async uploadDocSourceFromFileSingle (fileData, { textType, textId }) {
     if (!fileData) {
       console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       NotificationSingleton.addNotification({
@@ -297,7 +297,7 @@ export default class TextsController {
 
     const uploadType = UploadController.defineUploadTypeByExtension(fileData.extension, false)
 
-    const result = UploadController.upload(uploadType, { fileData, textType, textId, tokenization })
+    const result = UploadController.upload(uploadType, { fileData, textType, textId })
     if (result) {
       if (textType === 'origin') {
         const resultUpdate = await this.updateOriginDocSource(result)

@@ -63,7 +63,7 @@ export default class SourceText {
   }
 
   get langData () {
-    const textPart = this.text.substr(0, 10)
+    const textPart = this.text.slice(0, 9)
     const langName = Langs.defineLangName(this.lang)
     return {
       textPart: textPart.length < this.text.length ? `${textPart.trim()}...` : textPart,

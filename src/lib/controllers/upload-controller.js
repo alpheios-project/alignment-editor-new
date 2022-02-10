@@ -7,6 +7,7 @@ import SourceText from '@/lib/data/source-text'
 import UploadFileCSV from '@/lib/upload/upload-file-csv.js'
 import UploadDTSAPI from '@/lib/upload/upload-dts-api.js'
 import StorageController from '@/lib/controllers/storage-controller.js'
+import SettingsController from '@/lib/controllers/settings-controller.js'
 
 import DownloadFileJSON from '@/lib/download/download-file-json.js'
 
@@ -126,7 +127,7 @@ export default class UploadController {
    *        {String} tokenization - tokenizer name (used for creating sourceText)
     * @return {SourceText}
    */
-  static plainSourceUploadSingle ({ fileData, textId, textType, tokenization }) {
+  static plainSourceUploadSingle ({ fileData, textId, textType }) {
     if (fileData.text.indexOf('HEADER:') === 0) {
       const fileDataArr = fileData.text.split(/\r\n|\r|\n/)
       if (fileDataArr.length < 2) {
@@ -140,10 +141,24 @@ export default class UploadController {
 
       const result = UploadFileCSV.upload(fileDataArr)
 
+      const tokenization = { tokenizer: SettingsController.tokenizerOptionValue }
+      const optionsSet = SettingsController.allTokenizationOptions.text
+      Object.keys(optionsSet.items).forEach(optItemName => {
+        tokenization[optItemName] = optionsSet.items[optItemName].currentValue
+      })
+
       return SourceText.convertFromJSON(textType, { textId, tokenization, text: result[0].text, direction: result[0].direction, lang: result[0].lang, sourceType: result[0].sourceType })
     } else {
       const fileExtension = fileData.extension
       const sourceType = (fileExtension === 'xml') ? 'tei' : 'text'
+
+      const tokenization = { tokenizer: SettingsController.tokenizerOptionValue }
+
+      const optionsSet = SettingsController.allTokenizationOptions[sourceType]
+      Object.keys(optionsSet.items).forEach(optItemName => {
+        tokenization[optItemName] = optionsSet.items[optItemName].currentValue
+      })
+
       return SourceText.convertFromJSON(textType, { textId, tokenization, text: fileData.text, sourceType, lang: fileData.lang })
     }
   }
