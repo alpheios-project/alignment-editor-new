@@ -162,6 +162,7 @@ export default class Alignment {
 
     if (!this.originDocSourceDefined) {
       const docResult = this.createNewDocSource('origin', docSource)
+
       if (!docResult) { return false }
       this.origin.docSource = docResult
     } else {

@@ -94,6 +94,10 @@ export default class SettingsController {
     return _instance.options.app && _instance.options.app.items.theme ? _instance.options.app.items.theme.currentValue : ''
   }
 
+  static get allTokenizationOptions () {
+    return _instance.options.app && _instance.options.app.items.tokenizer ? _instance.options.tokenize[this.tokenizerOptionValue] : {}
+  }
+
   /**
    * @returns {String} - tokenizer option value
    */
@@ -294,6 +298,7 @@ export default class SettingsController {
         clonedOpts[sourceType] = _instance.options.tokenize[this.tokenizerOptionValue][sourceType].clone(`${typeText}-${indexText}`, _instance.textPropsStorageAdapter)
       })
     }
+
     return clonedOpts
   }
 

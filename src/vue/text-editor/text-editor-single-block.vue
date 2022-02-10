@@ -320,6 +320,7 @@ export default {
     },
 
     updatedLocalOptions () {
+      
       return this.updatedLocalOptionsFlag && this.localTextEditorOptions
     },
     isMetadataAvailable () {
@@ -497,8 +498,7 @@ export default {
     async uploadSingle (fileData) {
       const result = await this.$textC.uploadDocSourceFromFileSingle(fileData, {
         textType: this.textType,
-        textId: this.textId,
-        tokenization: this.tokenization
+        textId: this.textId
       })
       if (result.resultUpdate) {
         this.showTypeTextBlock = true
