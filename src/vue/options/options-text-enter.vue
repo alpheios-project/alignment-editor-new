@@ -15,26 +15,30 @@
         </button>
       </p>
         <div class="alpheios-alignment-editor-modal-options-block">
-            <option-item-block :optionItem = "enableAnnotatiosOptionItem" />
+            <option-item-block :optionItem = "enableAnnotationsOptionItem" :optionInfo="getOptionInfo('enableAnnotations')" />
 
-            <fieldset v-show = "enableAnnotatiosValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
+            <fieldset v-show = "enableAnnotationsValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
               <option-item-block :optionItem = "availableAnnotationTypesOptionItem"  :disabled = "disableAnnotationsTypes" />
               <option-item-block :optionItem = "maxCharactersAnnotationTextOptionItem" />
             </fieldset>
 
-            <option-item-block :optionItem = "enableTokensEditorOptionItem" />
-            <select-edit-icons v-show="enableTokensEditorValue" />
+            <option-item-block :optionItem = "enableTokensEditorOptionItem" :optionInfo="getOptionInfo('enableTokensEditor')"/>
+            <select-edit-icons v-show="enableTokensEditorValue" />           
 
-            <option-item-block :optionItem = "enableAlpheiosReadingToolsOptionItem" />
+            <option-item-block :optionItem = "isAcademicModeOptionItem" :optionInfo="getOptionInfo('isAcademicMode')"/>
             
-            
+            <fieldset v-show = "isAcademicModeValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
+              <option-item-block :optionItem = "enableDTSAPIUploadOptionItem" />
+              <option-item-block :optionItem = "enableXMLTokenizationOptionsChoiceOptionItem" />
+              <option-item-block :optionItem = "enableTextTokenizationOptionsChoiceOptionItem" />
+            </fieldset>
+
             <fieldset v-show = "isAdvancedModeValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
               <option-item-block :optionItem = "tokenizerOptionItem" />
               <option-item-block :optionItem = "useSpecificEnglishTokenizerOptionItem" />
             </fieldset>
 
             <fieldset v-show = "isAdvancedModeValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
-              <option-item-block :optionItem = "enableDTSAPIUploadOptionItem" />
               <option-item-block :optionItem = "showSummaryPopupOptionItem" />
             </fieldset>
 
@@ -77,7 +81,17 @@ export default {
     selectEditIcons: SelectEditIcons
   },
   props: {
-    isAdvanced: false
+    
+  },
+  data () {
+    return {
+      isAdvanced: false,
+      optionsInfo: {
+        enableAnnotations: 'OPTIONS_ANNOTATIONS_INFO',
+        enableTokensEditor: 'OPTIONS_TOKENS_EDITOR_INFO',
+        isAcademicMode: 'OPTIONS_IS_ACADEMIC_MODE_INFO'
+      }
+    }
   },
   computed: {
     l10n () {
@@ -119,12 +133,8 @@ export default {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.maxCharactersPerPart
     }, 
 
-    enableAnnotatiosOptionItem () {
-      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableAnnotatios
-    },
-
-    enableAlpheiosReadingToolsOptionItem  () {
-      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableAlpheiosReadingTools
+    enableAnnotationsOptionItem () {
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableAnnotations
     },
 
     disableAnnotationsTypes () {
@@ -134,8 +144,12 @@ export default {
       return this.$store.state.optionsUpdated && SettingsController.addIndexedDBSupport
     },
     
-    enableAnnotatiosValue () {
-      return this.$store.state.optionsUpdated && SettingsController.enableAnnotatios
+    isAcademicModeOptionItem () {
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.isAcademicMode
+    },
+
+    enableAnnotationsValue () {
+      return this.$store.state.optionsUpdated && SettingsController.enableAnnotations
     },
 
     enableTokensEditorValue () {
@@ -148,6 +162,18 @@ export default {
 
     isAdvancedModeOptionItem () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.isAdvancedMode
+    },
+
+    isAcademicModeValue () {
+      return this.$store.state.optionsUpdated && SettingsController.isAcademicMode
+    },
+
+    enableXMLTokenizationOptionsChoiceOptionItem () {
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableXMLTokenizationOptionsChoice
+    },
+
+    enableTextTokenizationOptionsChoiceOptionItem () {
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableTextTokenizationOptionsChoice
     }
   },
   methods: {
@@ -156,7 +182,11 @@ export default {
     },
 
     setOptionsToAdvanced () {
-      SettingsController.updateToAdvancedDefaultValues()
+      SettingsController.updateToAdvanced()
+    },
+
+    getOptionInfo (itemName) {
+      return this.optionsInfo[itemName]
     }
   }
 }

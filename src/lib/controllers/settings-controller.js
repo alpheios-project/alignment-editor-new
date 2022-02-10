@@ -61,30 +61,14 @@ export default class SettingsController {
     return _instance.store
   }
 
-  static get advancedDefaultValues () {
-    return {
-      enableAnnotatios: true,
-      enableTokensEditor: true,
-      enableDTSAPIUpload: true,
-      showSummaryPopup: true,
-
-      enableAddDeleteNewLines: true,
-      enableAddDeleteTokens: true,
-      enableMergeSplitTokens: true,
-      enableMoveTokensToSegment: true,
-      enableEditTokens: true
-    }
+  static updateToAdvanced () {
+    _instance.options.app.items.isAdvancedMode.setValue(true)
+    this.changeOption(_instance.options.app.items.isAdvancedMode)
   }
 
-  static updateToAdvancedDefaultValues () {
-    _instance.options.app.items.isAdvancedMode.setValue(true)
-
-    Object.keys(this.advancedDefaultValues).forEach(optionName => {
-      const optionValue = this.advancedDefaultValues[optionName]
-
-      _instance.options.app.items[optionName].setValue(optionValue)
-      this.changeOption(_instance.options.app.items[optionName])
-    })
+  static updateToAcademic () {
+    _instance.options.app.items.isAcademicMode.setValue(true)
+    this.changeOption(_instance.options.app.items.isAcademicMode)
   }
 
   /**
@@ -133,8 +117,12 @@ export default class SettingsController {
     return _instance.options.app && _instance.options.app.items.isAdvancedMode ? _instance.options.app.items.isAdvancedMode.currentValue : false
   }
 
-  static get enableAnnotatios () {
-    return _instance.options.app && _instance.options.app.items.enableAnnotatios ? _instance.options.app.items.enableAnnotatios.currentValue : false
+  static get isAcademicMode () {
+    return _instance.options.app && _instance.options.app.items.isAcademicMode ? _instance.options.app.items.isAcademicMode.currentValue : false
+  }
+
+  static get enableAnnotations () {
+    return _instance.options.app && _instance.options.app.items.enableAnnotations ? _instance.options.app.items.enableAnnotations.currentValue : false
   }
 
   static get addIndexedDBSupport () {
@@ -163,6 +151,14 @@ export default class SettingsController {
 
   static get enableAlpheiosReadingTools () {
     return _instance.options.app && _instance.options.app.items.enableAlpheiosReadingTools ? _instance.options.app.items.enableAlpheiosReadingTools.currentValue : false
+  }
+
+  static get enableXMLTokenizationOptionsChoice () {
+    return _instance.options.app && _instance.options.app.items.enableXMLTokenizationOptionsChoice ? _instance.options.app.items.enableXMLTokenizationOptionsChoice.currentValue : false
+  }
+
+  static get enableTextTokenizationOptionsChoice () {
+    return _instance.options.app && _instance.options.app.items.enableTextTokenizationOptionsChoice ? _instance.options.app.items.enableTextTokenizationOptionsChoice.currentValue : false
   }
 
   /**

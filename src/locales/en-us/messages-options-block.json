@@ -43,5 +43,25 @@
       "message": "Annotations block:",
       "description": "Options fieldset",
       "component": "OptionsTextEdit"
+    },
+    "OPTIONS_ANNOTATIONS_INFO": {
+      "message": "Allows to add annotations to tokens",
+      "description": "Options tooltip",
+      "component": "OptionsTextEnter"
+    },
+    "OPTIONS_TOKENS_EDITOR_INFO": {
+      "message": "Allows edit tokens",
+      "description": "Options tooltip",
+      "component": "OptionsTextEnter"
+    },
+    "OPTIONS_READING_TOOLS_INFO": {
+      "message": "Shows/hides Alpheios Reading Tools Toolbar",
+      "description": "Options tooltip",
+      "component": "OptionsTextEnter"
+    },
+    "OPTIONS_IS_ACADEMIC_MODE_INFO": {
+      "message": "Enables academic mode",
+      "description": "Options tooltip",
+      "component": "OptionsTextEnter"
     }
 }

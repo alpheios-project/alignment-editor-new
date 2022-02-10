@@ -662,7 +662,8 @@ div.alpheios-alignment-checkbox-block {
 .alpheios-standard-theme .alpheios-menu-button,
 .alpheios-standard-theme .alpheios-actions-menu-button,
 .alpheios-standard-theme .alpheios-options-button,
-.alpheios-standard-theme .alpheios-align-text-segment-button {
+.alpheios-standard-theme .alpheios-align-text-segment-button,
+.alpheios-standard-theme .alpheios-alignment-option-item__label-info {
   color: #185F6D;
   background: #fff;
   border-color: #185F6D;
@@ -670,7 +671,8 @@ div.alpheios-alignment-checkbox-block {
 .alpheios-standard-theme .alpheios-menu-button:hover,
 .alpheios-standard-theme .alpheios-actions-menu-button:hover,
 .alpheios-standard-theme .alpheios-options-button:hover,
-.alpheios-standard-theme .alpheios-align-text-segment-button:hover {
+.alpheios-standard-theme .alpheios-align-text-segment-button:hover,
+.alpheios-standard-theme .alpheios-alignment-option-item__label-info:hover {
   color: #fff;
   background: #185F6D;
   border-color: #185F6D;
@@ -678,7 +680,8 @@ div.alpheios-alignment-checkbox-block {
 .alpheios-standard-theme .alpheios-menu-button:disabled,
 .alpheios-standard-theme .alpheios-actions-menu-button:disabled,
 .alpheios-standard-theme .alpheios-options-button:disabled,
-.alpheios-standard-theme .alpheios-align-text-segment-button:disabled {
+.alpheios-standard-theme .alpheios-align-text-segment-button:disabled,
+.alpheios-standard-theme .alpheios-alignment-option-item__label-info:disabled {
   color: #fff;
   background: #8bafb6;
   border-color: #8bafb6;
@@ -875,7 +878,8 @@ div.alpheios-alignment-checkbox-block {
 .alpheios-v1-theme .alpheios-menu-button,
 .alpheios-v1-theme .alpheios-actions-menu-button,
 .alpheios-v1-theme .alpheios-options-button,
-.alpheios-v1-theme .alpheios-align-text-segment-button {
+.alpheios-v1-theme .alpheios-align-text-segment-button,
+.alpheios-v1-theme .alpheios-alignment-option-item__label-info {
   color: #e0e0e0;
   background: #46788d;
   border-color: #505050;
@@ -883,7 +887,8 @@ div.alpheios-alignment-checkbox-block {
 .alpheios-v1-theme .alpheios-menu-button:hover,
 .alpheios-v1-theme .alpheios-actions-menu-button:hover,
 .alpheios-v1-theme .alpheios-options-button:hover,
-.alpheios-v1-theme .alpheios-align-text-segment-button:hover {
+.alpheios-v1-theme .alpheios-align-text-segment-button:hover,
+.alpheios-v1-theme .alpheios-alignment-option-item__label-info:hover {
   color: #fff;
   background: #90a959;
   border-color: #6a9fb5;
@@ -891,7 +896,8 @@ div.alpheios-alignment-checkbox-block {
 .alpheios-v1-theme .alpheios-menu-button:disabled,
 .alpheios-v1-theme .alpheios-actions-menu-button:disabled,
 .alpheios-v1-theme .alpheios-options-button:disabled,
-.alpheios-v1-theme .alpheios-align-text-segment-button:disabled {
+.alpheios-v1-theme .alpheios-align-text-segment-button:disabled,
+.alpheios-v1-theme .alpheios-alignment-option-item__label-info:disabled {
   color: #F8F8F8;
   background: #6e6e6e;
   border-color: #505050;
@@ -1445,7 +1451,7 @@ button.alpheios-app-menu-link:-moz-focusring {
 .alpheios-alignment-option-item .multiselect.alpheios-alignment-option-item__control {
   display: inline-block;
   width: 50%;
-  vertical-align: top;
+  vertical-align: middle;
 }
 .alpheios-alignment-option-item p.alpheios-alignment-radio-block {
   margin-top: 0;
@@ -1473,6 +1479,33 @@ button.alpheios-app-menu-link:-moz-focusring {
 .alpheios-alignment-option-item .alpheios-alignment-select-input__input-description {
   font-size: 90%;
   color: #888;
+}
+.alpheios-alignment-option-item .alpheios-alignment-option-item__label-text,
+.alpheios-alignment-option-item .alpheios-alignment-option-item__label-info {
+  display: inline-block;
+  vertical-align: middle;
+}
+.alpheios-alignment-option-item .alpheios-alignment-option-item__label-text.alpheios-alignment-option-item__label-hasinfo {
+  max-width: 80%;
+}
+.alpheios-alignment-option-item .alpheios-alignment-option-item__label-info {
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+  text-align: center;
+  line-height: 25px;
+  font-weight: bold;
+  border-radius: 20px;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+.alpheios-alignment-option-item__label-info {
+  color: #fff;
+  background: #000;
+}
+.alpheios-alignment-option-item .alpheios-alignment-option-item__label-container,
+.alpheios-alignment-option-item .alpheios-alignment-checkbox-block.alpheios-alignment-option-item__control {
+  vertical-align: middle;
 }
 .alpheios-editor-summary-header {
   font-weight: bold;

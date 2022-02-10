@@ -9,7 +9,7 @@
             />
         </fieldset>
 
-      <div class="alpheios-alignment-editor-tokenize-options__details-container">
+      <div class="alpheios-alignment-editor-tokenize-options__details-container" v-show="enableTokenizationOptionsChoice">
         <fieldset class="alpheios-alignment-editor-options-fieldset alpheios-alignment-editor-options-fieldset__text" v-show="sourceType === 'text'">
             <legend>{{ l10n.getMsgS('TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT') }}</legend>
             <option-item-block
@@ -66,6 +66,17 @@ export default {
     },
     sourceType () {
       return this.$store.state.optionsUpdated && this.localOptions.ready && this.localOptions.sourceText.items.sourceType.currentValue
+    },
+    enableXMLTokenizationOptionsChoiceValue () {
+      return this.$store.state.optionsUpdated && SettingsController.enableXMLTokenizationOptionsChoice
+    },
+    enableTextTokenizationOptionsChoiceValue () {
+      return this.$store.state.optionsUpdated && SettingsController.enableTextTokenizationOptionsChoice
+    },
+    enableTokenizationOptionsChoice () {
+      return this.$store.state.optionsUpdated && 
+             (((this.sourceType === 'tei') && this.enableXMLTokenizationOptionsChoiceValue) ||
+             ((this.sourceType === 'text') && this.enableTextTokenizationOptionsChoiceValue))
     }
 
   },

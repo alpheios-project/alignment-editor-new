@@ -6,7 +6,7 @@
         </span>
     </div>
     <div class="alpheios-modal-body">
-      <tokenize-options-block v-if="hasTokenizerOptions" 
+      <tokenize-options-block v-if="hasTokenizerOptionsValue" 
         @updateText = "$emit('updateText')" :localOptions = "localOptions" :disabled="!docSourceEditAvailable"  
       />
     </div>
@@ -50,7 +50,7 @@ export default {
       return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && 
              !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
     },
-    hasTokenizerOptions () {
+    hasTokenizerOptionsValue () {
       return this.$store.state.optionsUpdated && SettingsController.hasTokenizerOptions
     },
     classes () {

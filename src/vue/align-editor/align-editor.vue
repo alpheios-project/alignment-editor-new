@@ -6,7 +6,7 @@
           <span class="alpheios-alignment-text-editor-block__header-label">{{ l10n.getMsgS('ALIGN_EDITOR_HEADING') }}</span>
           <span class="alpheios-alignment-text-editor-block__header-link" v-if="tokensEditAvailable" @click="$emit('showTokensEditor')">{{ l10n.getMsgS('TOKENS_EDITOR_LINK') }}</span>
           
-          <div class="alpheios-alignment-toggle-block alpheios-alignment-annotation-mode-check-container" v-if="enableAnnotatiosValue">
+          <div class="alpheios-alignment-toggle-block alpheios-alignment-annotation-mode-check-container" v-if="enableAnnotationsValue">
             <label class="alpheios-switch">
               <input type="checkbox" v-model="annotationMode" id="alpheios-alignment-annotation-mode-check">
               <span class="alpheios-slider alpheios-round"></span>
@@ -28,7 +28,7 @@
           </tooltip>
           <tooltip :tooltipText = "l10n.getMsgS('TEXT_EDITOR_HEADER_OPTIONS')" tooltipDirection = "top">
             <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-options"
-                @click="$modal.show('options-align')" :disabled="true">
+                @click="$modal.show('options-align')" >
                 <span class="alpheios-alignment-button-icon">
                   <gear-icon />
                 </span>
@@ -113,9 +113,9 @@ export default {
     tokensEditAvailable () {
       return this.enableTokensEditorOptionItemValue
     },
-    enableAnnotatiosValue () {
-      if (!SettingsController.enableAnnotatios) { this.annotationMode = false }
-      return this.$store.state.optionsUpdated && SettingsController.enableAnnotatios
+    enableAnnotationsValue () {
+      if (!SettingsController.enableAnnotations) { this.annotationMode = false }
+      return this.$store.state.optionsUpdated && SettingsController.enableAnnotations
     }
   },
   methods: {

@@ -1,6 +1,13 @@
 <template>
   <div class="alpheios-alignment-option-item" v-if="!optionItem.hidden">
-    <label class="alpheios-alignment-option-item__label" v-show="showLabelText" v-html="labelText"></label>
+    <label class="alpheios-alignment-option-item__label-container" v-show="showLabelText">
+      <span class="alpheios-alignment-option-item__label-text" 
+            :class = "{ 'alpheios-alignment-option-item__label-hasinfo': optionInfo }"
+            v-html="labelText"></span>
+      <tooltip :tooltipText="l10n.getMsgS(optionInfo)" tooltipDirection="top" v-if="optionInfo">
+        <span class="alpheios-alignment-option-item__label-info">?</span>
+      </tooltip>
+    </label>
 
     <multiselect
         class="alpheios-alignment-option-item__control"
@@ -91,11 +98,13 @@
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import SettingsController from '@/lib/controllers/settings-controller'
 import Multiselect from 'vue-multiselect'
+import Tooltip from '@/vue/common/tooltip.vue'
 
 export default {
   name: 'OptionItemBlock',
   components: {
-    Multiselect
+    Multiselect,
+    Tooltip
   },
   props: {
     optionItem: {
@@ -131,6 +140,11 @@ export default {
       type: Boolean,
       required: false,
       default: true
+    },
+    optionInfo: {
+      type: String,
+      required: false,
+      default: ''
     }
   },
   data () {
@@ -285,7 +299,7 @@ export default {
   .multiselect.alpheios-alignment-option-item__control {
     display: inline-block;
     width: 50%;
-    vertical-align: top;
+    vertical-align: middle;
   } 
 
   p.alpheios-alignment-radio-block {
@@ -322,5 +336,41 @@ export default {
     font-size: 90%;
     color: #888;
   }
+
+
+  .alpheios-alignment-option-item__label-text,
+  .alpheios-alignment-option-item__label-info {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .alpheios-alignment-option-item__label-text.alpheios-alignment-option-item__label-hasinfo {
+    max-width: 80%;
+  }
+
+  .alpheios-alignment-option-item__label-info {
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    text-align: center;
+    line-height: 25px;
+    font-weight: bold;
+    border-radius: 20px;
+    vertical-align: middle;
+    margin-left: 10px;
+  }
 }
+.alpheios-alignment-option-item__label-info { 
+  color: #fff;
+  background: #000;
+}
+
+
+.alpheios-alignment-option-item {
+  .alpheios-alignment-option-item__label-container,
+  .alpheios-alignment-checkbox-block.alpheios-alignment-option-item__control {
+    vertical-align: middle;
+  }
+}
+
 </style>

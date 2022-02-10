@@ -7,6 +7,11 @@
         </span>
         <h2 class="alpheios-alignment-editor-modal-header">{{ l10n.getMsgS('OPTIONS_TITLE_TEXT_ALIGN') }}</h2>
     </div>
+    <div class="alpheios-modal-body" >
+      <div class="alpheios-alignment-editor-modal-options-block">
+        <option-item-block :optionItem = "enableAlpheiosReadingToolsOptionItem" :optionInfo="getOptionInfo('enableAlpheiosReadingTools')" />
+      </div>
+    </div>
     <div class="alpheios-modal-footer" >
       <p class="alpheios-alignment-options__buttons">
         <button class="alpheios-editor-button-tertiary alpheios-options-button alpheios-options-reset-all" 
@@ -38,17 +43,30 @@ export default {
   },
   props: {
   },
+  data () {
+    return {
+      optionsInfo: {
+        enableAlpheiosReadingTools: 'OPTIONS_READING_TOOLS_INFO'
+      }
+    }
+  },
   computed: {
     l10n () {
       return L10nSingleton
     },
     versionData () {
       return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`
+    },
+    enableAlpheiosReadingToolsOptionItem  () {
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableAlpheiosReadingTools
     }
   },
   methods: {
     async resetOptions () {
       await SettingsController.resetAllOptions()
+    },
+    getOptionInfo (itemName) {
+      return this.optionsInfo[itemName]
     }
   }
 }
