@@ -5,12 +5,12 @@
       "component": "OptionsBlock"
     },
     "OPTIONS_BLOCK_RESET_ALL": {
-      "message": "Reset all to default options",
+      "message": "Reset all to standard options",
       "description": "Button inside options",
       "component": "OptionsBlock"
     },
     "OPTIONS_BLOCK_SET_ADVANCED": {
-      "message": "Set all to advanced",
+      "message": "Advanced options",
       "description": "Button inside options",
       "component": "OptionsBlock"
     },
@@ -43,5 +43,45 @@
       "message": "Annotations block:",
       "description": "Options fieldset",
       "component": "OptionsTextEdit"
+    },
+    "OPTIONS_ANNOTATIONS_INFO": {
+      "message": "Allows to add annotations to tokens",
+      "description": "Options tooltip",
+      "component": "OptionsTextEnter"
+    },
+    "OPTIONS_TOKENS_EDITOR_INFO": {
+      "message": "Allows edit tokens",
+      "description": "Options tooltip",
+      "component": "OptionsTextEnter"
+    },
+    "OPTIONS_READING_TOOLS_INFO": {
+      "message": "Shows/hides Alpheios Reading Tools Toolbar",
+      "description": "Options tooltip",
+      "component": "OptionsTextEnter"
+    },
+    "OPTIONS_IS_ACADEMIC_MODE_INFO": {
+      "message": "Enables academic mode",
+      "description": "Options tooltip",
+      "component": "OptionsTextEnter"
+    },
+    "OPTIONS_IS_ADVANCED_MODE_INFO": {
+      "message": "Enables advanced options",
+      "description": "Options tooltip",
+      "component": "OptionsTextEnter"
+    },
+    "OPTIONS_TOKENIZER_SERVICE_INFO": {
+      "message": "Allows to choose specific tokenizer options",
+      "description": "Options tooltip",
+      "component": "OptionsTextEnter"
+    },
+    "OPTIONS_SPECIFIC_ENGLISH_INFO": {
+      "message": "Apply specific rules from English to tokenizing",
+      "description": "Options tooltip",
+      "component": "OptionsTextEnter"
+    },
+    "OPTIONS_INDEXEDDB_SUPPORT_INFO": {
+      "message": "Adds ability to save and upload data from the local database",
+      "description": "Options tooltip",
+      "component": "OptionsTextEnter"
     }
 }

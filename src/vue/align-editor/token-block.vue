@@ -77,10 +77,10 @@ export default {
       return this.annotationMode ? this.updateAnnotation : this.updateAlignmentGroup
     },
     hasAnnotations () {
-      return this.enableAnnotatiosValue && this.$store.state.updateAnnotations && this.$textC.getAnnotations(this.token).length > 0
+      return this.enableAnnotationsValue && this.$store.state.updateAnnotations && this.$textC.getAnnotations(this.token).length > 0
     },
-    enableAnnotatiosValue () {
-      return this.$store.state.optionsUpdated && SettingsController.enableAnnotatios
+    enableAnnotationsValue () {
+      return this.$store.state.optionsUpdated && SettingsController.enableAnnotations
     }
   },
   methods: {
