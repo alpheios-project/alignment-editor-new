@@ -5,12 +5,12 @@
       "component": "OptionsBlock"
     },
     "OPTIONS_BLOCK_RESET_ALL": {
-      "message": "Reset all to default options",
+      "message": "Reset all to standard options",
       "description": "Button inside options",
       "component": "OptionsBlock"
     },
     "OPTIONS_BLOCK_SET_ADVANCED": {
-      "message": "Set all to advanced",
+      "message": "Advanced options",
       "description": "Button inside options",
       "component": "OptionsBlock"
     },
@@ -61,6 +61,11 @@
     },
     "OPTIONS_IS_ACADEMIC_MODE_INFO": {
       "message": "Enables academic mode",
+      "description": "Options tooltip",
+      "component": "OptionsTextEnter"
+    },
+    "OPTIONS_IS_ADVANCED_MODE_INFO": {
+      "message": "Enables advanced options",
       "description": "Options tooltip",
       "component": "OptionsTextEnter"
     }

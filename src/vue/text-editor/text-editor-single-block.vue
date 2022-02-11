@@ -47,8 +47,11 @@
           <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" 
                 :class="sourceTypeIconClass" v-show="showTextProps" 
                 @click="clickSourceType"> {{ sourceType }} </span>
-          <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="showTextProps" @click="$modal.show(languageModalName)"> {{ language }} </span>
-          <span class="alpheios-alignment-editor-text-blocks-single__icons" v-show="showLangNotDetected">
+          <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="enableChangeLanguageIconValue && showTextProps" 
+                @click="$modal.show(languageModalName)"> 
+                    {{ language }} 
+          </span>
+          <span class="alpheios-alignment-editor-text-blocks-single__icons" v-show="enableChangeLanguageIconValue && showLangNotDetected">
             <tooltip :tooltipText="l10n.getMsgS('NO_LANG_DETECTED_ICON')" tooltipDirection="top">
               <no-lang-detected-icon />
             </tooltip>
@@ -357,6 +360,9 @@ export default {
 
     enableDTSAPIUploadValue () {
       return this.$store.state.optionsUpdated && SettingsController.enableDTSAPIUpload
+    },
+    enableChangeLanguageIconValue () {
+      return this.$store.state.optionsUpdated && SettingsController.enableChangeLanguageIcon
     }
   },
   methods: {

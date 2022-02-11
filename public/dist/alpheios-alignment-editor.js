@@ -39994,6 +39994,10 @@ class SettingsController {
     return _instance.options.app && _instance.options.app.items.enableTextTokenizationOptionsChoice ? _instance.options.app.items.enableTextTokenizationOptionsChoice.currentValue : false
   }
 
+  static get enableChangeLanguageIcon () {
+    return _instance.options.app && _instance.options.app.items.enableChangeLanguageIcon ? _instance.options.app.items.enableChangeLanguageIcon.currentValue : false
+  }
+
   /**
    * @returns {Boolean} - allowUpdateTokenWord optin value
    */
@@ -48878,7 +48882,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i652-options-redesign.20220210631" : 0
+    return  true ? "i652-options-redesign.20220211432" : 0
   }
 
   static get libName () {
@@ -53004,6 +53008,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
 /* harmony import */ var _vue_options_select_edit_icons_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/options/select-edit-icons.vue */ "./vue/options/select-edit-icons.vue");
+/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
 //
 //
 //
@@ -53071,6 +53076,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+
 
 
 
@@ -53084,7 +53095,8 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_2___default()),
-    selectEditIcons: _vue_options_select_edit_icons_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+    selectEditIcons: _vue_options_select_edit_icons_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
   props: {
     
@@ -53180,6 +53192,10 @@ __webpack_require__.r(__webpack_exports__);
 
     enableTextTokenizationOptionsChoiceOptionItem () {
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOptions.app.items.enableTextTokenizationOptionsChoice
+    },
+
+    enableChangeLanguageIconOptionItem () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOptions.app.items.enableChangeLanguageIcon
     }
   },
   methods: {
@@ -54158,6 +54174,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -54439,6 +54458,9 @@ __webpack_require__.r(__webpack_exports__);
 
     enableDTSAPIUploadValue () {
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].enableDTSAPIUpload
+    },
+    enableChangeLanguageIconValue () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].enableChangeLanguageIcon
     }
   },
   methods: {
@@ -64904,6 +64926,70 @@ var render = function() {
             ),
             _vm._v(" "),
             _c(
+              "p",
+              { staticClass: "alpheios-alignment-options__buttons" },
+              [
+                _c(
+                  "tooltip",
+                  {
+                    attrs: {
+                      tooltipText: _vm.l10n.getMsgS(
+                        "OPTIONS_IS_ADVANCED_MODE_INFO"
+                      ),
+                      tooltipDirection: "top"
+                    }
+                  },
+                  [
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "alpheios-editor-button-tertiary alpheios-options-button alpheios-options-reset-all",
+                        on: { click: _vm.setOptionsToAdvanced }
+                      },
+                      [
+                        _vm._v(
+                          "\n                  " +
+                            _vm._s(
+                              _vm.l10n.getMsgS("OPTIONS_BLOCK_SET_ADVANCED")
+                            ) +
+                            "\n              "
+                        )
+                      ]
+                    )
+                  ]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "fieldset",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.isAdvancedModeValue,
+                    expression: "isAdvancedModeValue"
+                  }
+                ],
+                staticClass:
+                  "alpheios-alignment-editor-modal-options-block-fieldset"
+              },
+              [
+                _c("option-item-block", {
+                  attrs: { optionItem: _vm.enableChangeLanguageIconOptionItem }
+                }),
+                _vm._v(" "),
+                _c("option-item-block", {
+                  attrs: { optionItem: _vm.showSummaryPopupOptionItem }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
               "fieldset",
               {
                 directives: [
@@ -64926,28 +65012,6 @@ var render = function() {
                   attrs: {
                     optionItem: _vm.useSpecificEnglishTokenizerOptionItem
                   }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "fieldset",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.isAdvancedModeValue,
-                    expression: "isAdvancedModeValue"
-                  }
-                ],
-                staticClass:
-                  "alpheios-alignment-editor-modal-options-block-fieldset"
-              },
-              [
-                _c("option-item-block", {
-                  attrs: { optionItem: _vm.showSummaryPopupOptionItem }
                 })
               ],
               1
@@ -65000,25 +65064,7 @@ var render = function() {
             )
           ],
           1
-        ),
-        _vm._v(" "),
-        _c("p", { staticClass: "alpheios-alignment-options__buttons" }, [
-          _c(
-            "button",
-            {
-              staticClass:
-                "alpheios-editor-button-tertiary alpheios-options-button alpheios-options-reset-all",
-              on: { click: _vm.setOptionsToAdvanced }
-            },
-            [
-              _vm._v(
-                "\n            " +
-                  _vm._s(_vm.l10n.getMsgS("OPTIONS_BLOCK_SET_ADVANCED")) +
-                  "\n        "
-              )
-            ]
-          )
-        ])
+        )
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "alpheios-modal-footer" }, [
@@ -66475,8 +66521,10 @@ var render = function() {
                     {
                       name: "show",
                       rawName: "v-show",
-                      value: _vm.showTextProps,
-                      expression: "showTextProps"
+                      value:
+                        _vm.enableChangeLanguageIconValue && _vm.showTextProps,
+                      expression:
+                        "enableChangeLanguageIconValue && showTextProps"
                     }
                   ],
                   staticClass:
@@ -66487,7 +66535,13 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v(" " + _vm._s(_vm.language) + " ")]
+                [
+                  _vm._v(
+                    " \n                  " +
+                      _vm._s(_vm.language) +
+                      " \n        "
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -66497,8 +66551,11 @@ var render = function() {
                     {
                       name: "show",
                       rawName: "v-show",
-                      value: _vm.showLangNotDetected,
-                      expression: "showLangNotDetected"
+                      value:
+                        _vm.enableChangeLanguageIconValue &&
+                        _vm.showLangNotDetected,
+                      expression:
+                        "enableChangeLanguageIconValue && showLangNotDetected"
                     }
                   ],
                   staticClass:
@@ -69810,7 +69867,7 @@ module.exports = JSON.parse('{"METADATA_TERM_LABEL_IDENTIFIER":{"message":"Ident
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"OPTIONS_BLOCK_APPLICATION":{"message":"Application options","description":"Fieldset inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_RESET_ALL":{"message":"Reset all to default options","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_SET_ADVANCED":{"message":"Set all to advanced","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_INFO_ABOUT":{"message":"About Alpheios","description":"Title of the build info block","component":"OptionsBlock"},"OPTIONS_TITLE":{"message":"Options","description":"Title of the options popup","component":"OptionsTextEnter"},"OPTIONS_TITLE_TEXT_ENTER":{"message":"Options for Enter Text","description":"Title of the options popup","component":"OptionsTextEnter"},"OPTIONS_TITLE_TEXT_ALIGN":{"message":"Options for Align Text","description":"Title of the options popup","component":"OptionsTextEdit"},"OPTIONS_TITLE_TEXT_EDIT":{"message":"Options for Edit Text","description":"Title of the options popup","component":"OptionsTextEdit"},"OPTIONS_FIELDSET_ANNOTATIONS":{"message":"Annotations block:","description":"Options fieldset","component":"OptionsTextEdit"},"OPTIONS_ANNOTATIONS_INFO":{"message":"Allows to add annotations to tokens","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_TOKENS_EDITOR_INFO":{"message":"Allows edit tokens","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_READING_TOOLS_INFO":{"message":"Shows/hides Alpheios Reading Tools Toolbar","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_IS_ACADEMIC_MODE_INFO":{"message":"Enables academic mode","description":"Options tooltip","component":"OptionsTextEnter"}}');
+module.exports = JSON.parse('{"OPTIONS_BLOCK_APPLICATION":{"message":"Application options","description":"Fieldset inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_RESET_ALL":{"message":"Reset all to standard options","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_SET_ADVANCED":{"message":"Advanced options","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_INFO_ABOUT":{"message":"About Alpheios","description":"Title of the build info block","component":"OptionsBlock"},"OPTIONS_TITLE":{"message":"Options","description":"Title of the options popup","component":"OptionsTextEnter"},"OPTIONS_TITLE_TEXT_ENTER":{"message":"Options for Enter Text","description":"Title of the options popup","component":"OptionsTextEnter"},"OPTIONS_TITLE_TEXT_ALIGN":{"message":"Options for Align Text","description":"Title of the options popup","component":"OptionsTextEdit"},"OPTIONS_TITLE_TEXT_EDIT":{"message":"Options for Edit Text","description":"Title of the options popup","component":"OptionsTextEdit"},"OPTIONS_FIELDSET_ANNOTATIONS":{"message":"Annotations block:","description":"Options fieldset","component":"OptionsTextEdit"},"OPTIONS_ANNOTATIONS_INFO":{"message":"Allows to add annotations to tokens","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_TOKENS_EDITOR_INFO":{"message":"Allows edit tokens","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_READING_TOOLS_INFO":{"message":"Shows/hides Alpheios Reading Tools Toolbar","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_IS_ACADEMIC_MODE_INFO":{"message":"Enables academic mode","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_IS_ADVANCED_MODE_INFO":{"message":"Enables advanced options","description":"Options tooltip","component":"OptionsTextEnter"}}');
 
 /***/ }),
 
@@ -69843,7 +69900,7 @@ module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit text","de
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"2","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":true,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":false,"labelText":"Show language check before text would be prepared","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerPart":{"defaultValue":1000,"labelText":"Max characters per part (recommended for performance), to be used in Align Text","number":true,"minValue":1,"maxValue":50000,"values":[]},"addIndexedDBSupport":{"defaultValue":true,"labelText":"Add IndexedDB support","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"availableAnnotationTypes":{"defaultValue":["COMMENT","LEMMAID","MORPHOLOGY"],"labelText":"Available Annotation Types","multiValue":true,"values":[{"value":"COMMENT","text":"comment"},{"value":"LEMMAID","text":"lemmaID"},{"value":"MORPHOLOGY","text":"morphology"}]},"maxCharactersAnnotationText":{"defaultValue":500,"labelText":"Max characters in annotation text","number":true,"minValue":1,"maxValue":5000,"values":[]},"enableTokensEditor":{"defaultValue":false,"labelText":"Editing","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableDTSAPIUpload":{"defaultValue":false,"labelText":"Enable upload from DTS API","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"isAdvancedMode":{"defaultValue":false,"labelText":"Is advanced mode","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"isAcademicMode":{"defaultValue":false,"labelText":"Academic options","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAnnotations":{"defaultValue":false,"labelText":"Annotating","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAddDeleteNewLines":{"defaultValue":true,"labelText":"","boolean":true,"values":[{"value":true,"text":"add and delete newlines"},{"value":false,"text":"add and delete newlines"}]},"enableAddDeleteTokens":{"defaultValue":true,"labelText":"","boolean":true,"values":[{"value":true,"text":"add and delete tokens"},{"value":false,"text":"add and delete tokens"}]},"enableMergeSplitTokens":{"defaultValue":true,"labelText":"","boolean":true,"values":[{"value":true,"text":"merge and split tokens"},{"value":false,"text":"merge and split tokens"}]},"enableMoveTokensToSegment":{"defaultValue":true,"labelText":"","boolean":true,"values":[{"value":true,"text":"move tokens to a segment"},{"value":false,"text":"move tokens to a segment"}]},"enableEditTokens":{"defaultValue":true,"labelText":"","boolean":true,"values":[{"value":true,"text":"edit tokens"},{"value":false,"text":"edit tokens"}]},"enableAlpheiosReadingTools":{"defaultValue":false,"labelText":"Enable Alpheios Reading Tools Toolbar","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableXMLTokenizationOptionsChoice":{"defaultValue":false,"labelText":"XML modification","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableTextTokenizationOptionsChoice":{"defaultValue":false,"labelText":"TEXT modification","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]}}}');
+module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"2","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":true,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":true,"labelText":"Full check","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerPart":{"defaultValue":1000,"labelText":"Max characters per part (recommended for performance), to be used in Align Text","number":true,"minValue":1,"maxValue":50000,"values":[]},"addIndexedDBSupport":{"defaultValue":true,"labelText":"Add IndexedDB support","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"availableAnnotationTypes":{"defaultValue":["COMMENT","LEMMAID","MORPHOLOGY"],"labelText":"Available Annotation Types","multiValue":true,"values":[{"value":"COMMENT","text":"comment"},{"value":"LEMMAID","text":"lemmaID"},{"value":"MORPHOLOGY","text":"morphology"}]},"maxCharactersAnnotationText":{"defaultValue":500,"labelText":"Max characters in annotation text","number":true,"minValue":1,"maxValue":5000,"values":[]},"enableTokensEditor":{"defaultValue":false,"labelText":"Editing","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableDTSAPIUpload":{"defaultValue":false,"labelText":"Enable upload from DTS API","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"isAdvancedMode":{"defaultValue":false,"labelText":"Is advanced mode","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"isAcademicMode":{"defaultValue":false,"labelText":"Academic options","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAnnotations":{"defaultValue":false,"labelText":"Annotating","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAddDeleteNewLines":{"defaultValue":true,"labelText":"","boolean":true,"values":[{"value":true,"text":"add and delete newlines"},{"value":false,"text":"add and delete newlines"}]},"enableAddDeleteTokens":{"defaultValue":true,"labelText":"","boolean":true,"values":[{"value":true,"text":"add and delete tokens"},{"value":false,"text":"add and delete tokens"}]},"enableMergeSplitTokens":{"defaultValue":true,"labelText":"","boolean":true,"values":[{"value":true,"text":"merge and split tokens"},{"value":false,"text":"merge and split tokens"}]},"enableMoveTokensToSegment":{"defaultValue":true,"labelText":"","boolean":true,"values":[{"value":true,"text":"move tokens to a segment"},{"value":false,"text":"move tokens to a segment"}]},"enableEditTokens":{"defaultValue":true,"labelText":"","boolean":true,"values":[{"value":true,"text":"edit tokens"},{"value":false,"text":"edit tokens"}]},"enableAlpheiosReadingTools":{"defaultValue":false,"labelText":"Enable Alpheios Reading Tools Toolbar","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableXMLTokenizationOptionsChoice":{"defaultValue":false,"labelText":"XML modification","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableTextTokenizationOptionsChoice":{"defaultValue":false,"labelText":"TEXT modification","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableChangeLanguageIcon":{"defaultValue":true,"labelText":"Language icon","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]}}}');
 
 /***/ }),
 

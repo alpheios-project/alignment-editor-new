@@ -33,13 +33,24 @@
               <option-item-block :optionItem = "enableTextTokenizationOptionsChoiceOptionItem" />
             </fieldset>
 
+            <p class="alpheios-alignment-options__buttons">
+              <tooltip :tooltipText="l10n.getMsgS('OPTIONS_IS_ADVANCED_MODE_INFO')" tooltipDirection="top" >
+                <button class="alpheios-editor-button-tertiary alpheios-options-button alpheios-options-reset-all" 
+                    @click="setOptionsToAdvanced" >
+                    {{ l10n.getMsgS('OPTIONS_BLOCK_SET_ADVANCED') }}
+                </button>
+              </tooltip>
+            </p>
+
+            <fieldset v-show = "isAdvancedModeValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
+              <option-item-block :optionItem = "enableChangeLanguageIconOptionItem" />
+              <option-item-block :optionItem = "showSummaryPopupOptionItem" />
+            </fieldset>
+
+            
             <fieldset v-show = "isAdvancedModeValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
               <option-item-block :optionItem = "tokenizerOptionItem" />
               <option-item-block :optionItem = "useSpecificEnglishTokenizerOptionItem" />
-            </fieldset>
-
-            <fieldset v-show = "isAdvancedModeValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
-              <option-item-block :optionItem = "showSummaryPopupOptionItem" />
             </fieldset>
 
             <fieldset  v-show = "isAdvancedModeValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
@@ -48,12 +59,6 @@
               <option-item-block :optionItem = "maxCharactersPerPartOptionItem" v-show = "addIndexedDBSupportValue"/>
             </fieldset>
         </div>
-        <p class="alpheios-alignment-options__buttons">
-          <button class="alpheios-editor-button-tertiary alpheios-options-button alpheios-options-reset-all" 
-              @click="setOptionsToAdvanced" >
-              {{ l10n.getMsgS('OPTIONS_BLOCK_SET_ADVANCED') }}
-          </button>
-        </p>
     </div>
     <div class="alpheios-modal-footer" >
       <div class="alpheios-alignment-options__aboutcont">
@@ -72,13 +77,15 @@ import XCloseIcon from '@/inline-icons/x-close.svg'
 import SettingsController from '@/lib/controllers/settings-controller.js'
 
 import SelectEditIcons from '@/vue/options/select-edit-icons.vue'
+import Tooltip from '@/vue/common/tooltip.vue'
 
 export default {
   name: 'OptionsTextEnter',
   components: {
     optionItemBlock: OptionItemBlock,
     xCloseIcon: XCloseIcon,
-    selectEditIcons: SelectEditIcons
+    selectEditIcons: SelectEditIcons,
+    tooltip: Tooltip
   },
   props: {
     
@@ -174,6 +181,10 @@ export default {
 
     enableTextTokenizationOptionsChoiceOptionItem () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableTextTokenizationOptionsChoice
+    },
+
+    enableChangeLanguageIconOptionItem () {
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableChangeLanguageIcon
     }
   },
   methods: {

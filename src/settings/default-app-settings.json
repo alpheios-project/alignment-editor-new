@@ -71,8 +71,8 @@
       ]
     },
     "showSummaryPopup": {
-      "defaultValue": false,
-      "labelText": "Show language check before text would be prepared",
+      "defaultValue": true,
+      "labelText": "Full check",
       "boolean": true,
       "values": [
         {
@@ -320,6 +320,21 @@
     "enableTextTokenizationOptionsChoice": {
       "defaultValue": false,
       "labelText": "TEXT modification",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "Yes"
+        },
+        {
+          "value": false,
+          "text": "No"
+        }
+      ]
+    },
+    "enableChangeLanguageIcon": {
+      "defaultValue": true,
+      "labelText": "Language icon",
       "boolean": true,
       "values": [
         {
