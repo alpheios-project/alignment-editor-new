@@ -48882,7 +48882,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i652-options-redesign.20220211432" : 0
+    return  true ? "i652-options-redesign.20220211448" : 0
   }
 
   static get libName () {
@@ -53107,7 +53107,10 @@ __webpack_require__.r(__webpack_exports__);
       optionsInfo: {
         enableAnnotations: 'OPTIONS_ANNOTATIONS_INFO',
         enableTokensEditor: 'OPTIONS_TOKENS_EDITOR_INFO',
-        isAcademicMode: 'OPTIONS_IS_ACADEMIC_MODE_INFO'
+        isAcademicMode: 'OPTIONS_IS_ACADEMIC_MODE_INFO',
+        tokenizerOptionItem: 'OPTIONS_TOKENIZER_SERVICE_INFO',
+        useSpecificEnglishTokenizer: 'OPTIONS_SPECIFIC_ENGLISH_INFO',
+        addIndexedDBSupport: 'OPTIONS_INDEXEDDB_SUPPORT_INFO'
       }
     }
   },
@@ -65005,12 +65008,16 @@ var render = function() {
               },
               [
                 _c("option-item-block", {
-                  attrs: { optionItem: _vm.tokenizerOptionItem }
+                  attrs: {
+                    optionItem: _vm.tokenizerOptionItem,
+                    optionInfo: _vm.getOptionInfo("tokenizerOptionItem")
+                  }
                 }),
                 _vm._v(" "),
                 _c("option-item-block", {
                   attrs: {
-                    optionItem: _vm.useSpecificEnglishTokenizerOptionItem
+                    optionItem: _vm.useSpecificEnglishTokenizerOptionItem,
+                    optionInfo: _vm.getOptionInfo("useSpecificEnglishTokenizer")
                   }
                 })
               ],
@@ -65033,7 +65040,10 @@ var render = function() {
               },
               [
                 _c("option-item-block", {
-                  attrs: { optionItem: _vm.addIndexedDBSupportOptionItem }
+                  attrs: {
+                    optionItem: _vm.addIndexedDBSupportOptionItem,
+                    optionInfo: _vm.getOptionInfo("addIndexedDBSupport")
+                  }
                 }),
                 _vm._v(" "),
                 _c("option-item-block", {
@@ -69867,7 +69877,7 @@ module.exports = JSON.parse('{"METADATA_TERM_LABEL_IDENTIFIER":{"message":"Ident
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"OPTIONS_BLOCK_APPLICATION":{"message":"Application options","description":"Fieldset inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_RESET_ALL":{"message":"Reset all to standard options","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_SET_ADVANCED":{"message":"Advanced options","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_INFO_ABOUT":{"message":"About Alpheios","description":"Title of the build info block","component":"OptionsBlock"},"OPTIONS_TITLE":{"message":"Options","description":"Title of the options popup","component":"OptionsTextEnter"},"OPTIONS_TITLE_TEXT_ENTER":{"message":"Options for Enter Text","description":"Title of the options popup","component":"OptionsTextEnter"},"OPTIONS_TITLE_TEXT_ALIGN":{"message":"Options for Align Text","description":"Title of the options popup","component":"OptionsTextEdit"},"OPTIONS_TITLE_TEXT_EDIT":{"message":"Options for Edit Text","description":"Title of the options popup","component":"OptionsTextEdit"},"OPTIONS_FIELDSET_ANNOTATIONS":{"message":"Annotations block:","description":"Options fieldset","component":"OptionsTextEdit"},"OPTIONS_ANNOTATIONS_INFO":{"message":"Allows to add annotations to tokens","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_TOKENS_EDITOR_INFO":{"message":"Allows edit tokens","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_READING_TOOLS_INFO":{"message":"Shows/hides Alpheios Reading Tools Toolbar","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_IS_ACADEMIC_MODE_INFO":{"message":"Enables academic mode","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_IS_ADVANCED_MODE_INFO":{"message":"Enables advanced options","description":"Options tooltip","component":"OptionsTextEnter"}}');
+module.exports = JSON.parse('{"OPTIONS_BLOCK_APPLICATION":{"message":"Application options","description":"Fieldset inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_RESET_ALL":{"message":"Reset all to standard options","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_SET_ADVANCED":{"message":"Advanced options","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_INFO_ABOUT":{"message":"About Alpheios","description":"Title of the build info block","component":"OptionsBlock"},"OPTIONS_TITLE":{"message":"Options","description":"Title of the options popup","component":"OptionsTextEnter"},"OPTIONS_TITLE_TEXT_ENTER":{"message":"Options for Enter Text","description":"Title of the options popup","component":"OptionsTextEnter"},"OPTIONS_TITLE_TEXT_ALIGN":{"message":"Options for Align Text","description":"Title of the options popup","component":"OptionsTextEdit"},"OPTIONS_TITLE_TEXT_EDIT":{"message":"Options for Edit Text","description":"Title of the options popup","component":"OptionsTextEdit"},"OPTIONS_FIELDSET_ANNOTATIONS":{"message":"Annotations block:","description":"Options fieldset","component":"OptionsTextEdit"},"OPTIONS_ANNOTATIONS_INFO":{"message":"Allows to add annotations to tokens","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_TOKENS_EDITOR_INFO":{"message":"Allows edit tokens","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_READING_TOOLS_INFO":{"message":"Shows/hides Alpheios Reading Tools Toolbar","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_IS_ACADEMIC_MODE_INFO":{"message":"Enables academic mode","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_IS_ADVANCED_MODE_INFO":{"message":"Enables advanced options","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_TOKENIZER_SERVICE_INFO":{"message":"Allows to choose specific tokenizer options","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_SPECIFIC_ENGLISH_INFO":{"message":"Apply specific rules from English to tokenizing","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_INDEXEDDB_SUPPORT_INFO":{"message":"Adds ability to save and upload data from the local database","description":"Options tooltip","component":"OptionsTextEnter"}}');
 
 /***/ }),
 

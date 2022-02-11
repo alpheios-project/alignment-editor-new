@@ -68,5 +68,20 @@
       "message": "Enables advanced options",
       "description": "Options tooltip",
       "component": "OptionsTextEnter"
+    },
+    "OPTIONS_TOKENIZER_SERVICE_INFO": {
+      "message": "Allows to choose specific tokenizer options",
+      "description": "Options tooltip",
+      "component": "OptionsTextEnter"
+    },
+    "OPTIONS_SPECIFIC_ENGLISH_INFO": {
+      "message": "Apply specific rules from English to tokenizing",
+      "description": "Options tooltip",
+      "component": "OptionsTextEnter"
+    },
+    "OPTIONS_INDEXEDDB_SUPPORT_INFO": {
+      "message": "Adds ability to save and upload data from the local database",
+      "description": "Options tooltip",
+      "component": "OptionsTextEnter"
     }
 }

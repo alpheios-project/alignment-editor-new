@@ -47,14 +47,14 @@
               <option-item-block :optionItem = "showSummaryPopupOptionItem" />
             </fieldset>
 
-            
+
             <fieldset v-show = "isAdvancedModeValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
-              <option-item-block :optionItem = "tokenizerOptionItem" />
-              <option-item-block :optionItem = "useSpecificEnglishTokenizerOptionItem" />
+              <option-item-block :optionItem = "tokenizerOptionItem" :optionInfo="getOptionInfo('tokenizerOptionItem')" />
+              <option-item-block :optionItem = "useSpecificEnglishTokenizerOptionItem" :optionInfo="getOptionInfo('useSpecificEnglishTokenizer')" />
             </fieldset>
 
             <fieldset  v-show = "isAdvancedModeValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
-              <option-item-block :optionItem = "addIndexedDBSupportOptionItem" />
+              <option-item-block :optionItem = "addIndexedDBSupportOptionItem" :optionInfo="getOptionInfo('addIndexedDBSupport')" />
               <option-item-block :optionItem = "maxCharactersOptionItem" v-show="!addIndexedDBSupportValue"/>
               <option-item-block :optionItem = "maxCharactersPerPartOptionItem" v-show = "addIndexedDBSupportValue"/>
             </fieldset>
@@ -96,7 +96,10 @@ export default {
       optionsInfo: {
         enableAnnotations: 'OPTIONS_ANNOTATIONS_INFO',
         enableTokensEditor: 'OPTIONS_TOKENS_EDITOR_INFO',
-        isAcademicMode: 'OPTIONS_IS_ACADEMIC_MODE_INFO'
+        isAcademicMode: 'OPTIONS_IS_ACADEMIC_MODE_INFO',
+        tokenizerOptionItem: 'OPTIONS_TOKENIZER_SERVICE_INFO',
+        useSpecificEnglishTokenizer: 'OPTIONS_SPECIFIC_ENGLISH_INFO',
+        addIndexedDBSupport: 'OPTIONS_INDEXEDDB_SUPPORT_INFO'
       }
     }
   },
