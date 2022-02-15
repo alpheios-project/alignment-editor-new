@@ -7,6 +7,11 @@
         </span>
         <h2 class="alpheios-alignment-editor-modal-header">{{ l10n.getMsgS('OPTIONS_TITLE_TEXT_EDIT') }}</h2>
     </div>
+    <div class="alpheios-modal-body" >
+      <div class="alpheios-alignment-editor-modal-options-block">
+        <select-edit-icons  :showLabelTextAsCheckboxLabel = "false" :hiddenBorder = "true" /> 
+      </div>
+    </div>
     <div class="alpheios-modal-footer" >
       <div class="alpheios-alignment-options__aboutcont">
         <h3>{{ l10n.getMsgS('OPTIONS_BLOCK_INFO_ABOUT') }}</h3>
@@ -21,6 +26,7 @@
 import OptionItemBlock from '@/vue/options/option-item-block.vue'
 import XCloseIcon from '@/inline-icons/x-close.svg'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
+import SelectEditIcons from '@/vue/options/select-edit-icons.vue'
 
 import SettingsController from '@/lib/controllers/settings-controller'
 
@@ -28,7 +34,8 @@ export default {
   name: 'OptionsTextEdit',
   components: {
     optionItemBlock: OptionItemBlock,
-    xCloseIcon: XCloseIcon
+    xCloseIcon: XCloseIcon,
+    selectEditIcons: SelectEditIcons
   },
   props: {
     showModal: {

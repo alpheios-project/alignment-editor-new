@@ -214,76 +214,76 @@
     },
     "enableAddDeleteNewLines": {
       "defaultValue": true,
-      "labelText": "",
+      "labelText": "add and delete newlines",
       "boolean": true,
       "values": [
         {
           "value": true,
-          "text": "add and delete newlines"
+          "text": "Yes"
         },
         {
           "value": false,
-          "text": "add and delete newlines"
+          "text": "No"
         }
       ]
     },
     "enableAddDeleteTokens": {
       "defaultValue": true,
-      "labelText": "",
+      "labelText": "add and delete tokens",
       "boolean": true,
       "values": [
         {
           "value": true,
-          "text": "add and delete tokens"
+          "text": "Yes"
         },
         {
           "value": false,
-          "text": "add and delete tokens"
+          "text": "No"
         }
       ]
     },
     "enableMergeSplitTokens": {
       "defaultValue": true,
-      "labelText": "",
+      "labelText": "merge and split tokens",
       "boolean": true,
       "values": [
         {
           "value": true,
-          "text": "merge and split tokens"
+          "text": "Yes"
         },
         {
           "value": false,
-          "text": "merge and split tokens"
+          "text": "No"
         }
       ]
     },
     "enableMoveTokensToSegment": {
       "defaultValue": true,
-      "labelText": "",
+      "labelText": "move tokens to a segment",
       "boolean": true,
       "values": [
         {
           "value": true,
-          "text": "move tokens to a segment"
+          "text": "Yes"
         },
         {
           "value": false,
-          "text": "move tokens to a segment"
+          "text": "No"
         }
       ]
     },
     "enableEditTokens": {
       "defaultValue": true,
-      "labelText": "",
+      "labelText": "edit tokens",
       "boolean": true,
       "values": [
         {
           "value": true,
-          "text": "edit tokens"
+          "text": "Yes"
         },
         {
           "value": false,
-          "text": "edit tokens"
+          "text": "No"
         }
       ]
     },

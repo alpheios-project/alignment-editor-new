@@ -1445,6 +1445,9 @@ button.alpheios-app-menu-link:-moz-focusring {
   vertical-align: top;
   padding-right: 10px;
 }
+.alpheios-alignment-option-item > label.alpheios-alignment-option-item__label-invisible {
+  visibility: hidden;
+}
 .alpheios-alignment-option-item input.alpheios-alignment-input,
 .alpheios-alignment-option-item .alpheios-alignment-select,
 .alpheios-alignment-option-item .alpheios-alignment-radio-block,
@@ -2326,6 +2329,11 @@ span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-edit
 .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-segment-data-item {
   display: table-cell;
   vertical-align: top;
+}
+.alpheios-alignment-editor-options-block.alpheios-alignment-editor-options-block__select-edit-icons .alpheios-alignment-editor-modal-options-block-fieldset.alpheios-alignment-editor-modal-options-block-fieldset__hidden-border {
+  margin: 0;
+  border-width: 0;
+  padding: 0;
 }
 .alpheios-alignment-editor-modal-options.alpheios-alignment-editor-modal-options-align .alpheios-modal-container {
   width: 700px;

@@ -15,15 +15,6 @@
         </button>
       </p>
         <div class="alpheios-alignment-editor-modal-options-block">
-            <option-item-block :optionItem = "enableAnnotationsOptionItem" :optionInfo="getOptionInfo('enableAnnotations')" />
-
-            <fieldset v-show = "enableAnnotationsValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
-              <option-item-block :optionItem = "availableAnnotationTypesOptionItem"  :disabled = "disableAnnotationsTypes" />
-              <option-item-block :optionItem = "maxCharactersAnnotationTextOptionItem" />
-            </fieldset>
-
-            <option-item-block :optionItem = "enableTokensEditorOptionItem" :optionInfo="getOptionInfo('enableTokensEditor')"/>
-            <select-edit-icons v-show="enableTokensEditorValue" />           
 
             <option-item-block :optionItem = "isAcademicModeOptionItem" :optionInfo="getOptionInfo('isAcademicMode')"/>
             
@@ -76,7 +67,6 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import XCloseIcon from '@/inline-icons/x-close.svg'
 import SettingsController from '@/lib/controllers/settings-controller.js'
 
-import SelectEditIcons from '@/vue/options/select-edit-icons.vue'
 import Tooltip from '@/vue/common/tooltip.vue'
 
 export default {
@@ -84,7 +74,6 @@ export default {
   components: {
     optionItemBlock: OptionItemBlock,
     xCloseIcon: XCloseIcon,
-    selectEditIcons: SelectEditIcons,
     tooltip: Tooltip
   },
   props: {
@@ -122,48 +111,23 @@ export default {
     showSummaryPopupOptionItem () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.showSummaryPopup
     },
-    enableTokensEditorOptionItem () {
-      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableTokensEditor
-    },
     enableDTSAPIUploadOptionItem () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableDTSAPIUpload
     },
     addIndexedDBSupportOptionItem () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.addIndexedDBSupport
     },
-    availableAnnotationTypesOptionItem () {
-      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.availableAnnotationTypes
-    },
-
-    maxCharactersAnnotationTextOptionItem () {
-      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.maxCharactersAnnotationText
-    },
 
     maxCharactersPerPartOptionItem () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.maxCharactersPerPart
     }, 
 
-    enableAnnotationsOptionItem () {
-      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableAnnotations
-    },
-
-    disableAnnotationsTypes () {
-      return this.$store.state.updateAnnotations && this.$store.state.docSourceUpdated && this.$textC.hasAnnotations
-    },
     addIndexedDBSupportValue () {
       return this.$store.state.optionsUpdated && SettingsController.addIndexedDBSupport
     },
     
     isAcademicModeOptionItem () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.isAcademicMode
-    },
-
-    enableAnnotationsValue () {
-      return this.$store.state.optionsUpdated && SettingsController.enableAnnotations
-    },
-
-    enableTokensEditorValue () {
-      return this.$store.state.optionsUpdated && SettingsController.enableTokensEditor
     },
 
     isAdvancedModeValue () {
