@@ -628,6 +628,33 @@ div.alpheios-alignment-checkbox-block {
     opacity: 1;
   }
 }
+.alpheios-arrow {
+  border: solid #000;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.alpheios-right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.alpheios-left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.alpheios-up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.alpheios-down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
 .alpheios-standard-theme {
   background-color: #fff;
   color: #212529;
@@ -1491,7 +1518,7 @@ button.alpheios-app-menu-link:-moz-focusring {
 .alpheios-alignment-option-item .alpheios-alignment-option-item__label-text.alpheios-alignment-option-item__label-hasinfo {
   max-width: 80%;
 }
-.alpheios-alignment-option-item .alpheios-alignment-option-item__label-info {
+.alpheios-alignment-option-item__label-info {
   width: 25px;
   height: 25px;
   display: inline-block;
@@ -2070,6 +2097,40 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   border-width: 1px;
   border-image: none;
   padding: 10px 10px 0;
+}
+.alpheios-alignment-editor-modal-options .alpheios-options-expander-label {
+  display: inline-block;
+  cursor: pointer;
+  width: 100%;
+  background: #eee;
+  padding: 10px;
+  border-radius: 2px;
+}
+.alpheios-alignment-editor-modal-options .alpheios-options-expander-label i {
+  display: block;
+  float: right;
+  margin: 10px;
+  border-color: #555;
+  border-width: 0 4px 4px 0;
+  padding: 4px;
+}
+.alpheios-alignment-editor-modal-options .alpheios-options-expander-label:before, .alpheios-alignment-editor-modal-options .alpheios-options-expander-label:after {
+  clear: both;
+  display: table;
+  content: "";
+}
+.alpheios-alignment-editor-modal-options .alpheios-alignment-options__fieldset-group {
+  transition: all 1s;
+  overflow: hidden;
+}
+.alpheios-alignment-editor-modal-options .alpheios-alignment-options__fieldset-group.alpheios-collapsed {
+  height: 0;
+}
+.alpheios-alignment-editor-modal-options .alpheios-alignment-options__fieldset-group.alpheios-alignment-options__fieldset-group_academic.alpheios-expanded {
+  height: 175px;
+}
+.alpheios-alignment-editor-modal-options .alpheios-alignment-options__fieldset-group.alpheios-alignment-options__fieldset-group_advanced.alpheios-expanded {
+  height: 465px;
 }
 .alpheios-editor-help-content {
   text-indent: 10px;

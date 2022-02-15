@@ -113,10 +113,6 @@ export default class SettingsController {
     return _instance.options.app && _instance.options.app.items.enableDTSAPIUpload ? _instance.options.app.items.enableDTSAPIUpload.currentValue : false
   }
 
-  static get isAdvancedMode () {
-    return _instance.options.app && _instance.options.app.items.isAdvancedMode ? _instance.options.app.items.isAdvancedMode.currentValue : false
-  }
-
   static get isAcademicMode () {
     return _instance.options.app && _instance.options.app.items.isAcademicMode ? _instance.options.app.items.isAcademicMode.currentValue : false
   }

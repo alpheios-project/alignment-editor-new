@@ -357,6 +357,8 @@ export default {
     max-width: 80%;
   }
 
+
+}
   .alpheios-alignment-option-item__label-info {
     width: 25px;
     height: 25px;
@@ -368,7 +370,7 @@ export default {
     vertical-align: middle;
     margin-left: 10px;
   }
-}
+  
 .alpheios-alignment-option-item__label-info { 
   color: #fff;
   background: #000;

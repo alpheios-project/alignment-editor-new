@@ -18,37 +18,43 @@
 
             <option-item-block :optionItem = "isAcademicModeOptionItem" :optionInfo="getOptionInfo('isAcademicMode')"/>
             
-            <fieldset v-show = "isAcademicModeValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
-              <option-item-block :optionItem = "enableDTSAPIUploadOptionItem" />
-              <option-item-block :optionItem = "enableXMLTokenizationOptionsChoiceOptionItem" />
-              <option-item-block :optionItem = "enableTextTokenizationOptionsChoiceOptionItem" />
-            </fieldset>
+            <div class="alpheios-alignment-options__fieldset-group alpheios-alignment-options__fieldset-group_academic" 
+                 :class = "{ 'alpheios-collapsed': !isAcademicModeValue, 'alpheios-expanded': isAcademicModeValue }">
+              <fieldset v-show = "isAcademicModeValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
+                <option-item-block :optionItem = "enableDTSAPIUploadOptionItem" />
+                <option-item-block :optionItem = "enableXMLTokenizationOptionsChoiceOptionItem" />
+                <option-item-block :optionItem = "enableTextTokenizationOptionsChoiceOptionItem" />
+              </fieldset>
+            </div>
 
-            <p class="alpheios-alignment-options__buttons">
-              <tooltip :tooltipText="l10n.getMsgS('OPTIONS_IS_ADVANCED_MODE_INFO')" tooltipDirection="top" >
-                <button class="alpheios-editor-button-tertiary alpheios-options-button alpheios-options-reset-all" 
-                    @click="setOptionsToAdvanced" >
-                    {{ l10n.getMsgS('OPTIONS_BLOCK_SET_ADVANCED') }}
-                </button>
-              </tooltip>
+            <p class="alpheios-alignment-options__expande-container" @click="setOptionsToAdvanced">
+                <span class="alpheios-options-expander-label" >{{ l10n.getMsgS('OPTIONS_BLOCK_SET_ADVANCED') }}
+                  <tooltip :tooltipText="l10n.getMsgS('OPTIONS_IS_ADVANCED_MODE_INFO')" tooltipDirection="top">
+                    <span class="alpheios-alignment-option-item__label-info">?</span>
+                  </tooltip>  
+                  <i class="alpheios-arrow" :class="{ 'alpheios-up': !isAdvanced, 'alpheios-down': isAdvanced }"></i>
+                </span>
             </p>
 
-            <fieldset v-show = "isAdvancedModeValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
-              <option-item-block :optionItem = "enableChangeLanguageIconOptionItem" />
-              <option-item-block :optionItem = "showSummaryPopupOptionItem" />
-            </fieldset>
+            <div class="alpheios-alignment-options__fieldset-group alpheios-alignment-options__fieldset-group_advanced" 
+                 :class = "{ 'alpheios-collapsed': !isAdvanced, 'alpheios-expanded': isAdvanced }">
+              <fieldset class="alpheios-alignment-editor-modal-options-block-fieldset">
+                <option-item-block :optionItem = "enableChangeLanguageIconOptionItem" />
+                <option-item-block :optionItem = "showSummaryPopupOptionItem" />
+              </fieldset>
 
 
-            <fieldset v-show = "isAdvancedModeValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
-              <option-item-block :optionItem = "tokenizerOptionItem" :optionInfo="getOptionInfo('tokenizerOptionItem')" />
-              <option-item-block :optionItem = "useSpecificEnglishTokenizerOptionItem" :optionInfo="getOptionInfo('useSpecificEnglishTokenizer')" />
-            </fieldset>
+              <fieldset class="alpheios-alignment-editor-modal-options-block-fieldset">
+                <option-item-block :optionItem = "tokenizerOptionItem" :optionInfo="getOptionInfo('tokenizerOptionItem')" />
+                <option-item-block :optionItem = "useSpecificEnglishTokenizerOptionItem" :optionInfo="getOptionInfo('useSpecificEnglishTokenizer')" />
+              </fieldset>
 
-            <fieldset  v-show = "isAdvancedModeValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
-              <option-item-block :optionItem = "addIndexedDBSupportOptionItem" :optionInfo="getOptionInfo('addIndexedDBSupport')" />
-              <option-item-block :optionItem = "maxCharactersOptionItem" v-show="!addIndexedDBSupportValue"/>
-              <option-item-block :optionItem = "maxCharactersPerPartOptionItem" v-show = "addIndexedDBSupportValue"/>
-            </fieldset>
+              <fieldset  class="alpheios-alignment-editor-modal-options-block-fieldset">
+                <option-item-block :optionItem = "addIndexedDBSupportOptionItem" :optionInfo="getOptionInfo('addIndexedDBSupport')" />
+                <option-item-block :optionItem = "maxCharactersOptionItem" v-show="!addIndexedDBSupportValue"/>
+                <option-item-block :optionItem = "maxCharactersPerPartOptionItem" v-show = "addIndexedDBSupportValue"/>
+              </fieldset>
+            </div>
         </div>
     </div>
     <div class="alpheios-modal-footer" >
@@ -130,14 +136,6 @@ export default {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.isAcademicMode
     },
 
-    isAdvancedModeValue () {
-      return this.$store.state.optionsUpdated && SettingsController.isAdvancedMode
-    },
-
-    isAdvancedModeOptionItem () {
-      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.isAdvancedMode
-    },
-
     isAcademicModeValue () {
       return this.$store.state.optionsUpdated && SettingsController.isAcademicMode
     },
@@ -160,7 +158,8 @@ export default {
     },
 
     setOptionsToAdvanced () {
-      SettingsController.updateToAdvanced()
+      // SettingsController.updateToAdvanced()
+      this.isAdvanced = !this.isAdvanced
     },
 
     getOptionInfo (itemName) {
@@ -201,5 +200,46 @@ export default {
     border-image: none;
     padding: 10px 10px 0;
   }
+
+  .alpheios-options-expander-label {
+    display: inline-block;
+    cursor: pointer;
+    width: 100%;
+    background: #eee;
+    padding: 10px;
+    border-radius: 2px;
+
+    i {
+      display: block;
+      float: right;
+      margin: 10px;
+      border-color: #555;
+      border-width: 0 4px 4px 0;
+      padding: 4px;
+    }
+
+    &:before,
+    &:after {
+      clear: both;
+      display: table;
+      content: '';
+    }
+  }
+
+  .alpheios-alignment-options__fieldset-group {
+    transition: all 1s;
+    overflow: hidden;
+    &.alpheios-collapsed {
+      height: 0;
+    }
+    &.alpheios-alignment-options__fieldset-group_academic.alpheios-expanded {
+      height: 175px;
+    }
+
+    &.alpheios-alignment-options__fieldset-group_advanced.alpheios-expanded {
+      height: 465px;
+    }
+  }
+
 }
 </style>

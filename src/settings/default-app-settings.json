@@ -167,21 +167,6 @@
         }
       ]
     },
-    "isAdvancedMode": {
-      "defaultValue": false,
-      "labelText": "Is advanced mode",
-      "boolean": true,
-      "values": [
-        {
-          "value": true,
-          "text": "Yes"
-        },
-        {
-          "value": false,
-          "text": "No"
-        }
-      ]
-    },
     "isAcademicMode": {
       "defaultValue": false,
       "labelText": "Academic options",
