@@ -2327,16 +2327,17 @@ span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-edit
   display: table-cell;
   vertical-align: top;
 }
-.alpheios-alignment-editor-modal-options .alpheios-modal-container {
+.alpheios-alignment-editor-modal-options.alpheios-alignment-editor-modal-options-align .alpheios-modal-container {
   width: 700px;
 }
-.alpheios-alignment-editor-modal-options .alpheios-modal-body {
+.alpheios-alignment-editor-modal-options.alpheios-alignment-editor-modal-options-align .alpheios-modal-body {
   margin: 0 0 20px;
+  padding-top: 20px;
 }
-.alpheios-alignment-editor-modal-options .alpheios-alignment-editor-modal-options-block {
+.alpheios-alignment-editor-modal-options.alpheios-alignment-editor-modal-options-align .alpheios-alignment-editor-modal-options-block {
   padding: 10px;
 }
-.alpheios-alignment-editor-modal-options .alpheios-alignment-editor-modal-header {
+.alpheios-alignment-editor-modal-options.alpheios-alignment-editor-modal-options-align .alpheios-alignment-editor-modal-header {
   margin-bottom: 10px;
 }
 .alpheios-alignment-editor-modal-annotations .alpheios-modal-body {
@@ -2554,16 +2555,17 @@ input.alpheios-alignment-editor-token-edit-input.alpheios-token-annotated {
 .alpheios-alignment-editor-tokens-edit-editor-container-inner .alpheios-alignment-editor-align-segment-edit-data-item.alpheios-alignment-editor-align-segment-data-target {
   border-left: 2px solid #ddd;
 }
-.alpheios-alignment-editor-modal-options .alpheios-modal-container {
+.alpheios-alignment-editor-modal-options.alpheios-alignment-editor-modal-options-edit .alpheios-modal-container {
   width: 700px;
 }
-.alpheios-alignment-editor-modal-options .alpheios-modal-body {
+.alpheios-alignment-editor-modal-options.alpheios-alignment-editor-modal-options-edit .alpheios-modal-body {
   margin: 0 0 20px;
+  padding-top: 20px;
 }
-.alpheios-alignment-editor-modal-options .alpheios-alignment-editor-modal-options-block {
+.alpheios-alignment-editor-modal-options.alpheios-alignment-editor-modal-options-edit .alpheios-alignment-editor-modal-options-block {
   padding: 10px;
 }
-.alpheios-alignment-editor-modal-options .alpheios-alignment-editor-modal-header {
+.alpheios-alignment-editor-modal-options.alpheios-alignment-editor-modal-options-edit .alpheios-alignment-editor-modal-header {
   margin-bottom: 10px;
 }
 .alpheios-alignment-editor-modal-insert-tokens .alpheios-modal-body {

@@ -48882,7 +48882,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i652-some-fixes.20220214316" : 0
+    return  true ? "i652-some-fixes.20220215573" : 0
   }
 
   static get libName () {
@@ -52860,12 +52860,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -52928,12 +52922,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/settings-controller */ "./lib/controllers/settings-controller.js");
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -64630,24 +64618,6 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "alpheios-modal-footer" }, [
-        _c("p", { staticClass: "alpheios-alignment-options__buttons" }, [
-          _c(
-            "button",
-            {
-              staticClass:
-                "alpheios-editor-button-tertiary alpheios-options-button alpheios-options-reset-all",
-              on: { click: _vm.resetOptions }
-            },
-            [
-              _vm._v(
-                "\n          " +
-                  _vm._s(_vm.l10n.getMsgS("OPTIONS_BLOCK_RESET_ALL")) +
-                  "\n      "
-              )
-            ]
-          )
-        ]),
-        _vm._v(" "),
         _c("div", { staticClass: "alpheios-alignment-options__aboutcont" }, [
           _c("h3", [
             _vm._v(_vm._s(_vm.l10n.getMsgS("OPTIONS_BLOCK_INFO_ABOUT")))
@@ -64719,24 +64689,6 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "alpheios-modal-footer" }, [
-        _c("p", { staticClass: "alpheios-alignment-options__buttons" }, [
-          _c(
-            "button",
-            {
-              staticClass:
-                "alpheios-editor-button-tertiary alpheios-options-button alpheios-options-reset-all",
-              on: { click: _vm.resetOptions }
-            },
-            [
-              _vm._v(
-                "\n          " +
-                  _vm._s(_vm.l10n.getMsgS("OPTIONS_BLOCK_RESET_ALL")) +
-                  "\n      "
-              )
-            ]
-          )
-        ]),
-        _vm._v(" "),
         _c("div", { staticClass: "alpheios-alignment-options__aboutcont" }, [
           _c("h3", [
             _vm._v(_vm._s(_vm.l10n.getMsgS("OPTIONS_BLOCK_INFO_ABOUT")))

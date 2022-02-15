@@ -8,12 +8,6 @@
         <h2 class="alpheios-alignment-editor-modal-header">{{ l10n.getMsgS('OPTIONS_TITLE_TEXT_EDIT') }}</h2>
     </div>
     <div class="alpheios-modal-footer" >
-      <p class="alpheios-alignment-options__buttons">
-        <button class="alpheios-editor-button-tertiary alpheios-options-button alpheios-options-reset-all" 
-            @click="resetOptions" >
-            {{ l10n.getMsgS('OPTIONS_BLOCK_RESET_ALL') }}
-        </button>
-      </p>
       <div class="alpheios-alignment-options__aboutcont">
         <h3>{{ l10n.getMsgS('OPTIONS_BLOCK_INFO_ABOUT') }}</h3>
         <div class="alpheios-alignment-options__versiontext">
@@ -59,7 +53,7 @@ export default {
 }
 </script>
 <style lang="scss">
-.alpheios-alignment-editor-modal-options {
+.alpheios-alignment-editor-modal-options.alpheios-alignment-editor-modal-options-edit {
   .alpheios-modal-container {
     width: 700px;
   }
@@ -67,6 +61,7 @@ export default {
     // max-height: 700px;
     // border: 0;
     margin: 0 0 20px;
+    padding-top: 20px;
   }
 
   .alpheios-alignment-editor-modal-options-block {
