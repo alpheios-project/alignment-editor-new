@@ -52,7 +52,9 @@ export default {
   data () {
     return {
       optionsInfo: {
-        enableAlpheiosReadingTools: 'OPTIONS_READING_TOOLS_INFO'
+        enableAlpheiosReadingTools: 'OPTIONS_READING_TOOLS_INFO',
+        enableAnnotations: 'OPTIONS_ANNOTATIONS_INFO',
+        enableTokensEditor: 'OPTIONS_TOKENS_EDITOR_INFO',
       }
     }
   },

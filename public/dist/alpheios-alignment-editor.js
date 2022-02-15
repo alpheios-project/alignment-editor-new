@@ -39904,11 +39904,6 @@ class SettingsController {
     return _instance.store
   }
 
-  static updateToAdvanced () {
-    _instance.options.app.items.isAdvancedMode.setValue(true)
-    this.changeOption(_instance.options.app.items.isAdvancedMode)
-  }
-
   static updateToAcademic () {
     _instance.options.app.items.isAcademicMode.setValue(true)
     this.changeOption(_instance.options.app.items.isAcademicMode)
@@ -48888,7 +48883,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i652-some-fixes.20220215654" : 0
+    return  true ? "i652-some-fixes.20220215664" : 0
   }
 
   static get libName () {
@@ -52902,7 +52897,9 @@ __webpack_require__.r(__webpack_exports__);
   data () {
     return {
       optionsInfo: {
-        enableAlpheiosReadingTools: 'OPTIONS_READING_TOOLS_INFO'
+        enableAlpheiosReadingTools: 'OPTIONS_READING_TOOLS_INFO',
+        enableAnnotations: 'OPTIONS_ANNOTATIONS_INFO',
+        enableTokensEditor: 'OPTIONS_TOKENS_EDITOR_INFO',
       }
     }
   },
@@ -53211,7 +53208,6 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     setOptionsToAdvanced () {
-      // SettingsController.updateToAdvanced()
       this.isAdvanced = !this.isAdvanced
     },
 
@@ -64111,7 +64107,7 @@ var render = function() {
                     {
                       attrs: {
                         tooltipText: _vm.l10n.getMsgS(_vm.optionInfo),
-                        tooltipDirection: "top"
+                        tooltipDirection: "right"
                       }
                     },
                     [

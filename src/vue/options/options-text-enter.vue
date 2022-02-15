@@ -158,7 +158,6 @@ export default {
     },
 
     setOptionsToAdvanced () {
-      // SettingsController.updateToAdvanced()
       this.isAdvanced = !this.isAdvanced
     },
 

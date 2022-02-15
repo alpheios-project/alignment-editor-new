@@ -4,7 +4,7 @@
       <span class="alpheios-alignment-option-item__label-text" 
             :class = "{ 'alpheios-alignment-option-item__label-hasinfo': optionInfo }"
             v-html="labelText"></span>
-      <tooltip :tooltipText="l10n.getMsgS(optionInfo)" tooltipDirection="top" v-if="optionInfo">
+      <tooltip :tooltipText="l10n.getMsgS(optionInfo)" tooltipDirection="right" v-if="optionInfo">
         <span class="alpheios-alignment-option-item__label-info">?</span>
       </tooltip>
     </label>
@@ -370,7 +370,7 @@ export default {
     vertical-align: middle;
     margin-left: 10px;
   }
-  
+
 .alpheios-alignment-option-item__label-info { 
   color: #fff;
   background: #000;

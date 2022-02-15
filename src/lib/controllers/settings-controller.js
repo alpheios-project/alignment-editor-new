@@ -61,11 +61,6 @@ export default class SettingsController {
     return _instance.store
   }
 
-  static updateToAdvanced () {
-    _instance.options.app.items.isAdvancedMode.setValue(true)
-    this.changeOption(_instance.options.app.items.isAdvancedMode)
-  }
-
   static updateToAcademic () {
     _instance.options.app.items.isAcademicMode.setValue(true)
     this.changeOption(_instance.options.app.items.isAcademicMode)
