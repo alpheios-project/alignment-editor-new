@@ -60,12 +60,12 @@
       "component": "OptionsTextEnter"
     },
     "OPTIONS_IS_ACADEMIC_MODE_INFO": {
-      "message": "Enables academic mode",
+      "message": "Show academic options",
       "description": "Options tooltip",
       "component": "OptionsTextEnter"
     },
     "OPTIONS_IS_ADVANCED_MODE_INFO": {
-      "message": "Enables advanced options",
+      "message": "Show advanced options",
       "description": "Options tooltip",
       "component": "OptionsTextEnter"
     },

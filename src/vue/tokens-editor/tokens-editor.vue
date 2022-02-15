@@ -16,7 +16,7 @@
             </button>
           </tooltip>
           <tooltip :tooltipText = "l10n.getMsgS('TEXT_EDITOR_HEADER_OPTIONS')" tooltipDirection = "top">
-            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-options" :disabled = "true"
+            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-options"
                 @click="$modal.show('options-edit')">
                 <span class="alpheios-alignment-button-icon">
                   <gear-icon />

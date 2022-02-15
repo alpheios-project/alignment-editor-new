@@ -1,10 +1,10 @@
 <template>
   <div class="alpheios-alignment-option-item" v-if="!optionItem.hidden">
-    <label class="alpheios-alignment-option-item__label-container" v-show="showLabelText">
+    <label class="alpheios-alignment-option-item__label-container" v-show="showLabelText" :class="{ 'alpheios-alignment-option-item__label-invisible': showLabelTextAsCheckboxLabel }">
       <span class="alpheios-alignment-option-item__label-text" 
             :class = "{ 'alpheios-alignment-option-item__label-hasinfo': optionInfo }"
             v-html="labelText"></span>
-      <tooltip :tooltipText="l10n.getMsgS(optionInfo)" tooltipDirection="top" v-if="optionInfo">
+      <tooltip :tooltipText="l10n.getMsgS(optionInfo)" tooltipDirection="right" v-if="optionInfo">
         <span class="alpheios-alignment-option-item__label-info">?</span>
       </tooltip>
     </label>
@@ -145,6 +145,11 @@ export default {
       type: String,
       required: false,
       default: ''
+    },
+    showLabelTextAsCheckboxLabel: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data () {
@@ -183,7 +188,7 @@ export default {
       return this.optionItem.labelText
     },
     checkboxLabel () {
-      return (this.showCheckboxTitle && this.$store.state.optionsUpdated && (this.optionItem && this.optionItem.boolean && Boolean(this.optionItem.values))) ? this.optionItem.textValues()[0] : null
+      return this.showLabelTextAsCheckboxLabel ? this.labelText : (this.showCheckboxTitle && this.$store.state.optionsUpdated && (this.optionItem && this.optionItem.boolean && Boolean(this.optionItem.values))) ? this.optionItem.textValues()[0] : null
     },
     optionType () {
       if (this.optionItem.multiValue) { return 'multiValue' }
@@ -292,6 +297,10 @@ export default {
     display: inline-block;
     vertical-align: top;
     padding-right: 10px;
+
+    &.alpheios-alignment-option-item__label-invisible {
+      visibility: hidden;
+    }
   }
   input.alpheios-alignment-input, 
   .alpheios-alignment-select, 
@@ -348,6 +357,8 @@ export default {
     max-width: 80%;
   }
 
+
+}
   .alpheios-alignment-option-item__label-info {
     width: 25px;
     height: 25px;
@@ -359,7 +370,7 @@ export default {
     vertical-align: middle;
     margin-left: 10px;
   }
-}
+
 .alpheios-alignment-option-item__label-info { 
   color: #fff;
   background: #000;

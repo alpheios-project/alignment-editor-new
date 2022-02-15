@@ -15,49 +15,46 @@
         </button>
       </p>
         <div class="alpheios-alignment-editor-modal-options-block">
-            <option-item-block :optionItem = "enableAnnotationsOptionItem" :optionInfo="getOptionInfo('enableAnnotations')" />
-
-            <fieldset v-show = "enableAnnotationsValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
-              <option-item-block :optionItem = "availableAnnotationTypesOptionItem"  :disabled = "disableAnnotationsTypes" />
-              <option-item-block :optionItem = "maxCharactersAnnotationTextOptionItem" />
-            </fieldset>
-
-            <option-item-block :optionItem = "enableTokensEditorOptionItem" :optionInfo="getOptionInfo('enableTokensEditor')"/>
-            <select-edit-icons v-show="enableTokensEditorValue" />           
 
             <option-item-block :optionItem = "isAcademicModeOptionItem" :optionInfo="getOptionInfo('isAcademicMode')"/>
             
-            <fieldset v-show = "isAcademicModeValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
-              <option-item-block :optionItem = "enableDTSAPIUploadOptionItem" />
-              <option-item-block :optionItem = "enableXMLTokenizationOptionsChoiceOptionItem" />
-              <option-item-block :optionItem = "enableTextTokenizationOptionsChoiceOptionItem" />
-            </fieldset>
+            <div class="alpheios-alignment-options__fieldset-group alpheios-alignment-options__fieldset-group_academic" 
+                 :class = "{ 'alpheios-collapsed': !isAcademicModeValue, 'alpheios-expanded': isAcademicModeValue }">
+              <fieldset v-show = "isAcademicModeValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
+                <option-item-block :optionItem = "enableDTSAPIUploadOptionItem" />
+                <option-item-block :optionItem = "enableXMLTokenizationOptionsChoiceOptionItem" />
+                <option-item-block :optionItem = "enableTextTokenizationOptionsChoiceOptionItem" />
+              </fieldset>
+            </div>
 
-            <p class="alpheios-alignment-options__buttons">
-              <tooltip :tooltipText="l10n.getMsgS('OPTIONS_IS_ADVANCED_MODE_INFO')" tooltipDirection="top" >
-                <button class="alpheios-editor-button-tertiary alpheios-options-button alpheios-options-reset-all" 
-                    @click="setOptionsToAdvanced" >
-                    {{ l10n.getMsgS('OPTIONS_BLOCK_SET_ADVANCED') }}
-                </button>
-              </tooltip>
+            <p class="alpheios-alignment-options__expande-container" @click="setOptionsToAdvanced">
+                <span class="alpheios-options-expander-label" >{{ l10n.getMsgS('OPTIONS_BLOCK_SET_ADVANCED') }}
+                  <tooltip :tooltipText="l10n.getMsgS('OPTIONS_IS_ADVANCED_MODE_INFO')" tooltipDirection="top">
+                    <span class="alpheios-alignment-option-item__label-info">?</span>
+                  </tooltip>  
+                  <i class="alpheios-arrow" :class="{ 'alpheios-up': !isAdvanced, 'alpheios-down': isAdvanced }"></i>
+                </span>
             </p>
 
-            <fieldset v-show = "isAdvancedModeValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
-              <option-item-block :optionItem = "enableChangeLanguageIconOptionItem" />
-              <option-item-block :optionItem = "showSummaryPopupOptionItem" />
-            </fieldset>
+            <div class="alpheios-alignment-options__fieldset-group alpheios-alignment-options__fieldset-group_advanced" 
+                 :class = "{ 'alpheios-collapsed': !isAdvanced, 'alpheios-expanded': isAdvanced }">
+              <fieldset class="alpheios-alignment-editor-modal-options-block-fieldset">
+                <option-item-block :optionItem = "enableChangeLanguageIconOptionItem" />
+                <option-item-block :optionItem = "showSummaryPopupOptionItem" />
+              </fieldset>
 
 
-            <fieldset v-show = "isAdvancedModeValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
-              <option-item-block :optionItem = "tokenizerOptionItem" :optionInfo="getOptionInfo('tokenizerOptionItem')" />
-              <option-item-block :optionItem = "useSpecificEnglishTokenizerOptionItem" :optionInfo="getOptionInfo('useSpecificEnglishTokenizer')" />
-            </fieldset>
+              <fieldset class="alpheios-alignment-editor-modal-options-block-fieldset">
+                <option-item-block :optionItem = "tokenizerOptionItem" :optionInfo="getOptionInfo('tokenizerOptionItem')" />
+                <option-item-block :optionItem = "useSpecificEnglishTokenizerOptionItem" :optionInfo="getOptionInfo('useSpecificEnglishTokenizer')" />
+              </fieldset>
 
-            <fieldset  v-show = "isAdvancedModeValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
-              <option-item-block :optionItem = "addIndexedDBSupportOptionItem" :optionInfo="getOptionInfo('addIndexedDBSupport')" />
-              <option-item-block :optionItem = "maxCharactersOptionItem" v-show="!addIndexedDBSupportValue"/>
-              <option-item-block :optionItem = "maxCharactersPerPartOptionItem" v-show = "addIndexedDBSupportValue"/>
-            </fieldset>
+              <fieldset  class="alpheios-alignment-editor-modal-options-block-fieldset">
+                <option-item-block :optionItem = "addIndexedDBSupportOptionItem" :optionInfo="getOptionInfo('addIndexedDBSupport')" />
+                <option-item-block :optionItem = "maxCharactersOptionItem" v-show="!addIndexedDBSupportValue"/>
+                <option-item-block :optionItem = "maxCharactersPerPartOptionItem" v-show = "addIndexedDBSupportValue"/>
+              </fieldset>
+            </div>
         </div>
     </div>
     <div class="alpheios-modal-footer" >
@@ -76,7 +73,6 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import XCloseIcon from '@/inline-icons/x-close.svg'
 import SettingsController from '@/lib/controllers/settings-controller.js'
 
-import SelectEditIcons from '@/vue/options/select-edit-icons.vue'
 import Tooltip from '@/vue/common/tooltip.vue'
 
 export default {
@@ -84,7 +80,6 @@ export default {
   components: {
     optionItemBlock: OptionItemBlock,
     xCloseIcon: XCloseIcon,
-    selectEditIcons: SelectEditIcons,
     tooltip: Tooltip
   },
   props: {
@@ -122,56 +117,23 @@ export default {
     showSummaryPopupOptionItem () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.showSummaryPopup
     },
-    enableTokensEditorOptionItem () {
-      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableTokensEditor
-    },
     enableDTSAPIUploadOptionItem () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableDTSAPIUpload
     },
     addIndexedDBSupportOptionItem () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.addIndexedDBSupport
     },
-    availableAnnotationTypesOptionItem () {
-      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.availableAnnotationTypes
-    },
-
-    maxCharactersAnnotationTextOptionItem () {
-      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.maxCharactersAnnotationText
-    },
 
     maxCharactersPerPartOptionItem () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.maxCharactersPerPart
     }, 
 
-    enableAnnotationsOptionItem () {
-      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableAnnotations
-    },
-
-    disableAnnotationsTypes () {
-      return this.$store.state.updateAnnotations && this.$store.state.docSourceUpdated && this.$textC.hasAnnotations
-    },
     addIndexedDBSupportValue () {
       return this.$store.state.optionsUpdated && SettingsController.addIndexedDBSupport
     },
     
     isAcademicModeOptionItem () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.isAcademicMode
-    },
-
-    enableAnnotationsValue () {
-      return this.$store.state.optionsUpdated && SettingsController.enableAnnotations
-    },
-
-    enableTokensEditorValue () {
-      return this.$store.state.optionsUpdated && SettingsController.enableTokensEditor
-    },
-
-    isAdvancedModeValue () {
-      return this.$store.state.optionsUpdated && SettingsController.isAdvancedMode
-    },
-
-    isAdvancedModeOptionItem () {
-      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.isAdvancedMode
     },
 
     isAcademicModeValue () {
@@ -196,7 +158,7 @@ export default {
     },
 
     setOptionsToAdvanced () {
-      SettingsController.updateToAdvanced()
+      this.isAdvanced = !this.isAdvanced
     },
 
     getOptionInfo (itemName) {
@@ -237,5 +199,46 @@ export default {
     border-image: none;
     padding: 10px 10px 0;
   }
+
+  .alpheios-options-expander-label {
+    display: inline-block;
+    cursor: pointer;
+    width: 100%;
+    background: #eee;
+    padding: 10px;
+    border-radius: 2px;
+
+    i {
+      display: block;
+      float: right;
+      margin: 10px;
+      border-color: #555;
+      border-width: 0 4px 4px 0;
+      padding: 4px;
+    }
+
+    &:before,
+    &:after {
+      clear: both;
+      display: table;
+      content: '';
+    }
+  }
+
+  .alpheios-alignment-options__fieldset-group {
+    transition: all 1s;
+    overflow: hidden;
+    &.alpheios-collapsed {
+      height: 0;
+    }
+    &.alpheios-alignment-options__fieldset-group_academic.alpheios-expanded {
+      height: 175px;
+    }
+
+    &.alpheios-alignment-options__fieldset-group_advanced.alpheios-expanded {
+      height: 465px;
+    }
+  }
+
 }
 </style>

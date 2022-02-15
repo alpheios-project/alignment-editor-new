@@ -61,11 +61,6 @@ export default class SettingsController {
     return _instance.store
   }
 
-  static updateToAdvanced () {
-    _instance.options.app.items.isAdvancedMode.setValue(true)
-    this.changeOption(_instance.options.app.items.isAdvancedMode)
-  }
-
   static updateToAcademic () {
     _instance.options.app.items.isAcademicMode.setValue(true)
     this.changeOption(_instance.options.app.items.isAcademicMode)
@@ -111,10 +106,6 @@ export default class SettingsController {
 
   static get enableDTSAPIUpload () {
     return _instance.options.app && _instance.options.app.items.enableDTSAPIUpload ? _instance.options.app.items.enableDTSAPIUpload.currentValue : false
-  }
-
-  static get isAdvancedMode () {
-    return _instance.options.app && _instance.options.app.items.isAdvancedMode ? _instance.options.app.items.isAdvancedMode.currentValue : false
   }
 
   static get isAcademicMode () {
