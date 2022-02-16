@@ -167,6 +167,7 @@ export default {
     '$store.state.optionsUpdated' () {
       this.updateSelectedFromExternal()
     }
+
   },
   computed: {
     l10n () {
@@ -235,6 +236,8 @@ export default {
   },
   methods: {
     updateSelectedFromExternal () {
+      if (this.selected === this.optionItem.currentValue) { return }
+
       this.selected = this.optionItem.currentValue
 
       if (this.optionItem.multiValue) {

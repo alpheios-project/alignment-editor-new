@@ -40179,10 +40179,21 @@ class SettingsController {
 
   /**
    * Resets global options
+   * added a check and execute changeOption only in the case when value is changed to reduce updates
    */
   static async resetAllOptions () {
+    const prevValues = {}
+    Object.keys(_instance.options.app.items).forEach(optName => {
+      prevValues[optName] = _instance.options.app.items[optName].currentValue
+    })
+
     await _instance.options.app.reset()
-    Object.values(_instance.options.app.items).forEach(optionItem => this.changeOption(optionItem))
+    Object.keys(_instance.options.app.items).forEach(optName => {
+      const optionItem = _instance.options.app.items[optName]
+      if (prevValues[optName] !== optionItem.currentValue) {
+        this.changeOption(optionItem)
+      }
+    })
 
     await _instance.options.sourceText.reset()
     _instance.options.sourceText.checkAndUploadValuesFromArray(_instance.valuesClassesList)
@@ -48883,7 +48894,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i652-some-fixes.20220215664" : 0
+    return  true ? "i642-reset-all-bug.20220216502" : 0
   }
 
   static get libName () {
@@ -52628,6 +52639,7 @@ __webpack_require__.r(__webpack_exports__);
     '$store.state.optionsUpdated' () {
       this.updateSelectedFromExternal()
     }
+
   },
   computed: {
     l10n () {
@@ -52696,6 +52708,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     updateSelectedFromExternal () {
+      if (this.selected === this.optionItem.currentValue) { return }
+
       this.selected = this.optionItem.currentValue
 
       if (this.optionItem.multiValue) {
@@ -54296,7 +54310,6 @@ __webpack_require__.r(__webpack_exports__);
       this.restartTextEditor()
     },
     async '$store.state.resetOptions' () {
-      this.localTextEditorOptions = _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].resetLocalTextEditorOptions(this.textType, this.textId)
       await this.updateText()
     },
     '$store.state.tokenizerUpdated' () {
