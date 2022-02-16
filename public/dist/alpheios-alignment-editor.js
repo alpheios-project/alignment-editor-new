@@ -48894,7 +48894,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i642-reset-all-bug.20220216502" : 0
+    return  true ? "i643-lang-bug.20220216602" : 0
   }
 
   static get libName () {
@@ -54553,7 +54553,7 @@ __webpack_require__.r(__webpack_exports__);
         this.text = ''
       }
 
-      if (result.resultUpdate && this.showTypeUploadButtons && (this.text.length !== 0)) {
+      if (result.resultUpdate && (this.showTypeUploadButtons || this.showUploadMenu) && (this.text.length !== 0)) {
 
         setTimeout(() => {
           this.showTypeUploadButtons = false
