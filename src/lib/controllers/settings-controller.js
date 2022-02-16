@@ -338,8 +338,18 @@ export default class SettingsController {
    * Resets global options
    */
   static async resetAllOptions () {
+    const prevValues = {}
+    Object.keys(_instance.options.app.items).forEach(optName => {
+      prevValues[optName] = _instance.options.app.items[optName].currentValue
+    })
+
     await _instance.options.app.reset()
-    Object.values(_instance.options.app.items).forEach(optionItem => this.changeOption(optionItem))
+    Object.keys(_instance.options.app.items).forEach(optName => {
+      const optionItem = _instance.options.app.items[optName]
+      if (prevValues[optName] !== optionItem.currentValue) {
+        this.changeOption(optionItem)
+      }
+    })
 
     await _instance.options.sourceText.reset()
     _instance.options.sourceText.checkAndUploadValuesFromArray(_instance.valuesClassesList)

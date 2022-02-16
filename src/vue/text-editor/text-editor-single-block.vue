@@ -183,7 +183,6 @@ export default {
       this.restartTextEditor()
     },
     async '$store.state.resetOptions' () {
-      this.localTextEditorOptions = SettingsController.resetLocalTextEditorOptions(this.textType, this.textId)
       await this.updateText()
     },
     '$store.state.tokenizerUpdated' () {
