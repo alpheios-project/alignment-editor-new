@@ -336,6 +336,7 @@ export default class SettingsController {
 
   /**
    * Resets global options
+   * added a check and execute changeOption only in the case when value is changed to reduce updates
    */
   static async resetAllOptions () {
     const prevValues = {}

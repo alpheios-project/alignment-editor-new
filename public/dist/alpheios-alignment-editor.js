@@ -40179,6 +40179,7 @@ class SettingsController {
 
   /**
    * Resets global options
+   * added a check and execute changeOption only in the case when value is changed to reduce updates
    */
   static async resetAllOptions () {
     const prevValues = {}
@@ -48893,7 +48894,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i642-reset-all-bug.20220216488" : 0
+    return  true ? "i642-reset-all-bug.20220216502" : 0
   }
 
   static get libName () {
