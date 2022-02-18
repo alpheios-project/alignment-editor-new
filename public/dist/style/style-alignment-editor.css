@@ -2396,6 +2396,12 @@ span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-edit
   border-width: 0;
   padding: 0;
 }
+.alpheios-alignment-editor-options-block.alpheios-alignment-editor-options-block__select-edit-icons .alpheios-alignment-editor-options-block__select-edit-description {
+  color: #999999;
+  width: 70%;
+  font-size: 90%;
+  margin: 0 0 10px;
+}
 .alpheios-alignment-editor-modal-options.alpheios-alignment-editor-modal-options-align .alpheios-modal-container {
   width: 700px;
 }

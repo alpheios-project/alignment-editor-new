@@ -48885,7 +48885,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i652-options-update.20220217344" : 0
+    return  true ? "i652-options-update-2.20220218690" : 0
   }
 
   static get libName () {
@@ -53136,6 +53136,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'OptionsTextEnter',
   components: {
@@ -53212,6 +53214,11 @@ __webpack_require__.r(__webpack_exports__);
 
     setOptionsToAdvanced () {
       this.isAdvanced = !this.isAdvanced
+
+      if (this.isAcademic) {
+        this.scrollModalBody(200)
+      }
+    
     },
 
     setOptionsToAcademic () {
@@ -53220,6 +53227,17 @@ __webpack_require__.r(__webpack_exports__);
 
     getOptionInfo (itemName) {
       return this.optionsInfo[itemName]
+    },
+
+    scrollModalBody (height) {
+      const container = this.$refs.modalBody
+      const finalHeight = container.scrollTop + height
+      setTimeout(() => {
+        container.scroll({
+          top: finalHeight,
+          behavior: 'smooth'
+        })
+      }, 300)
     }
   }
 });
@@ -53240,6 +53258,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
 /* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 //
 //
 //
@@ -53251,6 +53270,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 
 
 
@@ -53270,9 +53291,25 @@ __webpack_require__.r(__webpack_exports__);
       type: Boolean,
       required: false,
       default: false
+    },
+    screenType: {
+      type: String,
+      required: false,
+      default: 'align'
+    }
+  },
+  data () {
+    return {
+      description: {
+        align: 'OPTIONS_EDIT_ICONS_DESC_ALIGN',
+        edit: 'OPTIONS_EDIT_ICONS_DESC_EDIT'
+      }
     }
   },
   computed: {
+    l10n () {
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__["default"]
+    },
     enableAddDeleteNewLinesOptionItem () {
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_1__["default"].allOptions.app.items.enableAddDeleteNewLines
     },
@@ -64713,7 +64750,7 @@ var render = function() {
                   expression: "enableTokensEditorValue"
                 }
               ],
-              attrs: { showLabelTextAsCheckboxLabel: true }
+              attrs: { showLabelTextAsCheckboxLabel: true, screenType: "align" }
             }),
             _vm._v(" "),
             _c("option-item-block", {
@@ -64804,7 +64841,11 @@ var render = function() {
           { staticClass: "alpheios-alignment-editor-modal-options-block" },
           [
             _c("select-edit-icons", {
-              attrs: { showLabelTextAsCheckboxLabel: false, hiddenBorder: true }
+              attrs: {
+                showLabelTextAsCheckboxLabel: false,
+                hiddenBorder: true,
+                screenType: "edit"
+              }
             })
           ],
           1
@@ -64882,7 +64923,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "alpheios-modal-body" }, [
+      _c("div", { ref: "modalBody", staticClass: "alpheios-modal-body" }, [
         _c("p", { staticClass: "alpheios-alignment-options__buttons" }, [
           _c(
             "button",
@@ -65201,6 +65242,15 @@ var render = function() {
         "alpheios-alignment-editor-options-block alpheios-alignment-editor-options-block__select-edit-icons"
     },
     [
+      _c(
+        "p",
+        {
+          staticClass:
+            "alpheios-alignment-editor-options-block__select-edit-description"
+        },
+        [_vm._v(_vm._s(_vm.l10n.getMsgS(_vm.description[_vm.screenType])))]
+      ),
+      _vm._v(" "),
       _c(
         "fieldset",
         {
@@ -69961,7 +70011,7 @@ module.exports = JSON.parse('{"METADATA_TERM_LABEL_IDENTIFIER":{"message":"Ident
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"OPTIONS_BLOCK_APPLICATION":{"message":"Application options","description":"Fieldset inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_RESET_ALL":{"message":"Reset all to standard options","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_SET_ADVANCED":{"message":"Advanced options","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_SET_ACADEMIC":{"message":"Academic options","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_INFO_ABOUT":{"message":"About Alpheios","description":"Title of the build info block","component":"OptionsBlock"},"OPTIONS_TITLE":{"message":"Options","description":"Title of the options popup","component":"OptionsTextEnter"},"OPTIONS_TITLE_TEXT_ENTER":{"message":"Options for Enter Text","description":"Title of the options popup","component":"OptionsTextEnter"},"OPTIONS_TITLE_TEXT_ALIGN":{"message":"Options for Align Text","description":"Title of the options popup","component":"OptionsTextEdit"},"OPTIONS_TITLE_TEXT_EDIT":{"message":"Options for Edit Text","description":"Title of the options popup","component":"OptionsTextEdit"},"OPTIONS_FIELDSET_ANNOTATIONS":{"message":"Annotations block:","description":"Options fieldset","component":"OptionsTextEdit"},"OPTIONS_ANNOTATIONS_INFO":{"message":"Allow to add annotations to tokens","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_TOKENS_EDITOR_INFO":{"message":"Allow edit tokens","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_READING_TOOLS_INFO":{"message":"Show/hide Alpheios Reading Tools Toolbar","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_IS_ACADEMIC_MODE_INFO":{"message":"Show academic options","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_IS_ADVANCED_MODE_INFO":{"message":"Show advanced options","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_TOKENIZER_SERVICE_INFO":{"message":"Allow to choose specific tokenizer options","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_SPECIFIC_ENGLISH_INFO":{"message":"Apply specific rules from English to tokenizing","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_INDEXEDDB_SUPPORT_INFO":{"message":"Add ability to save and upload data from the local database","description":"Options tooltip","component":"OptionsTextEnter"}}');
+module.exports = JSON.parse('{"OPTIONS_BLOCK_APPLICATION":{"message":"Application options","description":"Fieldset inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_RESET_ALL":{"message":"Reset all to standard options","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_SET_ADVANCED":{"message":"Advanced options","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_SET_ACADEMIC":{"message":"Academic options","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_INFO_ABOUT":{"message":"About Alpheios","description":"Title of the build info block","component":"OptionsBlock"},"OPTIONS_TITLE":{"message":"Options","description":"Title of the options popup","component":"OptionsTextEnter"},"OPTIONS_TITLE_TEXT_ENTER":{"message":"Options for Enter Text","description":"Title of the options popup","component":"OptionsTextEnter"},"OPTIONS_TITLE_TEXT_ALIGN":{"message":"Options for Align Text","description":"Title of the options popup","component":"OptionsTextEdit"},"OPTIONS_TITLE_TEXT_EDIT":{"message":"Options for Edit Text","description":"Title of the options popup","component":"OptionsTextEdit"},"OPTIONS_FIELDSET_ANNOTATIONS":{"message":"Annotations block:","description":"Options fieldset","component":"OptionsTextEdit"},"OPTIONS_ANNOTATIONS_INFO":{"message":"Allow to add annotations to tokens","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_TOKENS_EDITOR_INFO":{"message":"Allow edit tokens","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_READING_TOOLS_INFO":{"message":"Show/hide Alpheios Reading Tools Toolbar","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_IS_ACADEMIC_MODE_INFO":{"message":"Show academic options","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_IS_ADVANCED_MODE_INFO":{"message":"Show advanced options","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_TOKENIZER_SERVICE_INFO":{"message":"Allow to choose specific tokenizer options","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_SPECIFIC_ENGLISH_INFO":{"message":"Apply specific rules from English to tokenizing","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_INDEXEDDB_SUPPORT_INFO":{"message":"Add ability to save and upload data from the local database","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_EDIT_ICONS_DESC_ALIGN":{"message":"For convenience, you can enable/disable the same icons in Edit Text Options","description":"Options tooltip","component":"OptionsTextAlign"},"OPTIONS_EDIT_ICONS_DESC_EDIT":{"message":"For convenience, you can enable/disable the same icons in Align Text Options","description":"Options tooltip","component":"OptionsTextAlign"}}');
 
 /***/ }),
 

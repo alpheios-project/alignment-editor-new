@@ -7,7 +7,7 @@
         </span>
         <h2 class="alpheios-alignment-editor-modal-header">{{ l10n.getMsgS('OPTIONS_TITLE_TEXT_ENTER') }}</h2>
     </div>
-    <div class="alpheios-modal-body" >
+    <div class="alpheios-modal-body" ref="modalBody">
       <p class="alpheios-alignment-options__buttons">
         <button class="alpheios-editor-button-tertiary alpheios-options-button alpheios-options-reset-all" 
             @click="resetOptions" >
@@ -74,6 +74,8 @@
   </modal>
 </template>
 <script>
+import Vue from '@vue-runtime'
+
 import OptionItemBlock from '@/vue/options/option-item-block.vue'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import XCloseIcon from '@/inline-icons/x-close.svg'
@@ -157,6 +159,11 @@ export default {
 
     setOptionsToAdvanced () {
       this.isAdvanced = !this.isAdvanced
+
+      if (this.isAcademic) {
+        this.scrollModalBody(200)
+      }
+    
     },
 
     setOptionsToAcademic () {
@@ -165,6 +172,17 @@ export default {
 
     getOptionInfo (itemName) {
       return this.optionsInfo[itemName]
+    },
+
+    scrollModalBody (height) {
+      const container = this.$refs.modalBody
+      const finalHeight = container.scrollTop + height
+      setTimeout(() => {
+        container.scroll({
+          top: finalHeight,
+          behavior: 'smooth'
+        })
+      }, 300)
     }
   }
 }
