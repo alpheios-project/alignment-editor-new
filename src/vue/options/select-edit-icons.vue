@@ -77,7 +77,6 @@ export default {
 
     .alpheios-alignment-editor-options-block__select-edit-description {
       color: #999999;
-      width: 70%;
       font-size: 90%;
       margin: 0 0 10px;
     }
