@@ -44,7 +44,7 @@
 
             <div class="alpheios-alignment-options__fieldset-group alpheios-alignment-options__fieldset-group_advanced" 
                  :class = "{ 'alpheios-collapsed': !isAdvanced, 'alpheios-expanded': isAdvanced }">
-              <fieldset class="alpheios-alignment-editor-modal-options-block-fieldset" ref="advancedFieldset1">
+              <fieldset class="alpheios-alignment-editor-modal-options-block-fieldset">
                 <option-item-block :optionItem = "enableChangeLanguageIconOptionItem" />
                 <option-item-block :optionItem = "showSummaryPopupOptionItem" />
               </fieldset>

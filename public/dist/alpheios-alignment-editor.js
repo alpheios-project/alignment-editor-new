@@ -48885,7 +48885,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i652-options-update-2.20220218677" : 0
+    return  true ? "i652-options-update-2.20220218681" : 0
   }
 
   static get libName () {
@@ -65078,7 +65078,6 @@ var render = function() {
                 _c(
                   "fieldset",
                   {
-                    ref: "advancedFieldset1",
                     staticClass:
                       "alpheios-alignment-editor-modal-options-block-fieldset"
                   },
