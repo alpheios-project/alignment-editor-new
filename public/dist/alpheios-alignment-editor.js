@@ -48885,7 +48885,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i652-options-update.20220217344" : 0
+    return  true ? "i652-options-update-2.20220218677" : 0
   }
 
   static get libName () {
@@ -53136,6 +53136,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'OptionsTextEnter',
   components: {
@@ -53212,6 +53214,11 @@ __webpack_require__.r(__webpack_exports__);
 
     setOptionsToAdvanced () {
       this.isAdvanced = !this.isAdvanced
+
+      if (this.isAcademic) {
+        this.scrollModalBody(200)
+      }
+    
     },
 
     setOptionsToAcademic () {
@@ -53220,6 +53227,17 @@ __webpack_require__.r(__webpack_exports__);
 
     getOptionInfo (itemName) {
       return this.optionsInfo[itemName]
+    },
+
+    scrollModalBody (height) {
+      const container = this.$refs.modalBody
+      const finalHeight = container.scrollTop + height
+      setTimeout(() => {
+        container.scroll({
+          top: finalHeight,
+          behavior: 'smooth'
+        })
+      }, 300)
     }
   }
 });
@@ -64882,7 +64900,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "alpheios-modal-body" }, [
+      _c("div", { ref: "modalBody", staticClass: "alpheios-modal-body" }, [
         _c("p", { staticClass: "alpheios-alignment-options__buttons" }, [
           _c(
             "button",
@@ -65060,6 +65078,7 @@ var render = function() {
                 _c(
                   "fieldset",
                   {
+                    ref: "advancedFieldset1",
                     staticClass:
                       "alpheios-alignment-editor-modal-options-block-fieldset"
                   },
