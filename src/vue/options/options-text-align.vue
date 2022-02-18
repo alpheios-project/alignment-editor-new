@@ -17,7 +17,7 @@
         </fieldset>
 
         <option-item-block :optionItem = "enableTokensEditorOptionItem" :optionInfo="getOptionInfo('enableTokensEditor')"/>
-        <select-edit-icons v-show="enableTokensEditorValue" :showLabelTextAsCheckboxLabel = "true"/>
+        <select-edit-icons v-show="enableTokensEditorValue" :showLabelTextAsCheckboxLabel = "true" screenType="align" />
 
         <option-item-block :optionItem = "enableAlpheiosReadingToolsOptionItem" :optionInfo="getOptionInfo('enableAlpheiosReadingTools')" />
       </div>

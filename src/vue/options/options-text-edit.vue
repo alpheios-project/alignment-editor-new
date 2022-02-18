@@ -9,7 +9,7 @@
     </div>
     <div class="alpheios-modal-body" >
       <div class="alpheios-alignment-editor-modal-options-block">
-        <select-edit-icons  :showLabelTextAsCheckboxLabel = "false" :hiddenBorder = "true" /> 
+        <select-edit-icons  :showLabelTextAsCheckboxLabel = "false" :hiddenBorder = "true" screenType="edit" /> 
       </div>
     </div>
     <div class="alpheios-modal-footer" >

@@ -88,5 +88,15 @@
       "message": "Add ability to save and upload data from the local database",
       "description": "Options tooltip",
       "component": "OptionsTextEnter"
+    },
+    "OPTIONS_EDIT_ICONS_DESC_ALIGN": {
+      "message": "For convenience, you can enable/disable the same icons in Edit Text Options",
+      "description": "Options tooltip",
+      "component": "OptionsTextAlign"
+    },
+    "OPTIONS_EDIT_ICONS_DESC_EDIT": {
+      "message": "For convenience, you can enable/disable the same icons in Align Text Options",
+      "description": "Options tooltip",
+      "component": "OptionsTextAlign"
     }
 }
