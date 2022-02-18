@@ -15,19 +15,25 @@
         </button>
       </p>
         <div class="alpheios-alignment-editor-modal-options-block">
+            <p class="alpheios-alignment-options__expander-container" @click="setOptionsToAcademic">
+                <span class="alpheios-options-expander-label" >{{ l10n.getMsgS('OPTIONS_BLOCK_SET_ACADEMIC') }}
+                  <tooltip :tooltipText="l10n.getMsgS('OPTIONS_IS_ACADEMIC_MODE_INFO')" tooltipDirection="top">
+                    <span class="alpheios-alignment-option-item__label-info">?</span>
+                  </tooltip>  
+                  <i class="alpheios-arrow" :class="{ 'alpheios-up': !isAcademic, 'alpheios-down': isAcademic }"></i>
+                </span>
+            </p>
 
-            <option-item-block :optionItem = "isAcademicModeOptionItem" :optionInfo="getOptionInfo('isAcademicMode')"/>
-            
             <div class="alpheios-alignment-options__fieldset-group alpheios-alignment-options__fieldset-group_academic" 
-                 :class = "{ 'alpheios-collapsed': !isAcademicModeValue, 'alpheios-expanded': isAcademicModeValue }">
-              <fieldset v-show = "isAcademicModeValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
+                 :class = "{ 'alpheios-collapsed': !isAcademic, 'alpheios-expanded': isAcademic }">
+              <fieldset class="alpheios-alignment-editor-modal-options-block-fieldset">
                 <option-item-block :optionItem = "enableDTSAPIUploadOptionItem" />
                 <option-item-block :optionItem = "enableXMLTokenizationOptionsChoiceOptionItem" />
                 <option-item-block :optionItem = "enableTextTokenizationOptionsChoiceOptionItem" />
               </fieldset>
             </div>
 
-            <p class="alpheios-alignment-options__expande-container" @click="setOptionsToAdvanced">
+            <p class="alpheios-alignment-options__expander-container" @click="setOptionsToAdvanced">
                 <span class="alpheios-options-expander-label" >{{ l10n.getMsgS('OPTIONS_BLOCK_SET_ADVANCED') }}
                   <tooltip :tooltipText="l10n.getMsgS('OPTIONS_IS_ADVANCED_MODE_INFO')" tooltipDirection="top">
                     <span class="alpheios-alignment-option-item__label-info">?</span>
@@ -88,10 +94,10 @@ export default {
   data () {
     return {
       isAdvanced: false,
+      isAcademic: false,
       optionsInfo: {
         enableAnnotations: 'OPTIONS_ANNOTATIONS_INFO',
         enableTokensEditor: 'OPTIONS_TOKENS_EDITOR_INFO',
-        isAcademicMode: 'OPTIONS_IS_ACADEMIC_MODE_INFO',
         tokenizerOptionItem: 'OPTIONS_TOKENIZER_SERVICE_INFO',
         useSpecificEnglishTokenizer: 'OPTIONS_SPECIFIC_ENGLISH_INFO',
         addIndexedDBSupport: 'OPTIONS_INDEXEDDB_SUPPORT_INFO'
@@ -131,14 +137,6 @@ export default {
     addIndexedDBSupportValue () {
       return this.$store.state.optionsUpdated && SettingsController.addIndexedDBSupport
     },
-    
-    isAcademicModeOptionItem () {
-      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.isAcademicMode
-    },
-
-    isAcademicModeValue () {
-      return this.$store.state.optionsUpdated && SettingsController.isAcademicMode
-    },
 
     enableXMLTokenizationOptionsChoiceOptionItem () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableXMLTokenizationOptionsChoice
@@ -159,6 +157,10 @@ export default {
 
     setOptionsToAdvanced () {
       this.isAdvanced = !this.isAdvanced
+    },
+
+    setOptionsToAcademic () {
+      this.isAcademic = !this.isAcademic
     },
 
     getOptionInfo (itemName) {

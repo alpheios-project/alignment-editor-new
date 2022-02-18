@@ -167,21 +167,6 @@
         }
       ]
     },
-    "isAcademicMode": {
-      "defaultValue": false,
-      "labelText": "Academic options",
-      "boolean": true,
-      "values": [
-        {
-          "value": true,
-          "text": "Yes"
-        },
-        {
-          "value": false,
-          "text": "No"
-        }
-      ]
-    },
     "enableAnnotations": {
       "defaultValue": false,
       "labelText": "Annotating",
