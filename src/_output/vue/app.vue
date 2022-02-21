@@ -12,23 +12,35 @@
         </div>
 
         <div id="alpheios-alignment-editor-container" class="alpheios-alignment-editor-container ">
-            <p class = "alpheios-alignment-radio-block alpheios-alignment-option-item__control">
-                <span v-for="item in allViewTypes" :key="item.value">
-                    <input type="radio" :id="itemIdWithValue(item.value)" :value="item.value" v-model="viewType"
+            <div class = "alpheios-alignment-header-line">
+              <div class = "alpheios-alignment-radio-block alpheios-alignment-option-item__control">
+                  <span v-for="item in allViewTypes" :key="item.value">
+                      <input type="radio" :id="itemIdWithValue(item.value)" :value="item.value" v-model="viewType"
+                      >
+                      <label :for="itemIdWithValue(item.value)">{{ item.label }}</label>
+                  </span>
+                  <span>
+                    <input
+                        class="alpheios-alignment-input alpheios-alignment-input__sentence-count"
+                        type="number" min="0"
+                        v-model.number="sentenceCount"
+                        @change="checkSentenceCount"
+                        :id="itemIdWithValue('sentenceCount')"
                     >
-                    <label :for="itemIdWithValue(item.value)">{{ item.label }}</label>
-                </span>
-                <span>
-                  <input
-                      class="alpheios-alignment-input alpheios-alignment-input__sentence-count"
-                      type="number" min="0"
-                      v-model.number="sentenceCount"
-                      @change="checkSentenceCount"
-                      :id="itemIdWithValue('sentenceCount')"
-                  >
-                  <label :for="itemIdWithValue('sentenceCount')" >sentences around</label>
-                </span>
-            </p>
+                    <label :for="itemIdWithValue('sentenceCount')" >sentences around</label>
+                  </span>
+              </div>
+              <div>
+                <tooltip tooltipText = "Help" tooltipDirection = "left">
+                  <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-help"
+                      @click="$modal.show('help-block')" >
+                      <span class="alpheios-alignment-button-icon">
+                        <question-icon />
+                      </span>
+                  </button>
+                </tooltip>
+              </div>
+            </div>
 
             <languages-block :fullData="fullData" v-if="languagesList.length > 1"
                 @changeLanguageOrder = "changeLanguageOrder" @updateVisibility = "updateVisibility"/>
@@ -41,6 +53,7 @@
             <al-groups-view-interlinearly :fullData="fullData" :languageTargetIds = "languageTargetIds"  v-if="viewType === 'viewInterlinearly'" />
         </div>
         <annotation-block />
+        <help-popup @closeModal = "$modal.hide('help-block')" />
     </div>
 </template>
 <script>
@@ -57,6 +70,11 @@ import AlGroupsViewEquivalence from '@/_output/vue/views/al-groups-view-equivale
 import AlGroupsViewColumns from '@/_output/vue/views/al-groups-view-columns.vue'
 import AlGroupsViewInterlinearly from '@/_output/vue/views/al-groups-view-interlinearly.vue'
 
+import QuestionIcon from '@/inline-icons/question.svg'
+import Tooltip from '@/_output/vue/tooltip.vue'
+
+import HelpPopup from '@/_output/vue/help-popup.vue'
+
 export default {
   name: 'App',
   components: {
@@ -68,7 +86,12 @@ export default {
     alGroupsViewSentence: AlGroupsViewSentence,
     alGroupsViewEquivalence: AlGroupsViewEquivalence,
     alGroupsViewColumns: AlGroupsViewColumns,
-    alGroupsViewInterlinearly: AlGroupsViewInterlinearly
+    alGroupsViewInterlinearly: AlGroupsViewInterlinearly,
+
+    questionIcon: QuestionIcon,
+    tooltip: Tooltip,
+
+    helpPopup: HelpPopup
   },
   data () {
     return {
@@ -143,5 +166,27 @@ export default {
         input.alpheios-alignment-input__sentence-count {
           width: 100px;
         }
+    }
+
+    .alpheios-alignment-header-line {
+      justify-content: space-between;
+      display: flex;
+    }
+
+    button.alpheios-actions-menu-button.alpheios-actions-menu-button-with-icon {
+      padding: 5px;
+      margin: 0 5px;
+      .alpheios-alignment-button-icon {
+          display: inline-block;
+          width: 25px;
+          height: 25px;
+
+          svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+            fill: #fff;
+          }
+      }
     }
 </style>
