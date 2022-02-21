@@ -254,6 +254,83 @@ input.alpheios-alignment-input::-ms-input-placeholder {
   fill: #c6c6c6;
 }
 
+.alpheios-editor-button-tertiary, button.alpheios-editor-button-tertiary, .alpheios-editor-button-primary, .alpheios-button {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  border: 1px solid transparent;
+  overflow: visible;
+  white-space: nowrap;
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 0.6em 1.2em;
+  vertical-align: middle;
+  text-align: center;
+  text-decoration: none;
+  line-height: 1;
+  border-radius: 0.6em;
+  cursor: pointer;
+}
+.alpheios-editor-button-tertiary::-moz-focus-inner, .alpheios-editor-button-primary::-moz-focus-inner, .alpheios-button::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+.alpheios-editor-button-tertiary:hover, .alpheios-editor-button-primary:hover, .alpheios-button:hover {
+  text-decoration: none;
+}
+.alpheios-editor-button-tertiary:focus, .alpheios-editor-button-primary:focus, .alpheios-button:focus {
+  outline: none;
+}
+
+.alpheios-editor-button-primary {
+  color: #FFF;
+  background-color: #C64906;
+  border-color: #F27431;
+}
+.alpheios-editor-button-primary:hover {
+  color: #FFF;
+  background-color: #F27431;
+  border-color: #F27431;
+  box-shadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.25);
+}
+.alpheios-editor-button-primary:active {
+  color: #FFF;
+  background-color: #F27431;
+  border-color: #F27431;
+  box-shadow: inset 0 0.25em 0.25em rgba(0, 0, 0, 0.1);
+}
+.alpheios-editor-button-primary:disabled {
+  color: #fff;
+  background: #f8b998;
+  border-color: #f8b998;
+  box-shadow: inset 0 0.25em 0.25em rgba(0, 0, 0, 0.1);
+}
+
+.alpheios-editor-button-tertiary, button.alpheios-editor-button-tertiary {
+  color: #185F6D;
+  background: #fff;
+  border-color: #185F6D;
+}
+.alpheios-editor-button-tertiary:hover, button.alpheios-editor-button-tertiary:hover {
+  color: #fff;
+  background: #185F6D;
+  border-color: #185F6D;
+  box-shadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.25);
+}
+.alpheios-editor-button-tertiary:active, button.alpheios-editor-button-tertiary:active {
+  color: #fff;
+  background: #185F6D;
+  border-color: #185F6D;
+  box-shadow: inset 0 0.25em 0.25em rgba(0, 0, 0, 0.1);
+}
+.alpheios-editor-button-tertiary:disabled, button.alpheios-editor-button-tertiary:disabled {
+  color: #fff;
+  background: #8bafb6;
+  border-color: #8bafb6;
+  box-shadow: inset 0 0.25em 0.25em rgba(0, 0, 0, 0.1);
+}
+
 .alpheios-standard-theme {
   background-color: #fff;
   color: #212529;
@@ -270,6 +347,21 @@ input.alpheios-alignment-input::-ms-input-placeholder {
 }
 .alpheios-standard-theme .alpheios-header .alpheios-header-logo .alpheios-logo-2 {
   display: none;
+}
+.alpheios-standard-theme .alpheios-actions-menu-button {
+  color: #185F6D;
+  background: #fff;
+  border-color: #185F6D;
+}
+.alpheios-standard-theme .alpheios-actions-menu-button:hover {
+  color: #fff;
+  background: #185F6D;
+  border-color: #185F6D;
+}
+.alpheios-standard-theme .alpheios-actions-menu-button:disabled {
+  color: #fff;
+  background: #8bafb6;
+  border-color: #8bafb6;
 }
 .alpheios-standard-theme .alpheios-al-editor-container-inner {
   color: #212529;
@@ -338,6 +430,21 @@ input.alpheios-alignment-input::-ms-input-placeholder {
 }
 .alpheios-v1-theme .alpheios-header .alpheios-header-logo .alpheios-logo-2 {
   display: inline-block;
+}
+.alpheios-v1-theme .alpheios-actions-menu-button {
+  color: #e0e0e0;
+  background: #46788d;
+  border-color: #505050;
+}
+.alpheios-v1-theme .alpheios-actions-menu-button:hover {
+  color: #fff;
+  background: #90a959;
+  border-color: #6a9fb5;
+}
+.alpheios-v1-theme .alpheios-actions-menu-button:disabled {
+  color: #F8F8F8;
+  background: #6e6e6e;
+  border-color: #505050;
 }
 .alpheios-v1-theme .alpheios-al-editor-container-inner {
   color: #ae0000;
@@ -982,6 +1089,26 @@ body, html {
   display: table-cell;
   vertical-align: top;
 }
+.alpheios-alignment-editor-modal-help .alpheios-modal-container {
+  width: 700px;
+}
+.alpheios-alignment-editor-modal-help .alpheios-modal-body {
+  border: 0;
+  padding: 0 15px 0 0;
+  margin: 0 0 20px;
+}
+.alpheios-alignment-editor-modal-help .alpheios-alignment-editor-modal-header {
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.alpheios-alignment-editor-modal-help .alpheios-editor-help-content {
+  text-indent: 10px;
+  text-align: justify;
+}
+.alpheios-alignment-editor-modal-help .alpheios-editor-help-content .alpheios-editor-help-content-error {
+  color: #f00;
+  font-weight: bold;
+}
 .alpheios-alignment-editor-container {
   padding: 15px;
   height: calc(100% - 110px);
@@ -995,6 +1122,25 @@ body, html {
 }
 .alpheios-alignment-radio-block input.alpheios-alignment-input__sentence-count {
   width: 100px;
+}
+.alpheios-alignment-header-line {
+  justify-content: space-between;
+  display: flex;
+}
+button.alpheios-actions-menu-button.alpheios-actions-menu-button-with-icon {
+  padding: 5px;
+  margin: 0 5px;
+}
+button.alpheios-actions-menu-button.alpheios-actions-menu-button-with-icon .alpheios-alignment-button-icon {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+}
+button.alpheios-actions-menu-button.alpheios-actions-menu-button-with-icon .alpheios-alignment-button-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  fill: #fff;
 }
 
 /*# sourceMappingURL=style-alignment-editor-output.css.map*/
