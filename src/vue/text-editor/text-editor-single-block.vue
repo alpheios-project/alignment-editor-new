@@ -32,7 +32,7 @@
 
       <metadata-block :text-type = "textType" :text-id = "textId" 
                       :mname = "metadataModalName"
-                      @closeModal = "$modal.hide(metadataModalName)"  />
+                      @closeModal = "$modal.hide(metadataModalName)"   />
       <language-block :text-type = "textType" :text-id = "textId" :localOptions = "updatedLocalOptions" 
                       :mname = "languageModalName"
                       @updateText = "updateText" @updateDirection = "updateDirection"

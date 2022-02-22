@@ -15,6 +15,8 @@
         </button>
       </p>
         <div class="alpheios-alignment-editor-modal-options-block">
+            <option-item-block :optionItem = "identificationOptionItem" />
+            
             <p class="alpheios-alignment-options__expander-container" @click="setOptionsToAcademic">
                 <span class="alpheios-options-expander-label" >{{ l10n.getMsgS('OPTIONS_BLOCK_SET_ACADEMIC') }}
                   <tooltip :tooltipText="l10n.getMsgS('OPTIONS_IS_ACADEMIC_MODE_INFO')" tooltipDirection="top">
@@ -44,6 +46,7 @@
 
             <div class="alpheios-alignment-options__fieldset-group alpheios-alignment-options__fieldset-group_advanced" 
                  :class = "{ 'alpheios-collapsed': !isAdvanced, 'alpheios-expanded': isAdvanced }">
+             
               <fieldset class="alpheios-alignment-editor-modal-options-block-fieldset">
                 <option-item-block :optionItem = "enableChangeLanguageIconOptionItem" />
                 <option-item-block :optionItem = "showSummaryPopupOptionItem" />
@@ -150,6 +153,10 @@ export default {
 
     enableChangeLanguageIconOptionItem () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableChangeLanguageIcon
+    },
+
+    identificationOptionItem () {
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.identification
     }
   },
   methods: {

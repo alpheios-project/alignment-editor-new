@@ -162,6 +162,10 @@ export default class SettingsController {
     return _instance.options.app && _instance.options.app.items.maxCharactersAnnotationText ? _instance.options.app.items.maxCharactersAnnotationText.currentValue : 1000
   }
 
+  static get identification () {
+    return _instance.options.app && _instance.options.app.items.maxCharactersAnnotationText ? _instance.options.app.items.identification.currentValue : 'lang'
+  }
+
   /**
    * @returns {Boolean} - true - if tokenize options are already defined
    */

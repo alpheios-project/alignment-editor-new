@@ -42,8 +42,8 @@
               </div>
             </div>
 
-            <languages-block :fullData="fullData" v-if="languagesList.length > 1"
-                @changeLanguageOrder = "changeLanguageOrder" @updateVisibility = "updateVisibility"/>
+            <text-filter-block :fullData="fullData" v-if="identList.length > 1"
+                @changeOrder = "changeOrder" @updateVisibility = "updateVisibility"/>
 
             <al-groups-view-full :fullData="fullData" :languageTargetIds = "languageTargetIds" v-if="viewType === 'viewFull'" />
             <al-groups-view-columns :fullData="fullData" :languageTargetIds = "languageTargetIds"  v-if="viewType === 'view3Columns'" />
@@ -60,7 +60,7 @@
 import GroupUtility from '@/_output/utility/group-utility.js'
 import SourceData from '@/_output/data/source-data.js'
 
-import LanguagesBlock from '@/_output/vue/languages-block.vue'
+import TextFilterBlock from '@/_output/vue/text-filter-block.vue'
 import AnnotationBlock from '@/_output/vue/annotation-block.vue'
 
 import AlGroupsViewFull from '@/_output/vue/views/al-groups-view-full.vue'
@@ -78,7 +78,7 @@ import HelpPopup from '@/_output/vue/help-popup.vue'
 export default {
   name: 'App',
   components: {
-    languagesBlock: LanguagesBlock,
+    textFilterBlock: TextFilterBlock,
     annotationBlock: AnnotationBlock,
 
     alGroupsViewFull: AlGroupsViewFull,
@@ -105,18 +105,18 @@ export default {
       ],
       viewType: 'viewFull',
       sentenceCount: 0,
-      languagesList: []
+      identList: []
     }
   },
   created() {
-    this.languagesList = GroupUtility.allLanguagesTargets(this.fullData)
+    this.identList = GroupUtility.allIdentificationTargets(this.fullData)
   },
   computed: {
     fullData () {
       return new SourceData(this.$parent.fullData)
     },
     languageTargetIds () {
-      return this.languagesList.filter(langData => !langData.hidden).map(langData => langData.targetId)
+      return this.identList.filter(langData => !langData.hidden).map(langData => langData.targetId)
     }
   },
   methods: {
@@ -138,14 +138,14 @@ export default {
       }
     },
 
-    changeLanguageOrder (langList) {
-      this.languagesList.sort((a, b) => {
+    changeOrder (langList) {
+      this.identList.sort((a, b) => {
         return langList.indexOf(a.targetId) - langList.indexOf(b.targetId)
       })
     },
 
     updateVisibility (langData) {
-      this.languagesList.find(curLangData => curLangData.targetId === langData.targetId).hidden = langData.hidden
+      this.identList.find(curLangData => curLangData.targetId === langData.targetId).hidden = langData.hidden
     }
   }
 }
