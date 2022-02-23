@@ -20,9 +20,13 @@ import MetadataTermBlock from '@/vue/text-editor/metadata-term-block.vue'
 import MetadataInfo from '@/vue/text-editor/metadata-info.vue'
 import XCloseIcon from '@/inline-icons/x-close.svg'
 
+import OptionItemBlock from '@/vue/options/option-item-block.vue'
+
 export default {
   name: 'MetadataBlock',
   components: {
+    optionItemBlock: OptionItemBlock,
+
     metadataTermBlock: MetadataTermBlock,
     metadataInfo: MetadataInfo,
     xCloseIcon: XCloseIcon

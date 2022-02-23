@@ -17,10 +17,10 @@ export default class GroupUtility {
    *                {String} - langName - language name
    *                {Boolean} - hidden - visibility flag
    */
-  static allLanguagesTargets (fullData) {
+  static allIdentificationTargets (fullData) {
     return this.allTargetTextsIds(fullData).map(targetId => {
       return {
-        targetId, lang: fullData.getLang('target', targetId), langName: fullData.getLangName('target', targetId), hidden: false
+        targetId, ident: fullData.getLang('target', targetId), identName: fullData.getLangName('target', targetId), hidden: false
       }
     })
   }

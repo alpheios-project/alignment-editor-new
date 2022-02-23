@@ -1,24 +1,24 @@
 <template>
     <div class="alpheios-al-editor-languages-block">
       <draggable
-        :list="languagesList"
+        :list="identList"
         class="alpheios-al-editor-languages-list"
         ghost-class="ghost"
         @start="dragging = true"
         @end="endDrag"
       >
         <div
-          v-for="langData in languagesList"
-          :key="langData.targetId"
-          :class="langClasses(langData)"
-          @click = "toggleLangDataVisibility(langData)"
+          v-for="identData in identList"
+          :key="identData.targetId"
+          :class="identClasses(identData)"
+          @click = "toggleIdentDataVisibility(identData)"
         >
-          {{ langData.langName }}
+          {{ identData.identName }}
 
-          <span class="alpheios-icon-button alpheios-al-editor-languages-hide alpheios-icon-button__inactive" v-show="langData.hidden">
+          <span class="alpheios-icon-button alpheios-al-editor-languages-hide alpheios-icon-button__inactive" v-show="identData.hidden">
             <hide-icon />
           </span>
-          <span class="alpheios-icon-button alpheios-al-editor-languages-show" v-show="!langData.hidden && langFilteringAvailable">
+          <span class="alpheios-icon-button alpheios-al-editor-languages-show" v-show="!identData.hidden && identFilteringAvailable">
             <show-icon />
           </span>
         </div>
@@ -47,19 +47,20 @@ export default {
   },
   data () {
     return {
-      languagesList: [],
+      identList: [],
       dragging: false
     }
   },
   created() {
-    this.languagesList = GroupUtility.allLanguagesTargets(this.fullData)
+    this.identList = GroupUtility.allIdentificationTargets(this.fullData)
+    console.info('this.identList - ', this.identList)
   },
   computed: {
-    avaliableLangs () {
-      return this.languagesList.filter(langDataItem => !langDataItem.hidden).length
+    avaliableIdents () {
+      return this.identList.filter(identDataItem => !identDataItem.hidden).length
     },
-    langFilteringAvailable () {
-      return this.avaliableLangs > 1
+    identFilteringAvailable () {
+      return this.avaliableIdents > 1
     }
 
   },
@@ -67,23 +68,23 @@ export default {
     endDrag (e) {
       this.dragging = false
       if (e.oldDraggableIndex !== e.newDraggableIndex) {
-        const langsList = this.languagesList.map(langData => langData.targetId)
-        this.$emit('changeLanguageOrder', langsList)
+        const identsList = this.identList.map(identData => identData.targetId)
+        this.$emit('changeOrder', identsList)
       }
     },
 
-    langClasses (langData) {
+    identClasses (identData) {
       return {
         'alpheios-al-editor-languages-list-item': true,
-        'alpheios-al-editor-languages-list-item-clickable': this.langFilteringAvailable || langData.hidden,
-        'alpheios-al-editor-languages-list-item__inactive': langData.hidden
+        'alpheios-al-editor-languages-list-item-clickable': this.identFilteringAvailable || identData.hidden,
+        'alpheios-al-editor-languages-list-item__inactive': identData.hidden
       }
     },
 
-    toggleLangDataVisibility (langData) {
-      if (this.langFilteringAvailable || langData.hidden) {
-        langData.hidden = !langData.hidden
-        this.$emit('updateVisibility', langData)
+    toggleIdentDataVisibility (identData) {
+      if (this.identFilteringAvailable || identData.hidden) {
+        identData.hidden = !identData.hidden
+        this.$emit('updateVisibility', identData)
       }
     }
   }
