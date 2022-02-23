@@ -48889,7 +48889,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i664-text-ident.20220223299" : 0
+    return  true ? "i664-text-ident2.20220223661" : 0
   }
 
   static get libName () {
@@ -53057,7 +53057,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
 /* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
-//
 //
 //
 //
@@ -64962,10 +64961,6 @@ var render = function() {
           "div",
           { staticClass: "alpheios-alignment-editor-modal-options-block" },
           [
-            _c("option-item-block", {
-              attrs: { optionItem: _vm.identificationOptionItem }
-            }),
-            _vm._v(" "),
             _c(
               "p",
               {
@@ -65206,8 +65201,7 @@ var render = function() {
                 )
               ]
             )
-          ],
-          1
+          ]
         )
       ]),
       _vm._v(" "),

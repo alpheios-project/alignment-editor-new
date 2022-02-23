@@ -15,8 +15,7 @@
         </button>
       </p>
         <div class="alpheios-alignment-editor-modal-options-block">
-            <option-item-block :optionItem = "identificationOptionItem" />
-            
+           
             <p class="alpheios-alignment-options__expander-container" @click="setOptionsToAcademic">
                 <span class="alpheios-options-expander-label" >{{ l10n.getMsgS('OPTIONS_BLOCK_SET_ACADEMIC') }}
                   <tooltip :tooltipText="l10n.getMsgS('OPTIONS_IS_ACADEMIC_MODE_INFO')" tooltipDirection="top">
