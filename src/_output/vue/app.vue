@@ -193,8 +193,8 @@ export default {
       margin: 0 5px;
       .alpheios-alignment-button-icon {
           display: inline-block;
-          width: 25px;
-          height: 25px;
+          width: 20px;
+          height: 20px;
 
           svg {
             width: 100%;
