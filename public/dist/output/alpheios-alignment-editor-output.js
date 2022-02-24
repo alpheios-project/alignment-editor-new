@@ -18509,7 +18509,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     maxHeight () {
       const maxHeight = 400
-      const minHeight = 30
+      const minHeight = 25
       if (this.allOriginSegments.length === 1) {
         return this.containerHeight
       } 
