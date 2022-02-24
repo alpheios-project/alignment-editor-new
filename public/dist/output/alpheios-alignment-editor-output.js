@@ -18508,12 +18508,12 @@ __webpack_require__.r(__webpack_exports__);
       return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 150
     },
     maxHeight () {
-      const minHeight = 400
-      
+      const maxHeight = 400
+      const minHeight = 30
       if (this.allOriginSegments.length === 1) {
         return this.containerHeight
       } 
-      return Math.round(Math.min(minHeight, this.containerHeight/this.allOriginSegments.length))
+      return Math.max(minHeight, Math.round(Math.min(maxHeight, this.containerHeight/this.allOriginSegments.length)))
     }
   },
   methods: {
