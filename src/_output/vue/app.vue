@@ -1,5 +1,14 @@
 <template>
     <div class="alpheios-app-container">
+      <span class="alpheios-alignment-app-menu-open-icon" @click = "menuShow++" v-if="identList.length > 1">
+        <navbar-icon />
+      </span>
+      <main-menu 
+        :menuShow = "menuShow"
+        :fullData="fullData"
+        @changeOrder = "changeOrder" @updateVisibility = "updateVisibility"
+      />
+
         <div class="header alpheios-header">
             <div class="alpheios-header-logo">
                 <img src="https://alignment.alpheios.net/images/alpheios-logo-only.png" class="alpheios-logo-1">
@@ -42,8 +51,8 @@
               </div>
             </div>
 
-            <text-filter-block :fullData="fullData" v-if="identList.length > 1"
-                @changeOrder = "changeOrder" @updateVisibility = "updateVisibility"/>
+            <text-filter-block :fullData="fullData" v-if="false"
+                @changeOrder = "changeOrder" @updateVisibility = "updateVisibility" view = "horizontal" />
 
             <al-groups-view-full :fullData="fullData" :languageTargetIds = "languageTargetIds" v-if="viewType === 'viewFull'" />
             <al-groups-view-columns :fullData="fullData" :languageTargetIds = "languageTargetIds"  v-if="viewType === 'view3Columns'" />
@@ -70,10 +79,13 @@ import AlGroupsViewEquivalence from '@/_output/vue/views/al-groups-view-equivale
 import AlGroupsViewColumns from '@/_output/vue/views/al-groups-view-columns.vue'
 import AlGroupsViewInterlinearly from '@/_output/vue/views/al-groups-view-interlinearly.vue'
 
-import QuestionIcon from '@/inline-icons/question.svg'
+import QuestionIcon from '@/_output/inline-icons/question.svg'
 import Tooltip from '@/_output/vue/tooltip.vue'
 
 import HelpPopup from '@/_output/vue/help-popup.vue'
+import MainMenu from '@/_output/vue/main-menu.vue'
+
+import NavbarIcon from '@/_output/inline-icons/navbar.svg'
 
 export default {
   name: 'App',
@@ -88,10 +100,12 @@ export default {
     alGroupsViewColumns: AlGroupsViewColumns,
     alGroupsViewInterlinearly: AlGroupsViewInterlinearly,
 
+    navbarIcon: NavbarIcon,
     questionIcon: QuestionIcon,
     tooltip: Tooltip,
 
-    helpPopup: HelpPopup
+    helpPopup: HelpPopup,
+    mainMenu: MainMenu
   },
   data () {
     return {
@@ -105,7 +119,8 @@ export default {
       ],
       viewType: 'viewFull',
       sentenceCount: 0,
-      identList: []
+      identList: [],
+      menuShow: 1
     }
   },
   created() {
@@ -188,5 +203,21 @@ export default {
             fill: #fff;
           }
       }
+    }
+    .alpheios-alignment-app-menu-open-icon {
+        display: block;
+        position: fixed;
+        top: 25px;
+        left: 10px;
+        width: 25px;
+        height: 25px;
+        cursor: pointer;
+
+
+        svg {
+          width: 100%;
+          height: 100%;
+          display: block;
+        }
     }
 </style>

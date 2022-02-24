@@ -1,5 +1,5 @@
 <template>
-    <div class="alpheios-al-editor-languages-block">
+    <div class="alpheios-al-editor-languages-block" :class="viewClass">
       <draggable
         :list="identList"
         class="alpheios-al-editor-languages-list"
@@ -43,6 +43,11 @@ export default {
     fullData: {
       type: Object,
       required: true
+    },
+    view: {
+      type: String,
+      required: false,
+      default: 'horizontal'
     }
   },
   data () {
@@ -53,7 +58,6 @@ export default {
   },
   created() {
     this.identList = GroupUtility.allIdentificationTargets(this.fullData)
-    console.info('this.identList - ', this.identList)
   },
   computed: {
     avaliableIdents () {
@@ -61,6 +65,9 @@ export default {
     },
     identFilteringAvailable () {
       return this.avaliableIdents > 1
+    },
+    viewClass () {
+      return `alpheios-al-editor-languages-block-${this.view}`
     }
 
   },
@@ -113,5 +120,11 @@ export default {
     height: 20px;
     line-height: 20px;
     padding: 0 5px;
+  }
+
+  .alpheios-al-editor-languages-block-horizontal {
+    .alpheios-al-editor-languages-list-item {
+      display: block;
+    }
   }
 </style>
