@@ -20495,43 +20495,41 @@ var render = function() {
       _c("div", { staticClass: "header alpheios-header" }, [
         _vm._m(0),
         _vm._v(" "),
-        _c("div", { staticClass: "alpheios-header-title" }, [
-          _c("h1", [_vm._v("Alpheios Alignment Editor")]),
-          _vm._v(" "),
-          _c(
-            "div",
-            [
-              _c(
-                "tooltip",
-                { attrs: { tooltipText: "Help", tooltipDirection: "left" } },
-                [
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon",
-                      attrs: { id: "alpheios-actions-menu-button__enter-help" },
-                      on: {
-                        click: function($event) {
-                          return _vm.$modal.show("help-block")
-                        }
+        _c(
+          "div",
+          [
+            _c(
+              "tooltip",
+              { attrs: { tooltipText: "Help", tooltipDirection: "left" } },
+              [
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon",
+                    attrs: { id: "alpheios-actions-menu-button__enter-help" },
+                    on: {
+                      click: function($event) {
+                        return _vm.$modal.show("help-block")
                       }
-                    },
-                    [
-                      _c(
-                        "span",
-                        { staticClass: "alpheios-alignment-button-icon" },
-                        [_c("question-icon")],
-                        1
-                      )
-                    ]
-                  )
-                ]
-              )
-            ],
-            1
-          )
-        ])
+                    }
+                  },
+                  [
+                    _c(
+                      "span",
+                      { staticClass: "alpheios-alignment-button-icon" },
+                      [_c("question-icon")],
+                      1
+                    )
+                  ]
+                )
+              ]
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _vm._m(1)
       ]),
       _vm._v(" "),
       _c(
@@ -20635,6 +20633,14 @@ var staticRenderFns = [
           src: "https://alignment.alpheios.net/images/alpheios-logo-black.png"
         }
       })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "alpheios-header-title" }, [
+      _c("h1", [_vm._v("Alpheios Alignment Editor")])
     ])
   }
 ]

@@ -15,18 +15,18 @@
                 <img src="https://alignment.alpheios.net/images/alpheios-logo-only.png" class="alpheios-logo-1">
                 <img src="https://alignment.alpheios.net/images/alpheios-logo-black.png" class="alpheios-logo-2">
             </div>
+            <div>
+              <tooltip tooltipText = "Help" tooltipDirection = "left">
+                  <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-help"
+                      @click="$modal.show('help-block')" >
+                      <span class="alpheios-alignment-button-icon">
+                      <question-icon />
+                      </span>
+                  </button>
+              </tooltip>
+            </div>
             <div class="alpheios-header-title">
                 <h1>Alpheios Alignment Editor</h1>
-                <div>
-                  <tooltip tooltipText = "Help" tooltipDirection = "left">
-                      <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-help"
-                          @click="$modal.show('help-block')" >
-                          <span class="alpheios-alignment-button-icon">
-                          <question-icon />
-                          </span>
-                      </button>
-                  </tooltip>
-                </div>
             </div>
         </div>
 
@@ -126,7 +126,7 @@ export default {
 }
 </script>
 <style lang="scss">
-    .alpheios-header-title {
+    .alpheios-header {
       display: flex;
       justify-content: space-between;
     }
