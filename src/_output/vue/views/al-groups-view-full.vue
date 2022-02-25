@@ -4,6 +4,7 @@
             v-if="languageTargetIds.length > 1"
             :tabs = "languageTargetIds" @selectTab = "selectTab"
             :tabsTooltips = "targetDataForTabs"
+            v-show="false"
         />
 
         <div class ="alpheios-al-editor-container-inner alpheios-al-editor-segment-view">
@@ -111,8 +112,9 @@ export default {
   },
   methods: {
     initShownTabs () {
-      this.shownTabs.splice(0, this.shownTabs.length)
-      this.shownTabs.push(this.languageTargetIds[0])
+      // this.shownTabs.splice(0, this.shownTabs.length)
+      // this.shownTabs.push(this.languageTargetIds[0])
+      this.shownTabs.push(...this.languageTargetIds)
     },
     getSegmentData (segIndex) {
       return this.allShownSegments[segIndex].targets

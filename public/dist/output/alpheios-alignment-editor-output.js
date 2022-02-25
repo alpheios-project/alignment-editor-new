@@ -16854,7 +16854,8 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     tabs () {
       this.tabsStates.splice(0, this.tabsStates.length)
-      this.tabs.forEach((tab, index) => this.tabsStates.push(index === 0))
+      // this.tabs.forEach((tab, index) => this.tabsStates.push(index === 0))
+      this.tabs.forEach((tab, index) => this.tabsStates.push(true))
     }
   },
   /**
@@ -16862,7 +16863,8 @@ __webpack_require__.r(__webpack_exports__);
    */
   mounted () {
     if (this.tabs.length > 0) {
-      this.tabs.forEach((tab, index) => this.tabsStates.push(index === 0))
+      // this.tabs.forEach((tab, index) => this.tabsStates.push(index === 0))
+      this.tabs.forEach((tab, index) => this.tabsStates.push(true))
     }
   },
   computed: {
@@ -17976,6 +17978,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -18048,8 +18051,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     initShownTabs () {
-      this.shownTabs.splice(0, this.shownTabs.length)
-      this.shownTabs.push(this.languageTargetIds[0])
+      // this.shownTabs.splice(0, this.shownTabs.length)
+      // this.shownTabs.push(this.languageTargetIds[0])
+      this.shownTabs.push(...this.languageTargetIds)
     },
     getSegmentData (segIndex) {
       return this.allShownSegments[segIndex].targets
@@ -21523,6 +21527,14 @@ var render = function() {
         [
           _vm.languageTargetIds.length > 1
             ? _c("editor-tabs", {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: false,
+                    expression: "false"
+                  }
+                ],
                 attrs: {
                   tabs: _vm.languageTargetIds,
                   tabsTooltips: _vm.targetDataForTabs
@@ -22053,7 +22065,9 @@ var render = function() {
                                         attrs: { token: token }
                                       }),
                                       _vm._v(" "),
-                                      token.hasLineBreak ? _c("br") : _vm._e()
+                                      token.hasLineBreak
+                                        ? _c("br", { key: tokenIndex })
+                                        : _vm._e()
                                     ]
                                   })
                                 ],
