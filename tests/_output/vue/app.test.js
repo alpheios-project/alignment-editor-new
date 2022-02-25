@@ -175,7 +175,7 @@ describe('app.test.js', () => {
     expect(cmp.findComponent(AlGroupsViewColumns).exists()).toBeTruthy()
   })
 
-  it('7 App - sentenceCount could not be less then 0 ', async () => {
+  it.skip('7 App - sentenceCount could not be less then 0 ', async () => {
     const fullData = TestData
 
     const ParentVm  = mount({

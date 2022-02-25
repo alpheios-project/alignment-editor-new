@@ -4,6 +4,7 @@
       <span class="alpheios-alignment-app-menu-close-icon" @click = "closeMenu">
         <x-close-icon />
       </span>
+      <select-views @updateViewType = "updateViewType" />
 
       <div class="alpheios-alignment-app-menu__buttons">
         <text-filter-block :fullData="fullData" 
@@ -19,13 +20,15 @@ import XCloseIcon from '@/inline-icons/x-close.svg'
 import Tooltip from '@/vue/common/tooltip.vue'
 
 import TextFilterBlock from '@/_output/vue/text-filter-block.vue'
+import SelectViews from '@/_output/vue/select-views.vue'
 
 export default {
   name: 'MainMenu',
   components: {
     textFilterBlock: TextFilterBlock,
     xCloseIcon: XCloseIcon,
-    tooltip: Tooltip
+    tooltip: Tooltip,
+    selectViews: SelectViews
   },
   props: {
     menuShow: {
@@ -61,6 +64,9 @@ export default {
     },
     updateVisibility (langData) {
       this.$emit('updateVisibility', langData)
+    },
+    updateViewType (data) {
+      this.$emit('updateViewType', data)
     }
   }
 }
@@ -83,7 +89,7 @@ export default {
       }
 
       .alpheios-alignment-app-menu__buttons {
-        padding: 70px 20px 10px;
+        padding: 20px 20px 10px;
       }
       .alpheios-alignment-app-menu-close-icon {
         display: block;
@@ -100,5 +106,24 @@ export default {
           display: block;
         }
       }
+  }
+
+  .alpheios-alignment-radio-block {
+    margin: 0 10px 10px;
+    span {
+        display: block;
+        // margin-right: 20px;
+        margin-bottom: 5px;
+    }
+
+    input.alpheios-alignment-input__sentence-count {
+      width: 70px;
+    }
+  }
+
+  .alpheios-alignment-header-line {
+    // justify-content: space-between;
+    // display: flex;
+    padding: 50px 20px 10px;
   }
 </style>

@@ -1290,7 +1290,7 @@ body, html {
   left: 0;
 }
 .alpheios-alignment-app-menu .alpheios-alignment-app-menu__buttons {
-  padding: 70px 20px 10px;
+  padding: 20px 20px 10px;
 }
 .alpheios-alignment-app-menu .alpheios-alignment-app-menu-close-icon {
   display: block;
@@ -1306,23 +1306,26 @@ body, html {
   height: 100%;
   display: block;
 }
-.alpheios-alignment-editor-container {
-  padding: 15px;
-  height: calc(100% - 110px);
-}
 .alpheios-alignment-radio-block {
   margin: 0 10px 10px;
 }
 .alpheios-alignment-radio-block span {
-  display: inline-block;
-  margin-right: 20px;
+  display: block;
+  margin-bottom: 5px;
 }
 .alpheios-alignment-radio-block input.alpheios-alignment-input__sentence-count {
-  width: 100px;
+  width: 70px;
 }
 .alpheios-alignment-header-line {
-  justify-content: space-between;
+  padding: 50px 20px 10px;
+}
+.alpheios-header-title {
   display: flex;
+  justify-content: space-between;
+}
+.alpheios-alignment-editor-container {
+  padding: 15px;
+  height: calc(100% - 110px);
 }
 button.alpheios-actions-menu-button.alpheios-actions-menu-button-with-icon {
   padding: 5px;
