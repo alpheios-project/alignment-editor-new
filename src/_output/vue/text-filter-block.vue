@@ -99,7 +99,7 @@ export default {
 </script>
 <style lang="scss">
   .alpheios-al-editor-languages-list {
-    padding: 5px 10px;
+    // padding: 5px 10px;
   }
 
   .alpheios-al-editor-languages-list-item {
