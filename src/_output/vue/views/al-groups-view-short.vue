@@ -27,7 +27,7 @@
                       <div class="alpheios-al-editor-target-hovered-block_tokens">
                         <template v-for = "(token, tokenIndex) in hoveredGroupData.target">
                             <token-block :key = "tokenIndex" :token="token" />
-                            <br v-if="token.hasLineBreak" />
+                            <br v-if="token.hasLineBreak" :key = "tokenIndex" />
                         </template>
                       </div>
                       <p class="alpheios-al-editor-target-hovered-block__metadata" v-if="hoveredGroupData.metadata">

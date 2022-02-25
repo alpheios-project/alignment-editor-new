@@ -46,7 +46,8 @@ export default {
   watch: {
     tabs () {
       this.tabsStates.splice(0, this.tabsStates.length)
-      this.tabs.forEach((tab, index) => this.tabsStates.push(index === 0))
+      // this.tabs.forEach((tab, index) => this.tabsStates.push(index === 0))
+      this.tabs.forEach((tab, index) => this.tabsStates.push(true))
     }
   },
   /**
@@ -54,7 +55,8 @@ export default {
    */
   mounted () {
     if (this.tabs.length > 0) {
-      this.tabs.forEach((tab, index) => this.tabsStates.push(index === 0))
+      // this.tabs.forEach((tab, index) => this.tabsStates.push(index === 0))
+      this.tabs.forEach((tab, index) => this.tabsStates.push(true))
     }
   },
   computed: {
