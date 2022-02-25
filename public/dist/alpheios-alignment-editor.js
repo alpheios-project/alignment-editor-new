@@ -48889,7 +48889,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i666-html-left-menu-2.20220225647" : 0
+    return  true ? "i666-html-left-menu-2.20220225657" : 0
   }
 
   static get libName () {

@@ -56,6 +56,10 @@ export default {
       return `token-${this.token.idWord}`
     },
     filteredGroupData () {
+      if (this.token.word === 'בירושלם׃') {
+        console.info('this.shownTabs - ', this.shownTabs)
+        console.info('filteredGroupData - ', this.token.groupDataTrans)
+      }
       return this.interlinearly && this.grouped && this.shownTabs && this.token.groupDataTrans ? this.token.groupDataTrans.filter(groupDataItem => this.shownTabs.includes(groupDataItem.targetId) ) : null
     }
   },

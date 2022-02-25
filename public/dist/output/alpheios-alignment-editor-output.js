@@ -17551,6 +17551,10 @@ __webpack_require__.r(__webpack_exports__);
       return `token-${this.token.idWord}`
     },
     filteredGroupData () {
+      if (this.token.word === 'בירושלם׃') {
+        console.info('this.shownTabs - ', this.shownTabs)
+        console.info('filteredGroupData - ', this.token.groupDataTrans)
+      }
       return this.interlinearly && this.grouped && this.shownTabs && this.token.groupDataTrans ? this.token.groupDataTrans.filter(groupDataItem => this.shownTabs.includes(groupDataItem.targetId) ) : null
     }
   },
@@ -18213,6 +18217,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -18261,7 +18266,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     initShownTabs () {
       this.shownTabs.splice(0, this.shownTabs.length)
-      this.shownTabs.push(this.languageTargetIds[0])
+      this.shownTabs.push(...this.languageTargetIds)
     },
     getIndex (textType, index, additionalIndex = 0) {
       return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
@@ -21843,6 +21848,14 @@ var render = function() {
         [
           _vm.languageTargetIds.length > 1
             ? _c("editor-tabs", {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: false,
+                    expression: "false"
+                  }
+                ],
                 attrs: {
                   tabs: _vm.languageTargetIds,
                   tabsTooltips: _vm.targetDataForTabs

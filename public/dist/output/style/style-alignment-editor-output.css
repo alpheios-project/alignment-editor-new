@@ -1319,7 +1319,7 @@ body, html {
 .alpheios-alignment-header-line {
   padding: 50px 20px 10px;
 }
-.alpheios-header-title {
+.alpheios-header {
   display: flex;
   justify-content: space-between;
 }
