@@ -17551,7 +17551,8 @@ __webpack_require__.r(__webpack_exports__);
       return `token-${this.token.idWord}`
     },
     filteredGroupData () {
-      return this.interlinearly && this.grouped && this.shownTabs && this.token.groupDataTrans ? this.token.groupDataTrans.filter(groupDataItem => this.shownTabs.includes(groupDataItem.targetId) ) : null
+      return this.interlinearly && this.grouped && this.shownTabs && this.token.groupDataTrans ? 
+        this.token.groupDataTrans.filter(groupDataItem => this.shownTabs.includes(groupDataItem.targetId) ).sort((a, b) => this.shownTabs.indexOf(a.targetId) - this.shownTabs.indexOf(b.targetId)) : null
     }
   },
   methods: {
@@ -17932,12 +17933,12 @@ __webpack_require__.r(__webpack_exports__);
       return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 150
     },
     maxHeight () {
-      const minHeight = 400
-      
+      const maxHeight = 400
+      const minHeight = 25
       if (this.allOriginSegments.length === 1) {
         return this.containerHeight
       } 
-      return Math.round(Math.min(minHeight, this.containerHeight/this.allOriginSegments.length))
+      return Math.max(minHeight, Math.round(Math.min(maxHeight, this.containerHeight/this.allOriginSegments.length)))
     }
   },
   methods: {
@@ -18213,6 +18214,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -18261,7 +18263,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     initShownTabs () {
       this.shownTabs.splice(0, this.shownTabs.length)
-      this.shownTabs.push(this.languageTargetIds[0])
+      this.shownTabs.push(...this.languageTargetIds)
     },
     getIndex (textType, index, additionalIndex = 0) {
       return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
@@ -18380,12 +18382,12 @@ __webpack_require__.r(__webpack_exports__);
       return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 200
     },
     maxHeight () {
-      const minHeight = 400
-      
+      const maxHeight = 400
+      const minHeight = 25
       if (this.allOriginSegments.length === 1) {
         return this.containerHeight
       } 
-      return Math.round(Math.min(minHeight, this.containerHeight/this.allOriginSegments.length))
+      return Math.max(minHeight, Math.round(Math.min(maxHeight, this.containerHeight/this.allOriginSegments.length)))
     },
     cssStyle () {
       return `max-height: ${this.maxHeight}px`
@@ -21843,6 +21845,14 @@ var render = function() {
         [
           _vm.languageTargetIds.length > 1
             ? _c("editor-tabs", {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: false,
+                    expression: "false"
+                  }
+                ],
                 attrs: {
                   tabs: _vm.languageTargetIds,
                   tabsTooltips: _vm.targetDataForTabs

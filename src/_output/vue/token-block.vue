@@ -56,7 +56,8 @@ export default {
       return `token-${this.token.idWord}`
     },
     filteredGroupData () {
-      return this.interlinearly && this.grouped && this.shownTabs && this.token.groupDataTrans ? this.token.groupDataTrans.filter(groupDataItem => this.shownTabs.includes(groupDataItem.targetId) ) : null
+      return this.interlinearly && this.grouped && this.shownTabs && this.token.groupDataTrans ? 
+        this.token.groupDataTrans.filter(groupDataItem => this.shownTabs.includes(groupDataItem.targetId) ).sort((a, b) => this.shownTabs.indexOf(a.targetId) - this.shownTabs.indexOf(b.targetId)) : null
     }
   },
   methods: {

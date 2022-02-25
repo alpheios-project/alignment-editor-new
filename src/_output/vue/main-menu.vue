@@ -79,7 +79,15 @@ export default {
       z-index: 10000;
       top: 0; 
       left: -280px;
-      background-color: #e0e0e0; 
+      // background-color: #e0e0e0; 
+      // background-color: rgba(224,224,224, 0.4);
+
+      background: rgb(224,224,224);
+      background: -moz-linear-gradient(180deg, rgba(224,224,224,1) 0%, rgba(255,255,255,0.5) 100%);
+      background: -webkit-linear-gradient(180deg, rgba(224,224,224,1) 0%, rgba(255,255,255,0.5) 100%);
+      background: linear-gradient(180deg, rgba(224,224,224,1) 0%, rgba(255,255,255,0.5) 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e0e0e0",endColorstr="#ffffff",GradientType=1);
+
       overflow-x: hidden; 
        
       transition: left 0.5s; 
@@ -94,7 +102,7 @@ export default {
       .alpheios-alignment-app-menu-close-icon {
         display: block;
         position: absolute;
-        top: 25px;
+        top: 20px;
         right: 25px;
         width: 25px;
         height: 25px;
@@ -109,11 +117,14 @@ export default {
   }
 
   .alpheios-alignment-radio-block {
-    margin: 0 10px 10px;
+    // margin: 0 10px 10px;
     span {
         display: block;
         // margin-right: 20px;
-        margin-bottom: 5px;
+        // margin-bottom: 5px;
+        background: #fff;
+        border-bottom: 1px solid #e0e0e0;
+        padding: 5px;
     }
 
     input.alpheios-alignment-input__sentence-count {
@@ -124,6 +135,6 @@ export default {
   .alpheios-alignment-header-line {
     // justify-content: space-between;
     // display: flex;
-    padding: 50px 20px 10px;
+    padding: 60px 20px 10px;
   }
 </style>
