@@ -1272,6 +1272,32 @@ body, html {
   border-style: solid;
   border-color: transparent transparent transparent #757575;
 }
+.alpheios-alignment-header-line {
+  padding: 60px 20px 10px;
+}
+.alpheios-alignment-header-line.alpheios-alignment-header-line-in-header {
+  padding-top: 20px;
+}
+.alpheios-alignment-radio-block span {
+  display: block;
+  background: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 5px;
+}
+.alpheios-alignment-radio-block input.alpheios-alignment-input__sentence-count {
+  width: 70px;
+}
+.alpheios-alignment-header-line-in-header .alpheios-alignment-radio-block {
+  margin: 0 10px 10px;
+}
+.alpheios-alignment-header-line-in-header .alpheios-alignment-radio-block span {
+  display: inline-block;
+  margin-right: 20px;
+  margin-bottom: 5px;
+  background: transparent;
+  border-bottom: none;
+  padding: 0;
+}
 .alpheios-alignment-app-menu {
   height: 100%;
   width: 280px;
@@ -1293,6 +1319,9 @@ body, html {
 .alpheios-alignment-app-menu .alpheios-alignment-app-menu__buttons {
   padding: 20px 20px 10px;
 }
+.alpheios-alignment-app-menu .alpheios-alignment-app-menu__buttons.alpheios-alignment-menu-only-filter {
+  padding-top: 60px;
+}
 .alpheios-alignment-app-menu .alpheios-alignment-app-menu-close-icon {
   display: block;
   position: absolute;
@@ -1306,18 +1335,6 @@ body, html {
   width: 100%;
   height: 100%;
   display: block;
-}
-.alpheios-alignment-radio-block span {
-  display: block;
-  background: #fff;
-  border-bottom: 1px solid #e0e0e0;
-  padding: 5px;
-}
-.alpheios-alignment-radio-block input.alpheios-alignment-input__sentence-count {
-  width: 70px;
-}
-.alpheios-alignment-header-line {
-  padding: 60px 20px 10px;
 }
 .alpheios-header {
   display: flex;

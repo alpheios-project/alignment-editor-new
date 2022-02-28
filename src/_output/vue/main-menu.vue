@@ -4,9 +4,9 @@
       <span class="alpheios-alignment-app-menu-close-icon" @click = "closeMenu">
         <x-close-icon />
       </span>
-      <select-views @updateViewType = "updateViewType" />
+      <select-views @updateViewType = "updateViewType" v-if="false" inHeader = "false" />
 
-      <div class="alpheios-alignment-app-menu__buttons">
+      <div class="alpheios-alignment-app-menu__buttons" :class="{ 'alpheios-alignment-menu-only-filter': onlyFilter }">
         <text-filter-block :fullData="fullData" 
             @changeOrder = "changeOrder" @updateVisibility = "updateVisibility"  />
       </div>
@@ -38,6 +38,11 @@ export default {
     fullData: {
       type: Object,
       required: true
+    },
+    onlyFilter: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   data () {
@@ -98,6 +103,10 @@ export default {
 
       .alpheios-alignment-app-menu__buttons {
         padding: 20px 20px 10px;
+
+        &.alpheios-alignment-menu-only-filter {
+          padding-top: 60px;
+        }
       }
       .alpheios-alignment-app-menu-close-icon {
         display: block;
@@ -116,25 +125,4 @@ export default {
       }
   }
 
-  .alpheios-alignment-radio-block {
-    // margin: 0 10px 10px;
-    span {
-        display: block;
-        // margin-right: 20px;
-        // margin-bottom: 5px;
-        background: #fff;
-        border-bottom: 1px solid #e0e0e0;
-        padding: 5px;
-    }
-
-    input.alpheios-alignment-input__sentence-count {
-      width: 70px;
-    }
-  }
-
-  .alpheios-alignment-header-line {
-    // justify-content: space-between;
-    // display: flex;
-    padding: 60px 20px 10px;
-  }
 </style>
