@@ -103,7 +103,7 @@ export default {
 
   .alpheios-alignment-header-line-in-header {
     .alpheios-alignment-radio-block {
-      
+      text-align: right;
       span {
         display: inline-block;
         margin-right: 20px;

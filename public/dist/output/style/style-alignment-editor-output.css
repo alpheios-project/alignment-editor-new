@@ -1287,6 +1287,9 @@ body, html {
 .alpheios-alignment-radio-block input.alpheios-alignment-input__sentence-count {
   width: 70px;
 }
+.alpheios-alignment-header-line-in-header .alpheios-alignment-radio-block {
+  text-align: right;
+}
 .alpheios-alignment-header-line-in-header .alpheios-alignment-radio-block span {
   display: inline-block;
   margin-right: 20px;
