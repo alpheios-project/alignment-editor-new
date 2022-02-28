@@ -36,6 +36,7 @@
                 :grouped = "$store.state.alignmentUpdated && groupedToken(token)"
                 :inActiveGroup = "$store.state.alignmentUpdated && inActiveGroup(token)"
                 :firstInActiveGroup = "$store.state.alignmentUpdated && isFirstInActiveGroup(token)"
+                :firstTextInActiveGroup = "$store.state.alignmentUpdated && isFirstTextInActiveGroup(token)"
                 :annotationMode="annotationMode"
               />
               <br v-if="$store.state.tokenUpdated && token.hasLineBreak" />
@@ -344,6 +345,10 @@ export default {
      */
     isFirstInActiveGroup (token) {
       return this.$alignedGC.isFirstInActiveGroup(token, this.currentTargetId)
+    },
+
+    isFirstTextInActiveGroup (token) {
+      return this.$alignedGC.isFirstTextInActiveGroup(token, this.currentTargetId)
     },
 
     async uploadPrevPart () {

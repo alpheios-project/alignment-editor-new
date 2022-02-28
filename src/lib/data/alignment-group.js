@@ -129,6 +129,10 @@ export default class AlignmentGroup {
     return this.firstStepToken && this.hasTheSameTargetId(targetId) && this.includesToken(token) && (this.firstStepToken.idWord === token.idWord)
   }
 
+  isTextWithFirstToken (token, targetId) {
+    return this.firstStepToken && this.hasTheSameTargetId(targetId) && this.includesToken(token) && (this.firstStepToken.docSourceId === token.docSourceId)
+  }
+
   /**
    * This is a check - if the alignment group could be finished.
    * For now it is enough to have one target and one origin tokens.

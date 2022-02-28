@@ -246,6 +246,10 @@ export default class AlignedGroupsController {
     return Boolean(this.alignment) && this.alignment.isFirstInActiveGroup(token, limitByTargetId)
   }
 
+  isFirstTextInActiveGroup (token, limitByTargetId = null) {
+    return Boolean(this.alignment) && this.alignment.isFirstTextInActiveGroup(token, limitByTargetId)
+  }
+
   /**
    * Checks if there is an active alignment group
    * @return {Boolean} true - if there is an active alignment group, false - not

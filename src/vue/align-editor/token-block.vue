@@ -39,6 +39,11 @@ export default {
       required: false,
       default: false
     },
+    firstTextInActiveGroup: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
     annotationMode: {
       type: Boolean,
       required: false,
@@ -56,6 +61,7 @@ export default {
         'alpheios-token-grouped': this.grouped ,
         'alpheios-token-clicked': this.inActiveGroup,
         'alpheios-token-clicked-first': this.firstInActiveGroup,
+        'alpheios-token-clicked-first-text': this.firstTextInActiveGroup,
         'alpheios-token-part-shadowed': (this.token.partNum % 2 === 0),
         'alpheios-token-annotated': this.hasAnnotations,
         'alpheios-token-annotation-mode': this.annotationMode
@@ -143,6 +149,12 @@ export default {
             }
 
             &.alpheios-token-clicked-first {
+              border-color: #f06d26;
+              background: #f06d26;
+              color: #fff;
+            }
+
+            &.alpheios-token-clicked-first-text {
               border-color: #f06d26;
               background: #f06d26;
               color: #fff;

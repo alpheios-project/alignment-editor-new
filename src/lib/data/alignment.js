@@ -631,6 +631,10 @@ export default class Alignment {
     return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.isFirstToken(token, limitByTargetId)
   }
 
+  isFirstTextInActiveGroup (token, limitByTargetId) {
+    return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.isTextWithFirstToken(token, limitByTargetId)
+  }
+
   /**
    *
    * @param {Token} token

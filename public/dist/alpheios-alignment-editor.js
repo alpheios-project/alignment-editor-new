@@ -39077,6 +39077,10 @@ class AlignedGroupsController {
     return Boolean(this.alignment) && this.alignment.isFirstInActiveGroup(token, limitByTargetId)
   }
 
+  isFirstTextInActiveGroup (token, limitByTargetId = null) {
+    return Boolean(this.alignment) && this.alignment.isFirstTextInActiveGroup(token, limitByTargetId)
+  }
+
   /**
    * Checks if there is an active alignment group
    * @return {Boolean} true - if there is an active alignment group, false - not
@@ -43312,6 +43316,10 @@ class AlignmentGroup {
     return this.firstStepToken && this.hasTheSameTargetId(targetId) && this.includesToken(token) && (this.firstStepToken.idWord === token.idWord)
   }
 
+  isTextWithFirstToken (token, targetId) {
+    return this.firstStepToken && this.hasTheSameTargetId(targetId) && this.includesToken(token) && (this.firstStepToken.docSourceId === token.docSourceId)
+  }
+
   /**
    * This is a check - if the alignment group could be finished.
    * For now it is enough to have one target and one origin tokens.
@@ -44116,6 +44124,10 @@ class Alignment {
    */
   isFirstInActiveGroup (token, limitByTargetId) {
     return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.isFirstToken(token, limitByTargetId)
+  }
+
+  isFirstTextInActiveGroup (token, limitByTargetId) {
+    return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.isTextWithFirstToken(token, limitByTargetId)
   }
 
   /**
@@ -48889,7 +48901,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i666-html-left-menu-3.20220228445" : 0
+    return  true ? "i676-color-al-group.20220228658" : 0
   }
 
   static get libName () {
@@ -50388,6 +50400,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -50683,6 +50696,10 @@ __webpack_require__.r(__webpack_exports__);
       return this.$alignedGC.isFirstInActiveGroup(token, this.currentTargetId)
     },
 
+    isFirstTextInActiveGroup (token) {
+      return this.$alignedGC.isFirstTextInActiveGroup(token, this.currentTargetId)
+    },
+
     async uploadPrevPart () {
       let partNums = []
       partNums.push(this.currentPartIndexes[0]-1)
@@ -50766,6 +50783,11 @@ __webpack_require__.r(__webpack_exports__);
       required: false,
       default: false
     },
+    firstTextInActiveGroup: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
     annotationMode: {
       type: Boolean,
       required: false,
@@ -50783,6 +50805,7 @@ __webpack_require__.r(__webpack_exports__);
         'alpheios-token-grouped': this.grouped ,
         'alpheios-token-clicked': this.inActiveGroup,
         'alpheios-token-clicked-first': this.firstInActiveGroup,
+        'alpheios-token-clicked-first-text': this.firstTextInActiveGroup,
         'alpheios-token-part-shadowed': (this.token.partNum % 2 === 0),
         'alpheios-token-annotated': this.hasAnnotations,
         'alpheios-token-annotation-mode': this.annotationMode
@@ -62213,6 +62236,9 @@ var render = function() {
                       firstInActiveGroup:
                         _vm.$store.state.alignmentUpdated &&
                         _vm.isFirstInActiveGroup(token),
+                      firstTextInActiveGroup:
+                        _vm.$store.state.alignmentUpdated &&
+                        _vm.isFirstTextInActiveGroup(token),
                       annotationMode: _vm.annotationMode
                     },
                     on: {
