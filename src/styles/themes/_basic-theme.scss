@@ -180,6 +180,12 @@
                 border-color: map.get($theme, 'align-editor-text-border-color-first-active');
                 background: map.get($theme, 'align-editor-text-background-color-first-active');
             }
+
+            &.alpheios-token-clicked-first-text {
+                color: map.get($theme, 'align-editor-text-color-first-active');
+                border-color: map.get($theme, 'align-editor-text-border-color-first-active');
+                background: map.get($theme, 'align-editor-text-background-color-first-active');
+            }
         }
     }
 

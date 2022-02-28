@@ -807,6 +807,11 @@ div.alpheios-alignment-checkbox-block {
   border-color: #f06d26;
   background: #f06d26;
 }
+.alpheios-standard-theme .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-clicked-first-text {
+  color: #fff;
+  border-color: #f06d26;
+  background: #f06d26;
+}
 .alpheios-standard-theme .alpheios-alignment-editor-tokens-edit-editor-container-inner {
   color: #212529;
   background: #F8F8F8;
@@ -1024,6 +1029,11 @@ div.alpheios-alignment-checkbox-block {
   background: #FFd740;
 }
 .alpheios-v1-theme .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-clicked-first {
+  color: #ae0000;
+  border-color: #000;
+  background: #c8ff40;
+}
+.alpheios-v1-theme .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-clicked-first-text {
   color: #ae0000;
   border-color: #000;
   background: #c8ff40;
@@ -2241,6 +2251,11 @@ button.alpheios-actions-menu-button.alpheios-actions-menu-button-with-icon .alph
   background: #f59d6e;
 }
 .alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-clicked-first {
+  border-color: #f06d26;
+  background: #f06d26;
+  color: #fff;
+}
+.alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-clicked-first-text {
   border-color: #f06d26;
   background: #f06d26;
   color: #fff;
