@@ -15,29 +15,18 @@
         >
           {{ identData.identName }}
 
-          <span class="alpheios-icon-button alpheios-al-editor-languages-hide alpheios-icon-button__inactive" v-show="identData.hidden">
-            <hide-icon />
-          </span>
-          <span class="alpheios-icon-button alpheios-al-editor-languages-show" v-show="!identData.hidden && identFilteringAvailable">
-            <show-icon />
-          </span>
         </div>
       </draggable>
     </div>
 </template>
 <script>
-import ShowIcon from '@/_output/inline-icons/show.svg'
-import HideIcon from '@/_output/inline-icons/hide.svg'
-
 import Draggable from '@vuedraggable'
 import GroupUtility from '@/_output/utility/group-utility.js'
 
 export default {
   name: 'LanguagesBlock',
   components: {
-    draggable: Draggable,
-    hideIcon: HideIcon,
-    showIcon: ShowIcon
+    draggable: Draggable
   },
   props: {
     fullData: {
