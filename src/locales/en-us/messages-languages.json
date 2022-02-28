@@ -10,7 +10,7 @@
       "component": "TextEditor"
     },
     "LANG_GRC": {
-      "message": "Greek (Ancient –1453)",
+      "message": "Greek",
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },

@@ -8,7 +8,7 @@
         :fullData="fullData"
         @changeOrder = "changeOrder" @updateVisibility = "updateVisibility"
         @updateViewType = "updateViewType"
-        onlyFilter = "true"
+        :onlyFilter = "true"
       />
 
         <div class="header alpheios-header">
@@ -32,7 +32,7 @@
         </div>
 
         <div id="alpheios-alignment-editor-container" class="alpheios-alignment-editor-container ">
-            <select-views @updateViewType = "updateViewType" inHeader = "true" />
+            <select-views @updateViewType = "updateViewType" :inHeader = "true" />
 
             <text-filter-block :fullData="fullData" v-if="false"
                 @changeOrder = "changeOrder" @updateVisibility = "updateVisibility" view = "horizontal" />

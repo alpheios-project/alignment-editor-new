@@ -1276,7 +1276,7 @@ body, html {
   padding: 60px 20px 10px;
 }
 .alpheios-alignment-header-line.alpheios-alignment-header-line-in-header {
-  padding-top: 20px;
+  padding-top: 0;
 }
 .alpheios-alignment-radio-block span {
   display: block;
@@ -1286,9 +1286,6 @@ body, html {
 }
 .alpheios-alignment-radio-block input.alpheios-alignment-input__sentence-count {
   width: 70px;
-}
-.alpheios-alignment-header-line-in-header .alpheios-alignment-radio-block {
-  margin: 0 10px 10px;
 }
 .alpheios-alignment-header-line-in-header .alpheios-alignment-radio-block span {
   display: inline-block;

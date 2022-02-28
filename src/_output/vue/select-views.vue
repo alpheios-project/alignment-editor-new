@@ -38,12 +38,12 @@ export default {
   data () {
     return {
       allViewTypes: [
-        { value: 'viewFull', label: 'Full'},
+        { value: 'viewFull', label: '2 columns'},
         { value: 'view3Columns', label: '3 columns'},
         { value: 'viewShort', label: 'Short'},
-        { value: 'viewEquivalence', label: 'Equivalence'},
+        { value: 'viewEquivalence', label: 'All equivalents'},
         { value: 'viewInterlinearly', label: 'Interlinear'},
-        { value: 'viewSentence', label: 'Sentence'}
+        { value: 'viewSentence', label: 'Sentence Context'}
       ],
       sentenceCount: 0,
       viewType: 'viewFull'

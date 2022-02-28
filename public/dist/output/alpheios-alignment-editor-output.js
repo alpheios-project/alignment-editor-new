@@ -15578,7 +15578,9 @@ class SourceData {
   }
 
   getLangName (textType, targetId) {
-    return textType === 'origin' ? this.origin.langName : this.targets[targetId].langName
+    let langName = textType === 'origin' ? this.origin.langName : this.targets[targetId].langName
+    langName = langName.replace(' (Ancient –1453)', '')
+    return langName
   }
 
   getMetadata (textType, targetId) {
@@ -17348,12 +17350,12 @@ __webpack_require__.r(__webpack_exports__);
   data () {
     return {
       allViewTypes: [
-        { value: 'viewFull', label: 'Full'},
+        { value: 'viewFull', label: '2 columns'},
         { value: 'view3Columns', label: '3 columns'},
         { value: 'viewShort', label: 'Short'},
-        { value: 'viewEquivalence', label: 'Equivalence'},
+        { value: 'viewEquivalence', label: 'All equivalents'},
         { value: 'viewInterlinearly', label: 'Interlinear'},
-        { value: 'viewSentence', label: 'Sentence'}
+        { value: 'viewSentence', label: 'Sentence Context'}
       ],
       sentenceCount: 0,
       viewType: 'viewFull'
@@ -20536,7 +20538,7 @@ var render = function() {
         attrs: {
           menuShow: _vm.menuShow,
           fullData: _vm.fullData,
-          onlyFilter: "true"
+          onlyFilter: true
         },
         on: {
           changeOrder: _vm.changeOrder,
@@ -20593,7 +20595,7 @@ var render = function() {
         },
         [
           _c("select-views", {
-            attrs: { inHeader: "true" },
+            attrs: { inHeader: true },
             on: { updateViewType: _vm.updateViewType }
           }),
           _vm._v(" "),
