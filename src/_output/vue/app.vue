@@ -8,6 +8,7 @@
         :fullData="fullData"
         @changeOrder = "changeOrder" @updateVisibility = "updateVisibility"
         @updateViewType = "updateViewType"
+        :onlyFilter = "true"
       />
 
         <div class="header alpheios-header">
@@ -31,6 +32,8 @@
         </div>
 
         <div id="alpheios-alignment-editor-container" class="alpheios-alignment-editor-container ">
+            <select-views @updateViewType = "updateViewType" :inHeader = "true" />
+
             <text-filter-block :fullData="fullData" v-if="false"
                 @changeOrder = "changeOrder" @updateVisibility = "updateVisibility" view = "horizontal" />
 
@@ -66,6 +69,7 @@ import HelpPopup from '@/_output/vue/help-popup.vue'
 import MainMenu from '@/_output/vue/main-menu.vue'
 
 import NavbarIcon from '@/_output/inline-icons/navbar.svg'
+import SelectViews from '@/_output/vue/select-views.vue'
 
 export default {
   name: 'App',
@@ -85,7 +89,8 @@ export default {
     tooltip: Tooltip,
 
     helpPopup: HelpPopup,
-    mainMenu: MainMenu
+    mainMenu: MainMenu,
+    selectViews: SelectViews
   },
   data () {
     return {

@@ -13,7 +13,9 @@ export default class SourceData {
   }
 
   getLangName (textType, targetId) {
-    return textType === 'origin' ? this.origin.langName : this.targets[targetId].langName
+    let langName = textType === 'origin' ? this.origin.langName : this.targets[targetId].langName
+    langName = langName.replace(' (Ancient –1453)', '')
+    return langName
   }
 
   getMetadata (textType, targetId) {

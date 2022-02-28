@@ -1,5 +1,5 @@
 <template>
-    <div class = "alpheios-alignment-header-line">
+    <div class = "alpheios-alignment-header-line" :class="{ 'alpheios-alignment-header-line-in-header' : inHeader }">
         <div class = "alpheios-alignment-radio-block alpheios-alignment-option-item__control">
             <span v-for="item in allViewTypes" :key="item.value">
                 <input type="radio" :id="itemIdWithValue(item.value)" :value="item.value" v-model="viewType"
@@ -28,15 +28,22 @@ export default {
   components: {
     tooltip: Tooltip
   },
+  props: {
+    inHeader: {
+      type: Boolean,
+      required: false,
+      default: true
+    }
+  },
   data () {
     return {
       allViewTypes: [
-        { value: 'viewFull', label: 'Full'},
+        { value: 'viewFull', label: '2 columns'},
         { value: 'view3Columns', label: '3 columns'},
         { value: 'viewShort', label: 'Short'},
-        { value: 'viewEquivalence', label: 'Equivalence'},
+        { value: 'viewEquivalence', label: 'All equivalents'},
         { value: 'viewInterlinearly', label: 'Interlinear'},
-        { value: 'viewSentence', label: 'Sentence'}
+        { value: 'viewSentence', label: 'Sentence Context'}
       ],
       sentenceCount: 0,
       viewType: 'viewFull'
@@ -70,3 +77,41 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+  .alpheios-alignment-header-line {
+    padding: 60px 20px 10px;
+    &.alpheios-alignment-header-line-in-header {
+      padding-top: 0;
+    }
+  }
+
+  .alpheios-alignment-radio-block {
+    // margin: 0 10px 10px;
+    span {
+        display: block;
+        // margin-right: 20px;
+        // margin-bottom: 5px;
+        background: #fff;
+        border-bottom: 1px solid #e0e0e0;
+        padding: 5px;
+    }
+
+    input.alpheios-alignment-input__sentence-count {
+      width: 70px;
+    }
+  }
+
+  .alpheios-alignment-header-line-in-header {
+    .alpheios-alignment-radio-block {
+      
+      span {
+        display: inline-block;
+        margin-right: 20px;
+        margin-bottom: 5px;
+        background: transparent;
+        border-bottom: none;
+        padding: 0;
+      }
+    }
+  }
+</style>

@@ -1,7 +1,7 @@
 [
   { "value": "eng", "label": "English" },
   { "value": "lat", "label": "Latin" },
-  { "value": "grc", "label": "Greek (Ancient –1453)" },
+  { "value": "grc", "label": "Greek" },
   { "value": "ara", "label": "Arabic", "direction": "rtl" },
   
   { "value": "zho", "label": "Chinese" },
