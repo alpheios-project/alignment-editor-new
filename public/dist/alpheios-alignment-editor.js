@@ -46264,7 +46264,6 @@ class Metadata {
     const allMeta = Object.assign({}, Metadata.groups)
     Object.values(allMeta).forEach(metaGroupItem => { metaGroupItem.items = [] })
 
-    // console.info('allMeta - ', allMeta)
     Object.values(_lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__["default"].property).forEach(property => {
       allMeta[property.group].items.push(this.hasProperty(property) ? this.getProperty(property) : { template: true, property, value: (property.multivalued ? [null] : null) })
     })
@@ -48940,7 +48939,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i673-metadata-block.20220301639" : 0
+    return  true ? "i673-metadata-block.20220301647" : 0
   }
 
   static get libName () {

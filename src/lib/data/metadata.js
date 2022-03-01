@@ -67,7 +67,6 @@ export default class Metadata {
     const allMeta = Object.assign({}, Metadata.groups)
     Object.values(allMeta).forEach(metaGroupItem => { metaGroupItem.items = [] })
 
-    // console.info('allMeta - ', allMeta)
     Object.values(MetadataTerm.property).forEach(property => {
       allMeta[property.group].items.push(this.hasProperty(property) ? this.getProperty(property) : { template: true, property, value: (property.multivalued ? [null] : null) })
     })
