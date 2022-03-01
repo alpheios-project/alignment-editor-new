@@ -84,5 +84,25 @@
       "message": "<p>There are two types of metadata - single valued and multivalued.</p><p><b>Single valued metadata</b> - simply type/edit/delete the value in the input field.</p><p><b>Multivalued metadata (Creator, Contributor)</b>:</p><ul><li>to add a new value - type value to the input field and press Enter; the value will be saved and visible under the input;</li><li>to delete a saved value - click the value and click trash icon;</li><li>to update a saved value - click the value, edit it in the input field and press Enter;</li></ul>",
       "description": "Metadata update instructions",
       "component": "MetadataBlock"
+    },
+    "METADATA_TERM_LABEL_TRANSLATOR": {
+      "message": "Translator",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_AUTHOR": {
+      "message": "Author",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_TRANSLATOR": {
+      "message": "A translator of the text.",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_AUTHOR": {
+      "message": "An author of the text.",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
     }
 }

@@ -8,9 +8,22 @@
     <div class="alpheios-modal-body" v-if="allMetadata">
       <div class="alpheios-alignment-editor-metadata" >
         <metadata-info />
-        <metadata-term-block 
-          v-for="(metadataTerm, termIndex) in allMetadata" :key="termIndex"
-          :text-type="textType" :text-id="textId" :metadata-term="metadataTerm" />
+
+        <div class="alpheios-alignment-editor-metadata__group__titles" >
+          <div class = "alpheios-alignment-editor-metadata__group__title" 
+               :class = "{ 'alpheios-alignment-editor-metadata__group__title_inactive': activeGroup !== metaGroup.label }" 
+               @click = "changeActiveGroup(metaGroup)"
+               v-for="(metaGroup, metaGroupIndex) in allMetadataGroupData" :key="constructKey(metaGroupIndex, 1)" >
+            {{ metaGroup.label }}
+          </div>
+        </div>
+        <div class="alpheios-alignment-editor-metadata__group__items" 
+             v-show = "activeGroup === metaGroup.label"
+             v-for="(metaGroup, metaGroupIndex) in allMetadataGroupData" :key="constructKey(metaGroupIndex, 2)" >
+          <metadata-term-block 
+            v-for="metadataTerm in metaGroup.items" :key="metadataTerm.label"
+            :text-type="textType" :text-id="textId" :metadata-term="metadataTerm" />
+        </div>
       </div>
     </div>
   </modal>
@@ -47,6 +60,7 @@ export default {
   },
   data () {
     return {
+      activeGroup: null
     }
   },
   computed: {
@@ -59,11 +73,23 @@ export default {
     allMetadata () {
       return this.$store.state.docSourceUpdated && this.docSource && this.docSource.allAvailableMetadata
     },
+    allMetadataGroupData () {
+      if (!this.activeGroup) {
+        this.activeGroup = Object.values(this.allMetadata)[0].label
+      }
+      return Object.values(this.allMetadata)
+    },
     classes () {
       return `alpheios-alignment-editor-modal-metadata alpheios-alignment-editor-modal-${this.mname}`
     }
   },
   methods: {
+    constructKey (metaGroupIndex, prefix) {
+      return `${prefix}-${metaGroupIndex}`
+    },
+    changeActiveGroup (metaGroup) {
+      this.activeGroup = metaGroup.label
+    }
   }
 }
 </script>
@@ -72,6 +98,19 @@ export default {
   .alpheios-modal-body {
     // max-height: 700px;
     border: 0;
+  }
+}
+
+.alpheios-alignment-editor-metadata__group__titles {
+  .alpheios-alignment-editor-metadata__group__title {
+    display: inline-block;
+    padding: 5px;
+    text-decoration: underline;
+    cursor: pointer;
+
+    &.alpheios-alignment-editor-metadata__group__title_inactive {
+      color: #90a959;
+    }
   }
 }
 </style>

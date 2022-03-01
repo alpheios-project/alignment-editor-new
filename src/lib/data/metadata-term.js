@@ -85,7 +85,8 @@ MetadataTerm.property = {
     URI: 'http://purl.org/dc/terms/identifier',
     description: 'An unambiguous reference to the resource within a given context.',
     descriptionl10n: 'METADATA_TERM_DESCRIPTION_IDENTIFIER',
-    order: 8
+    order: 8,
+    group: 'dublin'
   },
   TITLE: {
     label: 'title',
@@ -95,7 +96,8 @@ MetadataTerm.property = {
     URI: 'http://purl.org/dc/terms/title',
     description: 'A name given to the resource.',
     descriptionl10n: 'METADATA_TERM_DESCRIPTION_TITLE',
-    order: 1
+    order: 1,
+    group: 'dublin'
   },
   CREATOR: {
     label: 'creator',
@@ -105,7 +107,8 @@ MetadataTerm.property = {
     URI: 'http://purl.org/dc/elements/1.1/creator',
     description: 'An entity primarily responsible for making the resource.',
     descriptionl10n: 'METADATA_TERM_DESCRIPTION_CREATOR',
-    order: 2
+    order: 2,
+    group: 'dublin'
   },
   CONTRIBUTOR: {
     label: 'contributor',
@@ -115,7 +118,8 @@ MetadataTerm.property = {
     URI: 'http://purl.org/dc/elements/1.1/contributor',
     description: 'An entity responsible for making contributions to the resource.',
     descriptionl10n: 'METADATA_TERM_DESCRIPTION_CONTRIBUTOR',
-    order: 4
+    order: 4,
+    group: 'dublin'
   },
   PUBLISHER: {
     label: 'publisher',
@@ -125,7 +129,8 @@ MetadataTerm.property = {
     URI: 'http://purl.org/dc/elements/1.1/publisher',
     description: 'An entity responsible for making the resource available.',
     descriptionl10n: 'METADATA_TERM_DESCRIPTION_PUBLISHER',
-    order: 5
+    order: 5,
+    group: 'dublin'
   },
   DATE_COPYRIGHTED: {
     label: 'date copyrighted',
@@ -135,7 +140,8 @@ MetadataTerm.property = {
     URI: 'http://purl.org/dc/terms/dateCopyrighted',
     description: 'Date of copyright of the resource.',
     descriptionl10n: 'METADATA_TERM_DESCRIPTION_DATE_COPYRIGHTED',
-    order: 3
+    order: 3,
+    group: 'dublin'
   },
   SOURCE: {
     label: 'source',
@@ -145,7 +151,8 @@ MetadataTerm.property = {
     URI: 'http://purl.org/dc/terms/source',
     description: 'A related resource from which the described resource is derived.',
     descriptionl10n: 'METADATA_TERM_DESCRIPTION_SOURCE',
-    order: 6
+    order: 6,
+    group: 'dublin'
   },
   DESCRIPTION: {
     label: 'description',
@@ -155,6 +162,27 @@ MetadataTerm.property = {
     URI: 'http://purl.org/dc/elements/1.1/description',
     description: 'An account of the resource.',
     descriptionl10n: 'METADATA_TERM_DESCRIPTION_DESCRIPTION',
-    order: 7
+    order: 7,
+    group: 'dublin'
+  },
+  TRANSLATOR: {
+    label: 'translator',
+    labell10n: 'METADATA_TERM_LABEL_TRANSLATOR',
+    fieldtype: 'string',
+    multivalued: false,
+    description: 'A translator of the text.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_TRANSLATOR',
+    order: 2,
+    group: 'alpheios'
+  },
+  AUTHOR: {
+    label: 'author',
+    labell10n: 'METADATA_TERM_LABEL_AUTHOR',
+    fieldtype: 'string',
+    multivalued: false,
+    description: 'An author of the text.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_AUTHOR',
+    order: 1,
+    group: 'alpheios'
   }
 }

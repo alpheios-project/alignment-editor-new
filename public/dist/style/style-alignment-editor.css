@@ -1768,6 +1768,15 @@ p.alpheios-alignment-editor-metadata__info-title {
 .alpheios-alignment-editor-modal-metadata .alpheios-modal-body {
   border: 0;
 }
+.alpheios-alignment-editor-metadata__group__titles .alpheios-alignment-editor-metadata__group__title {
+  display: inline-block;
+  padding: 5px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.alpheios-alignment-editor-metadata__group__titles .alpheios-alignment-editor-metadata__group__title.alpheios-alignment-editor-metadata__group__title_inactive {
+  color: #90a959;
+}
 .alpheios-alignment-editor-text-blocks-single-direction-options .alpheios-alignment-option-item {
   margin-bottom: 10px;
 }
