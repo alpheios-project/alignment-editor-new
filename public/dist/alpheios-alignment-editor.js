@@ -46078,7 +46078,8 @@ MetadataTerm.property = {
     URI: 'http://purl.org/dc/terms/identifier',
     description: 'An unambiguous reference to the resource within a given context.',
     descriptionl10n: 'METADATA_TERM_DESCRIPTION_IDENTIFIER',
-    order: 8
+    order: 8,
+    group: 'dublin'
   },
   TITLE: {
     label: 'title',
@@ -46088,7 +46089,8 @@ MetadataTerm.property = {
     URI: 'http://purl.org/dc/terms/title',
     description: 'A name given to the resource.',
     descriptionl10n: 'METADATA_TERM_DESCRIPTION_TITLE',
-    order: 1
+    order: 1,
+    group: 'dublin'
   },
   CREATOR: {
     label: 'creator',
@@ -46098,7 +46100,8 @@ MetadataTerm.property = {
     URI: 'http://purl.org/dc/elements/1.1/creator',
     description: 'An entity primarily responsible for making the resource.',
     descriptionl10n: 'METADATA_TERM_DESCRIPTION_CREATOR',
-    order: 2
+    order: 2,
+    group: 'dublin'
   },
   CONTRIBUTOR: {
     label: 'contributor',
@@ -46108,7 +46111,8 @@ MetadataTerm.property = {
     URI: 'http://purl.org/dc/elements/1.1/contributor',
     description: 'An entity responsible for making contributions to the resource.',
     descriptionl10n: 'METADATA_TERM_DESCRIPTION_CONTRIBUTOR',
-    order: 4
+    order: 4,
+    group: 'dublin'
   },
   PUBLISHER: {
     label: 'publisher',
@@ -46118,7 +46122,8 @@ MetadataTerm.property = {
     URI: 'http://purl.org/dc/elements/1.1/publisher',
     description: 'An entity responsible for making the resource available.',
     descriptionl10n: 'METADATA_TERM_DESCRIPTION_PUBLISHER',
-    order: 5
+    order: 5,
+    group: 'dublin'
   },
   DATE_COPYRIGHTED: {
     label: 'date copyrighted',
@@ -46128,7 +46133,8 @@ MetadataTerm.property = {
     URI: 'http://purl.org/dc/terms/dateCopyrighted',
     description: 'Date of copyright of the resource.',
     descriptionl10n: 'METADATA_TERM_DESCRIPTION_DATE_COPYRIGHTED',
-    order: 3
+    order: 3,
+    group: 'dublin'
   },
   SOURCE: {
     label: 'source',
@@ -46138,7 +46144,8 @@ MetadataTerm.property = {
     URI: 'http://purl.org/dc/terms/source',
     description: 'A related resource from which the described resource is derived.',
     descriptionl10n: 'METADATA_TERM_DESCRIPTION_SOURCE',
-    order: 6
+    order: 6,
+    group: 'dublin'
   },
   DESCRIPTION: {
     label: 'description',
@@ -46148,7 +46155,28 @@ MetadataTerm.property = {
     URI: 'http://purl.org/dc/elements/1.1/description',
     description: 'An account of the resource.',
     descriptionl10n: 'METADATA_TERM_DESCRIPTION_DESCRIPTION',
-    order: 7
+    order: 7,
+    group: 'dublin'
+  },
+  TRANSLATOR: {
+    label: 'translator',
+    labell10n: 'METADATA_TERM_LABEL_TRANSLATOR',
+    fieldtype: 'string',
+    multivalued: false,
+    description: 'A translator of the text.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_TRANSLATOR',
+    order: 2,
+    group: 'alpheios'
+  },
+  AUTHOR: {
+    label: 'author',
+    labell10n: 'METADATA_TERM_LABEL_AUTHOR',
+    fieldtype: 'string',
+    multivalued: false,
+    description: 'An author of the text.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_AUTHOR',
+    order: 1,
+    group: 'alpheios'
   }
 }
 
@@ -46172,6 +46200,13 @@ __webpack_require__.r(__webpack_exports__);
 class Metadata {
   constructor () {
     this.properties = {}
+  }
+
+  static get groups () {
+    return {
+      alpheios: { label: 'Alpheios', order: 1 },
+      dublin: { label: 'Dublin Core', order: 2 }
+    }
   }
 
   get isEmpty () {
@@ -46226,11 +46261,15 @@ class Metadata {
   }
 
   get allAvailableMetadata () {
-    const allMeta = {}
+    const allMeta = Object.assign({}, Metadata.groups)
+    Object.values(allMeta).forEach(metaGroupItem => { metaGroupItem.items = [] })
 
+    // console.info('allMeta - ', allMeta)
     Object.values(_lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__["default"].property).forEach(property => {
-      allMeta[property.label] = this.hasProperty(property) ? this.getProperty(property) : { template: true, property, value: (property.multivalued ? [null] : null) }
+      allMeta[property.group].items.push(this.hasProperty(property) ? this.getProperty(property) : { template: true, property, value: (property.multivalued ? [null] : null) })
     })
+
+    Object.values(allMeta).forEach(metaGroup => { metaGroup.items.sort((a, b) => a.property.order - b.property.order) })
     return allMeta
   }
 
@@ -46245,7 +46284,7 @@ class Metadata {
   }
 
   convertToShortJSONLine () {
-    const propsToShow = ['TITLE', 'CREATOR', 'DATE_COPYRIGHTED']
+    const propsToShow = ['TITLE', 'CREATOR', 'DATE_COPYRIGHTED', 'AUTHOR', 'TRANSLATOR']
     const propsValues = propsToShow.map(prop => this.getPropertyValue(_lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__["default"].property[prop])).filter(value => value)
 
     return propsValues.length > 0 ? propsValues.join('; ') : ''
@@ -48901,7 +48940,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i679-align-select-to-right.20220228674" : 0
+    return  true ? "i673-metadata-block.20220301639" : 0
   }
 
   static get libName () {
@@ -53850,6 +53889,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -53882,6 +53934,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data () {
     return {
+      activeGroup: null
     }
   },
   computed: {
@@ -53894,11 +53947,23 @@ __webpack_require__.r(__webpack_exports__);
     allMetadata () {
       return this.$store.state.docSourceUpdated && this.docSource && this.docSource.allAvailableMetadata
     },
+    allMetadataGroupData () {
+      if (!this.activeGroup) {
+        this.activeGroup = Object.values(this.allMetadata)[0].label
+      }
+      return Object.values(this.allMetadata)
+    },
     classes () {
       return `alpheios-alignment-editor-modal-metadata alpheios-alignment-editor-modal-${this.mname}`
     }
   },
   methods: {
+    constructKey (metaGroupIndex, prefix) {
+      return `${prefix}-${metaGroupIndex}`
+    },
+    changeActiveGroup (metaGroup) {
+      this.activeGroup = metaGroup.label
+    }
   }
 });
 
@@ -66075,15 +66140,75 @@ var render = function() {
               [
                 _c("metadata-info"),
                 _vm._v(" "),
-                _vm._l(_vm.allMetadata, function(metadataTerm, termIndex) {
-                  return _c("metadata-term-block", {
-                    key: termIndex,
-                    attrs: {
-                      "text-type": _vm.textType,
-                      "text-id": _vm.textId,
-                      "metadata-term": metadataTerm
-                    }
-                  })
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "alpheios-alignment-editor-metadata__group__titles"
+                  },
+                  _vm._l(_vm.allMetadataGroupData, function(
+                    metaGroup,
+                    metaGroupIndex
+                  ) {
+                    return _c(
+                      "div",
+                      {
+                        key: _vm.constructKey(metaGroupIndex, 1),
+                        staticClass:
+                          "alpheios-alignment-editor-metadata__group__title",
+                        class: {
+                          "alpheios-alignment-editor-metadata__group__title_inactive":
+                            _vm.activeGroup !== metaGroup.label
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.changeActiveGroup(metaGroup)
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n          " +
+                            _vm._s(metaGroup.label) +
+                            "\n        "
+                        )
+                      ]
+                    )
+                  }),
+                  0
+                ),
+                _vm._v(" "),
+                _vm._l(_vm.allMetadataGroupData, function(
+                  metaGroup,
+                  metaGroupIndex
+                ) {
+                  return _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.activeGroup === metaGroup.label,
+                          expression: "activeGroup === metaGroup.label"
+                        }
+                      ],
+                      key: _vm.constructKey(metaGroupIndex, 2),
+                      staticClass:
+                        "alpheios-alignment-editor-metadata__group__items"
+                    },
+                    _vm._l(metaGroup.items, function(metadataTerm) {
+                      return _c("metadata-term-block", {
+                        key: metadataTerm.label,
+                        attrs: {
+                          "text-type": _vm.textType,
+                          "text-id": _vm.textId,
+                          "metadata-term": metadataTerm
+                        }
+                      })
+                    }),
+                    1
+                  )
                 })
               ],
               2
@@ -70041,7 +70166,7 @@ module.exports = JSON.parse('{"MAIN_MENU_DOWNLOAD_TITLE":{"message":"Download","
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"METADATA_TERM_LABEL_IDENTIFIER":{"message":"Identifier","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_TITLE":{"message":"Title","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_CREATOR":{"message":"Creator","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_CONTRIBUTOR":{"message":"Contributor","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_PUBLISHER":{"message":"Publisher","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_DATE_COPYRIGHTED":{"message":"Copyright Date","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_SOURCE":{"message":"Source","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_DESCRIPTION":{"message":"Description","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_IDENTIFIER":{"message":"An unambiguous reference to the resource within a given context.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_TITLE":{"message":"A name given to the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_CREATOR":{"message":"An entity primarily responsible for making the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_CONTRIBUTOR":{"message":"An entity responsible for making contributions to the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_PUBLISHER":{"message":"An entity responsible for making the resource available.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_DATE_COPYRIGHTED":{"message":"Date of copyright of the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_SOURCE":{"message":"A related resource from which the described resource is derived.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_DESCRIPTION":{"message":"An account of the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_INSTRUCTIONS":{"message":"<p>There are two types of metadata - single valued and multivalued.</p><p><b>Single valued metadata</b> - simply type/edit/delete the value in the input field.</p><p><b>Multivalued metadata (Creator, Contributor)</b>:</p><ul><li>to add a new value - type value to the input field and press Enter; the value will be saved and visible under the input;</li><li>to delete a saved value - click the value and click trash icon;</li><li>to update a saved value - click the value, edit it in the input field and press Enter;</li></ul>","description":"Metadata update instructions","component":"MetadataBlock"}}');
+module.exports = JSON.parse('{"METADATA_TERM_LABEL_IDENTIFIER":{"message":"Identifier","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_TITLE":{"message":"Title","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_CREATOR":{"message":"Creator","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_CONTRIBUTOR":{"message":"Contributor","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_PUBLISHER":{"message":"Publisher","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_DATE_COPYRIGHTED":{"message":"Copyright Date","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_SOURCE":{"message":"Source","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_DESCRIPTION":{"message":"Description","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_IDENTIFIER":{"message":"An unambiguous reference to the resource within a given context.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_TITLE":{"message":"A name given to the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_CREATOR":{"message":"An entity primarily responsible for making the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_CONTRIBUTOR":{"message":"An entity responsible for making contributions to the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_PUBLISHER":{"message":"An entity responsible for making the resource available.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_DATE_COPYRIGHTED":{"message":"Date of copyright of the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_SOURCE":{"message":"A related resource from which the described resource is derived.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_DESCRIPTION":{"message":"An account of the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_INSTRUCTIONS":{"message":"<p>There are two types of metadata - single valued and multivalued.</p><p><b>Single valued metadata</b> - simply type/edit/delete the value in the input field.</p><p><b>Multivalued metadata (Creator, Contributor)</b>:</p><ul><li>to add a new value - type value to the input field and press Enter; the value will be saved and visible under the input;</li><li>to delete a saved value - click the value and click trash icon;</li><li>to update a saved value - click the value, edit it in the input field and press Enter;</li></ul>","description":"Metadata update instructions","component":"MetadataBlock"},"METADATA_TERM_LABEL_TRANSLATOR":{"message":"Translator","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_AUTHOR":{"message":"Author","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_TRANSLATOR":{"message":"A translator of the text.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_AUTHOR":{"message":"An author of the text.","description":"Metadata term description","component":"MetadataTerm"}}');
 
 /***/ }),
 

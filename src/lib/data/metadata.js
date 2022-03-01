@@ -5,6 +5,13 @@ export default class Metadata {
     this.properties = {}
   }
 
+  static get groups () {
+    return {
+      alpheios: { label: 'Alpheios', order: 1 },
+      dublin: { label: 'Dublin Core', order: 2 }
+    }
+  }
+
   get isEmpty () {
     return Object.values(MetadataTerm.property).every(property => !this.hasProperty(property))
   }
@@ -57,11 +64,15 @@ export default class Metadata {
   }
 
   get allAvailableMetadata () {
-    const allMeta = {}
+    const allMeta = Object.assign({}, Metadata.groups)
+    Object.values(allMeta).forEach(metaGroupItem => { metaGroupItem.items = [] })
 
+    // console.info('allMeta - ', allMeta)
     Object.values(MetadataTerm.property).forEach(property => {
-      allMeta[property.label] = this.hasProperty(property) ? this.getProperty(property) : { template: true, property, value: (property.multivalued ? [null] : null) }
+      allMeta[property.group].items.push(this.hasProperty(property) ? this.getProperty(property) : { template: true, property, value: (property.multivalued ? [null] : null) })
     })
+
+    Object.values(allMeta).forEach(metaGroup => { metaGroup.items.sort((a, b) => a.property.order - b.property.order) })
     return allMeta
   }
 
@@ -76,7 +87,7 @@ export default class Metadata {
   }
 
   convertToShortJSONLine () {
-    const propsToShow = ['TITLE', 'CREATOR', 'DATE_COPYRIGHTED']
+    const propsToShow = ['TITLE', 'CREATOR', 'DATE_COPYRIGHTED', 'AUTHOR', 'TRANSLATOR']
     const propsValues = propsToShow.map(prop => this.getPropertyValue(MetadataTerm.property[prop])).filter(value => value)
 
     return propsValues.length > 0 ? propsValues.join('; ') : ''
