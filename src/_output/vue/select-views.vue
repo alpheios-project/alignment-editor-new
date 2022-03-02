@@ -14,7 +14,6 @@
                 @change="checkSentenceCount"
                 :id="itemIdWithValue('sentenceCount')"
             >
-            <label :for="itemIdWithValue('sentenceCount')" >sentences around</label>
             </span>
         </div>
 

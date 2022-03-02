@@ -17331,7 +17331,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -21161,13 +21160,7 @@ var render = function() {
                   return _vm.$forceUpdate()
                 }
               }
-            }),
-            _vm._v(" "),
-            _c(
-              "label",
-              { attrs: { for: _vm.itemIdWithValue("sentenceCount") } },
-              [_vm._v("sentences around")]
-            )
+            })
           ])
         ],
         2
