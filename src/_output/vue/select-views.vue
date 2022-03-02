@@ -96,7 +96,7 @@ export default {
     }
 
     input.alpheios-alignment-input__sentence-count {
-      width: 70px;
+      width: 50px;
     }
   }
 

@@ -9,6 +9,11 @@
       <div class="alpheios-alignment-editor-metadata" >
         <metadata-info />
 
+        <div class="alpheios-alignment-editor-metadata__group__common" >
+          <metadata-term-block 
+            v-for="metadataTerm in commonMetadata.items" :key="metadataTerm.label"
+            :text-type="textType" :text-id="textId" :metadata-term="metadataTerm" />
+        </div>
         <div class="alpheios-alignment-editor-metadata__group__titles" >
           <div class = "alpheios-alignment-editor-metadata__group__title" 
                :class = "{ 'alpheios-alignment-editor-metadata__group__title_inactive': activeGroup !== metaGroup.label }" 
@@ -34,6 +39,8 @@ import MetadataInfo from '@/vue/text-editor/metadata-info.vue'
 import XCloseIcon from '@/inline-icons/x-close.svg'
 
 import OptionItemBlock from '@/vue/options/option-item-block.vue'
+
+import Metadata from '@/lib/data/metadata.js'
 
 export default {
   name: 'MetadataBlock',
@@ -73,11 +80,17 @@ export default {
     allMetadata () {
       return this.$store.state.docSourceUpdated && this.docSource && this.docSource.allAvailableMetadata
     },
+    commonMetadata () {
+      return this.allMetadata[Metadata.commonGroupLabel]
+    },
     allMetadataGroupData () {
       if (!this.activeGroup) {
         this.activeGroup = Object.values(this.allMetadata)[0].label
       }
-      return Object.values(this.allMetadata)
+
+      let arrKeys = Object.keys(Metadata.groups).filter(groupName => groupName !== Metadata.commonGroupLabel)
+
+      return arrKeys.map(groupLabel => this.allMetadata[groupLabel]) 
     },
     classes () {
       return `alpheios-alignment-editor-modal-metadata alpheios-alignment-editor-modal-${this.mname}`

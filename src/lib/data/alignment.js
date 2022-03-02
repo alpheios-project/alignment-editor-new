@@ -1482,11 +1482,13 @@ export default class Alignment {
 
       targets[targetId].metadata = this.targets[targetId].docSource.metadata.convertToJSONLine()
       targets[targetId].metadataShort = this.targets[targetId].docSource.metadata.convertToShortJSONLine()
+      targets[targetId].filterButtonTitle = this.targets[targetId].docSource.convertToFilterTitle()
     })
 
     let origin = this.origin.alignedText.convertToHTML() // eslint-disable-line prefer-const
     origin.metadata = this.origin.docSource.metadata.convertToJSONLine()
     origin.metadataShort = this.origin.docSource.metadata.convertToShortJSONLine()
+    origin.filterButtonTitle = this.origin.docSource.convertToFilterTitle()
 
     const collectGroupData = (token) => {
       token.grouped = this.tokenIsGrouped(token)

@@ -22,7 +22,7 @@
                     :dir = "fullData.getDir(segmentSingle.textType, segmentSingle.targetId)"
                     :lang = "fullData.getLang(segmentSingle.textType, segmentSingle.targetId)"
                     :langName = "fullData.getLangName(segmentSingle.textType, segmentSingle.targetId)"
-                    :metadata = "fullData.getMetadata(segmentSingle.textType, segmentSingle.targetId)"
+                    :metadataShort = "fullData.getMetadataShort(segmentSingle.textType, segmentSingle.targetId)"
                     :hoveredGroupsId = "hoveredGroupsId" :shownTabs = "languageTargetIds"
                     @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
 

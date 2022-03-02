@@ -4,7 +4,7 @@
             :class = "{ 'alpheios-al-editor-segment-cell-target-row__metadata-full': showFullMetadata }"
             @click = "toggleMetadata"
             v-show = "showData"
-      >{{ metadata }}</span>
+      >{{ metadataShort }}</span>
       <span class="alpheios-al-editor-segment-cell-target-row__langname" v-show = "showData">{{ langName }}</span>
     </p>
 </template>
@@ -17,7 +17,7 @@ export default {
       type: String,
       required: true
     },
-    metadata: {
+    metadataShort: {
       type: String,
       required: false,
       default: ''

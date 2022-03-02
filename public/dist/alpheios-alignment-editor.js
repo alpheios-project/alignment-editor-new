@@ -44977,11 +44977,13 @@ class Alignment {
 
       targets[targetId].metadata = this.targets[targetId].docSource.metadata.convertToJSONLine()
       targets[targetId].metadataShort = this.targets[targetId].docSource.metadata.convertToShortJSONLine()
+      targets[targetId].filterButtonTitle = this.targets[targetId].docSource.convertToFilterTitle()
     })
 
     let origin = this.origin.alignedText.convertToHTML() // eslint-disable-line prefer-const
     origin.metadata = this.origin.docSource.metadata.convertToJSONLine()
     origin.metadataShort = this.origin.docSource.metadata.convertToShortJSONLine()
+    origin.filterButtonTitle = this.origin.docSource.convertToFilterTitle()
 
     const collectGroupData = (token) => {
       token.grouped = this.tokenIsGrouped(token)
@@ -46177,6 +46179,16 @@ MetadataTerm.property = {
     descriptionl10n: 'METADATA_TERM_DESCRIPTION_AUTHOR',
     order: 1,
     group: 'alpheios'
+  },
+  FILTER_BUTTON: {
+    label: 'filter title',
+    labell10n: 'METADATA_TERM_LABEL_FILTER_BUTTON',
+    fieldtype: 'string',
+    multivalued: false,
+    description: 'Filter button title in HTML Output.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_FILTER_BUTTON',
+    order: 1,
+    group: 'common'
   }
 }
 
@@ -46205,8 +46217,13 @@ class Metadata {
   static get groups () {
     return {
       alpheios: { label: 'Alpheios', order: 1 },
-      dublin: { label: 'Dublin Core', order: 2 }
+      dublin: { label: 'Dublin Core', order: 2 },
+      common: { label: 'Common', order: 0 }
     }
+  }
+
+  static get commonGroupLabel () {
+    return 'common'
   }
 
   get isEmpty () {
@@ -46284,6 +46301,13 @@ class Metadata {
 
   convertToShortJSONLine () {
     const propsToShow = ['TITLE', 'CREATOR', 'DATE_COPYRIGHTED', 'AUTHOR', 'TRANSLATOR']
+    const propsValues = propsToShow.map(prop => this.getPropertyValue(_lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__["default"].property[prop])).filter(value => value)
+
+    return propsValues.length > 0 ? propsValues.join('; ') : ''
+  }
+
+  convertToFilterTitle () {
+    const propsToShow = ['FILTER_BUTTON']
     const propsValues = propsToShow.map(prop => this.getPropertyValue(_lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__["default"].property[prop])).filter(value => value)
 
     return propsValues.length > 0 ? propsValues.join('; ') : ''
@@ -46929,6 +46953,18 @@ class SourceText {
       tokenization: this.tokenization,
       metadata: this.metadata.convertToIndexedDB()
     }
+  }
+
+  defineLangName () {
+    const langData = _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_6__["default"].all.find(langData => langData.value === this.lang)
+    const res = langData ? langData.text : this.lang
+    return res
+  }
+
+  convertToFilterTitle () {
+    const filterTitleFromMetadata = this.metadata.convertToFilterTitle()
+
+    return filterTitleFromMetadata || this.defineLangName()
   }
 
   static async convertFromIndexedDB (dbData, metadataDbData) {
@@ -48939,7 +48975,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i682-remove-label.20220302443" : 0
+    return  true ? "i664-text-ident.20220302486" : 0
   }
 
   static get libName () {
@@ -53871,6 +53907,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/inline-icons/x-close.svg */ "./inline-icons/x-close.svg");
 /* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
+/* harmony import */ var _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/data/metadata.js */ "./lib/data/metadata.js");
 //
 //
 //
@@ -53901,6 +53938,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+
+
 
 
 
@@ -53946,11 +53990,17 @@ __webpack_require__.r(__webpack_exports__);
     allMetadata () {
       return this.$store.state.docSourceUpdated && this.docSource && this.docSource.allAvailableMetadata
     },
+    commonMetadata () {
+      return this.allMetadata[_lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__["default"].commonGroupLabel]
+    },
     allMetadataGroupData () {
       if (!this.activeGroup) {
         this.activeGroup = Object.values(this.allMetadata)[0].label
       }
-      return Object.values(this.allMetadata)
+
+      let arrKeys = Object.keys(_lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__["default"].groups).filter(groupName => groupName !== _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__["default"].commonGroupLabel)
+
+      return arrKeys.map(groupLabel => this.allMetadata[groupLabel]) 
     },
     classes () {
       return `alpheios-alignment-editor-modal-metadata alpheios-alignment-editor-modal-${this.mname}`
@@ -66143,6 +66193,25 @@ var render = function() {
                   "div",
                   {
                     staticClass:
+                      "alpheios-alignment-editor-metadata__group__common"
+                  },
+                  _vm._l(_vm.commonMetadata.items, function(metadataTerm) {
+                    return _c("metadata-term-block", {
+                      key: metadataTerm.label,
+                      attrs: {
+                        "text-type": _vm.textType,
+                        "text-id": _vm.textId,
+                        "metadata-term": metadataTerm
+                      }
+                    })
+                  }),
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
                       "alpheios-alignment-editor-metadata__group__titles"
                   },
                   _vm._l(_vm.allMetadataGroupData, function(
@@ -70165,7 +70234,7 @@ module.exports = JSON.parse('{"MAIN_MENU_DOWNLOAD_TITLE":{"message":"Download","
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"METADATA_TERM_LABEL_IDENTIFIER":{"message":"Identifier","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_TITLE":{"message":"Title","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_CREATOR":{"message":"Creator","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_CONTRIBUTOR":{"message":"Contributor","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_PUBLISHER":{"message":"Publisher","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_DATE_COPYRIGHTED":{"message":"Copyright Date","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_SOURCE":{"message":"Source","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_DESCRIPTION":{"message":"Description","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_IDENTIFIER":{"message":"An unambiguous reference to the resource within a given context.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_TITLE":{"message":"A name given to the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_CREATOR":{"message":"An entity primarily responsible for making the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_CONTRIBUTOR":{"message":"An entity responsible for making contributions to the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_PUBLISHER":{"message":"An entity responsible for making the resource available.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_DATE_COPYRIGHTED":{"message":"Date of copyright of the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_SOURCE":{"message":"A related resource from which the described resource is derived.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_DESCRIPTION":{"message":"An account of the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_INSTRUCTIONS":{"message":"<p>There are two types of metadata - single valued and multivalued.</p><p><b>Single valued metadata</b> - simply type/edit/delete the value in the input field.</p><p><b>Multivalued metadata (Creator, Contributor)</b>:</p><ul><li>to add a new value - type value to the input field and press Enter; the value will be saved and visible under the input;</li><li>to delete a saved value - click the value and click trash icon;</li><li>to update a saved value - click the value, edit it in the input field and press Enter;</li></ul>","description":"Metadata update instructions","component":"MetadataBlock"},"METADATA_TERM_LABEL_TRANSLATOR":{"message":"Translator","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_AUTHOR":{"message":"Author","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_TRANSLATOR":{"message":"A translator of the text.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_AUTHOR":{"message":"An author of the text.","description":"Metadata term description","component":"MetadataTerm"}}');
+module.exports = JSON.parse('{"METADATA_TERM_LABEL_IDENTIFIER":{"message":"Identifier","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_TITLE":{"message":"Title","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_CREATOR":{"message":"Creator","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_CONTRIBUTOR":{"message":"Contributor","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_PUBLISHER":{"message":"Publisher","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_DATE_COPYRIGHTED":{"message":"Copyright Date","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_SOURCE":{"message":"Source","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_DESCRIPTION":{"message":"Description","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_IDENTIFIER":{"message":"An unambiguous reference to the resource within a given context.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_TITLE":{"message":"A name given to the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_CREATOR":{"message":"An entity primarily responsible for making the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_CONTRIBUTOR":{"message":"An entity responsible for making contributions to the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_PUBLISHER":{"message":"An entity responsible for making the resource available.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_DATE_COPYRIGHTED":{"message":"Date of copyright of the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_SOURCE":{"message":"A related resource from which the described resource is derived.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_DESCRIPTION":{"message":"An account of the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_INSTRUCTIONS":{"message":"<p>There are two types of metadata - single valued and multivalued.</p><p><b>Single valued metadata</b> - simply type/edit/delete the value in the input field.</p><p><b>Multivalued metadata (Creator, Contributor)</b>:</p><ul><li>to add a new value - type value to the input field and press Enter; the value will be saved and visible under the input;</li><li>to delete a saved value - click the value and click trash icon;</li><li>to update a saved value - click the value, edit it in the input field and press Enter;</li></ul>","description":"Metadata update instructions","component":"MetadataBlock"},"METADATA_TERM_LABEL_TRANSLATOR":{"message":"Translator","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_AUTHOR":{"message":"Author","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_TRANSLATOR":{"message":"A translator of the text.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_AUTHOR":{"message":"An author of the text.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_LABEL_FILTER_BUTTON":{"message":"Filter title","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_FILTER_BUTTON":{"message":"Filter button title in HTML Output.","description":"Metadata term description","component":"MetadataTerm"}}');
 
 /***/ }),
 

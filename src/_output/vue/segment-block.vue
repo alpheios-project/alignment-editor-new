@@ -5,7 +5,7 @@
           :dir = "dir" :lang = "lang"
       >
         <lang-name-bar :langName = "langName" v-show="showLangName" 
-                       :metadata = "metadata" @updateMetadataHeight = "updateMetadataHeight"
+                       :metadataShort = "metadataShort" @updateMetadataHeight = "updateMetadataHeight"
                        :showData = "showDataLangNameBar"
         />
 
@@ -70,7 +70,7 @@ export default {
       required: true
     },
     // metadata in one string to show in lang bar
-    metadata: {
+    metadataShort: {
       type: String,
       required: false,
       defult: ''

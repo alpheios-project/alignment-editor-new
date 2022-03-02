@@ -15591,6 +15591,11 @@ class SourceData {
     return textType === 'origin' ? this.origin.metadataShort : this.targets[targetId].metadataShort
   }
 
+  getFilterButtonTitle (textType, targetId) {
+    const filterButtonTitle = textType === 'origin' ? this.origin.filterButtonTitle : this.targets[targetId].filterButtonTitle
+    return filterButtonTitle || this.getLangName(textType, targetId)
+  }
+
   getSegments (textType, targetId) {
     return textType === 'origin' ? this.origin.segments : this.targets[targetId].segments
   }
@@ -15632,7 +15637,7 @@ class GroupUtility {
   static allIdentificationTargets (fullData) {
     return this.allTargetTextsIds(fullData).map(targetId => {
       return {
-        targetId, ident: fullData.getLang('target', targetId), identName: fullData.getLangName('target', targetId), hidden: false
+        targetId, ident: fullData.getFilterButtonTitle('target', targetId), identName: fullData.getFilterButtonTitle('target', targetId), hidden: false
       }
     })
   }
@@ -15804,6 +15809,7 @@ class GroupUtility {
     this.allTargetTextsIds(fullData).forEach(targetId => {
       const langName = fullData.targets[targetId].langName
       const metadata = fullData.targets[targetId].metadata
+      const metadataShort = fullData.targets[targetId].metadataShort
 
       const targetSegments = fullData.getSegments('target', targetId)
       if (targetSegments) {
@@ -15812,6 +15818,7 @@ class GroupUtility {
             if (token.grouped) {
               token.groupData.forEach(groupDataItem => {
                 if (!allG[groupDataItem.groupId].metadata) { allG[groupDataItem.groupId].metadata = metadata }
+                if (!allG[groupDataItem.groupId].metadataShort) { allG[groupDataItem.groupId].metadataShort = metadataShort }
                 if (!allG[groupDataItem.groupId].langName) { allG[groupDataItem.groupId].langName = langName }
 
                 const tokenData = (view === 'full') ? token.idWord : token
@@ -15976,6 +15983,7 @@ class GroupUtility {
                 tokensEq[token.word].targets[groupDataItem.targetId] = {
                   langName: allGroups[groupDataItem.groupId].langName,
                   metadata: allGroups[groupDataItem.groupId].metadata,
+                  metadataShort: allGroups[groupDataItem.groupId].metadataShort,
                   targets: []
                 }
               }
@@ -16963,7 +16971,7 @@ __webpack_require__.r(__webpack_exports__);
       type: String,
       required: true
     },
-    metadata: {
+    metadataShort: {
       type: String,
       required: false,
       default: ''
@@ -17177,7 +17185,7 @@ __webpack_require__.r(__webpack_exports__);
       required: true
     },
     // metadata in one string to show in lang bar
-    metadata: {
+    metadataShort: {
       type: String,
       required: false,
       defult: ''
@@ -18417,6 +18425,7 @@ __webpack_require__.r(__webpack_exports__);
         const allHoveredTargetTokens = Object.keys(this.allAlGroups).filter(groupId => this.hoveredGroupsId.includes(groupId)).map(groupId => {
               return {
                 metadata: this.allAlGroups[groupId].metadata,
+                metadataShort: this.allAlGroups[groupId].metadataShort,
                 targetSentence: this.allAlGroups[groupId].targetSentence,
                 targetId: this.allAlGroups[groupId].targetId
               }
@@ -18566,6 +18575,7 @@ __webpack_require__.r(__webpack_exports__);
         const allHoveredTargetTokens = Object.keys(this.allAlGroups).filter(groupId => this.hoveredGroupsId.includes(groupId)).map(groupId => {
               return {
                 metadata: this.allAlGroups[groupId].metadata,
+                metadataShort: this.allAlGroups[groupId].metadataShort,
                 target: this.allAlGroups[groupId].target,
                 targetId: this.allAlGroups[groupId].targetId
               }
@@ -20886,7 +20896,7 @@ var render = function() {
           },
           on: { click: _vm.toggleMetadata }
         },
-        [_vm._v(_vm._s(_vm.metadata))]
+        [_vm._v(_vm._s(_vm.metadataShort))]
       ),
       _vm._v(" "),
       _c(
@@ -21029,7 +21039,7 @@ var render = function() {
         ],
         attrs: {
           langName: _vm.langName,
-          metadata: _vm.metadata,
+          metadataShort: _vm.metadataShort,
           showData: _vm.showDataLangNameBar
         },
         on: { updateMetadataHeight: _vm.updateMetadataHeight }
@@ -21431,7 +21441,7 @@ var render = function() {
                                           segmentSingle.textType,
                                           segmentSingle.targetId
                                         ),
-                                        metadata: _vm.fullData.getMetadata(
+                                        metadataShort: _vm.fullData.getMetadataShort(
                                           segmentSingle.textType,
                                           segmentSingle.targetId
                                         ),
@@ -21530,7 +21540,9 @@ var render = function() {
                           dir: _vm.fullData.getDir("origin"),
                           lang: _vm.fullData.getLang("origin"),
                           langName: _vm.fullData.getLangName("origin"),
-                          metadata: _vm.fullData.getMetadata("origin"),
+                          metadataShort: _vm.fullData.getMetadataShort(
+                            "origin"
+                          ),
                           hoveredGroupsId: _vm.hoveredOriginGroupsId,
                           shownTabs: _vm.languageTargetIds
                         },
@@ -21626,7 +21638,7 @@ var render = function() {
                                 }
                               ),
                               _vm._v(" "),
-                              hoveredTargetsDataItem.metadata
+                              hoveredTargetsDataItem.metadataShort
                                 ? _c(
                                     "p",
                                     {
@@ -21637,7 +21649,7 @@ var render = function() {
                                       _vm._v(
                                         "\n                    " +
                                           _vm._s(
-                                            hoveredTargetsDataItem.metadata
+                                            hoveredTargetsDataItem.metadataShort
                                           ) +
                                           "\n                  "
                                       )
@@ -21742,7 +21754,9 @@ var render = function() {
                           dir: _vm.fullData.getDir("origin"),
                           lang: _vm.fullData.getLang("origin"),
                           langName: _vm.fullData.getLangName("origin"),
-                          metadata: _vm.fullData.getMetadata("origin"),
+                          metadataShort: _vm.fullData.getMetadataShort(
+                            "origin"
+                          ),
                           shownTabs: _vm.shownTabs,
                           hoveredGroupsId: _vm.hoveredGroupsId
                         },
@@ -21795,7 +21809,7 @@ var render = function() {
                             "target",
                             segmentTarget.targetId
                           ),
-                          metadata: _vm.fullData.getMetadata(
+                          metadataShort: _vm.fullData.getMetadataShort(
                             "target",
                             segmentTarget.targetId
                           ),
@@ -21905,7 +21919,9 @@ var render = function() {
                           dir: _vm.fullData.getDir("origin"),
                           lang: _vm.fullData.getLang("origin"),
                           langName: _vm.fullData.getLangName("origin"),
-                          metadata: _vm.fullData.getMetadata("origin"),
+                          metadataShort: _vm.fullData.getMetadataShort(
+                            "origin"
+                          ),
                           shownTabs: _vm.shownTabs,
                           interlinearly: true
                         }
@@ -21986,7 +22002,9 @@ var render = function() {
                           dir: _vm.fullData.getDir("origin"),
                           lang: _vm.fullData.getLang("origin"),
                           langName: _vm.fullData.getLangName("origin"),
-                          metadata: _vm.fullData.getMetadata("origin"),
+                          metadataShort: _vm.fullData.getMetadataShort(
+                            "origin"
+                          ),
                           hoveredGroupsId: _vm.hoveredGroupsId,
                           shownTabs: _vm.languageTargetIds
                         },
@@ -22066,7 +22084,9 @@ var render = function() {
                                           }
                                         }),
                                         _vm._v(" "),
-                                        token.hasLineBreak ? _c("br") : _vm._e()
+                                        token.hasLineBreak
+                                          ? _c("br", { key: tokenIndex })
+                                          : _vm._e()
                                       ]
                                     }
                                   )
@@ -22074,7 +22094,7 @@ var render = function() {
                                 2
                               ),
                               _vm._v(" "),
-                              hoveredGroupData.metadata
+                              hoveredGroupData.metadataShort
                                 ? _c(
                                     "p",
                                     {
@@ -22084,7 +22104,9 @@ var render = function() {
                                     [
                                       _vm._v(
                                         "\n                    " +
-                                          _vm._s(hoveredGroupData.metadata) +
+                                          _vm._s(
+                                            hoveredGroupData.metadataShort
+                                          ) +
                                           "\n                  "
                                       )
                                     ]
@@ -22167,7 +22189,9 @@ var render = function() {
                           dir: _vm.fullData.getDir("origin"),
                           lang: _vm.fullData.getLang("origin"),
                           langName: _vm.fullData.getLangName("origin"),
-                          metadata: _vm.fullData.getMetadata("origin"),
+                          metadataShort: _vm.fullData.getMetadataShort(
+                            "origin"
+                          ),
                           hoveredGroupsId: _vm.hoveredGroupsId,
                           shownTabs: _vm.languageTargetIds
                         },
@@ -22247,7 +22271,7 @@ var render = function() {
                                 2
                               ),
                               _vm._v(" "),
-                              hoveredGroupData.metadata
+                              hoveredGroupData.metadataShort
                                 ? _c(
                                     "p",
                                     {
@@ -22257,7 +22281,9 @@ var render = function() {
                                     [
                                       _vm._v(
                                         "\n                    " +
-                                          _vm._s(hoveredGroupData.metadata) +
+                                          _vm._s(
+                                            hoveredGroupData.metadataShort
+                                          ) +
                                           "\n                  "
                                       )
                                     ]
