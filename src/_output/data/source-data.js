@@ -27,7 +27,8 @@ export default class SourceData {
   }
 
   getFilterButtonTitle (textType, targetId) {
-    return textType === 'origin' ? this.origin.filterButtonTitle : this.targets[targetId].filterButtonTitle
+    const filterButtonTitle = textType === 'origin' ? this.origin.filterButtonTitle : this.targets[targetId].filterButtonTitle
+    return filterButtonTitle || this.getLangName(textType, targetId)
   }
 
   getSegments (textType, targetId) {
