@@ -39505,8 +39505,13 @@ class DetectTextController {
    * @returns {String} - tei/text
    */
   static checkXML (sourceText) {
-    const checkRegExp = new RegExp('<[ ]*tei', 'i')
-    return checkRegExp.test(sourceText.text) ? 'tei' : 'text'
+    const checkStartText = sourceText.text.substring(0, 20)
+    const checkRegExp1 = new RegExp('^[ ]*<')
+
+    const checkEndText = sourceText.text.substring(sourceText.text.length - 20)
+    const checkRegExp2 = new RegExp('>[ ]*$')
+
+    return checkRegExp1.test(checkStartText) && checkRegExp2.test(checkEndText) ? 'tei' : 'text'
   }
 
   /**
@@ -48975,7 +48980,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i664-text-ident.20220302486" : 0
+    return  true ? "i684-tei-check.20220302629" : 0
   }
 
   static get libName () {
