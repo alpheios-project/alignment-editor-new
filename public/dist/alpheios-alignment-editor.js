@@ -48980,7 +48980,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i684-tei-check.20220302629" : 0
+    return  true ? "i684-rename-tei-icon.20220302656" : 0
   }
 
   static get libName () {
@@ -54605,6 +54605,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     sourceType () {
       return this.$store.state.optionsUpdated && this.$store.state.docSourceUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.sourceType.currentValue
+    },
+    formattedSourceType () {
+      return this.sourceType === 'tei' ? 'xml' : this.sourceType
     },
     tokenization () {
       return _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_6__["default"].defineTextTokenizationOptions(_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
@@ -66895,7 +66898,7 @@ var render = function() {
                   class: _vm.sourceTypeIconClass,
                   on: { click: _vm.clickSourceType }
                 },
-                [_vm._v(" " + _vm._s(_vm.sourceType) + " ")]
+                [_vm._v(" " + _vm._s(_vm.formattedSourceType) + " ")]
               ),
               _vm._v(" "),
               _c(
