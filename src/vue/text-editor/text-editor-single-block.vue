@@ -46,7 +46,7 @@
 
           <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" 
                 :class="sourceTypeIconClass" v-show="showTextProps" 
-                @click="clickSourceType"> {{ sourceType }} </span>
+                @click="clickSourceType"> {{ formattedSourceType }} </span>
           <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="enableChangeLanguageIconValue && showTextProps" 
                 @click="$modal.show(languageModalName)"> 
                     {{ language }} 
@@ -291,6 +291,9 @@ export default {
     },
     sourceType () {
       return this.$store.state.optionsUpdated && this.$store.state.docSourceUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.sourceType.currentValue
+    },
+    formattedSourceType () {
+      return this.sourceType === 'tei' ? 'xml' : this.sourceType
     },
     tokenization () {
       return TokenizeController.defineTextTokenizationOptions(SettingsController.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
