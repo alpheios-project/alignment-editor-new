@@ -17,7 +17,7 @@
               <segment-block textType = "origin"
                 :segmentData = "segmentData.origin" :segIndex = "segIndex" :maxHeight = "maxHeight"
                 :dir = "fullData.getDir('origin')" :lang = "fullData.getLang('origin')" 
-                :langName = "fullData.getLangName('origin')" :metadata = "fullData.getMetadata('origin')"
+                :langName = "fullData.getLangName('origin')" :metadataShort = "fullData.getMetadataShort('origin')"
                 :shownTabs = "shownTabs" :hoveredGroupsId = "hoveredGroupsId"
                 @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
               />
@@ -28,7 +28,7 @@
                 v-for="(segmentTarget, targetIndex) in getSegmentData(segIndex)" :key="getIndex('target', segIndex, segmentTarget.targetId)"
                 :targetId = "segmentTarget.targetId" :segIndex = "segIndex" 
                 :dir = "fullData.getDir('target', segmentTarget.targetId)" :lang = "fullData.getLang('target', segmentTarget.targetId)" 
-                :langName = "fullData.getLangName('target', segmentTarget.targetId)" :metadata = "fullData.getMetadata('target', segmentTarget.targetId)"
+                :langName = "fullData.getLangName('target', segmentTarget.targetId)" :metadataShort = "fullData.getMetadataShort('target', segmentTarget.targetId)"
                 :segmentData = "segmentTarget.segment" :targetIdIndex = "targetIndex" :maxHeight = "maxHeight" :hoveredGroupsId = "hoveredGroupsId"
                 :isLast = "targetIndex === segmentData.targets.length - 1" @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
                 v-show="isShownTab(segmentTarget.targetId)"

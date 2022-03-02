@@ -16,7 +16,7 @@
               <segment-block textType = "origin"
                 :segmentData = "segmentData.origin" :segIndex = "segIndex"
                 :dir = "fullData.getDir('origin')" :lang = "fullData.getLang('origin')" 
-                :langName = "fullData.getLangName('origin')" :metadata = "fullData.getMetadata('origin')"
+                :langName = "fullData.getLangName('origin')" :metadataShort = "fullData.getMetadataShort('origin')"
                 :shownTabs = "shownTabs" :interlinearly = "true"
               />
             </div><!-- alpheios-al-editor-segment-cell -->

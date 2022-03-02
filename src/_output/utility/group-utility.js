@@ -20,7 +20,7 @@ export default class GroupUtility {
   static allIdentificationTargets (fullData) {
     return this.allTargetTextsIds(fullData).map(targetId => {
       return {
-        targetId, ident: fullData.getLang('target', targetId), identName: fullData.getLangName('target', targetId), hidden: false
+        targetId, ident: fullData.getFilterButtonTitle('target', targetId), identName: fullData.getFilterButtonTitle('target', targetId), hidden: false
       }
     })
   }
@@ -192,6 +192,7 @@ export default class GroupUtility {
     this.allTargetTextsIds(fullData).forEach(targetId => {
       const langName = fullData.targets[targetId].langName
       const metadata = fullData.targets[targetId].metadata
+      const metadataShort = fullData.targets[targetId].metadataShort
 
       const targetSegments = fullData.getSegments('target', targetId)
       if (targetSegments) {
@@ -200,6 +201,7 @@ export default class GroupUtility {
             if (token.grouped) {
               token.groupData.forEach(groupDataItem => {
                 if (!allG[groupDataItem.groupId].metadata) { allG[groupDataItem.groupId].metadata = metadata }
+                if (!allG[groupDataItem.groupId].metadataShort) { allG[groupDataItem.groupId].metadataShort = metadataShort }
                 if (!allG[groupDataItem.groupId].langName) { allG[groupDataItem.groupId].langName = langName }
 
                 const tokenData = (view === 'full') ? token.idWord : token
@@ -364,6 +366,7 @@ export default class GroupUtility {
                 tokensEq[token.word].targets[groupDataItem.targetId] = {
                   langName: allGroups[groupDataItem.groupId].langName,
                   metadata: allGroups[groupDataItem.groupId].metadata,
+                  metadataShort: allGroups[groupDataItem.groupId].metadataShort,
                   targets: []
                 }
               }

@@ -230,6 +230,18 @@ export default class SourceText {
     }
   }
 
+  defineLangName () {
+    const langData = Langs.all.find(langData => langData.value === this.lang)
+    const res = langData ? langData.text : this.lang
+    return res
+  }
+
+  convertToFilterTitle () {
+    const filterTitleFromMetadata = this.metadata.convertToFilterTitle()
+
+    return filterTitleFromMetadata || this.defineLangName()
+  }
+
   static async convertFromIndexedDB (dbData, metadataDbData) {
     const textData = await ConvertUtility.converBlobToText(dbData.text)
 

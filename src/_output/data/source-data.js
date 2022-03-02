@@ -26,6 +26,10 @@ export default class SourceData {
     return textType === 'origin' ? this.origin.metadataShort : this.targets[targetId].metadataShort
   }
 
+  getFilterButtonTitle (textType, targetId) {
+    return textType === 'origin' ? this.origin.filterButtonTitle : this.targets[targetId].filterButtonTitle
+  }
+
   getSegments (textType, targetId) {
     return textType === 'origin' ? this.origin.segments : this.targets[targetId].segments
   }

@@ -8,8 +8,13 @@ export default class Metadata {
   static get groups () {
     return {
       alpheios: { label: 'Alpheios', order: 1 },
-      dublin: { label: 'Dublin Core', order: 2 }
+      dublin: { label: 'Dublin Core', order: 2 },
+      common: { label: 'Common', order: 0 }
     }
+  }
+
+  static get commonGroupLabel () {
+    return 'common'
   }
 
   get isEmpty () {
@@ -87,6 +92,13 @@ export default class Metadata {
 
   convertToShortJSONLine () {
     const propsToShow = ['TITLE', 'CREATOR', 'DATE_COPYRIGHTED', 'AUTHOR', 'TRANSLATOR']
+    const propsValues = propsToShow.map(prop => this.getPropertyValue(MetadataTerm.property[prop])).filter(value => value)
+
+    return propsValues.length > 0 ? propsValues.join('; ') : ''
+  }
+
+  convertToFilterTitle () {
+    const propsToShow = ['FILTER_BUTTON']
     const propsValues = propsToShow.map(prop => this.getPropertyValue(MetadataTerm.property[prop])).filter(value => value)
 
     return propsValues.length > 0 ? propsValues.join('; ') : ''

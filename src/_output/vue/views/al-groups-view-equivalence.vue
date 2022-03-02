@@ -11,7 +11,7 @@
               <segment-block textType = "origin"
                 :segmentData = "segmentData.origin" :segIndex = "segIndex" :maxHeight = "maxHeight"
                 :dir = "fullData.getDir('origin')" :lang = "fullData.getLang('origin')" 
-                :langName = "fullData.getLangName('origin')" :metadata = "fullData.getMetadata('origin')"
+                :langName = "fullData.getLangName('origin')" :metadataShort = "fullData.getMetadataShort('origin')"
                 :hoveredGroupsId = "hoveredOriginGroupsId" :shownTabs = "languageTargetIds"
                 @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
               />
@@ -34,8 +34,8 @@
                         </template>
                         <span class="alpheios-token" v-if="targetsRow.count > 1"> ({{ targetsRow.count }})</span>
                       </div>
-                      <p class="alpheios-al-editor-target-hovered-block__metadata" v-if="hoveredTargetsDataItem.metadata">
-                        {{ hoveredTargetsDataItem.metadata }}
+                      <p class="alpheios-al-editor-target-hovered-block__metadata" v-if="hoveredTargetsDataItem.metadataShort">
+                        {{ hoveredTargetsDataItem.metadataShort }}
                       </p>
                   </div>
                 </div>

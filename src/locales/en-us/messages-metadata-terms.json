@@ -104,5 +104,15 @@
       "message": "An author of the text.",
       "description": "Metadata term description",
       "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_FILTER_BUTTON": {
+      "message": "Filter title",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_FILTER_BUTTON": {
+      "message": "Filter button title in HTML Output.",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
     }
 }

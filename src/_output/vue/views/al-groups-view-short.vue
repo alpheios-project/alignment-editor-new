@@ -11,7 +11,7 @@
               <segment-block textType = "origin"
                 :segmentData = "segmentData.origin" :segIndex = "segIndex" :maxHeight = "maxHeight"
                 :dir = "fullData.getDir('origin')" :lang = "fullData.getLang('origin')" 
-                :langName = "fullData.getLangName('origin')" :metadata = "fullData.getMetadata('origin')"
+                :langName = "fullData.getLangName('origin')" :metadataShort = "fullData.getMetadataShort('origin')"
                 :hoveredGroupsId = "hoveredGroupsId" :shownTabs = "languageTargetIds"
                 @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
               />
@@ -30,8 +30,8 @@
                             <br v-if="token.hasLineBreak" :key = "tokenIndex" />
                         </template>
                       </div>
-                      <p class="alpheios-al-editor-target-hovered-block__metadata" v-if="hoveredGroupData.metadata">
-                        {{ hoveredGroupData.metadata }}
+                      <p class="alpheios-al-editor-target-hovered-block__metadata" v-if="hoveredGroupData.metadataShort">
+                        {{ hoveredGroupData.metadataShort }}
                       </p>
                   </div>
                 </div>
@@ -79,6 +79,7 @@ export default {
         const allHoveredTargetTokens = Object.keys(this.allAlGroups).filter(groupId => this.hoveredGroupsId.includes(groupId)).map(groupId => {
               return {
                 metadata: this.allAlGroups[groupId].metadata,
+                metadataShort: this.allAlGroups[groupId].metadataShort,
                 target: this.allAlGroups[groupId].target,
                 targetId: this.allAlGroups[groupId].targetId
               }
@@ -213,3 +214,4 @@ export default {
     }
   }
 </style>
+

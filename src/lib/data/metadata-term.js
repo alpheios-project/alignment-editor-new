@@ -184,5 +184,15 @@ MetadataTerm.property = {
     descriptionl10n: 'METADATA_TERM_DESCRIPTION_AUTHOR',
     order: 1,
     group: 'alpheios'
+  },
+  FILTER_BUTTON: {
+    label: 'filter title',
+    labell10n: 'METADATA_TERM_LABEL_FILTER_BUTTON',
+    fieldtype: 'string',
+    multivalued: false,
+    description: 'Filter button title in HTML Output.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_FILTER_BUTTON',
+    order: 1,
+    group: 'common'
   }
 }
