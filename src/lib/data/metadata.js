@@ -91,10 +91,11 @@ export default class Metadata {
   }
 
   convertToShortJSONLine () {
-    const propsToShow = ['FILTER_BUTTON', 'TITLE', 'CREATOR', 'DATE_COPYRIGHTED', 'AUTHOR', 'TRANSLATOR']
+    const propsToShow = ['TITLE', 'CREATOR', 'DATE_COPYRIGHTED', 'AUTHOR', 'TRANSLATOR']
     const propsValues = propsToShow.map(prop => this.getPropertyValue(MetadataTerm.property[prop])).filter(value => value)
 
-    return propsValues.length > 0 ? propsValues.join('; ') : ''
+    const result = propsValues.length > 0 ? propsValues.join('; ') : ''
+    return result || this.convertToFilterTitle()
   }
 
   convertToFilterTitle () {

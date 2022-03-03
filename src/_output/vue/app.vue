@@ -142,7 +142,7 @@ export default {
 
     button.alpheios-actions-menu-button.alpheios-actions-menu-button-with-icon {
       padding: 5px;
-      margin: 0 5px;
+      margin: 10px 5px 0;
       .alpheios-alignment-button-icon {
           display: inline-block;
           width: 20px;

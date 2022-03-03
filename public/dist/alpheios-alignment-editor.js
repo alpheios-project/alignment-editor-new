@@ -46309,10 +46309,11 @@ class Metadata {
   }
 
   convertToShortJSONLine () {
-    const propsToShow = ['FILTER_BUTTON', 'TITLE', 'CREATOR', 'DATE_COPYRIGHTED', 'AUTHOR', 'TRANSLATOR']
+    const propsToShow = ['TITLE', 'CREATOR', 'DATE_COPYRIGHTED', 'AUTHOR', 'TRANSLATOR']
     const propsValues = propsToShow.map(prop => this.getPropertyValue(_lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__["default"].property[prop])).filter(value => value)
 
-    return propsValues.length > 0 ? propsValues.join('; ') : ''
+    const result = propsValues.length > 0 ? propsValues.join('; ') : ''
+    return result || this.convertToFilterTitle()
   }
 
   convertToFilterTitle () {
@@ -48984,7 +48985,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i672-responsive-select-view.20220303607" : 0
+    return  true ? "i672-responsive-select-view.20220303632" : 0
   }
 
   static get libName () {

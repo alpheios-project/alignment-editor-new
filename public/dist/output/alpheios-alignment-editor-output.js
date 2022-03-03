@@ -18059,7 +18059,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -20962,9 +20961,10 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-         false
-          ? 0
-          : _vm._e(),
+        _c("select-views", {
+          attrs: { inHeader: false },
+          on: { updateViewType: _vm.updateViewType }
+        }),
         _vm._v(" "),
         _c(
           "div",
@@ -21706,22 +21706,8 @@ var render = function() {
             "alpheios-al-editor-container alpheios-al-editor-view-full"
         },
         [
-          _vm.languageTargetIds.length > 1
-            ? _c("editor-tabs", {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: false,
-                    expression: "false"
-                  }
-                ],
-                attrs: {
-                  tabs: _vm.languageTargetIds,
-                  tabsTooltips: _vm.targetDataForTabs
-                },
-                on: { selectTab: _vm.selectTab }
-              })
+           false
+            ? 0
             : _vm._e(),
           _vm._v(" "),
           _c(
@@ -21872,22 +21858,8 @@ var render = function() {
             "alpheios-al-editor-container alpheios-al-editor-view-interlinearly"
         },
         [
-          _vm.languageTargetIds.length > 1
-            ? _c("editor-tabs", {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: false,
-                    expression: "false"
-                  }
-                ],
-                attrs: {
-                  tabs: _vm.languageTargetIds,
-                  tabsTooltips: _vm.targetDataForTabs
-                },
-                on: { selectTab: _vm.selectTab }
-              })
+           false
+            ? 0
             : _vm._e(),
           _vm._v(" "),
           _c(

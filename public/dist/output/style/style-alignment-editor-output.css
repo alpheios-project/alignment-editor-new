@@ -545,6 +545,41 @@ body, html {
 .alpheios-container-inner {
   padding: 0 10px;
 }
+
+.alpheios-alignment-app-menu .alpheios-alignment-header-line {
+  display: block;
+}
+.alpheios-alignment-app-menu .alpheios-alignment-app-menu__buttons.alpheios-alignment-menu-only-filter {
+  padding-top: 20px;
+}
+
+.alpheios-alignment-editor-container .alpheios-alignment-header-line {
+  display: none;
+}
+
+.alpheios-header .alpheios-header-logo {
+  height: 30px;
+}
+.alpheios-header button.alpheios-actions-menu-button.alpheios-actions-menu-button-with-icon {
+  margin: 0 5px;
+}
+
+.alpheios-app-container .alpheios-alignment-app-menu-open-icon {
+  top: 13px;
+}
+
+@media screen and (min-width: 900px) {
+  .alpheios-alignment-editor-container .alpheios-alignment-header-line {
+    display: block;
+  }
+
+  .alpheios-alignment-app-menu .alpheios-alignment-header-line {
+    display: none;
+  }
+  .alpheios-alignment-app-menu .alpheios-alignment-app-menu__buttons.alpheios-alignment-menu-only-filter {
+    padding-top: 60px;
+  }
+}
 .alpheios-al-editor-languages-list-item {
   display: inline-block;
   border: 1px solid #ddd;
@@ -872,7 +907,6 @@ body, html {
   padding-top: 30px;
 }
 .alpheios-al-editor-container-inner {
-  margin-top: 15px;
   border: 1px solid #ddd;
   border-bottom-color: transparent;
   background: #F8F8F8;
@@ -1316,12 +1350,6 @@ body, html {
 .alpheios-alignment-app-menu.alpheios-shown {
   left: 0;
 }
-.alpheios-alignment-app-menu .alpheios-alignment-app-menu__buttons {
-  padding: 20px 20px 10px;
-}
-.alpheios-alignment-app-menu .alpheios-alignment-app-menu__buttons.alpheios-alignment-menu-only-filter {
-  padding-top: 60px;
-}
 .alpheios-alignment-app-menu .alpheios-alignment-app-menu-close-icon {
   display: block;
   position: absolute;
@@ -1336,6 +1364,12 @@ body, html {
   height: 100%;
   display: block;
 }
+.alpheios-alignment-app-menu__buttons {
+  padding: 20px 20px 10px;
+}
+.alpheios-alignment-app-menu__buttons.alpheios-alignment-menu-only-filter {
+  padding-top: 60px;
+}
 .alpheios-header {
   display: flex;
   justify-content: space-between;
@@ -1346,7 +1380,7 @@ body, html {
 }
 button.alpheios-actions-menu-button.alpheios-actions-menu-button-with-icon {
   padding: 5px;
-  margin: 0 5px;
+  margin: 10px 5px 0;
 }
 button.alpheios-actions-menu-button.alpheios-actions-menu-button-with-icon .alpheios-alignment-button-icon {
   display: inline-block;

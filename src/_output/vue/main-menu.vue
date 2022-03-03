@@ -4,7 +4,7 @@
       <span class="alpheios-alignment-app-menu-close-icon" @click = "closeMenu">
         <x-close-icon />
       </span>
-      <select-views @updateViewType = "updateViewType" v-if="false" :inHeader = "false" />
+      <select-views @updateViewType = "updateViewType" :inHeader = "false" />
 
       <div class="alpheios-alignment-app-menu__buttons" :class="{ 'alpheios-alignment-menu-only-filter': onlyFilter }">
         <text-filter-block :fullData="fullData" 
@@ -100,14 +100,6 @@ export default {
       &.alpheios-shown {
         left: 0;
       }
-
-      .alpheios-alignment-app-menu__buttons {
-        padding: 20px 20px 10px;
-
-        &.alpheios-alignment-menu-only-filter {
-          padding-top: 60px;
-        }
-      }
       .alpheios-alignment-app-menu-close-icon {
         display: block;
         position: absolute;
@@ -125,4 +117,11 @@ export default {
       }
   }
 
+      .alpheios-alignment-app-menu__buttons {
+        padding: 20px 20px 10px;
+
+        &.alpheios-alignment-menu-only-filter {
+          padding-top: 60px;
+        }
+      }
 </style>

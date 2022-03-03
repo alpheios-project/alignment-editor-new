@@ -59,3 +59,54 @@ body, html {
 .alpheios-container-inner {
     padding: 0 10px;
 }
+
+.alpheios-alignment-app-menu {
+    .alpheios-alignment-header-line {
+        display: block;
+    }
+    .alpheios-alignment-app-menu__buttons {
+        &.alpheios-alignment-menu-only-filter {
+          padding-top: 20px;
+        }
+      }
+}
+
+.alpheios-alignment-editor-container {
+    .alpheios-alignment-header-line {
+        display: none;
+    }
+}
+
+.alpheios-header {
+    .alpheios-header-logo {
+        height: 30px;
+    }
+    button.alpheios-actions-menu-button.alpheios-actions-menu-button-with-icon {
+        margin: 0 5px;
+    }
+    
+}
+
+.alpheios-app-container .alpheios-alignment-app-menu-open-icon {
+    top: 13px;
+}
+
+@media screen and (min-width: 900px) {
+
+    .alpheios-alignment-editor-container {
+        .alpheios-alignment-header-line {
+            display: block;
+        }
+    }
+
+    .alpheios-alignment-app-menu {
+        .alpheios-alignment-header-line {
+            display: none;
+        }
+        .alpheios-alignment-app-menu__buttons {
+            &.alpheios-alignment-menu-only-filter {
+              padding-top: 60px;
+            }
+          }
+    }
+}
