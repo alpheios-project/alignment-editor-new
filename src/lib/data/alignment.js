@@ -606,7 +606,11 @@ export default class Alignment {
    * @returns {Boolean} yes - if token is in saved algnment groups, false - is not
    */
   tokenIsGrouped (token, limitByTargetId = null) {
-    return this.alignmentGroups.some(alGroup => alGroup.hasTheSameTargetId(limitByTargetId) && alGroup.includesToken(token))
+    if (Array.isArray(limitByTargetId)) {
+      return this.alignmentGroups.some(alGroup => limitByTargetId.some(targetId => alGroup.hasTheSameTargetId(targetId)) && alGroup.includesToken(token))
+    } else {
+      return this.alignmentGroups.some(alGroup => alGroup.hasTheSameTargetId(limitByTargetId) && alGroup.includesToken(token))
+    }
   }
 
   /**

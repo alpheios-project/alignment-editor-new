@@ -117,6 +117,10 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    shownTabs: {
+      type: Array,
+      required: true
     }
   },
   data () {
@@ -330,7 +334,7 @@ export default {
      * @param {Token}
      */
     groupedToken (token) {
-      return this.$alignedGC.tokenIsGrouped(token, this.currentTargetId)
+      return this.$alignedGC.tokenIsGrouped(token, this.shownTabs)
     },
     /**
      * Used for defining that token is in active alignmentGroup

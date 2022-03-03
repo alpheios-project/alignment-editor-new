@@ -44106,7 +44106,11 @@ class Alignment {
    * @returns {Boolean} yes - if token is in saved algnment groups, false - is not
    */
   tokenIsGrouped (token, limitByTargetId = null) {
-    return this.alignmentGroups.some(alGroup => alGroup.hasTheSameTargetId(limitByTargetId) && alGroup.includesToken(token))
+    if (Array.isArray(limitByTargetId)) {
+      return this.alignmentGroups.some(alGroup => limitByTargetId.some(targetId => alGroup.hasTheSameTargetId(targetId)) && alGroup.includesToken(token))
+    } else {
+      return this.alignmentGroups.some(alGroup => alGroup.hasTheSameTargetId(limitByTargetId) && alGroup.includesToken(token))
+    }
   }
 
   /**
@@ -48980,7 +48984,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i684-rename-tei-icon.20220302656" : 0
+    return  true ? "i688-grouped-token.20220303439" : 0
   }
 
   static get libName () {
@@ -49890,6 +49894,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -50545,6 +50551,10 @@ __webpack_require__.r(__webpack_exports__);
       type: Boolean,
       required: false,
       default: false
+    },
+    shownTabs: {
+      type: Array,
+      required: true
     }
   },
   data () {
@@ -50758,7 +50768,7 @@ __webpack_require__.r(__webpack_exports__);
      * @param {Token}
      */
     groupedToken (token) {
-      return this.$alignedGC.tokenIsGrouped(token, this.currentTargetId)
+      return this.$alignedGC.tokenIsGrouped(token, this.shownTabs)
     },
     /**
      * Used for defining that token is in active alignmentGroup
@@ -61453,6 +61463,7 @@ var render = function() {
                       currentTargetId: _vm.currentTargetId,
                       amountOfShownTabs: _vm.amountOfShownTabs,
                       isFirst: segmentData.isFirst,
+                      shownTabs: _vm.shownTabs,
                       segmentIndex: segmentData.origin.index,
                       textType: "origin",
                       textId: segmentData.origin.docSourceId,
@@ -61483,6 +61494,7 @@ var render = function() {
                     key: _vm.getIndex("target", segmentData.index, targetId),
                     attrs: {
                       isFirst: segmentData.isFirst,
+                      shownTabs: _vm.shownTabs,
                       segmentIndex: segmentTarget.index,
                       textType: "target",
                       textId: segmentTarget.docSourceId,
