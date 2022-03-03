@@ -1,7 +1,7 @@
 <template>
     <div class="alpheios-al-editor-container alpheios-al-editor-view-interlinearly" v-if="fullData">
       <editor-tabs 
-          v-if="languageTargetIds.length > 1"
+          v-if="false && (languageTargetIds.length > 1)"
           :tabs = "languageTargetIds" @selectTab = "selectTab"
           :tabsTooltips = "targetDataForTabs"
           v-show="false"

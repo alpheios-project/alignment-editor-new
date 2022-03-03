@@ -1,10 +1,9 @@
 <template>
     <div class="alpheios-al-editor-container alpheios-al-editor-view-full" v-if="fullData">
         <editor-tabs 
-            v-if="languageTargetIds.length > 1"
+            v-if="false && (languageTargetIds.length > 1)"
             :tabs = "languageTargetIds" @selectTab = "selectTab"
             :tabsTooltips = "targetDataForTabs"
-            v-show="false"
         />
 
         <div class ="alpheios-al-editor-container-inner alpheios-al-editor-segment-view">
@@ -180,7 +179,7 @@ export default {
 <style lang="scss">
 
   .alpheios-al-editor-container-inner {
-    margin-top: 15px;
+    // margin-top: 15px;
     border: 1px solid #ddd;
     border-bottom-color: transparent;
     background: #F8F8F8;
