@@ -46309,7 +46309,7 @@ class Metadata {
   }
 
   convertToShortJSONLine () {
-    const propsToShow = ['TITLE', 'CREATOR', 'DATE_COPYRIGHTED', 'AUTHOR', 'TRANSLATOR']
+    const propsToShow = ['FILTER_BUTTON', 'TITLE', 'CREATOR', 'DATE_COPYRIGHTED', 'AUTHOR', 'TRANSLATOR']
     const propsValues = propsToShow.map(prop => this.getPropertyValue(_lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__["default"].property[prop])).filter(value => value)
 
     return propsValues.length > 0 ? propsValues.join('; ') : ''
@@ -48984,7 +48984,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i688-grouped-token.20220303439" : 0
+    return  true ? "i688-grouped-token.20220303441" : 0
   }
 
   static get libName () {
