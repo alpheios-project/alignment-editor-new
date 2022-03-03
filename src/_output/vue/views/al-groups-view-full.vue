@@ -112,7 +112,7 @@ export default {
   },
   methods: {
     initShownTabs () {
-      // this.shownTabs.splice(0, this.shownTabs.length)
+      this.shownTabs.splice(0, this.shownTabs.length)
       // this.shownTabs.push(this.languageTargetIds[0])
       this.shownTabs.push(...this.languageTargetIds)
     },

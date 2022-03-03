@@ -17286,6 +17286,10 @@ __webpack_require__.r(__webpack_exports__);
      * Checks if the token is grouped and visible on the screen
      */
     groupedToken (token) {
+      if (token.word === 'word2') {
+        console.info('token - ', token)
+        console.info('this.shownTabs - ', this.shownTabs)
+      }
       return token.grouped && ((this.shownTabs.length === 0) || token.groupData.some(groupdataItem => this.isShownTab(groupdataItem.targetId)))
     },
     isTokenInHoveredGroups (token) {
@@ -18128,7 +18132,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     initShownTabs () {
-      // this.shownTabs.splice(0, this.shownTabs.length)
+      this.shownTabs.splice(0, this.shownTabs.length)
       // this.shownTabs.push(this.languageTargetIds[0])
       this.shownTabs.push(...this.languageTargetIds)
     },
