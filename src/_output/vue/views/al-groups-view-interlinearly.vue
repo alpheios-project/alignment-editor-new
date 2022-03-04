@@ -1,11 +1,5 @@
 <template>
     <div class="alpheios-al-editor-container alpheios-al-editor-view-interlinearly" v-if="fullData">
-      <editor-tabs 
-          v-if="false && (languageTargetIds.length > 1)"
-          :tabs = "languageTargetIds" @selectTab = "selectTab"
-          :tabsTooltips = "targetDataForTabs"
-          v-show="false"
-      />
       <div class ="alpheios-al-editor-container-inner alpheios-al-editor-segment-view">
 
           <div class="alpheios-al-editor-segment-row"
@@ -43,25 +37,19 @@ export default {
       type: Object,
       required: true
     },
-    languageTargetIds: {
+    identList: {
       type: Array,
       required: true
     }
   },
   data () {
     return {
-      shownTabs: []
     }
-  },
-  watch: {
-    languageTargetIds () {
-      this.initShownTabs()
-    }
-  },
-  mounted () {
-    this.initShownTabs()
   },
   computed: {
+    shownTabs () {
+      return this.identList.filter(langData => !langData.hidden).map(langData => langData.targetId)
+    },
     allOriginSegments () {
       return GroupUtility.allOriginSegments(this.fullData)
     },
@@ -70,10 +58,6 @@ export default {
     }
   },
   methods: {
-    initShownTabs () {
-      this.shownTabs.splice(0, this.shownTabs.length)
-      this.shownTabs.push(...this.languageTargetIds)
-    },
     getIndex (textType, index, additionalIndex = 0) {
       return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
     },

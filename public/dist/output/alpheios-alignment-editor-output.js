@@ -15634,11 +15634,18 @@ class GroupUtility {
    *                {String} - langName - language name
    *                {Boolean} - hidden - visibility flag
    */
-  static allIdentificationTargets (fullData) {
-    return this.allTargetTextsIds(fullData).map(targetId => {
-      return {
+  static allIdentificationTargets (fullData, viewType) {
+    return this.allTargetTextsIds(fullData).map((targetId, targetIndex) => {
+      const item = {
         targetId, ident: fullData.getFilterButtonTitle('target', targetId), identName: fullData.getFilterButtonTitle('target', targetId), hidden: false
       }
+
+      if ((viewType === 'viewFull') || (viewType === 'viewInterlinearly')) {
+        item.hidden = targetIndex > 0
+      } else if (viewType === 'view3Columns') {
+        item.hidden = targetIndex > 1
+      }
+      return item
     })
   }
 
@@ -16695,6 +16702,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -16743,31 +16752,46 @@ __webpack_require__.r(__webpack_exports__);
     return {
       viewType: 'viewFull',
       sentenceCount: 0,
-      identList: [],
-      menuShow: 1
+      identList: {
+        viewFull: [],
+        view3Columns: [],
+        viewShort: [],
+        viewEquivalence: [],
+        viewInterlinearly: [],
+        viewSentence: []
+      },
+      menuShow: 1,
+      allViewTypes: [
+        { value: 'viewFull', label: '2 columns'},
+        { value: 'view3Columns', label: '3 columns'},
+        { value: 'viewShort', label: 'Short'},
+        { value: 'viewEquivalence', label: 'All equivalents'},
+        { value: 'viewInterlinearly', label: 'Interlinear'},
+        { value: 'viewSentence', label: 'Sentence Context'}
+      ]
     }
   },
   created() {
-    this.identList = _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_0__["default"].allIdentificationTargets(this.fullData)
+    Object.keys(this.identList).forEach(viewType => {
+      this.identList[viewType] = _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_0__["default"].allIdentificationTargets(this.fullData, viewType)
+    })
+
+    this.viewType = this.allViewTypes[0].value
   },
   computed: {
     fullData () {
       return new _output_data_source_data_js__WEBPACK_IMPORTED_MODULE_1__["default"](this.$parent.fullData)
-    },
-    languageTargetIds () {
-      return this.identList.filter(langData => !langData.hidden).map(langData => langData.targetId)
     }
   },
   methods: {
-
-    changeOrder (langList) {
-      this.identList.sort((a, b) => {
-        return langList.indexOf(a.targetId) - langList.indexOf(b.targetId)
+    changeOrder (data) {
+      this.identList[data.view].sort((a, b) => {
+        return data.identsList.indexOf(a.targetId) - data.identsList.indexOf(b.targetId)
       })
     },
 
-    updateVisibility (langData) {
-      this.identList.find(curLangData => curLangData.targetId === langData.targetId).hidden = langData.hidden
+    updateVisibility (data) {
+      this.identList[data.view ].find(curLangData => curLangData.targetId === data.identData.targetId).hidden = data.identData.hidden
     },
 
     updateViewType ({ viewType, sentenceCount }) {
@@ -17064,6 +17088,14 @@ __webpack_require__.r(__webpack_exports__);
       type: Boolean,
       required: false,
       default: true
+    },
+    currentView: {
+      type: String,
+      required: true
+    },
+    allViewTypes: {
+      type: Array,
+      required: true
     }
   },
   data () {
@@ -17079,17 +17111,20 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     l10n () {
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"]
+    },
+    allViewsNames () {
+      return this.allViewTypes.map(item => item.value)
     }
   },
   methods: {
     closeMenu () {
       this.menuShown = false
     },
-    changeOrder (langList) {
-      this.$emit('changeOrder', langList)
+    changeOrder (data) {
+      this.$emit('changeOrder', data)
     },
-    updateVisibility (langData) {
-      this.$emit('updateVisibility', langData)
+    updateVisibility (data) {
+      this.$emit('updateVisibility', data)
     },
     updateViewType (data) {
       this.$emit('updateViewType', data)
@@ -17286,10 +17321,6 @@ __webpack_require__.r(__webpack_exports__);
      * Checks if the token is grouped and visible on the screen
      */
     groupedToken (token) {
-      if (token.word === 'word2') {
-        console.info('token - ', token)
-        console.info('this.shownTabs - ', this.shownTabs)
-      }
       return token.grouped && ((this.shownTabs.length === 0) || token.groupData.some(groupdataItem => this.isShownTab(groupdataItem.targetId)))
     },
     isTokenInHoveredGroups (token) {
@@ -17356,20 +17387,16 @@ __webpack_require__.r(__webpack_exports__);
       type: Boolean,
       required: false,
       default: true
+    },
+    allViewTypes: {
+      type: Array,
+      required: true
     }
   },
   data () {
     return {
-      allViewTypes: [
-        { value: 'viewFull', label: '2 columns'},
-        { value: 'view3Columns', label: '3 columns'},
-        { value: 'viewShort', label: 'Short'},
-        { value: 'viewEquivalence', label: 'All equivalents'},
-        { value: 'viewInterlinearly', label: 'Interlinear'},
-        { value: 'viewSentence', label: 'Sentence Context'}
-      ],
       sentenceCount: 0,
-      viewType: 'viewFull'
+      viewType: null
     }
   },
   watch: {
@@ -17379,6 +17406,9 @@ __webpack_require__.r(__webpack_exports__);
     sentenceCount () {
       this.$emit('updateViewType', { viewType: this.viewType, sentenceCount: this.sentenceCount })
     }
+  },
+  created () {
+    this.viewType = this.allViewTypes[0].value
   },
   methods: {
     /**
@@ -17452,10 +17482,14 @@ __webpack_require__.r(__webpack_exports__);
       type: Object,
       required: true
     },
-    view: {
+    layout: {
       type: String,
       required: false,
       default: 'horizontal'
+    },
+    view: {
+      type: String,
+      required: true
     }
   },
   data () {
@@ -17465,7 +17499,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created() {
-    this.identList = _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_1__["default"].allIdentificationTargets(this.fullData)
+    this.identList = _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_1__["default"].allIdentificationTargets(this.fullData, this.view)
   },
   computed: {
     avaliableIdents () {
@@ -17474,8 +17508,8 @@ __webpack_require__.r(__webpack_exports__);
     identFilteringAvailable () {
       return this.avaliableIdents > 1
     },
-    viewClass () {
-      return `alpheios-al-editor-languages-block-${this.view}`
+    layoutClass () {
+      return `alpheios-al-editor-languages-block-${this.layout}`
     }
 
   },
@@ -17484,7 +17518,7 @@ __webpack_require__.r(__webpack_exports__);
       this.dragging = false
       if (e.oldDraggableIndex !== e.newDraggableIndex) {
         const identsList = this.identList.map(identData => identData.targetId)
-        this.$emit('changeOrder', identsList)
+        this.$emit('changeOrder', { identsList, view: this.view } )
       }
     },
 
@@ -17499,7 +17533,7 @@ __webpack_require__.r(__webpack_exports__);
     toggleIdentDataVisibility (identData) {
       if (this.identFilteringAvailable || identData.hidden) {
         identData.hidden = !identData.hidden
-        this.$emit('updateVisibility', identData)
+        this.$emit('updateVisibility', { identData, view: this.view })
       }
     }
   }
@@ -17762,7 +17796,7 @@ __webpack_require__.r(__webpack_exports__);
       type: Object,
       required: true
     },
-    languageTargetIds: {
+    identList: {
       type: Array,
       required: true
     }
@@ -17776,8 +17810,11 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
+    shownTabs () {
+      return this.identList.filter(langData => !langData.hidden).map(langData => langData.targetId)
+    },
     segmentsForColumns () {
-      return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_3__["default"].segmentsForColumns(this.fullData, this.languageTargetIds)
+      return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_3__["default"].segmentsForColumns(this.fullData, this.shownTabs)
     },
     allTargetTextsIds () {
       return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_3__["default"].allTargetTextsIds(this.fullData)
@@ -17932,7 +17969,7 @@ __webpack_require__.r(__webpack_exports__);
       type: Object,
       required: true
     },
-    languageTargetIds: {
+    identList: {
       type: Array,
       required: true
     }
@@ -17945,6 +17982,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
+    shownTabs () {
+      this.hoveredGroupsId = null
+      return this.identList.filter(langData => !langData.hidden).map(langData => langData.targetId)
+    },
     allOriginSegments () {
       return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOriginSegments(this.fullData)
     },
@@ -17952,7 +17993,7 @@ __webpack_require__.r(__webpack_exports__);
       return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_3__["default"].alignmentGroups(this.fullData, 'equivalence')
     },
     tokensEqGroups () {
-      return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_3__["default"].tokensEquivalentGroups(this.fullData, this.allAlGroups, this.languageTargetIds)
+      return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_3__["default"].tokensEquivalentGroups(this.fullData, this.allAlGroups, this.shownTabs)
     },
 
     containerHeight () {
@@ -17981,7 +18022,7 @@ __webpack_require__.r(__webpack_exports__);
 
         if (hoveredTargetsDataObj) {
           const hoveredTargetsKeys = Object.keys(hoveredTargetsDataObj).sort((a, b) => {
-            return this.languageTargetIds.indexOf(a) - this.languageTargetIds.indexOf(b)
+            return this.shownTabs.indexOf(a) - this.shownTabs.indexOf(b)
           })
           const hoveredTargetsData = hoveredTargetsKeys.map(targetId => hoveredTargetsDataObj[targetId])
 
@@ -18053,12 +18094,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -18080,7 +18115,7 @@ __webpack_require__.r(__webpack_exports__);
       type: Object,
       required: true
     },
-    languageTargetIds: {
+    identList: {
       type: Array,
       required: true
     }
@@ -18089,21 +18124,15 @@ __webpack_require__.r(__webpack_exports__);
     return {
       colors: ['#F8F8F8', '#e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff'],
       originColor: '#F8F8F8',
-      hoveredGroupsId: null,
-      shownTabs: []
+      hoveredGroupsId: null
     }
-  },
-  watch: {
-    languageTargetIds () {
-      this.initShownTabs()
-    }
-  },
-  mounted () {
-    this.initShownTabs()
   },
   computed: {
+    shownTabs () {
+      return this.identList.filter(langData => !langData.hidden).map(langData => langData.targetId)
+    },
     allShownSegments () {
-      return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_4__["default"].allShownSegments(this.fullData, this.languageTargetIds)
+      return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_4__["default"].allShownSegments(this.fullData, this.shownTabs)
     },
     targetDataForTabs () {
       return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_4__["default"].targetDataForTabs(this.fullData)
@@ -18112,7 +18141,7 @@ __webpack_require__.r(__webpack_exports__);
       return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_4__["default"].alignmentGroups(this.fullData, 'full')
     },
     orderedTargetsId () {
-      return this.languageTargetIds.filter(targetId => this.shownTabs.includes(targetId))
+      return this.shownTabs.filter(targetId => this.shownTabs.includes(targetId))
     },
     lastTargetId () {
       return this.orderedTargetsId[this.orderedTargetsId.length - 1]
@@ -18130,11 +18159,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    initShownTabs () {
-      this.shownTabs.splice(0, this.shownTabs.length)
-      // this.shownTabs.push(this.languageTargetIds[0])
-      this.shownTabs.push(...this.languageTargetIds)
-    },
     getSegmentData (segIndex) {
       return this.allShownSegments[segIndex].targets
     },
@@ -18149,7 +18173,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     targetIdIndex (targetId) {
-      return targetId ? this.languageTargetIds.indexOf(targetId) : null
+      return targetId ? this.shownTabs.indexOf(targetId) : null
     },
     addHoverToken (token) {
       this.hoveredGroupsId = token.grouped ? token.groupData.filter(groupDataItem => this.shownTabs.includes(groupDataItem.targetId)).map(groupDataItem => groupDataItem.groupId) : null
@@ -18234,12 +18258,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -18259,25 +18277,19 @@ __webpack_require__.r(__webpack_exports__);
       type: Object,
       required: true
     },
-    languageTargetIds: {
+    identList: {
       type: Array,
       required: true
     }
   },
   data () {
     return {
-      shownTabs: []
     }
-  },
-  watch: {
-    languageTargetIds () {
-      this.initShownTabs()
-    }
-  },
-  mounted () {
-    this.initShownTabs()
   },
   computed: {
+    shownTabs () {
+      return this.identList.filter(langData => !langData.hidden).map(langData => langData.targetId)
+    },
     allOriginSegments () {
       return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOriginSegments(this.fullData)
     },
@@ -18286,10 +18298,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    initShownTabs () {
-      this.shownTabs.splice(0, this.shownTabs.length)
-      this.shownTabs.push(...this.languageTargetIds)
-    },
     getIndex (textType, index, additionalIndex = 0) {
       return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
     },
@@ -18388,7 +18396,7 @@ __webpack_require__.r(__webpack_exports__);
       required: false,
       default: 0
     },
-    languageTargetIds: {
+    identList: {
       type: Array,
       required: true
     }
@@ -18400,6 +18408,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
+    shownTabs () {
+      this.hoveredGroupsId = null
+      return this.identList.filter(langData => !langData.hidden).map(langData => langData.targetId)
+    },
     allOriginSegments () {
       return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOriginSegments(this.fullData)
     },
@@ -18433,8 +18445,8 @@ __webpack_require__.r(__webpack_exports__);
                 targetId: this.allAlGroups[groupId].targetId
               }
             })
-        return allHoveredTargetTokens.filter(groupData => this.languageTargetIds.includes(groupData.targetId)).sort((a, b) => {
-          return this.languageTargetIds.indexOf(a.targetId) - this.languageTargetIds.indexOf(b.targetId)
+        return allHoveredTargetTokens.filter(groupData => this.shownTabs.includes(groupData.targetId)).sort((a, b) => {
+          return this.shownTabs.indexOf(a.targetId) - this.shownTabs.indexOf(b.targetId)
         })
       }
 
@@ -18446,7 +18458,7 @@ __webpack_require__.r(__webpack_exports__);
       return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
     },
     isShownTab (targetId) {
-      return this.languageTargetIds.includes(targetId)
+      return this.shownTabs.includes(targetId)
     },
     groupedToken (token) {
       return token.grouped && token.groupData.some(groupdataItem => this.isShownTab(groupdataItem.targetId))
@@ -18555,7 +18567,7 @@ __webpack_require__.r(__webpack_exports__);
       type: Object,
       required: true
     },
-    languageTargetIds: {
+    identList: {
       type: Array,
       required: true
     }
@@ -18567,6 +18579,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
+    shownTabs () {
+      this.hoveredGroupsId = null
+      return this.identList.filter(langData => !langData.hidden).map(langData => langData.targetId)
+    },
     allOriginSegments () {
       return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_2__["default"].allOriginSegments(this.fullData)
     },
@@ -18583,8 +18599,8 @@ __webpack_require__.r(__webpack_exports__);
                 targetId: this.allAlGroups[groupId].targetId
               }
             })
-        return allHoveredTargetTokens.filter(groupData => this.languageTargetIds.includes(groupData.targetId)).sort((a, b) => {
-          return this.languageTargetIds.indexOf(a.targetId) - this.languageTargetIds.indexOf(b.targetId)
+        return allHoveredTargetTokens.filter(groupData => this.shownTabs.includes(groupData.targetId)).sort((a, b) => {
+          return this.shownTabs.indexOf(a.targetId) - this.shownTabs.indexOf(b.targetId)
         })
       }
 
@@ -18609,7 +18625,7 @@ __webpack_require__.r(__webpack_exports__);
       return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
     },
     isShownTab (targetId) {
-      return this.languageTargetIds.includes(targetId)
+      return this.shownTabs.includes(targetId)
     },
     groupedToken (token) {
       return token.grouped && token.groupData.some(groupdataItem => this.isShownTab(groupdataItem.targetId))
@@ -20515,7 +20531,7 @@ var render = function() {
     "div",
     { staticClass: "alpheios-app-container" },
     [
-      _vm.identList.length > 1
+       true
         ? _c(
             "span",
             {
@@ -20529,13 +20545,15 @@ var render = function() {
             [_c("navbar-icon")],
             1
           )
-        : _vm._e(),
+        : 0,
       _vm._v(" "),
       _c("main-menu", {
         attrs: {
           menuShow: _vm.menuShow,
           fullData: _vm.fullData,
-          onlyFilter: true
+          onlyFilter: true,
+          currentView: _vm.viewType,
+          allViewTypes: _vm.allViewTypes
         },
         on: {
           changeOrder: _vm.changeOrder,
@@ -20592,7 +20610,7 @@ var render = function() {
         },
         [
           _c("select-views", {
-            attrs: { inHeader: true },
+            attrs: { inHeader: true, allViewTypes: _vm.allViewTypes },
             on: { updateViewType: _vm.updateViewType }
           }),
           _vm._v(" "),
@@ -20604,7 +20622,7 @@ var render = function() {
             ? _c("al-groups-view-full", {
                 attrs: {
                   fullData: _vm.fullData,
-                  languageTargetIds: _vm.languageTargetIds
+                  identList: _vm.identList[_vm.viewType]
                 }
               })
             : _vm._e(),
@@ -20613,7 +20631,7 @@ var render = function() {
             ? _c("al-groups-view-columns", {
                 attrs: {
                   fullData: _vm.fullData,
-                  languageTargetIds: _vm.languageTargetIds
+                  identList: _vm.identList[_vm.viewType]
                 }
               })
             : _vm._e(),
@@ -20622,7 +20640,7 @@ var render = function() {
             ? _c("al-groups-view-short", {
                 attrs: {
                   fullData: _vm.fullData,
-                  languageTargetIds: _vm.languageTargetIds
+                  identList: _vm.identList[_vm.viewType]
                 }
               })
             : _vm._e(),
@@ -20631,7 +20649,7 @@ var render = function() {
             ? _c("al-groups-view-sentence", {
                 attrs: {
                   fullData: _vm.fullData,
-                  languageTargetIds: _vm.languageTargetIds,
+                  identList: _vm.identList[_vm.viewType],
                   "sentence-count": _vm.sentenceCount
                 }
               })
@@ -20641,7 +20659,7 @@ var render = function() {
             ? _c("al-groups-view-equivalence", {
                 attrs: {
                   fullData: _vm.fullData,
-                  languageTargetIds: _vm.languageTargetIds
+                  identList: _vm.identList[_vm.viewType]
                 }
               })
             : _vm._e(),
@@ -20650,7 +20668,7 @@ var render = function() {
             ? _c("al-groups-view-interlinearly", {
                 attrs: {
                   fullData: _vm.fullData,
-                  languageTargetIds: _vm.languageTargetIds
+                  identList: _vm.identList[_vm.viewType]
                 }
               })
             : _vm._e()
@@ -20962,7 +20980,7 @@ var render = function() {
         ),
         _vm._v(" "),
         _c("select-views", {
-          attrs: { inHeader: false },
+          attrs: { inHeader: false, allViewTypes: _vm.allViewTypes },
           on: { updateViewType: _vm.updateViewType }
         }),
         _vm._v(" "),
@@ -20972,15 +20990,24 @@ var render = function() {
             staticClass: "alpheios-alignment-app-menu__buttons",
             class: { "alpheios-alignment-menu-only-filter": _vm.onlyFilter }
           },
-          [
-            _c("text-filter-block", {
-              attrs: { fullData: _vm.fullData },
+          _vm._l(_vm.allViewsNames, function(view) {
+            return _c("text-filter-block", {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.currentView === view,
+                  expression: "currentView === view"
+                }
+              ],
+              key: view,
+              attrs: { fullData: _vm.fullData, view: view },
               on: {
                 changeOrder: _vm.changeOrder,
                 updateVisibility: _vm.updateVisibility
               }
             })
-          ],
+          }),
           1
         )
       ],
@@ -21125,7 +21152,11 @@ var render = function() {
                     expression: "viewType"
                   }
                 ],
-                attrs: { type: "radio", id: _vm.itemIdWithValue(item.value) },
+                attrs: {
+                  type: "radio",
+                  id: _vm.itemIdWithValue(item.value),
+                  name: "viewType"
+                },
                 domProps: {
                   value: item.value,
                   checked: _vm._q(_vm.viewType, item.value)
@@ -21207,7 +21238,10 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "alpheios-al-editor-languages-block", class: _vm.viewClass },
+    {
+      staticClass: "alpheios-al-editor-languages-block",
+      class: _vm.layoutClass
+    },
     [
       _c(
         "draggable",
@@ -21450,7 +21484,7 @@ var render = function() {
                                           segmentSingle.targetId
                                         ),
                                         hoveredGroupsId: _vm.hoveredGroupsId,
-                                        shownTabs: _vm.languageTargetIds,
+                                        shownTabs: _vm.shownTabs,
                                         targetIdIndex: _vm.targetIdIndex(
                                           segmentSingle.targetId
                                         ),
@@ -21548,7 +21582,7 @@ var render = function() {
                             "origin"
                           ),
                           hoveredGroupsId: _vm.hoveredOriginGroupsId,
-                          shownTabs: _vm.languageTargetIds
+                          shownTabs: _vm.shownTabs
                         },
                         on: {
                           addHoverToken: _vm.addHoverToken,
@@ -21706,10 +21740,6 @@ var render = function() {
             "alpheios-al-editor-container alpheios-al-editor-view-full"
         },
         [
-           false
-            ? 0
-            : _vm._e(),
-          _vm._v(" "),
           _c(
             "div",
             {
@@ -21822,8 +21852,7 @@ var render = function() {
             }),
             0
           )
-        ],
-        1
+        ]
       )
     : _vm._e()
 }
@@ -21858,10 +21887,6 @@ var render = function() {
             "alpheios-al-editor-container alpheios-al-editor-view-interlinearly"
         },
         [
-           false
-            ? 0
-            : _vm._e(),
-          _vm._v(" "),
           _c(
             "div",
             {
@@ -21910,8 +21935,7 @@ var render = function() {
             }),
             0
           )
-        ],
-        1
+        ]
       )
     : _vm._e()
 }
@@ -21982,7 +22006,7 @@ var render = function() {
                             "origin"
                           ),
                           hoveredGroupsId: _vm.hoveredGroupsId,
-                          shownTabs: _vm.languageTargetIds
+                          shownTabs: _vm.shownTabs
                         },
                         on: {
                           addHoverToken: _vm.addHoverToken,
@@ -22052,7 +22076,11 @@ var render = function() {
                                     function(token, tokenIndex) {
                                       return [
                                         _c("token-block", {
-                                          key: tokenIndex,
+                                          key: _vm.getIndex(
+                                            "target",
+                                            tokenIndex,
+                                            "token"
+                                          ),
                                           attrs: {
                                             token: token,
                                             selected: _vm.selectedToken(token),
@@ -22061,7 +22089,13 @@ var render = function() {
                                         }),
                                         _vm._v(" "),
                                         token.hasLineBreak
-                                          ? _c("br", { key: tokenIndex })
+                                          ? _c("br", {
+                                              key: _vm.getIndex(
+                                                "target",
+                                                tokenIndex,
+                                                "br"
+                                              )
+                                            })
                                           : _vm._e()
                                       ]
                                     }
@@ -22169,7 +22203,7 @@ var render = function() {
                             "origin"
                           ),
                           hoveredGroupsId: _vm.hoveredGroupsId,
-                          shownTabs: _vm.languageTargetIds
+                          shownTabs: _vm.shownTabs
                         },
                         on: {
                           addHoverToken: _vm.addHoverToken,
@@ -22205,7 +22239,8 @@ var render = function() {
                             {
                               key: hoveredGroupDataIndex,
                               staticClass:
-                                "alpheios-al-editor-target-hovered-block"
+                                "alpheios-al-editor-target-hovered-block",
+                              attrs: { "data-key": hoveredGroupDataIndex }
                             },
                             [
                               _c(
@@ -22234,12 +22269,22 @@ var render = function() {
                                   ) {
                                     return [
                                       _c("token-block", {
-                                        key: tokenIndex,
+                                        key: _vm.getIndex(
+                                          "target",
+                                          tokenIndex,
+                                          "token"
+                                        ),
                                         attrs: { token: token }
                                       }),
                                       _vm._v(" "),
                                       token.hasLineBreak
-                                        ? _c("br", { key: tokenIndex })
+                                        ? _c("br", {
+                                            key: _vm.getIndex(
+                                              "target",
+                                              tokenIndex,
+                                              "br"
+                                            )
+                                          })
                                         : _vm._e()
                                     ]
                                   })

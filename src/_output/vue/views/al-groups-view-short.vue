@@ -12,7 +12,7 @@
                 :segmentData = "segmentData.origin" :segIndex = "segIndex" :maxHeight = "maxHeight"
                 :dir = "fullData.getDir('origin')" :lang = "fullData.getLang('origin')" 
                 :langName = "fullData.getLangName('origin')" :metadataShort = "fullData.getMetadataShort('origin')"
-                :hoveredGroupsId = "hoveredGroupsId" :shownTabs = "languageTargetIds"
+                :hoveredGroupsId = "hoveredGroupsId" :shownTabs = "shownTabs"
                 @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
               />
             </div>
@@ -22,12 +22,12 @@
                 <div class="alpheios-al-editor-segment-block-text" v-if="hoveredTargetTokens" >
 
                   <div class="alpheios-al-editor-target-hovered-block"
-                    v-for = "(hoveredGroupData, hoveredGroupDataIndex) in hoveredTargetTokens" :key=" hoveredGroupDataIndex">
+                    v-for = "(hoveredGroupData, hoveredGroupDataIndex) in hoveredTargetTokens" :key="hoveredGroupDataIndex" :data-key="hoveredGroupDataIndex">
                       <span class="alpheios-al-editor-segment-block-text__langname">{{ targetLangName(hoveredGroupData) }}</span>
                       <div class="alpheios-al-editor-target-hovered-block_tokens">
                         <template v-for = "(token, tokenIndex) in hoveredGroupData.target">
-                            <token-block :key = "tokenIndex" :token="token" />
-                            <br v-if="token.hasLineBreak" :key = "tokenIndex" />
+                            <token-block :key = "getIndex('target', tokenIndex, 'token')" :token="token" />
+                            <br v-if="token.hasLineBreak" :key = "getIndex('target', tokenIndex, 'br')" />
                         </template>
                       </div>
                       <p class="alpheios-al-editor-target-hovered-block__metadata" v-if="hoveredGroupData.metadataShort">
@@ -56,7 +56,7 @@ export default {
       type: Object,
       required: true
     },
-    languageTargetIds: {
+    identList: {
       type: Array,
       required: true
     }
@@ -68,6 +68,10 @@ export default {
     }
   },
   computed: {
+    shownTabs () {
+      this.hoveredGroupsId = null
+      return this.identList.filter(langData => !langData.hidden).map(langData => langData.targetId)
+    },
     allOriginSegments () {
       return GroupUtility.allOriginSegments(this.fullData)
     },
@@ -84,8 +88,8 @@ export default {
                 targetId: this.allAlGroups[groupId].targetId
               }
             })
-        return allHoveredTargetTokens.filter(groupData => this.languageTargetIds.includes(groupData.targetId)).sort((a, b) => {
-          return this.languageTargetIds.indexOf(a.targetId) - this.languageTargetIds.indexOf(b.targetId)
+        return allHoveredTargetTokens.filter(groupData => this.shownTabs.includes(groupData.targetId)).sort((a, b) => {
+          return this.shownTabs.indexOf(a.targetId) - this.shownTabs.indexOf(b.targetId)
         })
       }
 
@@ -110,7 +114,7 @@ export default {
       return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
     },
     isShownTab (targetId) {
-      return this.languageTargetIds.includes(targetId)
+      return this.shownTabs.includes(targetId)
     },
     groupedToken (token) {
       return token.grouped && token.groupData.some(groupdataItem => this.isShownTab(groupdataItem.targetId))

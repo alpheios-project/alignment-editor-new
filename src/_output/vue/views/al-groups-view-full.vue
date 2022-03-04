@@ -1,11 +1,5 @@
 <template>
     <div class="alpheios-al-editor-container alpheios-al-editor-view-full" v-if="fullData">
-        <editor-tabs 
-            v-if="false && (languageTargetIds.length > 1)"
-            :tabs = "languageTargetIds" @selectTab = "selectTab"
-            :tabsTooltips = "targetDataForTabs"
-        />
-
         <div class ="alpheios-al-editor-container-inner alpheios-al-editor-segment-view">
 
           <div class="alpheios-al-editor-segment-row"
@@ -60,7 +54,7 @@ export default {
       type: Object,
       required: true
     },
-    languageTargetIds: {
+    identList: {
       type: Array,
       required: true
     }
@@ -69,21 +63,15 @@ export default {
     return {
       colors: ['#F8F8F8', '#e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff'],
       originColor: '#F8F8F8',
-      hoveredGroupsId: null,
-      shownTabs: []
+      hoveredGroupsId: null
     }
-  },
-  watch: {
-    languageTargetIds () {
-      this.initShownTabs()
-    }
-  },
-  mounted () {
-    this.initShownTabs()
   },
   computed: {
+    shownTabs () {
+      return this.identList.filter(langData => !langData.hidden).map(langData => langData.targetId)
+    },
     allShownSegments () {
-      return GroupUtility.allShownSegments(this.fullData, this.languageTargetIds)
+      return GroupUtility.allShownSegments(this.fullData, this.shownTabs)
     },
     targetDataForTabs () {
       return GroupUtility.targetDataForTabs(this.fullData)
@@ -92,7 +80,7 @@ export default {
       return GroupUtility.alignmentGroups(this.fullData, 'full')
     },
     orderedTargetsId () {
-      return this.languageTargetIds.filter(targetId => this.shownTabs.includes(targetId))
+      return this.shownTabs.filter(targetId => this.shownTabs.includes(targetId))
     },
     lastTargetId () {
       return this.orderedTargetsId[this.orderedTargetsId.length - 1]
@@ -110,11 +98,6 @@ export default {
     }
   },
   methods: {
-    initShownTabs () {
-      this.shownTabs.splice(0, this.shownTabs.length)
-      // this.shownTabs.push(this.languageTargetIds[0])
-      this.shownTabs.push(...this.languageTargetIds)
-    },
     getSegmentData (segIndex) {
       return this.allShownSegments[segIndex].targets
     },
@@ -129,7 +112,7 @@ export default {
       }
     },
     targetIdIndex (targetId) {
-      return targetId ? this.languageTargetIds.indexOf(targetId) : null
+      return targetId ? this.shownTabs.indexOf(targetId) : null
     },
     addHoverToken (token) {
       this.hoveredGroupsId = token.grouped ? token.groupData.filter(groupDataItem => this.shownTabs.includes(groupDataItem.targetId)).map(groupDataItem => groupDataItem.groupId) : null

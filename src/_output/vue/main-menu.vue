@@ -4,11 +4,11 @@
       <span class="alpheios-alignment-app-menu-close-icon" @click = "closeMenu">
         <x-close-icon />
       </span>
-      <select-views @updateViewType = "updateViewType" :inHeader = "false" />
+      <select-views @updateViewType = "updateViewType" :inHeader = "false" :allViewTypes = "allViewTypes" />
 
       <div class="alpheios-alignment-app-menu__buttons" :class="{ 'alpheios-alignment-menu-only-filter': onlyFilter }">
-        <text-filter-block :fullData="fullData" 
-            @changeOrder = "changeOrder" @updateVisibility = "updateVisibility"  />
+        <text-filter-block :fullData="fullData" v-for="view in allViewsNames" :key="view"
+            @changeOrder = "changeOrder" @updateVisibility = "updateVisibility" :view = "view" v-show = "currentView === view"/>
       </div>
     </div>
     <div class="alpheios-app-black-screen" v-show="menuShown"></div>
@@ -43,6 +43,14 @@ export default {
       type: Boolean,
       required: false,
       default: true
+    },
+    currentView: {
+      type: String,
+      required: true
+    },
+    allViewTypes: {
+      type: Array,
+      required: true
     }
   },
   data () {
@@ -58,17 +66,20 @@ export default {
   computed: {
     l10n () {
       return L10nSingleton
+    },
+    allViewsNames () {
+      return this.allViewTypes.map(item => item.value)
     }
   },
   methods: {
     closeMenu () {
       this.menuShown = false
     },
-    changeOrder (langList) {
-      this.$emit('changeOrder', langList)
+    changeOrder (data) {
+      this.$emit('changeOrder', data)
     },
-    updateVisibility (langData) {
-      this.$emit('updateVisibility', langData)
+    updateVisibility (data) {
+      this.$emit('updateVisibility', data)
     },
     updateViewType (data) {
       this.$emit('updateViewType', data)

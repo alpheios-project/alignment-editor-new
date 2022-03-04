@@ -171,10 +171,6 @@ export default {
      * Checks if the token is grouped and visible on the screen
      */
     groupedToken (token) {
-      if (token.word === 'word2') {
-        console.info('token - ', token)
-        console.info('this.shownTabs - ', this.shownTabs)
-      }
       return token.grouped && ((this.shownTabs.length === 0) || token.groupData.some(groupdataItem => this.isShownTab(groupdataItem.targetId)))
     },
     isTokenInHoveredGroups (token) {

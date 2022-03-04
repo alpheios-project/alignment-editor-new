@@ -1,6 +1,6 @@
 <template>
     <div class="alpheios-app-container">
-      <span class="alpheios-alignment-app-menu-open-icon" @click = "menuShow++" v-if="identList.length > 1">
+      <span class="alpheios-alignment-app-menu-open-icon" @click = "menuShow++" v-if="true">
         <navbar-icon />
       </span>
       <main-menu 
@@ -9,6 +9,8 @@
         @changeOrder = "changeOrder" @updateVisibility = "updateVisibility"
         @updateViewType = "updateViewType"
         :onlyFilter = "true"
+        :currentView = "viewType"
+        :allViewTypes = "allViewTypes"
       />
 
         <div class="header alpheios-header">
@@ -32,17 +34,17 @@
         </div>
 
         <div id="alpheios-alignment-editor-container" class="alpheios-alignment-editor-container ">
-            <select-views @updateViewType = "updateViewType" :inHeader = "true" />
+            <select-views @updateViewType = "updateViewType" :inHeader = "true" :allViewTypes = "allViewTypes" />
 
             <text-filter-block :fullData="fullData" v-if="false"
                 @changeOrder = "changeOrder" @updateVisibility = "updateVisibility" view = "horizontal" />
 
-            <al-groups-view-full :fullData="fullData" :languageTargetIds = "languageTargetIds" v-if="viewType === 'viewFull'" />
-            <al-groups-view-columns :fullData="fullData" :languageTargetIds = "languageTargetIds"  v-if="viewType === 'view3Columns'" />
-            <al-groups-view-short :fullData="fullData" :languageTargetIds = "languageTargetIds"  v-if="viewType === 'viewShort'" />
-            <al-groups-view-sentence :fullData="fullData" :languageTargetIds = "languageTargetIds"  :sentence-count = "sentenceCount" v-if="viewType === 'viewSentence'" />
-            <al-groups-view-equivalence :fullData="fullData" :languageTargetIds = "languageTargetIds"  v-if="viewType === 'viewEquivalence'" />
-            <al-groups-view-interlinearly :fullData="fullData" :languageTargetIds = "languageTargetIds"  v-if="viewType === 'viewInterlinearly'" />
+            <al-groups-view-full :fullData="fullData" :identList = "identList[viewType]" v-if="viewType === 'viewFull'" />
+            <al-groups-view-columns :fullData="fullData" :identList = "identList[viewType]"  v-if="viewType === 'view3Columns'" />
+            <al-groups-view-short :fullData="fullData" :identList = "identList[viewType]"  v-if="viewType === 'viewShort'" />
+            <al-groups-view-sentence :fullData="fullData" :identList = "identList[viewType]"  :sentence-count = "sentenceCount" v-if="viewType === 'viewSentence'" />
+            <al-groups-view-equivalence :fullData="fullData" :identList = "identList[viewType]"  v-if="viewType === 'viewEquivalence'" />
+            <al-groups-view-interlinearly :fullData="fullData" :identList = "identList[viewType]"  v-if="viewType === 'viewInterlinearly'" />
         </div>
         <annotation-block />
         <help-popup @closeModal = "$modal.hide('help-block')" />
@@ -96,31 +98,46 @@ export default {
     return {
       viewType: 'viewFull',
       sentenceCount: 0,
-      identList: [],
-      menuShow: 1
+      identList: {
+        viewFull: [],
+        view3Columns: [],
+        viewShort: [],
+        viewEquivalence: [],
+        viewInterlinearly: [],
+        viewSentence: []
+      },
+      menuShow: 1,
+      allViewTypes: [
+        { value: 'viewFull', label: '2 columns'},
+        { value: 'view3Columns', label: '3 columns'},
+        { value: 'viewShort', label: 'Short'},
+        { value: 'viewEquivalence', label: 'All equivalents'},
+        { value: 'viewInterlinearly', label: 'Interlinear'},
+        { value: 'viewSentence', label: 'Sentence Context'}
+      ]
     }
   },
   created() {
-    this.identList = GroupUtility.allIdentificationTargets(this.fullData)
+    Object.keys(this.identList).forEach(viewType => {
+      this.identList[viewType] = GroupUtility.allIdentificationTargets(this.fullData, viewType)
+    })
+
+    this.viewType = this.allViewTypes[0].value
   },
   computed: {
     fullData () {
       return new SourceData(this.$parent.fullData)
-    },
-    languageTargetIds () {
-      return this.identList.filter(langData => !langData.hidden).map(langData => langData.targetId)
     }
   },
   methods: {
-
-    changeOrder (langList) {
-      this.identList.sort((a, b) => {
-        return langList.indexOf(a.targetId) - langList.indexOf(b.targetId)
+    changeOrder (data) {
+      this.identList[data.view].sort((a, b) => {
+        return data.identsList.indexOf(a.targetId) - data.identsList.indexOf(b.targetId)
       })
     },
 
-    updateVisibility (langData) {
-      this.identList.find(curLangData => curLangData.targetId === langData.targetId).hidden = langData.hidden
+    updateVisibility (data) {
+      this.identList[data.view ].find(curLangData => curLangData.targetId === data.identData.targetId).hidden = data.identData.hidden
     },
 
     updateViewType ({ viewType, sentenceCount }) {

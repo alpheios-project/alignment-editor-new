@@ -1,5 +1,5 @@
 <template>
-    <div class="alpheios-al-editor-languages-block" :class="viewClass">
+    <div class="alpheios-al-editor-languages-block" :class="layoutClass">
       <draggable
         :list="identList"
         class="alpheios-al-editor-languages-list"
@@ -33,10 +33,14 @@ export default {
       type: Object,
       required: true
     },
-    view: {
+    layout: {
       type: String,
       required: false,
       default: 'horizontal'
+    },
+    view: {
+      type: String,
+      required: true
     }
   },
   data () {
@@ -46,7 +50,7 @@ export default {
     }
   },
   created() {
-    this.identList = GroupUtility.allIdentificationTargets(this.fullData)
+    this.identList = GroupUtility.allIdentificationTargets(this.fullData, this.view)
   },
   computed: {
     avaliableIdents () {
@@ -55,8 +59,8 @@ export default {
     identFilteringAvailable () {
       return this.avaliableIdents > 1
     },
-    viewClass () {
-      return `alpheios-al-editor-languages-block-${this.view}`
+    layoutClass () {
+      return `alpheios-al-editor-languages-block-${this.layout}`
     }
 
   },
@@ -65,7 +69,7 @@ export default {
       this.dragging = false
       if (e.oldDraggableIndex !== e.newDraggableIndex) {
         const identsList = this.identList.map(identData => identData.targetId)
-        this.$emit('changeOrder', identsList)
+        this.$emit('changeOrder', { identsList, view: this.view } )
       }
     },
 
@@ -80,7 +84,7 @@ export default {
     toggleIdentDataVisibility (identData) {
       if (this.identFilteringAvailable || identData.hidden) {
         identData.hidden = !identData.hidden
-        this.$emit('updateVisibility', identData)
+        this.$emit('updateVisibility', { identData, view: this.view })
       }
     }
   }
