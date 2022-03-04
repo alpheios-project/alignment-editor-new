@@ -2,7 +2,7 @@
     <div class = "alpheios-alignment-header-line" :class="{ 'alpheios-alignment-header-line-in-header' : inHeader }">
         <div class = "alpheios-alignment-radio-block alpheios-alignment-option-item__control">
             <span v-for="item in allViewTypes" :key="item.value">
-                <input type="radio" :id="itemIdWithValue(item.value)" :value="item.value" v-model="viewType"
+                <input type="radio" :id="itemIdWithValue(item.value)" :value="item.value" v-model="viewType" name = "viewType"
                 >
                 <label :for="itemIdWithValue(item.value)">{{ item.label }}</label>
             </span>
@@ -32,20 +32,16 @@ export default {
       type: Boolean,
       required: false,
       default: true
+    },
+    allViewTypes: {
+      type: Array,
+      required: true
     }
   },
   data () {
     return {
-      allViewTypes: [
-        { value: 'viewFull', label: '2 columns'},
-        { value: 'view3Columns', label: '3 columns'},
-        { value: 'viewShort', label: 'Short'},
-        { value: 'viewEquivalence', label: 'All equivalents'},
-        { value: 'viewInterlinearly', label: 'Interlinear'},
-        { value: 'viewSentence', label: 'Sentence Context'}
-      ],
       sentenceCount: 0,
-      viewType: 'viewFull'
+      viewType: null
     }
   },
   watch: {
@@ -55,6 +51,9 @@ export default {
     sentenceCount () {
       this.$emit('updateViewType', { viewType: this.viewType, sentenceCount: this.sentenceCount })
     }
+  },
+  created () {
+    this.viewType = this.allViewTypes[0].value
   },
   methods: {
     /**

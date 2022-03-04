@@ -23,7 +23,7 @@
                     :lang = "fullData.getLang(segmentSingle.textType, segmentSingle.targetId)"
                     :langName = "fullData.getLangName(segmentSingle.textType, segmentSingle.targetId)"
                     :metadataShort = "fullData.getMetadataShort(segmentSingle.textType, segmentSingle.targetId)"
-                    :hoveredGroupsId = "hoveredGroupsId" :shownTabs = "languageTargetIds"
+                    :hoveredGroupsId = "hoveredGroupsId" :shownTabs = "shownTabs"
                     @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
 
                     :targetIdIndex = "targetIdIndex(segmentSingle.targetId)"
@@ -60,7 +60,7 @@ export default {
       type: Object,
       required: true
     },
-    languageTargetIds: {
+    identList: {
       type: Array,
       required: true
     }
@@ -74,8 +74,11 @@ export default {
     }
   },
   computed: {
+    shownTabs () {
+      return this.identList.filter(langData => !langData.hidden).map(langData => langData.targetId)
+    },
     segmentsForColumns () {
-      return GroupUtility.segmentsForColumns(this.fullData, this.languageTargetIds)
+      return GroupUtility.segmentsForColumns(this.fullData, this.shownTabs)
     },
     allTargetTextsIds () {
       return GroupUtility.allTargetTextsIds(this.fullData)

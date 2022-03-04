@@ -17,11 +17,18 @@ export default class GroupUtility {
    *                {String} - langName - language name
    *                {Boolean} - hidden - visibility flag
    */
-  static allIdentificationTargets (fullData) {
-    return this.allTargetTextsIds(fullData).map(targetId => {
-      return {
+  static allIdentificationTargets (fullData, viewType) {
+    return this.allTargetTextsIds(fullData).map((targetId, targetIndex) => {
+      const item = {
         targetId, ident: fullData.getFilterButtonTitle('target', targetId), identName: fullData.getFilterButtonTitle('target', targetId), hidden: false
       }
+
+      if ((viewType === 'viewFull') || (viewType === 'viewInterlinearly')) {
+        item.hidden = targetIndex > 0
+      } else if (viewType === 'view3Columns') {
+        item.hidden = targetIndex > 1
+      }
+      return item
     })
   }
 
