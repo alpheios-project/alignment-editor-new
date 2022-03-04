@@ -98,10 +98,5 @@
       "message": "For convenience, you can enable/disable the same icons in Align Text Options",
       "description": "Options tooltip",
       "component": "OptionsTextAlign"
-    },
-    "OPTIONS_IDENTIFICATION_INFO": {
-      "message": "It is used for text identification in HTML Output",
-      "description": "Options tooltip",
-      "component": "MetadataBlock"
     }
 }

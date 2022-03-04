@@ -71,7 +71,7 @@
       ]
     },
     "showSummaryPopup": {
-      "defaultValue": true,
+      "defaultValue": false,
       "labelText": "Full check",
       "boolean": true,
       "values": [
@@ -314,21 +314,6 @@
         {
           "value": false,
           "text": "No"
-        }
-      ]
-    },
-    "identification": {
-      "defaultValue": "lang",
-      "labelText": "Text identification",
-      "select": true,
-      "values": [
-        {
-          "value": "lang",
-          "text": "Language"
-        },
-        {
-          "value": "year",
-          "text": "Copyright Year"
         }
       ]
     }
