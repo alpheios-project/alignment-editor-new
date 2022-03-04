@@ -40014,10 +40014,6 @@ class SettingsController {
     return _instance.options.app && _instance.options.app.items.maxCharactersAnnotationText ? _instance.options.app.items.maxCharactersAnnotationText.currentValue : 1000
   }
 
-  static get identification () {
-    return _instance.options.app && _instance.options.app.items.maxCharactersAnnotationText ? _instance.options.app.items.identification.currentValue : 'lang'
-  }
-
   /**
    * @returns {Boolean} - true - if tokenize options are already defined
    */
@@ -48985,7 +48981,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i672-responsive-select-view.20220303632" : 0
+    return  true ? "i691-hide-xml-icons.20220304379" : 0
   }
 
   static get libName () {
@@ -53324,10 +53320,6 @@ __webpack_require__.r(__webpack_exports__);
 
     enableChangeLanguageIconOptionItem () {
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOptions.app.items.enableChangeLanguageIcon
-    },
-
-    identificationOptionItem () {
-      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOptions.app.items.identification
     }
   },
   methods: {
@@ -54690,6 +54682,17 @@ __webpack_require__.r(__webpack_exports__);
     },
     enableChangeLanguageIconValue () {
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].enableChangeLanguageIcon
+    },
+    enableXMLTokenizationOptionsChoiceValue () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].enableXMLTokenizationOptionsChoice
+    },
+    enableTextTokenizationOptionsChoiceValue () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].enableTextTokenizationOptionsChoice
+    },
+    enableTokenizationOptionsChoice () {
+      return this.$store.state.optionsUpdated && 
+             (((this.sourceType === 'tei') && this.enableXMLTokenizationOptionsChoiceValue) ||
+             ((this.sourceType === 'text') && this.enableTextTokenizationOptionsChoiceValue))
     }
   },
   methods: {
@@ -55130,17 +55133,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     sourceType () {
       return this.$store.state.optionsUpdated && this.localOptions.ready && this.localOptions.sourceText.items.sourceType.currentValue
-    },
-    enableXMLTokenizationOptionsChoiceValue () {
-      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].enableXMLTokenizationOptionsChoice
-    },
-    enableTextTokenizationOptionsChoiceValue () {
-      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].enableTextTokenizationOptionsChoice
-    },
-    enableTokenizationOptionsChoice () {
-      return this.$store.state.optionsUpdated && 
-             (((this.sourceType === 'tei') && this.enableXMLTokenizationOptionsChoiceValue) ||
-             ((this.sourceType === 'text') && this.enableTextTokenizationOptionsChoiceValue))
     }
 
   },
@@ -66902,8 +66894,11 @@ var render = function() {
                     {
                       name: "show",
                       rawName: "v-show",
-                      value: _vm.showTextProps,
-                      expression: "showTextProps"
+                      value:
+                        _vm.enableTokenizationOptionsChoice &&
+                        _vm.showTextProps,
+                      expression:
+                        "enableTokenizationOptionsChoice && showTextProps"
                     }
                   ],
                   staticClass:
@@ -67452,14 +67447,6 @@ var render = function() {
           _c(
             "div",
             {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.enableTokenizationOptionsChoice,
-                  expression: "enableTokenizationOptionsChoice"
-                }
-              ],
               staticClass:
                 "alpheios-alignment-editor-tokenize-options__details-container"
             },
@@ -70266,7 +70253,7 @@ module.exports = JSON.parse('{"METADATA_TERM_LABEL_IDENTIFIER":{"message":"Ident
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"OPTIONS_BLOCK_APPLICATION":{"message":"Application options","description":"Fieldset inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_RESET_ALL":{"message":"Reset all to standard options","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_SET_ADVANCED":{"message":"Advanced options","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_SET_ACADEMIC":{"message":"Academic options","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_INFO_ABOUT":{"message":"About Alpheios","description":"Title of the build info block","component":"OptionsBlock"},"OPTIONS_TITLE":{"message":"Options","description":"Title of the options popup","component":"OptionsTextEnter"},"OPTIONS_TITLE_TEXT_ENTER":{"message":"Options for Enter Text","description":"Title of the options popup","component":"OptionsTextEnter"},"OPTIONS_TITLE_TEXT_ALIGN":{"message":"Options for Align Text","description":"Title of the options popup","component":"OptionsTextEdit"},"OPTIONS_TITLE_TEXT_EDIT":{"message":"Options for Edit Text","description":"Title of the options popup","component":"OptionsTextEdit"},"OPTIONS_FIELDSET_ANNOTATIONS":{"message":"Annotations block:","description":"Options fieldset","component":"OptionsTextEdit"},"OPTIONS_ANNOTATIONS_INFO":{"message":"Allow to add annotations to tokens","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_TOKENS_EDITOR_INFO":{"message":"Allow edit tokens","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_READING_TOOLS_INFO":{"message":"Show/hide Alpheios Reading Tools Toolbar","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_IS_ACADEMIC_MODE_INFO":{"message":"Show academic options","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_IS_ADVANCED_MODE_INFO":{"message":"Show advanced options","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_TOKENIZER_SERVICE_INFO":{"message":"Allow to choose specific tokenizer options","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_SPECIFIC_ENGLISH_INFO":{"message":"Apply specific rules from English to tokenizing","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_INDEXEDDB_SUPPORT_INFO":{"message":"Add ability to save and upload data from the local database","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_EDIT_ICONS_DESC_ALIGN":{"message":"For convenience, you can enable/disable the same icons in Edit Text Options","description":"Options tooltip","component":"OptionsTextAlign"},"OPTIONS_EDIT_ICONS_DESC_EDIT":{"message":"For convenience, you can enable/disable the same icons in Align Text Options","description":"Options tooltip","component":"OptionsTextAlign"},"OPTIONS_IDENTIFICATION_INFO":{"message":"It is used for text identification in HTML Output","description":"Options tooltip","component":"MetadataBlock"}}');
+module.exports = JSON.parse('{"OPTIONS_BLOCK_APPLICATION":{"message":"Application options","description":"Fieldset inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_RESET_ALL":{"message":"Reset all to standard options","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_SET_ADVANCED":{"message":"Advanced options","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_SET_ACADEMIC":{"message":"Academic options","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_INFO_ABOUT":{"message":"About Alpheios","description":"Title of the build info block","component":"OptionsBlock"},"OPTIONS_TITLE":{"message":"Options","description":"Title of the options popup","component":"OptionsTextEnter"},"OPTIONS_TITLE_TEXT_ENTER":{"message":"Options for Enter Text","description":"Title of the options popup","component":"OptionsTextEnter"},"OPTIONS_TITLE_TEXT_ALIGN":{"message":"Options for Align Text","description":"Title of the options popup","component":"OptionsTextEdit"},"OPTIONS_TITLE_TEXT_EDIT":{"message":"Options for Edit Text","description":"Title of the options popup","component":"OptionsTextEdit"},"OPTIONS_FIELDSET_ANNOTATIONS":{"message":"Annotations block:","description":"Options fieldset","component":"OptionsTextEdit"},"OPTIONS_ANNOTATIONS_INFO":{"message":"Allow to add annotations to tokens","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_TOKENS_EDITOR_INFO":{"message":"Allow edit tokens","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_READING_TOOLS_INFO":{"message":"Show/hide Alpheios Reading Tools Toolbar","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_IS_ACADEMIC_MODE_INFO":{"message":"Show academic options","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_IS_ADVANCED_MODE_INFO":{"message":"Show advanced options","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_TOKENIZER_SERVICE_INFO":{"message":"Allow to choose specific tokenizer options","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_SPECIFIC_ENGLISH_INFO":{"message":"Apply specific rules from English to tokenizing","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_INDEXEDDB_SUPPORT_INFO":{"message":"Add ability to save and upload data from the local database","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_EDIT_ICONS_DESC_ALIGN":{"message":"For convenience, you can enable/disable the same icons in Edit Text Options","description":"Options tooltip","component":"OptionsTextAlign"},"OPTIONS_EDIT_ICONS_DESC_EDIT":{"message":"For convenience, you can enable/disable the same icons in Align Text Options","description":"Options tooltip","component":"OptionsTextAlign"}}');
 
 /***/ }),
 
@@ -70299,7 +70286,7 @@ module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit text","de
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"2","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":true,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":true,"labelText":"Full check","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerPart":{"defaultValue":1000,"labelText":"Max characters per part (recommended for performance), to be used in Align Text","number":true,"minValue":1,"maxValue":50000,"values":[]},"addIndexedDBSupport":{"defaultValue":true,"labelText":"Add IndexedDB support","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"availableAnnotationTypes":{"defaultValue":["COMMENT","LEMMAID","MORPHOLOGY"],"labelText":"Available Annotation Types","multiValue":true,"values":[{"value":"COMMENT","text":"comment"},{"value":"LEMMAID","text":"lemmaID"},{"value":"MORPHOLOGY","text":"morphology"}]},"maxCharactersAnnotationText":{"defaultValue":500,"labelText":"Max characters in annotation text","number":true,"minValue":1,"maxValue":5000,"values":[]},"enableTokensEditor":{"defaultValue":false,"labelText":"Editing","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableDTSAPIUpload":{"defaultValue":false,"labelText":"Enable upload from DTS API","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAnnotations":{"defaultValue":false,"labelText":"Annotating","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAddDeleteNewLines":{"defaultValue":true,"labelText":"add and delete newlines","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAddDeleteTokens":{"defaultValue":true,"labelText":"add and delete tokens","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableMergeSplitTokens":{"defaultValue":true,"labelText":"merge and split tokens","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableMoveTokensToSegment":{"defaultValue":true,"labelText":"move tokens to a segment","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableEditTokens":{"defaultValue":true,"labelText":"edit tokens","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAlpheiosReadingTools":{"defaultValue":false,"labelText":"Enable Alpheios Reading Tools Toolbar","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableXMLTokenizationOptionsChoice":{"defaultValue":false,"labelText":"XML modification","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableTextTokenizationOptionsChoice":{"defaultValue":false,"labelText":"TEXT modification","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableChangeLanguageIcon":{"defaultValue":true,"labelText":"Language icon","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"identification":{"defaultValue":"lang","labelText":"Text identification","select":true,"values":[{"value":"lang","text":"Language"},{"value":"year","text":"Copyright Year"}]}}}');
+module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"2","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":true,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":false,"labelText":"Full check","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerPart":{"defaultValue":1000,"labelText":"Max characters per part (recommended for performance), to be used in Align Text","number":true,"minValue":1,"maxValue":50000,"values":[]},"addIndexedDBSupport":{"defaultValue":true,"labelText":"Add IndexedDB support","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"availableAnnotationTypes":{"defaultValue":["COMMENT","LEMMAID","MORPHOLOGY"],"labelText":"Available Annotation Types","multiValue":true,"values":[{"value":"COMMENT","text":"comment"},{"value":"LEMMAID","text":"lemmaID"},{"value":"MORPHOLOGY","text":"morphology"}]},"maxCharactersAnnotationText":{"defaultValue":500,"labelText":"Max characters in annotation text","number":true,"minValue":1,"maxValue":5000,"values":[]},"enableTokensEditor":{"defaultValue":false,"labelText":"Editing","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableDTSAPIUpload":{"defaultValue":false,"labelText":"Enable upload from DTS API","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAnnotations":{"defaultValue":false,"labelText":"Annotating","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAddDeleteNewLines":{"defaultValue":true,"labelText":"add and delete newlines","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAddDeleteTokens":{"defaultValue":true,"labelText":"add and delete tokens","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableMergeSplitTokens":{"defaultValue":true,"labelText":"merge and split tokens","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableMoveTokensToSegment":{"defaultValue":true,"labelText":"move tokens to a segment","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableEditTokens":{"defaultValue":true,"labelText":"edit tokens","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAlpheiosReadingTools":{"defaultValue":false,"labelText":"Enable Alpheios Reading Tools Toolbar","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableXMLTokenizationOptionsChoice":{"defaultValue":false,"labelText":"XML modification","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableTextTokenizationOptionsChoice":{"defaultValue":false,"labelText":"TEXT modification","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableChangeLanguageIcon":{"defaultValue":true,"labelText":"Language icon","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]}}}');
 
 /***/ }),
 

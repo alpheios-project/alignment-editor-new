@@ -152,10 +152,6 @@ export default {
 
     enableChangeLanguageIconOptionItem () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableChangeLanguageIcon
-    },
-
-    identificationOptionItem () {
-      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.identification
     }
   },
   methods: {
