@@ -67,6 +67,7 @@ export default {
     }
   },
   computed: {
+
     shownTabs () {
       return this.identList.filter(langData => !langData.hidden).map(langData => langData.targetId)
     },

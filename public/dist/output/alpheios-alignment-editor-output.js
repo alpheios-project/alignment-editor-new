@@ -16704,6 +16704,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -16758,7 +16759,8 @@ __webpack_require__.r(__webpack_exports__);
         viewShort: [],
         viewEquivalence: [],
         viewInterlinearly: [],
-        viewSentence: []
+        viewSentence: [],
+        windowWidth: window.innerWidth
       },
       menuShow: 1,
       allViewTypes: [
@@ -16781,6 +16783,12 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     fullData () {
       return new _output_data_source_data_js__WEBPACK_IMPORTED_MODULE_1__["default"](this.$parent.fullData)
+    },
+    shownTabs () {
+      return this.identList[this.viewType].filter(langData => !langData.hidden)
+    },
+    noticeText () {
+      return `This view uses <b>${this.shownTabs.length}</b> texts out of <b>${this.identList[this.viewType].length}</b> available. You could change it in the menu.`
     }
   },
   methods: {
@@ -16791,7 +16799,7 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     updateVisibility (data) {
-      this.identList[data.view ].find(curLangData => curLangData.targetId === data.identData.targetId).hidden = data.identData.hidden
+      this.identList[data.view].find(curLangData => curLangData.targetId === data.identData.targetId).hidden = data.identData.hidden
     },
 
     updateViewType ({ viewType, sentenceCount }) {
@@ -17374,6 +17382,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -17401,6 +17410,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     viewType () {
+      console.info('this.viewType - ', this.viewType)
       this.$emit('updateViewType', { viewType: this.viewType, sentenceCount: this.sentenceCount })
     },
     sentenceCount () {
@@ -18128,6 +18138,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
+
     shownTabs () {
       return this.identList.filter(langData => !langData.hidden).map(langData => langData.targetId)
     },
@@ -20531,7 +20542,7 @@ var render = function() {
     "div",
     { staticClass: "alpheios-app-container" },
     [
-       true
+      this.identList["viewFull"].length > 1 || _vm.windowWidth < 900
         ? _c(
             "span",
             {
@@ -20545,7 +20556,7 @@ var render = function() {
             [_c("navbar-icon")],
             1
           )
-        : 0,
+        : _vm._e(),
       _vm._v(" "),
       _c("main-menu", {
         attrs: {
@@ -20612,6 +20623,11 @@ var render = function() {
           _c("select-views", {
             attrs: { inHeader: true, allViewTypes: _vm.allViewTypes },
             on: { updateViewType: _vm.updateViewType }
+          }),
+          _vm._v(" "),
+          _c("p", {
+            staticClass: "alpheios-alignment-editor-container__view-notice",
+            domProps: { innerHTML: _vm._s(_vm.noticeText) }
           }),
           _vm._v(" "),
            false
@@ -21143,33 +21159,34 @@ var render = function() {
         [
           _vm._l(_vm.allViewTypes, function(item) {
             return _c("span", { key: item.value }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.viewType,
-                    expression: "viewType"
-                  }
-                ],
-                attrs: {
-                  type: "radio",
-                  id: _vm.itemIdWithValue(item.value),
-                  name: "viewType"
-                },
-                domProps: {
-                  value: item.value,
-                  checked: _vm._q(_vm.viewType, item.value)
-                },
-                on: {
-                  change: function($event) {
-                    _vm.viewType = item.value
-                  }
-                }
-              }),
-              _vm._v(" "),
               _c("label", { attrs: { for: _vm.itemIdWithValue(item.value) } }, [
-                _vm._v(_vm._s(item.label))
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.viewType,
+                      expression: "viewType"
+                    }
+                  ],
+                  attrs: {
+                    type: "radio",
+                    id: _vm.itemIdWithValue(item.value),
+                    name: "viewType"
+                  },
+                  domProps: {
+                    value: item.value,
+                    checked: _vm._q(_vm.viewType, item.value)
+                  },
+                  on: {
+                    change: function($event) {
+                      _vm.viewType = item.value
+                    }
+                  }
+                }),
+                _vm._v(
+                  "\n              " + _vm._s(item.label) + "\n            "
+                )
               ])
             ])
           }),
