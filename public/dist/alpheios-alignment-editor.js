@@ -48981,7 +48981,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i693-lang-notice.20220310556" : 0
+    return  true ? "i693-lang-notice.20220310624" : 0
   }
 
   static get libName () {
@@ -50483,6 +50483,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -50706,9 +50707,14 @@ __webpack_require__.r(__webpack_exports__);
 
     showNext () {
       return this.allPartsKeys.length > 0 && (Math.max(...this.currentPartIndexes) < this.allPartsKeys[this.allPartsKeys.length-1].partNum)
+    },
+
+    isShownSeg () {
+      return this.textType === 'origin' || this.shownTabs.includes(this.textId)
     }
   },
   methods: {
+
     partBlockStyle (len) {
       const percentLen = Math.floor(len*100/this.allPartKeysLen)
       return `width: ${percentLen}%;`
@@ -62270,178 +62276,184 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "alpheios-alignment-editor-align-text-segment",
-      class: _vm.cssClass,
-      style: _vm.cssStyle
-    },
-    [
-      _vm.isFirst
-        ? _c(
-            "p",
-            { staticClass: "alpheios-alignment-editor-align-text-segment-row" },
-            [
-              _c(
-                "span",
-                {
-                  staticClass:
-                    "alpheios-alignment-editor-align-text-segment-row__langname"
-                },
-                [_vm._v(_vm._s(_vm.segment.langName))]
-              ),
-              _vm._v(" "),
-              _c("metadata-icons", {
-                attrs: {
-                  "text-type": _vm.textType,
-                  "text-id": _vm.segment.docSourceId
-                },
-                on: {
-                  showModalMetadata: function($event) {
-                    return _vm.$modal.show(_vm.metadataModalName)
-                  }
-                }
-              })
-            ],
-            1
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.allPartsKeys.length > 1
-        ? _c(
-            "p",
-            { staticClass: "alpheios-alignment-editor-align-text-parts" },
-            _vm._l(_vm.allPartsKeys, function(partData) {
-              return _c(
-                "span",
-                {
-                  key: partData.partNum,
-                  staticClass:
-                    "alpheios-alignment-editor-align-text-parts-link",
-                  class: {
-                    "alpheios-alignment-editor-align-text-parts-link-current": _vm.currentPartIndexes.includes(
-                      parseInt(partData.partNum)
-                    )
-                  },
-                  style: _vm.partBlockStyle(partData.len)
-                },
-                [_vm._v("\n              " + _vm._s(1) + "\n        ")]
-              )
-            }),
-            0
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _c(
+  return _vm.isShownSeg
+    ? _c(
         "div",
         {
-          staticClass: "alpheios-alignment-editor-align-text-segment-tokens",
-          style: _vm.cssStyleSeg,
-          attrs: { id: _vm.cssId, dir: _vm.direction, lang: _vm.lang }
+          staticClass: "alpheios-alignment-editor-align-text-segment",
+          class: _vm.cssClass,
+          style: _vm.cssStyle
         },
         [
-          _vm.showPrev
+          _vm.isFirst
             ? _c(
                 "p",
                 {
                   staticClass:
-                    "alpheios-alignment-editor-align-text-single-link"
+                    "alpheios-alignment-editor-align-text-segment-row"
                 },
                 [
                   _c(
                     "span",
                     {
                       staticClass:
-                        "alpheios-alignment-editor-align-text-parts-link-text",
-                      on: { click: _vm.uploadPrevPart }
+                        "alpheios-alignment-editor-align-text-segment-row__langname"
                     },
-                    [_vm._v("prev")]
-                  )
-                ]
+                    [_vm._v(_vm._s(_vm.segment.langName))]
+                  ),
+                  _vm._v(" "),
+                  _c("metadata-icons", {
+                    attrs: {
+                      "text-type": _vm.textType,
+                      "text-id": _vm.segment.docSourceId
+                    },
+                    on: {
+                      showModalMetadata: function($event) {
+                        return _vm.$modal.show(_vm.metadataModalName)
+                      }
+                    }
+                  })
+                ],
+                1
               )
             : _vm._e(),
           _vm._v(" "),
-          _vm._l(_vm.allTokens, function(token, tokenIndex) {
-            return [
-              token.word
-                ? _c("token", {
-                    key: token.idWord,
-                    attrs: {
-                      token: token,
-                      selected:
-                        _vm.$store.state.alignmentUpdated &&
-                        _vm.selectedToken(token),
-                      grouped:
-                        _vm.$store.state.alignmentUpdated &&
-                        _vm.groupedToken(token),
-                      inActiveGroup:
-                        _vm.$store.state.alignmentUpdated &&
-                        _vm.inActiveGroup(token),
-                      firstInActiveGroup:
-                        _vm.$store.state.alignmentUpdated &&
-                        _vm.isFirstInActiveGroup(token),
-                      firstTextInActiveGroup:
-                        _vm.$store.state.alignmentUpdated &&
-                        _vm.isFirstTextInActiveGroup(token),
-                      annotationMode: _vm.annotationMode
-                    },
-                    on: {
-                      "update-annotation": _vm.updateAnnotation,
-                      "update-alignment-group": _vm.updateAlignmentGroup,
-                      "add-hover-token": _vm.addHoverToken,
-                      "remove-hover-token": _vm.removeHoverToken
-                    }
-                  })
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.$store.state.tokenUpdated && token.hasLineBreak
-                ? _c("br")
-                : _vm._e()
-            ]
-          }),
-          _vm._v(" "),
-          _vm.showNext
+          _vm.allPartsKeys.length > 1
             ? _c(
                 "p",
-                {
-                  staticClass:
-                    "alpheios-alignment-editor-align-text-single-link"
-                },
-                [
-                  _c(
+                { staticClass: "alpheios-alignment-editor-align-text-parts" },
+                _vm._l(_vm.allPartsKeys, function(partData) {
+                  return _c(
                     "span",
                     {
+                      key: partData.partNum,
                       staticClass:
-                        "alpheios-alignment-editor-align-text-parts-link-text",
-                      on: { click: _vm.uploadNextPart }
+                        "alpheios-alignment-editor-align-text-parts-link",
+                      class: {
+                        "alpheios-alignment-editor-align-text-parts-link-current": _vm.currentPartIndexes.includes(
+                          parseInt(partData.partNum)
+                        )
+                      },
+                      style: _vm.partBlockStyle(partData.len)
                     },
-                    [_vm._v("next")]
+                    [_vm._v("\n              " + _vm._s(1) + "\n        ")]
                   )
-                ]
+                }),
+                0
               )
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "alpheios-alignment-editor-align-text-segment-tokens",
+              style: _vm.cssStyleSeg,
+              attrs: { id: _vm.cssId, dir: _vm.direction, lang: _vm.lang }
+            },
+            [
+              _vm.showPrev
+                ? _c(
+                    "p",
+                    {
+                      staticClass:
+                        "alpheios-alignment-editor-align-text-single-link"
+                    },
+                    [
+                      _c(
+                        "span",
+                        {
+                          staticClass:
+                            "alpheios-alignment-editor-align-text-parts-link-text",
+                          on: { click: _vm.uploadPrevPart }
+                        },
+                        [_vm._v("prev")]
+                      )
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm._l(_vm.allTokens, function(token, tokenIndex) {
+                return [
+                  token.word
+                    ? _c("token", {
+                        key: token.idWord,
+                        attrs: {
+                          token: token,
+                          selected:
+                            _vm.$store.state.alignmentUpdated &&
+                            _vm.selectedToken(token),
+                          grouped:
+                            _vm.$store.state.alignmentUpdated &&
+                            _vm.groupedToken(token),
+                          inActiveGroup:
+                            _vm.$store.state.alignmentUpdated &&
+                            _vm.inActiveGroup(token),
+                          firstInActiveGroup:
+                            _vm.$store.state.alignmentUpdated &&
+                            _vm.isFirstInActiveGroup(token),
+                          firstTextInActiveGroup:
+                            _vm.$store.state.alignmentUpdated &&
+                            _vm.isFirstTextInActiveGroup(token),
+                          annotationMode: _vm.annotationMode
+                        },
+                        on: {
+                          "update-annotation": _vm.updateAnnotation,
+                          "update-alignment-group": _vm.updateAlignmentGroup,
+                          "add-hover-token": _vm.addHoverToken,
+                          "remove-hover-token": _vm.removeHoverToken
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.$store.state.tokenUpdated && token.hasLineBreak
+                    ? _c("br")
+                    : _vm._e()
+                ]
+              }),
+              _vm._v(" "),
+              _vm.showNext
+                ? _c(
+                    "p",
+                    {
+                      staticClass:
+                        "alpheios-alignment-editor-align-text-single-link"
+                    },
+                    [
+                      _c(
+                        "span",
+                        {
+                          staticClass:
+                            "alpheios-alignment-editor-align-text-parts-link-text",
+                          on: { click: _vm.uploadNextPart }
+                        },
+                        [_vm._v("next")]
+                      )
+                    ]
+                  )
+                : _vm._e()
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _vm.isFirst
+            ? _c("metadata-block", {
+                attrs: {
+                  "text-type": _vm.textType,
+                  "text-id": _vm.segment.docSourceId,
+                  mname: _vm.metadataModalName
+                },
+                on: {
+                  closeModal: function($event) {
+                    return _vm.$modal.hide(_vm.metadataModalName)
+                  }
+                }
+              })
             : _vm._e()
         ],
-        2
-      ),
-      _vm._v(" "),
-      _vm.isFirst
-        ? _c("metadata-block", {
-            attrs: {
-              "text-type": _vm.textType,
-              "text-id": _vm.segment.docSourceId,
-              mname: _vm.metadataModalName
-            },
-            on: {
-              closeModal: function($event) {
-                return _vm.$modal.hide(_vm.metadataModalName)
-              }
-            }
-          })
-        : _vm._e()
-    ],
-    1
-  )
+        1
+      )
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true

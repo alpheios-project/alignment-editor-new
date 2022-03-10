@@ -2,6 +2,7 @@
     <div class="alpheios-alignment-editor-align-text-segment" 
          :style="cssStyle"
          :class = "cssClass" 
+         v-if = "isShownSeg"
           >
           <p class="alpheios-alignment-editor-align-text-segment-row" v-if="isFirst">
             <span class="alpheios-alignment-editor-align-text-segment-row__langname" >{{ segment.langName }}</span>
@@ -275,9 +276,14 @@ export default {
 
     showNext () {
       return this.allPartsKeys.length > 0 && (Math.max(...this.currentPartIndexes) < this.allPartsKeys[this.allPartsKeys.length-1].partNum)
+    },
+
+    isShownSeg () {
+      return this.textType === 'origin' || this.shownTabs.includes(this.textId)
     }
   },
   methods: {
+
     partBlockStyle (len) {
       const percentLen = Math.floor(len*100/this.allPartKeysLen)
       return `width: ${percentLen}%;`
