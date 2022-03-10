@@ -40,6 +40,11 @@
         "description": "An error message creating alignment.",
         "component": "AlignedGroupsController"
     },
+    "ALIGNED_CONTROLLER_NOT_FINISHED_GROUP": {
+        "message": "You have an unfinished alignment group. You should finish it or undone first and then go to the next tab.",
+        "description": "An error message creating alignment.",
+        "component": "AlignedGroupsController"
+    },
     "ALIGNED_CONTROLLER_TOKENIZATION_STARTED": {
         "message": "Tokenization process has started.",
         "description": "An info message that is published before tokenization started.",

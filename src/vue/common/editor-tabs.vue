@@ -73,6 +73,10 @@ export default {
      * @param {Number} - index order of targetId
      */
     selectTab (tabData, index) {
+      if (this.$alignedGC.checkIfHasActiveAlignmentGroup()) {
+        return
+      }
+
       if (!this.couldBeSelected(index)) {
         return
       }
