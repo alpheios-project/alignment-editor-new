@@ -106,12 +106,12 @@
       "component": "MetadataTerm"
     },
     "METADATA_TERM_LABEL_FILTER_BUTTON": {
-      "message": "Filter title",
+      "message": "Short name",
       "description": "Metadata term label",
       "component": "MetadataTerm"
     },
     "METADATA_TERM_DESCRIPTION_FILTER_BUTTON": {
-      "message": "Filter button title in HTML Output.",
+      "message": "Short name for the text, used in filter button title in HTML Output and for tooltips on Align Text Screen.",
       "description": "Metadata term description",
       "component": "MetadataTerm"
     }

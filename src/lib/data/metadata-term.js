@@ -186,7 +186,7 @@ MetadataTerm.property = {
     group: 'alpheios'
   },
   FILTER_BUTTON: {
-    label: 'filter title',
+    label: 'short name',
     labell10n: 'METADATA_TERM_LABEL_FILTER_BUTTON',
     fieldtype: 'string',
     multivalued: false,
