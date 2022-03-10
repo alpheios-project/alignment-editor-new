@@ -258,6 +258,18 @@ export default class AlignedGroupsController {
     return Boolean(this.alignment) && this.alignment.hasActiveAlignmentGroup
   }
 
+  checkIfHasActiveAlignmentGroup () {
+    if (this.hasActiveAlignmentGroup) {
+      console.error(L10nSingleton.getMsgS('ALIGNED_CONTROLLER_NOT_FINISHED_GROUP'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('ALIGNED_CONTROLLER_NOT_FINISHED_GROUP'),
+        type: NotificationSingleton.types.ERROR
+      })
+      return true
+    }
+    return false
+  }
+
   /**
    * Checks if after click on this token we should finish an alignment group
    * @param {Token} token - clicked token

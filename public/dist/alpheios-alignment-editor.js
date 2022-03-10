@@ -39089,6 +39089,18 @@ class AlignedGroupsController {
     return Boolean(this.alignment) && this.alignment.hasActiveAlignmentGroup
   }
 
+  checkIfHasActiveAlignmentGroup () {
+    if (this.hasActiveAlignmentGroup) {
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"].getMsgS('ALIGNED_CONTROLLER_NOT_FINISHED_GROUP'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__["default"].getMsgS('ALIGNED_CONTROLLER_NOT_FINISHED_GROUP'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].types.ERROR
+      })
+      return true
+    }
+    return false
+  }
+
   /**
    * Checks if after click on this token we should finish an alignment group
    * @param {Token} token - clicked token
@@ -48981,7 +48993,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i692-filters-for-view.20220304657" : 0
+    return  true ? "i693-lang-notice.20220310634" : 0
   }
 
   static get libName () {
@@ -50483,6 +50495,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -50609,11 +50622,14 @@ __webpack_require__.r(__webpack_exports__);
      * @returns {String}
      */
     backgroundStyle () {
+      /*
       if (this.textType === 'target') {
          return `background: ${this.colors[this.targetIdIndex]};`
       } else {
         return `background: ${this.originColor};`
       }
+      */
+      return `background: ${this.originColor};`
     },
     cssStyle () {
       let result 
@@ -50703,9 +50719,14 @@ __webpack_require__.r(__webpack_exports__);
 
     showNext () {
       return this.allPartsKeys.length > 0 && (Math.max(...this.currentPartIndexes) < this.allPartsKeys[this.allPartsKeys.length-1].partNum)
+    },
+
+    isShownSeg () {
+      return this.textType === 'origin' || this.shownTabs.includes(this.textId)
     }
   },
   methods: {
+
     partBlockStyle (len) {
       const percentLen = Math.floor(len*100/this.allPartKeysLen)
       return `width: ${percentLen}%;`
@@ -50732,7 +50753,7 @@ __webpack_require__.r(__webpack_exports__);
      */
     addHoverToken (token) {
       this.$alignedGC.activateHoverOnAlignmentGroups(token, this.currentTargetId)
-      this.makeScroll(token)
+      // this.makeScroll(token)
     },
     makeScroll (token) {
       const scrollData = this.$alignedGC.getOpositeTokenTargetIdForScroll(token)
@@ -51459,10 +51480,29 @@ __webpack_require__.r(__webpack_exports__);
      * @param {Number} - index order of targetId
      */
     selectTab (tabData, index) {
+      if (this.$alignedGC.checkIfHasActiveAlignmentGroup()) {
+        return
+      }
+
       if (!this.couldBeSelected(index)) {
         return
       }
       
+      // this.toggleTabSelection(tabData, index)
+      this.switchTabselection(tabData, index)
+    },
+
+    switchTabselection (tabData, index) {
+      if (!this.tabsStates[index].active) {
+        const activeIndex = this.tabsStates.findIndex(tabState => tabState.active)
+        this.tabsStates[activeIndex].active = false
+
+        this.tabsStates[index].active = true
+        this.$emit('selectTab', tabData)
+        this.$emit('selectTab', this.tabs[activeIndex])
+      }
+    },
+    toggleTabSelection (tabData, index) {
       this.tabsStates[index].active = !this.tabsStates[index].active
       this.$emit('selectTab', tabData)
     }
@@ -62252,178 +62292,184 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "alpheios-alignment-editor-align-text-segment",
-      class: _vm.cssClass,
-      style: _vm.cssStyle
-    },
-    [
-      _vm.isFirst
-        ? _c(
-            "p",
-            { staticClass: "alpheios-alignment-editor-align-text-segment-row" },
-            [
-              _c(
-                "span",
-                {
-                  staticClass:
-                    "alpheios-alignment-editor-align-text-segment-row__langname"
-                },
-                [_vm._v(_vm._s(_vm.segment.langName))]
-              ),
-              _vm._v(" "),
-              _c("metadata-icons", {
-                attrs: {
-                  "text-type": _vm.textType,
-                  "text-id": _vm.segment.docSourceId
-                },
-                on: {
-                  showModalMetadata: function($event) {
-                    return _vm.$modal.show(_vm.metadataModalName)
-                  }
-                }
-              })
-            ],
-            1
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.allPartsKeys.length > 1
-        ? _c(
-            "p",
-            { staticClass: "alpheios-alignment-editor-align-text-parts" },
-            _vm._l(_vm.allPartsKeys, function(partData) {
-              return _c(
-                "span",
-                {
-                  key: partData.partNum,
-                  staticClass:
-                    "alpheios-alignment-editor-align-text-parts-link",
-                  class: {
-                    "alpheios-alignment-editor-align-text-parts-link-current": _vm.currentPartIndexes.includes(
-                      parseInt(partData.partNum)
-                    )
-                  },
-                  style: _vm.partBlockStyle(partData.len)
-                },
-                [_vm._v("\n              " + _vm._s(1) + "\n        ")]
-              )
-            }),
-            0
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _c(
+  return _vm.isShownSeg
+    ? _c(
         "div",
         {
-          staticClass: "alpheios-alignment-editor-align-text-segment-tokens",
-          style: _vm.cssStyleSeg,
-          attrs: { id: _vm.cssId, dir: _vm.direction, lang: _vm.lang }
+          staticClass: "alpheios-alignment-editor-align-text-segment",
+          class: _vm.cssClass,
+          style: _vm.cssStyle
         },
         [
-          _vm.showPrev
+          _vm.isFirst
             ? _c(
                 "p",
                 {
                   staticClass:
-                    "alpheios-alignment-editor-align-text-single-link"
+                    "alpheios-alignment-editor-align-text-segment-row"
                 },
                 [
                   _c(
                     "span",
                     {
                       staticClass:
-                        "alpheios-alignment-editor-align-text-parts-link-text",
-                      on: { click: _vm.uploadPrevPart }
+                        "alpheios-alignment-editor-align-text-segment-row__langname"
                     },
-                    [_vm._v("prev")]
-                  )
-                ]
+                    [_vm._v(_vm._s(_vm.segment.langName))]
+                  ),
+                  _vm._v(" "),
+                  _c("metadata-icons", {
+                    attrs: {
+                      "text-type": _vm.textType,
+                      "text-id": _vm.segment.docSourceId
+                    },
+                    on: {
+                      showModalMetadata: function($event) {
+                        return _vm.$modal.show(_vm.metadataModalName)
+                      }
+                    }
+                  })
+                ],
+                1
               )
             : _vm._e(),
           _vm._v(" "),
-          _vm._l(_vm.allTokens, function(token, tokenIndex) {
-            return [
-              token.word
-                ? _c("token", {
-                    key: token.idWord,
-                    attrs: {
-                      token: token,
-                      selected:
-                        _vm.$store.state.alignmentUpdated &&
-                        _vm.selectedToken(token),
-                      grouped:
-                        _vm.$store.state.alignmentUpdated &&
-                        _vm.groupedToken(token),
-                      inActiveGroup:
-                        _vm.$store.state.alignmentUpdated &&
-                        _vm.inActiveGroup(token),
-                      firstInActiveGroup:
-                        _vm.$store.state.alignmentUpdated &&
-                        _vm.isFirstInActiveGroup(token),
-                      firstTextInActiveGroup:
-                        _vm.$store.state.alignmentUpdated &&
-                        _vm.isFirstTextInActiveGroup(token),
-                      annotationMode: _vm.annotationMode
-                    },
-                    on: {
-                      "update-annotation": _vm.updateAnnotation,
-                      "update-alignment-group": _vm.updateAlignmentGroup,
-                      "add-hover-token": _vm.addHoverToken,
-                      "remove-hover-token": _vm.removeHoverToken
-                    }
-                  })
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.$store.state.tokenUpdated && token.hasLineBreak
-                ? _c("br")
-                : _vm._e()
-            ]
-          }),
-          _vm._v(" "),
-          _vm.showNext
+          _vm.allPartsKeys.length > 1
             ? _c(
                 "p",
-                {
-                  staticClass:
-                    "alpheios-alignment-editor-align-text-single-link"
-                },
-                [
-                  _c(
+                { staticClass: "alpheios-alignment-editor-align-text-parts" },
+                _vm._l(_vm.allPartsKeys, function(partData) {
+                  return _c(
                     "span",
                     {
+                      key: partData.partNum,
                       staticClass:
-                        "alpheios-alignment-editor-align-text-parts-link-text",
-                      on: { click: _vm.uploadNextPart }
+                        "alpheios-alignment-editor-align-text-parts-link",
+                      class: {
+                        "alpheios-alignment-editor-align-text-parts-link-current": _vm.currentPartIndexes.includes(
+                          parseInt(partData.partNum)
+                        )
+                      },
+                      style: _vm.partBlockStyle(partData.len)
                     },
-                    [_vm._v("next")]
+                    [_vm._v("\n              " + _vm._s(1) + "\n        ")]
                   )
-                ]
+                }),
+                0
               )
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "alpheios-alignment-editor-align-text-segment-tokens",
+              style: _vm.cssStyleSeg,
+              attrs: { id: _vm.cssId, dir: _vm.direction, lang: _vm.lang }
+            },
+            [
+              _vm.showPrev
+                ? _c(
+                    "p",
+                    {
+                      staticClass:
+                        "alpheios-alignment-editor-align-text-single-link"
+                    },
+                    [
+                      _c(
+                        "span",
+                        {
+                          staticClass:
+                            "alpheios-alignment-editor-align-text-parts-link-text",
+                          on: { click: _vm.uploadPrevPart }
+                        },
+                        [_vm._v("prev")]
+                      )
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm._l(_vm.allTokens, function(token, tokenIndex) {
+                return [
+                  token.word
+                    ? _c("token", {
+                        key: token.idWord,
+                        attrs: {
+                          token: token,
+                          selected:
+                            _vm.$store.state.alignmentUpdated &&
+                            _vm.selectedToken(token),
+                          grouped:
+                            _vm.$store.state.alignmentUpdated &&
+                            _vm.groupedToken(token),
+                          inActiveGroup:
+                            _vm.$store.state.alignmentUpdated &&
+                            _vm.inActiveGroup(token),
+                          firstInActiveGroup:
+                            _vm.$store.state.alignmentUpdated &&
+                            _vm.isFirstInActiveGroup(token),
+                          firstTextInActiveGroup:
+                            _vm.$store.state.alignmentUpdated &&
+                            _vm.isFirstTextInActiveGroup(token),
+                          annotationMode: _vm.annotationMode
+                        },
+                        on: {
+                          "update-annotation": _vm.updateAnnotation,
+                          "update-alignment-group": _vm.updateAlignmentGroup,
+                          "add-hover-token": _vm.addHoverToken,
+                          "remove-hover-token": _vm.removeHoverToken
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.$store.state.tokenUpdated && token.hasLineBreak
+                    ? _c("br")
+                    : _vm._e()
+                ]
+              }),
+              _vm._v(" "),
+              _vm.showNext
+                ? _c(
+                    "p",
+                    {
+                      staticClass:
+                        "alpheios-alignment-editor-align-text-single-link"
+                    },
+                    [
+                      _c(
+                        "span",
+                        {
+                          staticClass:
+                            "alpheios-alignment-editor-align-text-parts-link-text",
+                          on: { click: _vm.uploadNextPart }
+                        },
+                        [_vm._v("next")]
+                      )
+                    ]
+                  )
+                : _vm._e()
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _vm.isFirst
+            ? _c("metadata-block", {
+                attrs: {
+                  "text-type": _vm.textType,
+                  "text-id": _vm.segment.docSourceId,
+                  mname: _vm.metadataModalName
+                },
+                on: {
+                  closeModal: function($event) {
+                    return _vm.$modal.hide(_vm.metadataModalName)
+                  }
+                }
+              })
             : _vm._e()
         ],
-        2
-      ),
-      _vm._v(" "),
-      _vm.isFirst
-        ? _c("metadata-block", {
-            attrs: {
-              "text-type": _vm.textType,
-              "text-id": _vm.segment.docSourceId,
-              mname: _vm.metadataModalName
-            },
-            on: {
-              closeModal: function($event) {
-                return _vm.$modal.hide(_vm.metadataModalName)
-              }
-            }
-          })
-        : _vm._e()
-    ],
-    1
-  )
+        1
+      )
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -70198,7 +70244,7 @@ module.exports = JSON.parse('{"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED":{"message
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"DOWNLOAD_CONTROLLER_ERROR_TYPE":{"message":"Download type {downloadType} is not defined.","description":"An error message for download process","component":"DownloadController","params":["downloadType"]},"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS":{"message":"You should define original and translation texts first","description":"An error message for download process","component":"DownloadController"},"TEXTS_CONTROLLER_EMPTY_FILE_DATA":{"message":"The file doesn\'t have all the required fields. Text won\'t be created.","description":"An error message for upload data from file.","component":"TextsController"},"TEXTS_CONTROLLER_EMPTY_DB_DATA":{"message":"There is not enough information for retrieving alignment from DB.","description":"An error message for upload data from file.","component":"TextsController"},"TEXTS_CONTROLLER_INCORRECT_DB_DATA":{"message":"This alignment data is corrupted in database and could not be uploaded.","description":"An error message for upload data from database.","component":"TextsController"},"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP":{"message":"You should start from defining original text first.","description":"An error message creating alignment.","component":"TextsController"},"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION":{"message":"Document source texts are not ready for tokenization.","description":"An error message creating alignment.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS":{"message":"The tokenization process was cancelled because original and translation texts don\'t have the same amount of segments.","description":"An error message creating alignment.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_TOKENIZATION_STARTED":{"message":"Tokenization process has started.","description":"An info message that is published before tokenization started.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_TOKENIZATION_FINISHED":{"message":"Tokenization process has finished.","description":"An info message that is published after tokenization finished.","component":"AlignedGroupsController"},"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED":{"message":"Tokenizer method {tokenizer} is not registered","description":"An error message for tokenization workflow","component":"TokenizeController","params":["tokenizer"]},"UPLOAD_CONTROLLER_ERROR_TYPE":{"message":"Upload type {uploadType} is not defined.","description":"An error message for upload workflow","component":"UploadController","params":["uploadType"]},"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT":{"message":"Uploaded file has wrong format for the type - plainSourceUploadFromFile.","description":"An error message for upload workflow","component":"UploadController"},"SETTINGS_CONTROLLER_NO_VALUES_CLASS":{"message":"There is no class for uploading settings values that is regestered as {className}","description":"An error message for settings upload workflow","component":"SettingsController","params":["className"]},"TOKENS_EDIT_IS_NOT_EDITABLE_ERROR":{"message":"This token is inside created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"TokenEditController"},"UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE":{"message":"File extension {extension} is not supported. Use the following - {availableExtensions}.","description":"An error message for upload workflow","component":"UploadController","params":["extension","availableExtensions"]},"UPLOAD_CONTROLLER_INCORRECT_XML_DATA":{"message":"This xml file does not have AlpheiosV1 format and could not be uploaded.","description":"An error message for upload data from xml file.","component":"UploadController"},"DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL":{"message":"Short to tsv","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL":{"message":"Full to json","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP":{"message":"download only source texts without tokens and alignment groups","description":"Download type tooltip","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP":{"message":"download source texts, tokens and segments, alignment groups","description":"Download type tooltip","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_HTML_LABEL":{"message":"Html","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_HTML_TOOLTIP":{"message":"download html with alignment result","description":"Download type tooltip","component":"DownloadController"}}');
+module.exports = JSON.parse('{"DOWNLOAD_CONTROLLER_ERROR_TYPE":{"message":"Download type {downloadType} is not defined.","description":"An error message for download process","component":"DownloadController","params":["downloadType"]},"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS":{"message":"You should define original and translation texts first","description":"An error message for download process","component":"DownloadController"},"TEXTS_CONTROLLER_EMPTY_FILE_DATA":{"message":"The file doesn\'t have all the required fields. Text won\'t be created.","description":"An error message for upload data from file.","component":"TextsController"},"TEXTS_CONTROLLER_EMPTY_DB_DATA":{"message":"There is not enough information for retrieving alignment from DB.","description":"An error message for upload data from file.","component":"TextsController"},"TEXTS_CONTROLLER_INCORRECT_DB_DATA":{"message":"This alignment data is corrupted in database and could not be uploaded.","description":"An error message for upload data from database.","component":"TextsController"},"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP":{"message":"You should start from defining original text first.","description":"An error message creating alignment.","component":"TextsController"},"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION":{"message":"Document source texts are not ready for tokenization.","description":"An error message creating alignment.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS":{"message":"The tokenization process was cancelled because original and translation texts don\'t have the same amount of segments.","description":"An error message creating alignment.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_NOT_FINISHED_GROUP":{"message":"You have an unfinished alignment group. You should finish it or undone first and then go to the next tab.","description":"An error message creating alignment.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_TOKENIZATION_STARTED":{"message":"Tokenization process has started.","description":"An info message that is published before tokenization started.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_TOKENIZATION_FINISHED":{"message":"Tokenization process has finished.","description":"An info message that is published after tokenization finished.","component":"AlignedGroupsController"},"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED":{"message":"Tokenizer method {tokenizer} is not registered","description":"An error message for tokenization workflow","component":"TokenizeController","params":["tokenizer"]},"UPLOAD_CONTROLLER_ERROR_TYPE":{"message":"Upload type {uploadType} is not defined.","description":"An error message for upload workflow","component":"UploadController","params":["uploadType"]},"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT":{"message":"Uploaded file has wrong format for the type - plainSourceUploadFromFile.","description":"An error message for upload workflow","component":"UploadController"},"SETTINGS_CONTROLLER_NO_VALUES_CLASS":{"message":"There is no class for uploading settings values that is regestered as {className}","description":"An error message for settings upload workflow","component":"SettingsController","params":["className"]},"TOKENS_EDIT_IS_NOT_EDITABLE_ERROR":{"message":"This token is inside created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"TokenEditController"},"UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE":{"message":"File extension {extension} is not supported. Use the following - {availableExtensions}.","description":"An error message for upload workflow","component":"UploadController","params":["extension","availableExtensions"]},"UPLOAD_CONTROLLER_INCORRECT_XML_DATA":{"message":"This xml file does not have AlpheiosV1 format and could not be uploaded.","description":"An error message for upload data from xml file.","component":"UploadController"},"DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL":{"message":"Short to tsv","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL":{"message":"Full to json","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP":{"message":"download only source texts without tokens and alignment groups","description":"Download type tooltip","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP":{"message":"download source texts, tokens and segments, alignment groups","description":"Download type tooltip","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_HTML_LABEL":{"message":"Html","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_HTML_TOOLTIP":{"message":"download html with alignment result","description":"Download type tooltip","component":"DownloadController"}}');
 
 /***/ }),
 

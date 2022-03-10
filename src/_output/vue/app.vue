@@ -1,6 +1,6 @@
 <template>
     <div class="alpheios-app-container">
-      <span class="alpheios-alignment-app-menu-open-icon" @click = "menuShow++" v-if="true">
+      <span class="alpheios-alignment-app-menu-open-icon" @click = "menuShow++" v-if="this.identList['viewFull'].length > 1 || windowWidth < 900">
         <navbar-icon />
       </span>
       <main-menu 
@@ -36,6 +36,7 @@
         <div id="alpheios-alignment-editor-container" class="alpheios-alignment-editor-container ">
             <select-views @updateViewType = "updateViewType" :inHeader = "true" :allViewTypes = "allViewTypes" />
 
+            <p class="alpheios-alignment-editor-container__view-notice" v-html="noticeText"></p>
             <text-filter-block :fullData="fullData" v-if="false"
                 @changeOrder = "changeOrder" @updateVisibility = "updateVisibility" view = "horizontal" />
 
@@ -104,7 +105,8 @@ export default {
         viewShort: [],
         viewEquivalence: [],
         viewInterlinearly: [],
-        viewSentence: []
+        viewSentence: [],
+        windowWidth: window.innerWidth
       },
       menuShow: 1,
       allViewTypes: [
@@ -127,6 +129,12 @@ export default {
   computed: {
     fullData () {
       return new SourceData(this.$parent.fullData)
+    },
+    shownTabs () {
+      return this.identList[this.viewType].filter(langData => !langData.hidden)
+    },
+    noticeText () {
+      return `This view uses <b>${this.shownTabs.length}</b> texts out of <b>${this.identList[this.viewType].length}</b> available. You could change it in the menu.`
     }
   },
   methods: {
@@ -137,7 +145,7 @@ export default {
     },
 
     updateVisibility (data) {
-      this.identList[data.view ].find(curLangData => curLangData.targetId === data.identData.targetId).hidden = data.identData.hidden
+      this.identList[data.view].find(curLangData => curLangData.targetId === data.identData.targetId).hidden = data.identData.hidden
     },
 
     updateViewType ({ viewType, sentenceCount }) {
@@ -189,4 +197,17 @@ export default {
           display: block;
         }
     }
+
+    .alpheios-alignment-editor-container__view-notice {
+      text-align: right;
+      margin-top: 0;
+      font-size: 90%;
+      color: #808080;
+
+      b {
+        font-size: 100%;
+        color: #000;
+      }
+    }
+
 </style>

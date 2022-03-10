@@ -2,6 +2,7 @@
     <div class="alpheios-alignment-editor-align-text-segment" 
          :style="cssStyle"
          :class = "cssClass" 
+         v-if = "isShownSeg"
           >
           <p class="alpheios-alignment-editor-align-text-segment-row" v-if="isFirst">
             <span class="alpheios-alignment-editor-align-text-segment-row__langname" >{{ segment.langName }}</span>
@@ -178,11 +179,14 @@ export default {
      * @returns {String}
      */
     backgroundStyle () {
+      /*
       if (this.textType === 'target') {
          return `background: ${this.colors[this.targetIdIndex]};`
       } else {
         return `background: ${this.originColor};`
       }
+      */
+      return `background: ${this.originColor};`
     },
     cssStyle () {
       let result 
@@ -272,9 +276,14 @@ export default {
 
     showNext () {
       return this.allPartsKeys.length > 0 && (Math.max(...this.currentPartIndexes) < this.allPartsKeys[this.allPartsKeys.length-1].partNum)
+    },
+
+    isShownSeg () {
+      return this.textType === 'origin' || this.shownTabs.includes(this.textId)
     }
   },
   methods: {
+
     partBlockStyle (len) {
       const percentLen = Math.floor(len*100/this.allPartKeysLen)
       return `width: ${percentLen}%;`
@@ -301,7 +310,7 @@ export default {
      */
     addHoverToken (token) {
       this.$alignedGC.activateHoverOnAlignmentGroups(token, this.currentTargetId)
-      this.makeScroll(token)
+      // this.makeScroll(token)
     },
     makeScroll (token) {
       const scrollData = this.$alignedGC.getOpositeTokenTargetIdForScroll(token)

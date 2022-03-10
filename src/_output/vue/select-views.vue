@@ -2,9 +2,10 @@
     <div class = "alpheios-alignment-header-line" :class="{ 'alpheios-alignment-header-line-in-header' : inHeader }">
         <div class = "alpheios-alignment-radio-block alpheios-alignment-option-item__control">
             <span v-for="item in allViewTypes" :key="item.value">
-                <input type="radio" :id="itemIdWithValue(item.value)" :value="item.value" v-model="viewType" name = "viewType"
-                >
-                <label :for="itemIdWithValue(item.value)">{{ item.label }}</label>
+                <label :for="itemIdWithValue(item.value)">
+                  <input type="radio" :id="itemIdWithValue(item.value)" :value="item.value" v-model="viewType" name = "viewType">
+                  {{ item.label }}
+                </label>
             </span>
             <span>
             <input
@@ -40,7 +41,7 @@ export default {
   },
   data () {
     return {
-      sentenceCount: 0,
+      sentenceCount: 1,
       viewType: null
     }
   },
@@ -77,7 +78,7 @@ export default {
 </script>
 <style lang="scss">
   .alpheios-alignment-header-line {
-    padding: 60px 20px 10px;
+    padding: 60px 0 10px;
     &.alpheios-alignment-header-line-in-header {
       padding-top: 0;
     }
@@ -109,6 +110,10 @@ export default {
         background: transparent;
         border-bottom: none;
         padding: 0;
+
+        &:last-of-type {
+          margin-right: 0;
+        }
       }
     }
   }

@@ -1307,7 +1307,7 @@ body, html {
   border-color: transparent transparent transparent #757575;
 }
 .alpheios-alignment-header-line {
-  padding: 60px 20px 10px;
+  padding: 60px 0 10px;
 }
 .alpheios-alignment-header-line.alpheios-alignment-header-line-in-header {
   padding-top: 0;
@@ -1331,6 +1331,9 @@ body, html {
   background: transparent;
   border-bottom: none;
   padding: 0;
+}
+.alpheios-alignment-header-line-in-header .alpheios-alignment-radio-block span:last-of-type {
+  margin-right: 0;
 }
 .alpheios-alignment-app-menu {
   height: 100%;
@@ -1406,6 +1409,16 @@ button.alpheios-actions-menu-button.alpheios-actions-menu-button-with-icon .alph
   width: 100%;
   height: 100%;
   display: block;
+}
+.alpheios-alignment-editor-container__view-notice {
+  text-align: right;
+  margin-top: 0;
+  font-size: 90%;
+  color: #808080;
+}
+.alpheios-alignment-editor-container__view-notice b {
+  font-size: 100%;
+  color: #000;
 }
 
 /*# sourceMappingURL=style-alignment-editor-output.css.map*/
