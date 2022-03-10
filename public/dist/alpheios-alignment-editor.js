@@ -44343,11 +44343,17 @@ class Alignment {
   getTargetDataForTabs (targetIds) {
     const dataForTabs = {}
     targetIds.forEach(targetId => {
-      dataForTabs[targetId] = this.targets[targetId].alignedText.langName
+      const shortName = this.targets[targetId].docSource.metadata.convertToFilterTitle()
+      const langName = this.targets[targetId].alignedText.langName
+      const shortMeta = this.targets[targetId].docSource.metadata.convertToShortJSONLine()
 
-      const metadata = this.targets[targetId].docSource.metadata.convertToShortJSONLine()
-      if (metadata) {
-        dataForTabs[targetId] = `${dataForTabs[targetId]} - ${metadata}`
+      if (shortName) {
+        dataForTabs[targetId] = shortName
+      } else if (langName) {
+        dataForTabs[targetId] = langName
+        if (shortMeta) {
+          dataForTabs[targetId] = `${dataForTabs[targetId]} - ${shortMeta}`
+        }
       }
     })
     return dataForTabs
@@ -48993,7 +48999,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i699-short-name.20220310638" : 0
+    return  true ? "i699-short-name.20220310642" : 0
   }
 
   static get libName () {
