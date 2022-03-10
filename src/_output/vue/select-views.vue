@@ -41,13 +41,12 @@ export default {
   },
   data () {
     return {
-      sentenceCount: 0,
+      sentenceCount: 1,
       viewType: null
     }
   },
   watch: {
     viewType () {
-      console.info('this.viewType - ', this.viewType)
       this.$emit('updateViewType', { viewType: this.viewType, sentenceCount: this.sentenceCount })
     },
     sentenceCount () {
