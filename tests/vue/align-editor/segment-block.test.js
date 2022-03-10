@@ -183,7 +183,7 @@ describe('segment-block.test.js', () => {
 
     await Vue.nextTick()
     expect(cmp.vm.cssStyle).toEqual(expect.stringContaining(`order: 2;`)) // color for the second target
-    expect(cmp.vm.cssStyleSeg).toEqual(expect.stringContaining(`background: ${cmp.vm.colors[1]};`)) // color for the second target
+    expect(cmp.vm.cssStyleSeg).toEqual(expect.stringContaining(`background: ${cmp.vm.originColor};`)) // we use one color for all
   })
 
   it('5 SegmentBlock - cssClass - contains class alpheios-align-text-segment-${segment.textType} and contains alpheios-align-text-segment-${segment.textType}-last if it is the last', async () => {

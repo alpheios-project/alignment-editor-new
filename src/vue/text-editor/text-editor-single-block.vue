@@ -45,7 +45,7 @@
           <span class="alpheios-alignment-editor-text-blocks-single__characters" :class = "charactersClasses">{{ charactersText }}</span>
 
           <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" 
-                :class="sourceTypeIconClass" v-show="enableTokenizationOptionsChoice && showTextProps" 
+                :class="sourceTypeIconClass" v-show="enableTEXTXMLIconValue && showTextProps" 
                 @click="clickSourceType"> {{ formattedSourceType }} </span>
           <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="enableChangeLanguageIconValue && showTextProps" 
                 @click="$modal.show(languageModalName)"> 
@@ -366,16 +366,8 @@ export default {
     enableChangeLanguageIconValue () {
       return this.$store.state.optionsUpdated && SettingsController.enableChangeLanguageIcon
     },
-    enableXMLTokenizationOptionsChoiceValue () {
-      return this.$store.state.optionsUpdated && SettingsController.enableXMLTokenizationOptionsChoice
-    },
-    enableTextTokenizationOptionsChoiceValue () {
-      return this.$store.state.optionsUpdated && SettingsController.enableTextTokenizationOptionsChoice
-    },
-    enableTokenizationOptionsChoice () {
-      return this.$store.state.optionsUpdated && 
-             (((this.sourceType === 'tei') && this.enableXMLTokenizationOptionsChoiceValue) ||
-             ((this.sourceType === 'text') && this.enableTextTokenizationOptionsChoiceValue))
+    enableTEXTXMLIconValue () {
+      return this.$store.state.optionsUpdated && SettingsController.enableTEXTXMLIcon
     }
   },
   methods: {
