@@ -178,11 +178,14 @@ export default {
      * @returns {String}
      */
     backgroundStyle () {
+      /*
       if (this.textType === 'target') {
          return `background: ${this.colors[this.targetIdIndex]};`
       } else {
         return `background: ${this.originColor};`
       }
+      */
+      return `background: ${this.originColor};`
     },
     cssStyle () {
       let result 
@@ -301,7 +304,7 @@ export default {
      */
     addHoverToken (token) {
       this.$alignedGC.activateHoverOnAlignmentGroups(token, this.currentTargetId)
-      this.makeScroll(token)
+      // this.makeScroll(token)
     },
     makeScroll (token) {
       const scrollData = this.$alignedGC.getOpositeTokenTargetIdForScroll(token)

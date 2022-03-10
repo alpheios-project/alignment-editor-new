@@ -48981,7 +48981,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i693-lang-notice.20220304683" : 0
+    return  true ? "i693-lang-notice.20220310556" : 0
   }
 
   static get libName () {
@@ -50609,11 +50609,14 @@ __webpack_require__.r(__webpack_exports__);
      * @returns {String}
      */
     backgroundStyle () {
+      /*
       if (this.textType === 'target') {
          return `background: ${this.colors[this.targetIdIndex]};`
       } else {
         return `background: ${this.originColor};`
       }
+      */
+      return `background: ${this.originColor};`
     },
     cssStyle () {
       let result 
@@ -50732,7 +50735,7 @@ __webpack_require__.r(__webpack_exports__);
      */
     addHoverToken (token) {
       this.$alignedGC.activateHoverOnAlignmentGroups(token, this.currentTargetId)
-      this.makeScroll(token)
+      // this.makeScroll(token)
     },
     makeScroll (token) {
       const scrollData = this.$alignedGC.getOpositeTokenTargetIdForScroll(token)
@@ -51463,6 +51466,21 @@ __webpack_require__.r(__webpack_exports__);
         return
       }
       
+      // this.toggleTabSelection(tabData, index)
+      this.switchTabselection(tabData, index)
+    },
+
+    switchTabselection (tabData, index) {
+      if (!this.tabsStates[index].active) {
+        const activeIndex = this.tabsStates.findIndex(tabState => tabState.active)
+        this.tabsStates[activeIndex].active = false
+
+        this.tabsStates[index].active = true
+        this.$emit('selectTab', tabData)
+        this.$emit('selectTab', this.tabs[activeIndex])
+      }
+    },
+    toggleTabSelection (tabData, index) {
       this.tabsStates[index].active = !this.tabsStates[index].active
       this.$emit('selectTab', tabData)
     }

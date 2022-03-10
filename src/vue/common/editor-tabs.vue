@@ -77,6 +77,21 @@ export default {
         return
       }
       
+      // this.toggleTabSelection(tabData, index)
+      this.switchTabselection(tabData, index)
+    },
+
+    switchTabselection (tabData, index) {
+      if (!this.tabsStates[index].active) {
+        const activeIndex = this.tabsStates.findIndex(tabState => tabState.active)
+        this.tabsStates[activeIndex].active = false
+
+        this.tabsStates[index].active = true
+        this.$emit('selectTab', tabData)
+        this.$emit('selectTab', this.tabs[activeIndex])
+      }
+    },
+    toggleTabSelection (tabData, index) {
       this.tabsStates[index].active = !this.tabsStates[index].active
       this.$emit('selectTab', tabData)
     }
