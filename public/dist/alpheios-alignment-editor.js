@@ -39999,16 +39999,16 @@ class SettingsController {
     return _instance.options.app && _instance.options.app.items.enableAlpheiosReadingTools ? _instance.options.app.items.enableAlpheiosReadingTools.currentValue : false
   }
 
-  static get enableXMLTokenizationOptionsChoice () {
-    return _instance.options.app && _instance.options.app.items.enableXMLTokenizationOptionsChoice ? _instance.options.app.items.enableXMLTokenizationOptionsChoice.currentValue : false
-  }
-
-  static get enableTextTokenizationOptionsChoice () {
-    return _instance.options.app && _instance.options.app.items.enableTextTokenizationOptionsChoice ? _instance.options.app.items.enableTextTokenizationOptionsChoice.currentValue : false
+  static get enableTokenizationOptionsChoice () {
+    return _instance.options.app && _instance.options.app.items.enableTokenizationOptionsChoice ? _instance.options.app.items.enableTokenizationOptionsChoice.currentValue : false
   }
 
   static get enableChangeLanguageIcon () {
     return _instance.options.app && _instance.options.app.items.enableChangeLanguageIcon ? _instance.options.app.items.enableChangeLanguageIcon.currentValue : false
+  }
+
+  static get enableTEXTXMLIcon () {
+    return _instance.options.app && _instance.options.app.items.enableTEXTXMLIcon ? _instance.options.app.items.enableTEXTXMLIcon.currentValue : false
   }
 
   /**
@@ -44343,11 +44343,17 @@ class Alignment {
   getTargetDataForTabs (targetIds) {
     const dataForTabs = {}
     targetIds.forEach(targetId => {
-      dataForTabs[targetId] = this.targets[targetId].alignedText.langName
+      const shortName = this.targets[targetId].docSource.metadata.convertToFilterTitle()
+      const langName = this.targets[targetId].alignedText.langName
+      const shortMeta = this.targets[targetId].docSource.metadata.convertToShortJSONLine()
 
-      const metadata = this.targets[targetId].docSource.metadata.convertToShortJSONLine()
-      if (metadata) {
-        dataForTabs[targetId] = `${dataForTabs[targetId]} - ${metadata}`
+      if (shortName) {
+        dataForTabs[targetId] = shortName
+      } else if (langName) {
+        dataForTabs[targetId] = langName
+        if (shortMeta) {
+          dataForTabs[targetId] = `${dataForTabs[targetId]} - ${shortMeta}`
+        }
       }
     })
     return dataForTabs
@@ -46198,7 +46204,7 @@ MetadataTerm.property = {
     group: 'alpheios'
   },
   FILTER_BUTTON: {
-    label: 'filter title',
+    label: 'short name',
     labell10n: 'METADATA_TERM_LABEL_FILTER_BUTTON',
     fieldtype: 'string',
     multivalued: false,
@@ -48993,7 +48999,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i693-lang-notice.20220310634" : 0
+    return  true ? "i699-short-name.20220310656" : 0
   }
 
   static get libName () {
@@ -53350,16 +53356,20 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].addIndexedDBSupport
     },
 
-    enableXMLTokenizationOptionsChoiceOptionItem () {
-      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOptions.app.items.enableXMLTokenizationOptionsChoice
-    },
-
-    enableTextTokenizationOptionsChoiceOptionItem () {
-      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOptions.app.items.enableTextTokenizationOptionsChoice
+    enableTokenizationOptionsChoiceOptionItem () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOptions.app.items.enableTokenizationOptionsChoice
     },
 
     enableChangeLanguageIconOptionItem () {
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOptions.app.items.enableChangeLanguageIcon
+    },
+
+    enableTEXTXMLIconOptionItem () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].allOptions.app.items.enableTEXTXMLIcon
+    },
+
+    enableTEXTXMLIconValue () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_3__["default"].enableTEXTXMLIcon
     }
   },
   methods: {
@@ -54723,16 +54733,8 @@ __webpack_require__.r(__webpack_exports__);
     enableChangeLanguageIconValue () {
       return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].enableChangeLanguageIcon
     },
-    enableXMLTokenizationOptionsChoiceValue () {
-      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].enableXMLTokenizationOptionsChoice
-    },
-    enableTextTokenizationOptionsChoiceValue () {
-      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].enableTextTokenizationOptionsChoice
-    },
-    enableTokenizationOptionsChoice () {
-      return this.$store.state.optionsUpdated && 
-             (((this.sourceType === 'tei') && this.enableXMLTokenizationOptionsChoiceValue) ||
-             ((this.sourceType === 'text') && this.enableTextTokenizationOptionsChoiceValue))
+    enableTEXTXMLIconValue () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__["default"].enableTEXTXMLIcon
     }
   },
   methods: {
@@ -55173,6 +55175,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     sourceType () {
       return this.$store.state.optionsUpdated && this.localOptions.ready && this.localOptions.sourceText.items.sourceType.currentValue
+    },
+    enableTokenizationOptionsChoice () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_2__["default"].enableTokenizationOptionsChoice
     }
 
   },
@@ -65217,7 +65222,8 @@ var render = function() {
                   "alpheios-alignment-options__fieldset-group alpheios-alignment-options__fieldset-group_academic",
                 class: {
                   "alpheios-collapsed": !_vm.isAcademic,
-                  "alpheios-expanded": _vm.isAcademic
+                  "alpheios-expanded": _vm.isAcademic,
+                  "alpheios-academic-short": !_vm.enableTEXTXMLIconValue
                 }
               },
               [
@@ -65233,16 +65239,21 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("option-item-block", {
-                      attrs: {
-                        optionItem:
-                          _vm.enableXMLTokenizationOptionsChoiceOptionItem
-                      }
+                      attrs: { optionItem: _vm.enableTEXTXMLIconOptionItem }
                     }),
                     _vm._v(" "),
                     _c("option-item-block", {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.enableTEXTXMLIconValue,
+                          expression: "enableTEXTXMLIconValue"
+                        }
+                      ],
                       attrs: {
                         optionItem:
-                          _vm.enableTextTokenizationOptionsChoiceOptionItem
+                          _vm.enableTokenizationOptionsChoiceOptionItem
                       }
                     })
                   ],
@@ -66940,11 +66951,8 @@ var render = function() {
                     {
                       name: "show",
                       rawName: "v-show",
-                      value:
-                        _vm.enableTokenizationOptionsChoice &&
-                        _vm.showTextProps,
-                      expression:
-                        "enableTokenizationOptionsChoice && showTextProps"
+                      value: _vm.enableTEXTXMLIconValue && _vm.showTextProps,
+                      expression: "enableTEXTXMLIconValue && showTextProps"
                     }
                   ],
                   staticClass:
@@ -67493,6 +67501,14 @@ var render = function() {
           _c(
             "div",
             {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.enableTokenizationOptionsChoice,
+                  expression: "enableTokenizationOptionsChoice"
+                }
+              ],
               staticClass:
                 "alpheios-alignment-editor-tokenize-options__details-container"
             },
@@ -70288,7 +70304,7 @@ module.exports = JSON.parse('{"MAIN_MENU_DOWNLOAD_TITLE":{"message":"Download","
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"METADATA_TERM_LABEL_IDENTIFIER":{"message":"Identifier","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_TITLE":{"message":"Title","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_CREATOR":{"message":"Creator","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_CONTRIBUTOR":{"message":"Contributor","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_PUBLISHER":{"message":"Publisher","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_DATE_COPYRIGHTED":{"message":"Copyright Date","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_SOURCE":{"message":"Source","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_DESCRIPTION":{"message":"Description","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_IDENTIFIER":{"message":"An unambiguous reference to the resource within a given context.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_TITLE":{"message":"A name given to the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_CREATOR":{"message":"An entity primarily responsible for making the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_CONTRIBUTOR":{"message":"An entity responsible for making contributions to the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_PUBLISHER":{"message":"An entity responsible for making the resource available.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_DATE_COPYRIGHTED":{"message":"Date of copyright of the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_SOURCE":{"message":"A related resource from which the described resource is derived.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_DESCRIPTION":{"message":"An account of the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_INSTRUCTIONS":{"message":"<p>There are two types of metadata - single valued and multivalued.</p><p><b>Single valued metadata</b> - simply type/edit/delete the value in the input field.</p><p><b>Multivalued metadata (Creator, Contributor)</b>:</p><ul><li>to add a new value - type value to the input field and press Enter; the value will be saved and visible under the input;</li><li>to delete a saved value - click the value and click trash icon;</li><li>to update a saved value - click the value, edit it in the input field and press Enter;</li></ul>","description":"Metadata update instructions","component":"MetadataBlock"},"METADATA_TERM_LABEL_TRANSLATOR":{"message":"Translator","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_AUTHOR":{"message":"Author","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_TRANSLATOR":{"message":"A translator of the text.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_AUTHOR":{"message":"An author of the text.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_LABEL_FILTER_BUTTON":{"message":"Filter title","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_FILTER_BUTTON":{"message":"Filter button title in HTML Output.","description":"Metadata term description","component":"MetadataTerm"}}');
+module.exports = JSON.parse('{"METADATA_TERM_LABEL_IDENTIFIER":{"message":"Identifier","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_TITLE":{"message":"Title","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_CREATOR":{"message":"Creator","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_CONTRIBUTOR":{"message":"Contributor","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_PUBLISHER":{"message":"Publisher","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_DATE_COPYRIGHTED":{"message":"Copyright Date","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_SOURCE":{"message":"Source","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_DESCRIPTION":{"message":"Description","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_IDENTIFIER":{"message":"An unambiguous reference to the resource within a given context.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_TITLE":{"message":"A name given to the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_CREATOR":{"message":"An entity primarily responsible for making the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_CONTRIBUTOR":{"message":"An entity responsible for making contributions to the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_PUBLISHER":{"message":"An entity responsible for making the resource available.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_DATE_COPYRIGHTED":{"message":"Date of copyright of the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_SOURCE":{"message":"A related resource from which the described resource is derived.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_DESCRIPTION":{"message":"An account of the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_INSTRUCTIONS":{"message":"<p>There are two types of metadata - single valued and multivalued.</p><p><b>Single valued metadata</b> - simply type/edit/delete the value in the input field.</p><p><b>Multivalued metadata (Creator, Contributor)</b>:</p><ul><li>to add a new value - type value to the input field and press Enter; the value will be saved and visible under the input;</li><li>to delete a saved value - click the value and click trash icon;</li><li>to update a saved value - click the value, edit it in the input field and press Enter;</li></ul>","description":"Metadata update instructions","component":"MetadataBlock"},"METADATA_TERM_LABEL_TRANSLATOR":{"message":"Translator","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_AUTHOR":{"message":"Author","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_TRANSLATOR":{"message":"A translator of the text.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_AUTHOR":{"message":"An author of the text.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_LABEL_FILTER_BUTTON":{"message":"Short name","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_FILTER_BUTTON":{"message":"Short name for the text, used in filter button title in HTML Output and for tooltips on Align Text Screen.","description":"Metadata term description","component":"MetadataTerm"}}');
 
 /***/ }),
 
@@ -70332,7 +70348,7 @@ module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit text","de
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"2","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":true,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":false,"labelText":"Full check","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerPart":{"defaultValue":1000,"labelText":"Max characters per part (recommended for performance), to be used in Align Text","number":true,"minValue":1,"maxValue":50000,"values":[]},"addIndexedDBSupport":{"defaultValue":true,"labelText":"Add IndexedDB support","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"availableAnnotationTypes":{"defaultValue":["COMMENT","LEMMAID","MORPHOLOGY"],"labelText":"Available Annotation Types","multiValue":true,"values":[{"value":"COMMENT","text":"comment"},{"value":"LEMMAID","text":"lemmaID"},{"value":"MORPHOLOGY","text":"morphology"}]},"maxCharactersAnnotationText":{"defaultValue":500,"labelText":"Max characters in annotation text","number":true,"minValue":1,"maxValue":5000,"values":[]},"enableTokensEditor":{"defaultValue":false,"labelText":"Editing","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableDTSAPIUpload":{"defaultValue":false,"labelText":"Enable upload from DTS API","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAnnotations":{"defaultValue":false,"labelText":"Annotating","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAddDeleteNewLines":{"defaultValue":true,"labelText":"add and delete newlines","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAddDeleteTokens":{"defaultValue":true,"labelText":"add and delete tokens","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableMergeSplitTokens":{"defaultValue":true,"labelText":"merge and split tokens","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableMoveTokensToSegment":{"defaultValue":true,"labelText":"move tokens to a segment","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableEditTokens":{"defaultValue":true,"labelText":"edit tokens","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAlpheiosReadingTools":{"defaultValue":false,"labelText":"Enable Alpheios Reading Tools Toolbar","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableXMLTokenizationOptionsChoice":{"defaultValue":false,"labelText":"XML modification","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableTextTokenizationOptionsChoice":{"defaultValue":false,"labelText":"TEXT modification","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableChangeLanguageIcon":{"defaultValue":true,"labelText":"Language icon","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]}}}');
+module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"2","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":true,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":false,"labelText":"Full check","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerPart":{"defaultValue":1000,"labelText":"Max characters per part (recommended for performance), to be used in Align Text","number":true,"minValue":1,"maxValue":50000,"values":[]},"addIndexedDBSupport":{"defaultValue":true,"labelText":"Add IndexedDB support","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"availableAnnotationTypes":{"defaultValue":["COMMENT","LEMMAID","MORPHOLOGY"],"labelText":"Available Annotation Types","multiValue":true,"values":[{"value":"COMMENT","text":"comment"},{"value":"LEMMAID","text":"lemmaID"},{"value":"MORPHOLOGY","text":"morphology"}]},"maxCharactersAnnotationText":{"defaultValue":500,"labelText":"Max characters in annotation text","number":true,"minValue":1,"maxValue":5000,"values":[]},"enableTokensEditor":{"defaultValue":false,"labelText":"Editing","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableDTSAPIUpload":{"defaultValue":false,"labelText":"Enable upload from DTS API","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAnnotations":{"defaultValue":false,"labelText":"Annotating","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAddDeleteNewLines":{"defaultValue":true,"labelText":"add and delete newlines","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAddDeleteTokens":{"defaultValue":true,"labelText":"add and delete tokens","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableMergeSplitTokens":{"defaultValue":true,"labelText":"merge and split tokens","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableMoveTokensToSegment":{"defaultValue":true,"labelText":"move tokens to a segment","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableEditTokens":{"defaultValue":true,"labelText":"edit tokens","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableAlpheiosReadingTools":{"defaultValue":false,"labelText":"Enable Alpheios Reading Tools Toolbar","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableTokenizationOptionsChoice":{"defaultValue":false,"labelText":"TEXT/XML modification","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableChangeLanguageIcon":{"defaultValue":true,"labelText":"Language icon","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"enableTEXTXMLIcon":{"defaultValue":false,"labelText":"Show text/xml icon","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]}}}');
 
 /***/ }),
 

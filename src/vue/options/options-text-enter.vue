@@ -26,11 +26,11 @@
             </p>
 
             <div class="alpheios-alignment-options__fieldset-group alpheios-alignment-options__fieldset-group_academic" 
-                 :class = "{ 'alpheios-collapsed': !isAcademic, 'alpheios-expanded': isAcademic }">
+                 :class = "{ 'alpheios-collapsed': !isAcademic, 'alpheios-expanded': isAcademic, 'alpheios-academic-short': !enableTEXTXMLIconValue }">
               <fieldset class="alpheios-alignment-editor-modal-options-block-fieldset">
                 <option-item-block :optionItem = "enableDTSAPIUploadOptionItem" />
-                <option-item-block :optionItem = "enableXMLTokenizationOptionsChoiceOptionItem" />
-                <option-item-block :optionItem = "enableTextTokenizationOptionsChoiceOptionItem" />
+                <option-item-block :optionItem = "enableTEXTXMLIconOptionItem" />
+                <option-item-block :optionItem = "enableTokenizationOptionsChoiceOptionItem" v-show = "enableTEXTXMLIconValue" />
               </fieldset>
             </div>
 
@@ -142,16 +142,20 @@ export default {
       return this.$store.state.optionsUpdated && SettingsController.addIndexedDBSupport
     },
 
-    enableXMLTokenizationOptionsChoiceOptionItem () {
-      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableXMLTokenizationOptionsChoice
-    },
-
-    enableTextTokenizationOptionsChoiceOptionItem () {
-      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableTextTokenizationOptionsChoice
+    enableTokenizationOptionsChoiceOptionItem () {
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableTokenizationOptionsChoice
     },
 
     enableChangeLanguageIconOptionItem () {
       return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableChangeLanguageIcon
+    },
+
+    enableTEXTXMLIconOptionItem () {
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.enableTEXTXMLIcon
+    },
+
+    enableTEXTXMLIconValue () {
+      return this.$store.state.optionsUpdated && SettingsController.enableTEXTXMLIcon
     }
   },
   methods: {
@@ -255,6 +259,10 @@ export default {
     }
     &.alpheios-alignment-options__fieldset-group_academic.alpheios-expanded {
       height: 175px;
+
+      &.alpheios-academic-short {
+        height: 105px;
+      }
     }
 
     &.alpheios-alignment-options__fieldset-group_advanced.alpheios-expanded {

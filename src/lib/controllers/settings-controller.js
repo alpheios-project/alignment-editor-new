@@ -135,16 +135,16 @@ export default class SettingsController {
     return _instance.options.app && _instance.options.app.items.enableAlpheiosReadingTools ? _instance.options.app.items.enableAlpheiosReadingTools.currentValue : false
   }
 
-  static get enableXMLTokenizationOptionsChoice () {
-    return _instance.options.app && _instance.options.app.items.enableXMLTokenizationOptionsChoice ? _instance.options.app.items.enableXMLTokenizationOptionsChoice.currentValue : false
-  }
-
-  static get enableTextTokenizationOptionsChoice () {
-    return _instance.options.app && _instance.options.app.items.enableTextTokenizationOptionsChoice ? _instance.options.app.items.enableTextTokenizationOptionsChoice.currentValue : false
+  static get enableTokenizationOptionsChoice () {
+    return _instance.options.app && _instance.options.app.items.enableTokenizationOptionsChoice ? _instance.options.app.items.enableTokenizationOptionsChoice.currentValue : false
   }
 
   static get enableChangeLanguageIcon () {
     return _instance.options.app && _instance.options.app.items.enableChangeLanguageIcon ? _instance.options.app.items.enableChangeLanguageIcon.currentValue : false
+  }
+
+  static get enableTEXTXMLIcon () {
+    return _instance.options.app && _instance.options.app.items.enableTEXTXMLIcon ? _instance.options.app.items.enableTEXTXMLIcon.currentValue : false
   }
 
   /**

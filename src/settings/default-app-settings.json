@@ -272,24 +272,9 @@
         }
       ]
     },
-    "enableXMLTokenizationOptionsChoice": {
+    "enableTokenizationOptionsChoice": {
       "defaultValue": false,
-      "labelText": "XML modification",
-      "boolean": true,
-      "values": [
-        {
-          "value": true,
-          "text": "Yes"
-        },
-        {
-          "value": false,
-          "text": "No"
-        }
-      ]
-    },
-    "enableTextTokenizationOptionsChoice": {
-      "defaultValue": false,
-      "labelText": "TEXT modification",
+      "labelText": "TEXT/XML modification",
       "boolean": true,
       "values": [
         {
@@ -305,6 +290,21 @@
     "enableChangeLanguageIcon": {
       "defaultValue": true,
       "labelText": "Language icon",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "Yes"
+        },
+        {
+          "value": false,
+          "text": "No"
+        }
+      ]
+    },
+    "enableTEXTXMLIcon": {
+      "defaultValue": false,
+      "labelText": "Show text/xml icon",
       "boolean": true,
       "values": [
         {

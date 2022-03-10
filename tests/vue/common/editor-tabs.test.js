@@ -134,7 +134,7 @@ describe('align-editor-tabs.test.js', () => {
     
     cmp.vm.selectTab('id2', 1) // it could be selected 
 
-    expect(cmp.vm.tabsStates).toEqual([ { active: true }, { active: true } ])
+    expect(cmp.vm.tabsStates).toEqual([ { active: false }, { active: true } ]) // we could have only one active at a time
     expect(cmp.emitted()['selectTab']).toBeTruthy()
     expect(cmp.emitted()['selectTab'][0]).toEqual(['id2'])
   })

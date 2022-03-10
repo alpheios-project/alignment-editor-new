@@ -835,11 +835,17 @@ export default class Alignment {
   getTargetDataForTabs (targetIds) {
     const dataForTabs = {}
     targetIds.forEach(targetId => {
-      dataForTabs[targetId] = this.targets[targetId].alignedText.langName
+      const shortName = this.targets[targetId].docSource.metadata.convertToFilterTitle()
+      const langName = this.targets[targetId].alignedText.langName
+      const shortMeta = this.targets[targetId].docSource.metadata.convertToShortJSONLine()
 
-      const metadata = this.targets[targetId].docSource.metadata.convertToShortJSONLine()
-      if (metadata) {
-        dataForTabs[targetId] = `${dataForTabs[targetId]} - ${metadata}`
+      if (shortName) {
+        dataForTabs[targetId] = shortName
+      } else if (langName) {
+        dataForTabs[targetId] = langName
+        if (shortMeta) {
+          dataForTabs[targetId] = `${dataForTabs[targetId]} - ${shortMeta}`
+        }
       }
     })
     return dataForTabs
