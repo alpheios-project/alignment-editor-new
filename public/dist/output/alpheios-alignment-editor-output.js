@@ -16948,6 +16948,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -20876,7 +20877,25 @@ var render = function() {
         _c("div", { staticClass: "alpheios-editor-help-content" }, [
           _c("p", [
             _vm._v(
-              "Mouse over words in the original to see what words in the translation have been aligned with them. \n           You have several display options: two column, three column, interlinear, just the aligned words, all the different words \n           in a single translation that the translator used as equivalent to the same ones in the original, \n           and the sentences in which alignments occurred. You cannot edit this document. Make changes in the json version.\n        "
+              "Mouse over words in the original to see what words in the translation have been aligned with them."
+            )
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "You have several display options: two column, three column, interlinear, just the aligned words, all the different words \n        in a single translation that the translator used as equivalent to the same ones in the original, \n        and the sentences in which alignments occurred."
+            )
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "The menu in the upper left of the screen lets you choose which translations to display and their order."
+            )
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "You cannot edit this document. Make changes in the json version."
             )
           ])
         ])
