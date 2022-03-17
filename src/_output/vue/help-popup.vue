@@ -8,11 +8,12 @@
         </div>
         <div class="alpheios-modal-body" >
           <div class="alpheios-editor-help-content">
-            <p>Mouse over words in the original to see what words in the translation have been aligned with them. 
-               You have several display options: two column, three column, interlinear, just the aligned words, all the different words 
-               in a single translation that the translator used as equivalent to the same ones in the original, 
-               and the sentences in which alignments occurred. You cannot edit this document. Make changes in the json version.
-            </p>
+            <p>Mouse over words in the original to see what words in the translation have been aligned with them.</p> 
+            <p>You have several display options: two column, three column, interlinear, just the aligned words, all the different words 
+            in a single translation that the translator used as equivalent to the same ones in the original, 
+            and the sentences in which alignments occurred.</p>
+            <p>The menu in the upper left of the screen lets you choose which translations to display and their order.</p>
+            <p>You cannot edit this document. Make changes in the json version.</p>
           </div>
         </div>
     </modal>
