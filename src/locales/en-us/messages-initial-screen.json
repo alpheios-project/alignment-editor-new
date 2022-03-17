@@ -1,6 +1,6 @@
 {
     "INITIAL_NEW_ALIGNMENT": {
-      "message": "Start a new alignment",
+      "message": "Begin new alignment",
       "description": "Button on initial screen",
       "component": "InitialScreen"
     },
@@ -22,6 +22,16 @@
     "INITIAL_NO_TOKENS": {
       "message": "no tokens",
       "description": "Column in alignment's list",
+      "component": "InitialScreen"
+    },
+    "INITIAL_CHOOSE_FROM_FILE": {
+      "message": "ones you saved",
+      "description": "Button on initial screen",
+      "component": "InitialScreen"
+    },
+    "INITIAL_CHOOSE_FROM_DB": {
+      "message": "autosaved ones",
+      "description": "Button on initial screen",
       "component": "InitialScreen"
     }
 }

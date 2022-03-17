@@ -20,12 +20,25 @@
             </div>
 
             <div class="alpheios-alignment-editor-initial-screen__button">
-                <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-main-button"  id="alpheios-resume"
+                <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-main-button"  
                     @click="resumePrevAlignment" >
                     {{ l10n.getMsgS('INITIAL_RESUME_ALIGNMENT') }}
                 </button>
 
-                <div class="alpheios-alignment-app-menu__upload-block" id="alpheios-main-menu-upload-block-page" v-show="showUploadBlock" >
+                <div class="alpheios-alignment-app-menu__upload-block-choice" v-show="showUploadBlock" >
+                  <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-main-button" 
+                    :class="{ 'alpheios-active': showUploadFromFile }" 
+                    @click="updateShowBlock('fromFile')" >
+                    {{ l10n.getMsgS('INITIAL_CHOOSE_FROM_FILE') }}
+                  </button>
+                  <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-main-button"  
+                    :class="{ 'alpheios-active': showUploadFromDB }" 
+                    @click="updateShowBlock('fromDB')" >
+                    {{ l10n.getMsgS('INITIAL_CHOOSE_FROM_DB') }}
+                  </button>
+                </div>
+
+                <div class="alpheios-alignment-app-menu__upload-block" id="alpheios-main-menu-upload-block-page" v-show="showUploadFromFile" >
                     <span class="alpheios-main-menu-upload-block_item">
                         <input type="file" id = "alpheiosfileuploadpage" ref="alpheiosfileuploadpage" class="alpheios-fileupload" @change="loadTextFromFile">
                         <label for="alpheiosfileuploadpage" class="alpheios-fileupload-label alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-upload">
@@ -34,8 +47,8 @@
                     </span>
                 </div>
 
-                <div class="alpheios-alignment-editor-initial-screen__alignments-container" v-show="showUploadBlock" v-if="indexedDBAvailable">
-                    <alignments-list v-show="showUploadBlock" 
+                <div class="alpheios-alignment-editor-initial-screen__alignments-container" v-show="showUploadFromDB" v-if="indexedDBAvailable">
+                    <alignments-list 
                         @upload-data-from-db="uploadDataFromDB" @delete-data-from-db="deleteDataFromDB"
                         @clear-all-alignments="$emit('clear-all-alignments')"
                     />
@@ -70,7 +83,9 @@ export default {
       showUploadBlock: false,
       uploadFileName: null,
       showVideo: false,
-      alignments: []
+      alignments: [],
+      showUploadFromFile: false,
+      showUploadFromDB: false
     }
   },
   mounted () {
@@ -123,6 +138,16 @@ export default {
 
     deleteDataFromDB (alData) {
       this.$emit('delete-data-from-db', alData)
+    },
+
+    updateShowBlock (typeUpload) {
+      if (typeUpload === 'fromFile') {
+        this.showUploadFromFile = true
+        this.showUploadFromDB = false
+      } else {
+        this.showUploadFromFile = false
+        this.showUploadFromDB = true
+      }
     }
   }
 }
@@ -204,6 +229,18 @@ export default {
                 color: #46788d;
                 font-weight: normal;
             }
+        }
+
+        .alpheios-alignment-app-menu__upload-block-choice {
+          text-align: center;
+          padding: 10px 0;
+          
+          .alpheios-actions-menu-button {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 95%;
+            min-width: auto;
+          }
         }
     }
 }

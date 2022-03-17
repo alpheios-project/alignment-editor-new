@@ -48999,7 +48999,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i702-help-update.20220317426" : 0
+    return  true ? "i703-update-initial-UI.20220317444" : 0
   }
 
   static get libName () {
@@ -52192,6 +52192,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -52212,7 +52225,9 @@ vue__WEBPACK_IMPORTED_MODULE_3__["default"].use((v_video_embed__WEBPACK_IMPORTED
       showUploadBlock: false,
       uploadFileName: null,
       showVideo: false,
-      alignments: []
+      alignments: [],
+      showUploadFromFile: false,
+      showUploadFromDB: false
     }
   },
   mounted () {
@@ -52265,6 +52280,16 @@ vue__WEBPACK_IMPORTED_MODULE_3__["default"].use((v_video_embed__WEBPACK_IMPORTED
 
     deleteDataFromDB (alData) {
       this.$emit('delete-data-from-db', alData)
+    },
+
+    updateShowBlock (typeUpload) {
+      if (typeUpload === 'fromFile') {
+        this.showUploadFromFile = true
+        this.showUploadFromDB = false
+      } else {
+        this.showUploadFromFile = false
+        this.showUploadFromDB = true
+      }
     }
   }
 });
@@ -63857,7 +63882,6 @@ var render = function() {
                     {
                       staticClass:
                         "alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-main-button",
-                      attrs: { id: "alpheios-resume" },
                       on: { click: _vm.resumePrevAlignment }
                     },
                     [
@@ -63878,6 +63902,69 @@ var render = function() {
                           rawName: "v-show",
                           value: _vm.showUploadBlock,
                           expression: "showUploadBlock"
+                        }
+                      ],
+                      staticClass:
+                        "alpheios-alignment-app-menu__upload-block-choice"
+                    },
+                    [
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-main-button",
+                          class: { "alpheios-active": _vm.showUploadFromFile },
+                          on: {
+                            click: function($event) {
+                              return _vm.updateShowBlock("fromFile")
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                  " +
+                              _vm._s(
+                                _vm.l10n.getMsgS("INITIAL_CHOOSE_FROM_FILE")
+                              ) +
+                              "\n                "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-main-button",
+                          class: { "alpheios-active": _vm.showUploadFromDB },
+                          on: {
+                            click: function($event) {
+                              return _vm.updateShowBlock("fromDB")
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                  " +
+                              _vm._s(
+                                _vm.l10n.getMsgS("INITIAL_CHOOSE_FROM_DB")
+                              ) +
+                              "\n                "
+                          )
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.showUploadFromFile,
+                          expression: "showUploadFromFile"
                         }
                       ],
                       staticClass: "alpheios-alignment-app-menu__upload-block",
@@ -63928,8 +64015,8 @@ var render = function() {
                             {
                               name: "show",
                               rawName: "v-show",
-                              value: _vm.showUploadBlock,
-                              expression: "showUploadBlock"
+                              value: _vm.showUploadFromDB,
+                              expression: "showUploadFromDB"
                             }
                           ],
                           staticClass:
@@ -63937,14 +64024,6 @@ var render = function() {
                         },
                         [
                           _c("alignments-list", {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value: _vm.showUploadBlock,
-                                expression: "showUploadBlock"
-                              }
-                            ],
                             on: {
                               "upload-data-from-db": _vm.uploadDataFromDB,
                               "delete-data-from-db": _vm.deleteDataFromDB,
@@ -70271,7 +70350,7 @@ module.exports = JSON.parse('{"DOWNLOAD_CONTROLLER_ERROR_TYPE":{"message":"Downl
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"INITIAL_NEW_ALIGNMENT":{"message":"Start a new alignment","description":"Button on initial screen","component":"InitialScreen"},"INITIAL_RESUME_ALIGNMENT":{"message":"Resume previous alignment","description":"Button on initial screen","component":"InitialScreen"},"INITIAL_CHOOSE_FILE":{"message":"Choose a file","description":"Button on initial screen","component":"InitialScreen"},"INITIAL_HAS_TOKENS":{"message":"with tokens","description":"Column in alignment\'s list","component":"InitialScreen"},"INITIAL_NO_TOKENS":{"message":"no tokens","description":"Column in alignment\'s list","component":"InitialScreen"}}');
+module.exports = JSON.parse('{"INITIAL_NEW_ALIGNMENT":{"message":"Begin new alignment","description":"Button on initial screen","component":"InitialScreen"},"INITIAL_RESUME_ALIGNMENT":{"message":"Resume previous alignment","description":"Button on initial screen","component":"InitialScreen"},"INITIAL_CHOOSE_FILE":{"message":"Choose a file","description":"Button on initial screen","component":"InitialScreen"},"INITIAL_HAS_TOKENS":{"message":"with tokens","description":"Column in alignment\'s list","component":"InitialScreen"},"INITIAL_NO_TOKENS":{"message":"no tokens","description":"Column in alignment\'s list","component":"InitialScreen"},"INITIAL_CHOOSE_FROM_FILE":{"message":"ones you saved","description":"Button on initial screen","component":"InitialScreen"},"INITIAL_CHOOSE_FROM_DB":{"message":"autosaved ones","description":"Button on initial screen","component":"InitialScreen"}}');
 
 /***/ }),
 
