@@ -1,11 +1,13 @@
 <template>
-  <div class="alpheios-alignment-notification-bar" id="alpheios-notification-bar" v-if="messages && messages.length > 0">
+  <div class="alpheios-alignment-notification-bar" id="alpheios-notification-bar" 
+       :class = "notificationBarClass"
+       v-if="messages && messages.length > 0">
       <div v-for="(message, mesIndex) in messages" :key="mesIndex"
            class="alpheios-alignment-notification-bar-message" :class="notificationClass(message)">
            {{ message.text }}
             <span
                 class="alpheios-alignment-notification-bar__close-btn"
-                @click="toggleShown(message)"
+                @click="hideMessage(message, true)"
             >
                 <close-icon/>
             </span>
@@ -24,18 +26,43 @@ export default {
   },
   data () {
     return {
+      hideMessageFlag: false,
+      hideTimeout: null
     }
   },
   computed: {
     messages () {
-      return Boolean(this.$store.state.alignmentUpdated) && this.$store.state.messages
+      const items = Boolean(this.$store.state.notificationUpdated) && this.$store.state.messages
+      if (items && items.length > 0) {
+        this.hideTimeout = setTimeout(() => {
+            this.hideMessageBar()
+        }, 8000)
+      }
+      return items
+    },
+    notificationBarClass () {
+      return {
+        'alpheios-invisible': this.hideMessageFlag
+      }
     }
   },
   methods: {
     notificationClass (message) {
-      return `alpheios-alignment-notification-bar-message___${message.type}`
+      return {
+        [`alpheios-alignment-notification-bar-message___${message.type}`]: true
+      }
     },
-    toggleShown (message) {
+    hideMessageBar () {
+      this.hideMessageFlag = true
+      setTimeout(() => {
+        this.messages.forEach(message => this.hideMessage(message))
+        this.hideMessageFlag = false
+      }, 2000)
+    },
+    hideMessage (message, clearTimeoutFlag = false) {
+      if (clearTimeoutFlag) {
+        clearTimeout(this.hideTimeout)
+      }
       NotificationSingleton.removeNotification(message)
     }
   }
@@ -44,7 +71,15 @@ export default {
 <style lang="scss">
     .alpheios-alignment-notification-bar {
         padding: 15px 15px 0;
-        margin-left: 30px;
+        // margin-left: 30px;
+        position: fixed;
+        width: 100%;
+        top: 25px;
+        transition: opacity 2s ease-out;
+
+        &.alpheios-invisible {
+            opacity: 0;
+        }
 
         .alpheios-alignment-notification-bar-message {
             padding: 10px 30px 10px 10px;

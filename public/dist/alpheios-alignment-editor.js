@@ -48999,7 +48999,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i703-update-initial-UI.20220317444" : 0
+    return  true ? "i706-autoclose-errors.20220318389" : 0
   }
 
   static get libName () {
@@ -52597,6 +52597,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -52609,18 +52611,43 @@ __webpack_require__.r(__webpack_exports__);
   },
   data () {
     return {
+      hideMessageFlag: false,
+      hideTimeout: null
     }
   },
   computed: {
     messages () {
-      return Boolean(this.$store.state.alignmentUpdated) && this.$store.state.messages
+      const items = Boolean(this.$store.state.notificationUpdated) && this.$store.state.messages
+      if (items && items.length > 0) {
+        this.hideTimeout = setTimeout(() => {
+            this.hideMessageBar()
+        }, 8000)
+      }
+      return items
+    },
+    notificationBarClass () {
+      return {
+        'alpheios-invisible': this.hideMessageFlag
+      }
     }
   },
   methods: {
     notificationClass (message) {
-      return `alpheios-alignment-notification-bar-message___${message.type}`
+      return {
+        [`alpheios-alignment-notification-bar-message___${message.type}`]: true
+      }
     },
-    toggleShown (message) {
+    hideMessageBar () {
+      this.hideMessageFlag = true
+      setTimeout(() => {
+        this.messages.forEach(message => this.hideMessage(message))
+        this.hideMessageFlag = false
+      }, 2000)
+    },
+    hideMessage (message, clearTimeoutFlag = false) {
+      if (clearTimeoutFlag) {
+        clearTimeout(this.hideTimeout)
+      }
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].removeNotification(message)
     }
   }
@@ -64355,6 +64382,7 @@ var render = function() {
         "div",
         {
           staticClass: "alpheios-alignment-notification-bar",
+          class: _vm.notificationBarClass,
           attrs: { id: "alpheios-notification-bar" }
         },
         _vm._l(_vm.messages, function(message, mesIndex) {
@@ -64373,7 +64401,7 @@ var render = function() {
                   staticClass: "alpheios-alignment-notification-bar__close-btn",
                   on: {
                     click: function($event) {
-                      return _vm.toggleShown(message)
+                      return _vm.hideMessage(message, true)
                     }
                   }
                 },
