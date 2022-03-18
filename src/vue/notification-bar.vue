@@ -36,7 +36,7 @@ export default {
       if (items && items.length > 0) {
         this.hideTimeout = setTimeout(() => {
             this.hideMessageBar()
-        }, 8000)
+        }, 12000)
       }
       return items
     },

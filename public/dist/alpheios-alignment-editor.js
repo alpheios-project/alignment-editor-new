@@ -48999,7 +48999,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i706-autoclose-errors.20220318389" : 0
+    return  true ? "i706-autoclose-errors.20220318394" : 0
   }
 
   static get libName () {
@@ -52621,7 +52621,7 @@ __webpack_require__.r(__webpack_exports__);
       if (items && items.length > 0) {
         this.hideTimeout = setTimeout(() => {
             this.hideMessageBar()
-        }, 8000)
+        }, 12000)
       }
       return items
     },
