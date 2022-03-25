@@ -398,7 +398,7 @@ export default {
   .alpheios-alignment-editor-align-text-segment-tokens {
     padding: 10px;
     max-height: 400px;
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 }
 

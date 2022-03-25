@@ -175,9 +175,9 @@ export default {
 
   .alpheios-al-editor-container-inner {
     .alpheios-al-editor-segment-cell-target-row {
-      padding: 10px; 
+      padding: 10px 5px; 
       max-height: 400px;
-      overflow-y: scroll;
+      overflow-y: auto;
     }
 
   }
