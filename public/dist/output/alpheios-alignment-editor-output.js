@@ -16705,6 +16705,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -16788,7 +16790,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.identList[this.viewType].filter(langData => !langData.hidden)
     },
     noticeText () {
-      return `This view uses <b>${this.shownTabs.length}</b> texts out of <b>${this.identList[this.viewType].length}</b> available. You could change it in the menu.`
+      return `This view displays the first <b>${this.shownTabs.length}</b> of the <b>${this.identList[this.viewType].length}</b> translations available. The menu in the upper left lets you change the selection and their order.`
     }
   },
   methods: {
@@ -20542,22 +20544,6 @@ var render = function() {
     "div",
     { staticClass: "alpheios-app-container" },
     [
-      this.identList["viewFull"].length > 1 || _vm.windowWidth < 900
-        ? _c(
-            "span",
-            {
-              staticClass: "alpheios-alignment-app-menu-open-icon",
-              on: {
-                click: function($event) {
-                  _vm.menuShow++
-                }
-              }
-            },
-            [_c("navbar-icon")],
-            1
-          )
-        : _vm._e(),
-      _vm._v(" "),
       _c("main-menu", {
         attrs: {
           menuShow: _vm.menuShow,
@@ -20573,45 +20559,7 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c("div", { staticClass: "header alpheios-header" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "div",
-          [
-            _c(
-              "tooltip",
-              { attrs: { tooltipText: "Help", tooltipDirection: "left" } },
-              [
-                _c(
-                  "button",
-                  {
-                    staticClass:
-                      "alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon",
-                    attrs: { id: "alpheios-actions-menu-button__enter-help" },
-                    on: {
-                      click: function($event) {
-                        return _vm.$modal.show("help-block")
-                      }
-                    }
-                  },
-                  [
-                    _c(
-                      "span",
-                      { staticClass: "alpheios-alignment-button-icon" },
-                      [_c("question-icon")],
-                      1
-                    )
-                  ]
-                )
-              ]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _vm._m(1)
-      ]),
+      _vm._m(0),
       _vm._v(" "),
       _c(
         "div",
@@ -20620,10 +20568,75 @@ var render = function() {
           attrs: { id: "alpheios-alignment-editor-container" }
         },
         [
-          _c("select-views", {
-            attrs: { inHeader: true, allViewTypes: _vm.allViewTypes },
-            on: { updateViewType: _vm.updateViewType }
-          }),
+          _c(
+            "div",
+            { staticClass: "alpheios-alignment-editor-container-top-line" },
+            [
+              this.identList["viewFull"].length > 1 || _vm.windowWidth < 900
+                ? _c(
+                    "span",
+                    {
+                      staticClass: "alpheios-alignment-app-menu-open-icon",
+                      on: {
+                        click: function($event) {
+                          _vm.menuShow++
+                        }
+                      }
+                    },
+                    [_c("navbar-icon")],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _c("select-views", {
+                attrs: { inHeader: true, allViewTypes: _vm.allViewTypes },
+                on: { updateViewType: _vm.updateViewType }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "alpheios-alignment-editor-container-question-button"
+                },
+                [
+                  _c(
+                    "tooltip",
+                    {
+                      attrs: { tooltipText: "Help", tooltipDirection: "left" }
+                    },
+                    [
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon",
+                          attrs: {
+                            id: "alpheios-actions-menu-button__enter-help"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.$modal.show("help-block")
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "span",
+                            { staticClass: "alpheios-alignment-button-icon" },
+                            [_c("question-icon")],
+                            1
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
           _vm._v(" "),
           _c("p", {
             staticClass: "alpheios-alignment-editor-container__view-notice",
@@ -20710,28 +20723,26 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "alpheios-header-logo" }, [
-      _c("img", {
-        staticClass: "alpheios-logo-1",
-        attrs: {
-          src: "https://alignment.alpheios.net/images/alpheios-logo-only.png"
-        }
-      }),
+    return _c("div", { staticClass: "header alpheios-header" }, [
+      _c("div", { staticClass: "alpheios-header-logo" }, [
+        _c("img", {
+          staticClass: "alpheios-logo-1",
+          attrs: {
+            src: "https://alignment.alpheios.net/images/alpheios-logo-only.png"
+          }
+        }),
+        _vm._v(" "),
+        _c("img", {
+          staticClass: "alpheios-logo-2",
+          attrs: {
+            src: "https://alignment.alpheios.net/images/alpheios-logo-black.png"
+          }
+        })
+      ]),
       _vm._v(" "),
-      _c("img", {
-        staticClass: "alpheios-logo-2",
-        attrs: {
-          src: "https://alignment.alpheios.net/images/alpheios-logo-black.png"
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "alpheios-header-title" }, [
-      _c("h1", [_vm._v("Alpheios Alignment Editor")])
+      _c("div", { staticClass: "alpheios-header-title" }, [
+        _c("h1", [_vm._v("Alpheios Alignment Editor")])
+      ])
     ])
   }
 ]

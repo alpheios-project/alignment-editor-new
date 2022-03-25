@@ -28,7 +28,8 @@ body, html {
     overflow: hidden;
     background-color: #6e6e6e;
     color: #FFFFFF;
-    padding: 10px 10px 10px 45px;
+    // padding: 10px 10px 10px 45px;
+    padding: 10px;
 
     & > div {
         display: inline-block;
@@ -79,7 +80,7 @@ body, html {
 
 .alpheios-header {
     .alpheios-header-logo {
-        height: 30px;
+        height: 20px;
     }
     button.alpheios-actions-menu-button.alpheios-actions-menu-button-with-icon {
         margin: 0 5px;
@@ -88,7 +89,7 @@ body, html {
 }
 
 .alpheios-app-container .alpheios-alignment-app-menu-open-icon {
-    top: 13px;
+    top: 50px;
 }
 
 @media screen and (min-width: 900px) {

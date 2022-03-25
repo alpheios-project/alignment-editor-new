@@ -191,8 +191,8 @@ export default {
 <style lang="scss">
   .alpheios-al-editor-segment-cell-origin-row {
     position: relative;
-    padding: 10px;
-    overflow-y: scroll;
+    padding: 10px 5px;
+    overflow-y: auto;
 
     &.alpheios-align-text-segment-origin-0 {
       padding-top: 30px;

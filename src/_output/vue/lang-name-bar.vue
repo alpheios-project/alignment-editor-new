@@ -76,7 +76,7 @@ export default {
           text-align: left;
           vertical-align: top;
           overflow: hidden;
-          padding: 5px;
+          padding: 5px 10px;
 
           &.alpheios-al-editor-segment-cell-target-row__metadata-full {
             white-space: initial;
@@ -85,7 +85,7 @@ export default {
 
         .alpheios-al-editor-segment-cell-target-row__langname {
           display: inline-block;
-          width: 160px;
+          width: 170px;
           text-align: right;
           vertical-align: top;
           padding: 5px;

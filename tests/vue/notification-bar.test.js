@@ -68,10 +68,10 @@ describe('notification-bar.test.js', () => {
       type: NotificationSingleton.types.ERROR
     }])
 
-    expect(cmp.vm.notificationClass(cmp.vm.messages[0])).toEqual('alpheios-alignment-notification-bar-message___error')
+    expect(cmp.vm.notificationClass(cmp.vm.messages[0])).toEqual({ 'alpheios-alignment-notification-bar-message___error': true })
 
     // ths message was removed
-    cmp.vm.toggleShown(cmp.vm.messages[0])
+    cmp.vm.hideMessage(cmp.vm.messages[0])
 
     await Vue.nextTick()
     expect(cmp.vm.messages).toEqual([])

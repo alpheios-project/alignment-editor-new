@@ -1,8 +1,6 @@
 <template>
     <div class="alpheios-app-container">
-      <span class="alpheios-alignment-app-menu-open-icon" @click = "menuShow++" v-if="this.identList['viewFull'].length > 1 || windowWidth < 900">
-        <navbar-icon />
-      </span>
+
       <main-menu 
         :menuShow = "menuShow"
         :fullData="fullData"
@@ -18,24 +16,28 @@
                 <img src="https://alignment.alpheios.net/images/alpheios-logo-only.png" class="alpheios-logo-1">
                 <img src="https://alignment.alpheios.net/images/alpheios-logo-black.png" class="alpheios-logo-2">
             </div>
-            <div>
-              <tooltip tooltipText = "Help" tooltipDirection = "left">
-                  <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-help"
-                      @click="$modal.show('help-block')" >
-                      <span class="alpheios-alignment-button-icon">
-                      <question-icon />
-                      </span>
-                  </button>
-              </tooltip>
-            </div>
             <div class="alpheios-header-title">
                 <h1>Alpheios Alignment Editor</h1>
             </div>
         </div>
 
         <div id="alpheios-alignment-editor-container" class="alpheios-alignment-editor-container ">
-            <select-views @updateViewType = "updateViewType" :inHeader = "true" :allViewTypes = "allViewTypes" />
-
+            <div class="alpheios-alignment-editor-container-top-line" >
+              <span class="alpheios-alignment-app-menu-open-icon" @click = "menuShow++" v-if="this.identList['viewFull'].length > 1 || windowWidth < 900">
+                <navbar-icon />
+              </span>
+              <select-views @updateViewType = "updateViewType" :inHeader = "true" :allViewTypes = "allViewTypes" />
+              <div class="alpheios-alignment-editor-container-question-button">
+                <tooltip tooltipText = "Help" tooltipDirection = "left">
+                    <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-help"
+                        @click="$modal.show('help-block')" >
+                        <span class="alpheios-alignment-button-icon">
+                        <question-icon />
+                        </span>
+                    </button>
+                </tooltip>
+              </div>
+            </div>
             <p class="alpheios-alignment-editor-container__view-notice" v-html="noticeText"></p>
             <text-filter-block :fullData="fullData" v-if="false"
                 @changeOrder = "changeOrder" @updateVisibility = "updateVisibility" view = "horizontal" />
@@ -134,7 +136,7 @@ export default {
       return this.identList[this.viewType].filter(langData => !langData.hidden)
     },
     noticeText () {
-      return `This view uses <b>${this.shownTabs.length}</b> texts out of <b>${this.identList[this.viewType].length}</b> available. You could change it in the menu.`
+      return `This view displays the first <b>${this.shownTabs.length}</b> of the <b>${this.identList[this.viewType].length}</b> translations available. The menu in the upper left lets you change the selection and their order.`
     }
   },
   methods: {
@@ -207,6 +209,18 @@ export default {
       b {
         font-size: 100%;
         color: #000;
+      }
+    }
+
+    .alpheios-alignment-editor-container-top-line {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+
+      .alpheios-alignment-editor-container-question-button {
+        .alpheios-actions-menu-button {
+          margin: 2px 0 0 20px;
+        }
       }
     }
 
