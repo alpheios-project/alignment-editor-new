@@ -558,14 +558,14 @@ body, html {
 }
 
 .alpheios-header .alpheios-header-logo {
-  height: 20px;
+  height: 25px;
 }
 .alpheios-header button.alpheios-actions-menu-button.alpheios-actions-menu-button-with-icon {
   margin: 0 5px;
 }
 
 .alpheios-app-container .alpheios-alignment-app-menu-open-icon {
-  top: 50px;
+  top: 65px;
 }
 
 @media screen and (min-width: 900px) {
@@ -1400,7 +1400,7 @@ button.alpheios-actions-menu-button.alpheios-actions-menu-button-with-icon .alph
   display: block;
   position: fixed;
   top: 25px;
-  left: 10px;
+  left: 15px;
   width: 25px;
   height: 25px;
   cursor: pointer;
@@ -1426,7 +1426,7 @@ button.alpheios-actions-menu-button.alpheios-actions-menu-button-with-icon .alph
   justify-content: flex-end;
 }
 .alpheios-alignment-editor-container-top-line .alpheios-alignment-editor-container-question-button .alpheios-actions-menu-button {
-  margin: 2px 0 0 20px;
+  margin: 2px 0 0 40px;
 }
 
 /*# sourceMappingURL=style-alignment-editor-output.css.map*/
