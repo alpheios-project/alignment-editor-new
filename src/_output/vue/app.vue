@@ -136,7 +136,7 @@ export default {
       return this.identList[this.viewType].filter(langData => !langData.hidden)
     },
     noticeText () {
-      return `This view displays the first <b>${this.shownTabs.length}</b> of the <b>${this.identList[this.viewType].length}</b> translations available. The menu in the upper left lets you change the selection and their order.`
+      return `This view displays the first <b>${this.shownTabs.length}</b> of the translations <b>${this.identList[this.viewType].length}</b> available. The menu in the upper left lets you change the selection and their order.`
     }
   },
   methods: {
@@ -187,7 +187,7 @@ export default {
         display: block;
         position: fixed;
         top: 25px;
-        left: 10px;
+        left: 15px;
         width: 25px;
         height: 25px;
         cursor: pointer;
@@ -219,7 +219,7 @@ export default {
 
       .alpheios-alignment-editor-container-question-button {
         .alpheios-actions-menu-button {
-          margin: 2px 0 0 20px;
+          margin: 2px 0 0 40px;
         }
       }
     }
