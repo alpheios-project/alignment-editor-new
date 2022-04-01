@@ -9,12 +9,6 @@
           <template v-slot:disabled><pen-icon /></template>
         </actions-button>
 
-        <actions-button tooltipMess = "ACTION_BUTTON_MERGE_PREV" :allowedCondition = "allowedMergePrev"
-                        actionName = "merge_left" @click = "mergeToPrev" v-show="enableMergeSplitTokensValue">
-          <template v-slot:enabled><merge-left-icon /></template>
-          <template v-slot:disabled><merge-left-icon /></template>
-        </actions-button>
-
         <actions-button tooltipMess = "ACTION_BUTTON_MERGE_NEXT" :allowedCondition = "allowedMergeNext"
                         actionName = "merge_right" @click = "mergeToNext" v-show="enableMergeSplitTokensValue">
           <template v-slot:enabled><merge-right-icon /></template>

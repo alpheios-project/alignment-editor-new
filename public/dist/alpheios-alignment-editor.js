@@ -44501,7 +44501,8 @@ class Alignment {
    * @returns {Boolean}
    */
   allowedMergePrev (token) {
-    return this.tokensEditActions.allowedMergePrev(token)
+    const { tokenResult } = this.tokensEditActions.getNextPrevToken(token, 'prev')
+    return this.isEditableToken(tokenResult) && this.tokensEditActions.allowedMergePrev(token)
   }
 
   /**
@@ -44510,7 +44511,8 @@ class Alignment {
    * @returns {Boolean}
    */
   allowedMergeNext (token) {
-    return this.tokensEditActions.allowedMergeNext(token)
+    const { tokenResult } = this.tokensEditActions.getNextPrevToken(token, 'next')
+    return this.isEditableToken(tokenResult) && this.tokensEditActions.allowedMergeNext(token)
   }
 
   /**
@@ -48999,7 +49001,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i710-cosmetic-html.20220401354" : 0
+    return  true ? "i612-remove-one-merge.20220401365" : 0
   }
 
   static get libName () {
@@ -55693,12 +55695,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/lib/data/history/history-step.js */ "./lib/data/history/history-step.js");
 /* harmony import */ var _vue_tokens_editor_actions_button_token_edit_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/vue/tokens-editor/actions-button-token-edit.vue */ "./vue/tokens-editor/actions-button-token-edit.vue");
 /* harmony import */ var _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/lib/controllers/settings-controller */ "./lib/controllers/settings-controller.js");
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -68202,39 +68198,6 @@ var render = function() {
                 key: "disabled",
                 fn: function() {
                   return [_c("pen-icon")]
-                },
-                proxy: true
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _c("actions-button", {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.enableMergeSplitTokensValue,
-                expression: "enableMergeSplitTokensValue"
-              }
-            ],
-            attrs: {
-              tooltipMess: "ACTION_BUTTON_MERGE_PREV",
-              allowedCondition: _vm.allowedMergePrev,
-              actionName: "merge_left"
-            },
-            on: { click: _vm.mergeToPrev },
-            scopedSlots: _vm._u([
-              {
-                key: "enabled",
-                fn: function() {
-                  return [_c("merge-left-icon")]
-                },
-                proxy: true
-              },
-              {
-                key: "disabled",
-                fn: function() {
-                  return [_c("merge-left-icon")]
                 },
                 proxy: true
               }
