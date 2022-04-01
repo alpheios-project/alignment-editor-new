@@ -8,11 +8,13 @@
             <slot name = "enabled"></slot>
             </span>
         </tooltip>
-        <span class = "alpheios-token-edit-actions-button alpheios-token-edit-actions-button__disabled" v-if="!allowedCondition"
-                :id = "spanId" 
-            >
-            <slot name = "disabled"></slot>
-        </span>
+        <tooltip :tooltipText = "tooltipText" tooltipDirection = "top" v-if="!allowedCondition">
+          <span class = "alpheios-token-edit-actions-button alpheios-token-edit-actions-button__disabled" 
+                  :id = "spanId" 
+              >
+              <slot name = "disabled"></slot>
+          </span>
+        </tooltip>
     </span>
 </template>
 <script>
