@@ -41682,7 +41682,7 @@ class UploadController {
   static get uploadMethods () {
     return {
       plainSourceUploadAll: { method: this.plainSourceUploadAll, fileUpload: true, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv', extensions: [] },
-      plainSourceUploadSingle: { method: this.plainSourceUploadSingle, fileUpload: true, allTexts: false, extensions: ['xml', 'txt'] },
+      plainSourceUploadSingle: { method: this.plainSourceUploadSingle, fileUpload: true, allTexts: false, extensions: ['xml', 'txt', 'empty'] },
       jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, fileUpload: true, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json', extensions: ['json'] },
       xmlUploadAll: { method: this.xmlUploadAll, fileUpload: true, allTexts: true, name: 'xmlUploadAll', label: 'Full from XML (Alphveios v1)', extensions: ['xml'] },
       dtsAPIUpload: { method: this.dtsAPIUploadSingle, fileUpload: true, allTexts: false, name: 'dtsAPIUploadSingle', label: 'DTS API', extensions: ['xml'] },
@@ -41695,7 +41695,8 @@ class UploadController {
    * @returns {Boolean} - true - could be uploaded, false - not
    */
   static isExtensionAvailable (extension, allTexts = true) {
-    return Object.values(this.uploadMethods).some(method => method.allTexts === allTexts && method.extensions.includes(extension))
+    const checkExtension = !extension ? 'empty' : extension
+    return Object.values(this.uploadMethods).some(method => method.allTexts === allTexts && method.extensions.includes(checkExtension))
   }
 
   /**
@@ -41705,7 +41706,8 @@ class UploadController {
    * @returns {String} - upload type
    */
   static defineUploadTypeByExtension (extension, allTexts = true) {
-    return Object.keys(this.uploadMethods).find(methodName => this.uploadMethods[methodName].allTexts === allTexts && this.uploadMethods[methodName].extensions.includes(extension))
+    const checkExtension = !extension ? 'empty' : extension
+    return Object.keys(this.uploadMethods).find(methodName => this.uploadMethods[methodName].allTexts === allTexts && this.uploadMethods[methodName].extensions.includes(checkExtension))
   }
 
   /**
@@ -49001,7 +49003,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i715-move-full-check.20220405653" : 0
+    return  true ? "i717-upload-no-ext.20220405664" : 0
   }
 
   static get libName () {
@@ -52257,7 +52259,7 @@ vue__WEBPACK_IMPORTED_MODULE_3__["default"].use((v_video_embed__WEBPACK_IMPORTED
       const file = this.$refs.alpheiosfileuploadpage.files[0]
 
       if (!file) { return }
-      const extension = file.name.split('.').pop()
+      const extension = file.name.indexOf('.') > -1 ? file.name.split('.').pop() : ''
 
       if (!this.$textC.checkUploadedFileByExtension(extension)) { 
         this.$refs.alpheiosfileuploadpage.value = ''
@@ -52472,7 +52474,7 @@ __webpack_require__.r(__webpack_exports__);
       const file = this.$refs.alpheiosfileupload.files[0]
 
       if (!file) { return }
-      const extension = file.name.split('.').pop()
+      const extension = file.name.indexOf('.') > -1 ? file.name.split('.').pop() : ''
 
       if (!this.$textC.checkUploadedFileByExtension(extension)) { 
         this.closeMenu()
@@ -54951,7 +54953,7 @@ __webpack_require__.r(__webpack_exports__);
     loadTextFromFile(ev) {
       const file = ev.target.files[0]     
       if (!file) { return }
-      const extension = file.name.split('.').pop()
+      const extension = file.name.indexOf('.') > -1 ? file.name.split('.').pop() : ''
 
       if (!this.$textC.checkUploadedFileByExtension(extension, false)) { return }
 
