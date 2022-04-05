@@ -21,7 +21,7 @@ export default class UploadController {
   static get uploadMethods () {
     return {
       plainSourceUploadAll: { method: this.plainSourceUploadAll, fileUpload: true, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv', extensions: [] },
-      plainSourceUploadSingle: { method: this.plainSourceUploadSingle, fileUpload: true, allTexts: false, extensions: ['xml', 'txt'] },
+      plainSourceUploadSingle: { method: this.plainSourceUploadSingle, fileUpload: true, allTexts: false, extensions: ['xml', 'txt', 'empty'] },
       jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, fileUpload: true, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json', extensions: ['json'] },
       xmlUploadAll: { method: this.xmlUploadAll, fileUpload: true, allTexts: true, name: 'xmlUploadAll', label: 'Full from XML (Alphveios v1)', extensions: ['xml'] },
       dtsAPIUpload: { method: this.dtsAPIUploadSingle, fileUpload: true, allTexts: false, name: 'dtsAPIUploadSingle', label: 'DTS API', extensions: ['xml'] },
@@ -34,7 +34,8 @@ export default class UploadController {
    * @returns {Boolean} - true - could be uploaded, false - not
    */
   static isExtensionAvailable (extension, allTexts = true) {
-    return Object.values(this.uploadMethods).some(method => method.allTexts === allTexts && method.extensions.includes(extension))
+    const checkExtension = !extension ? 'empty' : extension
+    return Object.values(this.uploadMethods).some(method => method.allTexts === allTexts && method.extensions.includes(checkExtension))
   }
 
   /**
@@ -44,7 +45,8 @@ export default class UploadController {
    * @returns {String} - upload type
    */
   static defineUploadTypeByExtension (extension, allTexts = true) {
-    return Object.keys(this.uploadMethods).find(methodName => this.uploadMethods[methodName].allTexts === allTexts && this.uploadMethods[methodName].extensions.includes(extension))
+    const checkExtension = !extension ? 'empty' : extension
+    return Object.keys(this.uploadMethods).find(methodName => this.uploadMethods[methodName].allTexts === allTexts && this.uploadMethods[methodName].extensions.includes(checkExtension))
   }
 
   /**

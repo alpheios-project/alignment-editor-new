@@ -116,6 +116,6 @@ describe('upload-controller.test.js', () => {
     expect(UploadController.getAvailableExtensions()).toEqual(['json', 'xml'])
     expect(UploadController.getAvailableExtensions(true)).toEqual(['json', 'xml'])  
     // expect(UploadController.getAvailableExtensions(false)).toEqual(['csv', 'tsv', 'xml', 'txt'])    
-    expect(UploadController.getAvailableExtensions(false)).toEqual(['xml', 'txt'])    
+    expect(UploadController.getAvailableExtensions(false)).toEqual(['xml', 'txt', 'empty'])    
   })
 })
