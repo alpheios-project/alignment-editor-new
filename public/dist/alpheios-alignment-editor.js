@@ -49001,7 +49001,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i713-help-edit-screen.20220401390" : 0
+    return  true ? "i715-move-full-check.20220405653" : 0
   }
 
   static get libName () {
@@ -65332,6 +65332,10 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("option-item-block", {
+                      attrs: { optionItem: _vm.showSummaryPopupOptionItem }
+                    }),
+                    _vm._v(" "),
+                    _c("option-item-block", {
                       attrs: { optionItem: _vm.enableTEXTXMLIconOptionItem }
                     }),
                     _vm._v(" "),
@@ -65427,10 +65431,6 @@ var render = function() {
                       attrs: {
                         optionItem: _vm.enableChangeLanguageIconOptionItem
                       }
-                    }),
-                    _vm._v(" "),
-                    _c("option-item-block", {
-                      attrs: { optionItem: _vm.showSummaryPopupOptionItem }
                     })
                   ],
                   1
