@@ -29,6 +29,12 @@ export default class UploadController {
     }
   }
 
+  static get extractMethods () {
+    return {
+      jsonSimpleExtract: { method: this.jsonSimpleExtract, extensions: ['json'] }
+    }
+  }
+
   /**
    * @param {String} extension - file extension
    * @returns {Boolean} - true - could be uploaded, false - not
@@ -47,6 +53,10 @@ export default class UploadController {
   static defineUploadTypeByExtension (extension, allTexts = true) {
     const checkExtension = !extension ? 'empty' : extension
     return Object.keys(this.uploadMethods).find(methodName => this.uploadMethods[methodName].allTexts === allTexts && this.uploadMethods[methodName].extensions.includes(checkExtension))
+  }
+
+  static defineExtractTypeByExtension (extension) {
+    return Object.keys(this.extractMethods).find(methodName => this.extractMethods[methodName].extensions.includes(extension))
   }
 
   /**
@@ -77,6 +87,18 @@ export default class UploadController {
     console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }))
     NotificationSingleton.addNotification({
       text: L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }),
+      type: NotificationSingleton.types.ERROR
+    })
+    return false
+  }
+
+  static extract (extractType, data) {
+    if (this.extractMethods[extractType]) {
+      return this.extractMethods[extractType].method(data)
+    }
+    console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_TYPE', { extractType }))
+    NotificationSingleton.addNotification({
+      text: L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_TYPE', { extractType }),
       type: NotificationSingleton.types.ERROR
     })
     return false
@@ -168,6 +190,11 @@ export default class UploadController {
   static jsonSimpleUploadAll (fileData) {
     const fileJSON = JSON.parse(fileData)
     return Alignment.convertFromJSON(fileJSON)
+  }
+
+  static jsonSimpleExtract (fileData) {
+    const fileJSON = JSON.parse(fileData)
+    return Alignment.extractShortFromJSON(fileJSON)
   }
 
   static xmlUploadAll (fileData) {

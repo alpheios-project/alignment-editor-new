@@ -34,6 +34,8 @@
       <summary-popup @closeModal = "$modal.hide('summary')" @start-align = "alignTexts"
       />
       <waiting-popup @closeModal = "$modal.hide('waiting')" />
+
+      <upload-warn-popup @closeModal = "$modal.hide('upload-warn')" :updatedDTInDB = "updatedDTInDB" @continue-upload = "continueUpload" />
   </div>
 </template>
 <script>
@@ -46,6 +48,7 @@ import MainMenu from '@/vue/main-menu.vue'
 import SummaryPopup from '@/vue/summary-popup.vue'
 
 import WaitingPopup from '@/vue/common/waiting-popup.vue'
+import UploadWarnPopup from '@/vue/common/upload-warn-popup.vue'
 
 import NotificationBar from '@/vue/notification-bar.vue'
 import TextEditor from '@/vue/text-editor/text-editor.vue'
@@ -70,7 +73,8 @@ export default {
     navbarIcon: NavbarIcon,
     initialScreen: InitialScreen,
     summaryPopup: SummaryPopup,
-    waitingPopup: WaitingPopup
+    waitingPopup: WaitingPopup,
+    uploadWarnPopup: UploadWarnPopup
 
   },
   data () {
@@ -84,7 +88,11 @@ export default {
       pageClasses: [ 'initial-page', 'options-page', 'text-editor-page', 'align-editor-page', 'tokens-editor-page' ],
       menuShow: 1,
       renderTokensEditor: 1,
-      updateCurrentPage: 'initial-screen'
+      updateCurrentPage: 'initial-screen',
+
+      fileData: null,
+      extension: null,
+      updatedDTInDB: null
     }
   },
   watch: {
@@ -111,15 +119,37 @@ export default {
     /**
     * Starts upload workflow
     */
-    uploadDataFromFile (fileData, extension) {
+    async uploadDataFromFile (fileData, extension) {
       if (fileData) {
-        const alignment = this.$textC.uploadDataFromFile(fileData, SettingsController.tokenizerOptionValue, extension)
+        const shortAlData = this.$textC.extractIDandDateFromFile(fileData, extension)
+        const checkAlInDB = await this.$textC.checkShortAlInDB(shortAlData)
 
-        if (alignment instanceof Alignment) {
-          return this.startOver(alignment)
-        }
-      } 
-      
+        if (shortAlData && checkAlInDB) {
+          this.fileData = fileData
+          this.extension = extension
+          this.updatedDTInDB = checkAlInDB.updatedDT
+
+          this.$modal.show('upload-warn')
+        } else {
+          this.uploadDataFromFileFinal(fileData, extension)
+        }    
+      }
+    },
+
+
+    continueUpload () {
+      this.uploadDataFromFileFinal(this.fileData, this.extension)
+      this.fileData = null
+      this.extension = null
+      this.updatedDTInDB = null
+    },
+
+    uploadDataFromFileFinal (fileData, extension) {
+      const alignment = this.$textC.uploadDataFromFile(fileData, SettingsController.tokenizerOptionValue, extension)
+
+      if (alignment instanceof Alignment) {
+        return this.startOver(alignment)
+      }
       this.showSourceTextEditor()
     },
 

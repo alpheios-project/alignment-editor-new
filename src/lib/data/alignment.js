@@ -1281,6 +1281,14 @@ export default class Alignment {
     return alignment
   }
 
+  static extractShortFromJSON (data) {
+    if (!data.origin) { return }
+    const updatedDT = Date.parse(data.updatedDT)
+    return {
+      id: data.id, updatedDT
+    }
+  }
+
   /*
   * Convert from Ugarit (Alpheios v1 format) to Alignment object
   */
