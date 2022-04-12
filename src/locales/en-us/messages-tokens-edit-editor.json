@@ -1,6 +1,6 @@
 {
     "TOKENS_EDITOR_HEADING": {
-      "message": "Edit text",
+      "message": "TOKEN EDITOR",
       "description": "A heading for text editor",
       "component": "TokensEditor"
     },
@@ -20,32 +20,32 @@
       "component": "TokensEditor"
     },
     "ACTION_BUTTON_UPDATE_TOKEN": {
-      "message": "Update a token",
+      "message": "Edit token",
       "description": "A label for action menu buttons",
       "component": "ActionsMenuTokenEdit"
     },
     "ACTION_BUTTON_MERGE_PREV": {
-      "message": "Merge with the previous token",
+      "message": "Merge left",
       "description": "A label for action menu buttons",
       "component": "ActionsMenuTokenEdit"
     },
     "ACTION_BUTTON_MERGE_NEXT": {
-      "message": "Merge with the next token",
+      "message": "Merge right",
       "description": "A label for action menu buttons",
       "component": "ActionsMenuTokenEdit"
     },
     "ACTION_BUTTON_SPLIT_TOKEN": {
-      "message": "Split a token to 2 tokens by space",
+      "message": "Split",
       "description": "A label for action menu buttons",
       "component": "ActionsMenuTokenEdit"
     },
     "ACTION_BUTTON_ADD_LINEBREAK": {
-      "message": "Add line break after the token",
+      "message": "Add newline",
       "description": "A label for action menu buttons",
       "component": "ActionsMenuTokenEdit"
     },
     "ACTION_BUTTON_REMOVE_LINEBREAK": {
-      "message": "Remove line break after the token",
+      "message": "Delete newline",
       "description": "A label for action menu buttons",
       "component": "ActionsMenuTokenEdit"
     },
@@ -55,7 +55,7 @@
       "component": "ActionsMenuTokenEdit"
     },
     "ACTION_BUTTON_INSERT": {
-      "message": "Insert tokens",
+      "message": "Add token(s)",
       "description": "A label for action menu buttons",
       "component": "ActionsMenuTokenEdit"
     },

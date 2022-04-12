@@ -532,7 +532,7 @@ export default {
     loadTextFromFile(ev) {
       const file = ev.target.files[0]     
       if (!file) { return }
-      const extension = file.name.split('.').pop()
+      const extension = file.name.indexOf('.') > -1 ? file.name.split('.').pop() : ''
 
       if (!this.$textC.checkUploadedFileByExtension(extension, false)) { return }
 

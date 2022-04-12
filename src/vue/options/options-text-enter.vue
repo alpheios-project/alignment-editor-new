@@ -29,6 +29,7 @@
                  :class = "{ 'alpheios-collapsed': !isAcademic, 'alpheios-expanded': isAcademic, 'alpheios-academic-short': !enableTEXTXMLIconValue }">
               <fieldset class="alpheios-alignment-editor-modal-options-block-fieldset">
                 <option-item-block :optionItem = "enableDTSAPIUploadOptionItem" />
+                <option-item-block :optionItem = "showSummaryPopupOptionItem" />
                 <option-item-block :optionItem = "enableTEXTXMLIconOptionItem" />
                 <option-item-block :optionItem = "enableTokenizationOptionsChoiceOptionItem" v-show = "enableTEXTXMLIconValue" />
               </fieldset>
@@ -48,7 +49,6 @@
              
               <fieldset class="alpheios-alignment-editor-modal-options-block-fieldset">
                 <option-item-block :optionItem = "enableChangeLanguageIconOptionItem" />
-                <option-item-block :optionItem = "showSummaryPopupOptionItem" />
               </fieldset>
 
 
@@ -258,10 +258,10 @@ export default {
       height: 0;
     }
     &.alpheios-alignment-options__fieldset-group_academic.alpheios-expanded {
-      height: 175px;
+      height: 200px;
 
       &.alpheios-academic-short {
-        height: 105px;
+        height: 155px;
       }
     }
 

@@ -115,7 +115,7 @@ export default {
       const file = this.$refs.alpheiosfileuploadpage.files[0]
 
       if (!file) { return }
-      const extension = file.name.split('.').pop()
+      const extension = file.name.indexOf('.') > -1 ? file.name.split('.').pop() : ''
 
       if (!this.$textC.checkUploadedFileByExtension(extension)) { 
         this.$refs.alpheiosfileuploadpage.value = ''

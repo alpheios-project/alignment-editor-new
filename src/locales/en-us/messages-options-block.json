@@ -95,7 +95,7 @@
       "component": "OptionsTextAlign"
     },
     "OPTIONS_EDIT_ICONS_DESC_EDIT": {
-      "message": "For convenience, you can enable/disable the same icons in Align Text Options",
+      "message": "You can disable any icons you find you do not need by unchecking them.",
       "description": "Options tooltip",
       "component": "OptionsTextAlign"
     }

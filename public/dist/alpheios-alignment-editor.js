@@ -41728,7 +41728,7 @@ class UploadController {
   static get uploadMethods () {
     return {
       plainSourceUploadAll: { method: this.plainSourceUploadAll, fileUpload: true, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv', extensions: [] },
-      plainSourceUploadSingle: { method: this.plainSourceUploadSingle, fileUpload: true, allTexts: false, extensions: ['xml', 'txt'] },
+      plainSourceUploadSingle: { method: this.plainSourceUploadSingle, fileUpload: true, allTexts: false, extensions: ['xml', 'txt', 'empty'] },
       jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, fileUpload: true, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json', extensions: ['json'] },
       xmlUploadAll: { method: this.xmlUploadAll, fileUpload: true, allTexts: true, name: 'xmlUploadAll', label: 'Full from XML (Alphveios v1)', extensions: ['xml'] },
       dtsAPIUpload: { method: this.dtsAPIUploadSingle, fileUpload: true, allTexts: false, name: 'dtsAPIUploadSingle', label: 'DTS API', extensions: ['xml'] },
@@ -41747,7 +41747,8 @@ class UploadController {
    * @returns {Boolean} - true - could be uploaded, false - not
    */
   static isExtensionAvailable (extension, allTexts = true) {
-    return Object.values(this.uploadMethods).some(method => method.allTexts === allTexts && method.extensions.includes(extension))
+    const checkExtension = !extension ? 'empty' : extension
+    return Object.values(this.uploadMethods).some(method => method.allTexts === allTexts && method.extensions.includes(checkExtension))
   }
 
   /**
@@ -41757,7 +41758,8 @@ class UploadController {
    * @returns {String} - upload type
    */
   static defineUploadTypeByExtension (extension, allTexts = true) {
-    return Object.keys(this.uploadMethods).find(methodName => this.uploadMethods[methodName].allTexts === allTexts && this.uploadMethods[methodName].extensions.includes(extension))
+    const checkExtension = !extension ? 'empty' : extension
+    return Object.keys(this.uploadMethods).find(methodName => this.uploadMethods[methodName].allTexts === allTexts && this.uploadMethods[methodName].extensions.includes(checkExtension))
   }
 
   static defineExtractTypeByExtension (extension) {
@@ -44574,7 +44576,8 @@ class Alignment {
    * @returns {Boolean}
    */
   allowedMergePrev (token) {
-    return this.tokensEditActions.allowedMergePrev(token)
+    const { tokenResult } = this.tokensEditActions.getNextPrevToken(token, 'prev')
+    return this.isEditableToken(tokenResult) && this.tokensEditActions.allowedMergePrev(token)
   }
 
   /**
@@ -44583,7 +44586,8 @@ class Alignment {
    * @returns {Boolean}
    */
   allowedMergeNext (token) {
-    return this.tokensEditActions.allowedMergeNext(token)
+    const { tokenResult } = this.tokensEditActions.getNextPrevToken(token, 'next')
+    return this.isEditableToken(tokenResult) && this.tokensEditActions.allowedMergeNext(token)
   }
 
   /**
@@ -49080,7 +49084,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i719-upload-json-date.20220412705" : 0
+    return  true ? "i719-upload-json-date.20220412711" : 0
   }
 
   static get libName () {
@@ -52193,8 +52197,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'HelpBlockEdit'
@@ -52426,7 +52428,7 @@ vue__WEBPACK_IMPORTED_MODULE_3__["default"].use((v_video_embed__WEBPACK_IMPORTED
       const file = this.$refs.alpheiosfileuploadpage.files[0]
 
       if (!file) { return }
-      const extension = file.name.split('.').pop()
+      const extension = file.name.indexOf('.') > -1 ? file.name.split('.').pop() : ''
 
       if (!this.$textC.checkUploadedFileByExtension(extension)) { 
         this.$refs.alpheiosfileuploadpage.value = ''
@@ -52642,7 +52644,7 @@ __webpack_require__.r(__webpack_exports__);
       const file = this.$refs.alpheiosfileupload.files[0]
 
       if (!file) { return }
-      const extension = file.name.split('.').pop()
+      const extension = file.name.indexOf('.') > -1 ? file.name.split('.').pop() : ''
 
       if (!this.$textC.checkUploadedFileByExtension(extension)) { 
         this.closeMenu()
@@ -55121,7 +55123,7 @@ __webpack_require__.r(__webpack_exports__);
     loadTextFromFile(ev) {
       const file = ev.target.files[0]     
       if (!file) { return }
-      const extension = file.name.split('.').pop()
+      const extension = file.name.indexOf('.') > -1 ? file.name.split('.').pop() : ''
 
       if (!this.$textC.checkUploadedFileByExtension(extension, false)) { return }
 
@@ -55786,6 +55788,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -55863,12 +55867,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/lib/data/history/history-step.js */ "./lib/data/history/history-step.js");
 /* harmony import */ var _vue_tokens_editor_actions_button_token_edit_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/vue/tokens-editor/actions-button-token-edit.vue */ "./vue/tokens-editor/actions-button-token-edit.vue");
 /* harmony import */ var _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/lib/controllers/settings-controller */ "./lib/controllers/settings-controller.js");
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -63939,50 +63937,40 @@ var staticRenderFns = [
     return _c("div", { staticClass: "alpheios-editor-help-content" }, [
       _c("p", [
         _vm._v(
-          'After texts have been prepared for alignment, which involves their analysis into "tokens", \n    they cannot be edited directly, but can only be modified with the special "Token Editor", \n    which has its own screen. It is therefore advisable to review the texts carefully \n    before preparing them for alignment by tokenization.\n  '
+          'After texts have been prepared for alignment, which requires their analysis into "tokens", \n    they cannot be edited directly, but can only be modified with this special Token Editor. \n    It is therefore advisable to review your texts carefully before pressing [DONE], which tokenizes them.\n  '
         )
       ]),
       _vm._v(" "),
       _c("p", [
         _vm._v(
-          "Furthermore, any words that have already been aligned must be unlinked in the alignment screen \n    before their tokens can be edited in any way in the edit screen. If you try to edit them \n    you will receive a message prompting you to unlink them first. \n  "
+          "Furthermore, any words that have already been aligned must be unlinked in the Align Text screen before \n    their tokens can be edited in this screen. If you try to edit tokens that are still aligned, \n    you will receive a message prompting you to unlink them first. \n  "
         )
       ]),
       _vm._v(" "),
       _c("p", [
         _vm._v(
-          "What you can still do: (by clicking on a word to bring up the small options icons)"
+          'Clicking on a "token" on this screen will open a panel of editing icons\n  (which you can reduce in number in the Options if you find you do not need some).\n  '
+        )
+      ]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "By choosing the appropriate small icon (identifiable from their tool tips) you can then\n  "
         )
       ]),
       _vm._v(" "),
       _c("ul", [
+        _c("li", [_vm._v("add or delete line breaks")]),
+        _vm._v(" "),
+        _c("li", [_vm._v("add or delete tokens (words or punctuation)")]),
+        _vm._v(" "),
         _c("li", [
-          _vm._v(
-            "you can add or delete line breaks (by choosing the appropriate small icon)"
-          )
+          _vm._v("merge adjacent tokens and subsequently split them again")
         ]),
         _vm._v(" "),
         _c("li", [
           _vm._v(
-            "you can correct the spelling of a word (by making the change and then clicking on the pencil icon to save the change)"
-          )
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _vm._v(
-            "you can merge two adjacent words and subsequently split them again (by choosing the appropriate small icon)"
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("p", [
-        _vm._v('What you cannot do after "tokenization" or during alignment:')
-      ]),
-      _vm._v(" "),
-      _c("ul", [
-        _c("li", [
-          _vm._v(
-            'you cannot add or delete a word except at the beginning or end of whatever text you tokenized \n      If you need to do so you will have to re-enter your text on the Text Enter Screen and retokenize with the \n      "Prepare Texts for Alignment" button.\n    '
+            "edit a token (e.g. correct the spelling of a word)\n  (to save such editing changes you MUST click on the pencil icon to save it after making the change)"
           )
         ])
       ]),
@@ -65686,6 +65674,10 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("option-item-block", {
+                      attrs: { optionItem: _vm.showSummaryPopupOptionItem }
+                    }),
+                    _vm._v(" "),
+                    _c("option-item-block", {
                       attrs: { optionItem: _vm.enableTEXTXMLIconOptionItem }
                     }),
                     _vm._v(" "),
@@ -65781,10 +65773,6 @@ var render = function() {
                       attrs: {
                         optionItem: _vm.enableChangeLanguageIconOptionItem
                       }
-                    }),
-                    _vm._v(" "),
-                    _c("option-item-block", {
-                      attrs: { optionItem: _vm.showSummaryPopupOptionItem }
                     })
                   ],
                   1
@@ -68452,14 +68440,22 @@ var render = function() {
       _vm._v(" "),
       !_vm.allowedCondition
         ? _c(
-            "span",
+            "tooltip",
             {
-              staticClass:
-                "alpheios-token-edit-actions-button alpheios-token-edit-actions-button__disabled",
-              attrs: { id: _vm.spanId }
+              attrs: { tooltipText: _vm.tooltipText, tooltipDirection: "top" }
             },
-            [_vm._t("disabled")],
-            2
+            [
+              _c(
+                "span",
+                {
+                  staticClass:
+                    "alpheios-token-edit-actions-button alpheios-token-edit-actions-button__disabled",
+                  attrs: { id: _vm.spanId }
+                },
+                [_vm._t("disabled")],
+                2
+              )
+            ]
           )
         : _vm._e()
     ],
@@ -68542,39 +68538,6 @@ var render = function() {
                 key: "disabled",
                 fn: function() {
                   return [_c("pen-icon")]
-                },
-                proxy: true
-              }
-            ])
-          }),
-          _vm._v(" "),
-          _c("actions-button", {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.enableMergeSplitTokensValue,
-                expression: "enableMergeSplitTokensValue"
-              }
-            ],
-            attrs: {
-              tooltipMess: "ACTION_BUTTON_MERGE_PREV",
-              allowedCondition: _vm.allowedMergePrev,
-              actionName: "merge_left"
-            },
-            on: { click: _vm.mergeToPrev },
-            scopedSlots: _vm._u([
-              {
-                key: "enabled",
-                fn: function() {
-                  return [_c("merge-left-icon")]
-                },
-                proxy: true
-              },
-              {
-                key: "disabled",
-                fn: function() {
-                  return [_c("merge-left-icon")]
                 },
                 proxy: true
               }
@@ -70762,7 +70725,7 @@ module.exports = JSON.parse('{"METADATA_TERM_LABEL_IDENTIFIER":{"message":"Ident
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"OPTIONS_BLOCK_APPLICATION":{"message":"Application options","description":"Fieldset inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_RESET_ALL":{"message":"Reset all to standard options","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_SET_ADVANCED":{"message":"Advanced options","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_SET_ACADEMIC":{"message":"Academic options","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_INFO_ABOUT":{"message":"About Alpheios","description":"Title of the build info block","component":"OptionsBlock"},"OPTIONS_TITLE":{"message":"Options","description":"Title of the options popup","component":"OptionsTextEnter"},"OPTIONS_TITLE_TEXT_ENTER":{"message":"Options for Enter Text","description":"Title of the options popup","component":"OptionsTextEnter"},"OPTIONS_TITLE_TEXT_ALIGN":{"message":"Options for Align Text","description":"Title of the options popup","component":"OptionsTextEdit"},"OPTIONS_TITLE_TEXT_EDIT":{"message":"Options for Edit Text","description":"Title of the options popup","component":"OptionsTextEdit"},"OPTIONS_FIELDSET_ANNOTATIONS":{"message":"Annotations block:","description":"Options fieldset","component":"OptionsTextEdit"},"OPTIONS_ANNOTATIONS_INFO":{"message":"Allow to add annotations to tokens","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_TOKENS_EDITOR_INFO":{"message":"Allow edit tokens","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_READING_TOOLS_INFO":{"message":"Show/hide Alpheios Reading Tools Toolbar","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_IS_ACADEMIC_MODE_INFO":{"message":"Show academic options","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_IS_ADVANCED_MODE_INFO":{"message":"Show advanced options","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_TOKENIZER_SERVICE_INFO":{"message":"Allow to choose specific tokenizer options","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_SPECIFIC_ENGLISH_INFO":{"message":"Apply specific rules from English to tokenizing","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_INDEXEDDB_SUPPORT_INFO":{"message":"Add ability to save and upload data from the local database","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_EDIT_ICONS_DESC_ALIGN":{"message":"For convenience, you can enable/disable the same icons in Edit Text Options","description":"Options tooltip","component":"OptionsTextAlign"},"OPTIONS_EDIT_ICONS_DESC_EDIT":{"message":"For convenience, you can enable/disable the same icons in Align Text Options","description":"Options tooltip","component":"OptionsTextAlign"}}');
+module.exports = JSON.parse('{"OPTIONS_BLOCK_APPLICATION":{"message":"Application options","description":"Fieldset inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_RESET_ALL":{"message":"Reset all to standard options","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_SET_ADVANCED":{"message":"Advanced options","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_SET_ACADEMIC":{"message":"Academic options","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_INFO_ABOUT":{"message":"About Alpheios","description":"Title of the build info block","component":"OptionsBlock"},"OPTIONS_TITLE":{"message":"Options","description":"Title of the options popup","component":"OptionsTextEnter"},"OPTIONS_TITLE_TEXT_ENTER":{"message":"Options for Enter Text","description":"Title of the options popup","component":"OptionsTextEnter"},"OPTIONS_TITLE_TEXT_ALIGN":{"message":"Options for Align Text","description":"Title of the options popup","component":"OptionsTextEdit"},"OPTIONS_TITLE_TEXT_EDIT":{"message":"Options for Edit Text","description":"Title of the options popup","component":"OptionsTextEdit"},"OPTIONS_FIELDSET_ANNOTATIONS":{"message":"Annotations block:","description":"Options fieldset","component":"OptionsTextEdit"},"OPTIONS_ANNOTATIONS_INFO":{"message":"Allow to add annotations to tokens","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_TOKENS_EDITOR_INFO":{"message":"Allow edit tokens","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_READING_TOOLS_INFO":{"message":"Show/hide Alpheios Reading Tools Toolbar","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_IS_ACADEMIC_MODE_INFO":{"message":"Show academic options","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_IS_ADVANCED_MODE_INFO":{"message":"Show advanced options","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_TOKENIZER_SERVICE_INFO":{"message":"Allow to choose specific tokenizer options","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_SPECIFIC_ENGLISH_INFO":{"message":"Apply specific rules from English to tokenizing","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_INDEXEDDB_SUPPORT_INFO":{"message":"Add ability to save and upload data from the local database","description":"Options tooltip","component":"OptionsTextEnter"},"OPTIONS_EDIT_ICONS_DESC_ALIGN":{"message":"For convenience, you can enable/disable the same icons in Edit Text Options","description":"Options tooltip","component":"OptionsTextAlign"},"OPTIONS_EDIT_ICONS_DESC_EDIT":{"message":"You can disable any icons you find you do not need by unchecking them.","description":"Options tooltip","component":"OptionsTextAlign"}}');
 
 /***/ }),
 
@@ -70784,7 +70747,7 @@ module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Enter text","des
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit text","description":"A heading for text editor","component":"TokensEditor"},"TOKENS_EDITOR_LINK":{"message":"Edit","description":"A heading for text editor","component":"TokensEditor"},"TOKENS_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TokensEditor"},"TOKENS_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TokensEditor"},"ACTION_BUTTON_UPDATE_TOKEN":{"message":"Update a token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_PREV":{"message":"Merge with the previous token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_NEXT":{"message":"Merge with the next token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_SPLIT_TOKEN":{"message":"Split a token to 2 tokens by space","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_ADD_LINEBREAK":{"message":"Add line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_REMOVE_LINEBREAK":{"message":"Remove line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_DELETE":{"message":"Delete token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_INSERT":{"message":"Insert tokens","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP":{"message":"This token is inside a created alignment group, you should ungroup it first in the alignment editor.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP":{"message":"The merging token is inside a created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"Alignment"},"TOKENS_EDIT_SPLIT_NO_SPACES":{"message":"The token word must contain at least one space for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_SPLIT_SEVERAL_SPACES":{"message":"Only one space is allowed for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_ALREADY_HAS_LINE_BREAK":{"message":"The token already has a line break.","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_NEXT_SEGMENT":{"message":"Move the token to the next segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_PREV_SEGMENT":{"message":"Move the token to the previous segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTIONS_UNDO_TITLE":{"message":"Undo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"ACTIONS_REDO_TITLE":{"message":"Redo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"TOKENS_EDIT_UNDO_ERROR":{"message":"Nothing to undo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_REDO_ERROR":{"message":"Nothing to redo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_INSERT_DESCRIPTION_START":{"message":"Add space between tokens. Click Enter to insert tokens to the start.","description":"A description for insert tokens input","component":"EmptyTokensInput"},"TOKENS_EDIT_INSERT_DESCRIPTION_END":{"message":"Add space between tokens. Click Enter to insert tokens to the end.","description":"A description for insert tokens input","component":"EmptyTokensInput"},"INSERT_TOKENS_BLOCK_HEADER":{"message":"Insert tokens near { word }:","description":"A title for modal","component":"SegmentEditBlock","params":["word"]},"INSERT_TOKENS_BLOCK_SAVE_BUTTON":{"message":"Insert","description":"Save button in modal","component":"InsertTokensBlock"},"INSERT_TOKENS_BLOCK_CANCEL_BUTTON":{"message":"Cancel","description":"Cancel button in modal","component":"InsertTokensBlock"},"INSERT_TOKENS_DIR_PREV":{"message":"before token","description":"Radio buttons for insert tokens modal","component":"InsertTokensBlock"},"INSERT_TOKENS_DIR_NEXT":{"message":"after token","description":"Radio buttons for insert tokens modal","component":"InsertTokensBlock"}}');
+module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"TOKEN EDITOR","description":"A heading for text editor","component":"TokensEditor"},"TOKENS_EDITOR_LINK":{"message":"Edit","description":"A heading for text editor","component":"TokensEditor"},"TOKENS_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TokensEditor"},"TOKENS_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TokensEditor"},"ACTION_BUTTON_UPDATE_TOKEN":{"message":"Edit token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_PREV":{"message":"Merge left","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_NEXT":{"message":"Merge right","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_SPLIT_TOKEN":{"message":"Split","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_ADD_LINEBREAK":{"message":"Add newline","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_REMOVE_LINEBREAK":{"message":"Delete newline","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_DELETE":{"message":"Delete token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_INSERT":{"message":"Add token(s)","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP":{"message":"This token is inside a created alignment group, you should ungroup it first in the alignment editor.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP":{"message":"The merging token is inside a created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"Alignment"},"TOKENS_EDIT_SPLIT_NO_SPACES":{"message":"The token word must contain at least one space for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_SPLIT_SEVERAL_SPACES":{"message":"Only one space is allowed for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_ALREADY_HAS_LINE_BREAK":{"message":"The token already has a line break.","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_NEXT_SEGMENT":{"message":"Move the token to the next segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_PREV_SEGMENT":{"message":"Move the token to the previous segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTIONS_UNDO_TITLE":{"message":"Undo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"ACTIONS_REDO_TITLE":{"message":"Redo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"TOKENS_EDIT_UNDO_ERROR":{"message":"Nothing to undo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_REDO_ERROR":{"message":"Nothing to redo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_INSERT_DESCRIPTION_START":{"message":"Add space between tokens. Click Enter to insert tokens to the start.","description":"A description for insert tokens input","component":"EmptyTokensInput"},"TOKENS_EDIT_INSERT_DESCRIPTION_END":{"message":"Add space between tokens. Click Enter to insert tokens to the end.","description":"A description for insert tokens input","component":"EmptyTokensInput"},"INSERT_TOKENS_BLOCK_HEADER":{"message":"Insert tokens near { word }:","description":"A title for modal","component":"SegmentEditBlock","params":["word"]},"INSERT_TOKENS_BLOCK_SAVE_BUTTON":{"message":"Insert","description":"Save button in modal","component":"InsertTokensBlock"},"INSERT_TOKENS_BLOCK_CANCEL_BUTTON":{"message":"Cancel","description":"Cancel button in modal","component":"InsertTokensBlock"},"INSERT_TOKENS_DIR_PREV":{"message":"before token","description":"Radio buttons for insert tokens modal","component":"InsertTokensBlock"},"INSERT_TOKENS_DIR_NEXT":{"message":"after token","description":"Radio buttons for insert tokens modal","component":"InsertTokensBlock"}}');
 
 /***/ }),
 
