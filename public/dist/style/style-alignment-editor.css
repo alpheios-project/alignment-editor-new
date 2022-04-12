@@ -1640,6 +1640,12 @@ button.alpheios-app-menu-link:-moz-focusring {
   border: 0;
   padding: 10px 0;
 }
+.alpheios-alignment-editor-modal-upload-warn .alpheios-modal-body {
+  padding: 10px 0;
+}
+.alpheios-alignment-editor-modal-upload-warn .alpheios-modal-body p {
+  text-align: center;
+}
 .alpheios-alignment-notification-bar {
   padding: 15px 15px 0;
   position: fixed;

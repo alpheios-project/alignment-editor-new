@@ -231,6 +231,42 @@ export default class TextsController {
     return alignment
   }
 
+  extractIDandDateFromFile (fileData, extension) {
+    if (!fileData) {
+      console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'),
+        type: NotificationSingleton.types.ERROR
+      })
+      return
+    }
+
+    const extractType = UploadController.defineExtractTypeByExtension(extension)
+    if (!extractType) { return false }
+    const extractPrepareMethods = {
+      jsonSimpleExtract: this.extractSimple.bind(this)
+    }
+
+    const shortAlData = extractPrepareMethods[extractType](fileData, extractType)
+    // StorageController.update(alignment, true)
+    // this.store.commit('incrementUploadCheck')
+    return shortAlData
+  }
+
+  extractSimple (fileData, uploadType) {
+    return UploadController.extract(uploadType, fileData)
+  }
+
+  async checkShortAlInDB (shortAlData) {
+    const alAll = await this.uploadFromAllAlignmentsDB()
+    const savedAlInDB = alAll.find(alItem => alItem.alignmentID === shortAlData.id)
+    if (!savedAlInDB) {
+      return false
+    }
+    const formattedSavedAlInDB = { id: savedAlInDB.alignmentID, updatedDT: Date.parse(savedAlInDB.updatedDT), updatedDtStr: savedAlInDB.updatedDT }
+    return formattedSavedAlInDB.updatedDT > shortAlData.updatedDT ? savedAlInDB : false
+  }
+
   uploadDataFromFile (fileData, tokenizerOptionValue, extension) {
     if (!fileData) {
       console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))

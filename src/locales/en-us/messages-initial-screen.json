@@ -33,5 +33,33 @@
       "message": "autosaved ones",
       "description": "Button on initial screen",
       "component": "InitialScreen"
+    },
+    "UPLOAD_WARN_POPUP_OK_BUTTON": {
+      "message": "Upload from file",
+      "description": "Button label",
+      "component": "UploadWarnPopup"
+    },
+    "UPLOAD_WARN_CANCEL_BUTTON": {
+      "message": "Cancel",
+      "description": "Button label",
+      "component": "UploadWarnPopup"
+    },
+    "UPLOAD_WARN_MESSAGE1": {
+      "message": "This alignment has a newer auto-saved version",
+      "description": "Message",
+      "component": "UploadWarnPopup",
+      "params": ["updatedDTInDB"]
+    },
+    "UPLOAD_WARN_MESSAGE2": {
+      "message": "(saved on {updatedDTInDB})",
+      "description": "Message",
+      "component": "UploadWarnPopup",
+      "params": ["updatedDTInDB"]
+    },
+    "UPLOAD_WARN_MESSAGE3": {
+      "message": "Are you sure you want to rewrite it with the version from JSON file?",
+      "description": "Message",
+      "component": "UploadWarnPopup",
+      "params": ["updatedDTInDB"]
     }
 }

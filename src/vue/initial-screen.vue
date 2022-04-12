@@ -58,7 +58,7 @@
         </div>
 
         <div class="alpheios-alignment-editor-initial-screen__video" v-show="showVideo">
-            <video-embed css="embed-responsive-21by9" src="https://youtu.be/WaLMw7XYhtc"></video-embed>
+            <!-- <video-embed css="embed-responsive-21by9" src="https://youtu.be/WaLMw7XYhtc"></video-embed> -->
         </div>
       </div>
   </div>
@@ -127,6 +127,7 @@ export default {
       reader.onload = e => {
         this.$emit("upload-data-from-file", e.target.result, extension)
         this.showUploadBlock = false
+        this.$refs.alpheiosfileuploadpage.value = ''
       }
       reader.readAsText(file)
     },
