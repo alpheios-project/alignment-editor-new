@@ -14,6 +14,9 @@ jobs:
       with:
         node-version: '14'
 
+    - name: Fix up git URLs
+      run: echo -e '[url "https://github.com/"]\n  insteadOf = "git://github.com/"' >> ~/.gitconfig
+      
     - name: build
       run: npm install && npm update && npm run build
 
