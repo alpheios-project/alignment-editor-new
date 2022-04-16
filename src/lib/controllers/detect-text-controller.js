@@ -35,7 +35,8 @@ export default class DetectTextController {
     const adapterDetectLangRes = await ClientAdapters.detectlangGroup.detectlang({
       method: 'getDetectedLangsList',
       params: {
-        text: sourceText.text.substr(0, this.maxAmountOfText)
+        text: sourceText.text.substr(0, this.maxAmountOfText),
+        api: '30e63bcc426af7b7c650aab568ed9ad7'
       }
     })
 
