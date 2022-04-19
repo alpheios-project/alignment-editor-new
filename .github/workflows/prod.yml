@@ -4,6 +4,7 @@ on:
   push: 
     branches: 
       - 'master'
+      
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -18,10 +19,6 @@ jobs:
       with:
         envkey_DETECT_LANG_API: ${{ secrets.DETECT_LANG_API }}
         file_name: .env
-
-    - name: Show files
-      run: |
-        ls -a
 
     - name: Fix up git URLs
       run: echo -e '[url "https://github.com/"]\n  insteadOf = "git://github.com/"' >> ~/.gitconfig
