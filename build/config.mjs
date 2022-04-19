@@ -26,7 +26,9 @@ const webpack = {
     },
     plugins: [
       new VueLoaderPlugin(),
-      new Dotenv()
+      new Dotenv({
+        path: './config/.env'
+      })
     ],
     module: {
       rules: [
