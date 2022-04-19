@@ -6,14 +6,6 @@ on:
       - 'master'
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2-beta
-      with:
-        node-version: '14'
-
   create-envfile:
     runs-on: ubuntu-latest
     steps:
@@ -22,6 +14,14 @@ jobs:
         with:
           envkey_API_KEY: "123456abcdef"
           file_name: .env
+          
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2-beta
+      with:
+        node-version: '14'
 
     - name: Fix up git URLs
       run: echo -e '[url "https://github.com/"]\n  insteadOf = "git://github.com/"' >> ~/.gitconfig
