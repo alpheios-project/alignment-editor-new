@@ -37937,7 +37937,7 @@ class AppController {
    * @param {String} appId - id attribute of the HTML element where Vue application should be attached
    */
   constructor ({ appId } = {}) {
-    console.info('process.env - ', "mysecretkey1")
+    console.info('process.env - ', "mysecretkey2")
     if (!appId) {
       console.error('You should define id inside AppController initialization to start the application.')
       return
@@ -46813,7 +46813,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "update-api-key-master-7.20220419443" : 0
+    return  true ? "update-api-key-master-10.20220419451" : 0
   }
 
   static get libName () {
