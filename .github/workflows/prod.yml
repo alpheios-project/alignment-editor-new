@@ -15,6 +15,7 @@ jobs:
         node-version: '14'
 
   create-envfile:
+    runs-on: ubuntu-latest
     steps:
       - name: Make envfile
         uses: SpicyPizza/create-envfile@v1.3
