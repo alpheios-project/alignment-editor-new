@@ -37937,7 +37937,7 @@ class AppController {
    * @param {String} appId - id attribute of the HTML element where Vue application should be attached
    */
   constructor ({ appId } = {}) {
-    console.info('process.env - ', "mysecretkey2")
+    console.info('process.env - ', "MISSING_ENV_VAR".DETECT_LANG_API)
     if (!appId) {
       console.error('You should define id inside AppController initialization to start the application.')
       return
@@ -38151,7 +38151,7 @@ class DetectTextController {
       method: 'getDetectedLangsList',
       params: {
         text: sourceText.text.substr(0, this.maxAmountOfText),
-        api: '30e63bcc426af7b7c650aab568ed9ad7'
+        api: "MISSING_ENV_VAR".DETECT_LANG_API
       }
     })
 
@@ -46813,7 +46813,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "update-api-key-master-10.20220419451" : 0
+    return  true ? "update-prod-yml.20220419461" : 0
   }
 
   static get libName () {
