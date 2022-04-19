@@ -36,7 +36,7 @@ export default class DetectTextController {
       method: 'getDetectedLangsList',
       params: {
         text: sourceText.text.substr(0, this.maxAmountOfText),
-        api: '30e63bcc426af7b7c650aab568ed9ad7'
+        api: process.env.DETECT_LANG_API
       }
     })
 
