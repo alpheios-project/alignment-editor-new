@@ -20,11 +20,6 @@ jobs:
         file_name: .env
         directory: config
 
-    - name: Show files
-      run: |
-        ls -a
-        ls -a ./config
-
     - name: Fix up git URLs
       run: echo -e '[url "https://github.com/"]\n  insteadOf = "git://github.com/"' >> ~/.gitconfig
 
