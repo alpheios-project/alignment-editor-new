@@ -24,7 +24,7 @@ export default class AppController {
    * @param {String} appId - id attribute of the HTML element where Vue application should be attached
    */
   constructor ({ appId } = {}) {
-    console.info('process.env - ', process.env.API_KEY)
+    console.info('process.env - ', process.env.DETECT_LANG_API)
     if (!appId) {
       console.error('You should define id inside AppController initialization to start the application.')
       return
