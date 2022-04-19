@@ -18,7 +18,10 @@ jobs:
       with:
         envkey_API_KEY: "123456abcdef"
         file_name: .env
-        directory: config
+
+    - name: Show files
+      run: |
+        ls -a
 
     - name: Fix up git URLs
       run: echo -e '[url "https://github.com/"]\n  insteadOf = "git://github.com/"' >> ~/.gitconfig
