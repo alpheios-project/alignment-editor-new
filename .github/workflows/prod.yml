@@ -19,6 +19,8 @@ jobs:
 
     - name: build
       run: npm install && npm update && npm run build
+      env: 
+        API_KEY: 'testApiKey'
 
     - name: update env
       run: bash scripts/update_env.sh ${{secrets.AUTH0_CLIENT_ID}}
