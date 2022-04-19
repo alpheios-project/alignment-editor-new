@@ -4,7 +4,7 @@ on:
   push: 
     branches: 
       - 'master'
-
+      
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -14,14 +14,17 @@ jobs:
       with:
         node-version: '14'
 
+    - name: Make envfile
+      uses: SpicyPizza/create-envfile@v1.3
+      with:
+        envkey_DETECT_LANG_API: ${{ secrets.DETECT_LANG_API }}
+        file_name: .env
+
     - name: Fix up git URLs
       run: echo -e '[url "https://github.com/"]\n  insteadOf = "git://github.com/"' >> ~/.gitconfig
-      
+
     - name: build
       run: npm install && npm update && npm run build
-
-    - name: update env
-      run: bash scripts/update_env.sh ${{secrets.AUTH0_CLIENT_ID}}
       
     - name: test
       run: npm test

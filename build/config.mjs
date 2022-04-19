@@ -1,5 +1,6 @@
 import VueLoaderPlugin from 'vue-loader/lib/plugin.js'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import Dotenv from 'dotenv-webpack'
 
 import path from 'path'
 const projectRoot = process.cwd()
@@ -11,7 +12,7 @@ const webpack = {
       library: 'AlignmentEditor',
       libraryTarget: 'window',
       chunkFilename: 'alignment-editor.[name].js',
-      path: path.join(projectRoot, 'public/dist/')
+      path: path.join(projectRoot, 'public/dist/main')
     },
     resolve: {
       alias: {
@@ -24,7 +25,8 @@ const webpack = {
       }
     },
     plugins: [
-      new VueLoaderPlugin()
+      new VueLoaderPlugin(),
+      new Dotenv()
     ],
     module: {
       rules: [
