@@ -18,6 +18,10 @@
 
 <body>
     <script type="text/javascript">
+        let detectCtrl = function (event) {
+          return event.ctrlKey
+        }
+
         document.addEventListener("DOMContentLoaded", function(event) {
           new window.AlignmentEditor.AppController({
             appId: 'alpheios-alignment-editor'
@@ -53,6 +57,8 @@
                     hidePopupOnClickAway: false
                   },
                   disabledClass: 'alpheios-disabled',
+                  desktopTriggerEvent: 'click',
+                  triggerPreCallback: detectCtrl
                 }).activate();
             }).catch(e => {
               console.error(`Import of an embedded library dependencies failed: ${e}`)

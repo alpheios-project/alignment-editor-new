@@ -48,7 +48,7 @@ describe('options-block.test.js', () => {
     expect(cmp.isVueInstance()).toBeTruthy()
   })
 
-  it('2 OptionsBlock - renders optionItem', () => {
+  it.skip('2 OptionsBlock - renders optionItem', () => {
     let cmp = shallowMount(OptionsBlock, {
       store: appC.store,
       localVue,
