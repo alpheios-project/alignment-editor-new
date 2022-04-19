@@ -110,12 +110,15 @@ export default {
     enableTokensEditorOptionItemValue () {
       return this.$store.state.optionsUpdated && SettingsController.enableTokensEditor
     },
+    useModeStructureValue () {
+      return this.$store.state.optionsUpdated && SettingsController.useModeStructure
+    },
     tokensEditAvailable () {
       return this.enableTokensEditorOptionItemValue
     },
     enableAnnotationsValue () {
-      if (!SettingsController.enableAnnotations) { this.annotationMode = false }
-      return this.$store.state.optionsUpdated && SettingsController.enableAnnotations
+      if (!this.useModeStructureValue || !SettingsController.enableAnnotations) { this.annotationMode = false }
+      return this.$store.state.optionsUpdated && SettingsController.enableAnnotations && this.useModeStructureValue
     }
   },
   methods: {

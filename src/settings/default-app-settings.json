@@ -316,6 +316,21 @@
           "text": "No"
         }
       ]
+    },
+    "useModeStructure": {
+      "defaultValue": false,
+      "labelText": "Use switch mode (annotations)",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "Yes"
+        },
+        {
+          "value": false,
+          "text": "No"
+        }
+      ]
     }
   }
 }

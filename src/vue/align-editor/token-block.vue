@@ -1,6 +1,7 @@
 <template>
     <span :data-type = "token.textType" :id = "elementId"
           @click.exact.prevent = "clickToken"
+          @click.shift.stop = "clickTokenShift"
           @mouseover = "addHoverToken"
           @mouseleave = "removeHoverToken"
           class = "alpheios-token"
@@ -80,18 +81,29 @@ export default {
       return `token-${this.token.idWord}`
     },
     clickToken () {
+      return this.useModeStructure ? this.clickTokenMode : this.updateAlignmentGroup
+    },
+    clickTokenMode () {
       return this.annotationMode ? this.updateAnnotation : this.updateAlignmentGroup
+    },
+    clickTokenShift () {
+      return this.useModeStructureValue ? null : this.updateAnnotation
     },
     hasAnnotations () {
       return this.enableAnnotationsValue && this.$store.state.updateAnnotations && this.$textC.getAnnotations(this.token).length > 0
     },
     enableAnnotationsValue () {
       return this.$store.state.optionsUpdated && SettingsController.enableAnnotations
+    },
+    useModeStructureValue () {
+      return this.$store.state.optionsUpdated && SettingsController.useModeStructure
     }
   },
   methods: {
     updateAnnotation () {
-      this.$emit('update-annotation', this.token)
+      if (this.enableAnnotationsValue) {
+        this.$emit('update-annotation', this.token)
+      }
     },
     updateAlignmentGroup (event) {
       this.$emit('update-alignment-group', this.token)
@@ -118,6 +130,12 @@ export default {
             border: 1px solid transparent;
             display: inline-block;
             vertical-align: top;
+
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -o-user-select: none;
+            user-select: none;
             
             &.alpheios-token-part-shadowed {
               font-weight: bold;

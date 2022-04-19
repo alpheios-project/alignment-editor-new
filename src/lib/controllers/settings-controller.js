@@ -147,6 +147,10 @@ export default class SettingsController {
     return _instance.options.app && _instance.options.app.items.enableTEXTXMLIcon ? _instance.options.app.items.enableTEXTXMLIcon.currentValue : false
   }
 
+  static get useModeStructure () {
+    return _instance.options.app && _instance.options.app.items.useModeStructure ? _instance.options.app.items.useModeStructure.currentValue : false
+  }
+
   /**
    * @returns {Boolean} - allowUpdateTokenWord optin value
    */
