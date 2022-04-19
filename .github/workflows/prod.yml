@@ -6,6 +6,15 @@ on:
       - 'master'
 
 jobs:
+  create-envfile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1.3
+        with:
+          envkey_API_KEY: "123456abcdef"
+          file_name: .env
+          
   deploy:
     runs-on: ubuntu-latest
     steps:
@@ -13,14 +22,6 @@ jobs:
     - uses: actions/setup-node@v2-beta
       with:
         node-version: '14'
-
-  create-envfile:
-    steps:
-      - name: Make envfile
-        uses: SpicyPizza/create-envfile@v1.3
-        with:
-          envkey_API_KEY: "123456abcdef"
-          file_name: .env
 
     - name: Fix up git URLs
       run: echo -e '[url "https://github.com/"]\n  insteadOf = "git://github.com/"' >> ~/.gitconfig
