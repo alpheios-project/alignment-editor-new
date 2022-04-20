@@ -1,5 +1,5 @@
 <template>
-    <div class="alpheios-alignment-editor-actions-menu">
+    <div class="alpheios-alignment-editor-actions-menu" data-alpheios-ignore="all">
       <div class="alpheios-alignment-editor-actions-menu__buttons">
         <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button  alpheios-disabled"  id="alpheios-actions-menu-align-editor-button__undo"
             @click="undoAction" :disabled="!undoAvailable" >

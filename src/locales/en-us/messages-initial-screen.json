@@ -4,6 +4,11 @@
       "description": "Button on initial screen",
       "component": "InitialScreen"
     },
+    "INITIAL_NEW_ALIGNMENT_TITLE": {
+      "message": "Define Project Name",
+      "description": "Popup Header",
+      "component": "CreateAlTitlePopup"
+    },
     "INITIAL_RESUME_ALIGNMENT": {
       "message": "Resume previous alignment",
       "description": "Button on initial screen",

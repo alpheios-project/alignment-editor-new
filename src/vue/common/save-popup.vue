@@ -1,5 +1,5 @@
 <template>
-    <modal :classes="classes" :name="mname" :draggable="true" height="auto" @before-open="beforeOpen">
+    <modal :classes="classes" :name="mname" :draggable="true" height="auto" @before-open="beforeOpen" data-alpheios-ignore="all">
         <div class="alpheios-modal-header" >
           <span class="alpheios-alignment-modal-close-icon" @click="$emit('closeModal')">
               <x-close-icon />
@@ -14,6 +14,15 @@
                     <label :for="downloadTypeId(dType.name)">{{ dType.label }}</label>
                   </tooltip>
               </span>
+            </p>
+            <p class="alpheios-alignment-editor-file-name-value">
+              <input
+                  class="alpheios-alignment-input alpheios-file-name-value"
+                  type="text"
+                  v-model="fileName"
+                  id="fileNameId"
+                  @keyup.enter = "downloadData"
+              >
             </p>
         </div>
         <div class="alpheios-modal-footer" >
@@ -30,6 +39,7 @@ import DownloadController from '@/lib/controllers/download-controller.js'
 import Tooltip from '@/vue/common/tooltip.vue'
 
 import SettingsController from '@/lib/controllers/settings-controller.js'
+import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
 export default {
   name: 'SavePopup',
@@ -46,7 +56,8 @@ export default {
   },
   data () {
     return {
-      currentDownloadType: null
+      currentDownloadType: null,
+      fileName: null
     }
   },
 
@@ -61,14 +72,24 @@ export default {
     },
     classes () {
       return `alpheios-alignment-editor-modal-${this.mname}`
+    },
+    titleName () {
+      return this.$store.state.alignmentUpdated && this.$textC.alignmentTitle
     }
   },
   methods: {
     beforeOpen (event) {
+      /*
       if (this.downloadTypes.length === 1) {
         this.downloadData()
         event.cancel()
       }
+      */
+     if (!this.fileName) {
+       const now = NotificationSingleton.timeNow.bind(new Date())()
+       this.fileName = `${now}-${ this.titleName }`
+     }
+     
     },
     downloadTypeId (dTypeName) {
       return `alpheios-save-popup-download-block__radio_${dTypeName}`
@@ -81,7 +102,7 @@ export default {
           theme: SettingsController.themeOptionValue
         }
       }
-      await this.$textC.downloadData(this.currentDownloadType, additional)
+      await this.$textC.downloadData(this.currentDownloadType, additional, this.fileName)
       
     }
   }

@@ -18,8 +18,8 @@ export default class TextsController {
    * @param {String} originDocSource
    * @param {String} targetDocSource
    */
-  createAlignment () {
-    this.alignment = new Alignment()
+  createAlignment (alTitle) {
+    this.alignment = new Alignment({ title: alTitle })
     return this.alignment
   }
 
@@ -28,6 +28,10 @@ export default class TextsController {
    */
   get couldStartAlign () {
     return Boolean(this.alignment) && this.alignment.readyForTokenize
+  }
+
+  get alignmentTitle () {
+    return this.alignment && this.alignment.title
   }
 
   /**
@@ -356,7 +360,7 @@ export default class TextsController {
    * Prepares and download source data
    * @returns {Boolean} - true - download was successful, false - was not
    */
-  async downloadData (downloadType, additional = {}) {
+  async downloadData (downloadType, additional = {}, fileName) {
     const downloadPrepareMethods = {
       plainSourceDownloadAll: this.downloadShortData.bind(this),
       jsonSimpleDownloadAll: this.downloadFullData.bind(this),
@@ -364,7 +368,7 @@ export default class TextsController {
     }
 
     const result = await downloadPrepareMethods[downloadType](downloadType, additional)
-    await DownloadController.download(result.downloadType, result.data)
+    await DownloadController.download(result.downloadType, result.data, fileName)
     return true
   }
 

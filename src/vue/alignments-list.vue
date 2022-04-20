@@ -7,7 +7,7 @@
             {{ alData.updatedDT }}
           </td>
           <td class="alpheios-alignment-editor-alignments-table_link" @click="uploadAlignmentFromDB(alData)">
-            {{ alData.langsList }}
+            {{ alData.title || alData.langsList }}
           </td>
           <td class="alpheios-alignment-editor-alignments-table_link" @click="uploadAlignmentFromDB(alData)">
             {{ formatHasTokens(alData.hasTokens) }}

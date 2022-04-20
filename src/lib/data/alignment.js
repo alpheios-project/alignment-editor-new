@@ -22,7 +22,7 @@ import ConvertUtility from '@/lib/utility/convert-utility.js'
 export default class Alignment {
   /**
    */
-  constructor ({ id, createdDT, updatedDT, userID } = {}) {
+  constructor ({ id, createdDT, updatedDT, userID, title } = {}) {
     this.id = id || uuidv4()
     this.createdDT = createdDT || new Date()
 
@@ -49,6 +49,8 @@ export default class Alignment {
     this.tokensEditActions = new TokensEditActions({ origin: this.origin, targets: this.targets, tokensEditHistory: this.tokensEditHistory })
 
     this.tokensEditHistory.allStepActions = this.allStepActionsTokensEditor
+
+    this.title = title || `Project ${this.id}`
   }
 
   static get defaultUserID () {
@@ -1229,6 +1231,7 @@ export default class Alignment {
       createdDT: ConvertUtility.convertDateToString(this.createdDT),
       updatedDT: ConvertUtility.convertDateToString(this.updatedDT),
       userID: this.userID,
+      title: this.title,
       origin,
       targets,
       alignmentGroups,
@@ -1244,7 +1247,7 @@ export default class Alignment {
     const createdDT = ConvertUtility.convertStringToDate(data.createdDT)
     const updatedDT = ConvertUtility.convertStringToDate(data.updatedDT)
     const alignment = new Alignment({
-      id: data.id, createdDT, updatedDT, userID: data.userID
+      id: data.id, createdDT, updatedDT, userID: data.userID, title: data.title
     })
 
     alignment.origin.docSource = SourceText.convertFromJSON('origin', data.origin.docSource)
@@ -1433,6 +1436,7 @@ export default class Alignment {
       updatedDT: ConvertUtility.convertDateToString(this.updatedDT),
       userID: this.userID,
       langsList: this.langsList,
+      title: this.title,
       hasTokens,
       origin,
       targets,
@@ -1446,7 +1450,7 @@ export default class Alignment {
     const updatedDT = ConvertUtility.convertStringToDate(dbData.updatedDT)
 
     const alignment = new Alignment({
-      id: dbData.alignmentID, createdDT, updatedDT, userID: dbData.userID
+      id: dbData.alignmentID, createdDT, updatedDT, userID: dbData.userID, title: dbData.title
     })
 
     if (dbData.docSource) {

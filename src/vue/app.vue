@@ -36,6 +36,8 @@
       <waiting-popup @closeModal = "$modal.hide('waiting')" />
 
       <upload-warn-popup @closeModal = "$modal.hide('upload-warn')" :updatedDTInDB = "updatedDTInDB" @continue-upload = "continueUpload" />
+
+      <create-al-title-popup @create-alignment = "createANewAlignment" @closeModal = "$modal.hide('create-al-title')" />
   </div>
 </template>
 <script>
@@ -49,6 +51,7 @@ import SummaryPopup from '@/vue/summary-popup.vue'
 
 import WaitingPopup from '@/vue/common/waiting-popup.vue'
 import UploadWarnPopup from '@/vue/common/upload-warn-popup.vue'
+import CreateAlTitlePopup from '@/vue/common/create-al-title-popup.vue'
 
 import NotificationBar from '@/vue/notification-bar.vue'
 import TextEditor from '@/vue/text-editor/text-editor.vue'
@@ -74,8 +77,8 @@ export default {
     initialScreen: InitialScreen,
     summaryPopup: SummaryPopup,
     waitingPopup: WaitingPopup,
-    uploadWarnPopup: UploadWarnPopup
-
+    uploadWarnPopup: UploadWarnPopup,
+    createAlTitlePopup: CreateAlTitlePopup
   },
   data () {
     return {     
@@ -221,7 +224,11 @@ export default {
     },
 
     startNewInitialAlignment () {
-      this.$textC.createAlignment()
+      this.$modal.show('create-al-title')
+    },
+
+    createANewAlignment (alTitle) {
+      this.$textC.createAlignment(alTitle)
       this.$historyAGC.startTracking(this.$textC.alignment)
       this.showSourceTextEditor()
     },
