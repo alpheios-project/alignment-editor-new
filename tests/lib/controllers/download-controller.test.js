@@ -71,9 +71,9 @@ describe('download-controller.test.js', () => {
     }
     
     jest.spyOn(DownloadController, 'plainSourceDownloadAll')
-    DownloadController.download(downloadType, data)
+    DownloadController.download(downloadType, data, 'testFileName')
 
-    expect(DownloadController.plainSourceDownloadAll).toHaveBeenCalledWith(data)
+    expect(DownloadController.plainSourceDownloadAll).toHaveBeenCalledWith(data, 'testFileName')
   })
 
   it('4 DownloadController - static plainSourceDownloadAll method prints error if data is not correctly defined ', () => {

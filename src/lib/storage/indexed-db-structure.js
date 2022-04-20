@@ -174,7 +174,8 @@ export default class IndexedDBStructure {
       createdDT: data.createdDT,
       updatedDT: data.updatedDT,
       langsList: data.langsList,
-      hasTokens: data.hasTokens
+      hasTokens: data.hasTokens,
+      title: data.title
     }]
   }
 

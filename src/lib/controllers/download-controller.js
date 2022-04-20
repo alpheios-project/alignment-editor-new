@@ -51,9 +51,9 @@ export default class DownloadController {
    * @param {Object} data - all data for download
    * @return {Boolean} - true - download was done, false - not
    */
-  static download (downloadType, data) {
+  static download (downloadType, data, fileName) {
     if (this.downloadMethods[downloadType]) {
-      return this.downloadMethods[downloadType].method(data)
+      return this.downloadMethods[downloadType].method(data, fileName)
     }
     console.error(L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }))
     NotificationSingleton.addNotification({
@@ -69,7 +69,7 @@ export default class DownloadController {
    * @param {Object} data - all data for download
    * @return {Boolean} - true - download was done, false - not
    */
-  static plainSourceDownloadAll (data) {
+  static plainSourceDownloadAll (data, fileName) {
     if (!data.originDocSource || !data.targetDocSources) {
       console.error(L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
       NotificationSingleton.addNotification({
@@ -96,9 +96,9 @@ export default class DownloadController {
     })
 
     const now = NotificationSingleton.timeNow.bind(new Date())()
-    const fileName = `${now}-alignment-${data.originDocSource.lang}-${langs.join('-')}`
+    const finalFileName = fileName || `${now}-alignment-${data.originDocSource.lang}-${langs.join('-')}`
     const exportFields = ['header', 'direction', 'lang', 'sourceType']
-    return DownloadFileCSV.download(fields, exportFields, fileName)
+    return DownloadFileCSV.download(fields, exportFields, finalFileName)
   }
 
   /**
@@ -128,7 +128,7 @@ export default class DownloadController {
     return DownloadFileCSV.download(fields, exportFields, fileName)
   }
 
-  static jsonSimpleDownloadAll (data) {
+  static jsonSimpleDownloadAll (data, fileName) {
     let langs = [] // eslint-disable-line prefer-const
 
     Object.values(data.targets).forEach(target => {
@@ -138,11 +138,11 @@ export default class DownloadController {
     const now = NotificationSingleton.timeNow.bind(new Date())()
 
     const filePrefixName = data.origin.alignedText ? 'full-alignment' : 'alignment'
-    const fileName = `${now}-${filePrefixName}-${data.origin.docSource.lang}-${langs.join('-')}`
-    return DownloadFileJSON.download(data, fileName)
+    const finalFileName = fileName || `${now}-${filePrefixName}-${data.origin.docSource.lang}-${langs.join('-')}`
+    return DownloadFileJSON.download(data, finalFileName)
   }
 
-  static htmlDownloadAll (data) {
+  static htmlDownloadAll (data, fileName) {
     const htmlTemplate = HTMLTemplateJSON
     let layout = htmlTemplate.layout
 
@@ -156,7 +156,7 @@ export default class DownloadController {
 
     const now = NotificationSingleton.timeNow.bind(new Date())()
 
-    const fileName = `${now}-alignment-html-output-${data.langs.join('-')}`
-    return DownloadFileHTML.download(layout, fileName)
+    const finalFileName = fileName || `${now}-alignment-html-output-${data.langs.join('-')}`
+    return DownloadFileHTML.download(layout, finalFileName)
   }
 }
