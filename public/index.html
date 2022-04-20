@@ -18,11 +18,6 @@
 
 <body>
     <script type="text/javascript">
-        let detectCtrl = function (event) {
-          console.info('detectCtrl - ', event)
-          return event.ctrlKey
-        }
-
         document.addEventListener("DOMContentLoaded", function(event) {
           new window.AlignmentEditor.AppController({
             appId: 'alpheios-alignment-editor'
@@ -33,6 +28,7 @@
         document.addEventListener("AlpheiosAlignmentGroupsWorkflowStarted", function(event) {
           if (embed) { return }
           let detectCtrl = function (event) {
+            console.info('detectCtrl ', event.metaKey, event.ctrlKey, event.shiftKey, event.keyCode)
             return  (event.metaKey || event.ctrlKey || event.keyCode == 91 || event.keyCode == 224)
           }
 
