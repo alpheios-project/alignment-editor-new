@@ -2,8 +2,9 @@ name: Build Dev
 
 on:
   push: 
-    branches: 
-      - 'development'
+#    branches: 
+#      - 'development'
+     branches-ignore: master
 
 jobs:
   deploy:
