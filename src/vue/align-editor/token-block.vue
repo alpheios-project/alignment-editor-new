@@ -130,12 +130,6 @@ export default {
             border: 1px solid transparent;
             display: inline-block;
             vertical-align: top;
-
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -o-user-select: none;
-            user-select: none;
             
             &.alpheios-token-part-shadowed {
               font-weight: bold;
