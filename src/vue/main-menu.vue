@@ -37,7 +37,7 @@
           
           <button class="alpheios-app-menu-link" id ="alpheios-main-menu-clear-all" 
                   @click="clearAll">
-                  {{ l10n.getMsgS('MAIN_MENU_CLEAR_TEXT') }}
+                  {{ l10n.getMsgS('INITIAL_NEW_ALIGNMENT') }}
           </button>
         </div>
       </div>
@@ -179,8 +179,10 @@ export default {
       this.showUploadBlock = false
       this.showDownloadBlock = false
       this.$emit('clear-all')
+
       this.currentPage = 'initial-page'
       this.closeMenu()
+      this.$emit("new-initial-alignment")
     },
     
     closeMenu () {

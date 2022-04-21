@@ -9,8 +9,8 @@
     </div>
     <div class="alpheios-modal-body" >
       <div class="alpheios-alignment-editor-modal-options-block">
-        <option-item-block :optionItem = "enableAnnotationsOptionItem" :optionInfo="getOptionInfo('enableAnnotations')" />        
-
+         <option-item-block :optionItem = "enableAnnotationsOptionItem" :optionInfo="getOptionInfo('enableAnnotations')" />
+         
         <fieldset v-show = "enableAnnotationsValue" class="alpheios-alignment-editor-modal-options-block-fieldset">
           <option-item-block :optionItem = "availableAnnotationTypesOptionItem"  :disabled = "disableAnnotationsTypes" />
           <option-item-block :optionItem = "maxCharactersAnnotationTextOptionItem" />

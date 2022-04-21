@@ -11,6 +11,7 @@
         @undo-action = "undoAction"
         @add-target = "addTarget"
         @clear-all = "startOver"
+        @new-initial-alignment = "startNewInitialAlignment"
 
         @showOptions = "showOptions"
         @showSourceTextEditor = "showSourceTextEditor"
