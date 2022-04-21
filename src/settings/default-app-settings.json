@@ -168,7 +168,7 @@
       ]
     },
     "enableAnnotations": {
-      "defaultValue": false,
+      "defaultValue": true,
       "labelText": "Annotating",
       "boolean": true,
       "values": [
