@@ -335,6 +335,7 @@ export default class Segment {
 
   get hasAllPartsUploaded () {
     return this.allPartNums.length === this.currentPartNums.length &&
-           this.allPartNums.every(partData => this.currentPartNums.includes(partData.partNum))
+           this.allPartNums.every(partData => this.currentPartNums.includes(partData.partNum)) &&
+           this.lastTokenIdWord === this.tokens[this.tokens.length - 1].idWord
   }
 }

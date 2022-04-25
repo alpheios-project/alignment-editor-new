@@ -18,7 +18,7 @@
     "test-f": "jest tests/lib/data/options-preset.test.js",
     "test-d": "jest tests/lib/storage/indexed-db-adapter.test.js",
     "test-e": "jest tests/_output/vue/app.test.js",
-    "test-g": "jest tests/corrupted/corrupted-alignments.test.js",
+    "test-g": "jest tests/corrupted/corrupted-alignments2.test.js",
     "github-build": "node --experimental-modules --experimental-json-modules ./github-build.mjs",
     "dev": "npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"
   },
