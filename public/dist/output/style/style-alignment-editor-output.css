@@ -1342,10 +1342,10 @@ body, html {
   z-index: 10000;
   top: 0;
   left: -280px;
-  background: rgb(224, 224, 224);
-  background: -moz-linear-gradient(180deg, rgb(224, 224, 224) 0%, rgba(255, 255, 255, 0.5) 100%);
-  background: -webkit-linear-gradient(180deg, rgb(224, 224, 224) 0%, rgba(255, 255, 255, 0.5) 100%);
-  background: linear-gradient(180deg, rgb(224, 224, 224) 0%, rgba(255, 255, 255, 0.5) 100%);
+  background: #e0e0e0;
+  background: -moz-linear-gradient(180deg, #e0e0e0 0%, rgba(255, 255, 255, 0.5) 100%);
+  background: -webkit-linear-gradient(180deg, #e0e0e0 0%, rgba(255, 255, 255, 0.5) 100%);
+  background: linear-gradient(180deg, #e0e0e0 0%, rgba(255, 255, 255, 0.5) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e0e0e0",endColorstr="#ffffff",GradientType=1);
   overflow-x: hidden;
   transition: left 0.5s;
