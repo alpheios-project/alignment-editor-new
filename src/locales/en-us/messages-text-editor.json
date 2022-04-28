@@ -142,7 +142,7 @@
     "component": "TextEditorSingleBlock"
   },
   "TEXT_SINGLE_TYPE_LABEL": {
-    "message": "Type or paste in text or",
+    "message": "Enter text or",
     "description": "Title in text editor block",
     "component": "TextEditorSingleBlock"
   },
