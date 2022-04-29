@@ -1,10 +1,10 @@
 <template>
-    <modal classes="alpheios-alignment-editor-modal-create-al-title" name="create-al-title" :draggable="true" height="auto" :shiftY="0.3">
+    <modal classes="alpheios-alignment-editor-modal-create-al-title" name="create-al-title" :draggable="true" height="auto" :shiftY="0.3" >
         <div class="alpheios-modal-header">
           <span class="alpheios-alignment-modal-close-icon" @click="$emit('closeModal')">
               <x-close-icon />
           </span>
-          <h2 class="alpheios-alignment-editor-modal-header">{{ l10n.getMsgS('INITIAL_NEW_ALIGNMENT_TITLE') }}</h2>
+          <h3 class="alpheios-alignment-editor-modal-header">{{ l10n.getMsgS('INITIAL_NEW_ALIGNMENT_TITLE') }}</h3>
         </div>
         <div class="alpheios-modal-body">
             <p class="alpheios-alignment-editor-file-name-value">
@@ -60,9 +60,11 @@ export default {
   .alpheios-alignment-editor-modal-create-al-title {
     .alpheios-modal-header {
       border: 0;
-      h2 {
-        margin: 0;
+      h3 {
         text-align: center;
+        padding: 0 15%;
+        margin: 10px 0;
+        color: #000;
       }
     }
     .alpheios-modal-body {
@@ -73,9 +75,6 @@ export default {
         text-align: center;
         padding: 20px 50px 20px;
         margin: 0;
-      }
-      input {
-        
       }
     }
   }

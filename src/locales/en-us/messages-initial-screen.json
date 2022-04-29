@@ -5,7 +5,7 @@
       "component": "InitialScreen"
     },
     "INITIAL_NEW_ALIGNMENT_TITLE": {
-      "message": "Define Project Name",
+      "message": "Please enter a short name for this alignment (preferably a single word)",
       "description": "Popup Header",
       "component": "CreateAlTitlePopup"
     },
