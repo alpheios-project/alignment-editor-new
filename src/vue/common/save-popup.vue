@@ -144,13 +144,15 @@ export default {
     }
   }
 
-  .alpheios-alignment-input.alpheios-file-name-date-value {
-    display: inline-block;
-    width: 100px;
-  }
+  .alpheios-alignment-editor-file-name-value {
+    .alpheios-alignment-input.alpheios-file-name-date-value {
+      display: inline-block;
+      width: 100px;
+    }
 
-  .alpheios-alignment-input.alpheios-file-name-title-value {
-    display: inline-block;
-    width: calc(100% - 110px);
+    .alpheios-alignment-input.alpheios-file-name-title-value {
+      display: inline-block;
+      width: calc(100% - 110px);
+    }
   }
 </style>
