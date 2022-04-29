@@ -1,5 +1,5 @@
 <template>
-    <modal :classes="classes" :name="mname" :draggable="true" height="80%" top="10%" width="80%" left="10%" >
+    <modal :classes="classes" :name="mname" :draggable="true" height="80%" width="80%" :max-width="1300" :adaptive="true">
         <div class="alpheios-modal-header" >
           <span class="alpheios-alignment-modal-close-icon" @click="$emit('closeModal')">
               <x-close-icon />
@@ -93,6 +93,7 @@ export default {
 
           &.alpheios-editor-help-content-text__image__wide img {
             width: 100%;
+            max-width: 800px;
           }
         }
       }
@@ -101,6 +102,7 @@ export default {
         display: inline-block;
         width: 60%;
         margin: 10px 0; 
+        max-width: 500px;
       }
 
       .alpheios-alignment-editor-add-translation {
