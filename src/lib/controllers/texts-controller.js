@@ -34,6 +34,13 @@ export default class TextsController {
     return this.alignment && this.alignment.title
   }
 
+  updateAlignmentTitle (title) {
+    const result = this.alignment && this.alignment.updateAlignmentTitle(title)
+    this.store.commit('incrementAlignmentUpdated')
+    StorageController.update(this.alignment)
+    return result
+  }
+
   /**
    * Checks if the length of all source texts are not out of the limit, defined by the settings
    * @returns

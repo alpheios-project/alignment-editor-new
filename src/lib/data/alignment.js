@@ -57,6 +57,10 @@ export default class Alignment {
     return 'defaultUserID'
   }
 
+  updateAlignmentTitle (title) {
+    this.title = title
+  }
+
   get langsList () {
     let strResult
     if (!this.origin.docSource) { return '' }

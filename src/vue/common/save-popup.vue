@@ -17,10 +17,17 @@
             </p>
             <p class="alpheios-alignment-editor-file-name-value">
               <input
-                  class="alpheios-alignment-input alpheios-file-name-value"
+                  class="alpheios-alignment-input alpheios-file-name-date-value"
                   type="text"
-                  v-model="fileName"
-                  id="fileNameId"
+                  v-model="fileNameDate"
+                  id="fileNameDateId"
+                  :disabled = "true"
+              >
+              <input
+                  class="alpheios-alignment-input alpheios-file-name-title-value"
+                  type="text"
+                  v-model="fileNameTitle"
+                  id="fileNameTitleId"
                   @keyup.enter = "downloadData"
               >
             </p>
@@ -57,6 +64,8 @@ export default {
   data () {
     return {
       currentDownloadType: null,
+      fileNameDate: null,
+      fileNameTitle: null,
       fileName: null
     }
   },
@@ -79,22 +88,19 @@ export default {
   },
   methods: {
     beforeOpen (event) {
-      /*
-      if (this.downloadTypes.length === 1) {
-        this.downloadData()
-        event.cancel()
-      }
-      */
-     if (!this.fileName) {
-       const now = NotificationSingleton.timeNow.bind(new Date())()
-       this.fileName = `${now}-${ this.titleName }`
-     }
-     
+      const now = NotificationSingleton.timeNow.bind(new Date())()
+      this.fileNameDate = now
+      
+      this.fileNameTitle = this.titleName     
     },
     downloadTypeId (dTypeName) {
       return `alpheios-save-popup-download-block__radio_${dTypeName}`
     },
     async downloadData () {
+      this.$textC.updateAlignmentTitle(this.fileNameTitle)
+
+      this.fileName = `${ this.fileNameDate }-${ this.fileNameTitle }`
+
       this.$emit('closeModal')
       let additional = {}
       if (this.currentDownloadType === 'htmlDownloadAll') {
@@ -135,6 +141,18 @@ export default {
   .alpheios-alignment-editor-modal-save {
     .alpheios-alignment-editor-modal-header {
       margin-bottom: 10px;
+    }
+  }
+
+  .alpheios-alignment-editor-file-name-value {
+    .alpheios-alignment-input.alpheios-file-name-date-value {
+      display: inline-block;
+      width: 100px;
+    }
+
+    .alpheios-alignment-input.alpheios-file-name-title-value {
+      display: inline-block;
+      width: calc(100% - 110px);
     }
   }
 </style>
