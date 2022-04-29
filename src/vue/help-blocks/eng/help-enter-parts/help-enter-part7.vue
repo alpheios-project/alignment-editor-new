@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-editor-help-content">
+  <div class="alpheios-editor-help-content alpheios-editor-help-content-part7">
       <h4 class="alpheios-editor-help-content-title" @click="partVisible = !partVisible">SAVING </h4>
       <div class="alpheios-editor-help-content-text" v-show="partVisible">
         <p class="alpheios-editor-help-content-text__image"><img :src="saveLocallyButtonPNG" /></p>

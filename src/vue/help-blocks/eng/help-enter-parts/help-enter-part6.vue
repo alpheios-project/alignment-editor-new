@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-editor-help-content">
+  <div class="alpheios-editor-help-content alpheios-editor-help-content-part6">
       <h4 class="alpheios-editor-help-content-title" @click="partVisible = !partVisible">THE 
         <span class="alpheios-alignment-editor-add-translation" >
             <plus-icon />

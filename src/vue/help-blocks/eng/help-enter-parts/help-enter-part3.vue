@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-editor-help-content">
+  <div class="alpheios-editor-help-content alpheios-editor-help-content-part3">
       <h4 class="alpheios-editor-help-content-title" @click="partVisible = !partVisible">LANGUAGE ICON</h4>
       <div class="alpheios-editor-help-content-text" v-show="partVisible">
           <p>Alpheios will attempt to detect the language of the text in each entry box as soon as you leave it 

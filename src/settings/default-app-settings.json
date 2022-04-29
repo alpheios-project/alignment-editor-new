@@ -72,7 +72,7 @@
     },
     "showSummaryPopup": {
       "defaultValue": false,
-      "labelText": "Full check",
+      "labelText": "Final check",
       "boolean": true,
       "values": [
         {
@@ -95,7 +95,7 @@
     },
     "addIndexedDBSupport": {
       "defaultValue": true,
-      "labelText": "Add IndexedDB support",
+      "labelText": "IndexedDB support",
       "boolean": true,
       "values": [
         {

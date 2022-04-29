@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-editor-help-content">
+  <div class="alpheios-editor-help-content alpheios-editor-help-content-part8">
       <h4 class="alpheios-editor-help-content-title" @click="partVisible = !partVisible">RESUMING A PREVIOUS ALIGNMENT</h4>
       <div class="alpheios-editor-help-content-text" v-show="partVisible">
           <p>The <b>[RESUME PREVIOUS ALIGNMENT]</b> button allows you to continue to modify an alignment that has been saved somewhere on your computer. 

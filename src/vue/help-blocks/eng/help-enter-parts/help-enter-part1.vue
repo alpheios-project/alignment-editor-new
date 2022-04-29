@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-editor-help-content">
+  <div class="alpheios-editor-help-content alpheios-editor-help-content-part1">
       <h4 class="alpheios-editor-help-content-title" @click="partVisible = !partVisible">BEGINNING A NEW ALIGNMENT</h4>
       <div class="alpheios-editor-help-content-text" v-show="partVisible">
           <p>Clicking on the <b>BEGIN NEW ALIGNMENT</b> button prompts you to choose a short name for your alignment project.</p>

@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-editor-help-content">
+  <div class="alpheios-editor-help-content alpheios-editor-help-content-part9">
       <h4 class="alpheios-editor-help-content-title" @click="partVisible = !partVisible">CHANGING YOUR MIND</h4>
       <div class="alpheios-editor-help-content-text" v-show="partVisible">
           <p>On this Enter Text screen you can make changes to both the original text or a translation in their respective entry boxes, 

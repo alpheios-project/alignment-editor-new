@@ -80,6 +80,9 @@ export default {
   }
 
   .alpheios-editor-help-content-text {
+      a {
+        color: #185F6D;
+      }
       p {
         margin: 0;
         line-height: 160%;
