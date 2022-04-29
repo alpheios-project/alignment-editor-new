@@ -29,9 +29,10 @@
                  :class = "{ 'alpheios-collapsed': !isAcademic, 'alpheios-expanded': isAcademic, 'alpheios-academic-short': !enableTEXTXMLIconValue }">
               <fieldset class="alpheios-alignment-editor-modal-options-block-fieldset">
                 <option-item-block :optionItem = "enableDTSAPIUploadOptionItem" />
-                <option-item-block :optionItem = "showSummaryPopupOptionItem" />
-                <option-item-block :optionItem = "enableTEXTXMLIconOptionItem" />
-                <option-item-block :optionItem = "enableTokenizationOptionsChoiceOptionItem" v-show = "enableTEXTXMLIconValue" />
+                <option-item-block :optionItem = "showSummaryPopupOptionItem" :optionInfo="getOptionInfo('showSummaryPopupOption')" />
+                <option-item-block :optionItem = "enableTEXTXMLIconOptionItem" :optionInfo="getOptionInfo('enableTEXTXMLIconOption')" />
+                <option-item-block :optionItem = "enableTokenizationOptionsChoiceOptionItem" :optionInfo="getOptionInfo('enableTokenizationOptionsChoiceOption')"
+                v-show = "enableTEXTXMLIconValue" />
               </fieldset>
             </div>
 
@@ -104,7 +105,11 @@ export default {
         enableTokensEditor: 'OPTIONS_TOKENS_EDITOR_INFO',
         tokenizerOptionItem: 'OPTIONS_TOKENIZER_SERVICE_INFO',
         useSpecificEnglishTokenizer: 'OPTIONS_SPECIFIC_ENGLISH_INFO',
-        addIndexedDBSupport: 'OPTIONS_INDEXEDDB_SUPPORT_INFO'
+        addIndexedDBSupport: 'OPTIONS_INDEXEDDB_SUPPORT_INFO',
+        
+        enableTEXTXMLIconOption: "OPTIONS_TEXT_XML_INFO",
+        enableTokenizationOptionsChoiceOption: "OPTIONS_TEXT_XML_MODIFICATION_INFO",
+        showSummaryPopupOption: "OPTIONS_FINAL_CHECK_INFO"
       }
     }
   },
@@ -266,7 +271,7 @@ export default {
     }
 
     &.alpheios-alignment-options__fieldset-group_advanced.alpheios-expanded {
-      height: 465px;
+      height: 395px;
     }
   }
 

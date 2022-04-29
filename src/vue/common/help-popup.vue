@@ -1,5 +1,5 @@
 <template>
-    <modal :classes="classes" :name="mname" :draggable="true" height="auto">
+    <modal :classes="classes" :name="mname" :draggable="true" height="80%" top="10%" width="80%" left="10%" >
         <div class="alpheios-modal-header" >
           <span class="alpheios-alignment-modal-close-icon" @click="$emit('closeModal')">
               <x-close-icon />
@@ -38,11 +38,8 @@ export default {
 </script>
 <style lang="scss">
 .alpheios-alignment-editor-modal-help {
-  .alpheios-modal-container {
-    width: 700px;
-  }
   .alpheios-modal-body {
-    // max-height: 700px;
+    max-height: 93%;
     border: 0;
     padding: 0 15px 0 0;
     margin: 0 0 20px;
@@ -50,6 +47,83 @@ export default {
   .alpheios-alignment-editor-modal-header {
     text-transform: uppercase;
     margin-bottom: 10px;
+  }
+}
+
+.alpheios-editor-help-content {
+  // text-indent: 10px;
+  text-align: justify;
+
+  .alpheios-editor-help-content-error {
+      color: #f00;
+      font-weight: bold;
+  }
+  
+  .alpheios-editor-help-content-text {
+    border-top: 2px solid #eee;
+    border-bottom: 2px solid #eee;
+    padding: 10px 0;
+  }
+
+  h4.alpheios-editor-help-content-title {
+      margin: 10px 0 10px;
+      color: #185F6D;
+      cursor: pointer;
+
+      .alpheios-alignment-editor-add-translation {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        margin: 0 5px;
+      }
+  }
+
+  .alpheios-editor-help-content-text {
+      a {
+        color: #185F6D;
+      }
+      p {
+        margin: 0;
+        line-height: 160%;
+        padding-left: 15px;
+
+        &.alpheios-editor-help-content-text__image {
+          text-align: center;
+
+          &.alpheios-editor-help-content-text__image__wide img {
+            width: 100%;
+          }
+        }
+      }
+
+      img {
+        display: inline-block;
+        width: 60%;
+        margin: 10px 0; 
+      }
+
+      .alpheios-alignment-editor-add-translation {
+          margin: 5px;
+      }
+
+      .alpheios-editor-help-content-special {
+        padding: 20px;
+        border: 1px solid #ddd;
+        background: #eee;
+        margin: 10px 0 10px;
+
+        h5 {
+          margin: 0 0 10px;
+          font-size: 16px;
+        }
+      }
+
+      .alpheios-editor-help-content-text__close-link {
+          color: #185F6D;
+          text-transform: uppercase;
+          cursor: pointer;
+      }
   }
 }
 </style>

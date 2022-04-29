@@ -84,10 +84,10 @@
         "component": "TokenEditController"
     },
     "UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE": {
-        "message": "File extension {extension} is not supported. Use the following - {availableExtensions}.",
+        "message": "File extension {extension} is not supported. The only supported file extensions are .txt and .xml.",
         "description": "An error message for upload workflow",
         "component": "UploadController",
-        "params": ["extension", "availableExtensions"]
+        "params": ["extension"]
     },
     "UPLOAD_CONTROLLER_INCORRECT_XML_DATA": {
         "message": "This xml file does not have AlpheiosV1 format and could not be uploaded.",
