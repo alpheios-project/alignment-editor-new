@@ -7,7 +7,8 @@
         </div>
         <div class="alpheios-modal-footer" >
           <div class="alpheios-editor-summary-footer" >
-            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click = "continueUploadFromFile" >{{ l10n.getMsgS('UPLOAD_WARN_POPUP_OK_BUTTON') }}</button>
+            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click = "continueUploadFromFile" >{{ l10n.getMsgS('UPLOAD_WARN_POPUP_FILE_OK_BUTTON') }}</button>
+            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click = "continueUploadFromIndexedDB" >{{ l10n.getMsgS('UPLOAD_WARN_POPUP_INDEXEDDB_OK_BUTTON') }}</button>
             <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click = "$emit('closeModal')" >{{ l10n.getMsgS('UPLOAD_WARN_CANCEL_BUTTON') }}</button>
           </div>
         </div>
@@ -34,7 +35,12 @@ export default {
   },
   methods: {
     continueUploadFromFile () {
-      this.$emit('continue-upload')
+      this.$emit('continue-upload-from-file')
+      this.$emit('closeModal')
+    },
+
+    continueUploadFromIndexedDB () {
+      this.$emit('continue-upload-from-indexeddb')
       this.$emit('closeModal')
     }
   }

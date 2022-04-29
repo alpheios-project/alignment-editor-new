@@ -36,7 +36,8 @@
       />
       <waiting-popup @closeModal = "$modal.hide('waiting')" />
 
-      <upload-warn-popup @closeModal = "$modal.hide('upload-warn')" :updatedDTInDB = "updatedDTInDB" @continue-upload = "continueUpload" />
+      <upload-warn-popup @closeModal = "$modal.hide('upload-warn')" :updatedDTInDB = "updatedDTInDB" 
+        @continue-upload-from-file = "continueUploadFromFile"   @continue-upload-from-indexeddb ="continueUploadFromIndexedDB" />
 
       <create-al-title-popup @create-alignment = "createANewAlignment" @closeModal = "$modal.hide('create-al-title')" />
   </div>
@@ -96,7 +97,8 @@ export default {
 
       fileData: null,
       extension: null,
-      updatedDTInDB: null
+      updatedDTInDB: null,
+      checkAlInDB: null
     }
   },
   watch: {
@@ -132,6 +134,7 @@ export default {
           this.fileData = fileData
           this.extension = extension
           this.updatedDTInDB = checkAlInDB.updatedDT
+          this.checkAlInDB = checkAlInDB
 
           this.$modal.show('upload-warn')
         } else {
@@ -141,11 +144,21 @@ export default {
     },
 
 
-    continueUpload () {
+    continueUploadFromFile () {
       this.uploadDataFromFileFinal(this.fileData, this.extension)
+      this.clearUploadData()
+    },
+
+    continueUploadFromIndexedDB () {
+      this.uploadDataFromDB(this.checkAlInDB)
+      this.clearUploadData()
+    },
+
+    clearUploadData () {
       this.fileData = null
       this.extension = null
       this.updatedDTInDB = null
+      this.checkAlInDB = null
     },
 
     uploadDataFromFileFinal (fileData, extension) {

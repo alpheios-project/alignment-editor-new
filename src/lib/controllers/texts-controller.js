@@ -274,7 +274,7 @@ export default class TextsController {
     if (!savedAlInDB) {
       return false
     }
-    const formattedSavedAlInDB = { id: savedAlInDB.alignmentID, updatedDT: Date.parse(savedAlInDB.updatedDT), updatedDtStr: savedAlInDB.updatedDT }
+    const formattedSavedAlInDB = { id: savedAlInDB.alignmentID, updatedDT: Date.parse(savedAlInDB.updatedDT), updatedDtStr: savedAlInDB.updatedDT, alData: savedAlInDB }
     return formattedSavedAlInDB.updatedDT > shortAlData.updatedDT ? savedAlInDB : false
   }
 

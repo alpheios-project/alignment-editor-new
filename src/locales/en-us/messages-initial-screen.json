@@ -39,8 +39,13 @@
       "description": "Button on initial screen",
       "component": "InitialScreen"
     },
-    "UPLOAD_WARN_POPUP_OK_BUTTON": {
+    "UPLOAD_WARN_POPUP_FILE_OK_BUTTON": {
       "message": "Upload from file",
+      "description": "Button label",
+      "component": "UploadWarnPopup"
+    },
+    "UPLOAD_WARN_POPUP_INDEXEDDB_OK_BUTTON": {
+      "message": "Open auto-saved",
       "description": "Button label",
       "component": "UploadWarnPopup"
     },
