@@ -85,7 +85,22 @@
       "component": "OptionsTextEnter"
     },
     "OPTIONS_INDEXEDDB_SUPPORT_INFO": {
-      "message": "Add ability to save and upload data from the local database",
+      "message": "Permits saving data in local database",
+      "description": "Options tooltip",
+      "component": "OptionsTextEnter"
+    },
+    "OPTIONS_TEXT_XML_INFO": {
+      "message": "Shows whether markup was detected and permits user to correct",
+      "description": "Options tooltip",
+      "component": "OptionsTextEnter"
+    },
+    "OPTIONS_TEXT_XML_MODIFICATION_INFO": {
+      "message": "If XML, permits modification of elements If text, permits requiring same number of lines or paragraphs in all texts.",
+      "description": "Options tooltip",
+      "component": "OptionsTextEnter"
+    },
+    "OPTIONS_FINAL_CHECK_INFO": {
+      "message": "Final check of language and XML/text before tokenization.",
       "description": "Options tooltip",
       "component": "OptionsTextEnter"
     },
