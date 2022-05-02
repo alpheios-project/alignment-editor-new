@@ -105,7 +105,7 @@
       "component": "OptionsTextEnter"
     },
     "OPTIONS_EDIT_ICONS_DESC_ALIGN": {
-      "message": "For convenience, you can enable/disable the same icons in Edit Text Options",
+      "message": "You can also enable/disable these icons on the Token Editor screen",
       "description": "Options tooltip",
       "component": "OptionsTextAlign"
     },

@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-editor-help-content alpheios-editor-help-content-part2">
+  <div class="alpheios-editor-help-content alpheios-editor-help-enter-content-part2">
       <h4 class="alpheios-editor-help-content-title" @click="partVisible = !partVisible">LARGE TEXTS</h4>
       <div class="alpheios-editor-help-content-text" v-show="partVisible">
           <p>As long as indexedDB is enabled (which is the default - see <b>Options</b>) you can enter quite large files, 

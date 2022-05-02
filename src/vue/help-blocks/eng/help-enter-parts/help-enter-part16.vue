@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-editor-help-content alpheios-editor-help-content-part11">
+  <div class="alpheios-editor-help-content alpheios-editor-help-enter-content-part11">
       <h4 class="alpheios-editor-help-content-title" @click="partVisible = !partVisible">INDEXEDDB SUPPORT</h4>
       <div class="alpheios-editor-help-content-text" v-show="partVisible">
           <p>By default this service is enabled to permit the use of larger text files. It should not be turned off unless some specific problem arises. 

@@ -71,9 +71,9 @@ export default {
 </script>
 <style lang="scss">
   .alpheios-editor-help-content{
-      &.alpheios-editor-help-content-part3,
-      &.alpheios-editor-help-content-part7,
-      &.alpheios-editor-help-content-part10 {
+      &.alpheios-editor-help-enter-content-part3,
+      &.alpheios-editor-help-enter-content-part7,
+      &.alpheios-editor-help-enter-content-part10 {
         margin-top: 25px;
       }
   }
@@ -85,12 +85,12 @@ export default {
   }
 
   .alpheios-editor-help-content {
-      &.alpheios-editor-help-content-part11,
-      &.alpheios-editor-help-content-part12,
-      &.alpheios-editor-help-content-part13,
-      &.alpheios-editor-help-content-part14,
-      &.alpheios-editor-help-content-part15,
-      &.alpheios-editor-help-content-part16 {
+      &.alpheios-editor-help-enter-content-part11,
+      &.alpheios-editor-help-enter-content-part12,
+      &.alpheios-editor-help-enter-content-part13,
+      &.alpheios-editor-help-enter-content-part14,
+      &.alpheios-editor-help-enter-content-part15,
+      &.alpheios-editor-help-enter-content-part16 {
         padding-left: 20px;
       }
   }

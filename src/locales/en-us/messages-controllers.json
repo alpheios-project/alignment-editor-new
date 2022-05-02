@@ -100,7 +100,7 @@
         "component": "DownloadController"
     },
     "DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL": {
-        "message": "Full to json",
+        "message": "Json",
         "description": "Download type label",
         "component": "DownloadController"
     },

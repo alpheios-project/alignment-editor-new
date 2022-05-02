@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-editor-help-content alpheios-editor-help-content-part5">
+  <div class="alpheios-editor-help-content alpheios-editor-help-enter-content-part5">
       <h4 class="alpheios-editor-help-content-title" @click="partVisible = !partVisible">DESCRIBING</h4>
       <div class="alpheios-editor-help-content-text" v-show="partVisible">
           <p>This button opens a template for you to describe the text in that box, using either Alpheios default terms 
