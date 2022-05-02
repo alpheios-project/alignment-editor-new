@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-editor-help-content alpheios-editor-help-content-part11">
+  <div class="alpheios-editor-help-content alpheios-editor-help-enter-content-part11">
       <h4 class="alpheios-editor-help-content-title" @click="partVisible = !partVisible">FINAL CHECK</h4>
       <div class="alpheios-editor-help-content-text" v-show="partVisible">
           <p>When enabled, this popup appears when you press <b>[DONE]</b>, indicating that you have finished entering translations and 

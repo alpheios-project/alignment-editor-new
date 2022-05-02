@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-editor-help-content alpheios-editor-help-content-part11">
+  <div class="alpheios-editor-help-content alpheios-editor-help-enter-content-part11">
       <h4 class="alpheios-editor-help-content-title" @click="partVisible = !partVisible">CHANGING THE TOKENIZER SERVICE</h4>
       <div class="alpheios-editor-help-content-text" v-show="partVisible">
           <p>The default is a remote service that is one of the few requiring online connectivity.  

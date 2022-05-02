@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-editor-help-content alpheios-editor-help-content-part11">
+  <div class="alpheios-editor-help-content alpheios-editor-help-enter-content-part11">
       <h4 class="alpheios-editor-help-content-title" @click="partVisible = !partVisible">Show TEXT/XML icon</h4>
       <div class="alpheios-editor-help-content-text" v-show="partVisible">
           <p>This optional icon gives the user the opportunity to see whether or not the application has detected markup in the text. 

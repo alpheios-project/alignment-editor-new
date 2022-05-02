@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-editor-help-content alpheios-editor-help-content-part10">
+  <div class="alpheios-editor-help-content alpheios-editor-help-enter-content-part10">
       <h4 class="alpheios-editor-help-content-title" @click="partVisible = !partVisible">OPTIONS FOR ENTER TEXT</h4>
       <div class="alpheios-editor-help-content-text" v-show="partVisible">
           <p>There are two groups: <b>Academic</b> and <b>Advanced</b>.
