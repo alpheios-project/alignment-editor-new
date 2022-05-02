@@ -229,7 +229,7 @@
     },
     "enableMoveTokensToSegment": {
       "defaultValue": true,
-      "labelText": "move tokens to a segment",
+      "labelText": "move tokens to a different segment",
       "boolean": true,
       "values": [
         {
