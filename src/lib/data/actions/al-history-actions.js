@@ -86,7 +86,7 @@ export default class AlHistoryActions {
     return {
       result: true,
       data: {
-        insertGroups: true, dataGroup: dataGroup
+        insertGroups: true, dataGroup
       }
     }
   }

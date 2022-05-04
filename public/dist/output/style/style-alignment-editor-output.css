@@ -1,3 +1,6 @@
+/*!**********************************************************************************************************************************************************************************************!*\
+  !*** css ../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!./_output/styles/style.scss ***!
+  \**********************************************************************************************************************************************************************************************/
 @font-face {
   font-family: "Source Sans Pro";
   font-style: normal;
@@ -580,6 +583,9 @@ body, html {
     padding-top: 60px;
   }
 }
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./_output/vue/text-filter-block.vue?vue&type=style&index=0&lang=scss& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 .alpheios-al-editor-languages-list-item {
   display: inline-block;
   border: 1px solid #ddd;
@@ -599,6 +605,9 @@ body, html {
 .alpheios-al-editor-languages-block-horizontal .alpheios-al-editor-languages-list-item {
   display: block;
 }
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./_output/vue/annotation-block.vue?vue&type=style&index=0&lang=scss& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 .alpheios-alignment-editor-modal-annotations .alpheios-modal-body {
   border: 0;
   padding: 0;
@@ -635,6 +644,9 @@ body, html {
 .alpheios-alignment-editor-modal-annotations .alpheios-alignment-editor-annotation-list tr:nth-child(even) {
   background-color: #f2f2f2;
 }
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./_output/vue/tooltip.vue?vue&type=style&index=0&lang=scss& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 .alpheios-tooltip {
   position: relative;
   display: inline-block;
@@ -795,6 +807,9 @@ body, html {
   border-style: solid;
   border-color: transparent transparent transparent #757575;
 }
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./_output/vue/editor-tabs.vue?vue&type=style&index=0&lang=scss& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 .alpheios-alignment-editor-align-target-tabs {
   padding-left: 51%;
   padding-top: 10px;
@@ -814,6 +829,9 @@ body, html {
 .alpheios-alignment-editor-align-target-tab-item.alpheios-alignment-editor-align-target-tab-item-active {
   background: #185F6D;
 }
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./_output/vue/lang-name-bar.vue?vue&type=style&index=0&lang=scss& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 .alpheios-al-editor-segment-cell-target-row__bar {
   margin: 0;
   display: inline-block;
@@ -853,6 +871,9 @@ body, html {
   vertical-align: top;
   padding: 5px;
 }
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./_output/vue/token-block.vue?vue&type=style&index=0&lang=scss& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 .alpheios-al-editor-container-inner span.alpheios-token {
   cursor: pointer;
   padding: 2px 2px 0 2px;
@@ -876,6 +897,9 @@ body, html {
   color: #9a9a9a;
   font-size: 95%;
 }
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./_output/vue/segment-block.vue?vue&type=style&index=0&lang=scss& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 .alpheios-al-editor-segment-cell-origin-row {
   position: relative;
   padding: 10px 5px;
@@ -906,6 +930,9 @@ body, html {
 .alpheios-al-editor-segment-cell-target-row.alpheios-align-text-segment-target-0.alpheios-al-editor-segment-cell-target-row {
   padding-top: 30px;
 }
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./_output/vue/views/al-groups-view-full.vue?vue&type=style&index=0&lang=scss& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 .alpheios-al-editor-container-inner {
   border: 1px solid #ddd;
   border-bottom-color: transparent;
@@ -945,6 +972,9 @@ body, html {
 .alpheios-al-editor-container-inner .alpheios-al-editor-segment-cell-target-row {
   position: relative;
 }
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./_output/vue/views/al-groups-view-short.vue?vue&type=style&index=0&lang=scss& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 .alpheios-al-editor-table-view {
   display: table;
   width: 100%;
@@ -1000,6 +1030,9 @@ body, html {
   color: #fff;
   z-index: 100;
 }
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./_output/vue/views/al-groups-view-sentence.vue?vue&type=style&index=0&lang=scss& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 .alpheios-al-editor-view-sentence .alpheios-al-editor-table-view {
   display: table;
   width: 100%;
@@ -1029,6 +1062,9 @@ body, html {
   margin: 0;
   color: #666666;
 }
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./_output/vue/views/al-groups-view-equivalence.vue?vue&type=style&index=0&lang=scss& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 .alpheios-al-editor-table-view {
   display: table;
   width: 100%;
@@ -1084,6 +1120,9 @@ body, html {
   color: #fff;
   z-index: 100;
 }
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./_output/vue/views/al-groups-view-columns.vue?vue&type=style&index=0&lang=scss& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 .alpheios-al-editor-view-columns .alpheios-al-editor-container-inner {
   margin-top: 15px;
   border: 1px solid #ddd;
@@ -1113,6 +1152,9 @@ body, html {
   width: 33.33%;
   border-right: 2px solid #d8d8d8;
 }
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./_output/vue/views/al-groups-view-interlinearly.vue?vue&type=style&index=0&lang=scss& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 .alpheios-al-editor-table-view {
   display: table;
   width: 100%;
@@ -1123,6 +1165,9 @@ body, html {
   display: table-cell;
   vertical-align: top;
 }
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./_output/vue/help-popup.vue?vue&type=style&index=0&lang=scss& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 .alpheios-alignment-editor-modal-help .alpheios-modal-container {
   width: 700px;
 }
@@ -1143,6 +1188,9 @@ body, html {
   color: #f00;
   font-weight: bold;
 }
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/tooltip.vue?vue&type=style&index=0&lang=scss& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 .alpheios-tooltip {
   position: relative;
   display: inline-block;
@@ -1306,6 +1354,9 @@ body, html {
   border-style: solid;
   border-color: transparent transparent transparent #757575;
 }
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./_output/vue/select-views.vue?vue&type=style&index=0&lang=scss& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 .alpheios-alignment-header-line {
   padding: 60px 0 10px;
 }
@@ -1335,6 +1386,9 @@ body, html {
 .alpheios-alignment-header-line-in-header .alpheios-alignment-radio-block span:last-of-type {
   margin-right: 0;
 }
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./_output/vue/main-menu.vue?vue&type=style&index=0&lang=scss& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 .alpheios-alignment-app-menu {
   height: 100%;
   width: 280px;
@@ -1342,10 +1396,10 @@ body, html {
   z-index: 10000;
   top: 0;
   left: -280px;
-  background: #e0e0e0;
-  background: -moz-linear-gradient(180deg, #e0e0e0 0%, rgba(255, 255, 255, 0.5) 100%);
-  background: -webkit-linear-gradient(180deg, #e0e0e0 0%, rgba(255, 255, 255, 0.5) 100%);
-  background: linear-gradient(180deg, #e0e0e0 0%, rgba(255, 255, 255, 0.5) 100%);
+  background: rgb(224, 224, 224);
+  background: -moz-linear-gradient(180deg, rgb(224, 224, 224) 0%, rgba(255, 255, 255, 0.5) 100%);
+  background: -webkit-linear-gradient(180deg, rgb(224, 224, 224) 0%, rgba(255, 255, 255, 0.5) 100%);
+  background: linear-gradient(180deg, rgb(224, 224, 224) 0%, rgba(255, 255, 255, 0.5) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e0e0e0",endColorstr="#ffffff",GradientType=1);
   overflow-x: hidden;
   transition: left 0.5s;
@@ -1373,6 +1427,9 @@ body, html {
 .alpheios-alignment-app-menu__buttons.alpheios-alignment-menu-only-filter {
   padding-top: 60px;
 }
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./_output/vue/app.vue?vue&type=style&index=0&lang=scss& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 .alpheios-header {
   display: flex;
   justify-content: space-between;

@@ -207,7 +207,7 @@ export default class Alignment {
       docSource = this.createNewDocSource('target', docSource, targetId)
       if (!docSource) { return false }
 
-      this.targets[docSource.id] = { docSource: docSource }
+      this.targets[docSource.id] = { docSource }
     } else {
       this.targets[docSource.id].docSource.update(docSource)
     }

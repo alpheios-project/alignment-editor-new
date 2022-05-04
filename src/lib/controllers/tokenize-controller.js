@@ -81,7 +81,7 @@ export default class TokenizeController {
       return
     }
 
-    let tokenizationOptions = { tokenizer: tokenizer }
+    let tokenizationOptions = { tokenizer }
 
     if (this.tokenizeMethods[tokenizer].hasOptions && definedLocalOptions) {
       tokenizationOptions = Object.assign(tokenizationOptions, definedLocalOptions.formatLabelValueList)
