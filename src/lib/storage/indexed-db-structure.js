@@ -450,15 +450,17 @@ export default class IndexedDBStructure {
   }
 
   static prepareAlignmentByAlIDQueryTemp (indexData, partNum) {
-    const tokensCondition = partNum ? {
-      indexName: 'alIDPartNum',
-      value: `${indexData.userID}-${indexData.alignmentID}-1`,
-      type: 'only'
-    } : {
-      indexName: 'alignmentID',
-      value: indexData.alignmentID,
-      type: 'only'
-    }
+    const tokensCondition = partNum
+      ? {
+          indexName: 'alIDPartNum',
+          value: `${indexData.userID}-${indexData.alignmentID}-1`,
+          type: 'only'
+        }
+      : {
+          indexName: 'alignmentID',
+          value: indexData.alignmentID,
+          type: 'only'
+        }
 
     return [
       {

@@ -193,7 +193,7 @@ export default class Segment {
     const newToken = new Token({
       textType: this.textType,
       idWord: newIdWord,
-      word: word,
+      word,
       partNum: 1
     }, this.index, this.docSourceId)
 
@@ -278,10 +278,12 @@ export default class Segment {
       direction: this.direction,
       docSourceId: this.docSourceId,
       tokens: this.tokens.map((token, tokenIndex) => token.convertToIndexedDB(tokenIndex)),
-      partNums: this.allPartNums ? this.allPartNums.map(partData => {
-        partData.segmentIndex = this.index
-        return partData
-      }) : []
+      partNums: this.allPartNums
+        ? this.allPartNums.map(partData => {
+          partData.segmentIndex = this.index
+          return partData
+        })
+        : []
     }
   }
 

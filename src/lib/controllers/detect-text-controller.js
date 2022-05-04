@@ -65,10 +65,10 @@ export default class DetectTextController {
    */
   static checkXML (sourceText) {
     const checkStartText = sourceText.text.substring(0, 20)
-    const checkRegExp1 = new RegExp('^[ ]*<')
+    const checkRegExp1 = /^[ ]*</u
 
     const checkEndText = sourceText.text.substring(sourceText.text.length - 20)
-    const checkRegExp2 = new RegExp('>[ ]*$')
+    const checkRegExp2 = />[ ]*$/u
 
     return checkRegExp1.test(checkStartText) && checkRegExp2.test(checkEndText) ? 'tei' : 'text'
   }
