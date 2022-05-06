@@ -469,6 +469,7 @@ export default {
 
     updateLangData () {
       const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
+
       if (sourceTextData) {
         this.localTextEditorOptions.sourceText.items.direction.currentValue = sourceTextData.direction
         this.localTextEditorOptions.sourceText.items.language.currentValue = sourceTextData.lang
@@ -498,7 +499,6 @@ export default {
      */
     prepareDefaultTextEditorOptions () {
       this.localTextEditorOptions = SettingsController.cloneTextEditorOptions(this.textType, this.index)
-
       this.localTextEditorOptions.ready = true
       this.$store.commit('incrementOptionsUpdated')
     },

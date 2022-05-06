@@ -46,10 +46,10 @@ describe('download-controller.test.js', () => {
     const downloadType = 'fakeMethod'
     const data = {
       originDocSource: {
-        text: 'originText', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+        text: 'originText', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
       },
       targetDocSource: {
-        text: 'targetText', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+        text: 'targetText', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
       }
     }
   
@@ -63,10 +63,10 @@ describe('download-controller.test.js', () => {
     const downloadType = 'plainSourceDownloadAll'
     const data = {
       originDocSource: {
-        text: 'originText', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+        text: 'originText', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
       },
       targetDocSource: {
-        text: 'targetText', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+        text: 'targetText', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
       }
     }
     
@@ -90,7 +90,7 @@ describe('download-controller.test.js', () => {
     // no originDocSource data
     data = {
       targetDocSource: new SourceText('target', {
-        text: 'targetText', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+        text: 'targetText', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
       })
     } 
     result = DownloadController.plainSourceDownloadAll(data)
@@ -101,7 +101,7 @@ describe('download-controller.test.js', () => {
     // no targetDocSource data
     data = {
       originDocSource: new SourceText('origin', {
-        text: 'originText', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+        text: 'originText', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
       })
     }
       
@@ -113,10 +113,10 @@ describe('download-controller.test.js', () => {
     // originDocSource data is not correctly defined
     data = {
       originDocSource: new SourceText('origin', {
-        text: 'originText', direction: 'ltr', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+        text: 'originText', direction: 'ltr', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
       }),
       targetDocSource: new SourceText('target', {
-        text: 'targetText', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+        text: 'targetText', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
       })
     }
       
@@ -128,10 +128,10 @@ describe('download-controller.test.js', () => {
     // targetDocSource data is not correctly defined
     data = {
       originDocSource: new SourceText('origin', {
-        text: 'originText', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+        text: 'originText', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
       }),
       targetDocSource: new SourceText('target', {
-        text: 'targetText', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+        text: 'targetText', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
       })
     }
     
@@ -147,10 +147,10 @@ describe('download-controller.test.js', () => {
 
     const data = {
       originDocSource: new SourceText('origin', {
-        text: 'originText', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+        text: 'originText', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
       }),
       targetDocSources: [new SourceText('target', {
-        text: 'targetText', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+        text: 'targetText', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
       })]
     } 
     DownloadController.plainSourceDownloadAll(data)
@@ -161,7 +161,7 @@ describe('download-controller.test.js', () => {
 
   it.skip('6 DownloadController - static jsonSimpleDownloadAll - creates json download', async() => {
     const originDocSource = new SourceText('origin', {
-      text: 'Capuam colonis deductis occupabunt\u2028Venibit igitur sub praecone', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'Capuam colonis deductis occupabunt\u2028Venibit igitur sub praecone', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
 
     originDocSource.addMetadata(MetadataTerm.property.TITLE, 'Origin title')
@@ -169,7 +169,7 @@ describe('download-controller.test.js', () => {
     originDocSource.addMetadata(MetadataTerm.property.CREATOR, 'Origin creator2')
 
     const targetDocSource1 = new SourceText('target', {
-      text: 'To a certain extent jointly launching occupabunt\u2028Will be sold then', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'To a certain extent jointly launching occupabunt\u2028Will be sold then', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
 
     targetDocSource1.addMetadata(MetadataTerm.property.TITLE, 'Target1 title')
@@ -177,7 +177,7 @@ describe('download-controller.test.js', () => {
     targetDocSource1.addMetadata(MetadataTerm.property.CREATOR, 'Target1 creator2')
 
     const targetDocSource2 = new SourceText('target', {
-      text: 'Hasta cierto punto\u2028Se venderá entonces', direction: 'ltr', lang: 'spa', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'Hasta cierto punto\u2028Se venderá entonces', direction: 'ltr', lang: 'spa', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
 
     targetDocSource2.addMetadata(MetadataTerm.property.TITLE, 'Target2 title')

@@ -125,7 +125,7 @@ export default class TokenizeController {
 
     if (adapterTokenizerRes.errors.length > 0) {
       adapterTokenizerRes.errors.forEach(error => {
-        console.log(error)
+        console.error(error.message)
         NotificationSingleton.addNotification({
           text: error.message,
           type: NotificationSingleton.types.ERROR
@@ -133,7 +133,7 @@ export default class TokenizeController {
       })
     }
 
-    if (adapterTokenizerRes.result.text && adapterTokenizerRes.result.tei) {
+    if (adapterTokenizerRes.result && adapterTokenizerRes.result.text && adapterTokenizerRes.result.tei) {
       await Promise.all([adapterTokenizerRes.result.text.load(), adapterTokenizerRes.result.tei.load()])
       return adapterTokenizerRes.result
     }

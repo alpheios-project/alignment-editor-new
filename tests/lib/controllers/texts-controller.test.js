@@ -55,10 +55,10 @@ describe('texts-controller.test.js', () => {
     const textsC = new TextsController(appC.store)
 
     const originDocSource = new SourceText('origin', {
-      text: 'originDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'originDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
     const targetDocSource = new SourceText('origin', {
-      text: 'targetDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'targetDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
 
     textsC.createAlignment()
@@ -80,7 +80,7 @@ describe('texts-controller.test.js', () => {
     jest.spyOn(textsC, 'createAlignment')
     
     const originDocSource = new SourceText('origin', {
-      text: 'originDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'originDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
 
     textsC.updateOriginDocSource(originDocSource)
@@ -98,7 +98,7 @@ describe('texts-controller.test.js', () => {
     jest.spyOn(textsC.alignment, 'updateOriginDocSource')
 
     const originDocSource = new SourceText('origin', {
-      text: 'originDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'originDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
 
     textsC.updateOriginDocSource(originDocSource)
@@ -116,7 +116,7 @@ describe('texts-controller.test.js', () => {
     jest.spyOn(textsC.alignment, 'updateTargetDocSource')
 
     const targetDocSource = new SourceText('target', {
-      text: 'targetDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'targetDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
 
     textsC.updateTargetDocSource(targetDocSource)
@@ -129,19 +129,19 @@ describe('texts-controller.test.js', () => {
     const textsC = new TextsController(appC.store)
 
     const originDocSource = new SourceText('origin', {
-      text: 'originDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'originDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
 
     textsC.updateOriginDocSource(originDocSource)
 
     const targetDocSource = {
-      text: 'targetDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'targetDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     }
 
     textsC.updateTargetDocSource(targetDocSource, textsC.allTargetTextsIds[0])
 
     const targetDocSource2 = new SourceText('target', {
-      text: 'targetDocSource2', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'targetDocSource2', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
 
     textsC.updateTargetDocSource(targetDocSource2)
@@ -164,7 +164,7 @@ describe('texts-controller.test.js', () => {
     expect(textsC.originDocSource).toBeNull()
 
     const originDocSource = new SourceText('origin', {
-      text: 'originDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'originDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
     textsC.updateOriginDocSource(originDocSource)
     expect(textsC.originDocSource).toBeInstanceOf(SourceText)
@@ -175,7 +175,7 @@ describe('texts-controller.test.js', () => {
     const textsC = new TextsController(appC.store)
 
     const originDocSource = new SourceText('origin', {
-      text: 'originDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'originDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
 
     textsC.updateOriginDocSource(originDocSource)
@@ -183,7 +183,7 @@ describe('texts-controller.test.js', () => {
     expect(textsC.allTargetTextsIds.length).toEqual(0)
 
     const targetDocSource = {
-      text: 'targetDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'targetDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     }
 
     textsC.updateTargetDocSource(targetDocSource, textsC.allTargetTextsIds[0])
@@ -196,12 +196,12 @@ describe('texts-controller.test.js', () => {
     expect(textsC.originDocSource).toBeNull()
 
     const docSource =  {
-      text: 'originDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'originDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     }
     textsC.updateOriginDocSource(docSource)
 
     const docSourceTarget =  {
-      text: 'targetDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'targetDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     }
     textsC.updateTargetDocSource(docSourceTarget, textsC.allTargetTextsIds[0])
 
@@ -216,12 +216,12 @@ describe('texts-controller.test.js', () => {
     expect(textsC.originDocSource).toBeNull()
 
     const docSource =  {
-      text: 'originDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'originDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     }
     textsC.updateOriginDocSource(docSource)
 
     const docSourceTarget =  {
-      text: 'targetDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'targetDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     }
     textsC.updateTargetDocSource(docSourceTarget)
 
@@ -298,12 +298,12 @@ describe('texts-controller.test.js', () => {
     expect(textsC.originDocSource).toBeNull()
 
     const docSource =  {
-      text: 'originDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'originDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     }
     textsC.updateOriginDocSource(docSource)
 
     const docSourceTarget =  {
-      text: 'targetDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'targetDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     }
     textsC.updateTargetDocSource(docSourceTarget)
 
@@ -320,17 +320,17 @@ describe('texts-controller.test.js', () => {
     expect(textsC.originDocSource).toBeNull()
 
     const docSource =  {
-      text: 'originDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'originDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     }
     textsC.updateOriginDocSource(docSource)
 
     const docSourceTarget1 =  {
-      text: 'targetDocSource 1', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'targetDocSource 1', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     }
     textsC.updateTargetDocSource(docSourceTarget1, textsC.allTargetTextsIds[0])
 
     const docSourceTarget2 =  {
-      text: 'targetDocSource 2', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'targetDocSource 2', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     }
     textsC.updateTargetDocSource(docSourceTarget2)
 

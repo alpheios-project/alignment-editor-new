@@ -41,7 +41,8 @@ describe('target-texts.test.js', () => {
       lang: 'lat',
       direction: 'ltr',
       tokenization: {
-        tokenizer: 'simpleLocalTokenizer'
+        tokenizer: 'simpleLocalTokenizer',
+        divideToSegments: true
       }
     })
 
@@ -51,7 +52,8 @@ describe('target-texts.test.js', () => {
       lang: 'lat',
       direction: 'ltr',
       tokenization: {
-        tokenizer: 'simpleLocalTokenizer'
+        tokenizer: 'simpleLocalTokenizer',
+        divideToSegments: true
       }
     })
 
@@ -61,7 +63,8 @@ describe('target-texts.test.js', () => {
       lang: 'lat',
       direction: 'ltr',
       tokenization: {
-        tokenizer: 'simpleLocalTokenizer'
+        tokenizer: 'simpleLocalTokenizer',
+        divideToSegments: true
       }
     })
 

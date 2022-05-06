@@ -59,20 +59,24 @@ describe('segment-block.test.js', () => {
     appC.historyAGC.startTracking(appC.textC.alignment)
 
     const originDocSource = new SourceText('origin', {
-      text: '“Ein ziemlich unauffälliges Tier.\n“Vor rund 13,5 Milliarden Jahren entstanden Materie, Energie, Raum und Zeit in einem Ereignis namens Urknall.', direction: 'ltr', lang: 'deu', sourceType: 'text', tokenization: {
-        tokenizer: 'simpleLocalTokenizer'
+      text: '“Ein ziemlich unauffälliges Tier.\n“Vor rund 13,5 Milliarden Jahren entstanden Materie, Energie, Raum und Zeit in einem Ereignis namens Urknall.', direction: 'ltr', lang: 'deu', sourceType: 'text', 
+      tokenization: {
+        tokenizer: 'simpleLocalTokenizer',
+        divideToSegments: true
       }
     })
 
     const targetDocSource1 = new SourceText('target', {
       text: 'Un animal insignifiant\n“Il y a environ 13,5 milliards d’années, la matière, l’énergie, le temps et l’espace apparaissaient à l’occasion du Big Bang.', direction: 'ltr', lang: 'fra', sourceType: 'text', tokenization: {
-        tokenizer: 'simpleLocalTokenizer'
+        tokenizer: 'simpleLocalTokenizer',
+        divideToSegments: true
       }
     })
 
     const targetDocSource2 = new SourceText('target', {
       text: '“Un animale di nessuna importanza\n“Circa tredici miliardi e mezzo di anni fa, materia, energia, tempo e spazio scaturirono da quello che è noto come il Big Bang.', direction: 'ltr', lang: 'ita', sourceType: 'text', tokenization: {
-        tokenizer: 'simpleLocalTokenizer'
+        tokenizer: 'simpleLocalTokenizer',
+        divideToSegments: true
       }
     })
 
@@ -100,6 +104,7 @@ describe('segment-block.test.js', () => {
 
       return activeAlignmentGroup
     }
+
   })
 
   const prepareParts = (amount) => {
@@ -109,7 +114,6 @@ describe('segment-block.test.js', () => {
     }
     return arr
   }
-
 
   it('1 SegmentBlock - renders a vue instance (min requirements)', () => {
     let cmp = shallowMount(SegmentBlock, {
@@ -419,10 +423,9 @@ describe('segment-block.test.js', () => {
     })
     
     expect(cmp.vm.allPartsKeys).toEqual(prepareParts(1))
+
     SettingsController.allOptions.app.items.maxCharactersPerPart.currentValue = 5
     await cmp.vm.$textC.defineAllPartNumsForTexts()
-
-
     expect(cmp.vm.allPartsKeys).toEqual(prepareParts(5))
     expect(cmp.vm.currentPartIndexes).toEqual([ 1 ])
     

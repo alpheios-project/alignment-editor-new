@@ -752,14 +752,14 @@ describe('alignment-group.test.js', () => {
 
   it('32 AlignmentGroup - translationWords, translationWordForToken', async () => {
     const originDocSource = new SourceText('origin', {
-      text: 'Post emensos insuperabilis expeditionis eventus languentibus partium animis, quas periculorum varietas fregerat et laborum, nondum tubarum cessante clangore vel milite locato per stationes hibernas', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'Post emensos insuperabilis expeditionis eventus languentibus partium animis, quas periculorum varietas fregerat et laborum, nondum tubarum cessante clangore vel milite locato per stationes hibernas', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
 
     const targetDocSource1 = new SourceText('target', {
-      text: 'After the passing of the insurmountable results of the expedition, the minds of the party languishing, which the variety of dangers and labors had broken, had not yet ceased, even with the sound of the trumpets, and the soldiers stationed in our winter-stations', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'After the passing of the insurmountable results of the expedition, the minds of the party languishing, which the variety of dangers and labors had broken, had not yet ceased, even with the sound of the trumpets, and the soldiers stationed in our winter-stations', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
     const targetDocSource2 = new SourceText('target', {
-      text: 'Tras el paso de los insuperables resultados de la expedición, las mentes del grupo languideciendo, que la variedad de peligros y labores habían roto, aún no habían cesado, ni siquiera con el sonido de las trompetas, y los soldados estacionados en nuestras estaciones invernales.', direction: 'ltr', lang: 'spa', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'Tras el paso de los insuperables resultados de la expedición, las mentes del grupo languideciendo, que la variedad de peligros y labores habían roto, aún no habían cesado, ni siquiera con el sonido de las trompetas, y los soldados estacionados en nuestras estaciones invernales.', direction: 'ltr', lang: 'spa', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
 
     let alignment = new Alignment()
@@ -824,14 +824,14 @@ describe('alignment-group.test.js', () => {
 
   it('32 AlignmentGroup - convertToHTML - groupdData - translations', async () => {
     const originDocSource = new SourceText('origin', {
-      text: 'Post emensos insuperabilis expeditionis eventus languentibus partium animis, quas periculorum varietas fregerat et laborum, nondum tubarum cessante clangore vel milite locato per stationes hibernas', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'Post emensos insuperabilis expeditionis eventus languentibus partium animis, quas periculorum varietas fregerat et laborum, nondum tubarum cessante clangore vel milite locato per stationes hibernas', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
 
     const targetDocSource1 = new SourceText('target', {
-      text: 'After the passing of the insurmountable results of the expedition, the minds of the party languishing, which the variety of dangers and labors had broken, had not yet ceased, even with the sound of the trumpets, and the soldiers stationed in our winter-stations', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'After the passing of the insurmountable results of the expedition, the minds of the party languishing, which the variety of dangers and labors had broken, had not yet ceased, even with the sound of the trumpets, and the soldiers stationed in our winter-stations', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
     const targetDocSource2 = new SourceText('target', {
-      text: 'Tras el paso de los insuperables resultados de la expedición, las mentes del grupo languideciendo, que la variedad de peligros y labores habían roto, aún no habían cesado, ni siquiera con el sonido de las trompetas, y los soldados estacionados en nuestras estaciones invernales.', direction: 'ltr', lang: 'spa', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'Tras el paso de los insuperables resultados de la expedición, las mentes del grupo languideciendo, que la variedad de peligros y labores habían roto, aún no habían cesado, ni siquiera con el sonido de las trompetas, y los soldados estacionados en nuestras estaciones invernales.', direction: 'ltr', lang: 'spa', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
 
     let alignment = new Alignment()

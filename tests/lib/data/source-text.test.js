@@ -31,7 +31,7 @@ describe('source-text.test.js', () => {
 
   it('1 SourceText - constructor uploads the following fields - textType, text, direction, lang ', () => {
     const sourceText = new SourceText('origin', {
-      text: 'some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
   
     expect(sourceText).toHaveProperty('textType', 'origin')
@@ -39,12 +39,12 @@ describe('source-text.test.js', () => {
     expect(sourceText).toHaveProperty('direction', 'ltr')
     expect(sourceText).toHaveProperty('lang', 'eng')
     expect(sourceText).toHaveProperty('sourceType', 'text')
-    expect(sourceText).toHaveProperty('tokenization', { tokenizer: "simpleLocalTokenizer" })
+    expect(sourceText).toHaveProperty('tokenization', { tokenizer: "simpleLocalTokenizer", divideToSegments: true })
   })
 
   it('2 SourceText - update the following fields - textType, text, direction, lang ', () => {
     let sourceText = new SourceText('origin', {
-      text: 'some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
   
     sourceText.update({

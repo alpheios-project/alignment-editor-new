@@ -1,3 +1,4 @@
+/* global process */
 import { ClientAdapters } from 'alpheios-client-adapters'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 import Langs from '@/lib/data/langs/langs.js'
@@ -42,7 +43,7 @@ export default class DetectTextController {
 
     if (adapterDetectLangRes.errors.length > 0) {
       adapterDetectLangRes.errors.forEach(error => {
-        console.error(error)
+        console.error(error.message)
         NotificationSingleton.addNotification({
           text: error.message,
           type: NotificationSingleton.types.ERROR

@@ -127,7 +127,11 @@ export default class AppController {
   async defineSettingsController () {
     await SettingsController.init(this.store)
 
-    SettingsController.uploadRemoteSettings()
+    const result = await SettingsController.uploadRemoteSettings()
+
+    if (!result) {
+      SettingsController.downgradeToOfflineTokenizer()
+    }
   }
 
   /**

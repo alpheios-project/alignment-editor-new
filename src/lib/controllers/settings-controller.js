@@ -43,7 +43,10 @@ export default class SettingsController {
    */
   static async init (store) {
     if (!_instance) { this.create(store) }
-    const optionsPromises = Object.values(_instance.options).map(options => options.load())
+    const optionsPromises = Object.values(_instance.options).map(options => {
+      if (options instanceof Options) { return options.load() }
+      return false
+    })
 
     await Promise.all(optionsPromises)
 
@@ -236,7 +239,9 @@ export default class SettingsController {
       delete _instance.options.tokenize.alpheiosRemoteTokenizer.tei.items.tbsegstart
       delete _instance.options.tokenize.alpheiosRemoteTokenizer.tei.defaults.items.tbsegstart // it is deleted because treebank support would be developed later
     }
+
     _instance.store.commit('incrementOptionsUpdated')
+    return _instance.options.tokenize.alpheiosRemoteTokenizer
   }
 
   /**
@@ -352,6 +357,10 @@ export default class SettingsController {
     Object.values(_instance.options.sourceText.items).forEach(optionItem => this.changeOption(optionItem))
 
     _instance.store.commit('incrementResetOptions')
+  }
+
+  static downgradeToOfflineTokenizer () {
+    _instance.options.app.items.tokenizer.setValue('simpleLocalTokenizer')
   }
 }
 

@@ -41,10 +41,10 @@ describe('tokens-edit-controller.test.js', () => {
     const tokensEC = new TokensEditController(appC.store)
 
     const originDocSource = new SourceText('origin', {
-      text: 'origin', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'origin', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
     const targetDocSource = new SourceText('target', {
-      text: 'target', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'target', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
 
     const alignment = new Alignment() 
@@ -61,10 +61,10 @@ describe('tokens-edit-controller.test.js', () => {
     const tokensEC = new TokensEditController(appC.store)
 
     const originDocSource = new SourceText('origin', {
-      text: 'origin text here', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'origin text here', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
     const targetDocSource = new SourceText('target', {
-      text: 'target one there', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'target one there', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
 
     const alignment = new Alignment() 
@@ -89,10 +89,10 @@ describe('tokens-edit-controller.test.js', () => {
     const tokensEC = new TokensEditController(appC.store)
 
     const originDocSource = new SourceText('origin', {
-      text: 'origin text here', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'origin text here', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
     const targetDocSource = new SourceText('target', {
-      text: 'target one there', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'target one there', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
 
     const alignment = new Alignment() 
@@ -120,10 +120,10 @@ describe('tokens-edit-controller.test.js', () => {
     const tokensEC = new TokensEditController(appC.store)
 
     const originDocSource = new SourceText('origin', {
-      text: 'origin text here', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'origin text here', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
     const targetDocSource = new SourceText('target', {
-      text: 'target one there', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'target one there', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
 
     const alignment = new Alignment() 
@@ -150,10 +150,10 @@ describe('tokens-edit-controller.test.js', () => {
     const tokensEC = new TokensEditController(appC.store)
 
     const originDocSource = new SourceText('origin', {
-      text: 'origin text here', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'origin text here', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
     const targetDocSource = new SourceText('target', {
-      text: 'target one there', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'target one there', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
 
     const alignment = new Alignment() 
@@ -183,10 +183,10 @@ describe('tokens-edit-controller.test.js', () => {
     const tokensEC = new TokensEditController(appC.store)
 
     const originDocSource = new SourceText('origin', {
-      text: 'origin text here', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'origin text here', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
     const targetDocSource = new SourceText('target', {
-      text: 'target one there', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'target one there', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
 
     const alignment = new Alignment() 
@@ -213,10 +213,10 @@ describe('tokens-edit-controller.test.js', () => {
     const tokensEC = new TokensEditController(appC.store)
 
     const originDocSource = new SourceText('origin', {
-      text: 'origin text here', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'origin text here', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
     const targetDocSource = new SourceText('target', {
-      text: 'target one there', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'target one there', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
 
     const alignment = new Alignment() 
@@ -244,10 +244,10 @@ describe('tokens-edit-controller.test.js', () => {
     const tokensEC = new TokensEditController(appC.store)
 
     const originDocSource = new SourceText('origin', {
-      text: 'origin text here', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'origin text here', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
     const targetDocSource = new SourceText('target', {
-      text: 'target one there', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'target one there', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
 
     const alignment = new Alignment() 
@@ -275,10 +275,10 @@ describe('tokens-edit-controller.test.js', () => {
     const tokensEC = new TokensEditController(appC.store)
 
     const originDocSource = new SourceText('origin', {
-      text: 'origin text here', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'origin text here', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
     const targetDocSource = new SourceText('target', {
-      text: 'target one there', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'target one there', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
 
     const alignment = new Alignment() 

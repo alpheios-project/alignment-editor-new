@@ -16,7 +16,7 @@ describe('tokens-edit-actions.test.js', () => {
 
   const prepareParams = async () => {
     const sourceText1 = new SourceText('origin', {
-      text: 'vir femina a\u2028vir\u2028femina vir', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'vir femina a\u2028vir\u2028femina vir', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
     
     const alignedText1 = new AlignedText({
@@ -27,7 +27,7 @@ describe('tokens-edit-actions.test.js', () => {
     await alignedText1.tokenize(sourceText1)
   
     const sourceText2 = new SourceText('target', {
-      text: 'male female\u2028male female\u2028male female', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'male female\u2028male female\u2028male female', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
      
     const alignedText2 = new AlignedText({
@@ -38,7 +38,7 @@ describe('tokens-edit-actions.test.js', () => {
     await alignedText2.tokenize(sourceText2)
   
     const sourceText3 = new SourceText('target', {
-      text: 'macho femenino\u2028macho femenino\u2028macho femenino', direction: 'ltr', lang: 'spa', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'macho femenino\u2028macho femenino\u2028macho femenino', direction: 'ltr', lang: 'spa', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer", divideToSegments: true }
     })
         
     const alignedText3 = new AlignedText({

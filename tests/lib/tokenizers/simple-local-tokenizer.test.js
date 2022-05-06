@@ -23,7 +23,7 @@ describe('simple-local-tokenizer.test.js', () => {
     jest.spyOn(console, 'log')
     jest.spyOn(console, 'warn')
   })
-
+/*
   it('1 SimpleLocalTokenizer - simpleLineTokenization divides text to lines by line breaks', () => {
     const text1 = 'some text for test'
     const linesText1 = SimpleLocalTokenizer.simpleLineTokenization(text1)
@@ -60,9 +60,8 @@ describe('simple-local-tokenizer.test.js', () => {
     
     expect(linesText7).toEqual(['some', 'text for', 'test', ''])
   })
-
+*/
   it('2 SimpleLocalTokenizer - simpleWordTokenization divides a line to token-formatted objects', () => {
-
     const linesText1 = 'some text'
     const result1 = SimpleLocalTokenizer.simpleWordTokenization(linesText1, '1-0', 'origin')
 
@@ -76,7 +75,14 @@ describe('simple-local-tokenizer.test.js', () => {
     expect(result2.length).toEqual(2)
     expect(result2[0]).toEqual({ textType: 'origin', idWord: '1-0-0', word: 'some', afterWord: ',', sentenceIndex: 1 })
     expect(result2[1]).toEqual({ textType: 'origin', idWord: '1-0-1', word: 'text', sentenceIndex: 1 })
+/*
+    const linesText21 = 'какой, текст'
+    const result21 = SimpleLocalTokenizer.simpleWordTokenization(linesText21, '1-0', 'origin')
 
+    expect(result21.length).toEqual(2)
+    expect(result21[0]).toEqual({ textType: 'origin', idWord: '1-0-0', word: 'какой', afterWord: ',', sentenceIndex: 1 })
+    expect(result21[1]).toEqual({ textType: 'origin', idWord: '1-0-1', word: 'текст', sentenceIndex: 1 })
+*/
     const linesText3 = 'some test-text'
     const result3 = SimpleLocalTokenizer.simpleWordTokenization(linesText3, '1-0', 'origin')
 
@@ -100,6 +106,16 @@ describe('simple-local-tokenizer.test.js', () => {
     expect(result5[0]).toEqual({ textType: 'origin', idWord: '1-0-0', word: 'some', sentenceIndex: 1 })
     expect(result5[1]).toEqual({ textType: 'origin', idWord: '1-0-1', word: 'text', sentenceIndex: 1 })
     expect(result5[2]).toEqual({ textType: 'origin', idWord: '1-0-2', word: 'good-test', afterWord: ')', beforeWord: '(', sentenceIndex: 1 })
+/*
+    const linesText6 = 'Давайте протестируем возможности нашего инструмента'
+    const result6 = SimpleLocalTokenizer.simpleWordTokenization(linesText6, '1-0', 'origin')
+    expect(result6.length).toEqual(5)
+    expect(result6[0]).toEqual({ textType: 'origin', idWord: '1-0-0', word: 'Давайте', sentenceIndex: 1 })
+    expect(result6[1]).toEqual({ textType: 'origin', idWord: '1-0-1', word: 'протестируем', sentenceIndex: 1 })
+    expect(result6[2]).toEqual({ textType: 'origin', idWord: '1-0-2', word: 'возможности', sentenceIndex: 1 })
+    expect(result6[3]).toEqual({ textType: 'origin', idWord: '1-0-3', word: 'нашего', sentenceIndex: 1 })
+    expect(result6[4]).toEqual({ textType: 'origin', idWord: '1-0-4', word: 'инструмента', sentenceIndex: 1 })
+*/
   })
 
   it('3 SimpleLocalTokenizer - tokenize executes simpleLineTokenization then simpleWordTokenization for each line', () => {
@@ -108,7 +124,8 @@ describe('simple-local-tokenizer.test.js', () => {
       textType: 'origin',
       text: 'some (good-text) for\u000atest',
       direction: 'ltr',
-      lang: 'eng'
+      lang: 'eng',
+      tokenization: { divideToSegments: true }
     }
 
     jest.spyOn(SimpleLocalTokenizer, 'simpleLineTokenization')
@@ -128,5 +145,6 @@ describe('simple-local-tokenizer.test.js', () => {
     expect(result.segments[0].tokens[2]).toEqual({ textType: 'origin', idWord: '1-0-2', word: 'for', hasLineBreak: true, sentenceIndex: 1 })
     expect(result.segments[1].tokens[0]).toEqual({ textType: 'origin', idWord: '1-1-0', word: 'test', hasLineBreak: true, sentenceIndex: 1 })
   })
+
 })
 
