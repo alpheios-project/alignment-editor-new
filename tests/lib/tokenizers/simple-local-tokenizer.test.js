@@ -108,7 +108,8 @@ describe('simple-local-tokenizer.test.js', () => {
       textType: 'origin',
       text: 'some (good-text) for\u000atest',
       direction: 'ltr',
-      lang: 'eng'
+      lang: 'eng',
+      tokenization: { divideToSegments: true }
     }
 
     jest.spyOn(SimpleLocalTokenizer, 'simpleLineTokenization')

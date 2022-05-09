@@ -32,7 +32,7 @@ describe('aligned-text.test.js', () => {
 
   it('1 AlignedText - constructor uploads the following fields - textType, tokenizer, direction, lang and executes tokenize method to create tokens', async () => {
     const sourceText = new SourceText('origin', {
-      text: 'some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const alignedText1 = new AlignedText({
@@ -43,7 +43,7 @@ describe('aligned-text.test.js', () => {
     await alignedText1.tokenize(sourceText)
   
     expect(alignedText1).toHaveProperty('textType', 'origin')
-    expect(alignedText1).toHaveProperty('tokenization', { tokenizer: "simpleLocalTokenizer" })
+    expect(alignedText1).toHaveProperty('tokenization', { tokenizer: 'simpleLocalTokenizer', divideToSegments: true })
     expect(alignedText1).toHaveProperty('direction', 'ltr')
     expect(alignedText1).toHaveProperty('lang', 'eng')
     expect(alignedText1).toHaveProperty('tokenPrefix', '5') // defined tokenPrefix
@@ -62,7 +62,7 @@ describe('aligned-text.test.js', () => {
 
   it('2 AlignedText - tokenPrefix gives 1 for origin, 2 for target', () => {
     const sourceTextOrigin = new SourceText('origin', {
-      text: 'some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const alignedTextOrigin = new AlignedText({
@@ -72,7 +72,7 @@ describe('aligned-text.test.js', () => {
     expect(alignedTextOrigin.tokenPrefix).toEqual('1')
 
     const sourceTextTarget = new SourceText('target', {
-      text: 'some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const alignedTextTarget = new AlignedText({
@@ -84,7 +84,7 @@ describe('aligned-text.test.js', () => {
 
   it('3 AlignedText - tokenize - 1. defines tokenize method, 2. get tokens with the method, 3. format to Tokens', async () => {
     const sourceText = new SourceText('origin', {
-      text: 'some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const alignedText = new AlignedText({
@@ -104,7 +104,7 @@ describe('aligned-text.test.js', () => {
 
   it('4 AlignedText - segmentsAmount - returns amount of segments', async () => {
     const sourceText1 = new SourceText('origin', {
-      text: 'some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const alignedText1 = new AlignedText({
@@ -116,7 +116,7 @@ describe('aligned-text.test.js', () => {
     expect(alignedText1.segmentsAmount).toEqual(1)
 
     const sourceText2 = new SourceText('origin', {
-      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const alignedText2 = new AlignedText({
@@ -129,7 +129,7 @@ describe('aligned-text.test.js', () => {
 
   it('5 AlignedText - convertToJSON / convertFromJSON', async () => {
     const sourceText = new SourceText('origin', {
-      text: 'some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const alignedText = new AlignedText({
@@ -142,7 +142,7 @@ describe('aligned-text.test.js', () => {
     const jsonResult = alignedText.convertToJSON()
 
     expect(jsonResult).toHaveProperty('textType', 'origin')
-    expect(jsonResult).toHaveProperty('tokenization', { tokenizer: "simpleLocalTokenizer" })
+    expect(jsonResult).toHaveProperty('tokenization', { tokenizer: 'simpleLocalTokenizer', divideToSegments: true })
     expect(jsonResult).toHaveProperty('direction', 'ltr')
     expect(jsonResult).toHaveProperty('lang', 'eng')
     expect(jsonResult).toHaveProperty('tokenPrefix', '1') // defined tokenPrefix
@@ -153,7 +153,7 @@ describe('aligned-text.test.js', () => {
     const resSegment = AlignedText.convertFromJSON(jsonResult)
 
     expect(resSegment).toHaveProperty('textType', 'origin')
-    expect(resSegment).toHaveProperty('tokenization', { tokenizer: "simpleLocalTokenizer" })
+    expect(resSegment).toHaveProperty('tokenization', { tokenizer: 'simpleLocalTokenizer', divideToSegments: true })
     expect(resSegment).toHaveProperty('direction', 'ltr')
     expect(resSegment).toHaveProperty('lang', 'eng')
     expect(resSegment).toHaveProperty('tokenPrefix', '1') // defined tokenPrefix

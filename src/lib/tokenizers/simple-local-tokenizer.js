@@ -27,28 +27,43 @@ export default class SimpleLocalTokenizer {
    * @returns {[Objects]} - array of token-like objects for all text, would be converted to Tokens outside
    */
   static defineIdentification (docSource, idPrefix) {
+    const divideToSegCheck = docSource.tokenization && docSource.tokenization.divideToSegments
+
     const textLines = this.simpleLineTokenization(docSource.text)
 
     const finalText = { segments: [] }
     let mainIndex = 0
+    const finalTextLine = []
+
     textLines.forEach((textLine, index) => {
       const prefix = `${idPrefix}-${index}`
-      const finalTextLine = this.simpleWordTokenization(textLine, prefix, docSource.textType)
+      const textLineTokens = this.simpleWordTokenization(textLine, prefix, docSource.textType)
 
-      if (finalTextLine.length > 0) {
-        const lastWord = finalTextLine[finalTextLine.length - 1]
-
+      if (textLineTokens.length > 0) {
+        const lastWord = textLineTokens[textLineTokens.length - 1]
         lastWord.hasLineBreak = true
+
       }
-      if (finalTextLine.length > 0) {
-        mainIndex = mainIndex + 1
-        finalText.segments.push({
-          index: mainIndex,
-          tokens: finalTextLine
-        })
+      if (textLineTokens.length > 0) {
+        if (divideToSegCheck) {
+          mainIndex = mainIndex + 1
+          finalText.segments.push({
+            index: mainIndex,
+            tokens: textLineTokens
+          })
+        } else {
+          finalTextLine.push(...textLineTokens)
+        }
       }
     })
 
+    if (!divideToSegCheck) {
+      finalText.segments.push({
+        index: 1,
+        tokens: finalTextLine
+      })
+    }
+    
     return finalText
   }
 

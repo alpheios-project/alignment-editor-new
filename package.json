@@ -16,7 +16,7 @@
     "test-a": "jest tests/lib/controllers/app-controller.test.js",
     "test-b": "jest tests/vue/align-editor/token-block.test.js",
     "test-c": "jest tests/lib/data/actions/tokens-edit-actions.test.js",
-    "test-f": "jest tests/lib/data/options-preset.test.js",
+    "test-f": "jest tests/lib/tokenizers/simple-local-tokenizer.test.js",
     "test-d": "jest tests/lib/storage/indexed-db-adapter.test.js",
     "test-e": "jest tests/_output/vue/app.test.js",
     "test-g": "jest tests/corrupted/corrupted-alignments2.test.js",

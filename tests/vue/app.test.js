@@ -257,15 +257,15 @@ describe('app.test.js', () => {
     })
     // start alignment normally
     const originDocSource = new SourceText('origin', {
-      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const targetDocSource1 = new SourceText('target', {
-      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const targetDocSource2 = new SourceText('target', {
-      text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     let alignment = new Alignment(originDocSource, targetDocSource1)
