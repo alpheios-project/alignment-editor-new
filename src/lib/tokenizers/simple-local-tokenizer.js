@@ -42,7 +42,6 @@ export default class SimpleLocalTokenizer {
       if (textLineTokens.length > 0) {
         const lastWord = textLineTokens[textLineTokens.length - 1]
         lastWord.hasLineBreak = true
-
       }
       if (textLineTokens.length > 0) {
         if (divideToSegCheck) {
@@ -63,7 +62,7 @@ export default class SimpleLocalTokenizer {
         tokens: finalTextLine
       })
     }
-    
+
     return finalText
   }
 
@@ -79,6 +78,65 @@ export default class SimpleLocalTokenizer {
 
   /**
    * It divides textLine on tokens using the following steps:
+   *   - divide by spaces
+   *   - extract punctuation from the beginning and from the end
+   *   - update sentence
+   * @param {String} textLine - text line for tokenize
+   * @param {String} prefix - prefix for creating tokens idWord
+   * @param {String} textType - origin or target
+   * @returns {[Objects]} - array of token-like objects for the given textLine
+   */
+
+  static simpleWordTokenization (textLine, prefix, textType) {
+    const formattedText = []
+    const sentenceEnds = /[.;!?:\uff01\uff1f\uff1b\uff1a\u3002]/
+    const punctuation = '[!@#$%^&*(){}"|<>?№;:,.-]'
+    if ((/^\s*$/).test(textLine)) { // it is an empty line
+      return formattedText
+    }
+
+    const textAll = textLine.split(' ')
+    let sentenceIndex = 1
+
+    for (let i = 0; i < textAll.length; i++) {
+      let item = textAll[i]
+      let beforeWord = ''
+      let afterWord = ''
+
+      const startPunctuation = new RegExp('^(' + punctuation + '+)', 'gi')
+      const itemStartPunct = item.match(startPunctuation)
+
+      if (itemStartPunct && (itemStartPunct.length > 0)) {
+        if (itemStartPunct[0].length !== item.length) {
+          beforeWord = itemStartPunct[0]
+          item = item.substring(beforeWord.length)
+        }
+      }
+
+      const endPunctuation = new RegExp('(' + punctuation + '+)$', 'gi')
+      const itemEndPunct = item.match(endPunctuation)
+
+      if (itemEndPunct && (itemEndPunct.length > 0)) {
+        if (itemEndPunct[0].length !== item.length) {
+          afterWord = itemEndPunct[0]
+          item = item.substring(0, item.length - afterWord.length)
+        }
+      }
+      const word = item
+
+      const resultWord = this.fillWordObject(i, prefix, textType, word, beforeWord, afterWord)
+
+      resultWord.sentenceIndex = sentenceIndex
+      if (sentenceEnds.test(resultWord.afterWord)) {
+        sentenceIndex++
+      }
+      formattedText.push(resultWord)
+    }
+    return formattedText
+  }
+
+  /**
+   * It divides textLine on tokens using the following steps:
    *   - checks if it is empty and return to add a lineBreak (this way we save multiple lines as breaks)
    *   - divides to words by all types of dividers [.\s]
    *   - checking each word/word-part/punctuation creates resultWord in a cycle
@@ -88,7 +146,7 @@ export default class SimpleLocalTokenizer {
    * @param {String} textType - origin or target
    * @returns {[Objects]} - array of token-like objects for the given textLine
    */
-  static simpleWordTokenization (textLine, prefix, textType) {
+  static simpleWordTokenizationOld (textLine, prefix, textType) {
     const formattedText = []
     const sentenceEnds = /[.;!?:\uff01\uff1f\uff1b\uff1a\u3002]/
 
