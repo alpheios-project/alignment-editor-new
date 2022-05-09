@@ -30,6 +30,10 @@ const webpack = {
     ],
     module: {
       rules: [
+        {
+          test: /\.html$/i,
+          loader: 'html-loader',
+        }
       ]
     }
   },
