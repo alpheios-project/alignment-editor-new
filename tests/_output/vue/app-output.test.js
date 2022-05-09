@@ -15,7 +15,7 @@ import Vue from '@vue-runtime'
 
 let appC
 
-describe('app.test.js', () => {
+describe('app-output.test.js', () => {
   console.error = function () {}
   console.log = function () {}
   console.warn = function () {}

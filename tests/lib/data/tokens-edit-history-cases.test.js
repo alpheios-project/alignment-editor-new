@@ -38,11 +38,11 @@ describe('tokens-edit-history-cases.test.js', () => {
 
   it('1 Tokens Edit History Cases - tokensEditHistory is defined on Alignment creation', async () => {
     const originDocSource = new SourceText('origin', {
-      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
   
     const targetDocSource1 = new SourceText('target', {
-      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     let alignment = new Alignment()
@@ -60,11 +60,11 @@ describe('tokens-edit-history-cases.test.js', () => {
 
   it('2 Tokens Edit History Cases - updateTokenWord - undo/redo', async () => {
     const originDocSource = new SourceText('origin', {
-      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const targetDocSource1 = new SourceText('target', {
-      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     let alignment = new Alignment()
@@ -112,11 +112,11 @@ describe('tokens-edit-history-cases.test.js', () => {
 
   it('3 Tokens Edit History Cases - mergeTokens - undo/redo', async () => {
     const originDocSource = new SourceText('origin', {
-      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const targetDocSource1 = new SourceText('target', {
-      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     let alignment = new Alignment()
@@ -176,11 +176,11 @@ describe('tokens-edit-history-cases.test.js', () => {
 
   it('4 Tokens Edit History Cases - splitToken - undo/redo', async () => {
     const originDocSource = new SourceText('origin', {
-      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const targetDocSource1 = new SourceText('target', {
-      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     let alignment = new Alignment()
@@ -234,11 +234,11 @@ describe('tokens-edit-history-cases.test.js', () => {
 
   it('5 Tokens Edit History Cases - changeLineBreak - undo/redo', async () => {
     const originDocSource = new SourceText('origin', {
-      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const targetDocSource1 = new SourceText('target', {
-      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     let alignment = new Alignment()
@@ -286,11 +286,11 @@ describe('tokens-edit-history-cases.test.js', () => {
 
   it('6 Tokens Edit History Cases - moveToSegment - undo/redo', async () => {
     const originDocSource = new SourceText('origin', {
-      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const targetDocSource1 = new SourceText('target', {
-      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     let alignment = new Alignment()
@@ -349,11 +349,11 @@ describe('tokens-edit-history-cases.test.js', () => {
 
   it('8 Tokens Edit History Cases - deleteToken - undo/redo', async () => {
     const originDocSource = new SourceText('origin', {
-      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const targetDocSource1 = new SourceText('target', {
-      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     let alignment = new Alignment()
@@ -395,11 +395,11 @@ describe('tokens-edit-history-cases.test.js', () => {
 
   it('9 Tokens Edit History Cases - split + merge (complex scenario) - undo/redo', async () => {
     const originDocSource = new SourceText('origin', {
-      text: 'some origin text', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some origin text', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const targetDocSource1 = new SourceText('target', {
-      text: 'some target text', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some target text', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     let alignment = new Alignment()
@@ -496,11 +496,11 @@ describe('tokens-edit-history-cases.test.js', () => {
 
   it('10 Tokens Edit History Cases - delete in the middle - undo/redo', async () => {
     const originDocSource = new SourceText('origin', {
-      text: 'some origin text', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some origin text', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const targetDocSource1 = new SourceText('target', {
-      text: 'some target text', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some target text', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     let alignment = new Alignment()
@@ -540,11 +540,11 @@ describe('tokens-edit-history-cases.test.js', () => {
 
   it('10 Tokens Edit History Cases - insertTokens - undo/redo - prev', async () => {
     const originDocSource = new SourceText('origin', {
-      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const targetDocSource1 = new SourceText('target', {
-      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     let alignment = new Alignment()
@@ -594,11 +594,11 @@ describe('tokens-edit-history-cases.test.js', () => {
 
   it('11 Tokens Edit History Cases - insertTokens - undo/redo - next', async () => {
     const originDocSource = new SourceText('origin', {
-      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const targetDocSource1 = new SourceText('target', {
-      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     let alignment = new Alignment()
@@ -654,11 +654,11 @@ describe('tokens-edit-history-cases.test.js', () => {
 
   it('12 Tokens Edit History Cases - insertTokens - undo/redo - prev - with one annotation', async () => {
     const originDocSource = new SourceText('origin', {
-      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const targetDocSource1 = new SourceText('target', {
-      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     let alignment = new Alignment()
@@ -698,11 +698,11 @@ describe('tokens-edit-history-cases.test.js', () => {
 
   it('13 Tokens Edit History Cases - insertTokens - undo/redo - prev - with two annotation', async () => {
     const originDocSource = new SourceText('origin', {
-      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const targetDocSource1 = new SourceText('target', {
-      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     let alignment = new Alignment()
@@ -758,11 +758,11 @@ describe('tokens-edit-history-cases.test.js', () => {
   it('14 Tokens Edit History Cases - insertTokens - undo/redo - prev - annotation to source', async () => {
 
     const originDocSource = new SourceText('origin', {
-      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const targetDocSource1 = new SourceText('target', {
-      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     let alignment = new Alignment()
@@ -807,11 +807,11 @@ describe('tokens-edit-history-cases.test.js', () => {
   it('14 Tokens Edit History Cases - clear history after grouping  - merging', async () => {
 
     const originDocSource = new SourceText('origin', {
-      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const targetDocSource1 = new SourceText('target', {
-      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const alignedGC = new AlignedGroupsController(appC.store)
@@ -848,11 +848,11 @@ describe('tokens-edit-history-cases.test.js', () => {
   it('15 Tokens Edit History Cases - clear history after grouping  - splitting', async () => {
 
     const originDocSource = new SourceText('origin', {
-      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const targetDocSource1 = new SourceText('target', {
-      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const alignedGC = new AlignedGroupsController(appC.store)
@@ -890,11 +890,11 @@ describe('tokens-edit-history-cases.test.js', () => {
   it('16 Tokens Edit History Cases - clear history after grouping  - inserting - source', async () => {
 
     const originDocSource = new SourceText('origin', {
-      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const targetDocSource1 = new SourceText('target', {
-      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const alignedGC = new AlignedGroupsController(appC.store)
@@ -932,11 +932,11 @@ describe('tokens-edit-history-cases.test.js', () => {
   it('17 Tokens Edit History Cases - clear history after grouping  - inserting - target', async () => {
 
     const originDocSource = new SourceText('origin', {
-      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const targetDocSource1 = new SourceText('target', {
-      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const alignedGC = new AlignedGroupsController(appC.store)
@@ -974,11 +974,11 @@ describe('tokens-edit-history-cases.test.js', () => {
   it('18 Tokens Edit History Cases - clear history after grouping  - merging after undo', async () => {
 
     const originDocSource = new SourceText('origin', {
-      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const targetDocSource1 = new SourceText('target', {
-      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const alignedGC = new AlignedGroupsController(appC.store)
@@ -1022,11 +1022,11 @@ describe('tokens-edit-history-cases.test.js', () => {
   it('19 Tokens Edit History Cases - clear history after grouping  - deleting after undo', async () => {
 
     const originDocSource = new SourceText('origin', {
-      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const targetDocSource1 = new SourceText('target', {
-      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'quae sensu volvuntur vota diurno', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     const alignedGC = new AlignedGroupsController(appC.store)

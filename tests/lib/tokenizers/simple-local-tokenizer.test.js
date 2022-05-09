@@ -100,6 +100,50 @@ describe('simple-local-tokenizer.test.js', () => {
     expect(result5[0]).toEqual({ textType: 'origin', idWord: '1-0-0', word: 'some', sentenceIndex: 1 })
     expect(result5[1]).toEqual({ textType: 'origin', idWord: '1-0-1', word: 'text', sentenceIndex: 1 })
     expect(result5[2]).toEqual({ textType: 'origin', idWord: '1-0-2', word: 'good-test', afterWord: ')', beforeWord: '(', sentenceIndex: 1 })
+
+    const linesText6 = 'Вот такой - текст'
+    const result6 = SimpleLocalTokenizer.simpleWordTokenization(linesText6, '1-0', 'origin')
+    expect(result6.length).toEqual(4)
+    expect(result6[0]).toEqual({ textType: 'origin', idWord: '1-0-0', word: 'Вот', sentenceIndex: 1 })
+    expect(result6[1]).toEqual({ textType: 'origin', idWord: '1-0-1', word: 'такой', sentenceIndex: 1 })
+    expect(result6[2]).toEqual({ textType: 'origin', idWord: '1-0-2', word: '-', sentenceIndex: 1 })
+    expect(result6[3]).toEqual({ textType: 'origin', idWord: '1-0-3', word: 'текст', sentenceIndex: 1 })
+
+
+    const linesText7 = 'Đây (là văn) bản cho tôi'
+    const result7 = SimpleLocalTokenizer.simpleWordTokenization(linesText7, '1-0', 'origin')
+    expect(result7.length).toEqual(6)
+    expect(result7[0]).toEqual({ textType: 'origin', idWord: '1-0-0', word: 'Đây', sentenceIndex: 1 })
+    expect(result7[1]).toEqual({ textType: 'origin', idWord: '1-0-1', word: 'là', beforeWord: '(', sentenceIndex: 1 })
+    expect(result7[2]).toEqual({ textType: 'origin', idWord: '1-0-2', word: 'văn', afterWord: ')', sentenceIndex: 1 })
+    expect(result7[3]).toEqual({ textType: 'origin', idWord: '1-0-3', word: 'bản', sentenceIndex: 1 })
+    expect(result7[4]).toEqual({ textType: 'origin', idWord: '1-0-4', word: 'cho', sentenceIndex: 1 })
+    expect(result7[5]).toEqual({ textType: 'origin', idWord: '1-0-5', word: 'tôi', sentenceIndex: 1 })
+
+    const linesText8 = 'این متن برای من است!'
+    const result8 = SimpleLocalTokenizer.simpleWordTokenization(linesText8, '1-0', 'origin')
+    expect(result8.length).toEqual(5)
+    expect(result8[4]).toEqual({ textType: 'origin', idWord: '1-0-4', word: 'است', afterWord: '!', sentenceIndex: 1 })
+    expect(result8[3]).toEqual({ textType: 'origin', idWord: '1-0-3', word: 'من', sentenceIndex: 1 })
+    expect(result8[2]).toEqual({ textType: 'origin', idWord: '1-0-2', word: 'برای', sentenceIndex: 1 })
+    expect(result8[1]).toEqual({ textType: 'origin', idWord: '1-0-1', word: 'متن', sentenceIndex: 1 })
+    expect(result8[0]).toEqual({ textType: 'origin', idWord: '1-0-0', word: 'این', sentenceIndex: 1 })
+
+    const linesText9 = '다음은 "나를 위한"- 텍스트입니다.'
+    const result9 = SimpleLocalTokenizer.simpleWordTokenization(linesText9, '1-0', 'origin')
+    expect(result9.length).toEqual(4)
+    expect(result9[0]).toEqual({ textType: 'origin', idWord: '1-0-0', word: '다음은', sentenceIndex: 1 })
+    expect(result9[1]).toEqual({ textType: 'origin', idWord: '1-0-1', word: '나를', beforeWord: '"', sentenceIndex: 1 })
+    expect(result9[2]).toEqual({ textType: 'origin', idWord: '1-0-2', word: '위한', afterWord: '"-', sentenceIndex: 1 })
+    expect(result9[3]).toEqual({ textType: 'origin', idWord: '1-0-3', word: '텍스트입니다', afterWord: '.', sentenceIndex: 1 })
+
+    const linesText10 = 'Test text. Ok!'
+    const result10 = SimpleLocalTokenizer.simpleWordTokenization(linesText10, '1-0', 'origin')
+
+    expect(result10.length).toEqual(3)
+    expect(result10[0]).toEqual({ textType: 'origin', idWord: '1-0-0', word: 'Test', sentenceIndex: 1 })
+    expect(result10[1]).toEqual({ textType: 'origin', idWord: '1-0-1', word: 'text', afterWord: '.', sentenceIndex: 1 })
+    expect(result10[2]).toEqual({ textType: 'origin', idWord: '1-0-2', word: 'Ok', afterWord: '!', sentenceIndex: 2 })
   })
 
   it('3 SimpleLocalTokenizer - tokenize executes simpleLineTokenization then simpleWordTokenization for each line', () => {
@@ -108,7 +152,8 @@ describe('simple-local-tokenizer.test.js', () => {
       textType: 'origin',
       text: 'some (good-text) for\u000atest',
       direction: 'ltr',
-      lang: 'eng'
+      lang: 'eng',
+      tokenization: { divideToSegments: true }
     }
 
     jest.spyOn(SimpleLocalTokenizer, 'simpleLineTokenization')
@@ -128,5 +173,6 @@ describe('simple-local-tokenizer.test.js', () => {
     expect(result.segments[0].tokens[2]).toEqual({ textType: 'origin', idWord: '1-0-2', word: 'for', hasLineBreak: true, sentenceIndex: 1 })
     expect(result.segments[1].tokens[0]).toEqual({ textType: 'origin', idWord: '1-1-0', word: 'test', hasLineBreak: true, sentenceIndex: 1 })
   })
+
 })
 
