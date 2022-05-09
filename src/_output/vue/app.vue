@@ -13,8 +13,8 @@
 
         <div class="header alpheios-header">
             <div class="alpheios-header-logo">
-                <img src="https://alignment.alpheios.net/images/alpheios-logo-only.png" class="alpheios-logo-1">
-                <img src="https://alignment.alpheios.net/images/alpheios-logo-black.png" class="alpheios-logo-2">
+                <img :src="alpheiosLogoOnlyPNG" class="alpheios-logo-1">
+                <img :src="alpheiosLogoBlackPNG" class="alpheios-logo-2">
             </div>
             <div class="alpheios-header-title">
                 <h1>Alpheios Alignment Editor</h1>
@@ -76,6 +76,9 @@ import MainMenu from '@/_output/vue/main-menu.vue'
 import NavbarIcon from '@/_output/inline-icons/navbar.svg'
 import SelectViews from '@/_output/vue/select-views.vue'
 
+import alpheiosLogoOnlyPNG from '@/_output/styles/images/alpheios-logo-only.png'
+import alpheiosLogoBlackPNG from '@/_output/styles/images/alpheios-logo-black.png'
+
 export default {
   name: 'App',
   components: {
@@ -118,7 +121,10 @@ export default {
         { value: 'viewEquivalence', label: 'All equivalents'},
         { value: 'viewInterlinearly', label: 'Interlinear'},
         { value: 'viewSentence', label: 'Sentence Context'}
-      ]
+      ],
+
+      alpheiosLogoOnlyPNG: alpheiosLogoOnlyPNG,
+      alpheiosLogoBlackPNG: alpheiosLogoBlackPNG
     }
   },
   created() {

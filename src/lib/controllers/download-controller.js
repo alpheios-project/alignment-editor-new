@@ -1,11 +1,15 @@
+/* eslint-disable no-unused-vars */
+
 import DownloadFileCSV from '@/lib/download/download-file-csv.js'
 import DownloadFileJSON from '@/lib/download/download-file-json.js'
 import DownloadFileHTML from '@/lib/download/download-file-html.js'
 
-import HTMLTemplateJSON from '@/lib/download/html-template.json'
+// import HTMLTemplateJSON from '@/lib/download/html-template.json'
 
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
+
+import HtmlTempFinal from '@/_output/_dist/html-temp-final.html'
 
 export default class DownloadController {
   /**
@@ -143,20 +147,18 @@ export default class DownloadController {
   }
 
   static htmlDownloadAll (data, fileName) {
-    const htmlTemplate = HTMLTemplateJSON
-    let layout = htmlTemplate.layout
+    const params = ['theme', 'stylePath', 'jsPath', 'fullData']
+    let htmlTemplate = HtmlTempFinal
 
-    htmlTemplate.params.forEach(param => {
-      const paramValue = data[param] || htmlTemplate[param]
-
-      if (paramValue) {
-        layout = layout.replaceAll(`{{${param}}}`, paramValue)
+    params.forEach(param => {
+      if (data[param]) {
+        htmlTemplate = htmlTemplate.replaceAll(`{{${param}}}`, data[param])
       }
     })
 
     const now = NotificationSingleton.timeNow.bind(new Date())()
 
     const finalFileName = fileName || `${now}-alignment-html-output-${data.langs.join('-')}`
-    return DownloadFileHTML.download(layout, finalFileName)
+    return DownloadFileHTML.download(htmlTemplate, finalFileName)
   }
 }

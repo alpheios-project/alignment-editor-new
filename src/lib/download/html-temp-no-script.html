@@ -1,0 +1,18 @@
+<!DOCTYPE html> 
+<html class="{{theme}}"> 
+    <head> <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title>Alpheios Alignment Editor|Result</title> 
+    <link rel="icon" type="image/x-icon" href="https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/logo.ico"> 
+</head> 
+    <body class="{{theme}}"> 
+        <div class="container"> 
+            <div id="alpheios-alignment-editor-output"></div> 
+        </div> 
+        <script> 
+        document.addEventListener("DOMContentLoaded", function(event) { 
+            new window.AlignmentEditorOutput.AppController( {{fullData}}) 
+        }) 
+        </script> 
+    </body> 
+</html>
