@@ -1,10 +1,6 @@
-/* eslint-disable no-unused-vars */
-
 import DownloadFileCSV from '@/lib/download/download-file-csv.js'
 import DownloadFileJSON from '@/lib/download/download-file-json.js'
 import DownloadFileHTML from '@/lib/download/download-file-html.js'
-
-// import HTMLTemplateJSON from '@/lib/download/html-template.json'
 
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
