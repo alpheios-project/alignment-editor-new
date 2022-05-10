@@ -41,6 +41,15 @@ export default class DownloadController {
         tooltip: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_TYPE_HTML_TOOLTIP'),
         alignmentStarted: true,
         hasGroups: true
+      },
+      csvDownloadAll: {
+        method: this.csvDownloadAll,
+        allTexts: true,
+        name: 'csvDownloadAll',
+        label: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_TYPE_CSV_LABEL'),
+        tooltip: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_TYPE_CSV_TOOLTIP'),
+        alignmentStarted: true,
+        hasGroups: true
       }
     }
   }
@@ -156,5 +165,12 @@ export default class DownloadController {
 
     const finalFileName = fileName || `${now}-alignment-html-output-${data.langs.join('-')}`
     return DownloadFileHTML.download(htmlTemplate, finalFileName)
+  }
+
+  static csvDownloadAll (data, fileName) {
+    const now = NotificationSingleton.timeNow.bind(new Date())()
+    const finalFileName = fileName || `${now}-alignment-csv-output-${data.langs.join('-')}`
+
+    return DownloadFileCSV.download(data.fullData.fields, data.fullData.exportFields, finalFileName, ' || ', 'csv')
   }
 }

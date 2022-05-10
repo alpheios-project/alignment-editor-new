@@ -1564,6 +1564,81 @@ export default class Alignment {
     return JSON.stringify({ origin, targets })
   }
 
+  convertToCSV () {
+    const exportFields = ['col1', 'col2']
+
+    const fields = []
+    fields.push({ col1: this.title })
+    fields.push({ col1: this.origin.docSource.convertToFilterTitle() })
+
+    const formattedGroupData = this.prepareAlGroupsData()
+
+    this.allTargetTextsIds.slice(0, 1).forEach(targetId => {
+      fields.push({ col1: this.targets[targetId].docSource.convertToFilterTitle() })
+
+      fields.push({ col1: 'T1 Short matches:' })
+      formattedGroupData[targetId].short.forEach(groupData => {
+        fields.push({ col1: groupData.origin, col2: groupData.target })
+      })
+      fields.push({ col1: '\n' })
+
+      fields.push({ col1: 'T1 Equivalents:' })
+      Object.values(formattedGroupData[targetId].equivalents).forEach(groupData => {
+        fields.push({
+          col1: groupData.origin,
+          col2: Object.values(groupData.targetKeys).map(targetKeyData => `${targetKeyData.target}${targetKeyData.cnt > 1 ? '(' + targetKeyData.cnt + ')' : ''}`).join(' ')
+        })
+      })
+
+      fields.push({ col1: '\n' })
+
+      fields.push({ col1: 'T1 Sentences:' })
+      formattedGroupData[targetId].sentences.forEach(groupData => {
+        fields.push({ col1: groupData.origin, col2: groupData.target })
+      })
+      fields.push({ col1: '\n' })
+    })
+
+    return { exportFields, fields }
+  }
+
+  prepareAlGroupsData () {
+    const groups = {}
+
+    this.alignmentGroups.forEach(alGroup => {
+      const alGroupOrigin = alGroup.originWords.join(' ')
+      const alGroupTarget = alGroup.translationWords.length > 1 ? `{${alGroup.translationWords.join(' ')}}` : alGroup.translationWords[0]
+
+      if (!groups[alGroup.targetId]) {
+        groups[alGroup.targetId] = { short: [], equivalents: {}, sentences: [] }
+      }
+
+      // short
+      groups[alGroup.targetId].short.push({
+        origin: alGroupOrigin,
+        target: alGroupTarget
+      })
+
+      // equivalents
+      if (!groups[alGroup.targetId].equivalents[alGroupOrigin]) {
+        groups[alGroup.targetId].equivalents[alGroupOrigin] = { origin: alGroupOrigin, target: [], targetKeys: {} }
+      }
+
+      groups[alGroup.targetId].equivalents[alGroupOrigin].target.push(alGroupTarget)
+
+      if (!groups[alGroup.targetId].equivalents[alGroupOrigin].targetKeys[alGroupTarget]) {
+        groups[alGroup.targetId].equivalents[alGroupOrigin].targetKeys[alGroupTarget] = { cnt: 0, target: alGroupTarget }
+      }
+
+      groups[alGroup.targetId].equivalents[alGroupOrigin].targetKeys[alGroupTarget].cnt++
+
+      // sentences
+      const allTokensSentence = this.targets[alGroup.targetId].alignedText.getSentenceFormattedByTokenIdWord(alGroup.target, alGroup.segmentIndex)
+      groups[alGroup.targetId].sentences.push({ origin: alGroupOrigin, target: allTokensSentence.join(' ') })
+    })
+    return groups
+  }
+
   collectGroupedTranslationWordsToken (originToken, allTokenGroups) {
     const groupData = []
     allTokenGroups.forEach(tokenGroup => {

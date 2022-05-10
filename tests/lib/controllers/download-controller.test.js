@@ -35,11 +35,12 @@ describe('download-controller.test.js', () => {
   it('1 DownloadController - static downloadMethods return an object with registered workflows ', () => {
     const downloadMethods = DownloadController.downloadMethods
   
-    expect(Object.keys(downloadMethods).length).toEqual(4)
+    expect(Object.keys(downloadMethods).length).toEqual(5)
     expect(Object.keys(downloadMethods)[0]).toEqual('jsonSimpleDownloadAll')
     expect(Object.keys(downloadMethods)[1]).toEqual('plainSourceDownloadAll')
     expect(Object.keys(downloadMethods)[2]).toEqual('plainSourceDownloadSingle')
     expect(Object.keys(downloadMethods)[3]).toEqual('htmlDownloadAll')
+    expect(Object.keys(downloadMethods)[4]).toEqual('csvDownloadAll')
   })
 
   it('2 DownloadController - static download method prints error if downloadType is not registered ', () => {
