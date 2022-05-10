@@ -4,7 +4,6 @@ on:
   push: 
     branches: 
       - 'development'
-      - 'i770-create-release'
 #     branches-ignore: master
 
 jobs:
