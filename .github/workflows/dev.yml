@@ -29,6 +29,7 @@ jobs:
       run: npm install && npm update
 
     - name: build
+      id: run_build
       run: npm run github-build
 
     - name: s3
