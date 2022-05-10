@@ -343,6 +343,4 @@ export default class Segment {
   getTokenFromSentenceByIndex (sentenceIndex) {
     return this.tokens.filter(token => token.sentenceIndex === sentenceIndex).sort((a, b) => a.tokenIndex - b.tokenIndex)
   }
-
-  // getSentenceFormattedByTokenIdWord ()
 }
