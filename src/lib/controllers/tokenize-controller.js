@@ -124,16 +124,24 @@ export default class TokenizeController {
     })
 
     if (adapterTokenizerRes.errors.length > 0) {
+      const errorInst = adapterTokenizerRes.errors[0]
+      console.error(errorInst.message)
+      NotificationSingleton.addNotification({
+        text: errorInst.message,
+        type: NotificationSingleton.types.ERROR
+      })
+      /*
       adapterTokenizerRes.errors.forEach(error => {
-        console.log(error)
+        console.error(error.message)
         NotificationSingleton.addNotification({
           text: error.message,
           type: NotificationSingleton.types.ERROR
         })
       })
+      */
     }
 
-    if (adapterTokenizerRes.result.text && adapterTokenizerRes.result.tei) {
+    if (adapterTokenizerRes.result && adapterTokenizerRes.result.text && adapterTokenizerRes.result.tei) {
       await Promise.all([adapterTokenizerRes.result.text.load(), adapterTokenizerRes.result.tei.load()])
       return adapterTokenizerRes.result
     }

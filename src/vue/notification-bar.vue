@@ -148,13 +148,13 @@ export default {
             }
 
             &.alpheios-alignment-notification-bar-message___info {
-                background: #BCE5F0;
-                color: #757575;
-                border-color: #757575;
+                background: #38cef6;
+                color: #fff;
+                border-color: #38cef6;
 
                 .alpheios-alignment-notification-bar__close-btn {
-                    fill: #757575;
-                    stroke: #757575;
+                    fill: #323232;
+                    stroke: #323232;
 
                     &:hover,
                     &:focus {

@@ -5,6 +5,7 @@ import DefaultSourceTextSettings from '@/settings/default-source-text-settings.j
 
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 import StorageController from '@/lib/controllers/storage-controller'
+// import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
 import Langs from '@/lib/data/langs/langs.js'
 
@@ -43,7 +44,7 @@ export default class SettingsController {
    */
   static async init (store) {
     if (!_instance) { this.create(store) }
-    const optionsPromises = Object.values(_instance.options).map(options => options.load())
+    const optionsPromises = Object.values(_instance.options).map(options => options instanceof Options ? options.load() : options)
 
     await Promise.all(optionsPromises)
 
@@ -228,6 +229,9 @@ export default class SettingsController {
   static async uploadRemoteSettings () {
     _instance.options.tokenize = await TokenizeController.uploadOptions(_instance.storageAdapter)
 
+    const noValues = Object.values(_instance.options.tokenize).every(value => !value)
+    if (noValues) { return false }
+
     if (_instance.options.tokenize && _instance.options.tokenize.alpheiosRemoteTokenizer && _instance.options.tokenize.alpheiosRemoteTokenizer.text) {
       delete _instance.options.tokenize.alpheiosRemoteTokenizer.text.items.tbsegstart
       delete _instance.options.tokenize.alpheiosRemoteTokenizer.text.defaults.items.tbsegstart // it is deleted because treebank support would be developed later
@@ -237,6 +241,7 @@ export default class SettingsController {
       delete _instance.options.tokenize.alpheiosRemoteTokenizer.tei.defaults.items.tbsegstart // it is deleted because treebank support would be developed later
     }
     _instance.store.commit('incrementOptionsUpdated')
+    return true
   }
 
   /**
@@ -352,6 +357,32 @@ export default class SettingsController {
     Object.values(_instance.options.sourceText.items).forEach(optionItem => this.changeOption(optionItem))
 
     _instance.store.commit('incrementResetOptions')
+  }
+
+  static downgradeToOffline () {
+    try {
+      if (SettingsController.tokenizerOptionValue !== 'simpleLocalTokenizer') {
+        SettingsController.allOptions.app.items.tokenizer.setValue('simpleLocalTokenizer')
+        this.changeOption(SettingsController.allOptions.app.items.tokenizer)
+        return true
+      }
+    } catch (error) {
+      console.error(error.message)
+    }
+    return false
+  }
+
+  static upgradeToRemote () {
+    try {
+      if (SettingsController.tokenizerOptionValue !== 'alpheiosRemoteTokenizer') {
+        SettingsController.allOptions.app.items.tokenizer.setValue('alpheiosRemoteTokenizer')
+        this.changeOption(SettingsController.allOptions.app.items.tokenizer)
+        return true
+      }
+    } catch (error) {
+      console.error(error.message)
+    }
+    return false
   }
 }
 
