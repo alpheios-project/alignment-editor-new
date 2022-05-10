@@ -2,6 +2,10 @@
 @import "fonts/source-serif-pro.css";
 @import "fonts/amiri.css";
 @import "fonts/noto-sans-syriac.css";
+@import "fonts/tinos.css";
+@import "fonts/noto-serif-tc.css";
+@import "fonts/noto-serif-korean.css";
+@import "fonts/noto-serif-japan.css";
 @import "input";
 @import "select";
 @import "modal";
@@ -32,15 +36,51 @@ body, html {
     }
 }
 
-.alpheios-app-container [lang=ara] {
-  font-family: Amiri, Verdana, Arial, Helvetica, serif;
-  font-variant-ligatures: normal;
+.alpheios-app-container {
+    [lang=ara], [lang=per] {
+        font-family: Amiri, Verdana, Arial, Helvetica, serif;
+        font-variant-ligatures: normal;
+    }
 }
 .alpheios-app-container [lang=syr] {
   font-family: "Noto Sans Syriac", Verdana, Arial, Helvetica, serif;
   font-variant-ligatures: normal;
 }
 
+.alpheios-app-container {
+    [lang=rus], [lang=bel], [lang=ukr] {
+        font-family: "Times New Roman", Tinos, serif;
+        font-variant-ligatures: normal;
+    }
+}
+
+.alpheios-app-container {
+    [lang=heb] {
+        font-family: Tinos, serif;
+        font-variant-ligatures: normal;
+    }
+}
+
+.alpheios-app-container {
+    [lang=kor] {
+        font-family: "Noto Serif KR", serif;
+        font-variant-ligatures: normal;
+    }
+}
+
+.alpheios-app-container {
+    [lang=jpn] {
+        font-family: 'Noto Serif JP', serif;
+        font-variant-ligatures: normal;
+    }
+}
+
+.alpheios-app-container {
+    [lang=zho] {
+        font-family: 'Noto Serif TC', serif;
+        font-variant-ligatures: normal;
+    }
+}
   
 .alpheios-header {
     overflow: hidden;
