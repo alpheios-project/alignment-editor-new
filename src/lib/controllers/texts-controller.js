@@ -371,7 +371,8 @@ export default class TextsController {
     const downloadPrepareMethods = {
       plainSourceDownloadAll: this.downloadShortData.bind(this),
       jsonSimpleDownloadAll: this.downloadFullData.bind(this),
-      htmlDownloadAll: this.htmlDownloadAll.bind(this)
+      htmlDownloadAll: this.htmlDownloadAll.bind(this),
+      csvDownloadAll: this.csvDownloadAll.bind(this)
     }
 
     const result = await downloadPrepareMethods[downloadType](downloadType, additional)
@@ -428,6 +429,17 @@ export default class TextsController {
     }
   }
 
+  async csvDownloadAll (downloadType, additional) {
+    const fullData = await this.prepareFullDataForCSVOutput()
+    return {
+      downloadType,
+      data: {
+        langs: this.collectLangsForFileName(),
+        fullData
+      }
+    }
+  }
+
   /**
    * @returns {Array[String]} - array of lang codes
    */
@@ -448,6 +460,20 @@ export default class TextsController {
       data = alignment.convertToHTML()
     } else {
       data = this.alignment.convertToHTML()
+    }
+
+    return data
+  }
+
+  async prepareFullDataForCSVOutput () {
+    let data
+    if (StorageController.dbAdapterAvailable && !this.alignment.hasAllPartsUploaded) {
+      const dbData = await StorageController.select({ userID: this.alignment.userID, alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+      const alignment = await Alignment.convertFromIndexedDB(dbData)
+
+      data = alignment.convertToCSV()
+    } else {
+      data = this.alignment.convertToCSV()
     }
 
     return data

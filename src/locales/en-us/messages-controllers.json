@@ -124,6 +124,16 @@
         "description": "Download type tooltip",
         "component": "DownloadController"
     },
+    "DOWNLOAD_CONTROLLER_TYPE_CSV_LABEL": {
+        "message": "Csv",
+        "description": "Download type label",
+        "component": "DownloadController"
+    },
+    "DOWNLOAD_CONTROLLER_TYPE_CSV_TOOLTIP": {
+        "message": "download csv with alignment groups created",
+        "description": "Download type tooltip",
+        "component": "DownloadController"
+    },
     "APP_CONTROLLER_DOWNGRADE_TO_OFFLINE": {
         "message": "Remote tokenizer is not available - Simple Local Tokenizer will be used instead",
         "description": "Notification info",

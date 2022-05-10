@@ -63,6 +63,10 @@ export default class AlignmentGroup {
     return this.target.map(idWord => this.words[idWord])
   }
 
+  get originWords () {
+    return this.origin.map(idWord => this.words[idWord])
+  }
+
   translationWordForToken (originTokenIdWord) {
     const translationWordsCnt = this.target.length
 

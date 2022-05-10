@@ -339,4 +339,8 @@ export default class Segment {
     return this.allPartNums.length === this.currentPartNums.length &&
            this.allPartNums.every(partData => this.currentPartNums.includes(partData.partNum))
   }
+
+  getTokenFromSentenceByIndex (sentenceIndex) {
+    return this.tokens.filter(token => token.sentenceIndex === sentenceIndex).sort((a, b) => a.tokenIndex - b.tokenIndex)
+  }
 }

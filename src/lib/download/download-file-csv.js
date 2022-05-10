@@ -1,15 +1,18 @@
 const idForButton = 'alpheios-alignment-editor-app-container'
 
 export default class DownloadFileCSV {
-  static collectionToCSV (delimiter, keys = [], withHeaders = true) {
-    return (collection = []) => {
-      const headers = withHeaders ? keys.map(key => `${key}`).join(delimiter) : []
-      const extractKeyValues = record => keys.map(key => record[key] ? `${record[key]}` : '').join(delimiter)
+  static collectionToCSVN (fields, delimiter, keys = [], withHeaders = true) {
+    let collection = withHeaders ? keys.map(key => `${key}`).join(delimiter) : ''
 
-      return collection.reduce((csv, record) => {
-        return (`${csv}\n${extractKeyValues(record)}`).trim()
-      }, headers)
-    }
+    fields.forEach(fieldData => {
+      const line = keys.filter(key => fieldData[key]).map(key => {
+        return fieldData[key] ? '\u202A////\u202C' + fieldData[key] + '\u202A////\u202C' : '' // it is for concatenating ltr/rtl
+      }).join(delimiter)
+
+      collection = `${collection}\n${line.replaceAll('////', '')}`
+    })
+
+    return collection
   }
 
   static downloadBlob (data, filename) {
@@ -26,7 +29,8 @@ export default class DownloadFileCSV {
   }
 
   static download (fields, exportFields, fileName, delimiter = '\t', fileExtension = 'tsv', withHeaders = false) {
-    const result = this.collectionToCSV(delimiter, exportFields, withHeaders)(fields)
+    const result = this.collectionToCSVN(fields, delimiter, exportFields, withHeaders)
+
     return this.downloadBlob(result, `${fileName}.${fileExtension}`)
   }
 }
