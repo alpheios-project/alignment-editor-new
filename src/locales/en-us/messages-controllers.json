@@ -123,5 +123,15 @@
         "message": "download html with alignment result",
         "description": "Download type tooltip",
         "component": "DownloadController"
+    },
+    "APP_CONTROLLER_DOWNGRADE_TO_OFFLINE": {
+        "message": "Remote tokenizer is not available - Simple Local Tokenizer will be used instead",
+        "description": "Notification info",
+        "component": "AppController"
+    },
+    "APP_CONTROLLER_UPGRADE_TO_REMOTE": {
+        "message": "Remote tokenizer is available - let's turn on its support",
+        "description": "Notification info",
+        "component": "AppController"
     }
 }

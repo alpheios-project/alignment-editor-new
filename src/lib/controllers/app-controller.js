@@ -127,7 +127,26 @@ export default class AppController {
   async defineSettingsController () {
     await SettingsController.init(this.store)
 
-    SettingsController.uploadRemoteSettings()
+    const uploaded = await SettingsController.uploadRemoteSettings()
+    if (!uploaded) {
+      const result = SettingsController.downgradeToOffline()
+
+      if (result) {
+        NotificationSingleton.addNotification({
+          text: L10nSingleton.getMsgS('APP_CONTROLLER_DOWNGRADE_TO_OFFLINE'),
+          type: NotificationSingleton.types.INFO
+        })
+      }
+    } else {
+      const result = SettingsController.upgradeToRemote()
+
+      if (result) {
+        NotificationSingleton.addNotification({
+          text: L10nSingleton.getMsgS('APP_CONTROLLER_UPGRADE_TO_REMOTE'),
+          type: NotificationSingleton.types.INFO
+        })
+      }
+    }
   }
 
   /**
