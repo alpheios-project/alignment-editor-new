@@ -3,7 +3,7 @@ name: Build Dev
 on:
   push: 
     branches: 
-      - 'development',
+      - 'development'
       - 'i770-create-release'
 #     branches-ignore: master
 
