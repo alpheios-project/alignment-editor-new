@@ -23,8 +23,8 @@
     "github-build": "node --experimental-modules --experimental-json-modules ./github-build.mjs",
     "dev": "npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build",
     "dist": "npm run dist-copy && npm run dist-zip && npm run dist-clean",
-    "dist-copy": "node --experimental-modules ./node_modules/alpheios-node-build/dist/files.mjs copy --s=/public/dist/main --t=dist-temp  --clean",
-    "dist-zip": "node --experimental-modules ./node_modules/alpheios-node-build/dist/zip.mjs --s=/dist-temp --t=dist-zip --f=dist.zip",
+    "dist-copy": "node --experimental-modules ./node_modules/alpheios-node-build/dist/files.mjs copy --s=/public --t=dist-temp  --clean",
+    "dist-zip": "node --experimental-modules ./node_modules/alpheios-node-build/dist/zip.mjs --s=/dist-temp --t=dist-zip --f=alpheios-alignment-editor.zip",
     "dist-clean": "node --experimental-modules ./node_modules/alpheios-node-build/dist/files.mjs clean --t=dist-temp"
   },
   "repository": {
