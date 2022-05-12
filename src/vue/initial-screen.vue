@@ -57,9 +57,7 @@
             
         </div>
 
-        <div class="alpheios-alignment-editor-initial-screen__video" v-show="showVideo">
-            <!-- <video-embed css="embed-responsive-21by9" src="https://youtu.be/WaLMw7XYhtc"></video-embed> -->
-        </div>
+        <router-links />
       </div>
   </div>
 </template>
@@ -69,6 +67,7 @@ import Embed from "v-video-embed"
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 import AlignmentsList from '@/vue/alignments-list.vue'
+import RouterLinks from '@/vue/pages/router-links.vue'
 
 // global register
 Vue.use(Embed)
@@ -76,7 +75,8 @@ Vue.use(Embed)
 export default {
   name: 'InitialScreen',
   components: {
-    alignmentsList: AlignmentsList
+    alignmentsList: AlignmentsList,
+    routerLinks: RouterLinks
   },
   data () {
     return {
@@ -161,6 +161,7 @@ export default {
     background-size: 20% auto;
     // overflow: hidden;
     min-height: 100vh;
+    background-color: #bce5f0;
 }
 
 .alpheios-alignment-editor-initial-screen__heading {
@@ -188,8 +189,8 @@ export default {
 
 .alpheios-header-logo {
     text-align: center;
-    padding-top: 80px;
-    height: 60px;
+    padding-top: 20px;
+    height: auto;
 
     .alpheios-logo {
         display: inline-block;
@@ -200,7 +201,7 @@ export default {
 .alpheios-alignment-editor-initial-screen__buttons {
 
     width: 1000px;
-    margin: 0 auto 50px;
+    margin: 0 auto;
     text-align: center;
 
     .alpheios-alignment-editor-initial-screen__button {
@@ -248,3 +249,4 @@ export default {
 
 
 </style>
+
