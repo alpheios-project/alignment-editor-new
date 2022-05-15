@@ -2,11 +2,11 @@
     <div class="alpheios-alignment-editor-initial-screen__additional-container" >
         <div class="alpheios-alignment-editor-initial-screen__additional" >
             <div class="alpheios-alignment-editor-router-link">
-                <router-link to="/quick-start">
-                <span class="alpheios-alignment-router-link-icon">
-                    <quick-start-icon />
-                </span>
-                <p class="alpheios-alignment-router-link-title">Quick Start</p>
+                <router-link to="/video-tutorials">
+                    <span class="alpheios-alignment-router-link-icon">
+                        <video-tutorials-icon />
+                    </span>
+                    <p class="alpheios-alignment-router-link-title"> Quick Start Video</p>
                 </router-link>
             </div>
             <div class="alpheios-alignment-editor-router-link">
@@ -14,15 +14,15 @@
                 <span class="alpheios-alignment-router-link-icon">
                     <whats-new-icon />
                 </span>
-                <p class="alpheios-alignment-router-link-title">What's new</p>
+                <p class="alpheios-alignment-router-link-title">What you can make with this</p>
                 </router-link>
             </div>
             <div class="alpheios-alignment-editor-router-link">
-                <router-link to="/video-tutorials">
-                    <span class="alpheios-alignment-router-link-icon">
-                        <video-tutorials-icon />
-                    </span>
-                    <p class="alpheios-alignment-router-link-title">Video Tutorials</p>
+                <router-link to="/quick-start">
+                <span class="alpheios-alignment-router-link-icon">
+                    <quick-start-icon />
+                </span>
+                <p class="alpheios-alignment-router-link-title">Quick Start Text</p>
                 </router-link>
             </div>
         </div>
@@ -64,7 +64,8 @@ export default {
         display: inline-block;
         padding: 0 40px;
         text-align: center;
-        width: 33%;
+        width: 32%;
+        vertical-align: top;
         a {
             text-decoration: none;
         }
@@ -111,5 +112,28 @@ export default {
             }
         }
     }
+}
+
+.alpheios-alignment-separate-page {
+  .alpheios-alignment-editor__intro {
+    background-repeat: repeat-y;
+    background-position: 98% 20%;
+    background-size: 20% auto;
+    // overflow: hidden;
+    min-height: 100vh;
+    background-color: #fff;
+  }
+  .alpheios-header-logo {
+      padding-top: 10px;
+      text-align: center;
+  }
+
+  .alpheios-alignment-editor__page-title {
+    font-family: "Source Serif Pro",serif;
+    font-size: 50px;
+    text-align: center;
+    margin: 0;
+    padding: 50px 0;
+  }
 }
 </style>

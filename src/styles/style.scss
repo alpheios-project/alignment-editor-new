@@ -68,7 +68,10 @@
     }
 }
 
-body.alpheios-initial-page {
+body.alpheios-initial-page,
+body.alpheios-quick-start-page,
+body.alpheios-whats-new-page,
+body.alpheios-video-tutorials-page {
     .header.alpheios-header {
         display: none;
     }

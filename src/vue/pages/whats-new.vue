@@ -16,6 +16,7 @@
   </div>
 </template>
 <script>
+import DocumentUtility from '@/lib/utility/document-utility.js'
 
 export default {
   name: 'WhatsNew',
@@ -24,6 +25,10 @@ export default {
   data () {
     return {
     }
+  },
+  beforeRouteEnter(to, from, next) {  
+    DocumentUtility.setPageClassToBody('whats-new')
+    next()
   },
   computed: {
   },
