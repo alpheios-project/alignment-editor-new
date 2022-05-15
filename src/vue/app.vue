@@ -65,6 +65,7 @@ import OptionsBlock from '@/vue/options/options-block.vue'
 import NavbarIcon from '@/inline-icons/navbar.svg'
 
 import SettingsController from '@/lib/controllers/settings-controller.js'
+import DocumentUtility from '@/lib/utility/document-utility.js'
 
 export default {
   name: 'App',
@@ -89,8 +90,6 @@ export default {
       showSourceTextEditorBlock: false,
       showAlignmentGroupsEditorBlock: false,
       showTokensEditorBlock: false,
-
-      pageClasses: [ 'initial-page', 'options-page', 'text-editor-page', 'align-editor-page', 'tokens-editor-page' ],
       menuShow: 1,
       renderTokensEditor: 1,
       updateCurrentPage: 'initial-screen',
@@ -257,8 +256,8 @@ export default {
       this.showTokensEditorBlock = false
       this.showInitialScreenBlock = false
 
-      this.setPageClassToBody('options-page')
-      this.updateCurrentPage = 'options-page'
+      DocumentUtility.setPageClassToBody('options')
+      this.updateCurrentPage = 'options'
     },
 
     showSourceTextEditor () {
@@ -268,8 +267,8 @@ export default {
       this.showTokensEditorBlock = false
       this.showInitialScreenBlock = false
 
-      this.setPageClassToBody('text-editor-page')
-      this.updateCurrentPage = 'text-editor-page'
+      DocumentUtility.setPageClassToBody('text-editor')
+      this.updateCurrentPage = 'text-editor'
     },
 
     showAlignmentGroupsEditor () {
@@ -279,8 +278,8 @@ export default {
       this.showTokensEditorBlock = false
       this.showInitialScreenBlock = false
 
-      this.setPageClassToBody('align-editor-page')
-      this.updateCurrentPage = 'align-editor-page'
+      DocumentUtility.setPageClassToBody('align-editor')
+      this.updateCurrentPage = 'align-editor'
     },
 
     showTokensEditor () {
@@ -290,8 +289,8 @@ export default {
       this.showTokensEditorBlock = true
       this.showInitialScreenBlock = false
 
-      this.setPageClassToBody('tokens-editor-page')
-      this.updateCurrentPage = 'tokens-editor-page'
+      DocumentUtility.setPageClassToBody('tokens-editor')
+      this.updateCurrentPage = 'tokens-editor'
 
       this.renderTokensEditor++
     },
@@ -303,17 +302,10 @@ export default {
       this.showTokensEditorBlock = false
       this.showInitialScreenBlock = true
 
-      this.setPageClassToBody('initial-page')
-      this.updateCurrentPage = 'initial-page'
+      DocumentUtility.setPageClassToBody('initial')
+      this.updateCurrentPage = 'initial'
     },
 
-    setPageClassToBody (currentPageClass) {
-      this.pageClasses.forEach(pageClass => {
-        document.body.classList.remove(`alpheios-${pageClass}`)
-      })
-
-      document.body.classList.add(`alpheios-${currentPageClass}`)
-    },
     /**
      * Clear and start alignment over
      */
