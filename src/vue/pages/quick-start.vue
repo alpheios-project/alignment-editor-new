@@ -1,6 +1,6 @@
 <template>
   <div class="alpheios-alignment-separate-page alpheios-alignment-quick-start" id="alpheios-quick-start" >
-      <div class="alpheios-alignment-editor__intro" style="background-image: url('images/books.svg')">
+      <div class="alpheios-alignment-editor__intro">
         <div class="alpheios-alignment-editor__page-container">
           <div class="alpheios-alignment-editor__page-header">
             <div class="alpheios-alignment-editor__page-header-title">
