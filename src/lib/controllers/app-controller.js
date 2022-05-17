@@ -1,12 +1,6 @@
-import MainScreen from '@/vue/main-screen.vue'
 import App from '@/vue/app.vue'
-import QuickStart from '@/vue/pages/quick-start.vue'
-import VideoTutorials from '@/vue/pages/video-tutorials.vue'
-import WhatsNew from '@/vue/pages/whats-new.vue'
 
 import Vue from '@vue-runtime'
-import VueRouter from 'vue-router'
-
 import Vuex from 'vuex'
 
 import TextsController from '@/lib/controllers/texts-controller.js'
@@ -54,7 +48,6 @@ export default class AppController {
       this.defineColorTheme({ theme: SettingsController.themeOptionValue, themesList: [] })
     }
     if (this.pageSettings && this.pageSettings.appId) {
-      this.attachRoutes()
       this.attachVueComponents()
     }
 
@@ -87,19 +80,6 @@ export default class AppController {
     }
   }
 
-  attachRoutes () {
-    Vue.use(VueRouter)
-
-    this.router = new VueRouter({
-      routes: [
-        { path: '/', component: App },
-        { path: '/quick-start', component: QuickStart },
-        { path: '/whats-new', component: WhatsNew },
-        { path: '/video-tutorials', component: VideoTutorials }
-      ]
-    })
-  }
-
   /**
    * Creates and attaches App Vue component, defines additional controllers
    */
@@ -117,7 +97,7 @@ export default class AppController {
     const appContainer = document.createElement('div')
 
     const appContainerEl = mountEl.appendChild(appContainer)
-    const AppComponent = Vue.extend(MainScreen)
+    const AppComponent = Vue.extend(App)
 
     this._viAppComp = new AppComponent({
       parent: rootVi,

@@ -57,26 +57,21 @@
             
         </div>
 
-        <router-links />
+        <page-links />
       </div>
   </div>
 </template>
 <script>
-import Vue from "vue"
-import Embed from "v-video-embed"
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 import AlignmentsList from '@/vue/alignments-list.vue'
-import RouterLinks from '@/vue/pages/router-links.vue'
-
-// global register
-Vue.use(Embed)
+import PageLinks from '@/vue/page-links.vue'
 
 export default {
   name: 'InitialScreen',
   components: {
     alignmentsList: AlignmentsList,
-    routerLinks: RouterLinks
+    pageLinks: PageLinks
   },
   data () {
     return {
