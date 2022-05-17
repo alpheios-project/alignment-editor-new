@@ -6,9 +6,10 @@
   "main": "src/index.js",
   "scripts": {
     "set-node-build-deps": "npx install-peerdeps@v2.0.2 alpheios-node-build --dev --only-peers",
-    "build": "npm run build-output && npm run build-regular",
+    "build": "npm run build-output && npm run build-regular && npm run build-pages",
     "build-output": "npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m all -M all -p vue -c config-output.mjs",
     "build-regular": "npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m all -M all -p vue -c config.mjs",
+    "build-pages": "npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m all -M all -p vue -c config-pages.mjs",
     "lint": "eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js",
     "test": "jest tests --coverage",
     "test-lib": "jest tests/lib --coverage",
