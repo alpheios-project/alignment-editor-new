@@ -58,7 +58,12 @@ export default {
 .alpheios-alignment-editor-initial-screen__additional {
     margin: 100px auto;
     text-align: center;
-    width: 800px;
+    max-width: 800px;
+    width: 90%;
+
+    @media screen and (max-width: 500px) {
+        margin: 20px auto;
+    }
 
     .alpheios-alignment-editor-router-link {
         display: inline-block;
@@ -69,6 +74,12 @@ export default {
         a {
             text-decoration: none;
             display: inline-block;
+        }
+
+        @media screen and (max-width: 500px) {
+          width: 100%;
+          padding: 20px 40px;
+          display: block;
         }
     }
 

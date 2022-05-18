@@ -193,6 +193,14 @@ export default {
       margin-left: 80px;
       color: #90a959;
     }
+
+    @media screen and (max-width: 500px) {
+      padding: 20px 0;
+      h2 {
+        font-size: 150%;
+        margin-left: 0;
+      }
+    }
   }
 
   .alpheios-alignment-editor__content-slider {
@@ -239,6 +247,10 @@ export default {
         margin: 0 0 40px;
         font-size: 200%;
         text-align: center;
+        @media screen and (max-width: 500px) {
+          font-size: 110%;
+          margin: 0 0 20px;
+        }
       }
 
       p {

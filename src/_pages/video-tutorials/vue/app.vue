@@ -3,16 +3,16 @@
       <div class="alpheios-alignment-editor__intro">
         <div class="alpheios-alignment-editor__page-container">
           <div class="alpheios-alignment-editor__page-header">
+            <div class="alpheios-header-logo">
+              <a href="/">
+                <img src="images/alpheios-logo-black-2.png" class="alpheios-logo">
+              </a>
+            </div>
             <div class="alpheios-alignment-editor__page-header-title">
               <span class="alpheios-alignment-editor-big-icon">
                 <videos-icon />
               </span>
               <h2 class="alpheios-alignment-editor__page-title">Quick Start Videos</h2>
-            </div>
-            <div class="alpheios-header-logo">
-              <a href="/">
-                <img src="images/alpheios-logo-black-2.png" class="alpheios-logo">
-              </a>
             </div>
           </div><!-- alpheios-alignment-editor__page-header -->
 
@@ -63,15 +63,22 @@ export default {
 
   .alpheios-alignment-editor__page-header {
     background: #f1fafc;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
+    padding: 0 20px;
+
+    @media screen and (max-width: 500px) {
+      display: block;
+    }
 
     .alpheios-alignment-editor-big-icon {
       display: inline-block;
       width: 170px;
       height: 170px;
       vertical-align: middle;
+
+      @media screen and (max-width: 500px) {
+        width: 100px;
+        height: 100px;
+      }
 
       svg {
         display: block;
@@ -87,6 +94,14 @@ export default {
       text-align: right;
       vertical-align: middle;
       line-height: 1;
+      margin: 0;
+
+      @media screen and (max-width: 500px) {
+        padding: 10px 0 10px 10px;
+        font-size: 26px;
+        width: calc(100% - 120px);
+        text-align: left;
+      }
     }
   }
   .alpheios-alignment-editor__page-container {
@@ -109,12 +124,14 @@ export default {
 
   .alpheios-alignment-editor__page-content {
     text-align: center;
+    padding: 20px;
 
     .alpheios-alignment-editor__page-content-item {
       display: inline-block;
       vertical-align: top;
-      width: 500px;
-      padding: 20px;
+      max-width: 500px;
+      width: 100%;
+      margin-bottom: 20px;
     }    
   } 
 }

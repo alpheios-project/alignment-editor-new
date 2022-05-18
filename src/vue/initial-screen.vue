@@ -169,18 +169,13 @@ export default {
     text-shadow: 2px 2px 3px rgb(0 0 0 / 60%);
     font-family: "Source Serif Pro", serif;
     text-align: center;
-}
 
-.alpheios-alignment-editor-initial-screen__video {
-
-    text-align: center;
-    iframe {
-        margin: 0;
-        border: 0; 
-        width: 800px;
-        height: 500px;
+    @media screen and (max-width: 500px) {
+      font-size: 32px;
+      display: block;
     }
 }
+
 
 .alpheios-header-logo {
     text-align: center;
@@ -195,7 +190,8 @@ export default {
 
 .alpheios-alignment-editor-initial-screen__buttons {
 
-    width: 1000px;
+    max-width: 1000px;
+    width: 90%;
     margin: 0 auto;
     text-align: center;
 
@@ -203,7 +199,11 @@ export default {
         width: 49%;
         display: inline-block;
         vertical-align: top;
-        
+     
+        @media screen and (max-width: 500px) {
+          margin-bottom: 20px;
+          width: 100%;
+        }
 
         .alpheios-actions-menu-main-button {
             font-weight: normal;
