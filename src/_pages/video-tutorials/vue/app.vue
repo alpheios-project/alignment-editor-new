@@ -7,7 +7,7 @@
               <span class="alpheios-alignment-editor-big-icon">
                 <videos-icon />
               </span>
-              <h2 class="alpheios-alignment-editor__page-title"> Video Tutorials </h2>
+              <h2 class="alpheios-alignment-editor__page-title">Quick Start Videos</h2>
             </div>
             <div class="alpheios-header-logo">
               <a href="/">
@@ -17,7 +17,13 @@
           </div><!-- alpheios-alignment-editor__page-header -->
 
           <div class="alpheios-alignment-editor__page-content">
-  
+            <div class="alpheios-alignment-editor__page-content-item">
+              <lazy-youtube src="https://www.youtube.com/watch?v=WaLMw7XYhtc" />
+            </div>
+
+            <div class="alpheios-alignment-editor__page-content-item">
+              <lazy-youtube src="https://youtu.be/0DOEFG-aj04" />
+            </div>
           </div><!-- alpheios-alignment-editor__page-content -->
         </div><!-- alpheios-alignment-editor__page-container -->
       </div>
@@ -25,15 +31,20 @@
 </template>
 <script>
 import VideosIcon from '@/inline-icons/pages/videos.svg'
+import { LazyYoutube } from "vue-lazytube";
 
 export default {
   name: 'VideoTutorials',
   components: {
-    videosIcon: VideosIcon
+    videosIcon: VideosIcon,
+    lazyYoutube: LazyYoutube
   },
   data () {
     return {
     }
+  },
+  mounted () {
+    console.info(' this', this)
   },
   computed: {
   },
@@ -71,7 +82,7 @@ export default {
 
     .alpheios-alignment-editor__page-title {
       display: inline-block;
-      font-size: 70px;
+      font-size: 50px;
       padding: 50px 0 0 30px;
       text-align: right;
       vertical-align: middle;
@@ -97,9 +108,15 @@ export default {
   }
 
   .alpheios-alignment-editor__page-content {
+    text-align: center;
 
-    
-  }
+    .alpheios-alignment-editor__page-content-item {
+      display: inline-block;
+      vertical-align: top;
+      width: 500px;
+      padding: 20px;
+    }    
+  } 
 }
 
 
