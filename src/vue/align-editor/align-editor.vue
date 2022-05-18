@@ -57,8 +57,6 @@
   </div>
 </template>
 <script>
-import Vue from '@vue-runtime'
-
 import AlignEditorViewMode from '@/vue/align-editor/align-editor-view-mode.vue'
 
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'

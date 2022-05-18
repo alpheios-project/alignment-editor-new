@@ -66,6 +66,7 @@
 </template>
 <script>
 import TextEditorSingleBlock from '@/vue/text-editor/text-editor-single-block.vue'
+
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import Tooltip from '@/vue/common/tooltip.vue'
 import HelpPopup from '@/vue/common/help-popup.vue'
@@ -99,17 +100,8 @@ export default {
       showModalOptions: false,
     }
   },
-  watch: {
+  async mounted () {
   },
-  /**
-   * I placed an empty alignment here for now, because it is the first point where it should be existed.
-   * Later when we define workflow for creation alignment depending on user authentication,
-   * it could be moved out here
-   */
-  created () {
-
-  },
-
   computed: {
     originId () {
       return this.$store.state.docSourceUpdated && this.$textC.originDocSource ? this.$textC.originDocSource.id : null
