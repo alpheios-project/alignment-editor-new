@@ -6,10 +6,10 @@
   "main": "src/index.js",
   "scripts": {
     "set-node-build-deps": "npx install-peerdeps@v2.0.2 alpheios-node-build --dev --only-peers",
-    "build": "npm run build-output && npm run build-regular && npm run build-pages",
-    "build-output": "npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m all -M all -p vue -c config-output.mjs",
-    "build-regular": "npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m all -M all -p vue -c config.mjs",
-    "build-pages": "npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m all -M all -p vue -c config-pages.mjs",
+    "build": "npm run lint && npm run build-output && npm run build-regular && npm run build-pages",
+    "build-output": "node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m all -M all -p vue -c config-output.mjs",
+    "build-regular": "node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m all -M all -p vue -c config.mjs",
+    "build-pages": "node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m all -M all -p vue -c config-pages.mjs",
     "lint": "eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js",
     "test": "jest tests --coverage",
     "test-lib": "jest tests/lib --coverage",
@@ -39,6 +39,7 @@
     "@babel/core": "^7.17.10",
     "@babel/eslint-parser": "^7.17.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.17.3",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/plugin-transform-modules-commonjs": "^7.17.9",
     "@babel/plugin-transform-runtime": "^7.17.10",
     "@babel/preset-env": "^7.17.10",
@@ -53,6 +54,7 @@
     "archiver": "^5.3.1",
     "autoprefixer": "^10.4.5",
     "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^10.1.0",
     "babel-jest": "^26.6.3",
     "babel-plugin-module-resolver": "^4.1.0",
     "bytes": "^3.1.0",
@@ -166,7 +168,6 @@
   "eslintConfig": {
     "extends": [
       "eslint:recommended",
-      "plugin:jsdoc/recommended",
       "plugin:vue/essential"
     ],
     "env": {
@@ -176,7 +177,7 @@
     },
     "parserOptions": {
       "parser": "@babel/eslint-parser",
-      "ecmaVersion": 2019,
+      "ecmaVersion": 2020,
       "sourceType": "module",
       "allowImportExportEverywhere": true
     },
