@@ -66,6 +66,7 @@
 </template>
 <script>
 import TextEditorSingleBlock from '@/vue/text-editor/text-editor-single-block.vue'
+
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import Tooltip from '@/vue/common/tooltip.vue'
 import HelpPopup from '@/vue/common/help-popup.vue'

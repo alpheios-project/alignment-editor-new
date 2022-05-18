@@ -33,6 +33,15 @@ const webpack = {
         {
           test: /\.html$/i,
           loader: 'html-loader',
+        },
+        {
+          test: /\.(jpg|png)$/,
+          use: [{
+            loader: 'url-loader',
+            options: {
+              limit: 1500
+            }
+          }]
         }
       ]
     }
