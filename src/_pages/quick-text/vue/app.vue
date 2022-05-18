@@ -144,7 +144,6 @@
   </div>
 </template>
 <script>
-import DocumentUtility from '@/lib/utility/document-utility.js'
 import BooksIcon from '@/inline-icons/pages/books.svg'
 import newAlignmentTitlePNG from '@/_images/new-alignment-title.png'
 import enterTextScreenPNG from '@/_images/enter-text-screen.png'
@@ -167,10 +166,6 @@ export default {
       newAnnotationPNG: newAnnotationPNG,
       savingPNG: savingPNG
     }
-  },
-  beforeRouteEnter(to, from, next) {  
-   DocumentUtility.setPageClassToBody('quick-start')
-    next()
   },
   computed: {
   },

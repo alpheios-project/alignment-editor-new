@@ -124,6 +124,7 @@
     "vue-svg-loader": "^0.16.0",
     "vue-template-compiler": "^2.6.14",
     "vue-template-loader": "^1.1.0",
+    "vue-youtube-embed": "^2.2.2",
     "vuedraggable": "^2.24.3",
     "webpack": "^5.72.0",
     "webpack-bundle-analyzer": "^4.5.0",
