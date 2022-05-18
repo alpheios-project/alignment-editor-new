@@ -1,7 +1,6 @@
 import { VueLoaderPlugin } from 'vue-loader'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import Dotenv from 'dotenv-webpack'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
 
 import path from 'path'
 const projectRoot = process.cwd()
@@ -27,8 +26,7 @@ const webpack = {
     },
     plugins: [
       new VueLoaderPlugin(),
-      new Dotenv(),
-      new HtmlWebpackPlugin()
+      new Dotenv()
     ],
     module: {
       rules: [
