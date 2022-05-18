@@ -42,8 +42,6 @@
   </div>
 </template>
 <script>
-import Vue from '@vue-runtime'
-
 import TokensEditInnerBlock from '@/vue/tokens-editor/tokens-editor-inner-block.vue'
 
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'

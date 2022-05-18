@@ -5,7 +5,10 @@ import DownloadFileHTML from '@/lib/download/download-file-html.js'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
-import HtmlTempFinal from '@/_output/_dist/html-temp-final.html'
+const HtmlTempFinal = () => import(
+  /* webpackChunkName: "html" */
+  /* webpackMode: "lazy" */
+  '@/lib/download/html-temp-js')
 
 export default class DownloadController {
   /**
@@ -151,9 +154,10 @@ export default class DownloadController {
     return DownloadFileJSON.download(data, finalFileName)
   }
 
-  static htmlDownloadAll (data, fileName) {
+  static async htmlDownloadAll (data, fileName) {
     const params = ['theme', 'stylePath', 'jsPath', 'fullData']
-    let htmlTemplate = HtmlTempFinal
+    const htmlTemplateClass = await HtmlTempFinal()
+    let htmlTemplate = htmlTemplateClass.default.template
 
     params.forEach(param => {
       if (data[param]) {
