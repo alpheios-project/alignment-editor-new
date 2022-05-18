@@ -131,7 +131,7 @@ export default {
       vertical-align: top;
       max-width: 500px;
       width: 100%;
-      margin-bottom: 20px;
+      margin: 10px;
     }    
   } 
 }
