@@ -105,8 +105,6 @@
     </div>
 </template>
 <script>
-import DocumentUtility from '@/lib/utility/document-utility.js'
-
 import slide2ColumnsPNG from '@/_images/slider2/slide-2-columns.png'
 import slide3ColumnsPNG from '@/_images/slider2/slide-3-columns.png'
 import slideShortPNG from '@/_images/slider2/slide-short.png'
@@ -139,10 +137,6 @@ export default {
         { src: slideSentencePNG }
       ]
     }
-  },
-  beforeRouteEnter(to, from, next) {  
-    DocumentUtility.setPageClassToBody('whats-new')
-    next()
   },
   computed: {
   },

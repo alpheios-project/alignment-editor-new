@@ -8,7 +8,8 @@ const webpack = {
   common: {
     entry: {
       ['whats-new']: './_pages/whats-new/index.js',
-      ['quick-text']: './_pages/quick-text/index.js'
+      ['quick-text']: './_pages/quick-text/index.js',
+      ['video-tutorials']: './_pages/video-tutorials/index.js'
     },
     output: {
       library: 'AlignmentEditorPages',
