@@ -15,15 +15,17 @@
           <div class="alpheios-alignment-editor__content-part alpheios-alignment-editor__content-part-1">
             <div class="alpheios-alignment-editor__page-container">
               <p>The Alpheios Alignment Editor lets you create pages like this</p>
-              <div class="alpheios-alignment-editor__content-slider">
-                <vue-agile ref = "main" :autoplay="true" :dots="false" :fade="true" :navButtons="false" 
-                           :autoplay-speed="4000" :speed="2500" :pause-on-hover="true"
-                >
-                  <div class="alpheios-alignment-editor__content-slide" v-for = "(slideData, slideIndex) in slidesList" :key = "slideIndex">
-                      <img :src="slideData.src">
-                  </div>
-                  
-                </vue-agile>
+              <div class="alpheios-alignment-editor__content-slider-container">
+                <div class="alpheios-alignment-editor__content-slider">
+                  <vue-agile ref = "main" :autoplay="true" :dots="false" :fade="true" :navButtons="false" 
+                            :autoplay-speed="4000" :speed="2500" :pause-on-hover="true"
+                  >
+                    <div class="alpheios-alignment-editor__content-slide" v-for = "(slideData, slideIndex) in slidesList" :key = "slideIndex">
+                        <img :src="slideData.src">
+                    </div>
+                    
+                  </vue-agile>
+                </div>
               </div>
               <p>where the words and phrases of some text and aligned with those of one or more translations.</p>
             </div>
@@ -215,6 +217,9 @@ export default {
     }
   }
 
+  .alpheios-alignment-editor__content-slider-container {
+    padding: 20px;
+  }
   .alpheios-alignment-editor__content-slider {
     // padding: 20px;
     background: #ffffff;
@@ -270,13 +275,13 @@ export default {
         &.alpheios-alignment-editor__p-with-check-mark {
           background-position: 0 50%;
           background-size: 30px auto;
-          padding: 0 50px;
+          padding: 0 0 0 50px;
           background-repeat: no-repeat;
         }
         &.alpheios-alignment-editor__p-with-check-mark-sub {
           background-position: 0 50%;
           background-size: 30px auto;
-          padding: 0 50px;
+          padding: 0 0 0 50px;
           background-repeat: no-repeat;
           margin-left: 50px;
         }
