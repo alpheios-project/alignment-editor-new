@@ -14,7 +14,7 @@
           </tooltip>
         </span>
       </p>
-      <div v-show="showTypeUploadButtons" >
+      <div class="alpheios-alignment-editor-text-blocks-single__first-line" v-show="showTypeUploadButtons" >
         <span class="alpheios-alignment-editor-text-blocks-single__type-label">{{ l10n.getMsgS('TEXT_SINGLE_TYPE_LABEL') }}</span>
         <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  id="alpheios-actions-menu-button__uploadtext"
             @click="selectUploadText" v-show="enableDTSAPIUploadValue">
@@ -70,12 +70,10 @@
 
 
       <div class="alpheios-alignment-editor-text-blocks-single__describe-button" >
-        <tooltip :tooltipText="l10n.getMsgS('DESCRIBE_BUTTON_TOOLTIP')" tooltipDirection="top">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  :id="describeButtonId"
               @click="$modal.show(metadataModalName)" :disabled="!isMetadataAvailable" >
               {{ l10n.getMsgS('DESCRIBE_BUTTON_TITLE') }}
           </button>
-        </tooltip>
       </div>
   </div>
 </template>
@@ -766,5 +764,10 @@ export default {
   .alpheios-alignment-editor-text-blocks-single__describe-button {
     text-align: center;
     margin-top: 10px;
+  }
+
+  .alpheios-alignment-editor-text-blocks-single__first-line,
+  .alpheios-alignment-editor-actions-menu__upload-block {
+    display: inline-block;
   }
 </style>
