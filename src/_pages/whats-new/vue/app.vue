@@ -113,7 +113,7 @@
         <div class="alpheios-alignment-editor__footer">
           <p class="alpheios-alignment-editor__footer-copyright">Copyright © The Alpheios Project, Ltd. 2019. All Rights Reserved</p>
         </div>
-      
+        
     </div>
 </template>
 <script>
@@ -166,7 +166,7 @@ export default {
   }
 
   .alpheios-alignment-editor__page-container {
-    width: 90%;
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
   }

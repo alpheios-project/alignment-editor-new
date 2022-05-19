@@ -3,16 +3,16 @@
       <div class="alpheios-alignment-editor__intro">
         <div class="alpheios-alignment-editor__page-container">
           <div class="alpheios-alignment-editor__page-header">
-            <div class="alpheios-alignment-editor__page-header-title">
-              <span class="alpheios-alignment-editor-big-icon">
-                <books-icon />
-              </span>
-              <h2 class="alpheios-alignment-editor__page-title"> Quick Start Text </h2>
-            </div>
             <div class="alpheios-header-logo">
               <a href="/">
                 <img src="images/alpheios-logo-black-2.png" class="alpheios-logo">
               </a>
+            </div>
+            <div class="alpheios-alignment-editor__page-header-title">
+              <span class="alpheios-alignment-editor-big-icon">
+                <books-icon />
+              </span>
+              <h2 class="alpheios-alignment-editor__page-title">Quick Start Text</h2>
             </div>
           </div><!-- alpheios-alignment-editor__page-header -->
 
@@ -140,6 +140,9 @@
             </div><!-- alpheios-alignment-editor__page-content__right -->
           </div><!-- alpheios-alignment-editor__page-content -->
         </div><!-- alpheios-alignment-editor__page-container -->
+        <div class="alpheios-alignment-editor__footer">
+          <p class="alpheios-alignment-editor__footer-copyright">Copyright © The Alpheios Project, Ltd. 2019. All Rights Reserved</p>
+        </div>
       </div>
   </div>
 </template>
@@ -184,15 +187,23 @@ export default {
 
   .alpheios-alignment-editor__page-header {
     background: #f1fafc;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
+    padding: 0 20px;
+
+    @media screen and (max-width: 500px) {
+      display: block;
+      padding: 0 20px 20px;
+    }
 
     .alpheios-alignment-editor-big-icon {
       display: inline-block;
       width: 170px;
       height: 170px;
       vertical-align: middle;
+
+      @media screen and (max-width: 500px) {
+        width: 100px;
+        height: 100px;
+      }
 
       svg {
         display: block;
@@ -203,18 +214,27 @@ export default {
 
     .alpheios-alignment-editor__page-title {
       display: inline-block;
-      font-size: 70px;
+      font-size: 50px;
       padding: 50px 0 0 30px;
       text-align: right;
       vertical-align: middle;
       line-height: 1;
+      margin: 0;
+
+      @media screen and (max-width: 500px) {
+        padding: 10px 0 10px 10px;
+        font-size: 26px;
+        width: calc(100% - 120px);
+        text-align: left;
+      }
     }
   }
   .alpheios-alignment-editor__page-container {
-    width: 1000px;
+    max-width: 1000px;
+    width: 90%;
     margin: 0 auto;
     background: #ffff;
-    min-height: 100vh;
+    min-height: calc(100vh - 136px);
   }
   .alpheios-header-logo {
     padding: 10px;
@@ -234,6 +254,7 @@ export default {
       width: 180px;
       display: inline-block;
       vertical-align: top;
+      box-sizing: border-box;
 
       .alpheios-alignment-editor__page_list-link {
         cursor: pointer;
@@ -246,6 +267,16 @@ export default {
           color: #46788d;
         }
       }
+
+      @media screen and (max-width: 500px) {
+        display: block;
+        width: 100%;
+        padding: 20px;
+        border-bottom: 2px solid #46788d;
+        .alpheios-alignment-editor__page_list-link {
+          border-right: none;
+        }
+      }
     }
 
     .alpheios-alignment-editor__page-content__right {
@@ -253,6 +284,13 @@ export default {
       display: inline-block;
       width: calc(100% - 250px);
       vertical-align: top;
+      box-sizing: border-box;
+
+      @media screen and (max-width: 500px) {
+        display: block;
+        width: 100%;
+        padding: 20px;
+      }
 
       .alpheios-alignment-editor__page-content__info-block {
         background-color: #f1fafc;
@@ -262,6 +300,12 @@ export default {
         color: #46788d;
         font-size: 95%;
         padding: 20px 20px 20px 50px;
+
+        @media screen and (max-width: 500px) {
+          background-position: 50% 10px;
+          padding: 30px 20px 20px 20px;
+          text-align: center;
+        }
       }
         
       .alpheios-alignment-editor__page-content__item-img {
@@ -269,6 +313,10 @@ export default {
         img {
           display: inline-block;
           width: 70%;
+
+          @media screen and (max-width: 500px) {
+            width: 100%;
+          }
         }
       }
       
@@ -284,6 +332,16 @@ export default {
       .alpheios-alignment-editor_td1 {
         font-weight: bold;
       }
+    }
+  }
+
+  .alpheios-alignment-editor__footer {
+    background: #0E2233;
+    padding: 40px 20px;
+    color: #ffffff;
+
+    .alpheios-alignment-editor__footer-copyright {
+      text-align: right;
     }
   }
 }

@@ -26,6 +26,9 @@
             </div>
           </div><!-- alpheios-alignment-editor__page-content -->
         </div><!-- alpheios-alignment-editor__page-container -->
+        <div class="alpheios-alignment-editor__footer">
+          <p class="alpheios-alignment-editor__footer-copyright">Copyright © The Alpheios Project, Ltd. 2019. All Rights Reserved</p>
+        </div>
       </div>
   </div>
 </template>
@@ -67,6 +70,7 @@ export default {
 
     @media screen and (max-width: 500px) {
       display: block;
+      padding: 0 20px 20px;
     }
 
     .alpheios-alignment-editor-big-icon {
@@ -109,7 +113,7 @@ export default {
     max-width: 1200px;
     margin: 0 auto;
     background: #ffff;
-    min-height: 100vh;
+    min-height: calc(100vh - 136px);
   }
   .alpheios-header-logo {
     padding: 10px;
@@ -134,6 +138,16 @@ export default {
       margin: 10px;
     }    
   } 
+
+  .alpheios-alignment-editor__footer {
+    background: #0E2233;
+    padding: 40px 20px;
+    color: #ffffff;
+
+    .alpheios-alignment-editor__footer-copyright {
+      text-align: right;
+    }
+  }
 }
 
 
