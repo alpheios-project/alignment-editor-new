@@ -31,11 +31,12 @@
 
           <div class="alpheios-alignment-editor__content-part alpheios-alignment-editor__content-part-2">
             <div class="alpheios-alignment-editor__page-container">
-              <p>Although it was developed to correct the output of automatic aligners the Alpheios Alignment Editor has given thousands of people  
-                the opportunity to get to know texts of importance to them in a new and deeper way- 
+              <p>Although it was developed to correct the output of automatic aligners 
+                the Alpheios Alignment Editor has given thousands of people 
+                the opportunity to get to know texts of importance to them in a new and deeper way - 
                 by studying the equivalents of the words they know so well in a different language.</p>
-              <p>This new version of our alignment editor benefits from the many comments and criticisms we have received in the past and we hope its new options will be popular.</p>
-
+              <p>This new version of our alignment editor benefits from the many comments and criticisms we have received 
+                in the past and we hope its new options will be popular.</p>
 
               <div class="alpheios-alignment-editor-main-button-block">
                 <a href="/">
@@ -48,11 +49,22 @@
           <div class="alpheios-alignment-editor__content-part alpheios-alignment-editor__content-part-3">
             <div class="alpheios-alignment-editor__page-container">
               <h3>Who are our target users?</h3>
-              <p class="alpheios-alignment-editor__p-with-check-mark" style="background-image: url('images/check-mark.svg')">Anyone who wants to become more deeply familiar with a favorite text, be it religiou, literary, philosophical, etc</p>
-              <p class="alpheios-alignment-editor__p-with-check-mark" style="background-image: url('images/check-mark.svg')">Anyone studying the process of translation- and its challenges</p>
-              <p class="alpheios-alignment-editor__p-with-check-mark" style="background-image: url('images/check-mark.svg')">Anyone studying Rezeptionsgeschichte of important texts in different cultures</p>
-              <p class="alpheios-alignment-editor__p-with-check-mark" style="background-image: url('images/check-mark.svg')">Anyone wishing to learn a new language by the empirical method - 
-              possibly not the fastest if you are studying for a test or a new job but easily the most enjoyable if you have a deeply interesting text (and quite possibly the method whose knowledge suffers the least attrition over time) </p>
+              <p class="alpheios-alignment-editor__p-with-check-mark" style="background-image: url('images/check-mark.svg')">Anyone who wants to become more deeply familiar with a favorite text, be it</p>
+              <p class="alpheios-alignment-editor__p-with-check-mark-sub" style="background-image: url('images/next.svg')">religiou,</p>
+              <p class="alpheios-alignment-editor__p-with-check-mark-sub" style="background-image: url('images/next.svg')">literary,</p>
+              <p class="alpheios-alignment-editor__p-with-check-mark-sub" style="background-image: url('images/next.svg')">philosophical</p>
+              <p class="alpheios-alignment-editor__p-with-check-mark-sub" style="background-image: url('images/next.svg')">etc</p>
+              
+              <p class="alpheios-alignment-editor__p-with-check-mark" style="background-image: url('images/check-mark.svg')">Anyone studying the process of translation- and its challenges:</p>
+              <p class="alpheios-alignment-editor__p-with-check-mark-sub" style="background-image: url('images/next.svg')">the different challenges that different languages present to translating the same work</p>
+              <p class="alpheios-alignment-editor__p-with-check-mark-sub" style="background-image: url('images/next.svg')">the legitimate reasons why the same translator may use different equivalents for the same words at different points in the same work</p>
+
+              <p class="alpheios-alignment-editor__p-with-check-mark" style="background-image: url('images/check-mark.svg')">Anyone studying Rezeptionsgeschichte of important texts in different cultures. How the same text has been translated in the same and different cultures at different points in time</p>
+              
+              <p class="alpheios-alignment-editor__p-with-check-mark" style="background-image: url('images/check-mark.svg')">Anyone wishing to learn a new language by the empirical method - </p>
+              <p class="alpheios-alignment-editor__p-with-check-mark-sub" style="background-image: url('images/next.svg')">possibly not the fastest if you are studying for a test or a new job</p>
+              <p class="alpheios-alignment-editor__p-with-check-mark-sub" style="background-image: url('images/next.svg')">but easily the most enjoyable if you have a deeply interesting text</p>
+              <p class="alpheios-alignment-editor__p-with-check-mark-sub" style="background-image: url('images/next.svg')">(and quite possibly the method whose knowledge suffers the least attrition over time)</p>
             </div>
           </div><!-- alpheios-alignment-editor__content-part-3 -->
 
@@ -62,7 +74,7 @@
               <p class="alpheios-alignment-editor__p-with-arrow-mark" style="background-image: url('images/arrow.svg')">lets you perform all the actual alignment while offline</p>
               <p class="alpheios-alignment-editor__p-with-arrow-mark" style="background-image: url('images/arrow.svg')">lets you export unfinished alignments to be completed later or by others on other computers</p>
               <p class="alpheios-alignment-editor__p-with-arrow-mark" style="background-image: url('images/arrow.svg')">gives you six different display modes from alignments you have made only once</p>
-              <p class="alpheios-alignment-editor__p-with-arrow-mark" style="background-image: url('images/arrow.svg')">gives you all those display modes on a single, self-contained html page viewable offline in Chrome, Firefox or Safari</p>
+              <p class="alpheios-alignment-editor__p-with-arrow-mark" style="background-image: url('images/arrow.svg')">gives you all those display modes on a single, self-contained html page viewable offline in Chrome, Firefox or Safari.</p>
 
               <div class="alpheios-alignment-editor-main-button-block">
                 <a href="/">
@@ -75,7 +87,7 @@
           <div class="alpheios-alignment-editor__content-part alpheios-alignment-editor__content-part-5">
             <div class="alpheios-alignment-editor__page-container">
               <p class="alpheios-alignment-editor__p-with-arrow-mark" style="background-image: url('images/arrow-white.svg')">you can enter either plain text or text with XML-markup</p>
-              <p class="alpheios-alignment-editor__p-with-arrow-mark" style="background-image: url('images/arrow-white.svg')">you can enter quite large texts - whole chapters if necessary</p>
+              <p class="alpheios-alignment-editor__p-with-arrow-mark" style="background-image: url('images/arrow-white.svg')">you can enter quite large texts- whole chapters if necessary</p>
               <p class="alpheios-alignment-editor__p-with-arrow-mark" style="background-image: url('images/arrow-white.svg')">you can edit texts after they have been aligned (with a new Token Editor)</p>
               <p class="alpheios-alignment-editor__p-with-arrow-mark" style="background-image: url('images/arrow-white.svg')">you have many opportunities to customize the behavior of the application</p>
               <p class="alpheios-alignment-editor__p-with-arrow-mark" style="background-image: url('images/arrow-white.svg')">if you are online you can use the Alpheios Reading Tools from within the editor</p>
@@ -84,10 +96,10 @@
 
           <div class="alpheios-alignment-editor__content-part alpheios-alignment-editor__content-part-6">
             <div class="alpheios-alignment-editor__page-container">
-              <p class="alpheios-alignment-editor__p-with-arrow-mark" style="background-image: url('images/arrow.svg')">compatibility with other popular alignment editors such as Ugarit (for display)</p>
+              <p class="alpheios-alignment-editor__p-with-arrow-mark" style="background-image: url('images/arrow.svg')">compatibility with other popular alignment editors such as Ugarit (only for display)</p>
               <p class="alpheios-alignment-editor__p-with-arrow-mark" style="background-image: url('images/arrow.svg')">automatic language detection</p>
               <p class="alpheios-alignment-editor__p-with-arrow-mark" style="background-image: url('images/arrow.svg')">use of indexedDB to store large texts locally</p>
-              <p class="alpheios-alignment-editor__p-with-arrow-mark" style="background-image: url('images/arrow.svg')">adding descriptions to the texts and brief annotations to the words</p>
+              <p class="alpheios-alignment-editor__p-with-arrow-mark" style="background-image: url('images/arrow.svg')">ability to	add brief descriptions to the texts and brief annotations to the words</p>
 
               <div class="alpheios-alignment-editor-main-button-block">
                 <a href="/">
@@ -260,6 +272,13 @@ export default {
           background-size: 30px auto;
           padding: 0 50px;
           background-repeat: no-repeat;
+        }
+        &.alpheios-alignment-editor__p-with-check-mark-sub {
+          background-position: 0 50%;
+          background-size: 30px auto;
+          padding: 0 50px;
+          background-repeat: no-repeat;
+          margin-left: 50px;
         }
         
       }

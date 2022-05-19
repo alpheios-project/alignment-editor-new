@@ -6,7 +6,7 @@
                     <span class="alpheios-alignment-router-link-icon">
                         <video-tutorials-icon />
                     </span>
-                    <p class="alpheios-alignment-router-link-title"> Quick Start Video</p>
+                    <p class="alpheios-alignment-router-link-title">Quick Start Video</p>
                 </a>
             </div>
             <div class="alpheios-alignment-editor-router-link">
