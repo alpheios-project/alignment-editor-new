@@ -18,11 +18,11 @@
 
           <div class="alpheios-alignment-editor__page-content">
             <div class="alpheios-alignment-editor__page-content-item">
-              <lazy-youtube src="https://www.youtube.com/watch?v=WaLMw7XYhtc" />
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/WaLMw7XYhtc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
 
             <div class="alpheios-alignment-editor__page-content-item">
-              <lazy-youtube src="https://youtu.be/0DOEFG-aj04" />
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/WaLMw7XYhtc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
           </div><!-- alpheios-alignment-editor__page-content -->
         </div><!-- alpheios-alignment-editor__page-container -->
@@ -34,20 +34,17 @@
 </template>
 <script>
 import VideosIcon from '@/inline-icons/pages/videos.svg'
-import { LazyYoutube } from "vue-lazytube";
 
 export default {
   name: 'VideoTutorials',
   components: {
-    videosIcon: VideosIcon,
-    lazyYoutube: LazyYoutube
+    videosIcon: VideosIcon
   },
   data () {
     return {
     }
   },
   mounted () {
-    console.info(' this', this)
   },
   computed: {
   },
@@ -136,6 +133,10 @@ export default {
       max-width: 500px;
       width: 100%;
       margin: 10px;
+
+      iframe {
+        width: 100%;
+      }
     }    
   } 
 
