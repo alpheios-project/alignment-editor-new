@@ -17,13 +17,9 @@
           </div><!-- alpheios-alignment-editor__page-header -->
 
           <div class="alpheios-alignment-editor__page-content">
-            <div class="alpheios-alignment-editor__page-content-item">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/WaLMw7XYhtc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-
-            <div class="alpheios-alignment-editor__page-content-item">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/WaLMw7XYhtc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
+            <div class="alpheios-alignment-editor__page-content-item" 
+                 v-for = "youtubeSrc in youtubeSrcList" :key="youtubeSrc"
+                 :id="getYoutubeItemId(youtubeSrc)"></div>
           </div><!-- alpheios-alignment-editor__page-content -->
         </div><!-- alpheios-alignment-editor__page-container -->
         <div class="alpheios-alignment-editor__footer">
@@ -34,6 +30,7 @@
 </template>
 <script>
 import VideosIcon from '@/inline-icons/pages/videos.svg'
+import YTPlayer from 'yt-player'
 
 export default {
   name: 'VideoTutorials',
@@ -42,13 +39,31 @@ export default {
   },
   data () {
     return {
+      youtubeSrcList: [ 'WaLMw7XYhtc', 'TZa86G1uVOU' ]
     }
   },
   mounted () {
+    this.youtubeSrcList.forEach(youtubeSrc => this.uploadYoutubeVideo(youtubeSrc)) 
   },
   computed: {
   },
   methods: {
+    getYoutubeItemId (youtubeSrc) {
+      return `alpheios-alignment-editor-youtube-${youtubeSrc}`
+    },
+    uploadYoutubeVideo (youtubeSrc) {
+    try {
+      const player = new YTPlayer(`#${this.getYoutubeItemId(youtubeSrc)}`, {
+        autoplay: false,
+        related: false,
+        modestBranding: true, 
+        host: 'https://www.youtube-nocookie.com'
+      })
+      player.load(youtubeSrc)
+    } catch (error) {
+      // console.error(error.message)
+    }
+    }
   }
 }
 </script>
