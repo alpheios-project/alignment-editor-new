@@ -129,8 +129,7 @@
     "webpack": "^5.72.0",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-cleanup-plugin": "^0.5.1",
-    "webpack-merge": "^5.8.0",
-    "yt-player": "^3.5.0"
+    "webpack-merge": "^5.8.0"
   },
   "jest": {
     "verbose": true,
@@ -192,6 +191,8 @@
     "**/support"
   ],
   "dependencies": {
-    "vuex": "^3.6.2"
+    "@splidejs/splide": "^4.0.2",
+    "vuex": "^3.6.2",
+    "yt-player": "^3.5.0"
   }
 }
