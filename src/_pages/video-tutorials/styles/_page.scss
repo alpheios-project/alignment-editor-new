@@ -1,0 +1,97 @@
+.alpheios-alignment-video-tutorials { 
+    .alpheios-alignment-editor__intro {
+      background: #f1fafc;
+      background-repeat: repeat;
+      background-position: 98% 20%;
+      background-size: 30% auto;
+    }
+  
+    .alpheios-alignment-editor__page-header {
+      background: #f1fafc;
+      padding: 0 20px;
+  
+      @media screen and (max-width: 500px) {
+        display: block;
+        padding: 0 20px 20px;
+      }
+  
+      .alpheios-alignment-editor-big-icon {
+        display: inline-block;
+        width: 170px;
+        height: 170px;
+        vertical-align: middle;
+  
+        @media screen and (max-width: 500px) {
+          width: 100px;
+          height: 100px;
+        }
+  
+        img {
+          display: block;
+          width: 100%;
+          height: 100%;
+        }
+      }
+  
+      .alpheios-alignment-editor__page-title {
+        display: inline-block;
+        font-size: 50px;
+        padding: 50px 0 0 30px;
+        text-align: right;
+        vertical-align: middle;
+        line-height: 1;
+        margin: 0;
+  
+        @media screen and (max-width: 500px) {
+          padding: 10px 0 10px 10px;
+          font-size: 26px;
+          width: calc(100% - 120px);
+          text-align: left;
+        }
+      }
+    }
+    .alpheios-alignment-editor__page-container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: #ffff;
+      min-height: calc(100vh - 136px);
+    }
+    .alpheios-header-logo {
+      padding: 10px;
+      text-align: right;
+      a {
+        display: inline-block;
+      }
+      img {
+        width: 180px;
+      }
+    }
+  
+    .alpheios-alignment-editor__page-content {
+      text-align: center;
+      padding: 20px;
+  
+      .alpheios-alignment-editor__page-content-item {
+        display: inline-block;
+        vertical-align: top;
+        max-width: 500px;
+        width: 100%;
+        margin: 10px;
+  
+        iframe {
+          width: 100%;
+        }
+      }    
+    } 
+  
+    .alpheios-alignment-editor__footer {
+      background: #0E2233;
+      padding: 40px 20px;
+      color: #ffffff;
+  
+      .alpheios-alignment-editor__footer-copyright {
+        text-align: right;
+      }
+    }
+  }
