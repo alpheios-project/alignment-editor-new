@@ -1,16 +1,12 @@
-import App from '@/_pages/whats-new/vue/app.vue'
-import Vue from '@vue-runtime'
+import Splide from '@splidejs/splide'
 
 export default class AppController {
-  constructor ({ appId }) {
-    const rootVi = new Vue({})
-    const mountEl = document.getElementById(appId)
-    const AppComponent = Vue.extend(App)
-
-    this._viAppComp = new AppComponent({
-      parent: rootVi
-    })
-
-    this._viAppComp.$mount(mountEl)
+  constructor ({ splideId }) {
+    console.info('splideId - ', splideId)
+    new Splide(`#${splideId}`, {
+      autoplay: true,
+      interval: 3000,
+      pauseOnHover: true
+    }).mount()
   }
 }
