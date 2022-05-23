@@ -4,7 +4,7 @@
         <div class="alpheios-alignment-editor__page-container">
           <div class="alpheios-alignment-editor__page-header">
             <div class="alpheios-header-logo">
-              <a href="/">
+              <a href="index.html">
                 <img src="images/alpheios-logo-black-2.png" class="alpheios-logo">
               </a>
             </div>
