@@ -385,6 +385,9 @@ export default {
   .alpheios-alignment-checkbox-block.alpheios-alignment-option-item__control {
     vertical-align: middle;
   }
+  .alpheios-alignment-checkbox-block {
+    width: 48%;
+  }
 }
 
 </style>
