@@ -999,8 +999,12 @@ export default class Alignment {
    * @returns {Boolean}
    */
   allowedMergePrev (token) {
-    const { tokenResult } = this.tokensEditActions.getNextPrevToken(token, 'prev')
-    return this.isEditableToken(tokenResult) && this.tokensEditActions.allowedMergePrev(token)
+    const result = this.tokensEditActions.getNextPrevToken(token, 'prev')
+    if (!result) {
+      return false
+    }
+
+    return this.isEditableToken(result.tokenResult) && this.tokensEditActions.allowedMergePrev(token)
   }
 
   /**
@@ -1009,8 +1013,12 @@ export default class Alignment {
    * @returns {Boolean}
    */
   allowedMergeNext (token) {
-    const { tokenResult } = this.tokensEditActions.getNextPrevToken(token, 'next')
-    return this.isEditableToken(tokenResult) && this.tokensEditActions.allowedMergeNext(token)
+    const result = this.tokensEditActions.getNextPrevToken(token, 'prev')
+    if (!result) {
+      return false
+    }
+
+    return this.isEditableToken(result.tokenResult) && this.tokensEditActions.allowedMergeNext(token)
   }
 
   /**

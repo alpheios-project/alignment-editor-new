@@ -45,7 +45,7 @@ describe('notification-bar.test.js', () => {
       store: appC.store,
       localVue 
     })
-    expect(cmp.isVueInstance()).toBeTruthy()
+    expect(cmp.exists()).toBeTruthy()
   })
 
   it('2 NotificationBar - messages from store are published to the bar', async () => {

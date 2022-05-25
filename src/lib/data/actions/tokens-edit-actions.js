@@ -71,7 +71,7 @@ export default class TokensEditActions {
       }
     }
 
-    return { tokenResult: null }
+    return null
   }
 
   /**

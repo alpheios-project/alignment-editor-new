@@ -128,7 +128,7 @@ describe('tokenize-options-block.test.js', () => {
           localOptions: localTextEditorOptions
         }
       })
-    expect(cmp.isVueInstance()).toBeTruthy()
+    expect(cmp.exists()).toBeTruthy()
   })
 
   it('2 TokenizeOptionsBlock - renders optionItem', () => {

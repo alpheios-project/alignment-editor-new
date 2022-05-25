@@ -84,7 +84,7 @@ describe('align-editor-tabs.test.js', () => {
         tabs: ['id1', 'id2']
       }
     })
-    expect(cmp.isVueInstance()).toBeTruthy()
+    expect(cmp.exists()).toBeTruthy()
   })
 
   it('2 EditorTabs - tabsStates are defined on mounted step - set active for the first tab as default', () => {
