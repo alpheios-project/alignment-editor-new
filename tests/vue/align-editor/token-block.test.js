@@ -80,7 +80,7 @@ describe('token-block.test.js', () => {
         token: token
       }
     })
-    expect(cmp.isVueInstance()).toBeTruthy()
+    expect(cmp.exists()).toBeTruthy()
   })
 
   it('2 TokenBlock - tokenClasses defines css classes by passed props', () => {

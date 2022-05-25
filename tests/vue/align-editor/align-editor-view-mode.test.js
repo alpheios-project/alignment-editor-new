@@ -81,7 +81,7 @@ describe('align-editor-view-mode.test.js', () => {
       store: appC.store,
       localVue
     })
-    expect(cmp.isVueInstance()).toBeTruthy()
+    expect(cmp.exists()).toBeTruthy()
   })
 
   it('2 AlignEditorViewMode - allTokenizedTargetTextsIds returns current list of targets, shownTabs is updated once', () => {

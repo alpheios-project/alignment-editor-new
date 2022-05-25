@@ -124,7 +124,7 @@ describe('segment-block.test.js', () => {
         textType: 'origin'
       }
     })
-    expect(cmp.isVueInstance()).toBeTruthy()
+    expect(cmp.exists()).toBeTruthy()
   })
 
   it('2 SegmentBlock - textType, direction, lang - retrieves from segment', async () => {

@@ -126,7 +126,7 @@ describe('option-item-block.test.js', () => {
           optionItem: SettingsController.allOptions.app.items.theme
         }
       })
-    expect(cmp.isVueInstance()).toBeTruthy()
+    expect(cmp.exists()).toBeTruthy()
   })
 
   it('2 OptionItemBlock - renders select optionItem', () => {

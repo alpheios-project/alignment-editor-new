@@ -16,7 +16,7 @@
     "test-vue": "jest tests/vue --coverage",
     "test-a": "jest tests/lib/controllers/app-controller.test.js",
     "test-b": "jest tests/vue/align-editor/segment-block.test.js",
-    "test-c": "jest tests/lib/data/alignment-group.test.js",
+    "test-c": "jest tests/lib/data/actions/tokens-edit-actions.test.js",
     "test-f": "jest tests/lib/tokenizers/simple-local-tokenizer.test.js",
     "test-d": "jest tests/lib/storage/indexed-db-adapter.test.js",
     "test-e": "jest tests/_output/vue/app.test.js",
@@ -86,6 +86,7 @@
     "html-loader-jest": "^0.2.1",
     "html-webpack-plugin": "^5.5.0",
     "http-server": "^0.12.3",
+    "identity-obj-proxy": "^3.0.0",
     "imagemin": "^8.0.1",
     "imagemin-jpegtran": "^7.0.0",
     "imagemin-optipng": "^8.0.0",
@@ -156,7 +157,8 @@
       ".*\\.(vue)$": "vue-jest",
       ".*\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/fileTransform.js",
       "^.*\\.svg$": "<rootDir>/svgTransform.js",
-      "^.+\\.html$": "html-loader-jest"
+      "^.+\\.html$": "html-loader-jest",
+      "\\.(css|less|sass|scss)$": "<rootDir>/styleMock.js"
     },
     "moduleFileExtensions": [
       "js",

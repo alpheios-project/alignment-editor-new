@@ -82,7 +82,7 @@ describe('align-editor-view-mode.test.js', () => {
     })
 
     
-    expect(cmp.isVueInstance()).toBeTruthy()
+    expect(cmp.exists()).toBeTruthy()
   })
 
 })

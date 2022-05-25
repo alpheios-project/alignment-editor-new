@@ -54,7 +54,7 @@ describe('annotation-block.test.js', () => {
         token: token
       }
     })
-    expect(cmp.isVueInstance()).toBeTruthy()
+    expect(cmp.exists()).toBeTruthy()
   })
 
   it('2 AnnotationBlock - allAnnotations, hasAnnotations, countAnnotations', () => {

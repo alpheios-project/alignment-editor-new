@@ -42,22 +42,18 @@
 
             <div class="alpheios-alignment-editor__page-content__right">
               <div class="alpheios-alignment-editor__page-content__item" v-show="shownLink === 'getting-started'">
-                <p>Go to the website XXXXXX and click on Alpheios Alignment Editor. The libraries the editor needs will be loaded into your browser, where they will remain until you clear your cache.</p>
-                <p>The application will then prompt you to give a name to this alignment and open the initial screen, the ENTER TEXT screen.</p>
+                <p>Go to the website alpheios.alignmentEditor.html  The libraries the editor needs will be automatically loaded 
+                  into your browser and bring you to an initial screen where you will see the options to either begin a new alignment or resume a previous one. </p>
+                <p>The application will then prompt you to give a short name to this alignment and open the initial screen, the ENTER TEXT screen.</p>
 
                 <p class="alpheios-alignment-editor__page-content__item-img"><img :src="newAlignmentTitlePNG"></p>
-                <p>Although you can work offline during the actual alignment, you must begin with this download. It is also a good idea to stay online until after you have entered the text you want 
-                  to align and the alignment editor has taken advantage of remote services to identify the language and tokenize the text accordingly to prepare it for alignment.</p>
-
-                <div class="alpheios-alignment-editor__page-content__info-block" style="background-image: url('images/i-sign.svg')">
-                  <p>If you find that you prefer to save and resume your work frequently, you may wish to download the XXXXX file from the alpheios site. 
-                    Then you will not have to connect to the internet every time you resume an alignment since your text is already tokenized and its language has already been detected.</p>
-                </div>
+                <p>Although you can work offline during the actual aligning, it is a good idea to stay online until after you have entered the text you want to align 
+                  and the alignment editor has taken advantage of remote services to identify the language and tokenize the text accordingly to prepare it for alignment.</p>
               </div><!-- alpheios-alignment-editor__page-content__item -->
 
               <div class="alpheios-alignment-editor__page-content__item" v-show="shownLink === 'entering-text'">
-                <p>You can type or paste text into the two empty boxes on this screen or upload files. Large files will automatically be split into smaller parts for convenient display. 
-                  Both plain text and text with markup such as XML can be entered.</p>
+                <p>You can type or paste text into the two empty boxes on this screen or upload files. Both plain text and text with markup such as XML can be entered. Quite large files can be entered, 
+                  as much as a book chapter if necessary, and will later be split into smaller parts for more convenient processing and display.</p>
                 <p>You can add any number of additional translations with the + button.</p>
                 <p class="alpheios-alignment-editor__page-content__item-img"><img :src="enterTextScreenPNG"></p>
                 <p>When you have finished entering text, the DONE button will tell the application to prepare the text for alignment by tokenizing it.</p>
@@ -65,44 +61,43 @@
               </div><!-- alpheios-alignment-editor__page-content__item -->
 
               <div class="alpheios-alignment-editor__page-content__item" v-show="shownLink === 'aligning'">
-                <h4>To link words or phrases</h4>
                 <p>To align words or phrases in one language with those in another:</p>
                 <ul>
                   <li>Enter text from one language in the box on the left and text from the other in the box on the right.</li>
-                  <li>Click on the all the words in the first language that you want to make part of an alignment, turning them green- indicating that an alignment has started.</li>
+                  <li>Click on the all the words in the first language that you want to make part of an alignment, turning them green - indicating that an alignment has started.</li>
                   <li>Go to the other box and click on all the words you want to make part of the same alignment link, turning them amber.</li>
                   <li>Return to the initial language box and click on any green word to establish the alignment link, turning all the words that are part of that link black in both languages.</li>
                 </ul>
                 <p class="alpheios-alignment-editor__page-content__item-img"><img :src="alignScreenTextPNG"></p>
                 <p>Now when you mouse over any word in that alignment group in either language, the whole alignment link will be highlighted in both languages.</p>
 
-                <h4>To unlink</h4>
+                <p>To unlink simply reverse the process.</p>
                 <ul>
                   <li>Click on a word in an alignment group in either entry box, turning all its words green.</li>
-                  <li>Go to the entry box on the other side and click on each of the aligned words in turn, turning them red.</li>
+                  <li>Go to the entry box on the other side and click on each of the aligned words in turn, returning them to red.</li>
                   <li>Return to the first box and click on all the remaining words in the alignment link.</li>
                 </ul>
                 <p>All the words in the alignment group should now have returned to their original red color, indicating that they are not aligned.</p>
 
-                <h4>Available actions</h4>
                 <p>To add an annotation to a word, CTL-click on it in Windows and CMD-click on a MAC.</p>
                 <p class="alpheios-alignment-editor__page-content__item-img"><img :src="newAnnotationPNG"></p>
                 <p>To look up a word with the Alpheios reading tools, you can SHIFT-click on it whenever you are online.</p>
-                <p>To edit text after it has been tokenized, enable the TOKEN EDITOR in the ALIGN TEXT options, and make the necessary changes on the TOKEN EDITOR screen. 
-                  Your changes will also be shown when you return to the ALIGN TEXT screen.</p>
+                <p>To edit text after it has been tokenized, enable the TOKEN EDITOR in the ALIGN TEXT options, and make your desired changes on the TOKEN EDITOR screen. 
+                  Your changes will be shown when you return to the ALIGN TEXT screen.</p>
 
               </div><!-- alpheios-alignment-editor__page-content__item -->
 
               <div class="alpheios-alignment-editor__page-content__item" v-show="shownLink === 'saving'">
                 <p>By default the application automatically saves a current copy of your work, which should protect it against sudden loss of power or other unpredictable interruptions, 
-                  as well as provide a reliably current version for resuming where you left off.</p>
-                <p>At any point in the alignment you can also save your work yourself, choosing JSON format if you are unfinished or think you may want to modify the alignment in the future, 
-                  or the final HTML format, which gives you multiple display options, but cannot easily be edited.</p>
+                  as well as provide a reliably current version for resuming where you left off (shown in a list under the Resume Previous Alignment button).</p>
+                <p>At any point in the alignment you can also save your work yourself, choosing JSON format if you are unfinished or think you may want to modify 
+                  the alignment in the future, or the final HTML format, which gives you multiple display options, but cannot easily be edited.</p>
                 <p class="alpheios-alignment-editor__page-content__item-img"><img :src="savingPNG"></p>
                 <ul>
-                  <li>the <b>JSON</b> version can only be resumed by some copy of the alpheios alignment editor</li>
-                  <li>the <b>HTML</b> version can be displayed reliably by Chrome, Firefox and Safari.</li>
+                  <li>the <b>JSON</b> version can only be resumed by some copy of the alpheios alignment editor,</li>
+                  <li>the <b>HTML</b> version can be displayed reliably by Chrome, Firefox and Safari even when you are not connected to the internet.</li>
                 </ul>
+                <p>You can also export just the alignments in a simple csv format the would allow them to be easily imported into other applications.</p>
               </div><!-- alpheios-alignment-editor__page-content__item -->
 
               <div class="alpheios-alignment-editor__page-content__item" v-show="shownLink === 'displaying'">
@@ -126,7 +121,7 @@
                   </tr>
                   <tr>
                     <td class="alpheios-alignment-editor_td1">interlinear</td>
-                    <td>permits multiple translations to display if you so choose</td>
+                    <td>multiple translations can be shown</td>
                   </tr>
                   <tr>
                     <td class="alpheios-alignment-editor_td1">context</td>
@@ -135,6 +130,9 @@
                 </table>
                 <p>A menu at the upper left of the screen lets you choose which translations should participate in the display and their sequence.</p>
                 <p>By default all available translations will participate in the short and equivalents displays.</p>
+                <div class="alpheios-alignment-editor__page-content__info-block">
+                  <p>All these options will display properly even when offline.</p>
+                </div>
               </div><!-- alpheios-alignment-editor__page-content__item -->
               
             </div><!-- alpheios-alignment-editor__page-content__right -->

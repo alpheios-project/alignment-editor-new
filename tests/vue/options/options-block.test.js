@@ -45,7 +45,7 @@ describe('options-block.test.js', () => {
           localOptions: localTextEditorOptions
         }
       })
-    expect(cmp.isVueInstance()).toBeTruthy()
+    expect(cmp.exists()).toBeTruthy()
   })
 
   it.skip('2 OptionsBlock - renders optionItem', () => {

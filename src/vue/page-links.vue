@@ -4,25 +4,25 @@
             <div class="alpheios-alignment-editor-router-link">
                 <a href="video-tutorials.html">
                     <span class="alpheios-alignment-router-link-icon">
-                        <video-tutorials-icon />
+                        <pages-icon />
                     </span>
-                    <p class="alpheios-alignment-router-link-title">Quick Start Video</p>
+                    <p class="alpheios-alignment-router-link-title">Videos</p>
                 </a>
             </div>
             <div class="alpheios-alignment-editor-router-link">
                 <a href="whats-new.html">
                     <span class="alpheios-alignment-router-link-icon">
-                        <whats-new-icon />
+                        <pages-icon />
                     </span>
-                    <p class="alpheios-alignment-router-link-title">What you can make with this</p>
+                    <p class="alpheios-alignment-router-link-title">Context</p>
                 </a>
             </div>
             <div class="alpheios-alignment-editor-router-link">
                 <a href="quick-start.html">
                     <span class="alpheios-alignment-router-link-icon">
-                        <quick-start-icon />
+                        <pages-icon />
                     </span>
-                    <p class="alpheios-alignment-router-link-title">Quick Start Text</p>
+                    <p class="alpheios-alignment-router-link-title">Quick Start</p>
                 </a>
             </div>
         </div>
@@ -33,12 +33,16 @@ import QuickStartIcon from '@/inline-icons/pages-quick-start.svg'
 import VideoTutorialsIcon from '@/inline-icons/pages-video-tutorials.svg'
 import WhatsNewIcon from '@/inline-icons/pages-whats-new.svg'
 
+import PagesIcon from '@/inline-icons/pages-icon.svg'
+
 export default {
   name: 'PageLinks',
   components: {
     quickStartIcon: QuickStartIcon,
     videoTutorialsIcon: VideoTutorialsIcon,
-    whatsNewIcon: WhatsNewIcon
+    whatsNewIcon: WhatsNewIcon,
+
+    pagesIcon: PagesIcon
   }
 }
 
@@ -58,7 +62,7 @@ export default {
 .alpheios-alignment-editor-initial-screen__additional {
     margin: 100px auto;
     text-align: center;
-    max-width: 800px;
+    max-width: 700px;
     width: 90%;
 
     @media screen and (max-width: 500px) {
@@ -85,8 +89,8 @@ export default {
 
     .alpheios-alignment-router-link-icon {
         display: inline-block;
-        width: 170px;
-        height: 115px;
+        width: 100px;
+        height: 70px;
         cursor: pointer;
 
         svg {
@@ -102,7 +106,7 @@ export default {
     .alpheios-alignment-router-link-title {
         color: #46788d;
         text-transform: uppercase;
-        font-size: 130%;
+        font-size: 140%;
         font-family: "Source Serif Pro",serif;
         margin: 10px 0 0;
         font-weight: bold;
