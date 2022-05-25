@@ -1,9 +1,5 @@
 import IndexedDBAdapter from '@/lib/storage/indexed-db-adapter.js'
 
-import('@/styles/fonts/chinese.css')
-import('@/styles/fonts/japan.css')
-import('@/styles/fonts/korean.css')
-
 let dbAdapter, addIndexedDBSupportValue
 
 export default class StorageController {
