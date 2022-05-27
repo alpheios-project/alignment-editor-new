@@ -21,7 +21,6 @@ import VModal from 'vue-js-modal'
 import('@/styles/fonts/chinese.css')
 import('@/styles/fonts/japan.css')
 import('@/styles/fonts/korean.css')
-import('@/styles/fonts/hebrew.css')
 
 export default class AppController {
   /**
