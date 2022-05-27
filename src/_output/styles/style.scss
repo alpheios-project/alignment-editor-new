@@ -6,6 +6,7 @@
 @import "fonts/noto-serif-tc";
 @import "fonts/noto-serif-korean";
 @import "fonts/noto-serif-japan";
+@import "fonts/hebrew";
 @import "input";
 @import "select";
 @import "modal";
@@ -56,7 +57,7 @@ body, html {
 
 .alpheios-app-container {
     [lang=heb] {
-        font-family: Tinos, serif;
+        font-family: "Varela Round", serif;
         font-variant-ligatures: normal;
     }
 }
