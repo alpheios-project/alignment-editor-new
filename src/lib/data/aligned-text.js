@@ -126,7 +126,7 @@ export default class AlignedText {
     const alignedText = new AlignedText({
       docSource: {
         id: data.textId,
-        textType: data.textType,
+        textType: data.textType || data.texttype,
         direction: data.direction,
         lang: data.lang,
         sourceType: data.sourceType,

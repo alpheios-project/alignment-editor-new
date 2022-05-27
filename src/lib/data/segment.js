@@ -249,7 +249,7 @@ export default class Segment {
   static convertFromJSON (data) {
     return new Segment({
       index: data.index,
-      textType: data.textType,
+      textType: data.textType || data.texttype,
       lang: data.lang,
       direction: data.direction,
       docSourceId: data.docSourceId,
