@@ -125,7 +125,7 @@ export default class Token {
    */
   static convertFromJSON (data) {
     return new Token({
-      textType: data.textType,
+      textType: data.textType || data.texttype,
       idWord: data.idWord,
       word: data.word,
       beforeWord: data.beforeWord,
