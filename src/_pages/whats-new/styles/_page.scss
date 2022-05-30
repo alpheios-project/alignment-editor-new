@@ -37,7 +37,7 @@
       }
     
       .alpheios-alignment-editor__title {
-        padding: 50px 0;
+        padding: 20px 0;
         h2 {
           padding: 0 20px;
           font-size: 300%;
@@ -185,7 +185,13 @@
         background: #193d5b;
         padding: 40px 20px;
         color: #ffffff;
-    
+        
+        .alpheios-alignment-editor__footer-inner {
+          max-width: 1000px;
+          width: 90%;
+          margin: 0 auto;
+        }
+
         .alpheios-alignment-editor__footer-copyright {
           text-align: right;
         }
