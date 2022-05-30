@@ -208,7 +208,8 @@ export default {
         .alpheios-actions-menu-main-button {
             font-weight: normal;
             font-size: 22px;
-            min-width: 315px;
+            text-align: center;
+            white-space: normal;
         }
 
         .alpheios-alignment-app-menu__upload-block {
