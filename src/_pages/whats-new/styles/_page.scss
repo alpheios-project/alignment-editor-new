@@ -45,6 +45,7 @@
           margin: 0;
           margin-left: 80px;
           color: #90a959;
+          text-align: center;
         }
     
         @media screen and (max-width: 500px) {
@@ -61,7 +62,7 @@
       }
       .alpheios-alignment-editor__content-slider {
         // padding: 20px;
-        background: #ffffff;
+        background: #e8ebee;
     
         .alpheios-alignment-editor__content-slide {
           img {
@@ -75,9 +76,14 @@
         padding: 0;
         font-size: 115%;
         text-align: center;
+
+        ul li {
+          text-align: left;
+          margin-bottom: 10px;
+        }
     
         &.alpheios-alignment-editor__content-part-1 {
-          background: #0E2233;
+          background: #193d5b;
           padding: 0;
     
           p {
@@ -90,12 +96,12 @@
         }
     
         &.alpheios-alignment-editor__content-part-2 {
-          background: #ffffff;
+          background: #e8ebee;
           padding: 40px 50px;
         }
     
         &.alpheios-alignment-editor__content-part-3 {
-          background: #0E2233;
+          background: #193d5b;
           padding: 40px 20px;
           color: #ffffff;
     
@@ -131,10 +137,10 @@
     
         &.alpheios-alignment-editor__content-part-4,
         &.alpheios-alignment-editor__content-part-6 {
-          background: #ffffff;
+          background: #e8ebee;
           padding: 40px 20px;
           h3 {
-            margin: 0 0 40px;
+            margin: 0;
             font-size: 200%;
             text-align: center;
     
@@ -151,10 +157,14 @@
             }
             
           }
+
+          a {
+            color: #193d5b;
+          }
         }
     
         &.alpheios-alignment-editor__content-part-5 {
-          background: #0E2233;
+          background: #193d5b;
           padding: 40px 20px;
           color: #ffffff;
     
@@ -172,7 +182,7 @@
       }
     
       .alpheios-alignment-editor__footer {
-        background: #0E2233;
+        background: #193d5b;
         padding: 40px 20px;
         color: #ffffff;
     
@@ -182,7 +192,7 @@
       }
     
       .alpheios-alignment-editor-main-button-block {
-        a {
+        a.alpheios-alignment-editor-main-button-link {
           display: inline-block;
           padding: 20px;
           text-decoration: none;
