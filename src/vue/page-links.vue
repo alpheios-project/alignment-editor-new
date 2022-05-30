@@ -1,30 +1,28 @@
 <template>
     <div class="alpheios-alignment-editor-initial-screen__additional-container" >
         <div class="alpheios-alignment-editor-initial-screen__additional" >
-            <div class="alpheios-alignment-editor-initial-left">
+            <div class="alpheios-alignment-editor-router-link alpheios-alignment-editor-link-block">
+                <a href="whats-new.html">
+                    <span class="alpheios-alignment-router-link-icon">
+                        <pages-icon />
+                    </span>
+                    <p class="alpheios-alignment-router-link-title">Context</p>
+                </a>
+            </div>
+            <div class="alpheios-alignment-editor-link-block">
                 <div class="alpheios-alignment-editor-video-block">
-                    <lazy-youtube src="https://youtu.be/nhaKttimc8g" :showTitle="true" />
+                    <lazy-youtube src="https://youtu.be/nhaKttimc8g" :showTitle="false" />
                 </div>
-            </div><!-- alpheios-alignment-editor-initial-left -->
-            
-            <div class="alpheios-alignment-editor-initial-right">
-                <div class="alpheios-alignment-editor-router-link">
-                    <a href="whats-new.html">
-                        <span class="alpheios-alignment-router-link-icon">
-                            <pages-icon />
-                        </span>
-                        <p class="alpheios-alignment-router-link-title">Context</p>
-                    </a>
-                </div>
-                <div class="alpheios-alignment-editor-router-link">
-                    <a href="quick-start.html">
-                        <span class="alpheios-alignment-router-link-icon">
-                            <pages-icon />
-                        </span>
-                        <p class="alpheios-alignment-router-link-title">Quick Start</p>
-                    </a>
-                </div>
-            </div><!-- alpheios-alignment-editor-initial-right -->
+                <p class="alpheios-alignment-router-link-title">Overview</p>
+            </div>
+            <div class="alpheios-alignment-editor-router-link alpheios-alignment-editor-link-block">
+                <a href="quick-start.html">
+                    <span class="alpheios-alignment-router-link-icon">
+                        <pages-icon />
+                    </span>
+                    <p class="alpheios-alignment-router-link-title">Quick Start</p>
+                </a>
+            </div>
         </div>
     </div>
 </template>
@@ -68,17 +66,10 @@ export default {
     width: 100%;
     text-align: center;
 
-    .alpheios-alignment-editor-initial-left,
-    .alpheios-alignment-editor-initial-right {
-        display: inline-block;
-        vertical-align: middle;
-    }
-
-    .alpheios-alignment-editor-initial-left {
-        width: 66%;
-    }
-    .alpheios-alignment-editor-initial-right {
-        width: 30%;
+    .alpheios-alignment-editor-link-block {
+      display: inline-block;
+      vertical-align: middle;
+      width: 30%;
     }
 
     .alpheios-alignment-editor-video-block {
@@ -89,22 +80,14 @@ export default {
 
     @media screen and (max-width: 500px) {
         margin: 20px auto;
-
-        .alpheios-alignment-editor-initial-left,
-        .alpheios-alignment-editor-initial-right {
-            display: block;
-            width: 100%;
-            padding: 30px;
-        }
     }
 
     .alpheios-alignment-editor-router-link {
-        display: block;
         padding: 20px;
         text-align: center;
         a {
             text-decoration: none;
-            display: inline-block;
+            display: block;
         }
 
         @media screen and (max-width: 500px) {
