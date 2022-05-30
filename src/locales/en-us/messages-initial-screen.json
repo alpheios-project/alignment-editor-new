@@ -20,7 +20,7 @@
       "component": "InitialScreen"
     },
     "INITIAL_HAS_TOKENS": {
-      "message": "with tokens",
+      "message": "tokenized",
       "description": "Column in alignment's list",
       "component": "InitialScreen"
     },
