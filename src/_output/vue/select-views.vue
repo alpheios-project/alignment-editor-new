@@ -1,20 +1,23 @@
 <template>
     <div class = "alpheios-alignment-header-line" :class="{ 'alpheios-alignment-header-line-in-header' : inHeader }">
         <div class = "alpheios-alignment-radio-block alpheios-alignment-option-item__control">
-            <span v-for="item in allViewTypes" :key="item.value">
-                <label :for="itemIdWithValue(item.value)">
-                  <input type="radio" :id="itemIdWithValue(item.value)" :value="item.value" v-model="viewType" name = "viewType">
-                  {{ item.label }}
-                </label>
+            <span v-for="(item, idx) in allViewTypes" :key="idx">
+              <input type="radio" :id="itemIdWithValue(item.value)" :value="item.value" v-model="viewType" 
+                :ref = "itemIdWithValue(item.value)"
+                :data-checked1="item.value"
+                :data-checked2="viewType"
+                @change="changeViewType"
+              />
+              <label :for="itemIdWithValue(item.value)" @click = "clickInput(item.value)"> {{ item.label }} </label>
             </span>
             <span>
-            <input
-                class="alpheios-alignment-input alpheios-alignment-input__sentence-count"
-                type="number" min="0"
-                v-model.number="sentenceCount"
-                @change="checkSentenceCount"
-                :id="itemIdWithValue('sentenceCount')"
-            >
+            <select
+                class="alpheios-alignment-select alpheios-alignment-select__sentence-count"
+                v-model="sentenceCount" id="alpheios-alignment-select__sentence-count"
+                @change="changeViewType"
+                >
+              <option v-for="item in sentenceChoice" :key="item.value" :value = "item.value">{{ item.label }}</option>
+            </select>
             </span>
         </div>
 
@@ -42,15 +45,11 @@ export default {
   data () {
     return {
       sentenceCount: 1,
-      viewType: null
-    }
-  },
-  watch: {
-    viewType () {
-      this.$emit('updateViewType', { viewType: this.viewType, sentenceCount: this.sentenceCount })
-    },
-    sentenceCount () {
-      this.$emit('updateViewType', { viewType: this.viewType, sentenceCount: this.sentenceCount })
+      viewType: null,
+      sentenceChoice: [
+        { value: 1, label: 'current' },
+        { value: 2, label: 'one of both side' }
+      ]
     }
   },
   created () {
@@ -65,12 +64,16 @@ export default {
     itemIdWithValue (value) {
       return `alpheios-alignment-radio-block__${value.toLowerCase().replace(' ', '_')}`
     },
-    /**
-     * Sets a limit for the sentence count typed manually - min 0
-     */
-    checkSentenceCount () {
-      if (this.sentenceCount < 0) { 
-        this.sentenceCount = 0
+
+    changeViewType () {
+      this.$emit('updateViewType', { viewType: this.viewType, sentenceCount: this.sentenceCount })
+    },
+
+    clickInput (itemValue) {
+      const refInput = this.itemIdWithValue(itemValue)
+
+      if (!this.$refs[refInput][0].checked) {
+        this.$refs[refInput][0].click()
       }
     }
   }
