@@ -8,11 +8,8 @@
                 <img src="images/alpheios-logo-black-2.png" class="alpheios-logo">
               </a>
             </div>
-            <div class="alpheios-alignment-editor__page-header-title">
-              <span class="alpheios-alignment-editor-big-icon">
-                <books-icon />
-              </span>
-              <h2 class="alpheios-alignment-editor__page-title">Quick Start Text</h2>
+            <div class="alpheios-alignment-editor__title">
+              <h2 class="">Quick Start Text</h2>
             </div>
           </div><!-- alpheios-alignment-editor__page-header -->
 
@@ -49,6 +46,11 @@
                 <p class="alpheios-alignment-editor__page-content__item-img"><img :src="newAlignmentTitlePNG"></p>
                 <p>Although you can work offline during the actual aligning, it is a good idea to stay online until after you have entered the text you want to align 
                   and the alignment editor has taken advantage of remote services to identify the language and tokenize the text accordingly to prepare it for alignment.</p>
+
+                <div class="alpheios-alignment-editor__page-content__nav-links">
+                  <span class="alpheios-alignment-editor__page-content__nav-link-left"></span>
+                  <span class="alpheios-alignment-editor__page-content__nav-link-right" @click="shownLink = 'entering-text'">Entering text >></span>
+                </div>
               </div><!-- alpheios-alignment-editor__page-content__item -->
 
               <div class="alpheios-alignment-editor__page-content__item" v-show="shownLink === 'entering-text'">
@@ -58,6 +60,11 @@
                 <p class="alpheios-alignment-editor__page-content__item-img"><img :src="enterTextScreenPNG"></p>
                 <p>When you have finished entering text, the DONE button will tell the application to prepare the text for alignment by tokenizing it.</p>
                 <p>Alignment can only performed on the ALIGN TEXT screen, which comes up next.</p>
+
+                <div class="alpheios-alignment-editor__page-content__nav-links">
+                  <span class="alpheios-alignment-editor__page-content__nav-link-left" @click = "shownLink = 'getting-started'"><< Getting started</span>
+                  <span class="alpheios-alignment-editor__page-content__nav-link-right" @click="shownLink = 'aligning'">Aligning >></span>
+                </div>
               </div><!-- alpheios-alignment-editor__page-content__item -->
 
               <div class="alpheios-alignment-editor__page-content__item" v-show="shownLink === 'aligning'">
@@ -85,6 +92,11 @@
                 <p>To edit text after it has been tokenized, enable the TOKEN EDITOR in the ALIGN TEXT options, and make your desired changes on the TOKEN EDITOR screen. 
                   Your changes will be shown when you return to the ALIGN TEXT screen.</p>
 
+                <div class="alpheios-alignment-editor__page-content__nav-links">
+                  <span class="alpheios-alignment-editor__page-content__nav-link-left" @click = "shownLink = 'entering-text'"><< Entering text</span>
+                  <span class="alpheios-alignment-editor__page-content__nav-link-right" @click="shownLink = 'saving'">Saving >></span>
+                </div>
+
               </div><!-- alpheios-alignment-editor__page-content__item -->
 
               <div class="alpheios-alignment-editor__page-content__item" v-show="shownLink === 'saving'">
@@ -98,6 +110,11 @@
                   <li>the <b>HTML</b> version can be displayed reliably by Chrome, Firefox and Safari even when you are not connected to the internet.</li>
                 </ul>
                 <p>You can also export just the alignments in a simple csv format the would allow them to be easily imported into other applications.</p>
+
+                <div class="alpheios-alignment-editor__page-content__nav-links">
+                  <span class="alpheios-alignment-editor__page-content__nav-link-left" @click = "shownLink = 'aligning'"><< Aligning</span>
+                  <span class="alpheios-alignment-editor__page-content__nav-link-right" @click="shownLink = 'displaying'">Displaying >></span>
+                </div>
               </div><!-- alpheios-alignment-editor__page-content__item -->
 
               <div class="alpheios-alignment-editor__page-content__item" v-show="shownLink === 'displaying'">
@@ -133,13 +150,25 @@
                 <div class="alpheios-alignment-editor__page-content__info-block">
                   <p>All these options will display properly even when offline.</p>
                 </div>
+
+                <div class="alpheios-alignment-editor__page-content__nav-links">
+                  <span class="alpheios-alignment-editor__page-content__nav-link-left" @click = "shownLink = 'saving'"><< Saving</span>
+                  <span class="alpheios-alignment-editor__page-content__nav-link-right"></span>
+                </div>
               </div><!-- alpheios-alignment-editor__page-content__item -->
               
             </div><!-- alpheios-alignment-editor__page-content__right -->
+            <div class="alpheios-alignment-editor-main-button-block">
+              <a class="alpheios-alignment-editor-main-button-link" href="index.html">
+                Go to the Alignment Editor ->
+              </a>
+            </div>
           </div><!-- alpheios-alignment-editor__page-content -->
         </div><!-- alpheios-alignment-editor__page-container -->
         <div class="alpheios-alignment-editor__footer">
-          <p class="alpheios-alignment-editor__footer-copyright">Copyright © The Alpheios Project, Ltd. 2019. All Rights Reserved</p>
+          <div class="alpheios-alignment-editor__footer-inner">
+            <p class="alpheios-alignment-editor__footer-copyright">Copyright © The Alpheios Project, Ltd. 2019. All Rights Reserved</p>
+          </div>
         </div>
       </div>
   </div>
@@ -175,7 +204,11 @@ export default {
 }
 </script>
 <style lang="scss">
+
 .alpheios-alignment-quick-start { 
+    h1, h2, h3, h4, h5, h6 {
+        font-family: "Source Serif Pro", Arial, serif;
+    }
   .alpheios-alignment-editor__intro {
     background: #f1fafc;
     background-repeat: repeat;
@@ -192,39 +225,25 @@ export default {
       padding: 0 20px 20px;
     }
 
-    .alpheios-alignment-editor-big-icon {
-      display: inline-block;
-      width: 170px;
-      height: 170px;
-      vertical-align: middle;
-
-      @media screen and (max-width: 500px) {
-        width: 100px;
-        height: 100px;
-      }
-
-      svg {
-        display: block;
-        width: 100%;
-        height: 100%;
-      }
-    }
-
-    .alpheios-alignment-editor__page-title {
-      display: inline-block;
-      font-size: 50px;
-      padding: 50px 0 0 30px;
-      text-align: right;
-      vertical-align: middle;
-      line-height: 1;
-      margin: 0;
-
-      @media screen and (max-width: 500px) {
-        padding: 10px 0 10px 10px;
-        font-size: 26px;
-        width: calc(100% - 120px);
-        text-align: left;
-      }
+    .alpheios-alignment-editor__title {
+        padding: 20px 0;
+        h2 {
+          padding: 0 20px;
+          font-size: 300%;
+          font-family: "Source Serif Pro",serif;
+          margin: 0;
+          margin-left: 80px;
+          color: #90a959;
+          text-align: center;
+        }
+    
+        @media screen and (max-width: 500px) {
+          padding: 20px 0;
+          h2 {
+            font-size: 150%;
+            margin-left: 0;
+          }
+        }
     }
   }
   .alpheios-alignment-editor__page-container {
@@ -338,11 +357,50 @@ export default {
     padding: 40px 20px;
     color: #ffffff;
 
+    .alpheios-alignment-editor__footer-inner {
+      max-width: 1000px;
+      width: 90%;
+      margin: 0 auto;
+    }
+
     .alpheios-alignment-editor__footer-copyright {
       text-align: right;
     }
   }
 }
+  .alpheios-alignment-editor-main-button-block {
+    margin: 40px 0;
+    text-align: center;
 
+    a.alpheios-alignment-editor-main-button-link {
+      display: inline-block;
+      padding: 20px;
+      text-decoration: none;
+      color: #fff;
+      background: #90a959;
+      text-transform: uppercase;
+      font-weight: bold;
+      border-radius: 15px;
+
+      box-shadow: 3px 3px 2px 0px rgba(28,33,17,0.75);
+      -webkit-box-shadow: 3px 3px 2px 0px rgba(28,33,17,0.75);
+      -moz-box-shadow: 3px 3px 2px 0px rgba(28,33,17,0.75);
+    }
+  }
+
+  .alpheios-alignment-editor__page-content__nav-links {
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    background: #eee;
+    padding: 20px;
+
+    span {
+      display: block;
+      color: #0E2233;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  }
 
 </style>
