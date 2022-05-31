@@ -76,8 +76,7 @@ import MainMenu from '@/_output/vue/main-menu.vue'
 import NavbarIcon from '@/_output/inline-icons/navbar.svg'
 import SelectViews from '@/_output/vue/select-views.vue'
 
-import alpheiosLogoOnlyPNG from '@/_output/styles/images/alpheios-logo-only.png'
-import alpheiosLogoBlackPNG from '@/_output/styles/images/alpheios-logo-black.png'
+import ImagesConverted from '@/_output/data/images-converted.js'
 
 export default {
   name: 'App',
@@ -123,8 +122,8 @@ export default {
         { value: 'viewSentence', label: 'Sentence Context'}
       ],
 
-      alpheiosLogoOnlyPNG: alpheiosLogoOnlyPNG,
-      alpheiosLogoBlackPNG: alpheiosLogoBlackPNG
+      alpheiosLogoOnlyPNG: ImagesConverted.alpheiosLogoOnlyPNG,
+      alpheiosLogoBlackPNG: ImagesConverted.alpheiosLogoBlackPNG
     }
   },
   created() {

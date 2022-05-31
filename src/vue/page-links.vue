@@ -11,7 +11,7 @@
             </div>
             <div class="alpheios-alignment-editor-link-block">
                 <div class="alpheios-alignment-editor-video-block">
-                    <lazy-youtube src="https://youtu.be/nhaKttimc8g" :showTitle="false" />
+                    <lazy-youtube src="https://youtu.be/uPuN2hWkZIQ" :showTitle="false" />
                 </div>
                 <p class="alpheios-alignment-router-link-title">Overview</p>
             </div>
@@ -66,20 +66,47 @@ export default {
     width: 100%;
     text-align: center;
 
+    display: flex;
+    justify-content: space-between;
+    margin-top: 100px;
+
     .alpheios-alignment-editor-link-block {
       display: inline-block;
       vertical-align: middle;
       width: 30%;
+
+      &.alpheios-alignment-editor-router-link {
+          width: 20%;
+          min-width: 190px;
+      }
+
+      @media screen and (max-width: 800px) {
+          display: block;
+          text-align: center;
+          width: 100%;
+
+          &.alpheios-alignment-editor-router-link {
+              width: 100%;
+          }
+      }
     }
 
     .alpheios-alignment-editor-video-block {
       padding: 5px;
       background: #46788d;
       overflow: hidden;
+      
+      @media screen and (max-width: 800px) {
+        width: 90%;
+        display: inline-block;
+        max-width: 400px;
+      }
     }
 
-    @media screen and (max-width: 500px) {
+    @media screen and (max-width: 800px) {
         margin: 20px auto;
+        display: block;
+        text-align: center;
     }
 
     .alpheios-alignment-editor-router-link {
@@ -90,10 +117,10 @@ export default {
             display: block;
         }
 
-        @media screen and (max-width: 500px) {
+        @media screen and (max-width: 800px) {
           width: 100%;
           padding: 20px 40px;
-          display: block;
+          display: inline-block;
         }
     }
 

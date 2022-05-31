@@ -158,7 +158,7 @@
               </div><!-- alpheios-alignment-editor__page-content__item -->
               
             </div><!-- alpheios-alignment-editor__page-content__right -->
-            <div class="alpheios-alignment-editor-main-button-block">
+            <div class="alpheios-alignment-editor-main-button-block" v-show="shownLink === 'displaying'">
               <a class="alpheios-alignment-editor-main-button-link" href="index.html">
                 Go to the Alignment Editor ->
               </a>
@@ -220,7 +220,7 @@ export default {
     background: #f1fafc;
     padding: 0 20px;
 
-    @media screen and (max-width: 500px) {
+    @media screen and (max-width: 800px) {
       display: block;
       padding: 0 20px 20px;
     }
@@ -237,7 +237,7 @@ export default {
           text-align: center;
         }
     
-        @media screen and (max-width: 500px) {
+        @media screen and (max-width: 800px) {
           padding: 20px 0;
           h2 {
             font-size: 150%;
@@ -285,7 +285,7 @@ export default {
         }
       }
 
-      @media screen and (max-width: 500px) {
+      @media screen and (max-width: 800px) {
         display: block;
         width: 100%;
         padding: 20px;
@@ -303,7 +303,7 @@ export default {
       vertical-align: top;
       box-sizing: border-box;
 
-      @media screen and (max-width: 500px) {
+      @media screen and (max-width: 800px) {
         display: block;
         width: 100%;
         padding: 20px;
@@ -318,7 +318,7 @@ export default {
         font-size: 95%;
         padding: 20px 20px 20px 50px;
 
-        @media screen and (max-width: 500px) {
+        @media screen and (max-width: 800px) {
           background-position: 50% 10px;
           padding: 30px 20px 20px 20px;
           text-align: center;
@@ -331,7 +331,7 @@ export default {
           display: inline-block;
           width: 70%;
 
-          @media screen and (max-width: 500px) {
+          @media screen and (max-width: 800px) {
             width: 100%;
           }
         }

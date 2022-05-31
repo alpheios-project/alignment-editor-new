@@ -1,6 +1,6 @@
 <template>
   <div class="alpheios-alignment-editor-initial-screen">
-      <div class="alpheios-alignment-editor-initial-screen__intro" style="background-image: url('images/books.svg')">
+      <div class="alpheios-alignment-editor-initial-screen__intro">
         <div class="alpheios-header-logo">
           <img src="images/alpheios-logo-black-2.png" class="alpheios-logo">
         </div>
@@ -170,7 +170,7 @@ export default {
     font-family: "Source Serif Pro", serif;
     text-align: center;
 
-    @media screen and (max-width: 500px) {
+    @media screen and (max-width: 800px) {
       font-size: 32px;
       display: block;
     }
@@ -199,10 +199,12 @@ export default {
         width: 49%;
         display: inline-block;
         vertical-align: top;
+        
      
-        @media screen and (max-width: 500px) {
+        @media screen and (max-width: 800px) {
           margin-bottom: 20px;
           width: 100%;
+         
         }
 
         .alpheios-actions-menu-main-button {
@@ -210,6 +212,11 @@ export default {
             font-size: 22px;
             text-align: center;
             white-space: normal;
+            min-width: 330px;
+
+            @media screen and (max-width: 800px) {
+               min-width: auto;
+            }
         }
 
         .alpheios-alignment-app-menu__upload-block {
