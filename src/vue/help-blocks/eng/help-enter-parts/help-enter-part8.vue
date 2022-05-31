@@ -5,7 +5,7 @@
           <p>The <b>[RESUME PREVIOUS ALIGNMENT]</b> button allows you to continue to modify an alignment that has been saved somewhere on your computer. 
           You can either choose the file from wherever you have saved it in your local file system or from a list of automatically saved versions. 
           The files are named simply by the time of their creation and the short project name originally chosen by the user. 
-          (See <b>Saving</b> in the Help page of the Align Text screen.)
+          (See <b>Saving</b> in the Help page above.)
           </p>
 
           <div class="alpheios-editor-help-content-special">
