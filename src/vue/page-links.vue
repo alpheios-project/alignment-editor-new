@@ -73,7 +73,7 @@ export default {
     .alpheios-alignment-editor-link-block {
       display: inline-block;
       vertical-align: middle;
-      width: 30%;
+      width: 25%;
 
       &.alpheios-alignment-editor-router-link {
           width: 20%;
@@ -126,8 +126,8 @@ export default {
 
     .alpheios-alignment-router-link-icon {
         display: inline-block;
-        width: 100px;
-        height: 70px;
+        width: 85px;
+        height: 65px;
         cursor: pointer;
 
         svg {
@@ -143,7 +143,7 @@ export default {
     .alpheios-alignment-router-link-title {
         color: #46788d;
         text-transform: uppercase;
-        font-size: 140%;
+        font-size: 110%;
         font-family: "Source Serif Pro",serif;
         margin: 10px 0 0;
         font-weight: bold;
