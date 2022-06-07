@@ -1,5 +1,5 @@
 <template>
-  <modal classes="alpheios-alignment-editor-modal-annotations" name="annotations" :draggable="true" height="auto">
+  <modal classes="alpheios-alignment-editor-modal-annotations" name="annotations" :draggable="true" height="auto" data-alpheios-ignore="all">
     <div class="alpheios-modal-header" v-if="token">
         <span class="alpheios-alignment-modal-close-icon" @click = "$emit('closeModal')">
             <x-close-icon />
@@ -16,6 +16,7 @@
           </button>
         </p>
     </div>
+
     <div class="alpheios-modal-body" v-if="token">
       <div class = "alpheios-alignment-editor-annotation-new" v-show="currentState !== 'list'">
         <div class="alpheios-alignment-editor-annotation-select">
@@ -23,15 +24,19 @@
                 <option v-for="(anType, anIndex) in annotationTypes" :key="anIndex" :value="anType">{{ annotationTypeValue(anType) }}</option>
             </select>
         </div>
+
+
         <div class="alpheios-alignment-editor-annotation-text-block">
             <p class="alpheios-alignment-editor-text-blocks-info-line">
               <span class="alpheios-alignment-editor-text-blocks-single__characters" :class = "charactersClasses">{{ charactersText }}</span>
             </p>
             <textarea :id="textareaId" v-model="annotationText" 
                 class="alpheios-alignment-editor-annotation-textarea">
-            ></textarea>
+            </textarea>
         </div>
       </div>
+
+
       <table class = "alpheios-alignment-editor-annotation-list" v-show="currentState === 'list'">
         <tr class="alpheios-alignment-editor-annotation-list-item" 
             v-for="annotation in allAnnotations" :key="annotation.id"
@@ -53,6 +58,7 @@
         </tr>
       </table>
     </div>
+
     <div class="alpheios-modal-footer" v-if="token">
       <p class="alpheios-alignment-annotations-footer__buttons" v-show = "currentState !== 'list'">
         <button class="alpheios-editor-button-tertiary alpheios-annotation-save-button" 
@@ -89,7 +95,7 @@ export default {
   data () {
     return {
       annotationId: null,
-      annotationText: null,
+      annotationText: 'test',
       annotationType: 'COMMENT',
       states: ['new', 'list', 'edit'],
       currentState: 'new',
