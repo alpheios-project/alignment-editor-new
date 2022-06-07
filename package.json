@@ -15,7 +15,7 @@
     "test-lib": "jest tests/lib --coverage",
     "test-vue": "jest tests/vue --coverage",
     "test-a": "jest tests/lib/controllers/app-controller.test.js",
-    "test-b": "jest tests/vue/align-editor/segment-block.test.js",
+    "test-b": "jest tests/vue/notification-bar.test.js",
     "test-c": "jest tests/lib/data/actions/tokens-edit-actions.test.js",
     "test-f": "jest tests/lib/tokenizers/simple-local-tokenizer.test.js",
     "test-d": "jest tests/lib/storage/indexed-db-adapter.test.js",
@@ -142,7 +142,7 @@
       "^@tests[/](.+)": "<rootDir>/tests/$1",
       "^@vue-runtime$": "vue/dist/vue.runtime.common.js",
       "^@vuedraggable": "<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js",
-      "alpheios-client-adapters": "<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js",
+      "alpheios-client-adapters": "<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.min.js",
       "alpheios-data-models": "<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js",
       "alpheios-l10n": "<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"
     },
