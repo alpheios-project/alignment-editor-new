@@ -30,12 +30,12 @@
       "component": "InitialScreen"
     },
     "INITIAL_CHOOSE_FROM_FILE": {
-      "message": "ones you saved",
+      "message": "saved by you",
       "description": "Button on initial screen",
       "component": "InitialScreen"
     },
     "INITIAL_CHOOSE_FROM_DB": {
-      "message": "autosaved ones",
+      "message": "autosaved",
       "description": "Button on initial screen",
       "component": "InitialScreen"
     },
