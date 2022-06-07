@@ -95,7 +95,7 @@ export default {
   data () {
     return {
       annotationId: null,
-      annotationText: 'test',
+      annotationText: '',
       annotationType: 'COMMENT',
       states: ['new', 'list', 'edit'],
       currentState: 'new',
