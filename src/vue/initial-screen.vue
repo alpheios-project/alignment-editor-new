@@ -76,7 +76,6 @@ export default {
   data () {
     return {
       showUploadBlock: false,
-      uploadFileName: null,
       showVideo: false,
       alignments: [],
       showUploadFromFile: false,

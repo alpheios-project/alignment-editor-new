@@ -79,6 +79,7 @@ export default class AlignedText {
 
       return true
     }
+    this.segments = []
     return false
   }
 
@@ -192,7 +193,7 @@ export default class AlignedText {
         lang: xmlFormattedData.lang,
         tokenization: {
           tokenizer: 'alpheiosRemoteTokenizer',
-          segments: 'onesegment'
+          segments: 'no segment'
         }
       }
     })

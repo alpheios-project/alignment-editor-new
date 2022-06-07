@@ -121,7 +121,7 @@
         },
         {
           "value": "LEMMAID",
-          "text": "lemmaID"
+          "text": "lemma-id"
         },
         {
           "value": "MORPHOLOGY",

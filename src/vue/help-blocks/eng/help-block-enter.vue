@@ -14,12 +14,12 @@
 
       <help-enter-part10 />
 
-      <h4 class="alpheios-editor-help-content-title alpheios-editor-help-content-title-outside" >ACADEMIC OPTIONS</h4>
+      <h4 class="alpheios-editor-help-content-title alpheios-editor-help-content-title-outside alpheios-editor-help-content-title-outside__padding" >ACADEMIC OPTIONS</h4>
       <help-enter-part11 />
       <help-enter-part12 />
       <help-enter-part13 />
 
-      <h4 class="alpheios-editor-help-content-title alpheios-editor-help-content-title-outside" >ADVANCED OPTIONS</h4>
+      <h4 class="alpheios-editor-help-content-title alpheios-editor-help-content-title-outside alpheios-editor-help-content-title-outside__padding" >ADVANCED OPTIONS</h4>
       <help-enter-part14 />
       <help-enter-part15 />
       <help-enter-part16 />
@@ -84,6 +84,9 @@ export default {
     color: #185F6D;
   }
 
+  .alpheios-editor-help-content-title-outside__padding {
+    padding-left:20px;
+  }
   .alpheios-editor-help-content {
       &.alpheios-editor-help-enter-content-part11,
       &.alpheios-editor-help-enter-content-part12,
@@ -91,7 +94,7 @@ export default {
       &.alpheios-editor-help-enter-content-part14,
       &.alpheios-editor-help-enter-content-part15,
       &.alpheios-editor-help-enter-content-part16 {
-        padding-left: 20px;
+        padding-left: 40px;
       }
   }
 </style>

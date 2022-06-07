@@ -87,6 +87,6 @@ export default class Annotation {
 
 Annotation.types = {
   COMMENT: 'comment',
-  LEMMAID: 'lemmaid',
+  LEMMAID: 'lemma-id',
   MORPHOLOGY: 'morphology'
 }

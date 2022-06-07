@@ -22,8 +22,13 @@
         </button>
       </div>
       <div class="alpheios-alignment-editor-actions-menu__upload-block" v-show="showUploadMenu" >
-          <input type="file" @change="loadTextFromFile" ref="fileupload">
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__metadata"
+          <input type="file" :id = "fileUploadRef" :ref="fileUploadRef" class="alpheios-fileupload" @change="loadTextFromFile">
+          <label :for="fileUploadRef" class="alpheios-fileupload-label alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-upload">
+              {{ l10n.getMsgS('INITIAL_CHOOSE_FILE') }} 
+          </label>
+          <span class="alpheios-fileupload-label-filename" v-if="uploadFile">{{ uploadFile }}</span>
+
+          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-fileupload-dtsapi" id="alpheios-actions-menu-button__metadata"
               @click="$modal.show(uploadDtsModalName)" v-if="enableDTSAPIUploadValue">
               DTSAPI
           </button>
@@ -147,7 +152,8 @@ export default {
       showTextProps: false,
       showUploadMenu: false,
       
-      updatedLocalOptionsFlag: 1
+      updatedLocalOptionsFlag: 1,
+      uploadFile: ''
     }
   },
   /**
@@ -172,6 +178,7 @@ export default {
     async '$store.state.uploadCheck' () {
       await this.updateFromExternal()
       this.$refs.fileupload.value = ''
+      this.uploadFile = ''
     },
     async '$store.state.docSourceLangDetected' () {
       this.updateLangData()
@@ -198,7 +205,10 @@ export default {
     formattedTextId () {
       return this.textId ?? 'no-id'
     },
-
+    
+    fileUploadRef () {
+      return `fileupload-${this.textType}-${this.formattedTextId}`
+    },
     /**
      * It is executed after each alignment update, 
      * checks if  localOptions is not yet uploaded
@@ -402,7 +412,8 @@ export default {
      */
     async restartTextEditor () {
       this.text = ''
-      this.$refs.fileupload.value = ''
+      this.$refs[this.fileUploadRef].value = ''
+      this.uploadFile = ''
       this.prepareDefaultTextEditorOptions()
 
       this.initDataProps()
@@ -482,7 +493,8 @@ export default {
 
     async deleteText () {
       this.text = ''
-      this.$refs.fileupload.value = ''
+      this.$refs[this.fileUploadRef].value = ''
+      this.uploadFile = ''
       this.prepareDefaultTextEditorOptions()
       this.$textC.deleteText(this.textType, this.textId)
       setTimeout(() => {
@@ -528,8 +540,10 @@ export default {
      * Creates FileReader and passes data from file to App component for parsing
      */
     loadTextFromFile(ev) {
-      const file = ev.target.files[0]     
+      const file = this.$refs[this.fileUploadRef].files[0]     
+      
       if (!file) { return }
+      this.uploadFile = file.name
       const extension = file.name.indexOf('.') > -1 ? file.name.split('.').pop() : ''
 
       if (!this.$textC.checkUploadedFileByExtension(extension, false)) { return }
@@ -542,7 +556,8 @@ export default {
       }
       reader.readAsText(file)
 
-      this.$refs.fileupload.value = ''
+      this.$refs[this.fileUploadRef].value = ''
+      this.uploadFile = ''
     },
 
     uploadFromDTSAPI (filedata) {
@@ -769,5 +784,16 @@ export default {
   .alpheios-alignment-editor-text-blocks-single__first-line,
   .alpheios-alignment-editor-actions-menu__upload-block {
     display: inline-block;
+  }
+
+  .alpheios-alignment-editor-actions-menu__upload-block {
+    .alpheios-fileupload-label-filename {
+      padding: 0 20px;
+      color: #46788d;
+    }
+
+    .alpheios-fileupload-dtsapi {
+      margin-left: 20px;
+    }
   }
 </style>
