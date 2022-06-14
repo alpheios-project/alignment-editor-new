@@ -141,7 +141,7 @@ export default {
       return this.identList[this.viewType].filter(langData => !langData.hidden)
     },
     noticeText () {
-      return `This view displays the first <b>${this.shownTabs.length}</b> of the translations <b>${this.identList[this.viewType].length}</b> available. The menu in the upper left lets you change the selection and their order.`
+      return `This view displays the first <b>${this.shownTabs.length}</b> of the <b>${this.identList[this.viewType].length}</b> translations available. The menu in the upper left lets you change the selection and their order.`
     }
   },
   methods: {
