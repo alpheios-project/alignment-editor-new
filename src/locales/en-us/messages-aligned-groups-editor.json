@@ -38,5 +38,10 @@
       "message": "Save locally",
       "description": "Button",
       "component": "AlignEditor"
+    },
+    "ALIGN_EDITOR_CLICK_TOKEN_UNAVAILABLE": {
+      "message": "You are not able to start create alignment groups while you have not tokenized texts",
+      "description": "Click token",
+      "component": "SegmentEditor"
     }
 }

@@ -65,6 +65,7 @@ import MetadataBlock from '@/vue/text-editor/metadata-block.vue'
 import MetadataIcons from '@/vue/common/metadata-icons.vue'
 
 import SettingsController from '@/lib/controllers/settings-controller.js'
+import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
 export default {
   name: 'SegmentBlock',
@@ -300,8 +301,15 @@ export default {
      * @param {Token}
      */
     updateAlignmentGroup (token) {
+
       if (this.alignmentGroupsWorkflowAvailable && this.currentTargetId) {
         this.$alignedGC.clickToken(token, this.currentTargetId)
+      } else if (!this.alignmentGroupsWorkflowAvailable) {
+        console.error(L10nSingleton.getMsgS('ALIGN_EDITOR_CLICK_TOKEN_UNAVAILABLE'))
+        NotificationSingleton.addNotification({
+          text: L10nSingleton.getMsgS('ALIGN_EDITOR_CLICK_TOKEN_UNAVAILABLE'),
+          type: NotificationSingleton.types.ERROR
+        })
       }
     },
     /**
