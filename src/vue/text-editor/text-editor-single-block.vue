@@ -177,7 +177,9 @@ export default {
     },
     async '$store.state.uploadCheck' () {
       await this.updateFromExternal()
-      this.$refs.fileupload.value = ''
+      if (this.$refs.fileupload) {
+        this.$refs.fileupload.value = ''
+      }
       this.uploadFile = ''
     },
     async '$store.state.docSourceLangDetected' () {
