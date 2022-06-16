@@ -32,7 +32,7 @@ export default {
         cursor: pointer;
         color: #90a959;
         text-decoration: underline;
-        margin: 0;
+        margin: 10px 0;
     }
 
     .alpheios-alignment-editor-metadata__info-details {

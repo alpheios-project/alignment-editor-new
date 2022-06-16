@@ -165,26 +165,192 @@ MetadataTerm.property = {
     order: 7,
     group: 'dublin'
   },
-  TRANSLATOR: {
+
+  ALPH_TITLE: {
+    label: 'title',
+    labell10n: 'METADATA_TERM_LABEL_TITLE',
+    fieldtype: 'string',
+    multivalued: false,
+    description: '',
+    descriptionl10n: '',
+    orderVariants: {
+      origin: 1,
+      target: 6
+    },
+    group: 'alpheios'
+  },
+  ALPH_AUTHOR: {
+    synonim: 'AUTHOR',
+    limitedFor: 'origin',
+    label: 'author',
+    labell10n: 'METADATA_TERM_LABEL_ALPH_AUTHOR',
+    fieldtype: 'string',
+    multivalued: false,
+    description: 'Homer, Ford Maddox Ford',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_ALPH_AUTHOR',
+    order: 2,
+    group: 'alpheios'
+  },
+  ALPH_TRANSLATOR: {
+    synonim: 'TRANSLATOR',
+    limitedFor: 'target',
     label: 'translator',
     labell10n: 'METADATA_TERM_LABEL_TRANSLATOR',
     fieldtype: 'string',
     multivalued: false,
-    description: 'A translator of the text.',
-    descriptionl10n: 'METADATA_TERM_DESCRIPTION_TRANSLATOR',
-    order: 2,
-    group: 'alpheios'
-  },
-  AUTHOR: {
-    label: 'author',
-    labell10n: 'METADATA_TERM_LABEL_AUTHOR',
-    fieldtype: 'string',
-    multivalued: false,
-    description: 'An author of the text.',
-    descriptionl10n: 'METADATA_TERM_DESCRIPTION_AUTHOR',
+    description: '',
+    descriptionl10n: '',
     order: 1,
     group: 'alpheios'
   },
+  ALPH_YEAR_WRITTEN: {
+    limitedFor: 'origin',
+    label: 'year written',
+    labell10n: 'METADATA_TERM_LABEL_ALPH_YEAR_WRITTEN',
+    fieldtype: 'string',
+    multivalued: false,
+    description: '1240, 1240-1245',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_ALPH_YEAR_WRITTEN',
+    order: 3,
+    group: 'alpheios'
+  },
+  ALPH_YEAR_FIRST_PUBLISHED: {
+    limitedFor: 'origin',
+    label: 'year first published',
+    labell10n: 'METADATA_TERM_LABEL_ALPH_YEAR_FIRST_PUBLISHED',
+    fieldtype: 'string',
+    multivalued: false,
+    description: '1240, 1240-1245',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_ALPH_YEAR_FIRST_PUBLISHED',
+    order: 4,
+    group: 'alpheios'
+  },
+
+  ALPH_LANGUAGE: {
+    label: {
+      origin: 'original language',
+      target: 'translation language'
+    },
+    labell10n: {
+      origin: 'METADATA_TERM_LABEL_ALPH_ORIGIN_LANGUAGE',
+      target: 'METADATA_TERM_LABEL_ALPH_TARGET_LANGUAGE'
+    },
+    fieldtype: 'string',
+    multivalued: false,
+    description: '',
+    descriptionl10n: '',
+    orderVariants: {
+      origin: 5,
+      target: 2
+    },
+    group: 'alpheios'
+  },
+
+  ALPH_EDITION_YEAR: {
+    limitedFor: 'origin',
+    label: 'edition year',
+    labell10n: 'METADATA_TERM_LABEL_ALPH_EDITION_YEAR',
+    fieldtype: 'string',
+    multivalued: false,
+    description: '1919',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_ALPH_EDITION_YEAR',
+    order: 6,
+    group: 'alpheios'
+  },
+  ALPH_EDITOR: {
+    limitedFor: 'origin',
+    label: 'editor',
+    labell10n: 'METADATA_TERM_LABEL_ALPH_EDITOR',
+    fieldtype: 'string',
+    multivalued: false,
+    description: 'Allen',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_ALPH_EDITOR',
+    order: 7,
+    group: 'alpheios'
+  },
+  ALPH_DESCRIPTION: {
+    limitedFor: 'origin',
+    label: 'description',
+    labell10n: 'METADATA_TERM_LABEL_ALPH_DESCRIPTION',
+    fieldtype: 'string',
+    multivalued: false,
+    description: 'ad libitum',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_ALPH_DESCRIPTION',
+    order: 8,
+    group: 'alpheios'
+  },
+  ALPH_GENRE: {
+    limitedFor: 'origin',
+    label: 'genre',
+    labell10n: 'METADATA_TERM_LABEL_ALPH_GENRE',
+    fieldtype: 'list',
+    listValues: [
+      { value: 'poetry', label: 'poetry' },
+      { value: 'history', label: 'history' },
+      { value: 'philosophy', label: 'philosophy' },
+      { value: 'religious', label: 'religious' },
+      { value: 'drama', label: 'drama' },
+      { value: 'novel', label: 'novel' },
+      { value: 'correspondence', label: 'correspondence' },
+      { value: 'journalism', label: 'journalism' },
+      { value: 'reference', label: 'reference' },
+      { value: 'other', label: 'other' }
+    ],
+    multivalued: false,
+    description: '',
+    descriptionl10n: '',
+    order: 9,
+    group: 'alpheios'
+  },
+
+  ALPH_YEAR_TRANSLATED: {
+    limitedFor: 'target',
+    label: 'year translated',
+    labell10n: 'METADATA_TERM_LABEL_ALPH_YEAR_TRANSLATED',
+    fieldtype: 'string',
+    multivalued: false,
+    description: '1240, 1240-1245',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_ALPH_YEAR_TRANSLATED',
+    order: 3,
+    group: 'alpheios'
+  },
+
+  ALPH_YEAR_PUBLISHED: {
+    limitedFor: 'target',
+    label: 'year published',
+    labell10n: 'METADATA_TERM_LABEL_ALPH_YEAR_PUBLISHED',
+    fieldtype: 'string',
+    multivalued: false,
+    description: '1240, 1240-1245',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_ALPH_YEAR_PUBLISHED',
+    order: 4,
+    group: 'alpheios'
+  },
+
+  ALPH_YEAR_EDITION_USED: {
+    limitedFor: 'target',
+    label: 'edition used',
+    labell10n: 'METADATA_TERM_LABEL_ALPH_EDITION_USED',
+    fieldtype: 'string',
+    multivalued: false,
+    description: 'Allen, 1919',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_ALPH_EDITION_USED',
+    order: 5,
+    group: 'alpheios'
+  },
+
+  ALPH_PUBLISHER: {
+    limitedFor: 'target',
+    label: 'publisher',
+    labell10n: 'METADATA_TERM_LABEL_ALPH_PUBLISHER',
+    fieldtype: 'string',
+    multivalued: false,
+    description: '',
+    descriptionl10n: '',
+    order: 6,
+    group: 'alpheios'
+  },
+
   FILTER_BUTTON: {
     label: 'short name',
     labell10n: 'METADATA_TERM_LABEL_FILTER_BUTTON',

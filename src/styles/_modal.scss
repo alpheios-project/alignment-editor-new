@@ -46,7 +46,7 @@
     }
     
     .alpheios-modal-body {
-      margin: 10px 0;
+      margin: 25px 0;
       max-height: 400px;
       overflow: auto;
 
@@ -87,8 +87,8 @@
     .alpheios-alignment-modal-close-icon {
         display: block;
         position: absolute;
-        top: 0;
-        right: 0;
+        top: -10px;
+        right: -20px;
         width: 25px;
         height: 25px;
         cursor: pointer;
