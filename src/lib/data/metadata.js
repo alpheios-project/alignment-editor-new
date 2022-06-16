@@ -7,9 +7,9 @@ export default class Metadata {
 
   static get groups () {
     return {
-      alpheios: { label: 'Alpheios', order: 1 },
-      dublin: { label: 'Dublin Core', order: 2 },
-      common: { label: 'Common', order: 0 }
+      alpheios: { key: 'alpheios', label: 'Alpheios', order: 1 },
+      dublin: { key: 'dublin', label: 'Dublin Core', order: 2 },
+      common: { key: 'common', label: 'Common', order: 0 }
     }
   }
 
@@ -68,12 +68,14 @@ export default class Metadata {
     return null
   }
 
-  get allAvailableMetadata () {
+  allAvailableMetadata (textType) {
     const allMeta = Object.assign({}, Metadata.groups)
     Object.values(allMeta).forEach(metaGroupItem => { metaGroupItem.items = [] })
 
     Object.values(MetadataTerm.property).forEach(property => {
-      allMeta[property.group].items.push(this.hasProperty(property) ? this.getProperty(property) : { template: true, property, value: (property.multivalued ? [null] : null) })
+      if (!property.limitedFor || (property.limitedFor === textType)) {
+        allMeta[property.group].items.push(this.hasProperty(property) ? this.getProperty(property) : { template: true, property, value: (property.multivalued ? [null] : null) })
+      }
     })
 
     Object.values(allMeta).forEach(metaGroup => { metaGroup.items.sort((a, b) => a.property.order - b.property.order) })
@@ -91,7 +93,7 @@ export default class Metadata {
   }
 
   convertToShortJSONLine () {
-    const propsToShow = ['TITLE', 'CREATOR', 'DATE_COPYRIGHTED', 'AUTHOR', 'TRANSLATOR']
+    const propsToShow = ['TITLE', 'CREATOR', 'DATE_COPYRIGHTED', 'ALPH_AUTHOR', 'ALPH_TRANSLATOR']
     const propsValues = propsToShow.map(prop => this.getPropertyValue(MetadataTerm.property[prop])).filter(value => value)
 
     const result = propsValues.length > 0 ? propsValues.join('; ') : ''

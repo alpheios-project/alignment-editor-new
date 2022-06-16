@@ -102,7 +102,7 @@ export default class SourceText {
   }
 
   get allAvailableMetadata () {
-    return this.metadata.allAvailableMetadata
+    return this.metadata.allAvailableMetadata(this.textType)
   }
 
   /**

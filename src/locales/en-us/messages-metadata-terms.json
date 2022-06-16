@@ -114,5 +114,115 @@
       "message": "Short name for the text, used in filter button title in HTML Output and for tooltips on Align Text Screen.",
       "description": "Metadata term description",
       "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_ALPH_AUTHOR": {
+      "message": "Author",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_ALPH_AUTHOR": {
+      "message": "Homer, Ford Maddox Ford",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_ALPH_YEAR_WRITTEN": {
+      "message": "Year written",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_ALPH_YEAR_WRITTEN": {
+      "message": "1240, 1240-1245",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_ALPH_YEAR_FIRST_PUBLISHED": {
+      "message": "Year first published",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_ALPH_YEAR_FIRST_PUBLISHED": {
+      "message": "1240, 1240-1245",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_ALPH_ORIGIN_LANGUAGE": {
+      "message": "original language",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_ALPH_TARGET_LANGUAGE": {
+      "message": "translation language",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_ALPH_EDITION_YEAR": {
+      "message": "edition year",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_ALPH_EDITION_YEAR": {
+      "message": "1919",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_ALPH_EDITOR": {
+      "message": "editor",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_ALPH_EDITOR": {
+      "message": "Allen",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_ALPH_DESCRIPTION": {
+      "message": "description",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_ALPH_DESCRIPTION": {
+      "message": "ad libitum",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_ALPH_GENRE": {
+      "message": "genre",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_ALPH_YEAR_TRANSLATED": {
+      "message": "Year translated",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_ALPH_YEAR_TRANSLATED": {
+      "message": "1240, 1240-1245",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_ALPH_YEAR_PUBLISHED": {
+      "message": "Year published",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_ALPH_YEAR_PUBLISHED": {
+      "message": "1240, 1240-1245",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_ALPH_EDITION_USED": {
+      "message": "Edition used",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_ALPH_EDITION_USED": {
+      "message": "Allen, 1919",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_ALPH_PUBLISHER": {
+      "message": "Publisher",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
     }
 }
