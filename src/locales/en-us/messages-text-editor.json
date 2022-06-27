@@ -152,12 +152,12 @@
     "component": "TextEditorSingleBlock"
   },
   "NO_METADATA_ICON": {
-    "message": "Metadata is empty for the text",
+    "message": "Description is missing",
     "description": "Tooltip for no metadata icon",
     "component": "TextEditorSingleBlock"
   },
   "HAS_METADATA_ICON": {
-    "message": "You could check and update metadata here",
+    "message": "Description can be modified",
     "description": "Tooltip for has metadata icon",
     "component": "TextEditorSingleBlock"
   },
