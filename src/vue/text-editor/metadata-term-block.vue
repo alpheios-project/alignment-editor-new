@@ -14,7 +14,7 @@
               :id="itemId"
               @change = "changeMetadataItem('change')"
               @keyup.enter = "changeMetadataItem('enter')"
-              v-if="fieldType === 'string'"
+              v-if="fieldType === 'string' || fieldType === 'URI' || fieldType === 'date'"
           >
 
           <select
