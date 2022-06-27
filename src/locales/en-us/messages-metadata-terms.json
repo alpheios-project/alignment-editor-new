@@ -121,7 +121,7 @@
       "component": "MetadataTerm"
     },
     "METADATA_TERM_DESCRIPTION_ALPH_AUTHOR": {
-      "message": "Homer, Ford Maddox Ford",
+      "message": "e.g. Homer, Ford Maddox Ford",
       "description": "Metadata term description",
       "component": "MetadataTerm"
     },
@@ -131,7 +131,7 @@
       "component": "MetadataTerm"
     },
     "METADATA_TERM_DESCRIPTION_ALPH_YEAR_WRITTEN": {
-      "message": "1240, 1240-1245",
+      "message": "e.g. 1240, 1240-1245",
       "description": "Metadata term description",
       "component": "MetadataTerm"
     },
@@ -141,7 +141,7 @@
       "component": "MetadataTerm"
     },
     "METADATA_TERM_DESCRIPTION_ALPH_YEAR_FIRST_PUBLISHED": {
-      "message": "1240, 1240-1245",
+      "message": "e.g. 1240, 1240-1245",
       "description": "Metadata term description",
       "component": "MetadataTerm"
     },
@@ -161,7 +161,7 @@
       "component": "MetadataTerm"
     },
     "METADATA_TERM_DESCRIPTION_ALPH_EDITION_YEAR": {
-      "message": "1919",
+      "message": "e.g. 1919",
       "description": "Metadata term description",
       "component": "MetadataTerm"
     },
@@ -171,7 +171,7 @@
       "component": "MetadataTerm"
     },
     "METADATA_TERM_DESCRIPTION_ALPH_EDITOR": {
-      "message": "Allen",
+      "message": "e.g. Allen",
       "description": "Metadata term description",
       "component": "MetadataTerm"
     },
@@ -181,7 +181,7 @@
       "component": "MetadataTerm"
     },
     "METADATA_TERM_DESCRIPTION_ALPH_DESCRIPTION": {
-      "message": "ad libitum",
+      "message": "P.R.N.",
       "description": "Metadata term description",
       "component": "MetadataTerm"
     },
@@ -196,7 +196,7 @@
       "component": "MetadataTerm"
     },
     "METADATA_TERM_DESCRIPTION_ALPH_YEAR_TRANSLATED": {
-      "message": "1240, 1240-1245",
+      "message": "e.g. 1240, 1240-1245",
       "description": "Metadata term description",
       "component": "MetadataTerm"
     },
@@ -206,7 +206,7 @@
       "component": "MetadataTerm"
     },
     "METADATA_TERM_DESCRIPTION_ALPH_YEAR_PUBLISHED": {
-      "message": "1240, 1240-1245",
+      "message": "e.g. 1240, 1240-1245",
       "description": "Metadata term description",
       "component": "MetadataTerm"
     },
@@ -216,7 +216,7 @@
       "component": "MetadataTerm"
     },
     "METADATA_TERM_DESCRIPTION_ALPH_EDITION_USED": {
-      "message": "Allen, 1919",
+      "message": "e.g. Allen, 1919",
       "description": "Metadata term description",
       "component": "MetadataTerm"
     },
