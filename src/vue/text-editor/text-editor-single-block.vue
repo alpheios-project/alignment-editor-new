@@ -414,7 +414,9 @@ export default {
      */
     async restartTextEditor () {
       this.text = ''
-      this.$refs[this.fileUploadRef].value = ''
+      if (this.$refs[this.fileUploadRef]) {
+        this.$refs[this.fileUploadRef].value = ''
+      }
       this.uploadFile = ''
       this.prepareDefaultTextEditorOptions()
 
