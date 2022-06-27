@@ -110,7 +110,7 @@
         "component": "DownloadController"
     },
     "DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP": {
-        "message": "download source texts, tokens and segments, alignment groups",
+        "message": "Download all data needed to resume editing",
         "description": "Download type tooltip",
         "component": "DownloadController"
     },
@@ -120,7 +120,7 @@
         "component": "DownloadController"
     },
     "DOWNLOAD_CONTROLLER_TYPE_HTML_TOOLTIP": {
-        "message": "download html with alignment result",
+        "message": "Download final result with multiple display options",
         "description": "Download type tooltip",
         "component": "DownloadController"
     },
@@ -130,7 +130,7 @@
         "component": "DownloadController"
     },
     "DOWNLOAD_CONTROLLER_TYPE_CSV_TOOLTIP": {
-        "message": "download csv with alignment groups created",
+        "message": "Download just the alignment groups",
         "description": "Download type tooltip",
         "component": "DownloadController"
     },
