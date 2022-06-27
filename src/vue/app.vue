@@ -12,6 +12,7 @@
         @add-target = "addTarget"
         @clear-all = "startOver"
         @new-initial-alignment = "startNewInitialAlignment"
+        @upload-data-from-db = "uploadDataFromDB"
 
         @showOptions = "showOptions"
         @showSourceTextEditor = "showSourceTextEditor"
