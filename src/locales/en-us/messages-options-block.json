@@ -50,12 +50,12 @@
       "component": "OptionsTextEdit"
     },
     "OPTIONS_ANNOTATIONS_INFO": {
-      "message": "Allow to add annotations to tokens",
+      "message": "Enable annotation with SHIFT-CLICK",
       "description": "Options tooltip",
       "component": "OptionsTextEnter"
     },
     "OPTIONS_TOKENS_EDITOR_INFO": {
-      "message": "Allow edit tokens",
+      "message": "Enable token editing",
       "description": "Options tooltip",
       "component": "OptionsTextEnter"
     },
