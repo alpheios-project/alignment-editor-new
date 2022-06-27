@@ -10,7 +10,7 @@
             <p class="alpheios-main-menu-download-block-radio-block">
               <span v-for="dType in downloadTypes" :key="dType.name" class="alpheios-main-menu-download-block-radio-block_item" >
                   <input type="radio" :id="downloadTypeId(dType.name)" :value="dType.name" v-model="currentDownloadType" >
-                  <tooltip :tooltipText = "dType.tooltip" tooltipDirection = "top-right">
+                  <tooltip :tooltipText = "dType.tooltip" tooltipDirection = "right">
                     <label :for="downloadTypeId(dType.name)">{{ dType.label }}</label>
                   </tooltip>
               </span>
@@ -115,8 +115,11 @@ export default {
 }
 </script>
 <style lang="scss">
-  .alpheios-alignment-editor-modal-save-align {
+  .alpheios-alignment-editor-modal-save-enter,
+  .alpheios-alignment-editor-modal-save-align
+  .alpheios-alignment-editor-modal-save-edit {
     .alpheios-modal-body {
+      padding: 20px 10px;
       overflow: initial;
     }
   }
