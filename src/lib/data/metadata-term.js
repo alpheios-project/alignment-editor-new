@@ -77,17 +77,6 @@ export default class MetadataTerm {
 }
 
 MetadataTerm.property = {
-  IDENTIFIER: {
-    label: 'identifier',
-    labell10n: 'METADATA_TERM_LABEL_IDENTIFIER',
-    fieldtype: 'URI',
-    multivalued: false,
-    URI: 'http://purl.org/dc/terms/identifier',
-    description: 'An unambiguous reference to the resource within a given context.',
-    descriptionl10n: 'METADATA_TERM_DESCRIPTION_IDENTIFIER',
-    order: 8,
-    group: 'dublin'
-  },
   TITLE: {
     label: 'title',
     labell10n: 'METADATA_TERM_LABEL_TITLE',
@@ -99,6 +88,7 @@ MetadataTerm.property = {
     order: 1,
     group: 'dublin'
   },
+
   CREATOR: {
     label: 'creator',
     labell10n: 'METADATA_TERM_LABEL_CREATOR',
@@ -110,6 +100,7 @@ MetadataTerm.property = {
     order: 2,
     group: 'dublin'
   },
+
   CONTRIBUTOR: {
     label: 'contributor',
     labell10n: 'METADATA_TERM_LABEL_CONTRIBUTOR',
@@ -118,20 +109,22 @@ MetadataTerm.property = {
     URI: 'http://purl.org/dc/elements/1.1/contributor',
     description: 'An entity responsible for making contributions to the resource.',
     descriptionl10n: 'METADATA_TERM_DESCRIPTION_CONTRIBUTOR',
+    order: 3,
+    group: 'dublin'
+  },
+
+  DUBLIN_COVERAGE: {
+    label: 'coverage',
+    labell10n: 'METADATA_TERM_LABEL_DUBLIN_COVERAGE',
+    fieldtype: 'string',
+    multivalued: true,
+    URI: 'http://purl.org/dc/elements/1.1/coverage',
+    description: 'The spatial or temporal topic of the resource, spatial applicability of the resource, or jurisdiction under which the resource is relevant.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_DUBLIN_COVERAGE',
     order: 4,
     group: 'dublin'
   },
-  PUBLISHER: {
-    label: 'publisher',
-    labell10n: 'METADATA_TERM_LABEL_PUBLISHER',
-    fieldtype: 'string',
-    multivalued: false,
-    URI: 'http://purl.org/dc/elements/1.1/publisher',
-    description: 'An entity responsible for making the resource available.',
-    descriptionl10n: 'METADATA_TERM_DESCRIPTION_PUBLISHER',
-    order: 5,
-    group: 'dublin'
-  },
+
   DATE_COPYRIGHTED: {
     label: 'date copyrighted',
     labell10n: 'METADATA_TERM_LABEL_DATE_COPYRIGHTED',
@@ -140,20 +133,10 @@ MetadataTerm.property = {
     URI: 'http://purl.org/dc/terms/dateCopyrighted',
     description: 'Date of copyright of the resource.',
     descriptionl10n: 'METADATA_TERM_DESCRIPTION_DATE_COPYRIGHTED',
-    order: 3,
+    order: 5,
     group: 'dublin'
   },
-  SOURCE: {
-    label: 'source',
-    labell10n: 'METADATA_TERM_LABEL_SOURCE',
-    fieldtype: 'URI',
-    multivalued: false,
-    URI: 'http://purl.org/dc/terms/source',
-    description: 'A related resource from which the described resource is derived.',
-    descriptionl10n: 'METADATA_TERM_DESCRIPTION_SOURCE',
-    order: 6,
-    group: 'dublin'
-  },
+
   DESCRIPTION: {
     label: 'description',
     labell10n: 'METADATA_TERM_LABEL_DESCRIPTION',
@@ -162,7 +145,115 @@ MetadataTerm.property = {
     URI: 'http://purl.org/dc/elements/1.1/description',
     description: 'An account of the resource.',
     descriptionl10n: 'METADATA_TERM_DESCRIPTION_DESCRIPTION',
+    order: 6,
+    group: 'dublin'
+  },
+
+  DUBLIN_FORMAT: {
+    label: 'format',
+    labell10n: 'METADATA_TERM_LABEL_DUBLIN_FORMAT',
+    fieldtype: 'string',
+    multivalued: true,
+    URI: 'http://purl.org/dc/elements/1.1/format',
+    description: 'The file format, physical medium, or dimensions of the resource.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_DUBLIN_FORMAT',
     order: 7,
+    group: 'dublin'
+  },
+
+  IDENTIFIER: {
+    label: 'identifier',
+    labell10n: 'METADATA_TERM_LABEL_IDENTIFIER',
+    fieldtype: 'URI',
+    multivalued: false,
+    URI: 'http://purl.org/dc/terms/identifier',
+    description: 'An unambiguous reference to the resource within a given context.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_IDENTIFIER',
+    order: 8,
+    group: 'dublin'
+  },
+
+  DUBLIN_LANGUAGE: {
+    label: 'language',
+    labell10n: 'METADATA_TERM_LABEL_DUBLIN_LANGUAGE',
+    fieldtype: 'string',
+    multivalued: true,
+    URI: 'http://purl.org/dc/elements/1.1/language',
+    description: 'A language of the resource.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_DUBLIN_LANGUAGE',
+    order: 7,
+    group: 'dublin'
+  },
+
+  PUBLISHER: {
+    label: 'publisher',
+    labell10n: 'METADATA_TERM_LABEL_PUBLISHER',
+    fieldtype: 'string',
+    multivalued: false,
+    URI: 'http://purl.org/dc/elements/1.1/publisher',
+    description: 'An entity responsible for making the resource available.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_PUBLISHER',
+    order: 8,
+    group: 'dublin'
+  },
+
+  DUBLIN_RELATION: {
+    label: 'relation',
+    labell10n: 'METADATA_TERM_LABEL_DUBLIN_RELATION',
+    fieldtype: 'string',
+    multivalued: true,
+    URI: 'http://purl.org/dc/elements/1.1/relation',
+    description: 'A related resource.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_DUBLIN_RELATION',
+    order: 9,
+    group: 'dublin'
+  },
+
+  DUBLIN_RIGHTS: {
+    label: 'rights',
+    labell10n: 'METADATA_TERM_LABEL_DUBLIN_RIGHTS',
+    fieldtype: 'string',
+    multivalued: true,
+    URI: 'http://purl.org/dc/elements/1.1/rights',
+    description: 'Information about rights held in and over the resource.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_DUBLIN_RIGHTS',
+    order: 10,
+    group: 'dublin'
+  },
+
+  SOURCE: {
+    label: 'source',
+    labell10n: 'METADATA_TERM_LABEL_SOURCE',
+    fieldtype: 'URI',
+    multivalued: false,
+    URI: 'http://purl.org/dc/terms/source',
+    description: 'A related resource from which the described resource is derived.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_SOURCE',
+    order: 11,
+    group: 'dublin'
+  },
+
+  DUBLIN_SUBJECT: {
+    label: 'subject',
+    labell10n: 'METADATA_TERM_LABEL_DUBLIN_SUBJECT',
+    fieldtype: 'string',
+    multivalued: true,
+    URI: 'http://purl.org/dc/elements/1.1/subject',
+    description: 'The topic of the resource.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_DUBLIN_SUBJECT',
+    order: 12,
+    group: 'dublin'
+  },
+
+  DUBLIN_TYPE: {
+    label: 'type',
+    labell10n: 'METADATA_TERM_LABEL_DUBLIN_TYPE',
+    fieldtype: 'string',
+    multivalued: true,
+    URI: 'http://purl.org/dc/elements/1.1/type',
+    description: 'The nature or genre of the resource.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_DUBLIN_TYPE',
+    order: 13,
     group: 'dublin'
   },
 

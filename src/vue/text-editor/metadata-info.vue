@@ -5,6 +5,7 @@
         </p>
         <div class="alpheios-alignment-editor-metadata__info-details" v-show = "showDetails" v-html="instructions">
         </div>
+        
     </div>
 </template>
 <script>
@@ -22,7 +23,7 @@ export default {
       return L10nSingleton
     },
     instructions () {
-      return this.l10n.getMsgS('METADATA_INSTRUCTIONS')
+      return `${this.l10n.getMsgS('METADATA_INSTRUCTIONS')} <p><a class="alpheios-alignment-editor-metadata__info-link" href="https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#section-3" target="_blank">read more</a></p>`
     }
   }
 }
@@ -33,6 +34,10 @@ export default {
         color: #90a959;
         text-decoration: underline;
         margin: 10px 0;
+    }
+
+    a.alpheios-alignment-editor-metadata__info-link {
+      color: #90a959;
     }
 
     .alpheios-alignment-editor-metadata__info-details {

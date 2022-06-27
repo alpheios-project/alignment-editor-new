@@ -224,5 +224,75 @@
       "message": "Publisher",
       "description": "Metadata term description",
       "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_DUBLIN_COVERAGE": {
+      "message": "Coverage",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_DUBLIN_COVERAGE": {
+      "message": "The spatial or temporal topic of the resource, spatial applicability of the resource, or jurisdiction under which the resource is relevant.",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_DUBLIN_FORMAT": {
+      "message": "Format",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_DUBLIN_FORMAT": {
+      "message": "The file format, physical medium, or dimensions of the resource.",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_DUBLIN_LANGUAGE": {
+      "message": "Language",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_DUBLIN_LANGUAGE": {
+      "message": "A language of the resource.",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_DUBLIN_RELATION": {
+      "message": "Relation",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_DUBLIN_RELATION": {
+      "message": "A related resource.",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_DUBLIN_RIGHTS": {
+      "message": "Rights",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_DUBLIN_RIGHTS": {
+      "message": "Information about rights held in and over the resource.",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_DUBLIN_SUBJECT": {
+      "message": "Subject",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_DUBLIN_SUBJECT": {
+      "message": "The topic of the resource.",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_DUBLIN_TYPE": {
+      "message": "Type",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_DUBLIN_TYPE": {
+      "message": "The nature or genre of the resource.",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
     }
 }
