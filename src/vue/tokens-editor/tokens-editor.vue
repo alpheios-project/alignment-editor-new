@@ -42,13 +42,7 @@
   </div>
 </template>
 <script>
-// import TokensEditInnerBlock from '@/vue/tokens-editor/tokens-editor-inner-block.vue'
-
-const TokensEditInnerBlock = () => import(
-  /* webpackChunkName: "tokens-editor" */
-  /* webpackMode: "lazy" */
-  '@/vue/tokens-editor/tokens-editor-inner-block.vue')
-
+import TokensEditInnerBlock from '@/vue/tokens-editor/tokens-editor-inner-block.vue'
 
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import HelpPopup from '@/vue/common/help-popup.vue'
