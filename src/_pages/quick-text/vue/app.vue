@@ -86,9 +86,9 @@
                 </ul>
                 <p>All the words in the alignment group should now have returned to their original red color, indicating that they are not aligned.</p>
 
-                <p>To add an annotation to a word, CTL-click on it in Windows and CMD-click on a MAC.</p>
+                <p>To add an annotation to a word, SHIFT-click on it.</p>
                 <p class="alpheios-alignment-editor__page-content__item-img"><img :src="newAnnotationPNG"></p>
-                <p>To look up a word with the Alpheios reading tools, you can SHIFT-click on it whenever you are online.</p>
+                <p>To look up a word with the Alpheios Reading tools you can CTL-click on it in Windows and CMD-click on it on a Mac.</p>
                 <p>To edit text after it has been tokenized, enable the TOKEN EDITOR in the ALIGN TEXT options, and make your desired changes on the TOKEN EDITOR screen. 
                   Your changes will be shown when you return to the ALIGN TEXT screen.</p>
 
