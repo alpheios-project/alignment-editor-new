@@ -67,7 +67,7 @@
     "component": "TextEditorSingleBlock"
   },
   "RADIO_BLOCK_TEXTSOURCETYPE_TEI": {
-    "message": "TEI",
+    "message": "XML",
     "description": "A label for text type select",
     "component": "TextEditorSingleBlock"
   },
@@ -82,7 +82,7 @@
     "component": "TextEditorSingleBlock"
   },
   "TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI": {
-    "message": "TEI",
+    "message": "XML",
     "description": "Fieldset inside options",
     "component": "TextEditorSingleBlock"
   },
@@ -182,7 +182,7 @@
     "component": "SummaryPopup"
   },
   "SUMMARY_POPUP_TABEL_TH_ISTEI": {
-    "message": "TEI",
+    "message": "XML",
     "description": "Table title",
     "component": "SummaryPopup"
   },
