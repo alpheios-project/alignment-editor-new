@@ -121,7 +121,7 @@ export default {
     line-height: 30px;
     text-align: center;
 
-    margin: 0 10px 0 0;
+    margin: 0 10px 3px 0;
 
     background: #bebebe;
     color: #fff;

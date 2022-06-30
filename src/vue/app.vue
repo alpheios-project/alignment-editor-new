@@ -172,7 +172,9 @@ export default {
 
     async uploadDataFromDB (alData) {
       if (alData) {
+        this.$modal.show('waiting')
         const alignment = await this.$textC.uploadDataFromDB(alData)
+        this.$modal.hide('waiting')
         if (alignment instanceof Alignment) {
           return this.startOver(alignment)
         } else {
