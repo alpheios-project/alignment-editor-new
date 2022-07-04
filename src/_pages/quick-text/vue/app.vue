@@ -88,7 +88,7 @@
 
                 <p>To add an annotation to a word, SHIFT-click on it.</p>
                 <p class="alpheios-alignment-editor__page-content__item-img"><img :src="newAnnotationPNG"></p>
-                <p>To look up a word with the Alpheios Reading tools you can CTL-click on it in Windows and CMD-click on it on a Mac.</p>
+                <p>To look up a word with the Alpheios Reading tools you can CTL-click on it in Windows and CMD-click on it on a Mac but only when you are online.</p>
                 <p>To edit text after it has been tokenized, enable the TOKEN EDITOR in the ALIGN TEXT options, and make your desired changes on the TOKEN EDITOR screen. 
                   Your changes will be shown when you return to the ALIGN TEXT screen.</p>
 
@@ -102,6 +102,8 @@
               <div class="alpheios-alignment-editor__page-content__item" v-show="shownLink === 'saving'">
                 <p>By default the application automatically saves a current copy of your work, which should protect it against sudden loss of power or other unpredictable interruptions, 
                   as well as provide a reliably current version for resuming where you left off (shown in a list under the Resume Previous Alignment button).</p>
+                <p>But remember that if you let your disk fill completely you will lose all these automatically saved files along with the instance of indexedDB that created them. 
+                  Files you save yourself are of course immune to this hazard.</p>
                 <p>At any point in the alignment you can also save your work yourself, choosing JSON format if you are unfinished or think you may want to modify 
                   the alignment in the future, or the final HTML format, which gives you multiple display options, but cannot easily be edited.</p>
                 <p class="alpheios-alignment-editor__page-content__item-img"><img :src="savingPNG"></p>
