@@ -11,8 +11,9 @@ const webpack = {
     output: {
       library: 'AlignmentEditor',
       libraryTarget: 'window',
-      chunkFilename: 'alignment-editor.[name].js',
-      path: path.join(projectRoot, 'public/dist')
+      chunkFilename: '[name].js',
+      path: path.join(projectRoot, 'public/dist/'),
+      publicPath: path.join(projectRoot, 'public/dist/')
     },
     resolve: {
       alias: {
