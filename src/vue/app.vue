@@ -10,7 +10,7 @@
         @redo-action = "redoAction"
         @undo-action = "undoAction"
         @add-target = "addTarget"
-        @clear-all = "startOver"
+        @clear-all = "clearAll"
         @new-initial-alignment = "startNewInitialAlignment"
         @upload-data-from-db = "uploadDataFromDB"
 
@@ -26,7 +26,8 @@
       <initial-screen v-show="showInitialScreenBlock"
         @upload-data-from-file = "uploadDataFromFile" @upload-data-from-db = "uploadDataFromDB" @delete-data-from-db = "deleteDataFromDB"
         @new-initial-alignment="startNewInitialAlignment" @clear-all-alignments="clearAllAlignmentsFromDB"/>
-      <text-editor v-show="showSourceTextEditorBlock" @add-translation="addTarget" @align-text="showSummaryPopup" @showAlignmentGroupsEditor = "showAlignmentGroupsEditor" @showTokensEditor = "showTokensEditor"
+      <text-editor v-show="showSourceTextEditorBlock" @add-translation="addTarget" @align-text="showSummaryPopup" 
+        @showAlignmentGroupsEditor = "showAlignmentGroupsEditor" @showTokensEditor = "showTokensEditor"
       />
       <align-editor v-show="showAlignmentGroupsEditorBlock" @showSourceTextEditor = "showSourceTextEditor" @showTokensEditor = "showTokensEditor"
       />
@@ -246,6 +247,7 @@ export default {
     createANewAlignment (alTitle) {
       this.$textC.createAlignment(alTitle)
       this.$historyAGC.startTracking(this.$textC.alignment)
+      this.$textC.store.commit('incrementAlignmentRestarted')
       this.showSourceTextEditor()
     },
 
@@ -337,6 +339,12 @@ export default {
       } else {
         this.showSourceTextEditor()
       }
+    },
+
+    clearAll () {
+      NotificationSingleton.clearNotifications()
+      this.$textC.store.commit('incrementReloadAlignmentsList')
+      this.showInitialScreen()
     }
   }
 }

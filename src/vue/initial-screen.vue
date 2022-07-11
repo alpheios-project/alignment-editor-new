@@ -101,6 +101,8 @@ export default {
   methods: {
     startNewAlignment () {
       this.$emit("new-initial-alignment")
+      this.showUploadBlock = false
+      this.showUploadFromDB = false
     },
     resumePrevAlignment () {
       this.showUploadBlock = true
@@ -129,6 +131,7 @@ export default {
     uploadDataFromDB (alData) {
       this.$emit('upload-data-from-db', alData)
       this.showUploadBlock = false
+      this.showUploadFromDB = false
     },
 
     deleteDataFromDB (alData) {

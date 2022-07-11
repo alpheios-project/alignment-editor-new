@@ -1,4 +1,9 @@
 {
+    "TO_HOME": {
+      "message": "Home",
+      "description": "Button in Main Menu",
+      "component": "Main Menu"
+    },
     "INITIAL_NEW_ALIGNMENT": {
       "message": "Begin new alignment",
       "description": "Button on initial screen",
