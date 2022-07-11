@@ -97,11 +97,14 @@ export default {
       return `alpheios-save-popup-download-block__radio_${dTypeName}`
     },
     async downloadData () {
+
       this.$textC.updateAlignmentTitle(this.fileNameTitle)
 
       this.fileName = `${ this.fileNameDate }-${ this.fileNameTitle }`
 
       this.$emit('closeModal')
+
+      this.$modal.show('waiting')
       let additional = {}
       if (this.currentDownloadType === 'htmlDownloadAll') {
         additional = {
@@ -109,7 +112,8 @@ export default {
         }
       }
       await this.$textC.downloadData(this.currentDownloadType, additional, this.fileName)
-      
+      this.$modal.hide('waiting')
+      return true
     }
   }
 }
