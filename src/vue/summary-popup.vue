@@ -148,12 +148,17 @@ export default {
   }
 
   .alpheios-editor-summary-show-option-item {
-    width: 30px;
+    // width: 100px;
     display: inline-block;
     vertical-align: middle;
 
     .alpheios-alignment-option-item {
       margin-bottom: 0;
+      padding-right: 5px;
+
+      .alpheios-alignment-checkbox-block {
+        width: 30px;
+      }
     }
   }
   .alpheios-editor-summary-show-option-label {

@@ -22,7 +22,7 @@
 
           <div class="alpheios-alignment-editor-align-text-segment-tokens" :id = "cssId" :style="cssStyleSeg" :dir = "direction" :lang = "lang" >
             <p class="alpheios-alignment-editor-align-text-single-link" v-if="showPrev">
-              <span class="alpheios-alignment-editor-align-text-parts-link-text" @click="uploadPrevPart">prev</span>
+              <span class="alpheios-alignment-editor-align-text-parts-link-text" @click="uploadPrevPart">previous</span>
             </p>
 
             <template v-for = "(token, tokenIndex) in allTokens">
