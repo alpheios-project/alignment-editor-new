@@ -6,9 +6,12 @@
       </span>
       <div class="alpheios-alignment-app-menu__buttons">
         <div class="alpheios-alignment-app-menu__buttons-actions">
-          
           <button class="alpheios-app-menu-link" id ="alpheios-main-menu-clear-all" 
-                  @click="clearAll">
+                  @click="reloadPage">
+                  {{ l10n.getMsgS('TO_HOME') }}
+          </button>
+          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-clear-all" 
+                  @click="newInitialAlignment">
                   {{ l10n.getMsgS('INITIAL_NEW_ALIGNMENT') }}
           </button>
 
@@ -174,6 +177,11 @@ export default {
       return `alpheios-main-menu-download-block__radio_${dTypeName}`
     },
 
+    newInitialAlignment () {
+      this.clearAll()
+      this.$emit("new-initial-alignment")
+    },
+
     clearAll () {
       this.$refs.alpheiosfileupload.value = ''
       this.showUploadBlock = false
@@ -182,9 +190,12 @@ export default {
 
       this.currentPage = 'initial-page'
       this.closeMenu()
-      this.$emit("new-initial-alignment")
+      
     },
     
+    reloadPage () {
+      location.reload(true)
+    },
     closeMenu () {
       this.menuShown = false
     },

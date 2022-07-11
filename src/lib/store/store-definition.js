@@ -116,7 +116,7 @@ export default class StoreDefinition {
         incrementUploadPartNum (state) {
           state.uploadPartNum++
         },
-        incremetReloadAlignmentsList (state) {
+        incrementReloadAlignmentsList (state) {
           state.reloadAlignmentsList++
         },
         incrementUpdateAnnotations (state) {
