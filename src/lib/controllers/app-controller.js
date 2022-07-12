@@ -17,11 +17,7 @@ import NotificationSingleton from '@/lib/notifications/notification-singleton'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import Locales from '@/locales/locales.js'
 import VModal from 'vue-js-modal'
-/*
-import('@/styles/fonts/chinese.css')
-import('@/styles/fonts/japan.css')
-import('@/styles/fonts/korean.css')
-*/
+
 export default class AppController {
   /**
    *
