@@ -4,7 +4,7 @@
       <div class="alpheios-editor-help-content-text" v-show="partVisible">
           <p>This button opens a template for you to describe the text in that box, using either Alpheios default terms 
             or terms derived from the Dublin Core metadata standard. You are strongly encouraged to at least 
-            enter the Short Name for the text that can then be used by the program to refer to this text in all subsequent displays.
+            enter a Short Name for the text that can then be used by the program to refer to this text in all subsequent displays.
           </p>
           <p class="alpheios-editor-help-content-text__image"><img :src="descriptionPNG" /></p>
           <p>If you do not enter anything in the description fields, the red icon will remind you to do so -turning green only after 
