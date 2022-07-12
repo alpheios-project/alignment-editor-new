@@ -152,7 +152,7 @@ export default class DownloadController {
   static async htmlDownloadAll (data, fileName) {
     const params = ['theme', 'stylePath', 'jsPath', 'fullData']
 
-    const htmlTemplateLib = await import(/* webpackPrefetch: true */ '@/lib/download/html-temp-js')
+    const htmlTemplateLib = await import('@/lib/download/html-temp-js')
 
     let htmlTemplate = htmlTemplateLib.default.template
 
