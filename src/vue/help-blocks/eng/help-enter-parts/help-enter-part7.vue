@@ -13,7 +13,10 @@
           <p>The button is called <b>SAVE LOCALLY</b> to emphasize that unless it is explicitly sent elsewhere the alignment and 
             all relevant data reside only on your local machine.
           </p>
-          <p>When the files become larger they will take longer to save. Closing the page before the spinning popup has stopped risks losing data.</p>
+          <div class="alpheios-editor-help-content-special">
+            <h5>Saving Large Files</h5>
+            <p>When the files become larger they will take longer to save. Closing the page before the spinning popup has stopped risks losing data.</p>
+          </div>
           <p class="alpheios-editor-help-content-text__close-link" @click="partVisible = false">Close</p>
       </div>
   </div>
