@@ -28,7 +28,7 @@ export default class SourceText {
     this.sourceType = docSource && docSource.sourceType ? docSource.sourceType : this.defaultSourceType
     this.tokenization = docSource && docSource.tokenization ? docSource.tokenization : {}
 
-    this.skipDetected = skipDetected
+    this.skipDetected = docSource.skipDetected !== undefined ? docSource.skipDetected : skipDetected
     this.startedDetection = false
 
     if (docSource && docSource.metadata) {
@@ -174,7 +174,7 @@ export default class SourceText {
    * @param {String} jsonData.direction
    * @param {String} jsonData.lang
    */
-  static convertFromJSON (textType, jsonData) {
+  static convertFromJSON (textType, jsonData, skipDetected = true) {
     if (!jsonData.text) {
       console.error(L10nSingleton.getMsgS('SOURCE_TEXT_CONVERT_ERROR'))
       NotificationSingleton.addNotification({
@@ -195,7 +195,8 @@ export default class SourceText {
     if (jsonData.textId) {
       sourceText.id = jsonData.textId
     }
-    sourceText.skipDetected = true
+
+    sourceText.skipDetected = skipDetected
     return sourceText
   }
 

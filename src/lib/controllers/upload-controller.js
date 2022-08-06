@@ -183,7 +183,7 @@ export default class UploadController {
         tokenization[optItemName] = optionsSet.items[optItemName].currentValue
       })
 
-      return SourceText.convertFromJSON(textType, { textId, tokenization, text: fileData.text, sourceType, lang: fileData.lang })
+      return SourceText.convertFromJSON(textType, { textId, tokenization, text: fileData.text, sourceType, lang: fileData.lang }, false)
     }
   }
 
