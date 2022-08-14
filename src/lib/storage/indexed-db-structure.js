@@ -213,7 +213,7 @@ export default class IndexedDBStructure {
     for (const dataItem of dataItems) {
       if (dataItem.metadata && dataItem.metadata.properties && dataItem.metadata.properties.length > 0) {
         for (const metadataItem of dataItem.metadata.properties) {
-          const uniqueID = `${data.userID}-${data.id}-${dataItem.textId}-${metadataItem.property.replace(' ', '-')}`
+          const uniqueID = `${data.userID}-${data.id}-${dataItem.textId}-${metadataItem.propertyId.replace(' ', '-')}`
 
           finalData.push({
             ID: uniqueID,
@@ -222,7 +222,8 @@ export default class IndexedDBStructure {
             alTextId: `${data.id}-${dataItem.textId}`,
             textId: dataItem.textId,
             property: metadataItem.property,
-            value: metadataItem.value
+            value: metadataItem.value,
+            propertyId: metadataItem.propertyId
           })
         }
       }

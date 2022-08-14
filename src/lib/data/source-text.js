@@ -212,7 +212,7 @@ export default class SourceText {
     }
 
     if (!this.metadata.isEmpty) {
-      result.metadata = this.metadata.convertToJSON()
+      result.metadata = this.metadata.convertToJSON(this.textType)
     }
 
     return result
@@ -227,7 +227,7 @@ export default class SourceText {
       lang: this.lang,
       sourceType: this.sourceType,
       tokenization: this.tokenization,
-      metadata: this.metadata.convertToIndexedDB()
+      metadata: this.metadata.convertToIndexedDB(this.textType)
     }
   }
 

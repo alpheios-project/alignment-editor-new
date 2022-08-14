@@ -76,10 +76,10 @@ export default {
       return L10nSingleton
     },
     itemId () {
-      return `alpheios-meta-${this.textType}-${this.textId}-${this.metadataTerm.property.label}-id`
+      return `alpheios-meta-${this.textType}-${this.textId}-${this.metadataTerm.property.id}-id`
     },
     removeId () {
-      return `alpheios-meta-remove-${this.textType}-${this.textId}-${this.metadataTerm.property.label}-id`
+      return `alpheios-meta-remove-${this.textType}-${this.textId}-${this.metadataTerm.property.id}-id`
     },
     docSource () {
       return this.$textC.getDocSource(this.textType, this.textId)

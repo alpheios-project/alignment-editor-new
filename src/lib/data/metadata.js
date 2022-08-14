@@ -26,7 +26,7 @@ export default class Metadata {
   }
 
   hasProperty (property) {
-    return Boolean(this.properties[property.label])
+    return Boolean(this.properties[property.id])
   }
 
   addProperty (property, value, metaId) {
@@ -35,10 +35,10 @@ export default class Metadata {
     }
 
     if (!this.hasProperty(property) && value) {
-      this.properties[property.label] = new MetadataTerm(property, value, metaId)
+      this.properties[property.id] = new MetadataTerm(property, value, metaId)
       return true
     } else if (this.hasProperty(property)) {
-      if (value) { this.getProperty(property).saveValue(value) } else { delete this.properties[property.label] }
+      if (value) { this.getProperty(property).saveValue(value) } else { delete this.properties[property.id] }
       return true
     }
     return false
@@ -52,13 +52,13 @@ export default class Metadata {
     metadataItem.deleteValueByIndex(termValIndex)
 
     if (metadataItem.getValue().length === 0) {
-      delete this.properties[metadataItem.property.label]
+      delete this.properties[metadataItem.property.id]
     }
     return true
   }
 
   getProperty (property) {
-    return this.properties[property.label]
+    return this.properties[property.id]
   }
 
   getPropertyValue (property) {
@@ -82,9 +82,9 @@ export default class Metadata {
     return allMeta
   }
 
-  convertToJSON () {
+  convertToJSON (textType) {
     return {
-      properties: Object.values(this.properties).map(prop => prop.convertToJSON())
+      properties: Object.values(this.properties).map(prop => prop.convertToJSON(textType))
     }
   }
 
@@ -116,9 +116,9 @@ export default class Metadata {
     return metadata
   }
 
-  convertToIndexedDB () {
+  convertToIndexedDB (textType) {
     return {
-      properties: Object.values(this.properties).map(prop => prop.convertToIndexedDB())
+      properties: Object.values(this.properties).map(prop => prop.convertToIndexedDB(textType))
     }
   }
 
