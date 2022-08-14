@@ -187,7 +187,7 @@ describe('storage-controller.test.js', () => {
     })]))
 
     // update title property - single
-    alignment.changeMetadataTerm( alignment.origin.docSource.metadata.getProperty({ label: 'title' }), 'testOriginTitle2', 'origin', originDocSource.id)
+    alignment.changeMetadataTerm( alignment.origin.docSource.metadata.getProperty({ id: 'TITLE' }), 'testOriginTitle2', 'origin', originDocSource.id)
 
     await StorageController.update(alignment, false, false)
 
@@ -213,7 +213,7 @@ describe('storage-controller.test.js', () => {
     })]))
 
     // delete title term
-    alignment.changeMetadataTerm( alignment.origin.docSource.metadata.getProperty({ label: 'title' }), '', 'origin', originDocSource.id)
+    alignment.changeMetadataTerm( alignment.origin.docSource.metadata.getProperty({ id: 'TITLE' }), '', 'origin', originDocSource.id)
     await StorageController.update(alignment, true, false)
     
     alignmentDB = await StorageController.select({ userID, alignmentID: alignment.id }, 'alignmentByAlIDQuery') 
@@ -225,7 +225,7 @@ describe('storage-controller.test.js', () => {
     })]))
 
     // update creator term - multivalued
-    alignment.changeMetadataTerm( alignment.origin.docSource.metadata.getProperty({ label: 'creator' }), 'Original Creator 2', 'origin', originDocSource.id)
+    alignment.changeMetadataTerm( alignment.origin.docSource.metadata.getProperty({ id: 'CREATOR' }), 'Original Creator 2', 'origin', originDocSource.id)
 
     await StorageController.update(alignment, true, false)
 
@@ -238,8 +238,8 @@ describe('storage-controller.test.js', () => {
     })]))
     
     // delete all values creator
-    alignment.deleteValueByIndex(alignment.origin.docSource.metadata.getProperty({ label: 'creator' }), 0, 'origin')
-    alignment.deleteValueByIndex(alignment.origin.docSource.metadata.getProperty({ label: 'creator' }), 0, 'origin')
+    alignment.deleteValueByIndex(alignment.origin.docSource.metadata.getProperty({ id: 'CREATOR' }), 0, 'origin')
+    alignment.deleteValueByIndex(alignment.origin.docSource.metadata.getProperty({ id: 'CREATOR'}), 0, 'origin')
 
     await StorageController.update(alignment, true, false)
 
