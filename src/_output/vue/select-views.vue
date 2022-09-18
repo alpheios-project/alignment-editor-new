@@ -44,11 +44,11 @@ export default {
   },
   data () {
     return {
-      sentenceCount: 1,
+      sentenceCount: 0,
       viewType: null,
       sentenceChoice: [
-        { value: 1, label: 'current' },
-        { value: 2, label: 'one of both side' }
+        { value: 0, label: 'current' },
+        { value: 1, label: 'one on each side' }
       ]
     }
   },
