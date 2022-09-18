@@ -4,6 +4,7 @@ on:
   push: 
     branches: 
       - 'development'
+      - 'vue3-version'
 #     branches-ignore: master
 
 jobs:
