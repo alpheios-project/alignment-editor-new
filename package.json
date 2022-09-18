@@ -18,7 +18,11 @@
     "test-b": "jest tests/lib/data/",
     "test-c": "jest tests/lib/tokenizers/",
     "test-d": "jest tests/vue/text-editor/text-editor-single-block.test.js",
-    "github-build": "node --experimental-modules --experimental-json-modules ./github-build.mjs"
+    "github-build": "node --experimental-modules --experimental-json-modules ./github-build.mjs",
+    "dist": "npm run dist-copy && npm run dist-zip && npm run dist-clean",
+    "dist-copy": "node --experimental-modules ./build/support/files.mjs copy --s=/public --t=dist-temp  --clean",
+    "dist-zip": "node --experimental-modules ./build/support/zip.mjs --s=/dist-temp --t=dist-zip --f=alpheios-alignment-editor.zip",
+    "dist-clean": "node --experimental-modules ./build/support/files.mjs clean --t=dist-temp"
   },
   "repository": {
     "type": "git",

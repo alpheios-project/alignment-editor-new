@@ -1,5 +1,5 @@
 import pkg from './package.json'
-import generateBuildInfo from './build/build-info.mjs'
+import generateBuildInfo from './build/support/build-info.mjs'
 import { execFileSync, execSync } from 'child_process'
 import * as core from '@actions/core'
 
