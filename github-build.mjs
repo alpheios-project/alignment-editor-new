@@ -1,5 +1,4 @@
 import pkg from './package.json'
-import Builder from 'alpheios-node-build'
 import generateBuildInfo from './build/build-info.mjs'
 import { execFileSync, execSync } from 'child_process'
 import * as core from '@actions/core'
