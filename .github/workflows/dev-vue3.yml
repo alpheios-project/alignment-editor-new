@@ -3,7 +3,7 @@ name: Build Dev
 on:
   push: 
     branches: 
-      - 'development'
+      - 'vue3-version'
 #     branches-ignore: master
 
 jobs:
@@ -29,10 +29,7 @@ jobs:
 
     - name: build
       id: run_build
-      run: npm run github-build
-
-    - name: dist
-      run: npm run dist
+      run: npm run build
 
     - name: s3
       uses: jakejarvis/s3-sync-action@master
