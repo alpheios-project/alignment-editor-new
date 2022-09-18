@@ -17,8 +17,7 @@
     "test-a": "jest tests/lib/controllers/",
     "test-b": "jest tests/lib/data/",
     "test-c": "jest tests/lib/tokenizers/",
-    "test-d": "jest tests/vue/text-editor/text-editor-single-block.test.js",
-    "github-build": "node --experimental-modules --experimental-json-modules ./github-build.mjs",
+    "test-d": "jest tests/vue/text-editor/text-editor-single-block.test.js"
   },
   "repository": {
     "type": "git",
