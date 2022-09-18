@@ -1,6 +1,8 @@
 <template>
   <div class="alpheios-alignment-editor-tokens-edit-editor-container">
+    
     <actions-menu-tokens-editor @blockTokensActions = "blockTokensActions"/>
+    
     <editor-tabs 
       v-if="allTokenizedTargetTextsIds.length > 1"
       :tabs = "allTokenizedTargetTextsIds" @selectTab = "selectTab"
@@ -14,7 +16,7 @@
       >
         <div class="alpheios-alignment-editor-align-segment-edit-data-item alpheios-alignment-editor-align-segment-data-origin">
           <segment-edit-block 
-                  :currentTargetId = "currentTargetId" :blockTokensActionsFlag = "blockTokensActionsFlag"
+                  :currentTargetId = "currentTargetId" :blockTokensActionsFlag = "state.blockTokensActionsFlag"
                   :segmentIndex = "segmentData.origin.index" textType = "origin" :textId = "segmentData.origin.docSourceId"
                    @removeAllActivated = "removeAllActivated" @insertTokens = "insertTokens"
           />
@@ -25,7 +27,7 @@
                   :segmentIndex = "segmentTarget.index" textType = "target" :textId = "segmentTarget.docSourceId"
                   :isLast = "lastTargetId && (targetId === lastTargetId)" :currentTargetId = "currentTargetId"
                   v-show="isShownTab(targetId)"
-                  :blockTokensActionsFlag = "blockTokensActionsFlag"
+                  :blockTokensActionsFlag = "state.blockTokensActionsFlag"
                   @removeAllActivated = "removeAllActivated" @insertTokens = "insertTokens"
           />
         </div>
@@ -34,140 +36,112 @@
     </div>
   </div>
 </template>
-<script>
-import Vue from '@vue-runtime'
+<script setup>
 import SegmentEditBlock from '@/vue/tokens-editor/segment-edit-block.vue'
 import ActionsMenuTokensEditor from '@/vue/tokens-editor/actions-menu-tokens-editor.vue'
 
 import EditorTabs from '@/vue/common/editor-tabs.vue'
+import { computed, inject, reactive, onMounted, watch, ref } from 'vue'
+import { useStore } from 'vuex'
 
-export default {
-  name: 'TokensEditorInnerBlock',
-  components: {
-    segmentEditBlock: SegmentEditBlock,
-    editorTabs: EditorTabs,
-    actionsMenuTokensEditor: ActionsMenuTokensEditor
-  },
-  props: {
-    removeAllActivatedFlag: {
-      type: Number,
-      required: false,
-      default: 1
-    }
-  },
-  data () {
-    return {
-      shownTabs: [],
-      shownTabsInited: false,
-      blockTokensActionsFlag: 1
-    }
-  },
-  watch: {
-    '$store.state.alignmentRestarted' () {
-      this.shownTabsInited = false
-    },
-    '$store.state.uploadCheck' () {
-      this.shownTabsInited = false
-    },
-    'removeAllActivatedFlag' () {
-      this.removeAllActivated()
-    }
-  },
-  computed: {
-    /**
-     * Returns all targetIds; once it defines shownTabs - the list of active target tabs; 
-     * for now we don't have a case when we need to re-define tabs, 
-     * but if we would need it - we would update shownTabsInited with false
-     * @returns {Array[String]}
-     */
-    allTokenizedTargetTextsIds () {
-      const allTokenizedTargetTextsIds = this.$textC.allTokenizedTargetTextsIds
-      if (!this.shownTabsInited || (this.shownTabs.length === 0)) {
-        this.shownTabs = allTokenizedTargetTextsIds.slice(0, 1)
-        this.shownTabsInited = true
-        this.$historyAGC.updateMode(this.shownTabs) 
-      }
-      return this.$store.state.alignmentUpdated  ? allTokenizedTargetTextsIds : []
-    },
+const $store = useStore()
+const $textC = inject('$textC')
+const $alignedGC = inject('$alignedGC')
+const $historyAGC = inject('$historyAGC')
+const emit = defineEmits([ 'insertTokens' ])
 
-    /**
-     * @returns {Array[Object]}
-     *          {Number} index - segment's order index
-     *          {Segment} origin - origin segment by index
-     *          {Object} targets - key {String} - targetId, value {Segment} - target segment by index and argetId
-     */
-    allAlignedTextsSegments () {
-      return this.$store.state.alignmentUpdated && this.$store.state.tokenUpdated ? this.$alignedGC.allAlignedTextsSegments : []
-    },
+const props = defineProps({
+  removeAllActivatedFlag: {
+    type: Number,
+    required: false,
+    default: 1
+  }
+})
 
-    /**
-     * @returns {String} - targetId of the target segment, that is rendered the last to control css borders
-     */
-    lastTargetId () {
-      return this.orderedTargetsId[this.orderedTargetsId.length - 1]
-    },
+const state = reactive({
+  shownTabs: [],
+  shownTabsInited: false,
+  blockTokensActionsFlag: 1
+})
 
-    /**
-     * @returns {Array[String]} - shown targetIds based on shownTabs with saved order
-     */
-    orderedTargetsId () {
-      return Object.keys(this.allAlignedTextsSegments[0].targets).filter(targetId => this.shownTabs.includes(targetId))
-    },
+watch( 
+  () => $store.state.alignmentRestarted, 
+  () => {
+    state.shownTabsInited = false
+  }
+)
 
-    /**
-     * @returns {String|Null} - targetId if it only one tab is active and we could work with groups
-     */
-    currentTargetId () {
-      return this.shownTabs.length === 1 ? this.shownTabs[0] : null
-    }
+watch( 
+  () => $store.state.uploadCheck, 
+  () => {
+    state.shownTabsInited = false
+  }
+)
 
-  },
-  methods: {
-    /**
-     * @param {String}
-     * @returns {Boolean} - true - targetId is visible, false - not
-     */
-    isShownTab (targetId) {
-      return this.shownTabs.includes(targetId)
-    },
+watch( 
+  () => props.removeAllActivatedFlag, 
+  () => {
+    removeAllActivated()
+  }
+)
 
-    /**
-     * @param {String} - origin/target
-     * @param {Number} - segment order index
-     * @param {String} - targetId for target segment
-     * @returns {String} - unique index for the segment
-     */
-    getIndex (textType, index, additionalIndex = 0) {
-      return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
-    },
+const allTokenizedTargetTextsIds = computed(() => {
+  const allTokenizedTargetTextsIds = $textC.allTokenizedTargetTextsIds
+  if (!state.shownTabsInited || (state.shownTabs.length === 0)) {
+    state.shownTabs = allTokenizedTargetTextsIds.slice(0, 1)
+    state.shownTabsInited = true
+    $historyAGC.updateMode(state.shownTabs) 
+  }
+  return $store.state.alignmentUpdated  ? allTokenizedTargetTextsIds : []
+})
 
-    /**
-     * Changes active tabs by click
-     * @param {String}
-     */
-    selectTab (targetId) {
-      if ((this.shownTabs.length > 1) && this.shownTabs.includes(targetId)) {
-        this.shownTabs = this.shownTabs.filter(innerTargetId => innerTargetId !== targetId)
-      } else if (!this.shownTabs.includes(targetId)) {
-        this.shownTabs.push(targetId)
-      }  
-      this.$historyAGC.updateMode(this.shownTabs)    
-    },
+const allAlignedTextsSegments = computed(() => {
+  return $store.state.alignmentUpdated && $store.state.tokenUpdated ? $alignedGC.allAlignedTextsSegments : []
+})
 
-    blockTokensActions () {
-      this.blockTokensActionsFlag = this.blockTokensActionsFlag + 1
-    },
+const lastTargetId = computed(() => {
+  return orderedTargetsId.value[orderedTargetsId.value.length - 1]
+})
 
-    removeAllActivated () {
-      this.blockTokensActions()
-    },
+const orderedTargetsId = computed(() => {
+  return Object.keys(allAlignedTextsSegments.value[0].targets).filter(targetId => state.shownTabs.includes(targetId))
+})
 
-    insertTokens (token) {
-      this.$emit('insertTokens', token)
-    }
-  } 
+const currentTargetId = computed(() => {
+  return state.shownTabs.length === 1 ? state.shownTabs[0] : null
+})
+
+const isShownTab = (targetId) => {
+  return state.shownTabs.includes(targetId)
 }
+
+const getIndex = (textType, index, additionalIndex = 0) => {
+  return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
+}
+
+const selectTab = (targetId) => {
+  if ((state.shownTabs.length > 1) && state.shownTabs.includes(targetId)) {
+    state.shownTabs = state.shownTabs.filter(innerTargetId => innerTargetId !== targetId)
+  } else if (!state.shownTabs.includes(targetId)) {
+    state.shownTabs.push(targetId)
+  }  
+  $historyAGC.updateMode(state.shownTabs)    
+}
+
+const blockTokensActions = () => {
+  state.blockTokensActionsFlag = state.blockTokensActionsFlag + 1
+}
+
+const removeAllActivated = () => {
+  blockTokensActions()
+}
+
+const insertTokens = (token) => {
+  emit('insertTokens', token)
+}
+
 </script>
+
 <style lang="scss">
   .alpheios-alignment-editor-tokens-edit-editor-container {
     margin-top: 15px;

@@ -1,84 +1,83 @@
 <template>
     <div class = "alpheios-alignment-header-line" :class="{ 'alpheios-alignment-header-line-in-header' : inHeader }">
         <div class = "alpheios-alignment-radio-block alpheios-alignment-option-item__control">
-            <span v-for="(item, idx) in allViewTypes" :key="idx">
-              <input type="radio" :id="itemIdWithValue(item.value)" :value="item.value" v-model="viewType" 
-                :ref = "itemIdWithValue(item.value)"
+            <span v-for="(item, idx) in state.localAllViewTypes" :key="idx">
+              <input type="radio" :id="itemIdWithValue(item.value)" :value="item.value" v-model="state.viewType" 
                 :data-checked1="item.value"
-                :data-checked2="viewType"
+                :data-checked2="state.viewType"
                 @change="changeViewType"
+                :ref="el => (itemRefs[idx] = el)"
               />
-              <label :for="itemIdWithValue(item.value)" @click = "clickInput(item.value)"> {{ item.label }} </label>
+              <label :for="itemIdWithValue(item.value)" @click = "clickInput(idx)"> {{ item.label }} </label>
             </span>
             <span>
             <select
                 class="alpheios-alignment-select alpheios-alignment-select__sentence-count"
-                v-model="sentenceCount" id="alpheios-alignment-select__sentence-count"
+                v-model="state.sentenceCount" id="alpheios-alignment-select__sentence-count"
                 @change="changeViewType"
                 >
-              <option v-for="item in sentenceChoice" :key="item.value" :value = "item.value">{{ item.label }}</option>
+              <option v-for="item in state.sentenceChoice" :key="item.value" :value = "item.value">{{ item.label }}</option>
             </select>
             </span>
         </div>
 
     </div>
 </template>
-<script>
-import Tooltip from '@/_output/vue/tooltip.vue'
+<script setup>
+import Tooltip from '@/_output/vue/common/tooltip.vue'
+import { computed, inject, reactive, onMounted, watch, ref, nextTick } from 'vue'
 
-export default {
-  name: 'SelectViews',
-  components: {
-    tooltip: Tooltip
-  },
-  props: {
-    inHeader: {
-      type: Boolean,
-      required: false,
-      default: true
-    },
-    allViewTypes: {
-      type: Array,
-      required: true
-    }
-  },
-  data () {
-    return {
-      sentenceCount: 0,
-      viewType: null,
-      sentenceChoice: [
-        { value: 0, label: 'current' },
-        { value: 1, label: 'one on each side' }
-      ]
-    }
-  },
-  created () {
-    this.viewType = this.allViewTypes[0].value
-  },
-  methods: {
-    /**
-     * Css id for display view select
-     * @param {String} value - display view
-     * @returns {String}
-     */
-    itemIdWithValue (value) {
-      return `alpheios-alignment-radio-block__${value.toLowerCase().replace(' ', '_')}`
-    },
+const emit = defineEmits([ 'updateViewType' ])
+const itemRefs = []
 
-    changeViewType () {
-      this.$emit('updateViewType', { viewType: this.viewType, sentenceCount: this.sentenceCount })
-    },
+const props = defineProps({
+  inHeader: {
+    type: Boolean,
+    required: false,
+    default: true
+  },
+  allViewTypes: {
+    type: Array,
+    required: true
+  }
+})
 
-    clickInput (itemValue) {
-      const refInput = this.itemIdWithValue(itemValue)
+const state = reactive({
+  sentenceCount: 0,
+  viewType: null,
+  sentenceChoice: [
+    { value: 0, label: 'current' },
+    { value: 1, label: 'one on each side' }
+  ],
+  localAllViewTypes: []
+})
 
-      if (!this.$refs[refInput][0].checked) {
-        this.$refs[refInput][0].click()
-      }
-    }
+onMounted(async () => {
+  props.allViewTypes.forEach(viewType => {
+    state.localAllViewTypes.push(viewType)
+    itemRefs.push(ref(null))
+  })
+  state.viewType = state.localAllViewTypes[0]
+
+  await nextTick()
+  itemRefs[0].click()
+})
+
+const itemIdWithValue = (value) => {
+  return `alpheios-alignment-radio-block__${value.toLowerCase().replace(' ', '_')}`
+}
+
+const changeViewType = () => {
+  emit('updateViewType', { viewType: state.viewType, sentenceCount: state.sentenceCount })
+}
+
+const clickInput = (itemIndex) => {
+  if (!itemRefs[itemIndex].checked) {
+    itemRefs[itemIndex].click()
   }
 }
 </script>
+
 <style lang="scss">
   .alpheios-alignment-header-line {
     padding: 60px 0 10px;

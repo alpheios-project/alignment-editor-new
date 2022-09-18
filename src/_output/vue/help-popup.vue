@@ -1,7 +1,8 @@
 <template>
-    <modal :classes="classes" name="help-block" :draggable="true" height="auto">
+  <modal-base modalName="help-output" :draggable="true" height="auto" :shiftY="0.3" > 
+    <div class="alpheios-alignment-editor-modal-help ">
         <div class="alpheios-modal-header" >
-          <span class="alpheios-alignment-modal-close-icon" @click="$emit('closeModal')">
+          <span class="alpheios-alignment-modal-close-icon" @click="$modal.hide('help-output')">
               <x-close-icon />
           </span>
           <h2 class="alpheios-alignment-editor-modal-header">Help</h2>
@@ -16,32 +17,23 @@
             <p>You cannot edit this document. Make changes in the json version.</p>
           </div>
         </div>
-    </modal>
+    </div>
+  </modal-base>
 </template>
-<script>
-import XCloseIcon from '@/inline-icons/x-close.svg'
+<script setup>
+import XCloseIcon from '@/inline-icons/xclose.svg'
 
-export default {
-  name: 'HelpPopup',
-  components: {
-    xCloseIcon: XCloseIcon
-  },
-  props: {
-  },
-  data () {
-    return {
-    }
-  },
-  computed: {
-    classes () {
-      return `alpheios-alignment-editor-modal-help alpheios-alignment-editor-modal-${this.mname}`
-    }
-  }
-}
+import { computed, reactive, inject, onMounted, watch } from 'vue'
+const $modal = inject('$modal')
+
 </script>
 <style lang="scss">
 .alpheios-alignment-editor-modal-help {
-  
+  .alpheios-alignment-modal-close-icon {
+    top: -25px;
+    right: -10px;
+  }
+
   .alpheios-modal-container {
     width: 700px;
   }

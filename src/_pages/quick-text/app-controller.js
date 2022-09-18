@@ -1,16 +1,10 @@
 import App from '@/_pages/quick-text/vue/app.vue'
-import Vue from '@vue-runtime'
+import { createApp } from 'vue'
 
 export default class AppController {
   constructor ({ appId }) {
-    const rootVi = new Vue({})
-    const mountEl = document.getElementById(appId)
-    const AppComponent = Vue.extend(App)
-
-    this._viAppComp = new AppComponent({
-      parent: rootVi
-    })
-
-    this._viAppComp.$mount(mountEl)
+    const app = createApp(App)
+    app.mount(`#${appId}`) 
   }
 }
+

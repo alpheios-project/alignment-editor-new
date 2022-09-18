@@ -1,5 +1,5 @@
 <template>
-    <div class="alpheios-al-editor-container alpheios-al-editor-view-equivalence" v-if="fullData">
+    <div class="alpheios-al-editor-container alpheios-al-editor-view-equivalence" v-if="$fullData">
         
         <div class ="alpheios-al-editor-container-inner alpheios-al-editor-table-view">
 
@@ -10,27 +10,28 @@
             >
               <segment-block textType = "origin"
                 :segmentData = "segmentData.origin" :segIndex = "segIndex" :maxHeight = "maxHeight"
-                :dir = "fullData.getDir('origin')" :lang = "fullData.getLang('origin')" 
-                :langName = "fullData.getLangName('origin')" :metadataShort = "fullData.getMetadataShort('origin')"
-                :hoveredGroupsId = "hoveredOriginGroupsId" :shownTabs = "shownTabs"
-                @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
+                :dir = "$fullData.getDir('origin')" :lang = "$fullData.getLang('origin')" 
+                :langName = "$fullData.getLangName('origin')" :metadataShort = "$fullData.getMetadataShort('origin')"
+                :hoveredGroupsId = "state.hoveredOriginGroupsId" :shownTabs = "shownTabs"
+                @addHoverToken = "addHoverToken" 
               />
             </div>
           </div>
 
             <div class="alpheios-al-editor-segment-block alpheios-al-editor-segment-block-target" >
-                <div class="alpheios-al-editor-segment-block-text" v-if="hoveredTargetsData" >
+                <div class="alpheios-al-editor-segment-block-text" v-if="state.hoveredTargetsData" >
 
                   <div class="alpheios-al-editor-target-hovered-block"
-                       v-for = "(hoveredTargetsDataItem, hoveredTargetsDataItemIndex) in hoveredTargetsData" :key=" hoveredTargetsDataItemIndex">
+                       v-for = "(hoveredTargetsDataItem, hoveredTargetsDataItemIndex) in state.hoveredTargetsData" 
+                       :key=" hoveredTargetsDataItemIndex">
                       
                       <span class="alpheios-al-editor-segment-block-text__langname">{{ hoveredTargetsDataItem.langName }}</span>
                       <div class="alpheios-al-editor-target-hovered-block_tokens" 
                            v-for = "(targetsRow, targetsRowIndex) in hoveredTargetsDataItem.filteredTargets"
                            :key = "targetsRowIndex"
                       >
-                        <template v-for = "(token, tokenIndex) in targetsRow.target">
-                            <token-block :key = "tokenIndex" :token="token" />
+                        <template v-for = "(token, tokenIndex) in targetsRow.target" :key = "tokenIndex" >
+                            <token-block :token="token" />
                         </template>
                         <span class="alpheios-token" v-if="targetsRow.count > 1"> ({{ targetsRow.count }})</span>
                       </div>
@@ -43,96 +44,84 @@
         </div>
     </div>
 </template>
-<script>
-import TokenBlock from '@/_output/vue/token-block.vue'
-import SegmentBlock from '@/_output/vue/segment-block.vue'
-import LangNameBar from '@/_output/vue/lang-name-bar.vue'
+<script setup>
+import TokenBlock from '@/_output/vue/parts/token-block.vue'
+import SegmentBlock from '@/_output/vue/parts/segment-block.vue'
+import LangNameBar from '@/_output/vue/common/lang-name-bar.vue'
 
 import GroupUtility from '@/_output/utility/group-utility.js'
 
-export default {
-  name: 'AlGroupsViewEquivalence',
-  components: {
-    tokenBlock: TokenBlock,
-    segmentBlock: SegmentBlock,
-    langNameBar: LangNameBar
-  },
-  props: {
-    fullData: {
-      type: Object,
-      required: true
-    },
-    identList: {
-      type: Array,
-      required: true
-    }
-  },
-  data () {
-    return {
-      hoveredOriginGroupsId: null,
-      hoveredTargetsData: null,
-      updateHovered: 1
-    }
-  },
-  computed: {
-    shownTabs () {
-      this.hoveredGroupsId = null
-      return this.identList.filter(langData => !langData.hidden).map(langData => langData.targetId)
-    },
-    allOriginSegments () {
-      return GroupUtility.allOriginSegments(this.fullData)
-    },
-    allAlGroups () {
-      return GroupUtility.alignmentGroups(this.fullData, 'equivalence')
-    },
-    tokensEqGroups () {
-      return GroupUtility.tokensEquivalentGroups(this.fullData, this.allAlGroups, this.shownTabs)
-    },
+import { computed, reactive, inject, onMounted, watch } from 'vue'
 
-    containerHeight () {
-      return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 150
-    },
-    maxHeight () {
-      const maxHeight = 400
-      const minHeight = 25
-      if (this.allOriginSegments.length === 1) {
-        return this.containerHeight
-      } 
-      return Math.max(minHeight, Math.round(Math.min(maxHeight, this.containerHeight/this.allOriginSegments.length)))
-    }
-  },
-  methods: {
-    
-    getIndex (textType, index, additionalIndex = 0) {
-      return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
-    },
-    
-    addHoverToken (token) {
-      const hoveredOriginGroupsId = token.grouped ? token.groupData.map(groupDataItem => groupDataItem.groupId) : null
+const $fullData = inject('$fullData')
 
-      if (hoveredOriginGroupsId) {
-        const hoveredTargetsDataObj = token.grouped ? this.tokensEqGroups[token.word].targets : null
+const props = defineProps({
+  identList: {
+    type: Array,
+    required: true
+  }
+})
 
-        if (hoveredTargetsDataObj) {
-          const hoveredTargetsKeys = Object.keys(hoveredTargetsDataObj).sort((a, b) => {
-            return this.shownTabs.indexOf(a) - this.shownTabs.indexOf(b)
-          })
-          const hoveredTargetsData = hoveredTargetsKeys.map(targetId => hoveredTargetsDataObj[targetId])
+const state = reactive({
+  hoveredOriginGroupsId: null,
+  hoveredTargetsData: null,
+  updateHovered: 1
+})
 
-          this.hoveredOriginGroupsId = hoveredOriginGroupsId
-          this.hoveredTargetsData = hoveredTargetsData
-          this.updateHovered++
-        }
-      }
-    },
+const shownTabs = computed(() => {
+  return props.identList.filter(langData => !langData.hidden).map(langData => langData.targetId)
+})
 
-    removeHoverToken (token) {
-      // this.hoveredGroupsId = null
-      // this.updateHovered++
+const allOriginSegments = computed(() => {
+  return GroupUtility.allOriginSegments($fullData)
+})
+
+const allAlGroups = computed(() => {
+  return GroupUtility.alignmentGroups($fullData, 'equivalence')
+})
+
+const tokensEqGroups = computed(() => {
+  return GroupUtility.tokensEquivalentGroups($fullData, allAlGroups.value, shownTabs.value)
+})
+
+const containerHeight = computed(() => {
+  return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 150
+})
+
+const maxHeight = computed(() => {
+  const maxHeight = 400
+  const minHeight = 25
+  if (allOriginSegments.value.length === 1) {
+    return containerHeight.value
+  } 
+  return Math.max(minHeight, Math.round(Math.min(maxHeight, containerHeight.value/allOriginSegments.value.length)))
+})
+
+const getIndex = (textType, index, additionalIndex = 0) => {
+  return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
+}
+
+const addHoverToken = (token) => {
+  const hoveredOriginGroupsId = token.grouped ? token.groupData.map(groupDataItem => groupDataItem.groupId) : null
+
+  if (hoveredOriginGroupsId) {
+    const hoveredTargetsDataObj = token.grouped ? tokensEqGroups.value[token.word].targets : null
+
+    if (hoveredTargetsDataObj) {
+      const hoveredTargetsKeys = Object.keys(hoveredTargetsDataObj).sort((a, b) => {
+        return shownTabs.value.indexOf(a) - shownTabs.value.indexOf(b)
+      })
+      const hoveredTargetsData = hoveredTargetsKeys.map(targetId => hoveredTargetsDataObj[targetId])
+
+      state.hoveredOriginGroupsId = hoveredOriginGroupsId
+      state.hoveredTargetsData = hoveredTargetsData
+      state.updateHovered++
     }
   }
 }
+
 </script>
+
 <style lang="scss">
 
   .alpheios-al-editor-table-view {

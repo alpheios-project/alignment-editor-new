@@ -1,7 +1,10 @@
 <template>
-    <div class="alpheios-alignment-editor-align-target-tabs" v-if="tabs.length > 1">
-      <template v-for="(tabData, index) in tabs" >
-        <tooltip :tooltipText = "tabsTooltips[tabData]" tooltipDirection = "top" v-if="tabsTooltips[tabData]" :key="index">
+    <div class="alpheios-alignment-editor-align-target-tabs" v-if="props.tabs.length > 1">
+
+      <template v-for="(tabData, index) in props.tabs" >
+
+        <tooltip :tooltipText = "props.tabsTooltips[tabData]" tooltipDirection = "top" 
+                 v-if="props.tabsTooltips[tabData]" >
           <span class="alpheios-alignment-editor-align-target-tab-item" 
                 :class="{ 'alpheios-alignment-editor-align-target-tab-item-active': tabsStatesFinal[index] && tabsStatesFinal[index].active }" 
                 @click="selectTab(tabData, index)">
@@ -9,99 +12,96 @@
           </span>
         </tooltip>
 
-        <span class="alpheios-alignment-editor-align-target-tab-item" :key="index" v-else
+        <span class="alpheios-alignment-editor-align-target-tab-item" 
+              v-if="!props.tabsTooltips[tabData]"
               :class="{ 'alpheios-alignment-editor-align-target-tab-item-active': tabsStatesFinal[index] && tabsStatesFinal[index].active }" 
               @click="selectTab(tabData, index)">
           {{ index + 1 }}
         </span>
+
       </template>
+
     </div>
 </template>
-<script>
+<script setup>
 import Tooltip from '@/vue/common/tooltip.vue'
 
-export default {
-  name: 'EditorTabs',
-  components: {
-    tooltip: Tooltip
-  },
-  props: {
-    tabs: {
-      type: Array,
-      required: true
-    },
-    tabsTooltips: {
-      type: Object,
-      required: false,
-      default: () => { return {} }
-    }
-  },
-  data () {
-    return {
-      tabsStates: []
-    }
-  },
-  watch: {
-    '$store.state.uploadCheck' () {
-      this.tabsStates = []
-    }
-  },
-  computed: {
-    tabsStatesFinal () {
-      if (this.tabs.length > this.tabsStates.length) {
-        const newTabStates = this.tabs.map((tab, index) => { 
-          return { active: this.tabsStates.length === 0 ? index === 0 : Boolean(this.tabsStates[index]) && this.tabsStates[index].active }
-        })
-        this.tabsStates = newTabStates
-      }
-      return this.$store.state.uploadCheck && this.$store.state.alignmentUpdated && this.tabsStates
-    }
-  },
-  methods: {
-    /**
-     * It checks if the tab could be selected (for now we couldn't have no selected tabs)
-     * @param {Number} - index order of targetId
-     */
-    couldBeSelected (index) {
-      return !((this.tabsStates.filter(state => state.active).length === 1) && (this.tabsStates[index].active))
-    },
+import { computed, inject, reactive, onMounted, watch, ref } from 'vue'
+import { useStore } from 'vuex'
 
-    /**
-     * First it checks if the tab could be selected (for example we couldn't have no selected tabs)
-     * Then it changes selected tab state to oposite and emits event
-     * @param {String} - targetId
-     * @param {Number} - index order of targetId
-     */
-    selectTab (tabData, index) {
-      if (this.$alignedGC.checkIfHasActiveAlignmentGroup()) {
-        return
-      }
+const $store = useStore()
 
-      if (!this.couldBeSelected(index)) {
-        return
-      }
-      
-      // this.toggleTabSelection(tabData, index)
-      this.switchTabselection(tabData, index)
-    },
+const $alignedGC = inject('$alignedGC')
+const emit = defineEmits([ 'selectTab' ])
 
-    switchTabselection (tabData, index) {
-      if (!this.tabsStates[index].active) {
-        const activeIndex = this.tabsStates.findIndex(tabState => tabState.active)
-        this.tabsStates[activeIndex].active = false
+const props = defineProps({
+  tabs: {
+    type: Array,
+    required: true
+  },
+  tabsTooltips: {
+    type: Object,
+    required: false,
+    default: () => { return {} }
+  }
+})
 
-        this.tabsStates[index].active = true
-        this.$emit('selectTab', tabData)
-        this.$emit('selectTab', this.tabs[activeIndex])
-      }
-    },
-    toggleTabSelection (tabData, index) {
-      this.tabsStates[index].active = !this.tabsStates[index].active
-      this.$emit('selectTab', tabData)
-    }
+const state = reactive({
+  tabsStates: []
+})
+
+watch(
+  () => $store.state.uploadCheck,
+  () => { state.tabsStates = [] }
+)
+
+const tabsStatesFinal = computed(() => {
+  if (props.tabs.length > state.tabsStates.length) {
+    const newTabStates = props.tabs.map((tab, index) => { 
+      return { active: state.tabsStates.length === 0 ? 
+                       index === 0 : 
+                       Boolean(state.tabsStates[index]) && state.tabsStates[index].active }
+    })
+    state.tabsStates = newTabStates
+  }
+
+  return $store.state.uploadCheck && $store.state.alignmentUpdated && state.tabsStates
+})
+    
+const couldBeSelected  = (index) => {
+  return !((state.tabsStates.filter(state => state.active).length === 1) && (state.tabsStates[index].active))
+}
+
+const selectTab = (tabData, index) => {
+  if ($alignedGC.checkIfHasActiveAlignmentGroup()) {
+    return
+  }
+
+  if (!couldBeSelected(index)) {
+    return
+  }
+  
+  // this.toggleTabSelection(tabData, index)
+  switchTabselection(tabData, index)
+}
+
+const switchTabselection = (tabData, index) => {
+  if (!state.tabsStates[index].active) {
+    const activeIndex = state.tabsStates.findIndex(tabState => tabState.active)
+    state.tabsStates[activeIndex].active = false
+
+    state.tabsStates[index].active = true
+    emit('selectTab', tabData)
+    emit('selectTab', props.tabs[activeIndex])
   }
 }
+
+const toggleTabSelection = (tabData, index) => {
+  state.tabsStates[index].active = !state.tabsStates[index].active
+  emit('selectTab', tabData)
+}
 </script>
+
 <style lang="scss">
   .alpheios-alignment-editor-align-target-tabs {
     display: inline-block;
@@ -109,7 +109,8 @@ export default {
     position: relative;
     width: 49%;
     vertical-align: middle;
-    padding-left: 10px;
+    // padding-left: 10px;
+    padding: 10px;
   }
   .alpheios-alignment-editor-align-target-tab-item {
     cursor: pointer;

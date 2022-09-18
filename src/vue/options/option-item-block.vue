@@ -1,10 +1,12 @@
 <template>
-  <div class="alpheios-alignment-option-item" v-if="!optionItem.hidden">
-    <label class="alpheios-alignment-option-item__label-container" v-show="showLabelText" :class="{ 'alpheios-alignment-option-item__label-invisible': showLabelTextAsCheckboxLabel }">
+  <div class="alpheios-alignment-option-item" v-if="props.optionItem && !props.optionItem.hidden">
+    <label class="alpheios-alignment-option-item__label-container" v-show="props.showLabelText" 
+           :class="{ 'alpheios-alignment-option-item__label-invisible': props.showLabelTextAsCheckboxLabel }">
       <span class="alpheios-alignment-option-item__label-text" 
-            :class = "{ 'alpheios-alignment-option-item__label-hasinfo': optionInfo }"
+            :class = "{ 'alpheios-alignment-option-item__label-hasinfo': props.optionInfo }"
             v-html="labelText"></span>
-      <tooltip :tooltipText="l10n.getMsgS(optionInfo)" tooltipDirection="right" v-if="optionInfo" :additionalStyles="{ width: '200px' }">
+      <tooltip :tooltipText="l10n.getMsgS(props.optionInfo)" tooltipDirection="right"
+                v-if="props.optionInfo" :additionalStyles="{ width: '200px' }">
         <span class="alpheios-alignment-option-item__label-info">?</span>
       </tooltip>
     </label>
@@ -16,13 +18,14 @@
         :multiple="true"
         :options="values"
         label = "text"
-        v-model = "selectedM"
+        v-model = "state.selectedM"
         track-by = "value"
         :preserve-search="true"
         :searchable="false"
+        :internalSearch = "false"
         placeholder="Pick some"
         @input = "changeOption"
-        :disabled="disabled"
+        :disabled="props.disabled"
         :allow-empty="false"
     >
     </multiselect>
@@ -30,8 +33,8 @@
     <select
         class="alpheios-alignment-select alpheios-alignment-option-item__control"
         v-if="optionType === 'select'"
-        v-model="selected" :id="itemId"
-        @change = "changeOption" :disabled="disabled"
+        v-model="state.selected" :id="itemId"
+        @change = "changeOption" :disabled="props.disabled"
         >
       <option v-for="item in values" :key="item.value" :value = "item.value">{{item.text}}</option>
     </select>
@@ -40,8 +43,8 @@
         class="alpheios-alignment-input alpheios-alignment-option-item__control"
         type="text"
         v-if="optionType === 'text'"
-        v-model="selected"
-        :id="itemId" :disabled="disabled"
+        v-model="state.selected"
+        :id="itemId" :disabled="props.disabled"
         @change = "changeOption"
     >
 
@@ -49,25 +52,27 @@
         class="alpheios-alignment-input alpheios-alignment-option-item__control"
         type="number"
         v-if="optionType === 'number'"
-        :min="optionItem.minValue"
-        :max="optionItem.maxValue"
-        v-model="selected"
-        :id="itemId" :disabled="disabled"
+        :min="props.optionItem.minValue"
+        :max="props.optionItem.maxValue"
+        v-model="state.selected"
+        :id="itemId" :disabled="props.disabled"
         @change = "changeOption"
     >
 
-    <div class="alpheios-alignment-checkbox-block alpheios-alignment-option-item__control" v-if="optionType === 'boolean'"
-         :class = "{ 'alpheios-alignment-checkbox-block__disabled': disabled }">
-      <input type="checkbox" v-model="selected" :id="itemId" @change = "changeOption" :disabled="disabled">
+    <div class="alpheios-alignment-checkbox-block alpheios-alignment-option-item__control" 
+         v-if="optionType === 'boolean'"
+         :class = "checkboxClasses">
+      <input type="checkbox" v-model="state.selected" :id="itemId" @change = "changeOption" :disabled="props.disabled">
       <label :for="itemId" >{{ checkboxLabel }}
-        <span v-html="labelText" v-if="showCheckboxTitle"></span>
+        <span v-html="labelText" v-if="props.showCheckboxTitle"></span>
       </label>
     </div>
 
-    <p class = "alpheios-alignment-radio-block alpheios-alignment-option-item__control" v-if="optionType === 'radio'" :class = "radioClasses">
+    <p class = "alpheios-alignment-radio-block alpheios-alignment-option-item__control" v-if="optionType === 'radio'" 
+        :class = "radioClasses">
         <span v-for="item in values" :key="item.value">
-            <input type="radio" :id="itemIdWithValue(item.value)" :value="item.value" v-model="selected"
-                   @change="changeOption" :disabled="disabled" >
+            <input type="radio" :id="itemIdWithValue(item.value)" :value="item.value" v-model="state.selected"
+                   @change="changeOption" :disabled="props.disabled" >
             <label :for="itemIdWithValue(item.value)">{{ item.text }}</label>
         </span>
     </p>
@@ -77,7 +82,7 @@
       <p class="alpheios-alignment-select-input__select-container" >
           <span>{{ selectInputLabelsSelect }}</span>
           <select class="alpheios-alignment-select-input__select alpheios-alignment-select" 
-            v-model="selectedS" @change="updateSelectSI" :disabled="disabled" :id="itemId+'-select'">
+            v-model="state.selectedS" @change="updateSelectSI" :disabled="props.disabled" :id="itemId+'-select'">
             <option v-for="item in values" :key="item.value" :value="item.value">{{ item.text }}</option>
           </select>
       </p>
@@ -85,7 +90,7 @@
         <span>{{ selectInputLabelsInput }}</span>
         <div class="alpheios-alignment-select-input__input">
           <input type="text" class="alpheios-alignment-input" 
-            v-model="selectedI" @change="changeOption" :disabled="disabled" :id="itemId+'-input'" >
+            v-model="state.selectedI" @change="changeOption" :disabled="props.disabled" :id="itemId+'-input'" >
           <p class="alpheios-alignment-select-input__input-description">
             {{ selectInputDescription }}
           </p>
@@ -94,199 +99,221 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import SettingsController from '@/lib/controllers/settings-controller'
 import Multiselect from 'vue-multiselect'
 import Tooltip from '@/vue/common/tooltip.vue'
 
-export default {
-  name: 'OptionItemBlock',
-  components: {
-    Multiselect,
-    Tooltip
+import { reactive, ref, inject, computed, onMounted, watch } from 'vue'
+import { useStore } from 'vuex'
+
+const $store = useStore()
+
+const l10n = computed(() => { return L10nSingleton })
+const emit = defineEmits([ 'updateData' ])
+
+const props = defineProps({
+  optionItem: {
+    type: Object,
+    required: true
   },
-  props: {
-    optionItem: {
-      type: Object,
-      required: true
-    },
-    showLabelText: {
-      type: Boolean,
-      required: false,
-      default: true
-    },
-    showCheckboxTitle: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-    emitUpdateData: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-    disabled: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-    labelsListType: {
-      type: String,
-      required: false,
-      default: ''
-    },
-    inline: {
-      type: Boolean,
-      required: false,
-      default: true
-    },
-    optionInfo: {
-      type: String,
-      required: false,
-      default: ''
-    },
-    showLabelTextAsCheckboxLabel: {
-      type: Boolean,
-      required: false,
-      default: false
+  showLabelText: {
+    type: Boolean,
+    required: false,
+    default: true
+  },
+  showCheckboxTitle: {
+    type: Boolean,
+    required: false,
+    default: false
+  },
+  emitUpdateData: {
+    type: Boolean,
+    required: false,
+    default: false
+  },
+  disabled: {
+    type: Boolean,
+    required: false,
+    default: false
+  },
+  labelsListType: {
+    type: String,
+    required: false,
+    default: ''
+  },
+  inline: {
+    type: Boolean,
+    required: false,
+    default: true
+  },
+  optionInfo: {
+    type: String,
+    required: false,
+    default: ''
+  },
+  showLabelTextAsCheckboxLabel: {
+    type: Boolean,
+    required: false,
+    default: false
+  }
+})
+
+const state = reactive({ 
+  selected: null,
+  selectedI: null,
+  selectedS: null,
+  selectedM: null
+})
+
+onMounted(() => {
+  updateSelectedFromExternal()
+})
+watch( 
+  () => $store.state.optionsUpdated, 
+  () => {
+    updateSelectedFromExternal()
+  }
+)
+
+const checkboxClasses = computed(() => {
+  return {
+    'alpheios-alignment-checkbox-block__disabled': props.disabled, 
+    'alpheios-alignment-checkbox-block__has_checkbox_label': !props.showCheckboxTitle 
+  }
+})
+
+const itemId = computed(() => {
+  return `${props.optionItem.name.replace(/\./g, '_')}-id`
+})
+
+const hasValues = computed(() => {
+  return props.optionItem.select || props.optionItem.radio || props.optionItem.selectInput || props.optionItem.multiValue
+})
+
+const values = computed(() => {
+  return ($store.state.optionsUpdated && hasValues.value) ? props.optionItem.values : null
+})
+
+const labelText = computed(() => {
+  if (props.optionItem.labelL10n) {
+    return l10n.getText(props.optionItem.labelL10n)
+  }
+  return props.optionItem.labelText
+})
+
+const checkboxLabel = computed(() => {
+  return props.showLabelTextAsCheckboxLabel ? 
+          labelText.value : 
+          (
+              props.showCheckboxTitle && $store.state.optionsUpdated && 
+              (props.optionItem && props.optionItem.boolean && Boolean(props.optionItem.values))) ?
+                  props.optionItem.textValues()[0] : null
+})
+
+const optionType = computed(() => {
+  if (props.optionItem.multiValue) { return 'multiValue' }
+  if (props.optionItem.boolean) { return 'boolean' }
+  if (props.optionItem.radio) { return 'radio' }
+  if (props.optionItem.select) { return 'select' }
+  if (props.optionItem.selectInput) { return 'selectInput' }
+  if (props.optionItem.number) { return 'number' }
+  
+  return 'text'
+})
+
+const selectInputLabelsSelect = computed(() => {
+  if (props.optionItem.selectInput && props.optionItem.labelsList) {
+    if (props.labelsListType) {
+      return props.optionItem.labelsList[props.labelsListType].selectLabel
     }
-  },
-  data () {
-    return {
-      selected: null,
-      selectedI: null,
-      selectedS: null,
-      selectedM: null
+      return props.optionItem.labelsList.selectLabel
+  }
+  return null
+})
+
+const selectInputLabelsInput = computed(() => {
+  if (props.optionItem.selectInput && props.optionItem.labelsList) {
+    if (props.labelsListType) {
+      return props.optionItem.labelsList[props.labelsListType].inputLabel
     }
-  },
-  mounted () {
-    this.updateSelectedFromExternal()
-  },
-  watch: {
-    '$store.state.optionsUpdated' () {
-      this.updateSelectedFromExternal()
-    }
+      return props.optionItem.labelsList.inputLabel
+  }
+  return null
+})
 
-  },
-  computed: {
-    l10n () {
-      return L10nSingleton
-    },
-    itemId () {
-      return `${this.optionItem.name.replace(/\./g, '_')}-id`
-    },
-    hasValues () {
-      return this.optionItem.select || this.optionItem.radio || this.optionItem.selectInput || this.optionItem.multiValue
-    },
-    values () {
-      return (this.$store.state.optionsUpdated && this.hasValues) ? this.optionItem.values : null
-    },
-    labelText () {
-      if (this.optionItem.labelL10n) {
-        return this.l10n.getText(this.optionItem.labelL10n)
-      }
-      return this.optionItem.labelText
-    },
-    checkboxLabel () {
-      return this.showLabelTextAsCheckboxLabel ? this.labelText : (this.showCheckboxTitle && this.$store.state.optionsUpdated && (this.optionItem && this.optionItem.boolean && Boolean(this.optionItem.values))) ? this.optionItem.textValues()[0] : null
-    },
-    optionType () {
-      if (this.optionItem.multiValue) { return 'multiValue' }
-      if (this.optionItem.boolean) { return 'boolean' }
-      if (this.optionItem.radio) { return 'radio' }
-      if (this.optionItem.select) { return 'select' }
-      if (this.optionItem.selectInput) { return 'selectInput' }
-      if (this.optionItem.number) { return 'number' }
-      
-      return 'text'
-    },
-    selectInputLabelsSelect () {
-      if (this.optionItem.selectInput && this.optionItem.labelsList) {
-        if (this.labelsListType) {
-          return this.optionItem.labelsList[this.labelsListType].selectLabel
-        }
-         return this.optionItem.labelsList.selectLabel
-      }
-      return null
-    },
-    selectInputLabelsInput () {
-      if (this.optionItem.selectInput && this.optionItem.labelsList) {
-        if (this.labelsListType) {
-          return this.optionItem.labelsList[this.labelsListType].inputLabel
-        }
-         return this.optionItem.labelsList.inputLabel
-      }
-      return null
-    },
-    selectInputDescription () {
-      if (this.optionItem.selectInput && this.optionItem.description) {
-        return this.optionItem.description
-      }
-      return null
-    },
-    selectedSI () {
-      return this.selectedI ? this.selectedI : this.selectedS
-    },
-    radioClasses () {
-      return {
-        'alpheios-each-line-radio': !this.inline
-      }
-    }
-  },
-  methods: {
-    updateSelectedFromExternal () {
-      if (this.selected === this.optionItem.currentValue) { return }
+const selectInputDescription = computed(() => {
+  if (props.optionItem.selectInput && props.optionItem.description) {
+    return props.optionItem.description
+  }
+  return null
+})
 
-      this.selected = this.optionItem.currentValue
+const selectedSI = computed(() => {
+  return state.selectedI ? state.selectedI : state.selectedS
+})
 
-      if (this.optionItem.multiValue) {
-        this.selectedM = this.optionItem.currentItem()
-      }
+const radioClasses = computed(() => {
+  return {
+    'alpheios-each-line-radio': !props.inline
+  }
+})
 
-      if (this.optionItem.selectInput && this.values) {
-        const valueFromSelect = this.values.find(valueObj => valueObj.value === this.optionItem.currentValue)
+const updateSelectedFromExternal = () => {
+  if (!props.optionItem || (state.selected === props.optionItem.currentValue)) { return }
 
-        if (valueFromSelect) {
-          this.selectedS = this.optionItem.currentValue
-          this.selectedI = null
-        } else {
-          this.selectedI = this.optionItem.currentValue
-          this.selectedS = this.optionItem.values[0].value
-        }
-      }
-    },
+  state.selected = props.optionItem.currentValue
 
-    changeOption () {
-      if (this.optionItem.multiValue) {
-        this.selected = this.selectedM.map(valItem => valItem.value)
-      }
-      if (this.optionItem.selectInput) {
-        this.selected = this.selectedSI
-      }
-      if (this.optionItem.minValue && (this.optionItem.minValue > this.selected)) {
-        this.selected = this.optionItem.minValue
-      } else if (this.optionItem.maxValue && (this.optionItem.maxValue < this.selected)) {
-        this.selected = this.optionItem.maxValue
-      }
+  if (props.optionItem.multiValue) {
+    state.selectedM = props.optionItem.currentItem()
+  }
 
-      this.optionItem.setValue(this.selected)
-      
-      SettingsController.changeOption(this.optionItem)
-      if (this.emitUpdateData) {
-        this.$emit('updateData')
-      }
-    },
-    updateSelectSI () {
-      this.selectedI = null
-      this.changeOption()
-    },
-    itemIdWithValue (value) {
-      return `${this.itemId}_${value}`
+  if (props.optionItem.selectInput && values.value) {
+    const valueFromSelect = values.value.find(valueObj => valueObj.value === props.optionItem.currentValue)
+
+    if (valueFromSelect) {
+      state.selectedS = props.optionItem.currentValue
+      state.selectedI = null
+    } else {
+      state.selectedI = props.optionItem.currentValue
+      state.selectedS = props.optionItem.values.value[0].value
     }
   }
 }
+
+const changeOption = () => {
+  if (props.optionItem.multiValue) {
+    state.selected = state.selectedM.map(valItem => valItem.value)
+  }
+  if (props.optionItem.selectInput) {
+    state.selected = selectedSI.value
+  }
+  if (props.optionItem.minValue && (props.optionItem.minValue > state.selected)) {
+    state.selected = props.optionItem.minValue
+  } else if (props.optionItem.maxValue && (props.optionItem.maxValue < state.selected)) {
+    state.selected = props.optionItem.maxValue
+  }
+
+  props.optionItem.setValue(state.selected)
+  
+  SettingsController.changeOption(props.optionItem)
+  if (props.emitUpdateData) {
+    emit('updateData')
+  }
+}
+
+const updateSelectSI = () => {
+  state.selectedI = null
+  changeOption()
+}
+
+const itemIdWithValue = (value) => {
+  return `${itemId.value}_${value}`
+}
+
 </script>
+
 <style lang="scss">
 .alpheios-alignment-option-item {
   display: inline-block;
@@ -385,8 +412,16 @@ export default {
   .alpheios-alignment-checkbox-block.alpheios-alignment-option-item__control {
     vertical-align: middle;
   }
+
+  
   .alpheios-alignment-checkbox-block {
     width: 48%;
+  }
+
+  .alpheios-alignment-checkbox-block__has_checkbox_label {
+    &.alpheios-alignment-checkbox-block {
+      width: 28px;
+    }
   }
 }
 

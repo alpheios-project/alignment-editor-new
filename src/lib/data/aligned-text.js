@@ -224,16 +224,19 @@ export default class AlignedText {
     const segment = this.segments[segmentIndex - 1]
     const token = segment.getTokenById(firstIdWord)
 
-    const sentenceIndex = token.sentenceIndex
-    const allTokensSentence = segment.getTokenFromSentenceByIndex(sentenceIndex).map(token => {
-      if ((targetIdWords.length === 1) && (firstIdWord === token.idWord)) {
-        return `[${token.word}]`
-      }
-      if (token.idWord === firstIdWord) { return `[${token.word}` }
-      if (token.idWord === targetIdWords[targetIdWords.length - 1]) { return `${token.word}]` }
-      return token.word
-    })
+    if (token) {
+      const sentenceIndex = token.sentenceIndex
+      const allTokensSentence = segment.getTokenFromSentenceByIndex(sentenceIndex).map(token => {
+        if ((targetIdWords.length === 1) && (firstIdWord === token.idWord)) {
+          return `[${token.word}]`
+        }
+        if (token.idWord === firstIdWord) { return `[${token.word}` }
+        if (token.idWord === targetIdWords[targetIdWords.length - 1]) { return `${token.word}]` }
+        return token.word
+      })
 
-    return allTokensSentence
+      return allTokensSentence
+    }
+    return []
   }
 }

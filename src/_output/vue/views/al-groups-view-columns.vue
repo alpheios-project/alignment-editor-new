@@ -1,5 +1,5 @@
 <template>
-    <div class="alpheios-al-editor-container alpheios-al-editor-view-columns" v-if="fullData">
+    <div class="alpheios-al-editor-container alpheios-al-editor-view-columns" v-if="$fullData">
       <div class ="alpheios-al-editor-container-inner alpheios-al-editor-segment-view">
 
           <div class="alpheios-al-editor-segment-big-row"
@@ -18,12 +18,12 @@
                 >
                   <segment-block v-if="segmentSingle.textType"
                     :textType = "segmentSingle.textType" 
-                    :segmentData = "segmentSingle" :segIndex = "segIndex" :maxHeight = "maxHeight"
-                    :dir = "fullData.getDir(segmentSingle.textType, segmentSingle.targetId)"
-                    :lang = "fullData.getLang(segmentSingle.textType, segmentSingle.targetId)"
-                    :langName = "fullData.getLangName(segmentSingle.textType, segmentSingle.targetId)"
-                    :metadataShort = "fullData.getMetadataShort(segmentSingle.textType, segmentSingle.targetId)"
-                    :hoveredGroupsId = "hoveredGroupsId" :shownTabs = "shownTabs"
+                    :segmentData = "segmentSingle" :segIndex = "segIndex" :maxHeight = "state.maxHeight"
+                    :dir = "$fullData.getDir(segmentSingle.textType, segmentSingle.targetId)"
+                    :lang = "$fullData.getLang(segmentSingle.textType, segmentSingle.targetId)"
+                    :langName = "$fullData.getLangName(segmentSingle.textType, segmentSingle.targetId)"
+                    :metadataShort = "$fullData.getMetadataShort(segmentSingle.textType, segmentSingle.targetId)"
+                    :hoveredGroupsId = "state.hoveredGroupsId" :shownTabs = "shownTabs"
                     @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
 
                     :targetIdIndex = "targetIdIndex(segmentSingle.targetId)"
@@ -41,116 +41,116 @@
        </div><!-- alpheios-al-editor-container-inner-->
     </div>
 </template>
-<script>
-import LangNameBar from '@/_output/vue/lang-name-bar.vue'
-
-import SegmentBlock from '@/_output/vue/segment-block.vue'
+<script setup>
+import LangNameBar from '@/_output/vue/common/lang-name-bar.vue'
+import SegmentBlock from '@/_output/vue/parts/segment-block.vue'
 
 import ScrollUtility from '@/lib/utility/scroll-utility.js'
 import GroupUtility from '@/_output/utility/group-utility.js'
 
-export default {
-  name: 'AlGroupsViewColumns',
-  components: {
-    segmentBlock: SegmentBlock,
-    langNameBar: LangNameBar
-  },
-  props: {
-    fullData: {
-      type: Object,
-      required: true
-    },
-    identList: {
-      type: Array,
-      required: true
-    }
-  },
-  data () {
-    return {
-      colors: ['#F8F8F8', '#e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff'],
-      originColor: '#F8F8F8',
-      hoveredGroupsId: null,
-      changeColor: false
-    }
-  },
-  computed: {
-    shownTabs () {
-      return this.identList.filter(langData => !langData.hidden).map(langData => langData.targetId)
-    },
-    segmentsForColumns () {
-      return GroupUtility.segmentsForColumns(this.fullData, this.shownTabs)
-    },
-    allTargetTextsIds () {
-      return GroupUtility.allTargetTextsIds(this.fullData)
-    },
-    alGroups () {
-      return GroupUtility.alignmentGroups(this.fullData, 'full')
-    },
-    orderedTargetsId () {
-      return this.allTargetTextsIds
-    },
-    lastTargetId () {
-      return this.orderedTargetsId[this.orderedTargetsId.length - 1]
-    },
-    containerHeight () {
-      return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 150
-    },
-    maxHeight () {
-      return 400
-    }
-  },
-  methods: {
-    getIndex (textType, index, additionalIndex = 0) {
-      return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
-    },
-    cssId (textType, targetId, segmentIndex) {
-      if (textType === 'target') {
-        return `alpheios-align-text-segment-${textType}-${targetId}-${segmentIndex}`
-      } else {
-        return `alpheios-align-text-segment-${textType}-${segmentIndex}`
-      }
-    },
-    targetIdIndex (targetId) {
-      return targetId ? this.allTargetTextsIds.indexOf(targetId) : null
-    },
-    addHoverToken (token) {
-      this.hoveredGroupsId = token.grouped ? token.groupData.map(groupDataItem => groupDataItem.groupId) : null
-      this.makeScroll(token)
-    },
+import { computed, reactive, inject, onMounted, watch } from 'vue'
 
-    makeScroll (token) {
-      if (this.hoveredGroupsId) {
-        let scrolledTargetsIds = []
-        const textTypeSeg = (token.textType === 'target') ? 'origin' : 'target'
+const $fullData = inject('$fullData')
 
-        for (let i = 0; i < this.hoveredGroupsId.length; i++) {
-          const hoveredGroup = this.alGroups[this.hoveredGroupsId[i]]
+const props = defineProps({
+  identList: {
+    type: Array,
+    required: true
+  }
+})
 
-          if (!scrolledTargetsIds.includes(hoveredGroup.targetId)) {
+const state = reactive({
+  colors: ['#F8F8F8', '#e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff'],
+  originColor: '#F8F8F8',
+  hoveredGroupsId: null,
+  changeColor: false,
+  maxHeight: 400
+})
 
-            scrolledTargetsIds.push(hoveredGroup.targetId)
-            const minOpositeTokenId = hoveredGroup[textTypeSeg].sort()[0]
+const shownTabs = computed(() => {
+  return props.identList.filter(langData => !langData.hidden).map(langData => langData.targetId)
+})
 
-            const segId = this.cssId(textTypeSeg, hoveredGroup.targetId, hoveredGroup.segIndex)
-            ScrollUtility.makeScrollTo(`token-${minOpositeTokenId}`, segId)
+const segmentsForColumns = computed(() => {
+  return GroupUtility.segmentsForColumns($fullData, shownTabs.value)
+})
 
-          }
-        }
-      }
-    },
-    removeHoverToken() {
-      this.hoveredGroupsId = null
-    },
-    isLast(targetId) {
-      return targetId === this.lastTargetId
-    },
-    rowColor(segIndex) {
-      return `background: ${this.colors[segIndex]};`
-    }
+const allTargetTextsIds = computed(() => {
+  return GroupUtility.allTargetTextsIds($fullData)
+})
 
+const alGroups = computed(() => {
+  return GroupUtility.alignmentGroups($fullData, 'full')
+})
+
+const orderedTargetsId = computed(() => {
+  return allTargetTextsIds.value
+})
+
+const lastTargetId = computed(() => {
+  return orderedTargetsId.value[orderedTargetsId.value.length - 1]
+})
+
+const containerHeight = computed(() => {
+  return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 150
+})
+
+const getIndex = (textType, index, additionalIndex = 0) => {
+  return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
+}
+
+const cssId = (textType, targetId, segmentIndex) => {
+  if (textType === 'target') {
+    return `alpheios-align-text-segment-${textType}-${targetId}-${segmentIndex}`
+  } else {
+    return `alpheios-align-text-segment-${textType}-${segmentIndex}`
   }
 }
+
+const targetIdIndex = (targetId) => {
+  return targetId ? allTargetTextsIds.value.indexOf(targetId) : null
+}
+
+const addHoverToken = (token) => {
+  state.hoveredGroupsId = token.grouped ? token.groupData.map(groupDataItem => groupDataItem.groupId) : null
+  makeScroll(token)
+}
+
+const makeScroll = (token) => {
+  if (state.hoveredGroupsId) {
+    let scrolledTargetsIds = []
+    const textTypeSeg = (token.textType === 'target') ? 'origin' : 'target'
+
+    for (let i = 0; i < state.hoveredGroupsId.length; i++) {
+      const hoveredGroup = alGroups.value[state.hoveredGroupsId[i]]
+
+      if (!scrolledTargetsIds.includes(hoveredGroup.targetId)) {
+
+        scrolledTargetsIds.push(hoveredGroup.targetId)
+        const minOpositeTokenId = hoveredGroup[textTypeSeg].sort()[0]
+
+        const segId = cssId(textTypeSeg, hoveredGroup.targetId, hoveredGroup.segIndex)
+        ScrollUtility.makeScrollTo(`token-${minOpositeTokenId}`, segId)
+
+      }
+    }
+  }
+}
+
+const removeHoverToken = () => {
+  state.hoveredGroupsId = null
+}
+
+const isLast = (targetId) => {
+  return targetId === lastTargetId.value
+}
+
+const rowColor = (segIndex) => {
+  return `background: ${state.colors[segIndex]};`
+}
+
 </script>
+
 <style lang="scss">
 
   .alpheios-al-editor-view-columns .alpheios-al-editor-container-inner {
@@ -192,6 +192,7 @@ export default {
         vertical-align: top;
         width: 33.33%;
         border-right: 2px solid #d8d8d8;
+        padding: 10px 5px; 
       }
     }
   }

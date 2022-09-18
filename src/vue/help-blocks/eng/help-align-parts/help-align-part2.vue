@@ -1,7 +1,7 @@
 <template>
   <div class="alpheios-editor-help-content alpheios-editor-help-align-content-part2">
-      <h4 class="alpheios-editor-help-content-title" @click="partVisible = !partVisible">UNDOING</h4>
-      <div class="alpheios-editor-help-content-text" v-show="partVisible">
+      <h4 class="alpheios-editor-help-content-title" @click="state.partVisible = !state.partVisible">UNDOING</h4>
+      <div class="alpheios-editor-help-content-text" v-show="state.partVisible">
           <p>The <b>[UNDO]</b> button will break the last link made, and the <b>[REDO]</b> button will reconnect it.</p>
           <p>To undo an alignment link that was established earlier:</p>
           <ul>
@@ -16,28 +16,17 @@
                 and the most recently saved JSON version, but when the page returns the complete alignment will be gone.
               </p>
           </div>
-          <p class="alpheios-editor-help-content-text__close-link" @click="partVisible = false">Close</p>
+          <p class="alpheios-editor-help-content-text__close-link" @click="state.partVisible = false">Close</p>
       </div>
   </div>
 </template>
-<script>
-import createAlGroupPNG from '@/_images/create-al-group.png'
+<script setup>
+import { reactive } from 'vue'
 
-import PlusIcon from '@/inline-icons/plus.svg'
-
-export default {
-  name: 'HelpAlignPart2',
-  components: {
-    plusIcon: PlusIcon   
-  },
-  data () {
-    return {
-      partVisible: false,
-
-      createAlGroupPNG: createAlGroupPNG
-    }
-  }
-}
+const state = reactive({
+  partVisible: false
+})
 </script>
+
 <style lang="scss">
 </style>

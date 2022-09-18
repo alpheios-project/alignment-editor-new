@@ -253,12 +253,14 @@ export default class TextsController {
     }
 
     const extractType = UploadController.defineExtractTypeByExtension(extension)
+
     if (!extractType) { return false }
     const extractPrepareMethods = {
       jsonSimpleExtract: this.extractSimple.bind(this)
     }
 
     const shortAlData = extractPrepareMethods[extractType](fileData, extractType)
+
     // StorageController.update(alignment, true)
     // this.store.commit('incrementUploadCheck')
     return shortAlData
@@ -269,7 +271,10 @@ export default class TextsController {
   }
 
   async checkShortAlInDB (shortAlData) {
+    if (!StorageController.dbAdapterAvailable) { return false }
+    
     const alAll = await this.uploadFromAllAlignmentsDB()
+
     const savedAlInDB = alAll.find(alItem => alItem.alignmentID === shortAlData.id)
     if (!savedAlInDB) {
       return false
@@ -368,6 +373,7 @@ export default class TextsController {
    * @returns {Boolean} - true - download was successful, false - was not
    */
   async downloadData (downloadType, additional = {}, fileName) {
+    
     const downloadPrepareMethods = {
       plainSourceDownloadAll: this.downloadShortData.bind(this),
       jsonSimpleDownloadAll: this.downloadFullData.bind(this),

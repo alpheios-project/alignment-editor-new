@@ -12,40 +12,38 @@
       </div>
     </div>
 </template>
-<script>
+<script setup>
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
+import { computed, inject, reactive, watch } from 'vue'
 
-export default {
-  name: 'ActionsMenuTokensEditor',
-  props: {
-  },
-  data () {
-    return {
-    }
-  },
-  computed: {
-    l10n () {
-      return L10nSingleton
-    },
-    undoTokensEditAvailable () {
-      return this.$store.state.tokenUpdated && this.$store.state.uploadCheck && this.$tokensEC.undoTokensEditAvailable
-    },
-    redoTokensEditAvailable () {
-      return this.$store.state.tokenUpdated && this.$store.state.uploadCheck && this.$tokensEC.redoTokensEditAvailable
-    }
-  },
-  methods: {
-    undoTokensEditStep () {
-      this.$emit('blockTokensActions')
-      this.$tokensEC.undoTokensEditStep()
-    },
-    redoTokensEditStep () {
-      this.$emit('blockTokensActions')
-      this.$tokensEC.redoTokensEditStep()
-    }
-  }
+import { useStore } from 'vuex'
+
+const emit = defineEmits([ 'blockTokensActions', 'blockTokensActions' ])
+
+const l10n = computed(() => { return L10nSingleton })
+const $store = useStore()
+const $tokensEC = inject('$tokensEC')
+
+const undoTokensEditAvailable = computed(() => {
+  return $store.state.tokenUpdated && $store.state.uploadCheck && $tokensEC.undoTokensEditAvailable
+})
+
+const redoTokensEditAvailable = computed(() => {
+  return $store.state.tokenUpdated && $store.state.uploadCheck && $tokensEC.redoTokensEditAvailable
+})
+
+const undoTokensEditStep = () => {
+  emit('blockTokensActions')
+  $tokensEC.undoTokensEditStep()
 }
+
+const redoTokensEditStep = () => {
+  emit('blockTokensActions')
+  $tokensEC.redoTokensEditStep()
+}
+
 </script>
+
 <style lang="scss">
   .alpheios-alignment-editor-actions-menu {
     display: inline-block;

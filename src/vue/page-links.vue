@@ -11,7 +11,10 @@
             </div>
             <div class="alpheios-alignment-editor-link-block">
                 <div class="alpheios-alignment-editor-video-block">
-                    <lazy-youtube src="https://youtu.be/uPuN2hWkZIQ" :showTitle="false" />
+                  <!--  <lazy-youtube src="https://youtu.be/uPuN2hWkZIQ" :showTitle="false" /> -->
+                  <YouTube 
+                    src="https://youtu.be/uPuN2hWkZIQ" width="100%" height = "100%" 
+                    ref="youtube" />
                 </div>
                 <p class="alpheios-alignment-router-link-title">Overview</p>
             </div>
@@ -26,25 +29,14 @@
         </div>
     </div>
 </template>
-<script>
+<script setup>
 import QuickStartIcon from '@/inline-icons/pages-quick-start.svg'
 import VideoTutorialsIcon from '@/inline-icons/pages-video-tutorials.svg'
 import WhatsNewIcon from '@/inline-icons/pages-whats-new.svg'
 
 import PagesIcon from '@/inline-icons/pages-icon.svg'
-import { LazyYoutube } from 'vue-lazytube'
 
-export default {
-  name: 'PageLinks',
-  components: {
-    quickStartIcon: QuickStartIcon,
-    videoTutorialsIcon: VideoTutorialsIcon,
-    whatsNewIcon: WhatsNewIcon,
-
-    pagesIcon: PagesIcon,
-    lazyYoutube: LazyYoutube
-  }
-}
+import YouTube from 'vue3-youtube'
 
 </script>
 <style lang="scss">

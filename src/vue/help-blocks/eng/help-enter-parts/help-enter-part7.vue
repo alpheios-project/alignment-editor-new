@@ -1,8 +1,8 @@
 <template>
   <div class="alpheios-editor-help-content alpheios-editor-help-enter-content-part7">
-      <h4 class="alpheios-editor-help-content-title" @click="partVisible = !partVisible">SAVING </h4>
-      <div class="alpheios-editor-help-content-text" v-show="partVisible">
-        <p class="alpheios-editor-help-content-text__image"><img :src="saveLocallyButtonPNG" /></p>
+      <h4 class="alpheios-editor-help-content-title" @click="state.partVisible = !state.partVisible">SAVING </h4>
+      <div class="alpheios-editor-help-content-text" v-show="state.partVisible">
+        <p class="alpheios-editor-help-content-text__image"><img :src="state.saveLocallyButtonPNG" /></p>
           <p>Until you have actually aligned some text, this button will simply save a JSON copy of whatever texts 
             you have put in the entry boxes in whatever default location your browser uses, and the application 
             will also save its own copy of your texts if indexedDB is enabled, which it is by default.
@@ -17,26 +17,19 @@
             <h5>Saving Large Files</h5>
             <p>When the files become larger they will take longer to save. Closing the page before the spinning popup has stopped risks losing data.</p>
           </div>
-          <p class="alpheios-editor-help-content-text__close-link" @click="partVisible = false">Close</p>
+          <p class="alpheios-editor-help-content-text__close-link" @click="state.partVisible = false">Close</p>
       </div>
   </div>
 </template>
-<script>
+<script setup>
 import saveLocallyButtonPNG from '@/_images/save-locally-button.png'
+import { reactive } from 'vue'
 
-export default {
-  name: 'HelpEnterPart7',
-  components: {
-    saveLocallyButtonPNG: saveLocallyButtonPNG   
-  },
-  data () {
-    return {
-      partVisible: false,
-
-      saveLocallyButtonPNG: saveLocallyButtonPNG
-    }
-  }
-}
+const state = reactive({
+  partVisible: false,
+  saveLocallyButtonPNG: saveLocallyButtonPNG
+})
 </script>
+
 <style lang="scss">
 </style>

@@ -23,18 +23,10 @@
     <p>All successful changes will be immediately visible in the Alignment Screen</p>
   </div>
 </template>
-<script>
+<script setup>
 import PlusIcon from '@/inline-icons/plus.svg'
 
-export default {
-  name: 'HelpEditPart1',
-  components: {
-  },
-  data () {
-    return {
-    }
-  }
-}
 </script>
+
 <style lang="scss">
 </style>

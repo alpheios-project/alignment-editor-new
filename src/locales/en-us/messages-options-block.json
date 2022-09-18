@@ -1,117 +1,117 @@
 {
-    "OPTIONS_BLOCK_APPLICATION": {
-      "message": "Application options",
-      "description": "Fieldset inside options",
-      "component": "OptionsBlock"
-    },
-    "OPTIONS_BLOCK_RESET_ALL": {
-      "message": "Reset all to standard options",
-      "description": "Button inside options",
-      "component": "OptionsBlock"
-    },
-    "OPTIONS_BLOCK_SET_ADVANCED": {
-      "message": "Advanced options",
-      "description": "Button inside options",
-      "component": "OptionsBlock"
-    },
-    "OPTIONS_BLOCK_SET_ACADEMIC": {
-      "message": "Academic options",
-      "description": "Button inside options",
-      "component": "OptionsBlock"
-    },
-    "OPTIONS_BLOCK_INFO_ABOUT": {
-      "message": "About Alpheios",
-      "description": "Title of the build info block",
-      "component": "OptionsBlock"
-    },
-    "OPTIONS_TITLE": {
-      "message": "Options",
-      "description": "Title of the options popup",
-      "component": "OptionsTextEnter"
-    },
-    "OPTIONS_TITLE_TEXT_ENTER": {
-      "message": "Options for Enter Text",
-      "description": "Title of the options popup",
-      "component": "OptionsTextEnter"
-    },
-    "OPTIONS_TITLE_TEXT_ALIGN": {
-      "message": "Options for Align Text",
-      "description": "Title of the options popup",
-      "component": "OptionsTextEdit"
-    },
-    "OPTIONS_TITLE_TEXT_EDIT": {
-      "message": "Options for Edit Text",
-      "description": "Title of the options popup",
-      "component": "OptionsTextEdit"
-    },
-    "OPTIONS_FIELDSET_ANNOTATIONS": {
-      "message": "Annotations block:",
-      "description": "Options fieldset",
-      "component": "OptionsTextEdit"
-    },
-    "OPTIONS_ANNOTATIONS_INFO": {
-      "message": "Enable annotation with SHIFT-CLICK",
-      "description": "Options tooltip",
-      "component": "OptionsTextEnter"
-    },
-    "OPTIONS_TOKENS_EDITOR_INFO": {
-      "message": "Enable token editing",
-      "description": "Options tooltip",
-      "component": "OptionsTextEnter"
-    },
-    "OPTIONS_READING_TOOLS_INFO": {
-      "message": "Show/hide Alpheios Reading Tools Toolbar",
-      "description": "Options tooltip",
-      "component": "OptionsTextEnter"
-    },
-    "OPTIONS_IS_ACADEMIC_MODE_INFO": {
-      "message": "Show academic options",
-      "description": "Options tooltip",
-      "component": "OptionsTextEnter"
-    },
-    "OPTIONS_IS_ADVANCED_MODE_INFO": {
-      "message": "Show advanced options",
-      "description": "Options tooltip",
-      "component": "OptionsTextEnter"
-    },
-    "OPTIONS_TOKENIZER_SERVICE_INFO": {
-      "message": "Allow to choose specific tokenizer options",
-      "description": "Options tooltip",
-      "component": "OptionsTextEnter"
-    },
-    "OPTIONS_SPECIFIC_ENGLISH_INFO": {
-      "message": "Apply specific rules from English to tokenizing",
-      "description": "Options tooltip",
-      "component": "OptionsTextEnter"
-    },
-    "OPTIONS_INDEXEDDB_SUPPORT_INFO": {
-      "message": "Permits saving data in local database",
-      "description": "Options tooltip",
-      "component": "OptionsTextEnter"
-    },
-    "OPTIONS_TEXT_XML_INFO": {
-      "message": "Shows whether markup was detected and permits user to correct",
-      "description": "Options tooltip",
-      "component": "OptionsTextEnter"
-    },
-    "OPTIONS_TEXT_XML_MODIFICATION_INFO": {
-      "message": "If XML, permits modification of elements If text, permits requiring same number of lines or paragraphs in all texts.",
-      "description": "Options tooltip",
-      "component": "OptionsTextEnter"
-    },
-    "OPTIONS_FINAL_CHECK_INFO": {
-      "message": "Final check of language and XML/text before tokenization.",
-      "description": "Options tooltip",
-      "component": "OptionsTextEnter"
-    },
-    "OPTIONS_EDIT_ICONS_DESC_ALIGN": {
-      "message": "You can also enable/disable these icons on the Token Editor screen",
-      "description": "Options tooltip",
-      "component": "OptionsTextAlign"
-    },
-    "OPTIONS_EDIT_ICONS_DESC_EDIT": {
-      "message": "You can disable any icons you find you do not need by unchecking them.",
-      "description": "Options tooltip",
-      "component": "OptionsTextAlign"
-    }
+  "OPTIONS_BLOCK_APPLICATION": {
+    "message": "Application options",
+    "description": "Fieldset inside options",
+    "component": "OptionsBlock"
+  },
+  "OPTIONS_BLOCK_RESET_ALL": {
+    "message": "Reset all to standard options",
+    "description": "Button inside options",
+    "component": "OptionsBlock"
+  },
+  "OPTIONS_BLOCK_SET_ADVANCED": {
+    "message": "Advanced options",
+    "description": "Button inside options",
+    "component": "OptionsBlock"
+  },
+  "OPTIONS_BLOCK_SET_ACADEMIC": {
+    "message": "Academic options",
+    "description": "Button inside options",
+    "component": "OptionsBlock"
+  },
+  "OPTIONS_BLOCK_INFO_ABOUT": {
+    "message": "About Alpheios",
+    "description": "Title of the build info block",
+    "component": "OptionsBlock"
+  },
+  "OPTIONS_TITLE": {
+    "message": "Options",
+    "description": "Title of the options popup",
+    "component": "OptionsTextEnter"
+  },
+  "OPTIONS_TITLE_TEXT_ENTER": {
+    "message": "Options for Enter Text",
+    "description": "Title of the options popup",
+    "component": "OptionsTextEnter"
+  },
+  "OPTIONS_TITLE_TEXT_ALIGN": {
+    "message": "Options for Align Text",
+    "description": "Title of the options popup",
+    "component": "OptionsTextEdit"
+  },
+  "OPTIONS_TITLE_TEXT_EDIT": {
+    "message": "Options for Edit Text",
+    "description": "Title of the options popup",
+    "component": "OptionsTextEdit"
+  },
+  "OPTIONS_FIELDSET_ANNOTATIONS": {
+    "message": "Annotations block:",
+    "description": "Options fieldset",
+    "component": "OptionsTextEdit"
+  },
+  "OPTIONS_ANNOTATIONS_INFO": {
+    "message": "Enable annotation with SHIFT-CLICK",
+    "description": "Options tooltip",
+    "component": "OptionsTextEnter"
+  },
+  "OPTIONS_TOKENS_EDITOR_INFO": {
+    "message": "Enable token editing",
+    "description": "Options tooltip",
+    "component": "OptionsTextEnter"
+  },
+  "OPTIONS_READING_TOOLS_INFO": {
+    "message": "Show/hide Alpheios Reading Tools Toolbar",
+    "description": "Options tooltip",
+    "component": "OptionsTextEnter"
+  },
+  "OPTIONS_IS_ACADEMIC_MODE_INFO": {
+    "message": "Show academic options",
+    "description": "Options tooltip",
+    "component": "OptionsTextEnter"
+  },
+  "OPTIONS_IS_ADVANCED_MODE_INFO": {
+    "message": "Show advanced options",
+    "description": "Options tooltip",
+    "component": "OptionsTextEnter"
+  },
+  "OPTIONS_TOKENIZER_SERVICE_INFO": {
+    "message": "Allow to choose specific tokenizer options",
+    "description": "Options tooltip",
+    "component": "OptionsTextEnter"
+  },
+  "OPTIONS_SPECIFIC_ENGLISH_INFO": {
+    "message": "Apply specific rules from English to tokenizing",
+    "description": "Options tooltip",
+    "component": "OptionsTextEnter"
+  },
+  "OPTIONS_INDEXEDDB_SUPPORT_INFO": {
+    "message": "Permits saving data in local database",
+    "description": "Options tooltip",
+    "component": "OptionsTextEnter"
+  },
+  "OPTIONS_TEXT_XML_INFO": {
+    "message": "Shows whether markup was detected and permits user to correct",
+    "description": "Options tooltip",
+    "component": "OptionsTextEnter"
+  },
+  "OPTIONS_TEXT_XML_MODIFICATION_INFO": {
+    "message": "If XML, permits modification of elements If text, permits requiring same number of lines or paragraphs in all texts.",
+    "description": "Options tooltip",
+    "component": "OptionsTextEnter"
+  },
+  "OPTIONS_FINAL_CHECK_INFO": {
+    "message": "Final check of language and XML/text before tokenization.",
+    "description": "Options tooltip",
+    "component": "OptionsTextEnter"
+  },
+  "OPTIONS_EDIT_ICONS_DESC_ALIGN": {
+    "message": "You can also enable/disable these icons on the Token Editor screen",
+    "description": "Options tooltip",
+    "component": "OptionsTextAlign"
+  },
+  "OPTIONS_EDIT_ICONS_DESC_EDIT": {
+    "message": "You can disable any icons you find you do not need by unchecking them.",
+    "description": "Options tooltip",
+    "component": "OptionsTextAlign"
+  }
 }

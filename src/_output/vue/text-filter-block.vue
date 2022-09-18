@@ -1,95 +1,91 @@
 <template>
-    <div class="alpheios-al-editor-languages-block" :class="layoutClass">
+    <div class="alpheios-al-editor-languages-block" :class="layoutClass" >
       <draggable
-        :list="identList"
+        :list="state.identList"
+        item-key="targetId"
         class="alpheios-al-editor-languages-list"
         ghost-class="ghost"
         @start="dragging = true"
         @end="endDrag"
       >
-        <div
-          v-for="identData in identList"
-          :key="identData.targetId"
-          :class="identClasses(identData)"
-          @click = "toggleIdentDataVisibility(identData)"
-        >
-          {{ identData.identName }}
-
-        </div>
+        <template #item="{ element }">
+          <div 
+             :class="identClasses(element)" 
+             @click = "toggleIdentDataVisibility(element)" >
+            {{ element.identName }}
+          </div>
+        </template>
       </draggable>
     </div>
 </template>
-<script>
-import Draggable from '@vuedraggable'
+
+<script setup>
+import draggable from '@vuedraggable'
 import GroupUtility from '@/_output/utility/group-utility.js'
 
-export default {
-  name: 'LanguagesBlock',
-  components: {
-    draggable: Draggable
-  },
-  props: {
-    fullData: {
-      type: Object,
-      required: true
-    },
-    layout: {
-      type: String,
-      required: false,
-      default: 'horizontal'
-    },
-    view: {
-      type: String,
-      required: true
-    }
-  },
-  data () {
-    return {
-      identList: [],
-      dragging: false
-    }
-  },
-  created() {
-    this.identList = GroupUtility.allIdentificationTargets(this.fullData, this.view)
-  },
-  computed: {
-    avaliableIdents () {
-      return this.identList.filter(identDataItem => !identDataItem.hidden).length
-    },
-    identFilteringAvailable () {
-      return this.avaliableIdents > 1
-    },
-    layoutClass () {
-      return `alpheios-al-editor-languages-block-${this.layout}`
-    }
+import { computed, inject, reactive, onMounted, watch, ref, nextTick } from 'vue'
 
+const emit = defineEmits([ 'changeOrder', 'updateVisibility' ])
+const $fullData = inject('$fullData')
+
+const props = defineProps({
+  layout: {
+    type: String,
+    required: false,
+    default: 'horizontal'
   },
-  methods: {
-    endDrag (e) {
-      this.dragging = false
-      if (e.oldDraggableIndex !== e.newDraggableIndex) {
-        const identsList = this.identList.map(identData => identData.targetId)
-        this.$emit('changeOrder', { identsList, view: this.view } )
-      }
-    },
+  view: {
+    type: String,
+    required: true
+  }
+})
 
-    identClasses (identData) {
-      return {
-        'alpheios-al-editor-languages-list-item': true,
-        'alpheios-al-editor-languages-list-item-clickable': this.identFilteringAvailable || identData.hidden,
-        'alpheios-al-editor-languages-list-item__inactive': identData.hidden
-      }
-    },
+const state = reactive({
+  identList: [],
+  dragging: false
+})
 
-    toggleIdentDataVisibility (identData) {
-      if (this.identFilteringAvailable || identData.hidden) {
-        identData.hidden = !identData.hidden
-        this.$emit('updateVisibility', { identData, view: this.view })
-      }
-    }
+onMounted(() => {
+  state.identList = GroupUtility.allIdentificationTargets($fullData, props.view)
+})
+
+const avaliableIdents = computed(() => {
+  return state.identList.filter(identDataItem => !identDataItem.hidden).length
+})
+
+const identFilteringAvailable = computed(() => {
+  return avaliableIdents.value > 1
+})
+
+const layoutClass = computed(() => {
+  return `alpheios-al-editor-languages-block-${props.layout}`
+})
+
+const endDrag = (e) => {
+  state.dragging = false
+  if (e.oldDraggableIndex !== e.newDraggableIndex) {
+    const identsList = state.identList.map(identData => identData.targetId)
+    emit('changeOrder', { identsList, view: props.view } )
   }
 }
+
+const identClasses = (identData) => {
+  return {
+    'alpheios-al-editor-languages-list-item': true,
+    'alpheios-al-editor-languages-list-item-clickable': identFilteringAvailable.value || identData.hidden,
+    'alpheios-al-editor-languages-list-item__inactive': identData.hidden
+  }
+}
+
+const toggleIdentDataVisibility = (identData) => {
+  if (identFilteringAvailable.value || identData.hidden) {
+    identData.hidden = !identData.hidden
+    emit('updateVisibility', { identData, view: props.view })
+  }
+}
+
 </script>
+
 <style lang="scss">
   .alpheios-al-editor-languages-list {
     // padding: 5px 10px;

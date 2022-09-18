@@ -1,91 +1,85 @@
 <template>
   <div id="alpheios-main-menu">
-    <div class="alpheios-alignment-app-menu" :class="{ 'alpheios-shown': menuShown }">
+    <div class="alpheios-alignment-app-menu" :class="{ 'alpheios-shown': state.menuShown }">
       <span class="alpheios-alignment-app-menu-close-icon" @click = "closeMenu">
         <x-close-icon />
       </span>
-      <select-views @updateViewType = "updateViewType" :inHeader = "false" :allViewTypes = "allViewTypes" />
 
-      <div class="alpheios-alignment-app-menu__buttons" :class="{ 'alpheios-alignment-menu-only-filter': onlyFilter }">
-        <text-filter-block :fullData="fullData" v-for="view in allViewsNames" :key="view"
-            @changeOrder = "changeOrder" @updateVisibility = "updateVisibility" :view = "view" v-show = "currentView === view"/>
+      <select-views @updateViewType = "updateViewType" :inHeader = "false" :allViewTypes = "props.allViewTypes" />
+
+      <div class="alpheios-alignment-app-menu__buttons" :class="{ 'alpheios-alignment-menu-only-filter': props.onlyFilter }">
+
+        <text-filter-block v-for="view in allViewsNames" :key="view"
+            @changeOrder = "changeOrder" @updateVisibility = "updateVisibility" 
+            :view = "view" v-show = "props.currentView === view"/>
       </div>
     </div>
-    <div class="alpheios-app-black-screen" v-show="menuShown"></div>
+    <div class="alpheios-app-black-screen" v-show="state.menuShown"></div>
   </div>
 </template>
-<script>
+<script setup>
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
-import XCloseIcon from '@/inline-icons/x-close.svg'
+import XCloseIcon from '@/inline-icons/xclose.svg'
 import Tooltip from '@/vue/common/tooltip.vue'
 
 import TextFilterBlock from '@/_output/vue/text-filter-block.vue'
 import SelectViews from '@/_output/vue/select-views.vue'
 
-export default {
-  name: 'MainMenu',
-  components: {
-    textFilterBlock: TextFilterBlock,
-    xCloseIcon: XCloseIcon,
-    tooltip: Tooltip,
-    selectViews: SelectViews
+import { computed, inject, reactive, onMounted, watch, ref, nextTick } from 'vue'
+
+const l10n = computed(() => { return L10nSingleton })
+
+const emit = defineEmits([ 'changeOrder', 'updateVisibility', 'updateViewType' ])
+
+const props = defineProps({
+  menuShow: {
+    type: Number,
+    required: true
   },
-  props: {
-    menuShow: {
-      type: Number,
-      required: true
-    },
-    fullData: {
-      type: Object,
-      required: true
-    },
-    onlyFilter: {
-      type: Boolean,
-      required: false,
-      default: true
-    },
-    currentView: {
-      type: String,
-      required: true
-    },
-    allViewTypes: {
-      type: Array,
-      required: true
-    }
+  onlyFilter: {
+    type: Boolean,
+    required: false,
+    default: true
   },
-  data () {
-    return {
-      menuShown: false
-    }
+  currentView: {
+    type: String,
+    required: true
   },
-  watch: {
-    menuShow () {
-      this.menuShown = true
-    }
-  },
-  computed: {
-    l10n () {
-      return L10nSingleton
-    },
-    allViewsNames () {
-      return this.allViewTypes.map(item => item.value)
-    }
-  },
-  methods: {
-    closeMenu () {
-      this.menuShown = false
-    },
-    changeOrder (data) {
-      this.$emit('changeOrder', data)
-    },
-    updateVisibility (data) {
-      this.$emit('updateVisibility', data)
-    },
-    updateViewType (data) {
-      this.$emit('updateViewType', data)
-    }
+  allViewTypes: {
+    type: Array,
+    required: true
   }
+})
+
+const state = reactive({
+  menuShown: false
+})
+
+watch(
+  () => props.menuShow,
+  () => { state.menuShown = true }
+)
+
+const allViewsNames = computed(() => {
+  return props.allViewTypes.map(item => item.value)
+})
+
+const closeMenu = () => {
+  state.menuShown = false
 }
+
+const changeOrder = (data) => {
+  emit('changeOrder', data)
+}
+
+const updateVisibility = (data) => {
+  emit('updateVisibility', data)
+}
+
+const updateViewType = (data) => {
+  emit('updateViewType', data)
+}
+
 </script>
 <style lang="scss">
   .alpheios-alignment-app-menu {

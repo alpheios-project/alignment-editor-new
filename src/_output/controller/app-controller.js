@@ -1,18 +1,16 @@
 import App from '@/_output/vue/app.vue'
-import Vue from '@vue-runtime'
-import VModal from 'vue-js-modal'
+import { createApp } from 'vue'
+
+import ModalPlugin from '@/plugins/modal'
+import SourceData from '@/_output/data/source-data.js'
 
 export default class AppController {
   constructor (fullData) {
-    Vue.use(VModal)
-    const rootVi = new Vue({ data: { fullData } })
-    const mountEl = document.getElementById('alpheios-alignment-editor-output')
-    const AppComponent = Vue.extend(App)
+    const app = createApp(App)
+    app.provide('$fullData', new SourceData(fullData))
 
-    this._viAppComp = new AppComponent({
-      parent: rootVi
-    })
+    app.use(ModalPlugin)
 
-    this._viAppComp.$mount(mountEl)
+    app.mount('#alpheios-alignment-editor-output') 
   }
 }

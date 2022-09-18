@@ -1,18 +1,19 @@
 /* eslint-env jest */
 /* eslint-disable no-unused-vars */
 
-import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
 import AppController from '@/lib/controllers/app-controller.js'
+
 import TextsController from '@/lib/controllers/texts-controller.js'
 import AlignedGroupsController from '@/lib/controllers/aligned-groups-controller.js'
 import HistoryAlGroupsController from '@/lib/controllers/history-algroups-controller.js'
 import TokensEditController from '@/lib/controllers/tokens-edit-controller.js'
+import AnnotationsController from '@/lib/controllers/annotations-controller.js'
 
-import Vue from '@vue-runtime'
+// import Vue from '@vue-runtime'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
-import Vuex from 'vuex'
+// import Vuex from 'vuex'
 import SettingsController from '@/lib/controllers/settings-controller'
 
 describe('app-controller.test.js', () => {
@@ -32,23 +33,11 @@ describe('app-controller.test.js', () => {
     jest.spyOn(console, 'error')
     jest.spyOn(console, 'log')
     jest.spyOn(console, 'warn')
-
-    Vue.prototype.$textC = undefined
-    Vue.prototype.$alignedGC = undefined
-    Vue.prototype.$tokensEC = undefined
-    Vue.prototype.$historyAGC = undefined
   })
-
-  function timeout (ms) {
-    return new Promise(resolve => setTimeout(resolve, ms))
-  }
-
-
   it('1 AppController - creates AppController and uploads appId from parameters', () => {
     const appC = new AppController({
       appId: 'alpheios-alignment-editor'
     })
-
     expect(appC).toHaveProperty('pageSettings', { appId: 'alpheios-alignment-editor' })
   })
 
@@ -100,7 +89,6 @@ describe('app-controller.test.js', () => {
     await appC_incorrect.init()
     expect(appC_incorrect.attachVueComponents).not.toHaveBeenCalled()
   })
-
 
   it('5 AppController - init method executes defineColorTheme if settings are uploaded', async () => {
     const appC = new AppController({
@@ -157,38 +145,38 @@ describe('app-controller.test.js', () => {
   })
 
 
-  it('8 AppController - defineTextController creates TextController and attaches it to Vue component ', async () => {
+  it('8 AppController - attachVue inside init provides controllers ', async () => {
     const appC = new AppController({
       appId: 'alpheios-alignment-editor'
     })
 
-    appC.attachVueComponents = jest.fn()
+    const spyTextC = jest.spyOn(appC, 'defineTextController')
+    const spyAlignedGC = jest.spyOn(appC, 'defineAlignedGroupsController')
+    const spyHistoryAGC = jest.spyOn(appC, 'defineHistoryAlGroupsController')
+    const spyTokensEC = jest.spyOn(appC, 'defineTokensEditController')
+    const spyAnnotationsC = jest.spyOn(appC, 'defineAnnotationsController')
+
     await appC.init()
 
-    expect(appC.textC).not.toBeDefined()
-    expect(Vue.prototype.$textC).not.toBeDefined()
-
-    appC.defineTextController()
+    expect(spyTextC).toHaveBeenCalled()
+    expect(spyAlignedGC).toHaveBeenCalled()
+    expect(spyHistoryAGC).toHaveBeenCalled()
+    expect(spyTokensEC).toHaveBeenCalled()
+    expect(spyAnnotationsC).toHaveBeenCalled()
 
     expect(appC.textC).toBeInstanceOf(TextsController)
-    expect(Vue.prototype.$textC).toBeInstanceOf(TextsController)
-  })
-
-  it('9 AppController - defineAlignedGroupsController creates AlignedGroupsController and attaches it to Vue component ', async () => {
-    const appC = new AppController({
-      appId: 'alpheios-alignment-editor'
-    })
-
-    appC.attachVueComponents = jest.fn()
-    await appC.init()
-
-    expect(appC.alignedGC).not.toBeDefined()
-    expect(Vue.prototype.$alignedGC).not.toBeDefined()
-
-    appC.defineAlignedGroupsController()
-
     expect(appC.alignedGC).toBeInstanceOf(AlignedGroupsController)
-    expect(Vue.prototype.$alignedGC).toBeInstanceOf(AlignedGroupsController)
+    expect(appC.historyAGC).toBeInstanceOf(HistoryAlGroupsController)
+    expect(appC.tokensEC).toBeInstanceOf(TokensEditController)
+    expect(appC.annotationsC).toBeInstanceOf(AnnotationsController)
+
+    const allProviders = Object.getPrototypeOf(appC.app['_instance'].provides)
+
+    expect(allProviders['$textC']).toBeTruthy()
+    expect(allProviders['$alignedGC']).toBeTruthy()
+    expect(allProviders['$historyAGC']).toBeTruthy()
+    expect(allProviders['$tokensEC']).toBeTruthy()
+    expect(allProviders['$annotationsC']).toBeTruthy()
   })
 
   it('10 AppController - defineL10Support creates L10nSingleton ', async () => {
@@ -209,26 +197,10 @@ describe('app-controller.test.js', () => {
     expect(appC.store).not.toBeDefined()
 
     appC.defineStore()
-
-    expect(appC.store).toEqual(expect.any(Vuex.Store))
+    
+    expect(appC.store).toBeDefined()
   })
 
-  it('12 AppController - defineHistoryAlGroupsController creates HistoryAlGroupsController and attaches it to Vue component ', async () => {
-    const appC = new AppController({
-      appId: 'alpheios-alignment-editor'
-    })
-
-    appC.attachVueComponents = jest.fn()
-    await appC.init()
-
-    expect(appC.historyAGC).not.toBeDefined()
-    expect(Vue.prototype.$historyAGC).not.toBeDefined()
-
-    appC.defineHistoryAlGroupsController()
-
-    expect(appC.historyAGC).toBeInstanceOf(HistoryAlGroupsController)
-    expect(Vue.prototype.$historyAGC).toBeInstanceOf(HistoryAlGroupsController)
-  })
 
   it('13 AppController - defineNotificationSupport creates notificationSingleton', async () => {
     const appC = new AppController({
@@ -238,23 +210,6 @@ describe('app-controller.test.js', () => {
     const result = appC.defineNotificationSupport()
 
     expect(result).toBeInstanceOf(NotificationSingleton)
-  })
-
-  it('14 AppController - defineTokensEditController creates TokensEditController and attaches it to Vue component ', async () => {
-    const appC = new AppController({
-      appId: 'alpheios-alignment-editor'
-    })
-
-    appC.attachVueComponents = jest.fn()
-    await appC.init()
-
-    expect(appC.tokensEC).not.toBeDefined()
-    expect(Vue.prototype.$tokensEC).not.toBeDefined()
-
-    appC.defineTokensEditController()
-
-    expect(appC.tokensEC).toBeInstanceOf(TokensEditController)
-    expect(Vue.prototype.$tokensEC).toBeInstanceOf(TokensEditController)
   })
 
 })

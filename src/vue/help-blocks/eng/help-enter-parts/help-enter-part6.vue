@@ -1,11 +1,11 @@
 <template>
   <div class="alpheios-editor-help-content alpheios-editor-help-enter-content-part6">
-      <h4 class="alpheios-editor-help-content-title" @click="partVisible = !partVisible">THE 
+      <h4 class="alpheios-editor-help-content-title" @click="state.partVisible = !state.partVisible">THE 
         <span class="alpheios-alignment-editor-add-translation" >
             <plus-icon />
         </span>
          and DONE BUTTONS</h4>
-      <div class="alpheios-editor-help-content-text" v-show="partVisible">
+      <div class="alpheios-editor-help-content-text" v-show="state.partVisible">
           <p>After you have entered at least one translation and clicked outside its box to indicate 
             that you have finished entering text in that box, two new buttons will appear:
             <span class="alpheios-alignment-editor-add-translation" >
@@ -13,7 +13,7 @@
             </span>
             and <b>[DONE]</b>.
           </p>
-          <p class="alpheios-editor-help-content-text__image"><img :src="plusDoneButtonPNG" /></p>
+          <p class="alpheios-editor-help-content-text__image"><img :src="state.plusDoneButtonPNG" /></p>
           <p>The 
             <span class="alpheios-alignment-editor-add-translation" >
                 <plus-icon />
@@ -32,28 +32,20 @@
             </p>
           </div>
 
-          <p class="alpheios-editor-help-content-text__close-link" @click="partVisible = false">Close</p>
+          <p class="alpheios-editor-help-content-text__close-link" @click="state.partVisible = false">Close</p>
       </div>
   </div>
 </template>
-<script>
-import plusDoneButtonPNG from '@/_images/plus-done-button.png'
-
+<script setup>
 import PlusIcon from '@/inline-icons/plus.svg'
+import plusDoneButtonPNG from '@/_images/plus-done-button.png'
+import { reactive } from 'vue'
 
-export default {
-  name: 'HelpEnterPart6',
-  components: {
-    plusIcon: PlusIcon   
-  },
-  data () {
-    return {
-      partVisible: false,
-
-      plusDoneButtonPNG: plusDoneButtonPNG
-    }
-  }
-}
+const state = reactive({
+  partVisible: false,
+  plusDoneButtonPNG: plusDoneButtonPNG
+})
 </script>
+
 <style lang="scss">
 </style>

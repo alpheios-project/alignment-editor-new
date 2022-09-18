@@ -54,13 +54,11 @@ export default class MetadataTerm {
     // now we need to support both definitions by id and by label
     const label = (typeof this.property.label === 'string') ? this.property.label : this.property.label[textType]
 
-    const res = {
+    return {
       propertyId: this.property.id,
       property: label,
       value: this.value
     }
-
-    return res
   }
 
   static convertFromJSON (data) {
@@ -79,12 +77,11 @@ export default class MetadataTerm {
 
   convertToIndexedDB (textType) {
     const label = (typeof this.property.label === 'string') ? this.property.label : this.property.label[textType]
-    const res = {
+    return {
       propertyId: this.property.id,
       property: label,
       value: this.value
     }
-    return res
   }
 
   static convertFromIndexedDB (data) {

@@ -1,136 +1,144 @@
 <template>
-  <div class="alpheios-alignment-text-editor-block alpheios-alignment-editor-container">
+  <div class="alpheios-alignment-text-editor-block__enter alpheios-alignment-text-editor-block alpheios-alignment-editor-container">
       <h2 class="alpheios-alignment-text-editor-block__header">
         <span class="alpheios-alignment-text-editor-block__part">
           <span class="alpheios-alignment-text-editor-block__header-label">{{ l10n.getMsgS('TEXT_EDITOR_HEADING') }}</span>
           <span class="alpheios-alignment-text-editor-block__header-link" v-if="alignEditAvailable" @click="$emit('showAlignmentGroupsEditor')">{{ l10n.getMsgS('ALIGN_EDITOR_LINK') }}</span>
           <span class="alpheios-alignment-text-editor-block__header-link" v-if="tokensEditAvailable" @click="$emit('showTokensEditor')">{{ l10n.getMsgS('TOKENS_EDITOR_LINK') }}</span>
         </span>
-        <span class="alpheios-alignment-text-editor-block-buttons__part">
-          <tooltip :tooltipText = "l10n.getMsgS('TEXT_EDITOR_HEADER_HELP')" tooltipDirection = "top">
-            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-help"
-                @click="$modal.show('help-enter')">
-                <span class="alpheios-alignment-button-icon">
-                  <question-icon />
-                </span>
-            </button>
-          </tooltip>
-          <tooltip :tooltipText = "l10n.getMsgS('TEXT_EDITOR_HEADER_OPTIONS')" tooltipDirection = "top">
-            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-options"
-                @click="$modal.show('options-enter')">
-                <span class="alpheios-alignment-button-icon">
-                  <gear-icon />
-                </span>
-            </button>
-          </tooltip>
-        </span>
-        <span class="alpheios-alignment-text-editor-block__part alpheios-alignment-text-editor-block__part-right">
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-save"
-              @click="$modal.show('save-enter')" :disabled="!downloadAvailable">
-              {{ l10n.getMsgS('TEXT_EDITOR_HEADER_SAVE') }}
+
+      <span class="alpheios-alignment-text-editor-block-buttons__part">
+        <tooltip :tooltipText = "l10n.getMsgS('TEXT_EDITOR_HEADER_HELP')" tooltipDirection = "top">
+          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" 
+                  id="alpheios-actions-menu-button__enter-help" @click="$modal.show('help-enter')"
+              >
+              <span class="alpheios-alignment-button-icon">
+                <question-icon />
+              </span>
           </button>
-        </span>
-      </h2>
+        </tooltip>
+        <tooltip :tooltipText = "l10n.getMsgS('TEXT_EDITOR_HEADER_OPTIONS')" tooltipDirection = "top">
+          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-options"
+              @click="$modal.show('options-enter')"
+              >
+              <span class="alpheios-alignment-button-icon">
+                <gear-icon />
+              </span>
+          </button>
+        </tooltip>
+      </span>
 
-      <div class="alpheios-alignment-editor-text-blocks-container" id="alpheios-text-editor-blocks-container" >
-        <div class="alpheios-alignment-editor-text-blocks-container-inner">
+      <span class="alpheios-alignment-text-editor-block__part alpheios-alignment-text-editor-block__part-right">
+        <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-save"
+            :disabled="!downloadAvailable" @click="$modal.show('save')">
+            {{ l10n.getMsgS('TEXT_EDITOR_HEADER_SAVE') }}
+        </button>
+      </span>
 
-          <div class="alpheios-alignment-editor-text-blocks-single-container alpheios-alignment-editor-text-blocks-origin-container">
-            <text-editor-single-block 
-                text-type="origin" 
-                :text-id = "originId"
-            />
-          </div>
+    </h2>
 
-          <div class="alpheios-alignment-editor-text-blocks-single-container alpheios-alignment-editor-text-blocks-target-container" v-if="allTargetTextsIdsNumbered">
-            <text-editor-single-block 
-                v-for="(targetTextId, indexT) in allTargetTextsIdsNumbered" :key="targetTextId ? targetTextId.targetId : indexT"
-                text-type = "target" 
-                :text-id = "targetTextId && targetTextId.targetId"
-                :index = "targetTextId && targetTextId.targetIndex"
-                @add-translation="$emit('add-translation')"
-                @align-text = "$emit('align-text')"
-            />
-          </div>
+    <div class="alpheios-alignment-editor-text-blocks-container" id="alpheios-text-editor-blocks-container" >
+      <div class="alpheios-alignment-editor-text-blocks-container-inner">
+
+        <div class="alpheios-alignment-editor-text-blocks-single-container alpheios-alignment-editor-text-blocks-origin-container">
 
         </div>
+
+        <div class="alpheios-alignment-editor-text-blocks-single-container alpheios-alignment-editor-text-blocks-target-container" 
+             v-if="allTargetTextsIdsNumbered">
+
+        </div>
+
       </div>
+    </div>
 
-      <help-popup @closeModal = "$modal.hide('help-enter')" mname = "help-enter">
-        <template v-slot:content > <help-block-enter /> </template>
-      </help-popup>
-      <save-popup @closeModal = "$modal.hide('save-enter')" mname = "save-enter" />
+    <div class="alpheios-alignment-editor-text-blocks-container" id="alpheios-text-editor-blocks-container" >
+      <div class="alpheios-alignment-editor-text-blocks-container-inner">
 
-      <options-text-enter-popup @closeModal = "$modal.hide('options-enter')" />
+        <div class="alpheios-alignment-editor-text-blocks-single-container alpheios-alignment-editor-text-blocks-origin-container">
+          <text-editor-single-block 
+              text-type="origin" 
+              :text-id = "originId"
+          />
+        </div>
+
+        <div class="alpheios-alignment-editor-text-blocks-single-container alpheios-alignment-editor-text-blocks-target-container" 
+              v-if="allTargetTextsIdsNumbered">
+          <text-editor-single-block 
+              v-for="(targetTextId, indexT) in allTargetTextsIdsNumbered" :key="targetTextId ? targetTextId.targetId : indexT"
+              text-type = "target" 
+              :text-id = "targetTextId && targetTextId.targetId"
+              :index = "targetTextId && targetTextId.targetIndex"
+              @add-translation="$emit('add-translation')"
+              @align-text = "$emit('align-text')"
+          />
+        </div>
+
+      </div>
+    </div>
+
+    <help-popup modalName = "help-enter">
+      <template v-slot:content > <help-block-enter /> </template>
+    </help-popup>
+  
+    <options-text-enter />
   </div>
 </template>
-<script>
-import TextEditorSingleBlock from '@/vue/text-editor/text-editor-single-block.vue'
-
+<script setup>
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
-import Tooltip from '@/vue/common/tooltip.vue'
-import HelpPopup from '@/vue/common/help-popup.vue'
-import SavePopup from '@/vue/common/save-popup.vue'
-import SettingsController from '@/lib/controllers/settings-controller.js'
-
-import OptionsTextEnter from '@/vue/options/options-text-enter.vue'
-
-import HelpBlockEnter from '@/vue/help-blocks/eng/help-block-enter.vue'
-
 import QuestionIcon from '@/inline-icons/question.svg'
 import GearIcon from '@/inline-icons/gear.svg'
 
-export default {
-  name: 'TextEditor',
-  components: {
-    textEditorSingleBlock: TextEditorSingleBlock,
-    tooltip: Tooltip,
-    helpPopup: HelpPopup,
-    savePopup: SavePopup,
-    helpBlockEnter: HelpBlockEnter,
-    optionsTextEnterPopup: OptionsTextEnter,
+import Tooltip from '@/vue/common/tooltip.vue'
+import SettingsController from '@/lib/controllers/settings-controller.js'
+import HelpPopup from '@/vue/modal-slots/help-popup.vue'
 
-    questionIcon: QuestionIcon,
-    gearIcon: GearIcon
-  },
-  props: {  
-  },
-  data () {
-    return {
-      showModalOptions: false,
-    }
-  },
-  async mounted () {
-  },
-  computed: {
-    originId () {
-      return this.$store.state.docSourceUpdated && this.$textC.originDocSource ? this.$textC.originDocSource.id : null
-    },
-    allTargetTextsIdsNumbered () {
-      return this.$store.state.docSourceUpdated && this.$store.state.uploadCheck && this.$textC.allTargetTextsIdsNumbered.length > 0 ? this.$textC.allTargetTextsIdsNumbered : [ null ]
-    },
-    /**
-     * Defines label show/hide texts block depending on showTextsBlocks
-     */
-    l10n () {
-      return L10nSingleton
-    },
-    alignEditAvailable () {
-      return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
-    },
-    enableTokensEditorOptionItemValue () {
-      return this.$store.state.optionsUpdated && SettingsController.enableTokensEditor
-    },
-    tokensEditAvailable () {
-      return this.alignEditAvailable && this.enableTokensEditorOptionItemValue
-    },
-    downloadAvailable () {
-      return Boolean(this.$store.state.docSourceUpdated) && this.$textC.originDocSourceHasText
-    }
-  },
-  methods: {
-  }
-}
+import HelpBlockEnter from '@/vue/help-blocks/eng/help-block-enter.vue'
+import OptionsTextEnter from '@/vue/options/options-text-enter.vue'
+
+import TextEditorSingleBlock from '@/vue/text-editor/text-editor-single-block.vue'
+
+import { computed, inject, reactive } from 'vue'
+import { useStore } from 'vuex'
+
+const emit = defineEmits([ 'showAlignmentGroupsEditor', 'showTokensEditor', 'add-translation', 'align-text', 'toggle-save' ])
+
+const l10n = computed(() => { return L10nSingleton })
+const $store = useStore()
+
+const $modal = inject('$modal')
+
+const $textC = inject('$textC')
+const $alignedGC = inject('$alignedGC')
+
+const state = reactive({ 
+  saveEnterState: 0
+})
+
+const originId = computed(() => {
+  return $store.state.docSourceUpdated && $textC.originDocSource ? $textC.originDocSource.id : null
+})
+
+const enableTokensEditorOptionItemValue = computed(() => {
+  return $store.state.optionsUpdated && SettingsController.enableTokensEditor
+})
+
+const alignEditAvailable = computed(() => {
+  return $store.state.docSourceUpdated && $store.state.alignmentUpdated && $alignedGC.alignmentGroupsWorkflowStarted
+})
+
+const tokensEditAvailable = computed(() => {
+  return alignEditAvailable.value && enableTokensEditorOptionItemValue.value
+})
+
+const downloadAvailable = computed(() => {
+  return Boolean($store.state.docSourceUpdated) && $textC.originDocSourceHasText
+})
+
+const allTargetTextsIdsNumbered = computed(() => {
+  return $store.state.docSourceUpdated && $store.state.uploadCheck && $textC.allTargetTextsIdsNumbered.length > 0 ? 
+         $textC.allTargetTextsIdsNumbered : [ null ]
+})
 </script>
 <style lang="scss">
   .alpheios-alignment-text-editor-block__header {

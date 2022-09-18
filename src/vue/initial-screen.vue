@@ -12,144 +12,143 @@
         </h2>
 
         <div class="alpheios-alignment-editor-initial-screen__buttons">
-            <div class="alpheios-alignment-editor-initial-screen__button">
-                <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-main-button"  id="alpheios-start-new-alignment"
-                    @click="startNewAlignment" >
-                    {{ l10n.getMsgS('INITIAL_NEW_ALIGNMENT') }}
-                </button>
+
+          <div class="alpheios-alignment-editor-initial-screen__button">
+            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-main-button"  
+                  id="alpheios-editor-start-new-alignment"
+                  @click="startNewAlignment" >
+                {{ l10n.getMsgS('INITIAL_NEW_ALIGNMENT') }}
+            </button>
+          </div>
+
+          <div class="alpheios-alignment-editor-initial-screen__button">
+            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-main-button"  
+                  id="alpheios-editor-resume-prev-alignment"
+                  @click="resumePrevAlignment" >
+                {{ l10n.getMsgS('INITIAL_RESUME_ALIGNMENT') }}
+            </button>
+
+            <div class="alpheios-alignment-app-menu__upload-block-choice" v-show="state.showUploadBlock" >
+              <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-main-button" 
+                :class="{ 'alpheios-active': state.showUploadFromFile }" 
+                id="alpheios-editor-resume-prev-alignment_file"
+                @click="updateShowBlock('fromFile')" >
+                {{ l10n.getMsgS('INITIAL_CHOOSE_FROM_FILE') }}
+              </button>
+              <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-main-button"  
+                :class="{ 'alpheios-active': state.showUploadFromDB }" 
+                id="alpheios-editor-resume-prev-alignment_autosaved"
+                @click="updateShowBlock('fromDB')" >
+                {{ l10n.getMsgS('INITIAL_CHOOSE_FROM_DB') }}
+              </button>
             </div>
 
-            <div class="alpheios-alignment-editor-initial-screen__button">
-                <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-main-button"  
-                    @click="resumePrevAlignment" >
-                    {{ l10n.getMsgS('INITIAL_RESUME_ALIGNMENT') }}
-                </button>
-
-                <div class="alpheios-alignment-app-menu__upload-block-choice" v-show="showUploadBlock" >
-                  <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-main-button" 
-                    :class="{ 'alpheios-active': showUploadFromFile }" 
-                    @click="updateShowBlock('fromFile')" >
-                    {{ l10n.getMsgS('INITIAL_CHOOSE_FROM_FILE') }}
-                  </button>
-                  <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-main-button"  
-                    :class="{ 'alpheios-active': showUploadFromDB }" 
-                    @click="updateShowBlock('fromDB')" >
-                    {{ l10n.getMsgS('INITIAL_CHOOSE_FROM_DB') }}
-                  </button>
-                </div>
-
-                <div class="alpheios-alignment-app-menu__upload-block" id="alpheios-main-menu-upload-block-page" v-show="showUploadFromFile" >
-                    <span class="alpheios-main-menu-upload-block_item">
-                        <input type="file" id = "alpheiosfileuploadpage" ref="alpheiosfileuploadpage" class="alpheios-fileupload" @change="loadTextFromFile">
-                        <label for="alpheiosfileuploadpage" class="alpheios-fileupload-label alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-upload">
-                            {{ l10n.getMsgS('INITIAL_CHOOSE_FILE') }} 
-                        </label>
-                    </span>
-                </div>
-
-                <div class="alpheios-alignment-editor-initial-screen__alignments-container" v-show="showUploadFromDB" v-if="indexedDBAvailable">
-                    <alignments-list 
-                        @upload-data-from-db="uploadDataFromDB" @delete-data-from-db="deleteDataFromDB"
-                        @clear-all-alignments="$emit('clear-all-alignments')"
-                    />
-                </div>
+            <div class="alpheios-alignment-app-menu__upload-block" v-show="state.showUploadFromFile" >
+                <span class="alpheios-main-menu-upload-block_item">
+                    <input type="file" id = "alpheiosfileuploadpage" ref="alpheiosfileuploadpage" 
+                          class="alpheios-fileupload" @change="loadTextFromFile">
+                    <label for="alpheiosfileuploadpage" class="alpheios-fileupload-label alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-upload">
+                        {{ l10n.getMsgS('INITIAL_CHOOSE_FILE') }} 
+                    </label>
+                </span>
             </div>
-            
+
+            <div class="alpheios-alignment-editor-initial-screen__alignments-container" 
+                  v-show="state.showUploadFromDB" v-if="indexedDBAvailable">
+                <Suspense>
+                  <alignments-list 
+                      @upload-data-from-db="uploadDataFromDB" @delete-data-from-db="deleteDataFromDB"
+                      @clear-all-alignments="$emit('clear-all-alignments')"
+                  />
+                </Suspense>
+            </div>
+
+          </div>
+
         </div>
 
         <page-links />
       </div>
   </div>
-</template>
-<script>
-import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
+</template>
+<script setup>
+import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import AlignmentsList from '@/vue/alignments-list.vue'
 import PageLinks from '@/vue/page-links.vue'
 
-export default {
-  name: 'InitialScreen',
-  components: {
-    alignmentsList: AlignmentsList,
-    pageLinks: PageLinks
-  },
-  data () {
-    return {
-      showUploadBlock: false,
-      showVideo: false,
-      alignments: [],
-      showUploadFromFile: false,
-      showUploadFromDB: false
-    }
-  },
-  mounted () {
-    setTimeout(() => {
-      this.showVideo = true
-    }, 1500)
-  },
-  computed: {
-    l10n () {
-      return L10nSingleton
-    },
-    readyAlignments () {
-      return this.alignments && this.alignments.length > 0
-    },
-    indexedDBAvailable () {
-      return this.$textC.indexedDBAvailable
-    }
-  },
-  methods: {
-    startNewAlignment () {
-      this.$emit("new-initial-alignment")
-      this.showUploadBlock = false
-      this.showUploadFromDB = false
-    },
-    resumePrevAlignment () {
-      this.showUploadBlock = true
-    },
-    loadTextFromFile() {
-      const file = this.$refs.alpheiosfileuploadpage.files[0]
+import { reactive, ref, inject, computed, defineAsyncComponent } from 'vue'
 
-      if (!file) { return }
-      const extension = file.name.indexOf('.') > -1 ? file.name.split('.').pop() : ''
+const alpheiosfileuploadpage = ref(null)
 
-      if (!this.$textC.checkUploadedFileByExtension(extension)) { 
-        this.$refs.alpheiosfileuploadpage.value = ''
-        return 
-      }
+const $textC = inject('$textC')
+const l10n = computed(() => { return L10nSingleton })
 
-      const reader = new FileReader()
+const state = reactive({ 
+  showUploadBlock: false,
+  showUploadFromFile: false,
+  showUploadFromDB: false
+})
 
-      reader.onload = e => {
-        this.$emit("upload-data-from-file", e.target.result, extension)
-        this.showUploadBlock = false
-        this.$refs.alpheiosfileuploadpage.value = ''
-      }
-      reader.readAsText(file)
-    },
+const emit = defineEmits([ 'upload-data-from-file', 'new-initial-alignment', 'upload-data-from-db', 'delete-data-from-db', 'clear-all-alignments' ])
 
-    uploadDataFromDB (alData) {
-      this.$emit('upload-data-from-db', alData)
-      this.showUploadBlock = false
-      this.showUploadFromDB = false
-    },
+const indexedDBAvailable = computed(() => {
+  return $textC.indexedDBAvailable
+})
 
-    deleteDataFromDB (alData) {
-      this.$emit('delete-data-from-db', alData)
-    },
+const startNewAlignment = () => {
+  emit("new-initial-alignment")
+  state.showUploadBlock = false
+  state.showUploadFromDB = false
+}
 
-    updateShowBlock (typeUpload) {
-      if (typeUpload === 'fromFile') {
-        this.showUploadFromFile = true
-        this.showUploadFromDB = false
-      } else {
-        this.showUploadFromFile = false
-        this.showUploadFromDB = true
-      }
-    }
+const resumePrevAlignment = () => {
+  state.showUploadBlock = true
+}
+
+const updateShowBlock = (typeUpload) => {
+  if (typeUpload === 'fromFile') {
+    state.showUploadFromFile = true
+    state.showUploadFromDB = false
+  } else {
+    state.showUploadFromFile = false
+    state.showUploadFromDB = true
   }
 }
+
+const loadTextFromFile = () => {
+  const file = alpheiosfileuploadpage.value.files[0]
+
+  if (!file) { return }
+  const extension = file.name.indexOf('.') > -1 ? file.name.split('.').pop() : ''
+
+  if (!$textC.checkUploadedFileByExtension(extension)) { 
+    alpheiosfileuploadpage.value.value = ''
+    return 
+  }
+
+  const reader = new FileReader()
+
+  reader.onload = e => {
+    emit("upload-data-from-file", e.target.result, extension)
+    state.showUploadBlock = false
+    alpheiosfileuploadpage.value.value = ''
+  }
+  reader.readAsText(file)
+}
+
+const uploadDataFromDB = (alData) => {
+  emit('upload-data-from-db', alData)
+  state.showUploadBlock = false
+  state.showUploadFromDB = false
+}
+
+const deleteDataFromDB = (alData) => {
+  emit('delete-data-from-db', alData)
+}
+
 </script>
+
 <style lang="scss">
 
 .alpheios-alignment-editor-initial-screen__intro {
@@ -224,8 +223,10 @@ export default {
         .alpheios-alignment-app-menu__upload-block {
             text-align: center;
             margin-top: 10px;
-            border-color: #6e7a84;
-            border-width: 1px;
+
+            padding: 10px 0;
+            border-top: 1px solid #6e7a84;
+            border-bottom: 1px solid #6e7a84;
 
             .alpheios-main-menu-upload-block_item {
                 padding: 0;
@@ -237,7 +238,6 @@ export default {
                 font-weight: normal;
             }
         }
-
         .alpheios-alignment-app-menu__upload-block-choice {
           text-align: center;
           padding: 10px 0;
@@ -247,6 +247,7 @@ export default {
             vertical-align: middle;
             font-size: 95%;
             min-width: auto;
+            margin: 5px;
           }
         }
     }
@@ -254,4 +255,3 @@ export default {
 
 
 </style>
-

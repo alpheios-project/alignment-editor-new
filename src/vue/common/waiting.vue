@@ -3,11 +3,6 @@
         <span class="alpheios-editor__waiting-gif"><img src="images/waiting.gif" /></span>
     </div>
 </template>
-<script>
-export default {
-  name: 'Waiting'
-}
-</script>
 <style lang="scss">
     .alpheios-editor__waiting {
         text-align: center;

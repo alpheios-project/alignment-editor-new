@@ -74,16 +74,13 @@
     .alpheios-modal-leave-active {
       opacity: 0;
     }
-  /*
-    .alpheios-modal-enter .alpheios-modal-container,
-    .alpheios-modal-leave-active .alpheios-modal-container {
-      -webkit-transform: scale(1.1);
-      transform: scale(1.1);
-    }
-  */
+
   .alpheios-modal-header {
     position: relative;
 
+    h3 {
+      font-size: 18px;
+    }
     .alpheios-alignment-modal-close-icon {
         display: block;
         position: absolute;
@@ -101,4 +98,22 @@
         }
     }
   }
+
+  .alpheios-modal-footer {
+    text-align: center;
+
+    .alpheios-modal-button {
+        background: #46788d;
+        border-color: #505050;
+        color: #e0e0e0;
+        margin: 0 10px;
+
+        &:disabled {
+          background: #6e6e6e;
+          border-color: #505050;
+          color: #f8f8f8;
+        }
+    }
+  }
+
 }

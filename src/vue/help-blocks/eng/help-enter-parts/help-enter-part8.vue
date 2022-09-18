@@ -1,7 +1,7 @@
 <template>
   <div class="alpheios-editor-help-content alpheios-editor-help-enter-content-part8">
-      <h4 class="alpheios-editor-help-content-title" @click="partVisible = !partVisible">RESUMING A PREVIOUS ALIGNMENT</h4>
-      <div class="alpheios-editor-help-content-text" v-show="partVisible">
+      <h4 class="alpheios-editor-help-content-title" @click="state.partVisible = !state.partVisible">RESUMING A PREVIOUS ALIGNMENT</h4>
+      <div class="alpheios-editor-help-content-text" v-show="state.partVisible">
           <p>The <b>[RESUME PREVIOUS ALIGNMENT]</b> button allows you to continue to modify an alignment that has been saved somewhere on your computer. 
           You can either choose the file from wherever you have saved it in your local file system or from a list of automatically saved versions. 
           The files are named simply by the time of their creation and the short project name originally chosen by the user. 
@@ -17,22 +17,17 @@
             </p>
           </div>
 
-          <p class="alpheios-editor-help-content-text__close-link" @click="partVisible = false">Close</p>
+          <p class="alpheios-editor-help-content-text__close-link" @click="state.partVisible = false">Close</p>
       </div>
   </div>
 </template>
-<script>
+<script setup>
+import { reactive } from 'vue'
 
-export default {
-  name: 'HelpEnterPart8',
-  components: {
-  },
-  data () {
-    return {
-      partVisible: false
-    }
-  }
-}
+const state = reactive({
+  partVisible: false
+})
 </script>
+
 <style lang="scss">
 </style>

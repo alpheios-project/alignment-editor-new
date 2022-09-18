@@ -1,8 +1,10 @@
 <template>
   <div class="alpheios-alignment-editor-text-blocks-single" v-show="dataUpdated" :id="containerId">
-      <p class="alpheios-alignment-editor-text-blocks-single__title" :class="{ 'alpheios-alignment-editor-text-blocks-single__title_less-margin': showAlignButton }">
+      <p class="alpheios-alignment-editor-text-blocks-single__title" 
+         :class="{ 'alpheios-alignment-editor-text-blocks-single__title_less-margin': showAlignButton }">
         <span class="alpheios-alignment-editor-text-blocks-single__title-text">{{ indexData }}{{ textTypeFormatted }}</span>
-        <span id="alpheios-alignment-editor-add-translation" class="alpheios-alignment-editor-add-translation" v-show="showAddTranslation" @click="$emit('add-translation')">
+        <span id="alpheios-alignment-editor-add-translation" class="alpheios-alignment-editor-add-translation" v-show="showAddTranslation" 
+              @click="$emit('add-translation')">
           <plus-icon />
         </span>
         <span class="alpheios-alignment-editor-text-blocks-single__align-button" v-show="showAlignButton">
@@ -14,46 +16,37 @@
           </tooltip>
         </span>
       </p>
-      <div class="alpheios-alignment-editor-text-blocks-single__first-line" v-show="showTypeUploadButtons" >
+      
+      <div class="alpheios-alignment-editor-text-blocks-single__first-line" v-show="state.showTypeUploadButtons" >
         <span class="alpheios-alignment-editor-text-blocks-single__type-label">{{ l10n.getMsgS('TEXT_SINGLE_TYPE_LABEL') }}</span>
         <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  id="alpheios-actions-menu-button__uploadtext"
             @click="selectUploadText" v-show="enableDTSAPIUploadValue">
             {{ l10n.getMsgS('TEXT_SINGLE_UPLOAD_BUTTON') }}
         </button>
       </div>
-      <div class="alpheios-alignment-editor-actions-menu__upload-block" v-show="showUploadMenu" >
-          <input type="file" :id = "fileUploadRef" :ref="fileUploadRef" class="alpheios-fileupload" @change="loadTextFromFile">
-          <label :for="fileUploadRef" class="alpheios-fileupload-label alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-upload">
+
+      <div class="alpheios-alignment-editor-actions-menu__upload-block" v-show="state.showUploadMenu" >
+          <input type="file" :id = "fileUploadId" :ref="el => (fileUploadRef = el)" class="alpheios-fileupload" @change="loadTextFromFile">
+          <label :for="fileUploadId" class="alpheios-fileupload-label alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-upload">
               {{ l10n.getMsgS('INITIAL_CHOOSE_FILE') }} 
           </label>
-          <span class="alpheios-fileupload-label-filename" v-if="uploadFile">{{ uploadFile }}</span>
+          <span class="alpheios-fileupload-label-filename" v-if="state.uploadFile">{{ state.uploadFile }}</span>
 
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-fileupload-dtsapi" id="alpheios-actions-menu-button__metadata"
-              @click="$modal.show(uploadDtsModalName)" v-if="enableDTSAPIUploadValue">
+              @click="$modal.show(modalNameDTSAPI)" v-if="enableDTSAPIUploadValue">
               DTSAPI
           </button>
       </div>
-      <upload-dtsapi-block :mname="uploadDtsModalName" @closeModal = "$modal.hide(uploadDtsModalName)" @uploadFromDTSAPI = "uploadFromDTSAPI"/>
 
-      <metadata-block :text-type = "textType" :text-id = "textId" 
-                      :mname = "metadataModalName"
-                      @closeModal = "$modal.hide(metadataModalName)"   />
-      <language-block :text-type = "textType" :text-id = "textId" :localOptions = "updatedLocalOptions" 
-                      :mname = "languageModalName"
-                      @updateText = "updateText" @updateDirection = "updateDirection"
-                       @closeModal = "$modal.hide(languageModalName)"  />
-      <source-type-block :text-type = "textType" :text-id = "textId" :localOptions = "updatedLocalOptions" @updateText = "updateText" 
-                      :mname = "sourceTypeModalName" @closeModal = "$modal.hide(sourceTypeModalName)"  />
-
-      <div v-show="showTypeTextBlock" class="alpheios-alignment-editor-text-blocks-single-text-area-container">
+      <div v-show="state.showTypeTextBlock" class="alpheios-alignment-editor-text-blocks-single-text-area-container">
         <p class="alpheios-alignment-editor-text-blocks-info-line">
           <span class="alpheios-alignment-editor-text-blocks-single__characters" :class = "charactersClasses">{{ charactersText }}</span>
 
           <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" 
-                :class="sourceTypeIconClass" v-show="enableTEXTXMLIconValue && showTextProps" 
+                :class="sourceTypeIconClass" v-show="enableTEXTXMLIconValue && state.showTextProps" 
                 @click="clickSourceType"> {{ formattedSourceType }} </span>
-          <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="enableChangeLanguageIconValue && showTextProps" 
-                @click="$modal.show(languageModalName)"> 
+          <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="enableChangeLanguageIconValue && state.showTextProps" 
+                @click="$modal.show(modalNameLanguage)"> 
                     {{ language }} 
           </span>
           <span class="alpheios-alignment-editor-text-blocks-single__icons" v-show="enableChangeLanguageIconValue && showLangNotDetected">
@@ -62,13 +55,16 @@
             </tooltip>
           </span>
 
-          <metadata-icons :text-type = "textType" :text-id = "textId" @showModalMetadata = "$modal.show(metadataModalName)" />
-
+          <metadata-icons :text-type = "props.textType" :text-id = "props.textId" 
+                           @showModalMetadata = "$modal.show(modalNameMetadata)" />
+      
         </p>
-        <span :id="removeId" class="alpheios-alignment-editor-text-blocks-single__remove" v-show="showDeleteIcon" @click="deleteText">
+        <span :id="removeId" class="alpheios-alignment-editor-text-blocks-single__remove" 
+              v-show="showDeleteIcon" @click="deleteText">
           <x-close-icon />
         </span>
-        <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="language" @blur="updateTextFromTextBlock()" 
+        <textarea :id="textareaId" v-model="state.text" :dir="direction" tabindex="2" :lang="language" 
+                  @blur="updateTextFromTextBlock()" 
                   :disabled="!docSourceEditAvailable" class="alpheios-alignment-editor-text-blocks-textarea">
         ></textarea>
       </div>
@@ -76,502 +72,505 @@
 
       <div class="alpheios-alignment-editor-text-blocks-single__describe-button" >
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  :id="describeButtonId"
-              @click="$modal.show(metadataModalName)" :disabled="!isMetadataAvailable" >
+              @click="$modal.show(modalNameMetadata)" :disabled="!isMetadataAvailable" >
               {{ l10n.getMsgS('DESCRIBE_BUTTON_TITLE') }}
           </button>
       </div>
+
+
+ 
+      <source-type-block :text-type = "props.textType" :text-id = "props.textId" 
+            :localOptions = "updatedLocalOptions" @updateText = "updateText" 
+        />
+
+      <language-direction-block :text-type = "props.textType" :text-id = "props.textId" :localOptions = "updatedLocalOptions" 
+                        @updateText = "updateText" @updateDirection = "updateDirection"
+        />
+
+      <metadata-block :text-type = "props.textType" :text-id = "props.textId" :modalName = "modalNameMetadata"
+        />
+      
+      <upload-dtsapi-block @uploadFromDTSAPI = "uploadFromDTSAPI" :modalName="modalNameDTSAPI"  />
+
   </div>
 </template>
-<script>
+<script setup>
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
-import XCloseIcon from '@/inline-icons/x-close.svg'
+import XCloseIcon from '@/inline-icons/xclose.svg'
 import NoMetadataIcon from '@/inline-icons/no-metadata.svg'
 import HasMetadataIcon from '@/inline-icons/has-metadata.svg'
 import NoLangDetectedIcon from '@/inline-icons/no-lang-detected.svg'
 import PlusIcon from '@/inline-icons/plus.svg'
+import MetadataIcons from '@/vue/common/metadata-icons.vue'
+
+import SourceTypeBlock from '@/vue/text-editor/modal_slots/source-type-block.vue'
+import LanguageDirectionBlock from '@/vue/text-editor/modal_slots/language-direction-block.vue'
+import MetadataBlock from '@/vue/text-editor/modal_slots/metadata/metadata-block.vue'
+import UploadDtsapiBlock from '@/vue/text-editor/modal_slots/dtsapi/upload-dtsapi-block.vue'
 
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 import SettingsController from '@/lib/controllers/settings-controller.js'
 
-import OptionItemBlock from '@/vue/options/option-item-block.vue'
-
-import MetadataBlock from '@/vue/text-editor/metadata-block.vue'
-import LanguageBlock from '@/vue/text-editor/language-block.vue'
-import SourceTypeBlock from '@/vue/text-editor/source-type-block.vue'
-
 import Tooltip from '@/vue/common/tooltip.vue'
-import MetadataIcons from '@/vue/common/metadata-icons.vue'
-import UploadDTSAPIBlock from '@/vue/text-editor/upload-dtsapi-block.vue'
-
 import Langs from '@/lib/data/langs/langs.js'
 
-export default {
-  name: 'TextEditorSingleBlock',
-  props: {
-    textType: {
-      type: String,
-      required: true
-    },
-    textId: {
-      type: String,
-      required: false
-    },
-    index: {
-      type: Number,
-      required: false,
-      default: 0
-    },
-    clearFileInput: {
-      type: Number,
-      required: false
+import { computed, inject, reactive, onMounted, watch, ref } from 'vue'
+import { useStore } from 'vuex'
+
+const emit = defineEmits([ 'add-translation', 'align-text' ])
+
+const l10n = computed(() => { return L10nSingleton })
+const $store = useStore()
+
+const $modal = inject('$modal')
+
+const props = defineProps({
+  textType: {
+    type: String,
+    required: true
+  },
+  textId: {
+    type: String,
+    required: false
+  },
+  index: {
+    type: Number,
+    required: false,
+    default: 0
+  }
+})
+
+const state = reactive({
+  text: '',
+
+  localTextEditorOptions: { ready: false },
+  showTypeUploadButtons: true,
+
+  showTypeTextBlock: true,
+  showTextProps: false,
+  showUploadMenu: false,
+  
+  updatedLocalOptionsFlag: 1,
+  uploadFile: ''
+})
+
+
+let fileUploadRef = ref(null)
+const $textC = inject('$textC')
+
+onMounted(async () => {
+  if (!state.localTextEditorOptions.ready && SettingsController.tokenizerOptionsLoaded) {
+    prepareDefaultTextEditorOptions()
+  }
+  initDataProps()
+  await updateFromExternal()
+})
+
+watch(
+  () => $store.state.optionsUpdated,
+  async () => {
+    if (!state.localTextEditorOptions.ready && SettingsController.tokenizerOptionsLoaded) {
+      prepareDefaultTextEditorOptions()
     }
-  },
-  components: {
-    xCloseIcon: XCloseIcon,
-    noMetadataIcon: NoMetadataIcon,
-    hasMetadataIcon: HasMetadataIcon,
-    noLangDetectedIcon: NoLangDetectedIcon,
-    plusIcon: PlusIcon,
-    optionItemBlock: OptionItemBlock,
-    metadataBlock: MetadataBlock,
-    sourceTypeBlock: SourceTypeBlock,
-    languageBlock: LanguageBlock,
-    tooltip: Tooltip,
-    uploadDtsapiBlock: UploadDTSAPIBlock,
-    metadataIcons: MetadataIcons
-  },
-  data () {
-    return {
-      text: '',
-      prevText: null,
-
-      localTextEditorOptions: { ready: false },
-      showTypeUploadButtons: true,
-
-      showTypeTextBlock: true,
-      showTextProps: false,
-      showUploadMenu: false,
-      
-      updatedLocalOptionsFlag: 1,
-      uploadFile: ''
+    if (state.text.length === 0) {
+      initDataProps()
     }
-  },
-  /**
-   * Clone options (sourceText and tokenize options) for the cuurent instance of a sourceText
-   */
-  async mounted () {
-    if (!this.localTextEditorOptions.ready && SettingsController.tokenizerOptionsLoaded) {
-      this.prepareDefaultTextEditorOptions()
+  }
+)
+
+watch(
+  () => $store.state.uploadCheck,
+  async () => {
+    await updateFromExternal()
+    if (fileUploadRef.value) {
+      fileUploadRef.value.value = ''
     }
-    this.initDataProps()
-    await this.updateFromExternal()
-  },
-  watch: {
-    async '$store.state.optionsUpdated' () {
-      if (!this.localTextEditorOptions.ready && SettingsController.tokenizerOptionsLoaded) {
-        this.prepareDefaultTextEditorOptions()
-      }
-      if (this.text.length === 0) {
-        this.initDataProps()
-      }
-    },
-    async '$store.state.uploadCheck' () {
-      await this.updateFromExternal()
-      if (this.$refs.fileupload) {
-        this.$refs.fileupload.value = ''
-      }
-      this.uploadFile = ''
-    },
-    async '$store.state.docSourceLangDetected' () {
-      this.updateLangData()
-    },
+    state.uploadFile = ''
+  }
+)
 
-    '$store.state.alignmentRestarted' () {
-      this.restartTextEditor()
-    },
-    async '$store.state.resetOptions' () {
-      await this.updateText()
-    },
-    '$store.state.tokenizerUpdated' () {
-      this.prepareDefaultTextEditorOptions()
-    }
-  },
-  computed: {
+watch(
+  () => $store.state.docSourceLangDetected,
+  () => { updateLangData() }
+)
 
-    l10n () {
-      return L10nSingleton
-    },
-    /**
-     * Used for css id definition
-     */
-    formattedTextId () {
-      return this.textId ?? 'no-id'
-    },
-    
-    fileUploadRef () {
-      return `fileupload-${this.textType}-${this.formattedTextId}`
-    },
-    /**
-     * It is executed after each alignment update, 
-     * checks if  localOptions is not yet uploaded
-     */
-    dataUpdated () {
-      if (!this.localTextEditorOptions.ready && SettingsController.tokenizerOptionsLoaded) {
-        this.prepareDefaultTextEditorOptions()
-      }
-      return this.$store.state.docSourceUpdated
-    },
-    languageModalName () {
-      return `language-${this.textType}-${this.formattedTextId}`
-    },
-    metadataModalName () {
-      return `metadata-enter-${this.textType}-${this.formattedTextId}`
-    },
-    sourceTypeModalName () {
-      return `sourceType-${this.textType}-${this.formattedTextId}`
-    },
-    uploadDtsModalName () {
-      return `upload-dts-${this.textType}-${this.formattedTextId}`
-    },
-    containerId () {
-      return `alpheios-alignment-editor-text-blocks-single__${this.textType}_${this.formattedTextId}`
-    },
-    /**
-     * Defines unique id for textArea for tracking changes
-     */
-    textareaId () {
-      return `alpheios-alignment-editor-text-blocks-single__textarea_${this.textType}_${this.formattedTextId}`
-    },
-    removeId () {
-      return `alpheios-alignment-editor-text-blocks-single__remove_${this.textType}_${this.formattedTextId}`
-    },
-    /**
-     * Formats textType
-     */
-    textTypeFormatted () {
-      if (this.textType === 'origin') {
-        return 'Original'
-      }
-      if (this.textType === 'target') {
-        return 'Translation'
-      }
-    },
-    /**
-     * Defines Title for the text block
-     */
-    textBlockTitle () {
-      return (this.textType === 'target') ? this.textTypeFormatted : this.l10n.getMsgS('TEXT_EDITOR_TEXT_BLOCK_TITLE', { textType: this.textTypeFormatted })
-    }, 
+watch(
+  () => $store.state.alignmentRestarted,
+  () => { restartTextEditor() }
+)
 
-    /**
-     * Defines if we have multiple targets then we need to show index of target text
-     */
-    showIndex () {
-      return (this.textType === 'target') && this.$store.state.docSourceUpdated && this.$textC.allTargetTextsIds.length > 1 
-    },
-    
-    /**
-     * Defines formatted order index for multiple target texts
-     */
-    indexData () {
-      return this.showIndex ? `${this.index + 1}. ` : ''
-    },
+watch(
+  () => $store.state.resetOptions,
+  async () => { await updateText() }
+)
 
-    /**
-     * Defines if we have multiple target texts then show delete index
-     */
-    showDeleteIcon () {
-      return this.docSourceEditAvailable && (this.showIndex || (this.text && (this.text.length > 0)))
-    },
-    /**
-     * Blocks changes if aligned version is already created and aligned groups are started
-     */
-    docSourceEditAvailable () {
-      return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated &&
-             !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
-    },
-    updateTextMethod () {
-      return this.textType === 'origin' ? 'updateOriginDocSource' : 'updateTargetDocSource'
-    },
-    direction () {
-      return this.$store.state.optionsUpdated && this.$store.state.docSourceUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.direction.currentValue
-    },
-    language () {
-      return this.$store.state.optionsUpdated && this.$store.state.docSourceUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.language.currentValue
-    },
-    sourceType () {
-      return this.$store.state.optionsUpdated && this.$store.state.docSourceUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.sourceType.currentValue
-    },
-    formattedSourceType () {
-      return this.sourceType === 'tei' ? 'xml' : this.sourceType
-    },
-    tokenization () {
-      return TokenizeController.defineTextTokenizationOptions(SettingsController.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
-    },
-    charactersClasses () {
-      return {
-        'alpheios-alignment-editor-hidden' : (this.textCharactersAmount === 0),
-        'alpheios-alignment-editor-red' : this.sourceType === 'text' && this.checkTextCharactersAmount && (this.textCharactersAmount > this.maxCharactersForTheText)
-      }
-    },
-    checkTextCharactersAmount () {
-      return !this.addIndexedDBSupportValue
-    },
-    textCharactersAmount () {
-      return this.text ? this.text.length : 0
-    },
-    addIndexedDBSupportValue () {
-      return this.$store.state.optionsUpdated && SettingsController.addIndexedDBSupport
-    },
-    maxCharactersForTheText () {
-      return this.$store.state.optionsUpdated && SettingsController.maxCharactersPerTextValue
-    },
-    charactersText () {
-      if (this.addIndexedDBSupportValue) {
-        return `Characters count - ${this.textCharactersAmount}`
-      } else {
-        return `Characters count - ${this.textCharactersAmount} (max - ${this.maxCharactersForTheText})`
-      }
-    },
+watch(
+  () => $store.state.tokenizerUpdated,
+  async () => { prepareDefaultTextEditorOptions() }
+)
 
-    updatedLocalOptions () {
-      
-      return this.updatedLocalOptionsFlag && this.localTextEditorOptions
-    },
-    isMetadataAvailable () {
-      const docSource = this.$textC.getDocSource(this.textType, this.textId)
-      return this.$store.state.docSourceUpdated && docSource
-    },
-    showLangNotDetected () {
-      const docSource = this.$textC.getDocSource(this.textType, this.textId)
-      return this.$store.state.docSourceLangDetected && docSource && (!docSource.skipDetected && !docSource.detectedLang && docSource.text.length > 0)
-    },
-    showAddTranslation () {
-      return this.$store.state.docSourceUpdated && (this.textType === 'target') && (this.index === (this.$textC.allTargetTextsIds.length - 1)) && (this.text.length > 0)
-    },
-    showAlignButton () {
-      return this.showAddTranslation
-    },
-    showActionMenu () {
-      return this.$store.state.docSourceUpdated && (this.showUploadMenu || this.showTextProps)
-    },
-    alignAvailable () {
-      return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.$textC.couldStartAlign && this.$textC.checkSize()
-    },
-    describeButtonId () {
-      return `alpheios-actions-menu-button__describe-${this.textType}-${this.textId}-id`
-    },
-    sourceTypeDisabled () {
-      return this.$store.state.optionsUpdated && !SettingsController.hasSourceTypeOptions
-    },
-    sourceTypeIconClass () {
-      return {
-        'alpheios-alignment-editor-text-blocks-single__lang-icon_disabled': this.sourceTypeDisabled
-      }
-    },
+const formattedTextId  = computed(() => props.textId ?? 'no-id' )
+const formattedPrefix = computed(() => `${props.textType}-${formattedTextId.value}`)
 
-    enableDTSAPIUploadValue () {
-      return this.$store.state.optionsUpdated && SettingsController.enableDTSAPIUpload
-    },
-    enableChangeLanguageIconValue () {
-      return this.$store.state.optionsUpdated && SettingsController.enableChangeLanguageIcon
-    },
-    enableTEXTXMLIconValue () {
-      return this.$store.state.optionsUpdated && SettingsController.enableTEXTXMLIcon
-    }
-  },
-  methods: {
-    clickSourceType () {
-      if (!this.sourceTypeDisabled) {
-        this.$modal.show(this.sourceTypeModalName)
-      }
-    },
+const modalNameSourceType = computed(() => {
+  return `source-type-${formattedPrefix.value}`
+})
+const modalNameLanguage = computed(() => {
+  return `language-${formattedPrefix.value}`
+})
+const modalNameMetadata = computed(() => {
+  return `metadata-${formattedPrefix.value}`
+})
+const modalNameDTSAPI = computed(() => {
+  return `dtsapi-${formattedPrefix.value}`
+})
 
-    initDataProps () {
-      this.showTypeUploadButtons = true
+const fileUploadId = computed(() => `fileupload-${formattedPrefix.value}` )
 
-      this.showTextProps = false
-      this.showUploadMenu = !this.enableDTSAPIUploadValue
-    },
+const dataUpdated = computed(() => {
+  if (!state.localTextEditorOptions.ready && SettingsController.tokenizerOptionsLoaded) {
+    prepareDefaultTextEditorOptions()
+  }
+  return $store.state.docSourceUpdated
+})
+const languageModalName = computed(() => {
+  return `language-${props.textType}-${formattedTextId}`
+})
 
-    /**
-     * Updates sourceText properties from textController
-     */
-    async updateFromExternal () {
-      const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
+const metadataModalName = computed(() => {
+  return `metadata-enter-${props.textType}-${formattedTextId}`
+})
 
-      if (sourceTextData && sourceTextData.text) {
-        this.text = sourceTextData.text
-        SettingsController.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
-        await this.updateText()
-        this.showTypeUploadButtons = false
-        this.showUploadMenu = false
-      }
-    },
+const sourceTypeModalName = computed(() => {
+  return `sourceType-${props.textType}-${formattedTextId}`
+})
 
-    /**
-     * Clears text and reloads local options
-     */
-    async restartTextEditor () {
-      this.text = ''
-      if (this.$refs[this.fileUploadRef]) {
-        this.$refs[this.fileUploadRef].value = ''
-      }
-      this.uploadFile = ''
-      this.prepareDefaultTextEditorOptions()
+const uploadDtsModalName = computed(() => {
+  return `upload-dts-${props.textType}-${formattedTextId}`
+})
 
-      this.initDataProps()
-      this.$textC.deleteText(this.textType, this.textId)
-    },
+const containerId = computed(() => {
+  return `alpheios-alignment-editor-text-blocks-single__${formattedPrefix.value}`
+})
 
-    collectCurrentParams () {
-      return {
-        text: this.text,
-        direction: this.direction,
-        lang: this.language,
-        id: this.textId,
-        sourceType: this.sourceType,
-        tokenization: this.tokenization
-      }
-    },
+const textareaId = computed(() => {
+  return `alpheios-alignment-editor-text-blocks-single__textarea_${formattedPrefix.value}`
+})
 
-    async updateTextFromTextBlock () {
-      const docSource = this.$textC.getDocSource(this.textType, this.textId)
-      if (!docSource && (this.text.length === 0)) { return }
+const removeId = computed(() => {
+  return `alpheios-alignment-editor-text-blocks-single__remove_${formattedPrefix.value}`
+})
 
-      const params = this.collectCurrentParams()
-      const result = await this.$textC[this.updateTextMethod](params, this.textId)
-      if (!result.resultUpdate) {
-        this.text = ''
-      }
+const enableDTSAPIUploadValue = computed(() => {
+  return $store.state.optionsUpdated && SettingsController.enableDTSAPIUpload
+})
 
-      if (result.resultUpdate && (this.showTypeUploadButtons || this.showUploadMenu) && (this.text.length !== 0)) {
+const direction = computed(() => {
+  return $store.state.optionsUpdated && $store.state.docSourceUpdated && state.localTextEditorOptions.ready && state.localTextEditorOptions.sourceText.items.direction.currentValue
+})
 
-        setTimeout(() => {
-          this.showTypeUploadButtons = false
-          this.showTextProps = true
-          this.showUploadMenu = false
-        }, 100)
-        
-      }
-    },
-    
-    /**
-     * Emits update-text event with data from properties
-     */
-    async updateText () {
-      if (this.text) {
-        const params = {
-          text: this.text,
-          direction: this.direction,
-          lang: this.language,
-          id: this.textId,
-          sourceType: this.sourceType,
-          tokenization: this.tokenization
-        }
+const language = computed(() => {
+  return $store.state.optionsUpdated && $store.state.docSourceUpdated && state.localTextEditorOptions.ready && state.localTextEditorOptions.sourceText.items.language.currentValue
+})
 
-        const result = await this.$textC[this.updateTextMethod](params, this.textId)  
+const showAddTranslation = computed(() => {
+  return $store.state.docSourceUpdated && (props.textType === 'target') 
+         && (props.index === ($textC.allTargetTextsIds.length - 1)) && (state.text.length > 0)
+})
 
-        if (this.$textC.checkDetectedProps(this.textType, this.textId) || (this.text && this.text.length > 0)) {
-          this.showTypeUploadButtons = false
-          this.showTextProps = true
-          this.showUploadMenu = false
-        }
-      }
-    },
+const showAlignButton = computed(() => {
+  return showAddTranslation.value
+})
 
-    updateLangData () {
-      const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
-      if (sourceTextData) {
-        this.localTextEditorOptions.sourceText.items.direction.currentValue = sourceTextData.direction
-        this.localTextEditorOptions.sourceText.items.language.currentValue = sourceTextData.lang
-        this.localTextEditorOptions.sourceText.items.sourceType.currentValue = sourceTextData.sourceType
-        this.$store.commit('incrementOptionsUpdated')
-      }
-    },
+const alignAvailable = computed(() => {
+  return $store.state.docSourceUpdated && $store.state.optionsUpdated && $store.state.alignmentUpdated && $textC.couldStartAlign && $textC.checkSize()
+})
 
-    updateDirection () {
-      this.localTextEditorOptions.sourceText.items.direction.currentValue = Langs.defineDirection(this.localTextEditorOptions.sourceText.items.language.currentValue)
-      this.$store.commit('incrementOptionsUpdated')
-    },
+const showIndex = computed(() => {
+  return (props.textType === 'target') && $store.state.docSourceUpdated && $textC.allTargetTextsIds.length > 1 
+})
 
-    async deleteText () {
-      this.text = ''
-      this.$refs[this.fileUploadRef].value = ''
-      this.uploadFile = ''
-      this.prepareDefaultTextEditorOptions()
-      this.$textC.deleteText(this.textType, this.textId)
-      setTimeout(() => {
-        this.showTypeUploadButtons = true
-        this.showUploadMenu = false || !this.enableDTSAPIUploadValue
-      }, 150)
-    },
+const indexData = computed(() => {
+  return showIndex.value ? `${props.index + 1}. ` : ''
+})
 
-    /**
-     * Reloads local options
-     */
-    prepareDefaultTextEditorOptions () {
-      this.localTextEditorOptions = SettingsController.cloneTextEditorOptions(this.textType, this.index)
+const textTypeFormatted = computed(() => {
+  if (props.textType === 'origin') {
+    return 'Original'
+  }
+  if (props.textType === 'target') {
+    return 'Translation'
+  }
+})
 
-      this.localTextEditorOptions.ready = true
-      this.$store.commit('incrementOptionsUpdated')
-    },
+const textCharactersAmount = computed(() => {
+  return state.text ? state.text.length : 0
+})
 
-    /**
-     * Uploads a single instance of text
-     */
-    async uploadSingle (fileData) {
-      const result = await this.$textC.uploadDocSourceFromFileSingle(fileData, {
-        textType: this.textType,
-        textId: this.textId
-      })
-      if (result.resultUpdate) {
-        this.showTypeTextBlock = true
-      } else {
-        this.showTypeUploadButtons = true
-        this.showTextProps = false
-        this.showUploadMenu = false || !this.enableDTSAPIUploadValue
-      }
-    },
+const sourceType = computed(() => {
+  return $store.state.optionsUpdated && $store.state.docSourceUpdated && 
+         state.localTextEditorOptions.ready && state.localTextEditorOptions.sourceText.items.sourceType.currentValue
+})
 
-    selectUploadText () { 
-      this.showUploadMenu = true
+const addIndexedDBSupportValue = computed(() => {
+  return $store.state.optionsUpdated && SettingsController.addIndexedDBSupport
+})
 
-      this.showTypeUploadButtons = false
-    },
+const checkTextCharactersAmount = computed(() => {
+      return !addIndexedDBSupportValue.value
+})
 
-    /**
-     * Creates FileReader and passes data from file to App component for parsing
-     */
-    loadTextFromFile(ev) {
-      const file = this.$refs[this.fileUploadRef].files[0]     
-      
-      if (!file) { return }
-      this.uploadFile = file.name
-      const extension = file.name.indexOf('.') > -1 ? file.name.split('.').pop() : ''
+const maxCharactersForTheText = computed(() => {
+  return $store.state.optionsUpdated && SettingsController.maxCharactersPerTextValue
+})
 
-      if (!this.$textC.checkUploadedFileByExtension(extension, false)) { return }
+const charactersClasses = computed(() => {
+  return {
+    'alpheios-alignment-editor-hidden' : (textCharactersAmount.value === 0),
+    'alpheios-alignment-editor-red' : sourceType.value === 'text' && checkTextCharactersAmount.value && 
+                                      (textCharactersAmount.value > maxCharactersForTheText.value)
+  }
+})
 
-      const reader = new FileReader()
+const charactersText = computed(() => {
+  if (addIndexedDBSupportValue.value) {
+    return `Characters count - ${textCharactersAmount.value}`
+  } else {
+    return `Characters count - ${textCharactersAmount} (max - ${maxCharactersForTheText.value})`
+  }
+})
 
-      reader.onload = e => {
-        this.uploadSingle({ text: e.target.result, extension })
-        this.showUploadMenu = false
-      }
-      reader.readAsText(file)
+const sourceTypeDisabled = computed(() => {
+  return $store.state.optionsUpdated && !SettingsController.hasSourceTypeOptions
+})
 
-      this.$refs[this.fileUploadRef].value = ''
-      this.uploadFile = ''
-    },
+const sourceTypeIconClass = computed(() => {
+  return {
+    'alpheios-alignment-editor-text-blocks-single__lang-icon_disabled': sourceTypeDisabled.value
+  }
+})
 
-    uploadFromDTSAPI (filedata) {
-      this.localTextEditorOptions.sourceText.items.sourceType.setValue('tei')
-      this.uploadSingle({ text: filedata.tei, lang: filedata.lang, extension: filedata.extension })
-      this.showUploadMenu = false
-    },
+
+const formattedSourceType = computed(() => {
+  return sourceType.value === 'tei' ? 'xml' : sourceType.value
+})
+
+const enableTEXTXMLIconValue = computed(() => {
+  return $store.state.optionsUpdated && SettingsController.enableTEXTXMLIcon
+})
+
+const enableChangeLanguageIconValue = computed(() => {
+  return $store.state.optionsUpdated && SettingsController.enableChangeLanguageIcon
+})
+
+const docSourceEditAvailable = computed(() => {
+  return $store.state.docSourceUpdated && $store.state.alignmentUpdated &&
+          !$textC.sourceTextIsAlreadyTokenized(props.textType, props.textId)
+})
+
+const showDeleteIcon = computed(() => {
+  return docSourceEditAvailable.value && (showIndex.value || (state.text && (state.text.length > 0)))
+})
+
+const showLangNotDetected = computed(() => {
+  const docSource = $textC.getDocSource(props.textType, props.textId)
+  return $store.state.docSourceLangDetected && docSource && 
+         (!docSource.skipDetected && !docSource.detectedLang && docSource.text.length > 0)
+})
+
+const describeButtonId = computed(() => {
+  return `alpheios-actions-menu-button__describe-${formattedPrefix.value}-id`
+})
+
+const isMetadataAvailable = computed(() => {
+  const docSource = $textC.getDocSource(props.textType, props.textId)
+  return $store.state.docSourceUpdated && docSource
+})
+
+const updateTextMethod = computed(() => {
+  return props.textType === 'origin' ? 'updateOriginDocSource' : 'updateTargetDocSource'
+})
+
+const tokenization = computed(() => {
+  return TokenizeController.defineTextTokenizationOptions(SettingsController.tokenizerOptionValue, state.localTextEditorOptions[sourceType.value])
+})
+
+const updatedLocalOptions = computed(() => {
+  return state.updatedLocalOptionsFlag && state.localTextEditorOptions
+})
+
+const prepareDefaultTextEditorOptions = () => {
+  state.localTextEditorOptions = SettingsController.cloneTextEditorOptions(props.textType, props.index)
+
+  state.localTextEditorOptions.ready = true
+  $store.commit('incrementOptionsUpdated')
+}
+
+const initDataProps = () => {
+  state.showTypeUploadButtons = true
+
+  state.showTextProps = false
+  state.showUploadMenu = !enableDTSAPIUploadValue.value
+}
+
+const updateFromExternal = async () => {
+  const sourceTextData = $textC.getDocSource(props.textType, props.textId)
+
+  if (sourceTextData && sourceTextData.text) {
+    state.text = sourceTextData.text
+    SettingsController.updateLocalTextEditorOptions(state.localTextEditorOptions, sourceTextData)
+    await updateText()
+    state.showTypeUploadButtons = false
+    state.showUploadMenu = false
   }
 }
+
+const updateText = async () => {
+  if (state.text) {
+    const params = {
+      text: state.text,
+      direction: direction.value,
+      lang: language.value,
+      id: props.textId,
+      sourceType: sourceType.value,
+      tokenization: tokenization.value
+    }
+
+    const result = await $textC[updateTextMethod.value](params, props.textId)  
+
+    if ($textC.checkDetectedProps(props.textType, props.textId) || (state.text && state.text.length > 0)) {
+      state.showTypeUploadButtons = false
+      state.showTextProps = true
+      state.showUploadMenu = false
+    }
+  }
+}
+
+const selectUploadText = () => { 
+  state.showUploadMenu = true
+  state.showTypeUploadButtons = false
+}
+
+const loadTextFromFile = (ev) => {
+  const file = fileUploadRef.value.files[0]     
+  
+  if (!file) { return }
+ 
+  state.uploadFile = file.name
+  const extension = file.name.indexOf('.') > -1 ? file.name.split('.').pop() : ''
+
+  if (!$textC.checkUploadedFileByExtension(extension, false)) { return }
+
+  const reader = new FileReader()
+
+  reader.onload = e => {
+    uploadSingle({ text: e.target.result, extension })
+    state.showUploadMenu = false
+  }
+  reader.readAsText(file)
+
+  fileUploadRef.value.value = ''
+  state.uploadFile = ''
+}
+
+const uploadSingle = async (fileData) => {
+  const result = await $textC.uploadDocSourceFromFileSingle(fileData, {
+    textType: props.textType,
+    textId: props.textId
+  })
+  if (result.resultUpdate) {
+    state.showTypeTextBlock = true
+  } else {
+    state.showTypeUploadButtons = true
+    state.showTextProps = false
+    state.showUploadMenu = false || !enableDTSAPIUploadValue.value
+  }
+}
+
+const clickSourceType = () => {
+  if (!sourceTypeDisabled.value) {
+    $modal.show(modalNameSourceType.value)
+  }
+}
+
+const restartTextEditor = async () => {
+  state.text = ''
+  fileUploadRef.value.value = ''
+  state.uploadFile = ''
+  prepareDefaultTextEditorOptions()
+
+  initDataProps()
+  $textC.deleteText(props.textType, props.textId)
+}
+
+const collectCurrentParams = () => {
+  return {
+    text: state.text,
+    direction: direction.value,
+    lang: language.value,
+    id: props.textId,
+    sourceType: sourceType.value,
+    tokenization: tokenization.value
+  }
+}
+
+const updateTextFromTextBlock = async () => {
+  const docSource = $textC.getDocSource(props.textType, props.textId)
+
+  if (!docSource && (state.text.length === 0)) { return }
+
+  const params = collectCurrentParams()
+  const result = await $textC[updateTextMethod.value](params, props.textId)
+  if (!result.resultUpdate) {
+    state.text = ''
+  }
+
+  if (result.resultUpdate && (state.showTypeUploadButtons || state.showUploadMenu) && (state.text.length !== 0)) {
+
+    setTimeout(() => {
+      state.showTypeUploadButtons = false
+      state.showTextProps = true
+      state.showUploadMenu = false
+    }, 100)
+    
+  }
+}
+
+const updateLangData = () => {
+  const sourceTextData = $textC.getDocSource(props.textType, props.textId)
+  if (sourceTextData) {
+    state.localTextEditorOptions.sourceText.items.direction.currentValue = sourceTextData.direction
+    state.localTextEditorOptions.sourceText.items.language.currentValue = sourceTextData.lang
+    state.localTextEditorOptions.sourceText.items.sourceType.currentValue = sourceTextData.sourceType
+    $store.commit('incrementOptionsUpdated')
+  }
+}
+
+const updateDirection = () => {
+  state.localTextEditorOptions.sourceText.items.direction.currentValue = Langs.defineDirection(state.localTextEditorOptions.sourceText.items.language.currentValue)
+  $store.commit('incrementOptionsUpdated')
+}
+
+const deleteText = async () => {
+  state.text = ''
+  fileUploadRef.value.value = ''
+  state.uploadFile = ''
+  prepareDefaultTextEditorOptions()
+  $textC.deleteText(props.textType, props.textId)
+  setTimeout(() => {
+    state.showTypeUploadButtons = true
+    state.showUploadMenu = false || !enableDTSAPIUploadValue.value
+  }, 150)
+}
+
+const uploadFromDTSAPI = (filedata) => {
+  state.localTextEditorOptions.sourceText.items.sourceType.setValue('tei')
+  uploadSingle({ text: filedata.tei, lang: filedata.lang, extension: filedata.extension })
+  state.showUploadMenu = false
+}
+
 </script>
+
 <style lang="scss">
     .alpheios-alignment-editor-hidden {
       visibility: hidden;

@@ -1,5 +1,5 @@
 <template>
-    <div class="alpheios-al-editor-container alpheios-al-editor-view-interlinearly" v-if="fullData">
+    <div class="alpheios-al-editor-container alpheios-al-editor-view-interlinearly" v-if="$fullData">
       <div class ="alpheios-al-editor-container-inner alpheios-al-editor-segment-view">
 
           <div class="alpheios-al-editor-segment-row"
@@ -9,8 +9,8 @@
             <div class="alpheios-al-editor-segment-cell alpheios-al-editor-segment-cell-origin" >
               <segment-block textType = "origin"
                 :segmentData = "segmentData.origin" :segIndex = "segIndex"
-                :dir = "fullData.getDir('origin')" :lang = "fullData.getLang('origin')" 
-                :langName = "fullData.getLangName('origin')" :metadataShort = "fullData.getMetadataShort('origin')"
+                :dir = "$fullData.getDir('origin')" :lang = "$fullData.getLang('origin')" 
+                :langName = "$fullData.getLangName('origin')" :metadataShort = "$fullData.getMetadataShort('origin')"
                 :shownTabs = "shownTabs" :interlinearly = "true"
               />
             </div><!-- alpheios-al-editor-segment-cell -->
@@ -18,60 +18,51 @@
       </div>
     </div>
 </template>
-<script>
-import EditorTabs from '@/_output/vue/editor-tabs.vue'
-import TokenBlock from '@/_output/vue/token-block.vue'
-import SegmentBlock from '@/_output/vue/segment-block.vue'
+<script setup>
+import EditorTabs from '@/_output/vue/common/editor-tabs.vue'
+import TokenBlock from '@/_output/vue/parts/token-block.vue'
+import SegmentBlock from '@/_output/vue/parts/segment-block.vue'
 
 import GroupUtility from '@/_output/utility/group-utility.js'
 
-export default {
-  name: 'AlGroupsViewInterlinearly',
-  components: {
-    editorTabs: EditorTabs,
-    tokenBlock: TokenBlock,
-    segmentBlock: SegmentBlock
-  },
-  props: {
-    fullData: {
-      type: Object,
-      required: true
-    },
-    identList: {
-      type: Array,
-      required: true
-    }
-  },
-  data () {
-    return {
-    }
-  },
-  computed: {
-    shownTabs () {
-      return this.identList.filter(langData => !langData.hidden).map(langData => langData.targetId)
-    },
-    allOriginSegments () {
-      return GroupUtility.allOriginSegments(this.fullData)
-    },
-    targetDataForTabs () {
-      return GroupUtility.targetDataForTabs(this.fullData)
-    }
-  },
-  methods: {
-    getIndex (textType, index, additionalIndex = 0) {
-      return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
-    },
-    selectTab (targetId) {
-      if ((this.shownTabs.length > 1) && this.shownTabs.includes(targetId)) {
-        this.shownTabs.splice(this.shownTabs.indexOf(targetId), 1)
+import { computed, reactive, inject, onMounted, watch } from 'vue'
 
-      } else if (!this.shownTabs.includes(targetId)) {
-        this.shownTabs.push(targetId)
-      }     
-    }
+const $fullData = inject('$fullData')
+
+const props = defineProps({
+  identList: {
+    type: Array,
+    required: true
   }
+})
+
+const shownTabs = computed(() => {
+  return props.identList.filter(langData => !langData.hidden).map(langData => langData.targetId)
+})
+
+const allOriginSegments = computed(() => {
+  return GroupUtility.allOriginSegments($fullData)
+})
+
+const targetDataForTabs = computed(() => {
+  return GroupUtility.targetDataForTabs($fullData)
+})
+
+const getIndex = (textType, index, additionalIndex = 0) => {
+  return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
 }
+
+const selectTab = (targetId) => {
+  if ((shownTabs.value.length > 1) && shownTabs.value.includes(targetId)) {
+    shownTabs.value.splice(shownTabs.value.indexOf(targetId), 1)
+
+  } else if (!shownTabs.value.includes(targetId)) {
+    shownTabs.value.push(targetId)
+  }     
+}
+
 </script>
+
 <style lang="scss">
 
   .alpheios-al-editor-table-view {

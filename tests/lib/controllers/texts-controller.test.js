@@ -1,7 +1,6 @@
 /* eslint-env jest */
 /* eslint-disable no-unused-vars */
 
-import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
 import TextsController from '@/lib/controllers/texts-controller.js'
 import SettingsController from '@/lib/controllers/settings-controller.js'
 import StorageController from '@/lib/controllers/storage-controller.js'

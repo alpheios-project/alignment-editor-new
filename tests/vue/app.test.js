@@ -1,38 +1,28 @@
-/* eslint-env jest */
-/* eslint-disable no-unused-vars */
+import { mount, flushPromises } from '@vue/test-utils'
+import { createStore } from 'vuex'
+import { nextTick } from 'vue'
 
-import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
-import App from '@/vue/app.vue'
-import MainMenu from '@/vue/main-menu.vue'
-import TextEditor from '@/vue/text-editor/text-editor.vue'
-import AlignEditor from '@/vue/align-editor/align-editor.vue'
-import TokensEditor from '@/vue/tokens-editor/tokens-editor.vue'
-
-import TextsController from '@/lib/controllers/texts-controller.js'
 import AppController from '@/lib/controllers/app-controller.js'
-import AlignedGroupsController from '@/lib/controllers/aligned-groups-controller.js'
-import HistoryAlGroupsController from '@/lib/controllers/history-algroups-controller.js'
+import App from '@/vue/app.vue'
+import StoreDefinition from '@/lib/store/store-definition'
+import ModalPlugin from '@/plugins/modal'
 
-import NotificationSingleton from '@/lib/notifications/notification-singleton'
+import AlignmentsList from '@/vue/alignments-list.vue'
 
-import Alignment from '@/lib/data/alignment'
-import SourceText from '@/lib/data/source-text'
-import VModal from 'vue-js-modal'
-import OptionsBlock from '@/vue/options/options-block.vue'
-import Vue from '@vue-runtime'
+let appC, store, provideObj, editorsStubs
 
-import Vuex from "vuex"
-
-const localVue = createLocalVue()
-localVue.use(Vuex)
-localVue.use(VModal)
-
-let appC
+import IndexedDB from 'fake-indexeddb'
+import IDBKeyRange from 'fake-indexeddb/lib/FDBKeyRange'
 
 describe('app.test.js', () => {
   console.error = function () {}
   console.log = function () {}
   console.warn = function () {}
+  
+  beforeAll(async () => {
+    window.indexedDB = IndexedDB
+    window.IDBKeyRange = IDBKeyRange
+  })
 
   beforeEach(async () => {
     jest.spyOn(console, 'error')
@@ -47,245 +37,147 @@ describe('app.test.js', () => {
     appC.defineL10Support()
     appC.defineNotificationSupport(appC.store)
 
+    appC.defineStorageController()
+
     await appC.defineSettingsController()
     appC.defineTextController(appC.store)
     appC.defineAlignedGroupsController(appC.store)
     appC.defineTokensEditController(appC.store)
     appC.defineHistoryAlGroupsController(appC.store)
+
+    provideObj = {
+      $textC: appC.textC,
+      $historyAGC: appC.historyAGC,
+      $tokensEC: appC.tokensEC,
+      $alignedGC: appC.alignedGC
+    }
+
+    editorsStubs = {
+      TextEditor: {
+        template: '<span>I am TextEditor</span>'
+      },
+      AlignEditor: {
+        template: '<span>I am AlignEditor</span>'
+      },
+      TokensEditor: {
+        template: '<span>I am AlignEditor</span>'
+      }
+    }
   })
 
   it('1 App - renders a vue instance (min requirements)', () => {
-    let cmp = shallowMount(App)
-    expect(cmp.vm).toBeTruthy()
-  })
-
-  it('2 App - should contain MainMenu, TextEditor, AlignEditor', () => {
-    let cmp = shallowMount(App)
-    expect(cmp.findComponent(MainMenu)).toBeTruthy()
-    // expect(cmp.findComponent(OptionsBlock)).toBeTruthy()
-    expect(cmp.findComponent(TextEditor)).toBeTruthy()
-    expect(cmp.findComponent(AlignEditor)).toBeTruthy()
-    expect(cmp.findComponent(TokensEditor)).toBeTruthy()
-    
-  })
-
-  it('3 App - downloadData - executes textC.downloadData', () => {
-    let cmp = shallowMount(App)
-
-    expect(cmp.vm.$textC).toEqual(expect.any(TextsController))
-    jest.spyOn(cmp.vm.$textC, 'downloadData')
-    
-    cmp.vm.downloadData('plainSourceDownloadAll')
-    expect(cmp.vm.$textC.downloadData).toHaveBeenCalled()
-  })
-
-  it.skip('4 App - uploadDataFromFile - executes textC.uploadDocSourceFromFileAll, updateOriginTextEditor, updateTargetTextEditor', () => {
-    let cmp = shallowMount(App)
-
-    jest.spyOn(cmp.vm.$textC, 'uploadDocSourceFromFileAll')
-    
-    cmp.vm.uploadDataFromFile('test data', 'tsv')
-    expect(cmp.vm.$textC.uploadDocSourceFromFileAll).toHaveBeenCalledWith('test data', 'alpheiosRemoteTokenizer', 'plainSourceUploadAll')
-  })
-
-  it.skip('5 App - alignTexts - alignTexts - executes $alignedGC.createAlignedTexts, and if failed - no other methods', async () => {
-    let cmp = shallowMount(App)
-    expect(cmp.vm.$alignedGC).toEqual(expect.any(AlignedGroupsController))
-
-    jest.spyOn(cmp.vm, 'showAlignmentGroupsEditor')
-    cmp.vm.$alignedGC.createAlignedTexts = jest.fn(() => true)
-
-    cmp.vm.alignTexts()
-
-    await Vue.nextTick()
-    expect(cmp.vm.$alignedGC.createAlignedTexts).toHaveBeenCalled()
-    expect(cmp.vm.showAlignmentGroupsEditor).toHaveBeenCalled()
-  })
-
-
-  it('6 App - undoAction - executes $historyAGC.undo', () => {
-    let cmp = shallowMount(App)
-
-    expect(cmp.vm.$historyAGC).toEqual(expect.any(HistoryAlGroupsController))
-    cmp.vm.$historyAGC.undo = jest.fn()
-    
-    cmp.vm.undoAction()
-    expect(cmp.vm.$historyAGC.undo).toHaveBeenCalled()
-  })
-
-  it('7 App - redoAction - executes $historyAGC.redo', () => {
-    let cmp = shallowMount(App)
-
-    expect(cmp.vm.$historyAGC).toEqual(expect.any(HistoryAlGroupsController))
-    cmp.vm.$historyAGC.redo = jest.fn()
-    
-    cmp.vm.redoAction()
-    expect(cmp.vm.$historyAGC.redo).toHaveBeenCalled()
-  })
-
-  it('8 App - addTarget - executes $textC.updateTargetDocSource', () => {
-    let cmp = shallowMount(App)
-
-    expect(cmp.vm.$textC).toEqual(expect.any(TextsController))
-    cmp.vm.$textC.addNewTarget = jest.fn()
-    jest.spyOn(cmp.vm, 'showSourceTextEditor')
-    
-    cmp.vm.addTarget()
-    expect(cmp.vm.$textC.addNewTarget).toHaveBeenCalled()
-    expect(cmp.vm.showSourceTextEditor).toHaveBeenCalled()
-  })
-
-  it('9 App - showOptions - sets visible only options block', async () => {
-    let cmp = shallowMount(App)
-
-    expect(cmp.vm.shownOptionsBlock).toBeFalsy()
-    expect(cmp.vm.showSourceTextEditorBlock).toBeFalsy()
-    expect(cmp.vm.showAlignmentGroupsEditorBlock).toBeFalsy()
-    expect(cmp.vm.showTokensEditorBlock).toBeFalsy()
-
-    // expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
-    expect(cmp.findComponent(TextEditor).isVisible()).toBeFalsy()
-    expect(cmp.findComponent(AlignEditor).isVisible()).toBeFalsy()
-    expect(cmp.findComponent(TokensEditor).isVisible()).toBeFalsy()
-
-    cmp.vm.showOptions()
-
-    await Vue.nextTick()
-
-    expect(cmp.vm.shownOptionsBlock).toBeTruthy()
-    expect(cmp.vm.showSourceTextEditorBlock).toBeFalsy()
-    expect(cmp.vm.showAlignmentGroupsEditorBlock).toBeFalsy()
-    expect(cmp.vm.showTokensEditorBlock).toBeFalsy()
-
-    // expect(cmp.findComponent(OptionsBlock).isVisible()).toBeTruthy()
-    expect(cmp.findComponent(TextEditor).isVisible()).toBeFalsy()
-    expect(cmp.findComponent(AlignEditor).isVisible()).toBeFalsy()
-    expect(cmp.findComponent(TokensEditor).isVisible()).toBeFalsy()
-  })
-
-  it('10 App - showSourceTextEditor - sets visible only TextEditor block', async () => {
-    let cmp = shallowMount(App)
-    cmp.vm.showOptions()
-
-    await Vue.nextTick()
-
-    expect(cmp.vm.shownOptionsBlock).toBeTruthy()
-    expect(cmp.vm.showSourceTextEditorBlock).toBeFalsy()
-    expect(cmp.vm.showAlignmentGroupsEditorBlock).toBeFalsy()
-    expect(cmp.vm.showTokensEditorBlock).toBeFalsy()
-
-    // expect(cmp.findComponent(OptionsBlock).isVisible()).toBeTruthy()
-    expect(cmp.findComponent(TextEditor).isVisible()).toBeFalsy()
-    expect(cmp.findComponent(AlignEditor).isVisible()).toBeFalsy()
-    expect(cmp.findComponent(TokensEditor).isVisible()).toBeFalsy()
-
-    cmp.vm.showSourceTextEditor()
-
-    await Vue.nextTick()
-
-    expect(cmp.vm.shownOptionsBlock).toBeFalsy()
-    expect(cmp.vm.showSourceTextEditorBlock).toBeTruthy()
-    expect(cmp.vm.showAlignmentGroupsEditorBlock).toBeFalsy()
-    expect(cmp.vm.showTokensEditorBlock).toBeFalsy()
-
-    // expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
-    expect(cmp.findComponent(TextEditor).isVisible()).toBeTruthy()
-    expect(cmp.findComponent(AlignEditor).isVisible()).toBeFalsy()
-    expect(cmp.findComponent(TokensEditor).isVisible()).toBeFalsy()
-  })
-
-  it('11 App - showAlignmentGroupsEditor - sets visible only AlignEditor block', async () => {
-    let cmp = shallowMount(App)
-
-    expect(cmp.vm.shownOptionsBlock).toBeFalsy()
-    expect(cmp.vm.showSourceTextEditorBlock).toBeFalsy()
-    expect(cmp.vm.showAlignmentGroupsEditorBlock).toBeFalsy()
-    expect(cmp.vm.showTokensEditorBlock).toBeFalsy()
-
-    // expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
-    expect(cmp.findComponent(TextEditor).isVisible()).toBeFalsy()
-    expect(cmp.findComponent(AlignEditor).isVisible()).toBeFalsy()
-    expect(cmp.findComponent(TokensEditor).isVisible()).toBeFalsy()
-
-    cmp.vm.showAlignmentGroupsEditor()
-
-    await Vue.nextTick()
-
-    expect(cmp.vm.shownOptionsBlock).toBeFalsy()
-    expect(cmp.vm.showSourceTextEditorBlock).toBeFalsy()
-    expect(cmp.vm.showAlignmentGroupsEditorBlock).toBeTruthy()
-    expect(cmp.vm.showTokensEditorBlock).toBeFalsy()
-
-    // expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
-    expect(cmp.findComponent(TextEditor).isVisible()).toBeFalsy()
-    expect(cmp.findComponent(AlignEditor).isVisible()).toBeTruthy()
-    expect(cmp.findComponent(TokensEditor).isVisible()).toBeFalsy()
-  })
-
-  it('12 App - showTokensEditor - sets visible only TokensEditor block', async () => {
-    let cmp = shallowMount(App)
-
-    expect(cmp.vm.shownOptionsBlock).toBeFalsy()
-    expect(cmp.vm.showSourceTextEditorBlock).toBeFalsy()
-    expect(cmp.vm.showAlignmentGroupsEditorBlock).toBeFalsy()
-    expect(cmp.vm.showTokensEditorBlock).toBeFalsy()
-
-    // expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
-    expect(cmp.findComponent(TextEditor).isVisible()).toBeFalsy()
-    expect(cmp.findComponent(AlignEditor).isVisible()).toBeFalsy()
-    expect(cmp.findComponent(TokensEditor).isVisible()).toBeFalsy()
-
-    cmp.vm.showTokensEditor()
-
-    await Vue.nextTick()
-
-    expect(cmp.vm.shownOptionsBlock).toBeFalsy()
-    expect(cmp.vm.showSourceTextEditorBlock).toBeFalsy()
-    expect(cmp.vm.showAlignmentGroupsEditorBlock).toBeFalsy()
-    expect(cmp.vm.showTokensEditorBlock).toBeTruthy()
-
-    // expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
-    expect(cmp.findComponent(TextEditor).isVisible()).toBeFalsy()
-    expect(cmp.findComponent(AlignEditor).isVisible()).toBeFalsy()
-    expect(cmp.findComponent(TokensEditor).isVisible()).toBeTruthy()
-  })
-
-  it('13 App - startOver - starts alignment process from the beginning', async () => {
-    let cmp = shallowMount(App, { 
-      store: appC.store,
-      localVue 
-    })
-    // start alignment normally
-    const originDocSource = new SourceText('origin', {
-      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
+    let cmp = mount(App, {
+      global: {
+        plugins: [ appC.store, ModalPlugin ],
+        provide: provideObj,
+        stubs: editorsStubs
+      }
     })
 
-    const targetDocSource1 = new SourceText('target', {
-      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
+    expect(cmp.exists()).toBeTruthy()
+  })
+
+  it('2 App - click begin new alignment and then click cancel', async () => {
+    let cmp = mount(App, {
+      global: {
+        plugins: [ appC.store, ModalPlugin ],
+        provide: provideObj,
+        stubs: editorsStubs
+      }
     })
 
-    const targetDocSource2 = new SourceText('target', {
-      text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
+    const buttonNewAlignment = await cmp.find('[id="alpheios-editor-start-new-alignment"]')
+    expect(buttonNewAlignment.exists()).toBeTruthy()
+    await buttonNewAlignment.trigger('click')
+    // console.info(cmp.html())
+
+    const createAlTitleModal = await cmp.find('[id="alpheios-editor-modal-create-al-title"]')
+
+    expect(createAlTitleModal.exists()).toBeTruthy()
+    expect(createAlTitleModal.isVisible()).toBeTruthy()
+
+    const createAlTitleInput = await cmp.find('[id="alpheios-file-name-al-title-id"]')
+    expect(createAlTitleInput.exists()).toBeTruthy()
+
+    await createAlTitleInput.setValue('test title')
+
+    jest.spyOn(appC.textC, 'createAlignment')
+
+    const createAlTitleCancelButton = await cmp.find('[id="alpheios-editor-create-al-title_cancel"]')
+    expect(createAlTitleCancelButton.exists()).toBeTruthy()
+
+    await createAlTitleCancelButton.trigger('click')
+
+    expect(appC.textC.createAlignment).not.toHaveBeenCalled()
+
+  })
+
+  it('3 App - begin new alignment event, ok button is disabled if input is empty, update input - click ok', async () => {
+    let cmp = mount(App, {
+      global: {
+        plugins: [ appC.store, ModalPlugin ],
+        provide: provideObj,
+        stubs: editorsStubs
+      }
     })
 
-    let alignment = new Alignment(originDocSource, targetDocSource1)
-    alignment.updateTargetDocSource(targetDocSource2)
-    await cmp.vm.$alignedGC.createAlignedTexts(alignment)
+    const buttonNewAlignment = await cmp.find('[id="alpheios-editor-start-new-alignment"]')
+    expect(buttonNewAlignment.exists()).toBeTruthy()
+    await buttonNewAlignment.trigger('click')
+    // console.info(cmp.html())
 
-    // decided to start over
-    jest.spyOn(cmp.vm.$textC, 'createAlignment')
-    jest.spyOn(cmp.vm.$historyAGC, 'startTracking')
-    jest.spyOn(NotificationSingleton, 'clearNotifications')
-    jest.spyOn(cmp.vm, 'showSourceTextEditor')
+    const createAlTitleModal = await cmp.find('[id="alpheios-editor-modal-create-al-title"]')
 
-    cmp.vm.startOver()
+    expect(createAlTitleModal.exists()).toBeTruthy()
+    expect(createAlTitleModal.isVisible()).toBeTruthy()
 
-    expect(cmp.vm.$textC.createAlignment).toHaveBeenCalled()
-    expect(cmp.vm.$historyAGC.startTracking).toHaveBeenCalled()
-    expect(NotificationSingleton.clearNotifications).toHaveBeenCalled()
-    expect(cmp.vm.showSourceTextEditor).toHaveBeenCalled()
+    const createAlTitleInput = await cmp.find('[id="alpheios-file-name-al-title-id"]')
+    expect(createAlTitleInput.exists()).toBeTruthy()
+
+    const createAlTitleOkButton = await cmp.find('[id="alpheios-editor-create-al-title_ok"]')
+    expect(createAlTitleOkButton.exists()).toBeTruthy()
+    expect(createAlTitleOkButton.attributes('disabled')).toBeDefined()
+
+    await createAlTitleInput.setValue('test title')
+
+    expect(createAlTitleOkButton.attributes('disabled')).not.toBeDefined()
+
+    jest.spyOn(appC.textC, 'createAlignment')  
+
+    await createAlTitleOkButton.trigger('click')
+
+    expect(appC.textC.createAlignment).toHaveBeenCalledWith('test title')
+
+    // expect(createAlTitleModal.exists()).toBeFalsy()
+    // console.info(createAlTitleModal.html())
+  })
+
+  it('4 App - click resume alignment - shows 2 available options - ones you saved and autosaved ones', async () => {
+    let cmp = mount(App, {
+      global: {
+        plugins: [ appC.store, ModalPlugin ],
+        provide: provideObj,
+        stubs: editorsStubs
+      }
+    })
+
+    const buttonResumeAlignment = await cmp.find('[id="alpheios-editor-resume-prev-alignment"]')
+    expect(buttonResumeAlignment.exists()).toBeTruthy()
+
+    const buttonResumeAlignmentFile = await cmp.find('[id="alpheios-editor-resume-prev-alignment_file"]')
+    const buttonResumeAlignmentAutosaved = await cmp.find('[id="alpheios-editor-resume-prev-alignment_autosaved"]')
+
+    expect(buttonResumeAlignmentFile.exists()).toBeTruthy()
+    expect(buttonResumeAlignmentAutosaved.exists()).toBeTruthy()
+
+    expect(buttonResumeAlignmentFile.isVisible()).toBeFalsy()
+    expect(buttonResumeAlignmentAutosaved.isVisible()).toBeFalsy()
+
+    await buttonResumeAlignment.trigger('click')
+
+    expect(buttonResumeAlignmentFile.isVisible()).toBeTruthy()
+    expect(buttonResumeAlignmentAutosaved.isVisible()).toBeTruthy()
 
   })
 })
-
 

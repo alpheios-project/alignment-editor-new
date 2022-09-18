@@ -1,79 +1,82 @@
 <template>
-  <modal classes="alpheios-alignment-editor-modal-annotations" name="annotations" 
-         :draggable="true" height="auto" 
+  <modal-base modalName="annotations" :draggable="true" height="auto" 
          @before-open="beforeOpen" @before-close="beforeClose">
-    <div class="alpheios-modal-header" v-if="token">
-        <span class="alpheios-alignment-modal-close-icon" @click = "$modal.hide('annotations')">
-            <x-close-icon />
-        </span>
-        <h3 class="alpheios-alignment-editor-modal-header">Annotation for {{ token.word }}</h3>
+    <div class="alpheios-alignment-editor-modal-annotations">
+      <div class="alpheios-modal-header " v-if="state.token">
+          <span class="alpheios-alignment-modal-close-icon" @click = "$modal.hide('annotations')">
+              <x-close-icon />
+          </span>
+          <h3 class="alpheios-alignment-editor-modal-header">Annotation for {{ state.token.word }}</h3>
+      </div>
+      <div class="alpheios-modal-body" v-if="state.token">
+        <table class = "alpheios-alignment-editor-annotation-list">
+          <tr class="alpheios-alignment-editor-annotation-list-item" 
+              v-for="annotation in allAnnotations" :key="annotation.id"
+              :class = "annotationClass(annotation)"
+            >
+            <td class="alpheios-alignment-editor-annotation-list-item__type">
+              {{ annotation.type }}
+            </td>
+            <td class="alpheios-alignment-editor-annotation-list-item__type">
+              {{ annotation.index }}
+            </td>
+            <td class="alpheios-alignment-editor-annotation-list-item__text">
+              <span @click = "toggleAnnotationText(annotation.id)">{{ annotation.text }}</span>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
-    <div class="alpheios-modal-body" v-if="token">
-      <table class = "alpheios-alignment-editor-annotation-list">
-        <tr class="alpheios-alignment-editor-annotation-list-item" 
-            v-for="annotation in allAnnotations" :key="annotation.id"
-            :class = "annotationClass(annotation)"
-          >
-          <td class="alpheios-alignment-editor-annotation-list-item__type">
-            {{ annotation.type }}
-          </td>
-          <td class="alpheios-alignment-editor-annotation-list-item__type">
-            {{ annotation.index }}
-          </td>
-          <td class="alpheios-alignment-editor-annotation-list-item__text">
-            <span @click = "toggleAnnotationText(annotation.id)">{{ annotation.text }}</span>
-          </td>
-        </tr>
-      </table>
-    </div>
-  </modal>
+  </modal-base>
 </template>
-<script>
-import XCloseIcon from '@/inline-icons/x-close.svg'
+<script setup>
+import XCloseIcon from '@/inline-icons/xclose.svg'
+import { computed, reactive, inject, onMounted, watch } from 'vue'
 
-export default {
-  name: 'AnnotationBlock',
-  components: {
-    xCloseIcon: XCloseIcon
-  },
-  data () {
-    return {
-      token: null,
-      fullTextAnnotations: []
-    }
-  },
-  computed: {
-    allAnnotations () {
-      return this.token.annotationData
-    }
-  },
-  methods: {
-    beforeOpen (data) {
-      this.token = data.params.token
-    },
-    beforeClose () {
-      this.token = null
-    },
-    annotationClass (annotation) {
-      return {
-        'alpheios-alignment-editor-annotation-list-item__full': this.fullTextAnnotations.includes(annotation.id)
-      }
-    },
-    toggleAnnotationText (id) {
-      const idIndex = this.fullTextAnnotations.indexOf(id)
+const $modal = inject('$modal')
 
-      if (idIndex >= 0) {
-        this.fullTextAnnotations.splice(idIndex, 1)
-      } else {
-        this.fullTextAnnotations.push(id)
-      }
-    }
-  }
-  
+const state = reactive({
+  token: null,
+  fullTextAnnotations: []
+})
+
+const allAnnotations = computed(() => {
+  return state.token.annotationData
+})
+
+const beforeOpen = (data) => {
+  state.token = data.params.token
 }
+
+const beforeClose = () => {
+  state.token = null
+}
+
+const annotationClass = (annotation) => {
+  return {
+    'alpheios-alignment-editor-annotation-list-item__full': state.fullTextAnnotations.includes(annotation.id)
+  }
+}
+
+const toggleAnnotationText = (id) => {
+  const idIndex = state.fullTextAnnotations.indexOf(id)
+
+  if (idIndex >= 0) {
+    state.fullTextAnnotations.splice(idIndex, 1)
+  } else {
+    state.fullTextAnnotations.push(id)
+  }
+}
+
 </script>
+
 <style lang="scss">
   .alpheios-alignment-editor-modal-annotations {
+    .alpheios-alignment-modal-close-icon {
+      top: -10px;
+      right: -10px;
+    }
+
     .alpheios-modal-body {
         border: 0;
         padding: 0;

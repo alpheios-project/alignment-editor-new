@@ -26,99 +26,106 @@
         </span>
         <span class="alpheios-alignment-text-editor-block__part alpheios-alignment-text-editor-block__part-right">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-save"
-              @click="$modal.show('save-edit')">
+              @click="$modal.show('save')">
               {{ l10n.getMsgS('TEXT_EDITOR_HEADER_SAVE') }}
           </button>
         </span>
       </h2>
 
-    <tokens-editor-inner-block v-if="renderTokensEditor" @insertTokens="startInsertTokens" :removeAllActivatedFlag = "removeAllActivatedFlag"/>
-    <help-popup @closeModal = "$modal.hide('help-edit')" mname = "help-edit">
+    <tokens-editor-inner-block v-if="state.renderTokensEditor" @insertTokens="startInsertTokens" 
+        :removeAllActivatedFlag = "state.removeAllActivatedFlag"/>
+
+    <help-popup modalName = "help-edit">
       <template v-slot:content > <help-block-edit /> </template>
     </help-popup>
-    <save-popup @closeModal = "$modal.hide('save-edit')" mname = "save-edit"/>
-    <options-text-edit-popup @closeModal = "$modal.hide('options-edit')" />
-    <insert-tokens-popup @closeModal = "closeInsertTokens"  :token = "edittedToken"  />
+  
+    <options-text-edit />
+
+    <insert-tokens :token = "state.edittedToken"  />
   </div>
 </template>
-<script>
-import TokensEditInnerBlock from '@/vue/tokens-editor/tokens-editor-inner-block.vue'
-
+<script setup>
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
-import HelpPopup from '@/vue/common/help-popup.vue'
-import SavePopup from '@/vue/common/save-popup.vue'
-import HelpBlockEdit from '@/vue/help-blocks/eng/help-block-edit.vue'
-import OptionsTextEdit from '@/vue/options/options-text-edit.vue'
+import SettingsController from '@/lib/controllers/settings-controller.js'
 import Tooltip from '@/vue/common/tooltip.vue'
-import InsertTokensBlock from '@/vue/tokens-editor/insert-tokens-block.vue'
+
+import OptionsTextEdit from '@/vue/options/options-text-edit.vue'
+import TokensEditorInnerBlock from '@/vue/tokens-editor/tokens-editor-inner-block.vue'
+
+import HelpPopup from '@/vue/modal-slots/help-popup.vue'
+import HelpBlockEdit from '@/vue/help-blocks/eng/help-block-edit.vue'
+import InsertTokens from '@/vue/tokens-editor/insert-tokens-block.vue'
 
 import QuestionIcon from '@/inline-icons/question.svg'
 import GearIcon from '@/inline-icons/gear.svg'
 
-export default {
-  name: 'TokensEditor',
-  components: {
-    TokensEditorInnerBlock: TokensEditInnerBlock,
-    helpPopup: HelpPopup,
-    savePopup: SavePopup,
-    helpBlockEdit: HelpBlockEdit,
-    optionsTextEditPopup: OptionsTextEdit,
-    insertTokensPopup: InsertTokensBlock,
+import { computed, inject, reactive, watch } from 'vue'
+import { useStore } from 'vuex'
 
-    tooltip: Tooltip,
-    questionIcon: QuestionIcon,
-    gearIcon: GearIcon
-  },
-  props: {
-    renderEditor: {
-      type: Number,
-      required: true
-    }
-  },
-  data () {
-    return {
-      renderTokensEditor: false,
-      showModalOptions: false,
-      edittedToken: null,
-      removeAllActivatedFlag: 1
-    }
-  },
-  watch: {
-    '$store.state.alignmentRestarted' () {
-      this.renderTokensEditor = false
-    },
-    'renderEditor' () {
-      if (this.alignmentStared) { this.renderTokensEditor = true }
-    }
-  },
-  computed: {
-    l10n () {
-      return L10nSingleton
-    },
-    alignmentStared ()  {
-      return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
-    }
-  },
-  methods: {
-    startInsertTokens (token) {
-      this.edittedToken = token
-      this.$modal.show('insert-tokens')
-    },
-    closeInsertTokens () {
-      this.edittedToken = null
-      this.$modal.hide('insert-tokens')
-    },
-    goToTextEnterScreen () {
-      this.removeAllActivatedFlag = this.removeAllActivatedFlag + 1
-      this.$emit('showSourceTextEditor')
-    },
-    goToAlignTextScreen () {
-      this.removeAllActivatedFlag = this.removeAllActivatedFlag + 1
-      this.$emit('showAlignmentGroupsEditor')
-    }
+const emit = defineEmits([ 'showSourceTextEditor', 'showAlignmentGroupsEditor' ])
+
+const l10n = computed(() => { return L10nSingleton })
+const $store = useStore()
+const $modal =  inject('$modal')
+const $alignedGC = inject('$alignedGC')
+
+const props = defineProps({
+  renderEditor: {
+    type: Number,
+    required: true
   }
+})
+
+const state = reactive({
+  renderTokensEditor: false,
+  showModalOptions: false,
+  edittedToken: null,
+  removeAllActivatedFlag: 1,
+
+  saveEditState: 0,
+  optionsTextEditState: 0,
+  helpEditState: 0,
+  insertTokensState: 0
+})
+
+watch( 
+  () => $store.state.alignmentRestarted, 
+  () => {
+    state.renderTokensEditor = false
+  }
+)
+watch( 
+  () =>props.renderEditor, 
+  () => {
+    if (alignmentStared) { state.renderTokensEditor = true }
+  }
+)
+
+const alignmentStared = computed(() => {
+  return $store.state.alignmentUpdated && $alignedGC.alignmentGroupsWorkflowStarted
+})
+
+const startInsertTokens = (token) => {
+  state.edittedToken = token
+  $modal.show('insert-tokens')
+}
+
+const closeInsertTokens = () => {
+  state.edittedToken = null
+  $modal.show('insert-tokens')
+}
+
+const goToTextEnterScreen = () => {
+  state.removeAllActivatedFlag = state.removeAllActivatedFlag + 1
+  emit('showSourceTextEditor')
+}
+
+const goToAlignTextScreen = () => {
+  state.removeAllActivatedFlag = state.removeAllActivatedFlag + 1
+  emit('showAlignmentGroupsEditor')
 }
 </script>
+
 <style lang="scss">
   .alpheios-alignment-tokens-editor-block.alpheios-alignment-editor-container {
     padding: 20px 30px 20px 40px;  

@@ -62,7 +62,7 @@
                 <p>Alignment can only performed on the ALIGN TEXT screen, which comes up next.</p>
 
                 <div class="alpheios-alignment-editor__page-content__nav-links">
-                  <span class="alpheios-alignment-editor__page-content__nav-link-left" @click = "shownLink = 'getting-started'"><< Getting started</span>
+                  <span class="alpheios-alignment-editor__page-content__nav-link-left" @click = "shownLink = 'getting-started'">&lt;&lt; Getting started</span>
                   <span class="alpheios-alignment-editor__page-content__nav-link-right" @click="shownLink = 'aligning'">Aligning >></span>
                 </div>
               </div><!-- alpheios-alignment-editor__page-content__item -->
@@ -93,7 +93,7 @@
                   Your changes will be shown when you return to the ALIGN TEXT screen.</p>
 
                 <div class="alpheios-alignment-editor__page-content__nav-links">
-                  <span class="alpheios-alignment-editor__page-content__nav-link-left" @click = "shownLink = 'entering-text'"><< Entering text</span>
+                  <span class="alpheios-alignment-editor__page-content__nav-link-left" @click = "shownLink = 'entering-text'">&lt;&lt; Entering text</span>
                   <span class="alpheios-alignment-editor__page-content__nav-link-right" @click="shownLink = 'saving'">Saving >></span>
                 </div>
 
@@ -114,7 +114,7 @@
                 <p>You can also export just the alignments in a simple csv format the would allow them to be easily imported into other applications.</p>
 
                 <div class="alpheios-alignment-editor__page-content__nav-links">
-                  <span class="alpheios-alignment-editor__page-content__nav-link-left" @click = "shownLink = 'aligning'"><< Aligning</span>
+                  <span class="alpheios-alignment-editor__page-content__nav-link-left" @click = "shownLink = 'aligning'">&lt;&lt; Aligning</span>
                   <span class="alpheios-alignment-editor__page-content__nav-link-right" @click="shownLink = 'displaying'">Displaying >></span>
                 </div>
               </div><!-- alpheios-alignment-editor__page-content__item -->
@@ -154,7 +154,7 @@
                 </div>
 
                 <div class="alpheios-alignment-editor__page-content__nav-links">
-                  <span class="alpheios-alignment-editor__page-content__nav-link-left" @click = "shownLink = 'saving'"><< Saving</span>
+                  <span class="alpheios-alignment-editor__page-content__nav-link-left" @click = "shownLink = 'saving'">&lt;&lt; Saving</span>
                   <span class="alpheios-alignment-editor__page-content__nav-link-right"></span>
                 </div>
               </div><!-- alpheios-alignment-editor__page-content__item -->

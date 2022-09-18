@@ -86,14 +86,14 @@ body, html {
     overflow: hidden;
     background-color: #6e6e6e;
     color: #FFFFFF;
-    // padding: 10px 10px 10px 45px;
-    padding: 10px;
+    padding: 10px 10px 10px 45px;
+    // padding: 10px;
 
     & > div {
         display: inline-block;
         vertical-align: middle;
     }
-    
+
     .alpheios-header-logo .alpheios-logo-2 {
         display: inline-block;
     }

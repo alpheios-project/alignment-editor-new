@@ -1,34 +1,28 @@
-/* eslint-env jest */
-/* eslint-disable no-unused-vars */
-
-import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
-import { LocalStorageArea, Options } from 'alpheios-data-models'
-
-import TextEditorSingleBlock from '@/vue/text-editor/text-editor-single-block.vue'
+import { mount, flushPromises } from '@vue/test-utils'
+import { createStore } from 'vuex'
+import { nextTick } from 'vue'
 
 import AppController from '@/lib/controllers/app-controller.js'
-import LangsList from '@/lib/data/langs/langs-list.json'
-import Vue from '@vue-runtime'
-
-import TokenizeOptionsBlock from '@/vue/text-editor/tokenize-options-block.vue'
-import DirectionOptionsBlock from '@/vue/text-editor/direction-options-block.vue'
-import LanguageOptionsBlock from '@/vue/text-editor/language-options-block.vue'
-
+import TextEditorSingleBlock from '@/vue/text-editor/text-editor-single-block.vue'
+import StoreDefinition from '@/lib/store/store-definition'
 import SourceText from '@/lib/data/source-text'
-import VModal from 'vue-js-modal'
-import Vuex from "vuex"
 import SettingsController from '@/lib/controllers/settings-controller'
+import ModalPlugin from '@/plugins/modal'
 
-const localVue = createLocalVue()
-localVue.use(Vuex)
-localVue.use(VModal)
+let appC, store, provideObj
 
-let appC
+import IndexedDB from 'fake-indexeddb'
+import IDBKeyRange from 'fake-indexeddb/lib/FDBKeyRange'
 
 describe('text-editor-single-block.test.js', () => {
   console.error = function () {}
   console.log = function () {}
   console.warn = function () {}
+  
+  beforeAll(async () => {
+    window.indexedDB = IndexedDB
+    window.IDBKeyRange = IDBKeyRange
+  })
 
   beforeEach(async () => {
     jest.spyOn(console, 'error')
@@ -43,12 +37,20 @@ describe('text-editor-single-block.test.js', () => {
     appC.defineL10Support()
     appC.defineNotificationSupport(appC.store)
 
-    await appC.defineSettingsController(appC.store)
+    appC.defineStorageController()
+
+    await appC.defineSettingsController()
     appC.defineTextController(appC.store)
     appC.defineAlignedGroupsController(appC.store)
     appC.defineTokensEditController(appC.store)
     appC.defineHistoryAlGroupsController(appC.store)
 
+    provideObj = {
+      $textC: appC.textC,
+      $historyAGC: appC.historyAGC,
+      $tokensEC: appC.tokensEC,
+      $alignedGC: appC.alignedGC
+    }
     appC.textC.createAlignment()
     appC.historyAGC.startTracking(appC.textC.alignment)
 
@@ -78,210 +80,28 @@ describe('text-editor-single-block.test.js', () => {
   })
 
   it('1 TextEditorSingleBlock - renders a vue instance (min requirements)', () => {
-    let cmp = shallowMount(TextEditorSingleBlock,{
-        store: appC.store,
-        localVue,
-        propsData: {
-          textType: 'target',
-          textId: 'targetId'
-        }
-      })
+    let cmp = mount(TextEditorSingleBlock, {
+      global: {
+        plugins: [ appC.store, ModalPlugin ],
+        provide: provideObj
+      }
+    })
+
     expect(cmp.exists()).toBeTruthy()
   })
 
-  it('2 TextEditorSingleBlock - textareaId, removeId has textType and textId in value', () => {
-    let cmp = shallowMount(TextEditorSingleBlock,{
-        store: appC.store,
-        localVue,
-        propsData: {
-          textType: 'target',
-          textId: 'targetIdTest'
-        }
-      })
-    expect(cmp.vm.textareaId).toEqual(expect.stringContaining('target'))
-    expect(cmp.vm.textareaId).toEqual(expect.stringContaining('targetIdTest'))
-
-    expect(cmp.vm.removeId).toEqual(expect.stringContaining('target'))
-    expect(cmp.vm.removeId).toEqual(expect.stringContaining('targetIdTest'))
-  })
-
-  it('3 TextEditorSingleBlock - has the following blocks with options - DirectionOptionsBlock, LanguageOptionsBlock, TokenizeOptionsBlock', () => {
-    let cmp = shallowMount(TextEditorSingleBlock,{
-        store: appC.store,
-        localVue,
-        propsData: {
-          textType: 'target',
-          textId: 'targetIdTest'
-        }
-      })
-
-    expect(cmp.findComponent(DirectionOptionsBlock)).toBeTruthy()
-    expect(cmp.findComponent(LanguageOptionsBlock)).toBeTruthy()
-    expect(cmp.findComponent(TokenizeOptionsBlock)).toBeTruthy()
-  })
-
-  it('4 TextEditorSingleBlock - localTextEditorOptions prepares a local instance of options', async () => {
-    let cmp = shallowMount(TextEditorSingleBlock,{
-        store: appC.store,
-        localVue,
-        propsData: {
-          textType: 'target',
-          textId: 'targetIdTest'
-        }
-      })
-
-    expect(cmp.vm.localTextEditorOptions).toEqual({ ready: true, sourceText: expect.any(Options)})
-
-    // at the start these options equal to default values
-    expect(cmp.vm.direction).toEqual('ltr')
-    expect(cmp.vm.language).toEqual('eng')
-    expect(cmp.vm.sourceType).toEqual('text')
-  })
-  
-  it('5 TextEditorSingleBlock - textTypeFormatted, textBlockTitle uses textType', () => {
-    let cmp = shallowMount(TextEditorSingleBlock,{
-        store: appC.store,
-        localVue,      
-        propsData: {
-          textType: 'target',
-          textId: 'targetIdTest'
-        }
-      })
-    expect(cmp.vm.textTypeFormatted).toEqual('Translation')
-    expect(cmp.vm.textBlockTitle).toEqual(expect.stringContaining('Translation'))
-  })
-
-  it('6 TextEditorSingleBlock - if we have multiple target texts then showIndex, showDeleteIcon = true, indexData is equal to target order', () => {
-    let cmp = shallowMount(TextEditorSingleBlock,{
-      store: appC.store,
-      localVue,
-      propsData: {
-        textType: 'target',
-        textId: 'targetIdTest',
-        index: 0 // the first target
+  it.skip('2 TextEditorSingleBlock - insert text to text area and check language/direction', async () => {
+    let cmp = mount(TextEditorSingleBlock, {
+      global: {
+        plugins: [ appC.store, ModalPlugin ],
+        provide: provideObj
       }
     })
 
-    // add origin doc source
-    cmp.vm.$textC.updateOriginDocSource({
-      text: 'Humano capiti cervicem pictor equinam'
-    })
+    const textAreaId = 'alpheios-alignment-editor-text-blocks-single__textarea_undefined-no-id'
+    const textAreaTag = await cmp.find(`[id="${textAreaId}"]`)
 
-    // add the first target doc source
-    cmp.vm.$textC.updateTargetDocSource({
-      text: 'Human head neck painter equinam',
-      lang: 'lat'
-    })
-
-    // we have two targets
-    expect(cmp.vm.showIndex).toBeTruthy() 
-    expect(cmp.vm.showDeleteIcon).toBeTruthy() 
-    expect(cmp.vm.indexData).toEqual('1. ') 
+    await textAreaTag.setValue('test origin text')
   })
-
-
-  it('7 TextEditorSingleBlock - updateText uses $textC updateOriginDocSource or updateTargetDocSource (depends on textType prop)', async () => {
-    let cmp = shallowMount(TextEditorSingleBlock,{
-      store: appC.store,
-      localVue,
-      propsData: {
-        textType: 'origin',
-        textId: 'originIdTest'
-      }
-    })
-
-    cmp.vm.text = 'some'
-
-    await cmp.vm.prepareDefaultTextEditorOptions()
-    expect(cmp.vm.direction).toEqual('ltr')
-    expect(cmp.vm.language).toEqual('eng')
-    expect(cmp.vm.sourceType).toEqual('text')
-
-    jest.spyOn(cmp.vm.$textC, 'updateOriginDocSource')
-    jest.spyOn(cmp.vm.$textC, 'updateTargetDocSource')
-
-
-    await cmp.vm.updateText()
-
-    expect(cmp.vm.$textC.updateOriginDocSource).toHaveBeenCalledWith({
-      text: 'some',
-      direction: 'ltr',
-      lang: 'eng',
-      sourceType: 'text',
-      id: 'originIdTest',
-      tokenization: {
-        tokenizer: 'simpleLocalTokenizer'
-      }
-    }, 'originIdTest')
-
-  })
-
-  it('8 TextEditorSingleBlock - uploads data from $textC when it is updated (with uploadCheck)', async () => {
-    let cmp = shallowMount(TextEditorSingleBlock,{
-      store: appC.store,
-      localVue,
-      propsData: {
-        textType: 'origin',
-        textId: 'originIdTest'
-      }
-    })
-
-    await cmp.vm.prepareDefaultTextEditorOptions()
-
-    await cmp.vm.$textC.updateOriginDocSource({
-      text: 'Huma',
-      direction: 'rtl',
-      lang: 'grc'
-    })
-    appC.store.commit('incrementUploadCheck')
-
-    await Vue.nextTick()
-
-    expect(cmp.vm.text).toEqual('Huma')
-    expect(cmp.vm.direction).toEqual('rtl')
-    expect(cmp.vm.language).toEqual('grc')
-    expect(cmp.vm.sourceType).toEqual('text')
-
-  })
-
-  it('9 TextEditorSingleBlock - deleteText uses $textC.deleteText to remove target for translations text more than the first', () => {
-    let cmp = shallowMount(TextEditorSingleBlock,{
-      store: appC.store,
-      localVue,
-      propsData: {
-        textType: 'target',
-        textId: 'targetIdTest1',
-        index: 1
-      }
-    })
-
-    jest.spyOn(cmp.vm.$textC, 'deleteText')
-    cmp.vm.text = 'some'
-
-    cmp.vm.deleteText()
-
-    expect(cmp.vm.$textC.deleteText).toHaveBeenCalledWith('target', 'targetIdTest1')
-  })
-
-
-  it('10 TextEditorSingleBlock - deleteText clears text for first target', () => {
-    let cmp = shallowMount(TextEditorSingleBlock,{
-      store: appC.store,
-      localVue,
-      propsData: {
-        textType: 'target',
-        textId: 'targetIdTest1',
-        index: 0
-      }
-    })
-
-    jest.spyOn(cmp.vm.$textC, 'deleteText')
-    cmp.vm.text = 'some'
-
-    cmp.vm.deleteText()
-
-    expect(cmp.vm.$textC.deleteText).toHaveBeenCalledWith('target', 'targetIdTest1')
-  })
-
 })
 

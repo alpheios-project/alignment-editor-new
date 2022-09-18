@@ -65,3 +65,13 @@ input.alpheios-alignment-input {
     color: #fff !important;
   }
 }
+.alpheios-fileupload {
+  opacity: 0;
+  width: 0.1px;
+  height: 0.1px;
+  position: absolute;
+}
+
+.alpheios-fileupload-label {
+  display: inline-block;
+}

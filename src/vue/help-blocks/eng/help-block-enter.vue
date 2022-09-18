@@ -25,7 +25,7 @@
       <help-enter-part16 />
   </div>
 </template>
-<script>
+<script setup>
 import HelpEnterPart1 from '@/vue/help-blocks/eng/help-enter-parts/help-enter-part1.vue'
 import HelpEnterPart2 from '@/vue/help-blocks/eng/help-enter-parts/help-enter-part2.vue'
 import HelpEnterPart3 from '@/vue/help-blocks/eng/help-enter-parts/help-enter-part3.vue'
@@ -43,31 +43,6 @@ import HelpEnterPart14 from '@/vue/help-blocks/eng/help-enter-parts/help-enter-p
 import HelpEnterPart15 from '@/vue/help-blocks/eng/help-enter-parts/help-enter-part15.vue'
 import HelpEnterPart16 from '@/vue/help-blocks/eng/help-enter-parts/help-enter-part16.vue'
 
-export default {
-  name: 'HelpBlockEnter',
-  components: {
-    helpEnterPart1: HelpEnterPart1,
-    helpEnterPart2: HelpEnterPart2,
-    helpEnterPart3: HelpEnterPart3,
-    helpEnterPart4: HelpEnterPart4,
-    helpEnterPart5: HelpEnterPart5,
-    helpEnterPart6: HelpEnterPart6,
-    helpEnterPart7: HelpEnterPart7,
-    helpEnterPart8: HelpEnterPart8,
-    helpEnterPart9: HelpEnterPart9,
-    helpEnterPart10: HelpEnterPart10,
-    helpEnterPart11: HelpEnterPart11,
-    helpEnterPart12: HelpEnterPart12,
-    helpEnterPart13: HelpEnterPart13,
-    helpEnterPart14: HelpEnterPart14,
-    helpEnterPart15: HelpEnterPart15,
-    helpEnterPart16: HelpEnterPart16
-  },
-  data () {
-    return {
-    }
-  }
-}
 </script>
 <style lang="scss">
   .alpheios-editor-help-content{
