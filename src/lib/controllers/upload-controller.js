@@ -7,6 +7,9 @@ import SourceText from '@/lib/data/source-text'
 import UploadFileCSV from '@/lib/upload/upload-file-csv.js'
 import UploadDTSAPI from '@/lib/upload/upload-dts-api.js'
 import StorageController from '@/lib/controllers/storage-controller.js'
+import SettingsController from '@/lib/controllers/settings-controller.js'
+
+import DownloadFileJSON from '@/lib/download/download-file-json.js'
 
 export default class UploadController {
   /**
@@ -17,11 +20,18 @@ export default class UploadController {
   // plainSourceDownloadAll: { method: this.plainSourceDownloadAll, allTexts: true, name: 'plainSourceDownloadAll', label: 'Short to csv' },
   static get uploadMethods () {
     return {
-      plainSourceUploadAll: { method: this.plainSourceUploadAll, fileUpload: true, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv', extensions: ['csv', 'tsv'] },
-      plainSourceUploadSingle: { method: this.plainSourceUploadSingle, fileUpload: true, allTexts: false, extensions: ['csv', 'tsv', 'xml', 'txt'] },
+      plainSourceUploadAll: { method: this.plainSourceUploadAll, fileUpload: true, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv', extensions: [] },
+      plainSourceUploadSingle: { method: this.plainSourceUploadSingle, fileUpload: true, allTexts: false, extensions: ['xml', 'txt', 'empty'] },
       jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, fileUpload: true, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json', extensions: ['json'] },
+      xmlUploadAll: { method: this.xmlUploadAll, fileUpload: true, allTexts: true, name: 'xmlUploadAll', label: 'Full from XML (Alphveios v1)', extensions: ['xml'] },
       dtsAPIUpload: { method: this.dtsAPIUploadSingle, fileUpload: true, allTexts: false, name: 'dtsAPIUploadSingle', label: 'DTS API', extensions: ['xml'] },
       indexedDBUpload: { method: this.indexedDBUploadSingle, fileUpload: false, allTexts: true, name: 'indexedDBUploadSingle', label: 'IndexedDB', extensions: ['indexedDB-alignment'] }
+    }
+  }
+
+  static get extractMethods () {
+    return {
+      jsonSimpleExtract: { method: this.jsonSimpleExtract, extensions: ['json'] }
     }
   }
 
@@ -30,7 +40,8 @@ export default class UploadController {
    * @returns {Boolean} - true - could be uploaded, false - not
    */
   static isExtensionAvailable (extension, allTexts = true) {
-    return Object.values(this.uploadMethods).some(method => method.allTexts === allTexts && method.extensions.includes(extension))
+    const checkExtension = !extension ? 'empty' : extension
+    return Object.values(this.uploadMethods).some(method => method.allTexts === allTexts && method.extensions.includes(checkExtension))
   }
 
   /**
@@ -40,7 +51,12 @@ export default class UploadController {
    * @returns {String} - upload type
    */
   static defineUploadTypeByExtension (extension, allTexts = true) {
-    return Object.keys(this.uploadMethods).find(methodName => this.uploadMethods[methodName].allTexts === allTexts && this.uploadMethods[methodName].extensions.includes(extension))
+    const checkExtension = !extension ? 'empty' : extension
+    return Object.keys(this.uploadMethods).find(methodName => this.uploadMethods[methodName].allTexts === allTexts && this.uploadMethods[methodName].extensions.includes(checkExtension))
+  }
+
+  static defineExtractTypeByExtension (extension) {
+    return Object.keys(this.extractMethods).find(methodName => this.extractMethods[methodName].extensions.includes(extension))
   }
 
   /**
@@ -71,6 +87,18 @@ export default class UploadController {
     console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }))
     NotificationSingleton.addNotification({
       text: L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }),
+      type: NotificationSingleton.types.ERROR
+    })
+    return false
+  }
+
+  static extract (extractType, data) {
+    if (this.extractMethods[extractType]) {
+      return this.extractMethods[extractType].method(data)
+    }
+    console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_TYPE', { extractType }))
+    NotificationSingleton.addNotification({
+      text: L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_TYPE', { extractType }),
       type: NotificationSingleton.types.ERROR
     })
     return false
@@ -123,7 +151,7 @@ export default class UploadController {
    *        {String} tokenization - tokenizer name (used for creating sourceText)
     * @return {SourceText}
    */
-  static plainSourceUploadSingle ({ fileData, textId, textType, tokenization }) {
+  static plainSourceUploadSingle ({ fileData, textId, textType }) {
     if (fileData.text.indexOf('HEADER:') === 0) {
       const fileDataArr = fileData.text.split(/\r\n|\r|\n/)
       if (fileDataArr.length < 2) {
@@ -137,17 +165,49 @@ export default class UploadController {
 
       const result = UploadFileCSV.upload(fileDataArr)
 
+      const tokenization = { tokenizer: SettingsController.tokenizerOptionValue }
+      const optionsSet = SettingsController.allTokenizationOptions.text
+      Object.keys(optionsSet.items).forEach(optItemName => {
+        tokenization[optItemName] = optionsSet.items[optItemName].currentValue
+      })
+
       return SourceText.convertFromJSON(textType, { textId, tokenization, text: result[0].text, direction: result[0].direction, lang: result[0].lang, sourceType: result[0].sourceType })
     } else {
       const fileExtension = fileData.extension
       const sourceType = (fileExtension === 'xml') ? 'tei' : 'text'
-      return SourceText.convertFromJSON(textType, { textId, tokenization, text: fileData.text, sourceType, lang: fileData.lang })
+
+      const tokenization = { tokenizer: SettingsController.tokenizerOptionValue }
+
+      const optionsSet = SettingsController.allTokenizationOptions[sourceType]
+      Object.keys(optionsSet.items).forEach(optItemName => {
+        tokenization[optItemName] = optionsSet.items[optItemName].currentValue
+      })
+
+      return SourceText.convertFromJSON(textType, { textId, tokenization, text: fileData.text, sourceType, lang: fileData.lang }, false)
     }
   }
 
   static jsonSimpleUploadAll (fileData) {
     const fileJSON = JSON.parse(fileData)
     return Alignment.convertFromJSON(fileJSON)
+  }
+
+  static jsonSimpleExtract (fileData) {
+    const fileJSON = JSON.parse(fileData)
+    return Alignment.extractShortFromJSON(fileJSON)
+  }
+
+  static xmlUploadAll (fileData) {
+    const parser = new DOMParser()
+    const alDoc = parser.parseFromString(fileData, 'application/xml')
+    if (alDoc.documentElement.nodeName === 'aligned-text') {
+      return Alignment.convertFromXML(alDoc)
+    }
+    console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_INCORRECT_XML_DATA'))
+    NotificationSingleton.addNotification({
+      text: L10nSingleton.getMsgS('UPLOAD_CONTROLLER_INCORRECT_XML_DATA'),
+      type: NotificationSingleton.types.ERROR
+    })
   }
 
   static async dtsAPIUploadSingle ({ linkData, objType = 'collection', refParams } = {}) {
@@ -165,7 +225,22 @@ export default class UploadController {
 
   static async indexedDBUploadSingle (alData) {
     const dbData = await StorageController.select(alData, 'alignmentByAlIDQuery')
-    const alignment = await Alignment.convertFromIndexedDB(dbData)
-    return alignment
+    if (dbData) {
+      try {
+        const alignment = await Alignment.convertFromIndexedDB(dbData)
+        return alignment
+      } catch (error) {
+        const now = NotificationSingleton.timeNow.bind(new Date())()
+        const fileName2 = `${now}-corrupted-alignment-dbData`
+        DownloadFileJSON.download(dbData, fileName2)
+
+        console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_INCORRECT_DB_DATA'))
+        NotificationSingleton.addNotification({
+          text: L10nSingleton.getMsgS('TEXTS_CONTROLLER_INCORRECT_DB_DATA'),
+          type: NotificationSingleton.types.ERROR
+        })
+      }
+    }
+    return null
   }
 }

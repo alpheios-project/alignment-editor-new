@@ -122,8 +122,18 @@ export default class TokensEditActions {
       position,
       newIdWord
     }
+
+    const deletedAnnotations = {}
+    if (annotations && annotations[wasIdWord]) {
+      deletedAnnotations[wasIdWord] = annotations[wasIdWord]
+    }
+
     if (annotations && annotations[token.idWord]) {
-      stepParams.wasAnnotations = [...annotations[token.idWord]]
+      deletedAnnotations[token.idWord] = annotations[token.idWord]
+    }
+
+    if (deletedAnnotations) {
+      stepParams.deletedAnnotations = deletedAnnotations
     }
 
     tokenResult.merge({ token, position, newIdWord })
@@ -144,7 +154,7 @@ export default class TokensEditActions {
    * @param {String} tokenWord - token's word with space
    * @returns {Boolean}
    */
-  splitToken (token, tokenWord) {
+  splitToken (token, tokenWord, annotations) {
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
     const alignedText = this.getAlignedTextByToken(token)
@@ -169,6 +179,10 @@ export default class TokensEditActions {
       wasWord: token.word,
       newIdWord1,
       newIdWord2
+    }
+
+    if (annotations) {
+      stepParams.deletedAnnotations = { [wasIdWord]: annotations }
     }
 
     const tokenWordParts = tokenWord.split(' ')
@@ -344,57 +358,63 @@ export default class TokensEditActions {
    * @returns {Boolean}
    */
   allowedDelete (token) {
-    const alignedText = this.getAlignedTextByToken(token)
     const segment = this.getSegmentByToken(token)
-    return segment.tokens.length > 1 &&
-           ((!this.getNextPrevToken(token, HistoryStep.directions.PREV) && (token.segmentIndex === alignedText.segments[0].index)) ||
-           (!this.getNextPrevToken(token, HistoryStep.directions.NEXT) && (token.segmentIndex === alignedText.segments[alignedText.segments.length - 1].index)))
+    return segment.tokens.length > 1
   }
 
-  /**
-   *
-   * @param {String} tokensText - string that would be converted to tokens
-   * @param {String} textType - origin/target
-   * @param {String} textId - docSourceId
-   * @param {String} insertType - start (insert to the start of the first segment), end (insert to the end of the last segment)
-   */
-  insertTokens (tokensText, textType, textId, insertType) {
-    const alignedText = (textType === 'origin') ? this.origin.alignedText : this.targets[textId].alignedText
-    const segmentToInsert = (insertType === 'start') ? alignedText.segments[0] : alignedText.segments[alignedText.segments.length - 1]
-
-    const partNum = (insertType === 'start') ? 1 : segmentToInsert.allPartNums[segmentToInsert.allPartNums.length - 1].partNum
+  insertTokens (tokensText, token, direction) {
+    const alignedText = this.getAlignedTextByToken(token)
+    const segment = this.getSegmentByToken(token)
 
     let words = tokensText.split(' ')
-    if (insertType === 'start') { words = words.reverse() }
 
+    if (direction === HistoryStep.directions.PREV) { words = words.reverse() }
+
+    let tokenIndex = segment.getTokenIndex(token)
     const createdTokens = []
-    words.forEach(word => {
-      const baseToken = (insertType === 'start') ? segmentToInsert.tokens[0] : segmentToInsert.tokens[segmentToInsert.tokens.length - 1]
 
+    const changeType = (direction === HistoryStep.directions.PREV) ? HistoryStep.types.NEW_BEFORE : HistoryStep.types.NEW_AFTER
+    let baseToken = token
+    words.forEach(word => {
       const newIdWord = alignedText.getNewIdWord({
         token: baseToken,
-        segment: segmentToInsert,
-        changeType: HistoryStep.types.NEW,
-        insertType
+        segment,
+        changeType,
+        insertType: direction
       })
+      tokenIndex = (direction === HistoryStep.directions.PREV) ? tokenIndex - 1 : tokenIndex
+      const tokenNew = segment.addNewToken(tokenIndex, newIdWord, word, false)
+      tokenIndex = segment.getTokenIndex(tokenNew)
 
-      const insertPosition = (insertType === 'start') ? -1 : segmentToInsert.tokens.length - 1
-      const token = segmentToInsert.addNewToken(insertPosition, newIdWord, word, false)
-
-      createdTokens.push(token)
+      createdTokens.push(tokenNew)
+      baseToken = tokenNew
     })
+
+    const newIdWordSource = alignedText.getNewIdWord({
+      token,
+      segment,
+      changeType: HistoryStep.types.NEW_SOURCE
+    })
+    const wasIdWordSource = token.idWord
+
+    token.update({ idWord: newIdWordSource })
 
     this.tokensEditHistory.truncateSteps()
-    this.tokensEditHistory.addStep(null, HistoryStep.types.NEW, {
-      createdTokens, segmentToInsert, insertType
+    this.tokensEditHistory.addStep(token, HistoryStep.types.NEW, {
+      createdTokens,
+      segment,
+      insertType: direction,
+      wasIdWord: wasIdWordSource,
+      newIdWord: newIdWordSource
     })
 
-    this.reIndexSentence(segmentToInsert)
+    this.reIndexSentence(segment)
     // add new partNum
     return {
       result: true,
-      segmentIndex: segmentToInsert.index,
-      partNum
+      segmentIndex: segment.index,
+      partNum: token.partNum,
+      wasIdWord: wasIdWordSource
     }
   }
 
@@ -417,7 +437,7 @@ export default class TokensEditActions {
     if (deletedToken) {
       this.tokensEditHistory.truncateSteps()
       this.tokensEditHistory.addStep(null, HistoryStep.types.DELETE, {
-        segmentToDelete: segment, deleteIndex: tokenIndex, deletedToken, deletedAnnotations: annotations
+        segmentToDelete: segment, deleteIndex: tokenIndex, deletedToken, deletedAnnotations: { [deletedToken.idWord]: annotations }
       })
 
       this.reIndexSentence(segment)
@@ -438,7 +458,8 @@ export default class TokensEditActions {
         updateAnnotations: true,
         type: 'single',
         token: step.token,
-        wasIdWord: [step.params.newIdWord]
+        wasIdWord: [step.params.newIdWord],
+        idWordNewAnnotations: step.params.newIdWord
       }
     }
   }
@@ -447,13 +468,16 @@ export default class TokensEditActions {
     const segment = this.getSegmentByToken(step.token)
     step.token.update({ word: step.params.newWord, idWord: step.params.newIdWord })
     this.reIndexSentence(segment)
+
     return {
       result: true,
       data: {
         updateAnnotations: true,
         type: 'single',
         token: step.token,
-        wasIdWord: [step.params.wasIdWord]
+        wasIdWord: [step.params.wasIdWord],
+        idWordNewAnnotations: step.params.newIdWord,
+        newAnnotations: step.params.newAnnotations
       }
     }
   }
@@ -468,35 +492,40 @@ export default class TokensEditActions {
 
     segment.insertToken(step.params.mergedToken, insertPosition)
     this.reIndexSentence(segment)
+
     return {
       result: true,
       data: {
         updateAnnotations: true,
-        type: 'multiple',
+        type: 'local',
         mergedToken: step.params.mergedToken,
-        mergedAnnotations: step.params.wasAnnotations,
+        annotations: step.params.deletedAnnotations,
         wasToken: step.token,
-        newIdWord: step.params.newIdWord
+        newIdWord: step.params.newIdWord,
+        idWordNewAnnotations: step.params.newIdWord
       }
     }
   }
 
   applyStepMerge (step) {
     const segment = this.getSegmentByToken(step.token)
-    step.token.update({ word: step.params.newWord, idWord: step.params.newIdWord })
+    const tokenRef = segment.getTokenById(step.token.idWord)
+    tokenRef.update({ word: step.params.newWord, idWord: step.params.newIdWord })
+    step.token = tokenRef
 
-    const tokenIndex = segment.getTokenIndex(step.token)
-    const deleteIndex = (step.params.position === HistoryStep.directions.PREV) ? tokenIndex - 1 : tokenIndex + 1
-    segment.deleteToken(deleteIndex)
+    const tokenIndex = segment.getTokenIndex(step.params.mergedToken)
+    segment.deleteToken(tokenIndex)
     this.reIndexSentence(segment)
 
     return {
       result: true,
       data: {
         updateAnnotations: true,
-        type: 'single',
+        type: 'delete',
         token: step.token,
-        wasIdWord: [step.params.wasIdWord, step.params.mergedToken.idWord]
+        wasIdWord: [step.params.wasIdWord, step.params.mergedToken.idWord],
+        idWordNewAnnotations: step.params.newIdWord,
+        newAnnotations: step.params.newAnnotations
       }
     }
   }
@@ -512,9 +541,11 @@ export default class TokensEditActions {
       result: true,
       data: {
         updateAnnotations: true,
-        type: 'single',
+        type: 'local',
         token: step.token,
-        wasIdWord: [step.params.newIdWord1]
+        wasIdWord: [step.params.newIdWord1],
+        annotations: step.params.deletedAnnotations,
+        idWordNewAnnotations: step.params.newIdWord
       }
     }
   }
@@ -530,9 +561,11 @@ export default class TokensEditActions {
       result: true,
       data: {
         updateAnnotations: true,
-        type: 'single',
+        type: 'delete',
         token: step.token,
-        wasIdWord: [step.params.wasIdWord]
+        wasIdWord: [step.params.wasIdWord],
+        idWordNewAnnotations: step.params.newIdWord,
+        newAnnotations: step.params.newAnnotations
       }
     }
   }
@@ -545,7 +578,8 @@ export default class TokensEditActions {
         updateAnnotations: true,
         type: 'single',
         token: step.token,
-        wasIdWord: [step.params.newIdWord]
+        wasIdWord: [step.params.newIdWord],
+        idWordNewAnnotations: step.params.newIdWord
       }
     }
   }
@@ -558,7 +592,9 @@ export default class TokensEditActions {
         updateAnnotations: true,
         type: 'single',
         token: step.token,
-        wasIdWord: [step.params.wasIdWord]
+        wasIdWord: [step.params.wasIdWord],
+        idWordNewAnnotations: step.params.newIdWord,
+        newAnnotations: step.params.newAnnotations
       }
     }
   }
@@ -571,7 +607,8 @@ export default class TokensEditActions {
         updateAnnotations: true,
         type: 'single',
         token: step.token,
-        wasIdWord: [step.params.newIdWord]
+        wasIdWord: [step.params.newIdWord],
+        idWordNewAnnotations: step.params.newIdWord
       }
     }
   }
@@ -584,7 +621,9 @@ export default class TokensEditActions {
         updateAnnotations: true,
         type: 'single',
         token: step.token,
-        wasIdWord: [step.params.wasIdWord]
+        wasIdWord: [step.params.wasIdWord],
+        idWordNewAnnotations: step.params.newIdWord,
+        newAnnotations: step.params.newAnnotations
       }
     }
   }
@@ -610,7 +649,8 @@ export default class TokensEditActions {
         updateAnnotations: true,
         type: 'single',
         token: step.token,
-        wasIdWord: [step.params.newIdWord]
+        wasIdWord: [step.params.newIdWord],
+        idWordNewAnnotations: step.params.newIdWord
       }
     }
   }
@@ -636,30 +676,61 @@ export default class TokensEditActions {
         updateAnnotations: true,
         type: 'single',
         token: step.token,
-        wasIdWord: [step.params.wasIdWord]
+        wasIdWord: [step.params.wasIdWord],
+        idWordNewAnnotations: step.params.newIdWord,
+        newAnnotations: step.params.newAnnotations
       }
     }
   }
 
   removeStepInsertTokens (step) {
     step.params.createdTokens.forEach((token) => {
-      const tokenIndex = step.params.segmentToInsert.getTokenIndex(token)
-      step.params.segmentToInsert.deleteToken(tokenIndex)
+      const tokenIndex = step.params.segment.getTokenIndex(token)
+      step.params.segment.deleteToken(tokenIndex)
     })
-    this.reIndexSentence(step.params.segmentToInsert)
+
+    step.token.update({ idWord: step.params.wasIdWord })
+
+    this.reIndexSentence(step.params.segment)
     return {
-      result: true
+      result: true,
+      data: {
+        token: step.token,
+        idWordNewAnnotations: step.params.createdTokens.map(token => token.idWord),
+
+        updateAnnotations: true,
+        type: 'single',
+        wasIdWord: [step.params.newIdWord]
+      }
     }
   }
 
   applyStepInsertTokens (step) {
+    let tokenIndex = step.params.segment.getTokenIndex(step.token)
+
     step.params.createdTokens.forEach((token) => {
-      const insertPosition = (step.params.insertType === 'start') ? 0 : step.params.segmentToInsert.tokens.length
-      step.params.segmentToInsert.insertToken(token, insertPosition)
+      tokenIndex = (step.params.insertType === HistoryStep.directions.PREV) ? tokenIndex : tokenIndex + 1
+      step.params.segment.insertToken(token, tokenIndex)
+
+      tokenIndex = step.params.segment.getTokenIndex(token)
     })
-    this.reIndexSentence(step.params.segmentToInsert)
+
+    step.token.update({ idWord: step.params.newIdWord })
+
+    this.reIndexSentence(step.params.segment)
+
     return {
-      result: true
+      result: true,
+      data: {
+        token: step.token,
+        idWordNewAnnotations: step.params.createdTokens.map(token => token.idWord),
+        newAnnotations: step.params.newAnnotations,
+
+        updateAnnotations: true,
+        type: 'single',
+        wasIdWord: [step.params.wasIdWord]
+
+      }
     }
   }
 
@@ -679,7 +750,7 @@ export default class TokensEditActions {
   }
 
   applyStepDeleteToken (step) {
-    step.params.segmentToDelete.deleteToken(step.params.tokenIndex)
+    step.params.segmentToDelete.deleteToken(step.params.deleteIndex)
     this.reIndexSentence(step.params.segmentToDelete)
     return {
       result: true,

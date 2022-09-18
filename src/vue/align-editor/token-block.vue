@@ -1,6 +1,7 @@
 <template>
     <span :data-type = "token.textType" :id = "elementId"
           @click.exact.prevent = "clickToken"
+          @click.shift.stop = "clickTokenShift"
           @mouseover = "addHoverToken"
           @mouseleave = "removeHoverToken"
           class = "alpheios-token"
@@ -10,6 +11,8 @@
     </span>
 </template>
 <script>
+import SettingsController from '@/lib/controllers/settings-controller.js'
+
 export default {
   name: 'TokenBlock',
   props: {
@@ -37,6 +40,11 @@ export default {
       required: false,
       default: false
     },
+    firstTextInActiveGroup: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
     annotationMode: {
       type: Boolean,
       required: false,
@@ -54,6 +62,7 @@ export default {
         'alpheios-token-grouped': this.grouped ,
         'alpheios-token-clicked': this.inActiveGroup,
         'alpheios-token-clicked-first': this.firstInActiveGroup,
+        'alpheios-token-clicked-first-text': this.firstTextInActiveGroup,
         'alpheios-token-part-shadowed': (this.token.partNum % 2 === 0),
         'alpheios-token-annotated': this.hasAnnotations,
         'alpheios-token-annotation-mode': this.annotationMode
@@ -72,15 +81,29 @@ export default {
       return `token-${this.token.idWord}`
     },
     clickToken () {
+      return this.useModeStructure ? this.clickTokenMode : this.updateAlignmentGroup
+    },
+    clickTokenMode () {
       return this.annotationMode ? this.updateAnnotation : this.updateAlignmentGroup
     },
+    clickTokenShift () {
+      return this.useModeStructureValue ? null : this.updateAnnotation
+    },
     hasAnnotations () {
-      return this.$store.state.updateAnnotations && this.$textC.getAnnotations(this.token).length > 0
+      return this.enableAnnotationsValue && this.$store.state.updateAnnotations && this.$textC.getAnnotations(this.token).length > 0
+    },
+    enableAnnotationsValue () {
+      return this.$store.state.optionsUpdated && SettingsController.enableAnnotations
+    },
+    useModeStructureValue () {
+      return this.$store.state.optionsUpdated && SettingsController.useModeStructure
     }
   },
   methods: {
     updateAnnotation () {
-      this.$emit('update-annotation', this.token)
+      if (this.enableAnnotationsValue) {
+        this.$emit('update-annotation', this.token)
+      }
     },
     updateAlignmentGroup (event) {
       this.$emit('update-alignment-group', this.token)
@@ -138,6 +161,12 @@ export default {
             }
 
             &.alpheios-token-clicked-first {
+              border-color: #f06d26;
+              background: #f06d26;
+              color: #fff;
+            }
+
+            &.alpheios-token-clicked-first-text {
               border-color: #f06d26;
               background: #f06d26;
               color: #fff;

@@ -22,8 +22,8 @@
                     :dir = "fullData.getDir(segmentSingle.textType, segmentSingle.targetId)"
                     :lang = "fullData.getLang(segmentSingle.textType, segmentSingle.targetId)"
                     :langName = "fullData.getLangName(segmentSingle.textType, segmentSingle.targetId)"
-                    :metadata = "fullData.getMetadata(segmentSingle.textType, segmentSingle.targetId)"
-                    :hoveredGroupsId = "hoveredGroupsId" :shownTabs = "languageTargetIds"
+                    :metadataShort = "fullData.getMetadataShort(segmentSingle.textType, segmentSingle.targetId)"
+                    :hoveredGroupsId = "hoveredGroupsId" :shownTabs = "shownTabs"
                     @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
 
                     :targetIdIndex = "targetIdIndex(segmentSingle.targetId)"
@@ -60,7 +60,7 @@ export default {
       type: Object,
       required: true
     },
-    languageTargetIds: {
+    identList: {
       type: Array,
       required: true
     }
@@ -74,8 +74,11 @@ export default {
     }
   },
   computed: {
+    shownTabs () {
+      return this.identList.filter(langData => !langData.hidden).map(langData => langData.targetId)
+    },
     segmentsForColumns () {
-      return GroupUtility.segmentsForColumns(this.fullData, this.languageTargetIds)
+      return GroupUtility.segmentsForColumns(this.fullData, this.shownTabs)
     },
     allTargetTextsIds () {
       return GroupUtility.allTargetTextsIds(this.fullData)
@@ -172,9 +175,9 @@ export default {
 
   .alpheios-al-editor-container-inner {
     .alpheios-al-editor-segment-cell-target-row {
-      padding: 10px; 
+      padding: 10px 5px; 
       max-height: 400px;
-      overflow-y: scroll;
+      overflow-y: auto;
     }
 
   }

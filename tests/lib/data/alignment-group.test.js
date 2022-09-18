@@ -5,7 +5,7 @@ import AppController from '@/lib/controllers/app-controller.js'
 import Token from '@/lib/data/token'
 import HistoryStep from '@/lib/data/history/history-step.js'
 import AlignmentStep from '@/lib/data/history/alignment-step.js'
-
+import SourceText from '@/lib/data/source-text'
 import Alignment from '@/lib/data/alignment'
 
 describe('alignment-group.test.js', () => {
@@ -32,7 +32,7 @@ describe('alignment-group.test.js', () => {
 
   it('1 AlignmentGroup - constructor inits origin, target, steps arrays, creates unique id and adds first token, if a token is passed', () => {
     const token = new Token({
-      textType: 'origin', idWord: 'L1-10', word: 'male'
+      textType: 'origin', idWord: '1-10', word: 'male'
     }, 1, 'originId1')
 
     const alGroup = new AlignmentGroup(token, 'targetId1')
@@ -42,6 +42,7 @@ describe('alignment-group.test.js', () => {
     expect(alGroup.target.length).toEqual(0)
     expect(alGroup.firstStepToken).toEqual(token)
     expect(alGroup.targetId).toEqual('targetId1')
+    expect(alGroup.words).toEqual({ '1-10': 'male' })
   })
 
   it('2 AlignmentGroup - constructor only inits origin, target, steps arrays and creates unique id if a token is not passed', () => {
@@ -51,6 +52,7 @@ describe('alignment-group.test.js', () => {
     expect(alGroup.origin.length).toEqual(0)
     expect(alGroup.target.length).toEqual(0)
     expect(alGroup.firstStepToken).toBeNull()
+    expect(Object.values(alGroup.words).length).toEqual(0)
   })
 
   it('3 AlignmentGroup - add method returns false and do nothing if a token is not passed', () => {
@@ -63,6 +65,7 @@ describe('alignment-group.test.js', () => {
     expect(alGroup.target.length).toEqual(0)
     expect(alGroup.firstStepToken).toBeNull()
     expect(alGroup.targetId).not.toBeDefined()
+    expect(Object.values(alGroup.words).length).toEqual(0)
   })
 
   it('4 AlignmentGroup - add method returns false and do nothing if an incorrect token is passed', () => {
@@ -77,6 +80,7 @@ describe('alignment-group.test.js', () => {
     expect(alGroup.origin.length).toEqual(0)
     expect(alGroup.target.length).toEqual(0)
     expect(alGroup.firstStepToken).toBeNull()
+    expect(Object.values(alGroup.words).length).toEqual(0)
   })
 
   it('5 AlignmentGroup - add method returns true and adds token data to origin or target, steps and define firstStepToken if it is the firstSte is not defined yet', () => {
@@ -111,6 +115,8 @@ describe('alignment-group.test.js', () => {
 
     expect(alGroup.segmentIndex).toEqual(1)
     expect(alGroup.targetId).toEqual('targetId1')
+
+    expect(alGroup.words).toEqual({ 'L1-10': 'male', 'L2-10': 'man' })
   })
 
   it('6 AlignmentGroup - remove method returns false and do nothing if a token is not passed', () => {
@@ -120,12 +126,17 @@ describe('alignment-group.test.js', () => {
     }, 1, 'originId1')
     alGroup.add(token)
 
+    expect(alGroup.words).toEqual({ 'L1-10': 'male' })
+    
     const result = alGroup.remove()
 
     expect(result).toBeFalsy()
     expect(alGroup.origin.length).toEqual(1)
     expect(alGroup.target.length).toEqual(0)
     expect(alGroup.firstStepToken).toEqual(token)
+
+    expect(alGroup.words).toEqual({ 'L1-10': 'male' })
+
   })
 
   it('7 AlignmentGroup - remove method returns false and do nothing if a token is not correct', () => {
@@ -136,6 +147,8 @@ describe('alignment-group.test.js', () => {
     }, 1, 'originId1')
     alGroup.add(token)
 
+    expect(alGroup.words).toEqual({ 'L1-10': 'male' })
+
     const token2 = new Token({
       idWord: 'L1-10', word: 'male'
     })
@@ -145,6 +158,7 @@ describe('alignment-group.test.js', () => {
     expect(alGroup.origin.length).toEqual(1)
     expect(alGroup.target.length).toEqual(0)
     expect(alGroup.firstStepToken).toEqual(token)
+    expect(alGroup.words).toEqual({ 'L1-10': 'male' })
   })
 
   it('8 AlignmentGroup - remove method returns false and do nothing if a token is not in group', () => {
@@ -153,6 +167,8 @@ describe('alignment-group.test.js', () => {
       textType: 'origin', idWord: 'L1-10', word: 'male'
     }, 1, 'originId1')
     alGroup.add(token)
+
+    expect(alGroup.words).toEqual({ 'L1-10': 'male' })
 
     const token2 = new Token({
       textType: 'target', idWord: 'L2-10', word: 'man'
@@ -163,6 +179,7 @@ describe('alignment-group.test.js', () => {
     expect(alGroup.origin.length).toEqual(1)
     expect(alGroup.target.length).toEqual(0)
     expect(alGroup.firstStepToken).toEqual(token)
+    expect(alGroup.words).toEqual({ 'L1-10': 'male' })
   })
 
   it('9 AlignmentGroup - remove method returns true, remove token data from origin/target, add ref to steps and updates firstStepToken if needed', () => {
@@ -178,12 +195,15 @@ describe('alignment-group.test.js', () => {
     alGroup.add(token)
     alGroup.add(token2)
 
+    expect(alGroup.words).toEqual({ 'L1-10': 'male', 'L2-10': 'man' })
+
     const result = alGroup.remove(token2)
 
     expect(result).toBeTruthy()
     expect(alGroup.origin.length).toEqual(1)
     expect(alGroup.target.length).toEqual(0)
     expect(alGroup.firstStepToken).toEqual(token)
+    expect(alGroup.words).toEqual({ 'L1-10': 'male' })
   })
 
   it('10 AlignmentGroup - remove method returns true, remove token data from origin/target, add ref to steps and updates firstStepToken if needed', () => {
@@ -200,6 +220,8 @@ describe('alignment-group.test.js', () => {
     alGroup.add(token)
     alGroup.add(token2)
 
+    expect(alGroup.words).toEqual({ 'L1-10': 'male', 'L2-10': 'man' })
+
     const result = alGroup.remove(token)
 
     alignment.alignmentHistory.addStep(token, HistoryStep.types.ADD, { groupId: alGroup.id })
@@ -212,6 +234,8 @@ describe('alignment-group.test.js', () => {
     expect(alGroup.target.length).toEqual(1)
 
     expect(alGroup.firstStepToken).toEqual(token2)
+
+    expect(alGroup.words).toEqual({ 'L2-10': 'man' })
   })
 
   it('11 AlignmentGroup - remove method returns true, remove token data from origin/target, add ref to steps and updates firstStepToken if needed', () => {
@@ -240,6 +264,8 @@ describe('alignment-group.test.js', () => {
     expect(alGroup.origin.length).toEqual(0)
     expect(alGroup.target.length).toEqual(0)
     expect(alGroup.firstStepToken).toBeNull()
+
+    expect(alGroup.words).toEqual({})
   })
 
   it('12 AlignmentGroup - firstStepNeedToBeUpdated returns true if firstStepToken is null', () => {
@@ -545,6 +571,8 @@ describe('alignment-group.test.js', () => {
     expect(alGroup1.origin).toEqual(['L1-10', 'L1-8'])
     expect(alGroup1.target).toEqual(['L2-10', 'L2-8'])
 
+    expect(alGroup1.words).toEqual({ 'L1-10': 'male', 'L2-10': 'man', 'L1-8': 'mare', 'L2-8': 'sea' })
+
   })
 
   it('26 AlignmentGroup - groupLen returns amount of tokens that are included into the group', () => {
@@ -567,7 +595,7 @@ describe('alignment-group.test.js', () => {
     expect(alGroup1.groupLen).toEqual(2)
   })
 
-  it('30 AlignmentGroup - unmerge removes tokens from the group and returns previously merged group as a result', () => {
+  it('27 AlignmentGroup - unmerge removes tokens from the group and returns previously merged group as a result', () => {
     const alGroup1 = new AlignmentGroup(null, 'targetId1')
 
     const token1 = new Token({
@@ -595,6 +623,8 @@ describe('alignment-group.test.js', () => {
     alGroup2.add(token4)
 
     alGroup1.merge(alGroup2, 1)
+
+    expect(alGroup1.words).toEqual({ 'L1-10': 'male', 'L2-10': 'man', 'L1-8': 'mare', 'L2-8': 'sea' })
     
     const mergeStep = new AlignmentStep(alGroup2, HistoryStep.types.MERGE, { groupId: alGroup1.id, indexDeleted: 1 })
     
@@ -612,9 +642,11 @@ describe('alignment-group.test.js', () => {
 
     expect(result.tokensGroup).toEqual(alGroup2)
     expect(result.indexDeleted).toEqual(1)
+
+    expect(alGroup1.words).toEqual({ 'L1-10': 'male', 'L2-10': 'man' })
   })
 
-  it('37 AlignmentGroup - theSameSegment, hasTheSameTargetId, hasTheSameSegmentTargetId check segmentIndex and targetId', () => {
+  it('28 AlignmentGroup - theSameSegment, hasTheSameTargetId, hasTheSameSegmentTargetId check segmentIndex and targetId', () => {
     const token1 = new Token({
       textType: 'origin', idWord: 'L1-10', word: 'male'
     }, 1, 'origin id2')
@@ -648,7 +680,7 @@ describe('alignment-group.test.js', () => {
     expect(alGroup2.hasTheSameSegmentTargetId(2, 'target id1')).toBeFalsy()
   })
 
-  it('38 AlignmentGroup - allTokensInTheStartingText, true - if text has only origin/target, false - otherwise', () => {
+  it('29 AlignmentGroup - allTokensInTheStartingText, true - if text has only origin/target, false - otherwise', () => {
     const token1 = new Token({
       textType: 'origin', idWord: '1-0-1', word: 'male'
     }, 1, 'origin id2')
@@ -666,6 +698,228 @@ describe('alignment-group.test.js', () => {
     expect(alGroup.allTokensInTheStartingText).toBeTruthy()
   })
 
+  it('30 AlignmentGroup - convertToJSON / convertFromJSON', () => {
+    const alGroup = new AlignmentGroup(null, 'targetId1')
+
+    const token1 = new Token({
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    }, 1, 'originId1')
+
+    const token2 = new Token({
+      textType: 'target', idWord: 'L2-10', word: 'man'
+    }, 1, 'targetId1')
+
+    alGroup.add(token1)
+    alGroup.add(token2)
+
+    const resJSON = alGroup.convertToJSON()
+
+    const resGroup = AlignmentGroup.convertFromJSON(resJSON)
+    expect(alGroup.origin).toEqual(resGroup.origin)
+    expect(alGroup.target).toEqual(resGroup.target)
+    expect(alGroup.words).toEqual(resGroup.words)
+  })
+
+  it('31 AlignmentGroup - convertToJSON / convertFromIndexedDB', () => {
+    const alGroup = new AlignmentGroup(null, 'targetId1')
+
+    const token1 = new Token({
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    }, 1, 'originId1')
+
+    const token2 = new Token({
+      textType: 'target', idWord: 'L2-10', word: 'man'
+    }, 1, 'targetId1')
+
+    alGroup.add(token1)
+    alGroup.add(token2)
+
+    const resJSON = alGroup.convertToJSON()
+
+    const dataIndexedDB = {
+      alGroupId: resJSON.id,
+      origin: resJSON.actions.origin,
+      target: resJSON.actions.target,
+      segmentIndex: resJSON.actions.segmentIndex,
+      words: resJSON.actions.words
+    }
+
+    const resGroup = AlignmentGroup.convertFromIndexedDB(dataIndexedDB)
+    expect(alGroup.origin).toEqual(resGroup.origin)
+    expect(alGroup.target).toEqual(resGroup.target)
+    expect(alGroup.words).toEqual(resGroup.words)
+  })
+
+  it('32 AlignmentGroup - translationWords, translationWordForToken', async () => {
+    const originDocSource = new SourceText('origin', {
+      text: 'Post emensos insuperabilis expeditionis eventus languentibus partium animis, quas periculorum varietas fregerat et laborum, nondum tubarum cessante clangore vel milite locato per stationes hibernas', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
+    })
+
+    const targetDocSource1 = new SourceText('target', {
+      text: 'After the passing of the insurmountable results of the expedition, the minds of the party languishing, which the variety of dangers and labors had broken, had not yet ceased, even with the sound of the trumpets, and the soldiers stationed in our winter-stations', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
+    })
+    const targetDocSource2 = new SourceText('target', {
+      text: 'Tras el paso de los insuperables resultados de la expedición, las mentes del grupo languideciendo, que la variedad de peligros y labores habían roto, aún no habían cesado, ni siquiera con el sonido de las trompetas, y los soldados estacionados en nuestras estaciones invernales.', direction: 'ltr', lang: 'spa', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
+    })
+
+    let alignment = new Alignment()
+    alignment.updateOriginDocSource(originDocSource)
+    alignment.updateTargetDocSource(targetDocSource1)
+
+    alignment.updateTargetDocSource(targetDocSource2)
+
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
+
+    const targetId1 = alignment.allTargetTextsIds[0]
+    const targetId2 = alignment.allTargetTextsIds[1]
+
+    const allSegments = alignment.allAlignedTextsSegments
+
+    const originToken1 = allSegments[0].origin.tokens[0]
+    const targetToken1 = allSegments[0].targets[targetId1].tokens[0]
+    
+    let testGroup
+
+    // group that has 1 origin and 1 target - Post / After
+
+    alignment.startNewAlignmentGroup(originToken1, targetId1)
+    alignment.addToAlignmentGroup(targetToken1, targetId1)
+    alignment.finishActiveAlignmentGroup()
+
+    testGroup = alignment.alignmentGroups[0]
+
+    expect(testGroup.translationWords).toEqual([ 'After' ])
+    expect(testGroup.translationWordForToken(originToken1.idWord)).toEqual( 'After' )
+
+    // group that has 2 origin and 2 target - eventus languentibus / insurmountable results
+
+    alignment.startNewAlignmentGroup(allSegments[0].origin.tokens[4], targetId1)
+    alignment.addToAlignmentGroup(allSegments[0].origin.tokens[5], targetId1)
+    alignment.addToAlignmentGroup(allSegments[0].targets[targetId1].tokens[5], targetId1)
+    alignment.addToAlignmentGroup(allSegments[0].targets[targetId1].tokens[6], targetId1)
+    alignment.finishActiveAlignmentGroup()
+
+    testGroup = alignment.alignmentGroups[1]
+    expect(testGroup.translationWords).toEqual([ 'insurmountable', 'results' ])
+    expect(testGroup.translationWordForToken(allSegments[0].origin.tokens[4].idWord)).toEqual( 'insurmountable' )
+    expect(testGroup.translationWordForToken(allSegments[0].origin.tokens[5].idWord)).toEqual( 'results' )
+
+    // group that has 2 origin and 3 target - quas periculorum varietas / which the variety of dangers
+    alignment.startNewAlignmentGroup(allSegments[0].origin.tokens[8], targetId1)
+    alignment.addToAlignmentGroup(allSegments[0].origin.tokens[9], targetId1)
+    alignment.addToAlignmentGroup(allSegments[0].origin.tokens[10], targetId1)
+    alignment.addToAlignmentGroup(allSegments[0].targets[targetId1].tokens[16], targetId1)
+    alignment.addToAlignmentGroup(allSegments[0].targets[targetId1].tokens[17], targetId1)
+    alignment.addToAlignmentGroup(allSegments[0].targets[targetId1].tokens[18], targetId1)
+    alignment.addToAlignmentGroup(allSegments[0].targets[targetId1].tokens[19], targetId1)
+    alignment.addToAlignmentGroup(allSegments[0].targets[targetId1].tokens[20], targetId1)
+    alignment.finishActiveAlignmentGroup()
+
+    testGroup = alignment.alignmentGroups[2]
+    expect(testGroup.translationWords).toEqual([ 'which', 'the', 'variety', 'of', 'dangers' ])
+    expect(testGroup.translationWordForToken(allSegments[0].origin.tokens[8].idWord)).toEqual( 'which' )
+    expect(testGroup.translationWordForToken(allSegments[0].origin.tokens[9].idWord)).toEqual( 'the' )
+    expect(testGroup.translationWordForToken(allSegments[0].origin.tokens[10].idWord)).toEqual( 'variety of dangers' )
+  })
+
+  it('32 AlignmentGroup - convertToHTML - groupdData - translations', async () => {
+    const originDocSource = new SourceText('origin', {
+      text: 'Post emensos insuperabilis expeditionis eventus languentibus partium animis, quas periculorum varietas fregerat et laborum, nondum tubarum cessante clangore vel milite locato per stationes hibernas', direction: 'ltr', lang: 'lat', sourceType: 'text', 
+      tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
+    })
+
+    const targetDocSource1 = new SourceText('target', {
+      text: 'After the passing of the insurmountable results of the expedition, the minds of the party languishing, which the variety of dangers and labors had broken, had not yet ceased, even with the sound of the trumpets, and the soldiers stationed in our winter-stations', direction: 'ltr', lang: 'eng', sourceType: 'text', 
+      tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
+    })
+    const targetDocSource2 = new SourceText('target', {
+      text: 'Tras el paso de los insuperables resultados de la expedición, las mentes del grupo languideciendo, que la variedad de peligros y labores habían roto, aún no habían cesado, ni siquiera con el sonido de las trompetas, y los soldados estacionados en nuestras estaciones invernales.', direction: 'ltr', lang: 'spa', sourceType: 'text', 
+      tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
+    })
+
+    let alignment = new Alignment()
+    alignment.updateOriginDocSource(originDocSource)
+    alignment.updateTargetDocSource(targetDocSource1)
+
+    alignment.updateTargetDocSource(targetDocSource2)
+
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
+
+    const targetId1 = alignment.allTargetTextsIds[0]
+    const targetId2 = alignment.allTargetTextsIds[1]
+
+    const allSegments = alignment.allAlignedTextsSegments
+
+    // group that has 1 origin and 1 target - Post / After / Tras
+
+    alignment.startNewAlignmentGroup(allSegments[0].origin.tokens[0], targetId1)
+    alignment.addToAlignmentGroup(allSegments[0].targets[targetId1].tokens[0], targetId1)
+    alignment.finishActiveAlignmentGroup()
+
+    alignment.startNewAlignmentGroup(allSegments[0].origin.tokens[0], targetId2)
+    alignment.addToAlignmentGroup(allSegments[0].targets[targetId2].tokens[0], targetId2)
+    alignment.finishActiveAlignmentGroup()
+
+    let htmlRes = JSON.parse(alignment.convertToHTML())
+
+    expect(htmlRes.origin.segments[0].tokens[0].groupDataTrans.length).toEqual(2)
+    expect(htmlRes.origin.segments[0].tokens[0].groupDataTrans[0].targetLang).toEqual('eng')
+    expect(htmlRes.origin.segments[0].tokens[0].groupDataTrans[1].targetLang).toEqual('spa')
+    expect(htmlRes.origin.segments[0].tokens[0].groupDataTrans[0].word).toEqual('After')
+    expect(htmlRes.origin.segments[0].tokens[0].groupDataTrans[1].word).toEqual('Tras')
+
+    // group that has 2 origin and 2 target - eventus languentibus / insurmountable results / insuperables resultados
+
+    alignment.startNewAlignmentGroup(allSegments[0].origin.tokens[4], targetId1)
+    alignment.addToAlignmentGroup(allSegments[0].origin.tokens[5], targetId1)
+    alignment.addToAlignmentGroup(allSegments[0].targets[targetId1].tokens[5], targetId1)
+    alignment.addToAlignmentGroup(allSegments[0].targets[targetId1].tokens[6], targetId1)
+    alignment.finishActiveAlignmentGroup()
+
+    alignment.startNewAlignmentGroup(allSegments[0].origin.tokens[4], targetId2)
+    alignment.addToAlignmentGroup(allSegments[0].origin.tokens[5], targetId2)
+    alignment.addToAlignmentGroup(allSegments[0].targets[targetId2].tokens[5], targetId2)
+    alignment.addToAlignmentGroup(allSegments[0].targets[targetId2].tokens[6], targetId2)
+    alignment.finishActiveAlignmentGroup()
+
+    htmlRes = JSON.parse(alignment.convertToHTML())
+
+    expect(htmlRes.origin.segments[0].tokens[4].groupDataTrans.length).toEqual(2)
+    expect(htmlRes.origin.segments[0].tokens[4].groupDataTrans[0].targetLang).toEqual('eng')
+    expect(htmlRes.origin.segments[0].tokens[4].groupDataTrans[1].targetLang).toEqual('spa')
+    expect(htmlRes.origin.segments[0].tokens[4].groupDataTrans[0].word).toEqual('insurmountable')
+    expect(htmlRes.origin.segments[0].tokens[4].groupDataTrans[1].word).toEqual('insuperables')
+
+    expect(htmlRes.origin.segments[0].tokens[5].groupDataTrans.length).toEqual(2)
+    expect(htmlRes.origin.segments[0].tokens[5].groupDataTrans[0].targetLang).toEqual('eng')
+    expect(htmlRes.origin.segments[0].tokens[5].groupDataTrans[1].targetLang).toEqual('spa')
+    expect(htmlRes.origin.segments[0].tokens[5].groupDataTrans[0].word).toEqual('results')
+    expect(htmlRes.origin.segments[0].tokens[5].groupDataTrans[1].word).toEqual('resultados')
+
+    // group that has 1 origin and 1 target  only for one language - animis / minds ; quas / que
+    alignment.startNewAlignmentGroup(allSegments[0].origin.tokens[7], targetId1) // eng
+    alignment.addToAlignmentGroup(allSegments[0].targets[targetId1].tokens[11], targetId1)
+    alignment.finishActiveAlignmentGroup()
+
+    alignment.startNewAlignmentGroup(allSegments[0].origin.tokens[8], targetId2) // spa
+    alignment.addToAlignmentGroup(allSegments[0].targets[targetId2].tokens[16], targetId2)
+    alignment.finishActiveAlignmentGroup()
+
+    htmlRes = JSON.parse(alignment.convertToHTML())
+
+    expect(htmlRes.origin.segments[0].tokens[7].groupDataTrans.length).toEqual(2)
+    expect(htmlRes.origin.segments[0].tokens[7].groupDataTrans[0].targetLang).toEqual('eng')
+    expect(htmlRes.origin.segments[0].tokens[7].groupDataTrans[1].targetLang).toEqual('spa')
+    expect(htmlRes.origin.segments[0].tokens[7].groupDataTrans[0].word).toEqual('minds')
+    expect(htmlRes.origin.segments[0].tokens[7].groupDataTrans[1].word).toBeUndefined()
+
+    expect(htmlRes.origin.segments[0].tokens[8].groupDataTrans.length).toEqual(2)
+    expect(htmlRes.origin.segments[0].tokens[8].groupDataTrans[0].targetLang).toEqual('eng')
+    expect(htmlRes.origin.segments[0].tokens[8].groupDataTrans[1].targetLang).toEqual('spa')
+    expect(htmlRes.origin.segments[0].tokens[8].groupDataTrans[0].word).toBeUndefined()
+    expect(htmlRes.origin.segments[0].tokens[8].groupDataTrans[1].word).toEqual('la')
+  })
 })
+
 
 

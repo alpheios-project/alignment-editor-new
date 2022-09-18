@@ -9,7 +9,7 @@ export default class TokensEditHistory extends EditorHistory {
   }
 
   prepareDataForIndexedDBCorrect (step) {
-    const onlyToken = [HistoryStep.types.UPDATE, HistoryStep.types.SPLIT, HistoryStep.types.ADD_LINE_BREAK, HistoryStep.types.REMOVE_LINE_BREAK]
+    const onlyToken = [HistoryStep.types.UPDATE, HistoryStep.types.SPLIT, HistoryStep.types.ADD_LINE_BREAK, HistoryStep.types.REMOVE_LINE_BREAK, HistoryStep.types.NEW]
 
     if (onlyToken.includes(step.type)) {
       return { type: step.type, token: step.token }
@@ -30,11 +30,33 @@ export default class TokensEditHistory extends EditorHistory {
       }
 
       return { type: step.type, token: step.token, newSegmentIndex, newPartNum }
-    } else if (step.type === HistoryStep.types.NEW) {
-      const checkToken = (step.params.insertType === 'start') ? step.params.segmentToInsert.tokens[0] : step.params.segmentToInsert.tokens[step.params.segmentToInsert.tokens.length - 1]
-      return { type: step.type, token: checkToken }
     } else if (step.type === HistoryStep.types.DELETE) {
       return { type: step.type, token: step.params.deletedToken }
+    }
+  }
+
+  tokenWasEdited (token) {
+    return this.steps.some(step => {
+      if (step.type === HistoryStep.types.NEW) {
+        return step.params.createdTokens.some(createdToken => createdToken.idWord === token.idWord) || step.token.idWord === token.idWord
+      } else if (step.type === HistoryStep.types.DELETE) {
+        return step.params.deletedToken.idWord === token.idWord
+      } else if (step.type === HistoryStep.types.SPLIT) {
+        return step.params.newIdWord1 === token.idWord || step.params.newIdWord2 === token.idWord
+      } else if (step.type === HistoryStep.types.MERGE) {
+        return step.params.mergedToken.idWord === token.idWord || step.token.idWord === token.idWord
+      } else {
+        return step.token.idWord === token.idWord
+      }
+    })
+  }
+
+  updateLastStepWithAnnotations (annotations, idWord) {
+    const step = this.steps[this.currentStepIndex + 1]
+
+    if (annotations[idWord]) {
+      if (!step.params.newAnnotations) { step.params.newAnnotations = {} }
+      step.params.newAnnotations[idWord] = annotations[idWord].filter(annot => annot.tokenIdWordCreated === idWord)
     }
   }
 }

@@ -36,6 +36,7 @@ export default class TokensEditController {
       this.store.commit('incrementTokenUpdated')
 
       await this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+      await this.deleteAllAnnotationsStorage()
       await StorageController.update(this.alignment)
       return true
     }
@@ -55,6 +56,7 @@ export default class TokensEditController {
       this.store.commit('incrementTokenUpdated')
 
       await this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+      await this.deleteAllAnnotationsStorage()
       await StorageController.update(this.alignment)
       return true
     }
@@ -89,6 +91,7 @@ export default class TokensEditController {
     if (this.alignment.splitToken(token, tokenWord)) {
       this.store.commit('incrementTokenUpdated')
       await this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+      await this.deleteAllAnnotationsStorage()
       await StorageController.update(this.alignment)
       return true
     }
@@ -106,6 +109,7 @@ export default class TokensEditController {
     if (this.alignment.addLineBreakAfterToken(token)) {
       this.store.commit('incrementTokenUpdated')
       await this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+      await this.deleteAllAnnotationsStorage()
       await StorageController.update(this.alignment)
       return true
     }
@@ -124,6 +128,7 @@ export default class TokensEditController {
       this.store.commit('incrementTokenUpdated')
 
       await this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+      await this.deleteAllAnnotationsStorage()
       await StorageController.update(this.alignment)
 
       return true
@@ -149,6 +154,7 @@ export default class TokensEditController {
 
       await this.deleteAllPartFromStorage(token.docSourceId, tokenSegmentIndex, tokenPartNum)
       await this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+      await this.deleteAllAnnotationsStorage()
 
       await StorageController.update(this.alignment)
       return true
@@ -253,18 +259,13 @@ export default class TokensEditController {
     return Boolean(token) && this.alignment.allowedDelete(token)
   }
 
-  /**
-   *
-   * @param {String} tokensText - string that would be converted to tokens
-   * @param {String} textType - origin/target
-   * @param {String} textId - docSourceId
-   * @param {String} insertType - start (insert to the start of the first segment), end (insert to the end of the last segment)
-   */
-  async insertTokens (tokensText, textType, textId, insertType) {
-    const data = this.alignment.insertTokens(tokensText, textType, textId, insertType)
+  async insertTokens (tokensText, token, direction) {
+    if (!this.checkEditable(token)) { return false }
+    const data = this.alignment.insertTokens(tokensText, token, direction)
     if (data.result) {
       this.store.commit('incrementTokenUpdated')
-      await this.deleteAllPartFromStorage(textId, data.segmentIndex, data.partNum)
+      await this.deleteAllPartFromStorage(token.docSourceId, data.segmentIndex, data.partNum)
+      await this.deleteAllAnnotationsStorage()
       await StorageController.update(this.alignment)
       return true
     }
@@ -282,6 +283,7 @@ export default class TokensEditController {
     if (this.alignment.deleteToken(token)) {
       this.store.commit('incrementTokenUpdated')
       await this.deleteAllPartFromStorage(token.docSourceId, token.segmentIndex, token.partNum)
+      await this.deleteAllAnnotationsStorage()
       await StorageController.update(this.alignment)
       return true
     }
@@ -321,9 +323,9 @@ export default class TokensEditController {
 
   async prepareDeleteFromStorage (dataIndexedDB) {
     const onlyToken = [HistoryStep.types.UPDATE, HistoryStep.types.SPLIT, HistoryStep.types.ADD_LINE_BREAK, HistoryStep.types.REMOVE_LINE_BREAK, HistoryStep.types.NEW, HistoryStep.types.DELETE]
-
     for (let i = 0; i < dataIndexedDB.length; i++) {
       const data = dataIndexedDB[i]
+      if (!data || !data.type) { continue }
       if (onlyToken.includes(data.type)) {
         await this.deleteAllPartFromStorage(data.token.docSourceId, data.token.segmentIndex, data.token.partNum)
       } else if (data.type === HistoryStep.types.MERGE) {
@@ -339,6 +341,8 @@ export default class TokensEditController {
         await this.deleteAllPartFromStorage(data.token.docSourceId, data.newSegmentIndex, data.newPartNum)
       }
     }
+
+    await this.deleteAllAnnotationsStorage()
   }
 
   deleteAllPartFromStorage (textId, segmentIndex, partNum) {
@@ -349,5 +353,12 @@ export default class TokensEditController {
       segmentIndex,
       partNum
     }, 'allPartNum')
+  }
+
+  deleteAllAnnotationsStorage () {
+    StorageController.deleteMany({
+      userID: this.alignment.userID,
+      alignmentID: this.alignment.id
+    }, 'allAnnotations')
   }
 }

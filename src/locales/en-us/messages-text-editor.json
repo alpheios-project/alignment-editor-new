@@ -21,7 +21,7 @@
   },
   "TEXT_EDITOR_TEXT_BLOCK_TITLE": {
     "message": "{ textType } text:",
-    "description": "A tytle for text block area",
+    "description": "A title for text block area",
     "component": "TextEditorSingleBlock",
     "params": ["textType"]
   },
@@ -67,7 +67,7 @@
     "component": "TextEditorSingleBlock"
   },
   "RADIO_BLOCK_TEXTSOURCETYPE_TEI": {
-    "message": "TEI",
+    "message": "XML",
     "description": "A label for text type select",
     "component": "TextEditorSingleBlock"
   },
@@ -82,7 +82,7 @@
     "component": "TextEditorSingleBlock"
   },
   "TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI": {
-    "message": "TEI",
+    "message": "XML",
     "description": "Fieldset inside options",
     "component": "TextEditorSingleBlock"
   },
@@ -142,7 +142,7 @@
     "component": "TextEditorSingleBlock"
   },
   "TEXT_SINGLE_TYPE_LABEL": {
-    "message": "Type or paste in text or",
+    "message": "Enter text or",
     "description": "Title in text editor block",
     "component": "TextEditorSingleBlock"
   },
@@ -152,12 +152,12 @@
     "component": "TextEditorSingleBlock"
   },
   "NO_METADATA_ICON": {
-    "message": "Metadata is empty for the text",
+    "message": "Description is missing",
     "description": "Tooltip for no metadata icon",
     "component": "TextEditorSingleBlock"
   },
   "HAS_METADATA_ICON": {
-    "message": "You could check and update metadata here",
+    "message": "Description can be modified",
     "description": "Tooltip for has metadata icon",
     "component": "TextEditorSingleBlock"
   },
@@ -182,7 +182,7 @@
     "component": "SummaryPopup"
   },
   "SUMMARY_POPUP_TABEL_TH_ISTEI": {
-    "message": "TEI",
+    "message": "XML",
     "description": "Table title",
     "component": "SummaryPopup"
   },

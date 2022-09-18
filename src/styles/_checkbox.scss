@@ -3,12 +3,10 @@ div.alpheios-alignment-checkbox-block {
   display: inline-block;
   position: relative;
   overflow: hidden;
-  line-height: textsize(22px);
-
-  max-width: textsize(235px);
   vertical-align: top;
 
   min-height: 17px;
+  padding-left: 3px;
 }
 
 .alpheios-alignment-checkbox-block {
@@ -25,8 +23,9 @@ div.alpheios-alignment-checkbox-block {
     vertical-align: top;
 
     /*16px width of fake checkbox + 6px distance between fake checkbox and text*/
-    padding-left: 22px;
+    padding-left: 25px;
     padding-top: 2px;
+    line-height: 100%;
 
     &::before,
     &::after {
@@ -61,6 +60,12 @@ div.alpheios-alignment-checkbox-block {
 
       left: 3px;
       top: 6px;
+    }
+  }
+
+  &.alpheios-alignment-checkbox-block__disabled {
+    label {
+      color: #8e8e8e;
     }
   }
 

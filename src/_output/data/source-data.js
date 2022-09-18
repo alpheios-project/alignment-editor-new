@@ -13,7 +13,9 @@ export default class SourceData {
   }
 
   getLangName (textType, targetId) {
-    return textType === 'origin' ? this.origin.langName : this.targets[targetId].langName
+    let langName = textType === 'origin' ? this.origin.langName : this.targets[targetId].langName
+    langName = langName.replace(' (Ancient –1453)', '')
+    return langName
   }
 
   getMetadata (textType, targetId) {
@@ -22,6 +24,11 @@ export default class SourceData {
 
   getMetadataShort (textType, targetId) {
     return textType === 'origin' ? this.origin.metadataShort : this.targets[targetId].metadataShort
+  }
+
+  getFilterButtonTitle (textType, targetId) {
+    const filterButtonTitle = textType === 'origin' ? this.origin.filterButtonTitle : this.targets[targetId].filterButtonTitle
+    return filterButtonTitle || this.getLangName(textType, targetId)
   }
 
   getSegments (textType, targetId) {

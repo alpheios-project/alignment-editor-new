@@ -28,7 +28,7 @@ export default class SourceText {
     this.sourceType = docSource && docSource.sourceType ? docSource.sourceType : this.defaultSourceType
     this.tokenization = docSource && docSource.tokenization ? docSource.tokenization : {}
 
-    this.skipDetected = skipDetected
+    this.skipDetected = docSource.skipDetected !== undefined ? docSource.skipDetected : skipDetected
     this.startedDetection = false
 
     if (docSource && docSource.metadata) {
@@ -63,7 +63,7 @@ export default class SourceText {
   }
 
   get langData () {
-    const textPart = this.text.substr(0, 10)
+    const textPart = this.text.slice(0, 9)
     const langName = Langs.defineLangName(this.lang)
     return {
       textPart: textPart.length < this.text.length ? `${textPart.trim()}...` : textPart,
@@ -102,7 +102,7 @@ export default class SourceText {
   }
 
   get allAvailableMetadata () {
-    return this.metadata.allAvailableMetadata
+    return this.metadata.allAvailableMetadata(this.textType)
   }
 
   /**
@@ -157,6 +157,11 @@ export default class SourceText {
     return Boolean(this.textType && this.text && this.direction && this.lang && this.sourceType && this.tokenization.tokenizer)
   }
 
+  /**
+   * Checks if the length of the text is not out of the limit, defined by the property
+   * @param {Number} maxCharactersPerTextValue
+   * @returns
+   */
   checkSize (maxCharactersPerTextValue) {
     return this.text && (this.text.length > 0) && (this.isTei || (this.text.length <= maxCharactersPerTextValue))
   }
@@ -169,7 +174,7 @@ export default class SourceText {
    * @param {String} jsonData.direction
    * @param {String} jsonData.lang
    */
-  static convertFromJSON (textType, jsonData) {
+  static convertFromJSON (textType, jsonData, skipDetected = true) {
     if (!jsonData.text) {
       console.error(L10nSingleton.getMsgS('SOURCE_TEXT_CONVERT_ERROR'))
       NotificationSingleton.addNotification({
@@ -190,7 +195,8 @@ export default class SourceText {
     if (jsonData.textId) {
       sourceText.id = jsonData.textId
     }
-    sourceText.skipDetected = true
+
+    sourceText.skipDetected = skipDetected
     return sourceText
   }
 
@@ -206,7 +212,7 @@ export default class SourceText {
     }
 
     if (!this.metadata.isEmpty) {
-      result.metadata = this.metadata.convertToJSON()
+      result.metadata = this.metadata.convertToJSON(this.textType)
     }
 
     return result
@@ -221,8 +227,20 @@ export default class SourceText {
       lang: this.lang,
       sourceType: this.sourceType,
       tokenization: this.tokenization,
-      metadata: this.metadata.convertToIndexedDB()
+      metadata: this.metadata.convertToIndexedDB(this.textType)
     }
+  }
+
+  defineLangName () {
+    const langData = Langs.all.find(langData => langData.value === this.lang)
+    const res = langData ? langData.text : this.lang
+    return res
+  }
+
+  convertToFilterTitle () {
+    const filterTitleFromMetadata = this.metadata.convertToFilterTitle()
+
+    return filterTitleFromMetadata || this.defineLangName()
   }
 
   static async convertFromIndexedDB (dbData, metadataDbData) {
@@ -245,5 +263,17 @@ export default class SourceText {
     const sourceText = new SourceText(dbData.textType, textParams, dbData.textId, dbData.lang !== null)
     sourceText.skipDetected = true
     return sourceText
+  }
+
+  static convertFromXML (xmlDoc, index) {
+    const docLangs = xmlDoc.getElementsByTagName('language')
+    const textType = index === 0 ? 'origin' : 'target'
+
+    const lang = docLangs[index].getAttribute('xml:lang').toLowerCase()
+    const id = docLangs[index].getAttribute('lnum')
+
+    const text = 'test'
+
+    return new SourceText(textType, { text, lang, id, sourceType: 'text' }, null, true)
   }
 }

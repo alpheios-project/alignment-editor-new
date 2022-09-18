@@ -1,11 +1,5 @@
 <template>
     <div class="alpheios-al-editor-container alpheios-al-editor-view-full" v-if="fullData">
-        <editor-tabs 
-            v-if="languageTargetIds.length > 1"
-            :tabs = "languageTargetIds" @selectTab = "selectTab"
-            :tabsTooltips = "targetDataForTabs"
-        />
-
         <div class ="alpheios-al-editor-container-inner alpheios-al-editor-segment-view">
 
           <div class="alpheios-al-editor-segment-row"
@@ -16,22 +10,24 @@
               <segment-block textType = "origin"
                 :segmentData = "segmentData.origin" :segIndex = "segIndex" :maxHeight = "maxHeight"
                 :dir = "fullData.getDir('origin')" :lang = "fullData.getLang('origin')" 
-                :langName = "fullData.getLangName('origin')" :metadata = "fullData.getMetadata('origin')"
+                :langName = "fullData.getLangName('origin')" :metadataShort = "fullData.getMetadataShort('origin')"
                 :shownTabs = "shownTabs" :hoveredGroupsId = "hoveredGroupsId"
                 @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
               />
             </div><!-- alpheios-al-editor-segment-cell -->
 
             <div class="alpheios-al-editor-segment-cell alpheios-al-editor-segment-cell-target">
-              <segment-block textType = "target"
-                v-for="(segmentTarget, targetIndex) in getSegmentData(segIndex)" :key="getIndex('target', segIndex, segmentTarget.targetId)"
-                :targetId = "segmentTarget.targetId" :segIndex = "segIndex" 
-                :dir = "fullData.getDir('target', segmentTarget.targetId)" :lang = "fullData.getLang('target', segmentTarget.targetId)" 
-                :langName = "fullData.getLangName('target', segmentTarget.targetId)" :metadata = "fullData.getMetadata('target', segmentTarget.targetId)"
-                :segmentData = "segmentTarget.segment" :targetIdIndex = "targetIndex" :maxHeight = "maxHeight" :hoveredGroupsId = "hoveredGroupsId"
-                :isLast = "targetIndex === segmentData.targets.length - 1" @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
-                v-show="isShownTab(segmentTarget.targetId)"
-              />
+              <div class="alpheios-al-editor-segment-cell-target-container" :style="targetContainerStyle">
+                <segment-block textType = "target"
+                  v-for="(segmentTarget, targetIndex) in getSegmentData(segIndex)" :key="getIndex('target', segIndex, segmentTarget.targetId)"
+                  :targetId = "segmentTarget.targetId" :segIndex = "segIndex" 
+                  :dir = "fullData.getDir('target', segmentTarget.targetId)" :lang = "fullData.getLang('target', segmentTarget.targetId)" 
+                  :langName = "fullData.getLangName('target', segmentTarget.targetId)" :metadataShort = "fullData.getMetadataShort('target', segmentTarget.targetId)"
+                  :segmentData = "segmentTarget.segment" :targetIdIndex = "targetIndex" :maxHeight = "maxHeight" :hoveredGroupsId = "hoveredGroupsId"
+                  :isLast = "targetIndex === segmentData.targets.length - 1" @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
+                  v-show="isShownTab(segmentTarget.targetId)"
+                />
+              </div>
             </div><!-- alpheios-al-editor-segment-cell -->
 
             </div>
@@ -60,7 +56,7 @@ export default {
       type: Object,
       required: true
     },
-    languageTargetIds: {
+    identList: {
       type: Array,
       required: true
     }
@@ -69,21 +65,16 @@ export default {
     return {
       colors: ['#F8F8F8', '#e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff'],
       originColor: '#F8F8F8',
-      hoveredGroupsId: null,
-      shownTabs: []
+      hoveredGroupsId: null
     }
-  },
-  watch: {
-    languageTargetIds () {
-      this.initShownTabs()
-    }
-  },
-  mounted () {
-    this.initShownTabs()
   },
   computed: {
+
+    shownTabs () {
+      return this.identList.filter(langData => !langData.hidden).map(langData => langData.targetId)
+    },
     allShownSegments () {
-      return GroupUtility.allShownSegments(this.fullData, this.languageTargetIds)
+      return GroupUtility.allShownSegments(this.fullData, this.shownTabs)
     },
     targetDataForTabs () {
       return GroupUtility.targetDataForTabs(this.fullData)
@@ -92,7 +83,7 @@ export default {
       return GroupUtility.alignmentGroups(this.fullData, 'full')
     },
     orderedTargetsId () {
-      return this.languageTargetIds.filter(targetId => this.shownTabs.includes(targetId))
+      return this.shownTabs.filter(targetId => this.shownTabs.includes(targetId))
     },
     lastTargetId () {
       return this.orderedTargetsId[this.orderedTargetsId.length - 1]
@@ -107,13 +98,12 @@ export default {
         return this.containerHeight
       } 
       return Math.round(Math.min(minHeight, this.containerHeight/this.shownTabs.length))
+    },
+    targetContainerStyle () {
+      return `max-height: ${this.containerHeight}px;`
     }
   },
   methods: {
-    initShownTabs () {
-      this.shownTabs.splice(0, this.shownTabs.length)
-      this.shownTabs.push(this.languageTargetIds[0])
-    },
     getSegmentData (segIndex) {
       return this.allShownSegments[segIndex].targets
     },
@@ -128,7 +118,7 @@ export default {
       }
     },
     targetIdIndex (targetId) {
-      return targetId ? this.languageTargetIds.indexOf(targetId) : null
+      return targetId ? this.shownTabs.indexOf(targetId) : null
     },
     addHoverToken (token) {
       this.hoveredGroupsId = token.grouped ? token.groupData.filter(groupDataItem => this.shownTabs.includes(groupDataItem.targetId)).map(groupDataItem => groupDataItem.groupId) : null
@@ -178,7 +168,7 @@ export default {
 <style lang="scss">
 
   .alpheios-al-editor-container-inner {
-    margin-top: 15px;
+    // margin-top: 15px;
     border: 1px solid #ddd;
     border-bottom-color: transparent;
     background: #F8F8F8;
@@ -204,6 +194,10 @@ export default {
         border-bottom: 2px solid  transparent;
       }
       */
+    }
+
+    .alpheios-al-editor-segment-cell-target-container {
+      overflow: overlay;
     }
 
     .alpheios-al-editor-segment-cell {

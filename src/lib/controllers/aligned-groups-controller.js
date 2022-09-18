@@ -108,12 +108,14 @@ export default class AlignedGroupsController {
    * @param {String|Null} limitByTargetId - docSource of the current target document
    */
   async clickToken (token, limitByTargetId = null) {
+    let checkHistory = false
     if (!this.hasActiveAlignmentGroup) {
       if (this.tokenIsGrouped(token, limitByTargetId)) {
         const alGroupItemID = this.activateGroupByToken(token, limitByTargetId)
         await this.deleteAlGroupFromStorage(alGroupItemID)
       } else {
         this.startNewAlignmentGroup(token, limitByTargetId)
+        checkHistory = true
       }
     } else {
       if (this.shouldFinishAlignmentGroup(token, limitByTargetId)) {
@@ -128,9 +130,24 @@ export default class AlignedGroupsController {
         await StorageController.update(this.alignment)
       } else {
         this.addToAlignmentGroup(token, limitByTargetId)
+        checkHistory = true
       }
     }
+
+    if (checkHistory && this.tokenWasEdited(token)) {
+      this.clearTokensEditHistory()
+    }
     this.store.commit('incrementAlignmentUpdated')
+  }
+
+  clearTokensEditHistory () {
+    this.alignment.clearTokensEditHistory()
+    this.store.commit('incrementTokenUpdated')
+    return true
+  }
+
+  tokenWasEdited (token) {
+    return this.alignment.tokenWasEdited(token)
   }
 
   deleteAlGroupFromStorage (alGroupItemID) {
@@ -229,12 +246,28 @@ export default class AlignedGroupsController {
     return Boolean(this.alignment) && this.alignment.isFirstInActiveGroup(token, limitByTargetId)
   }
 
+  isFirstTextInActiveGroup (token, limitByTargetId = null) {
+    return Boolean(this.alignment) && this.alignment.isFirstTextInActiveGroup(token, limitByTargetId)
+  }
+
   /**
    * Checks if there is an active alignment group
    * @return {Boolean} true - if there is an active alignment group, false - not
    */
   get hasActiveAlignmentGroup () {
     return Boolean(this.alignment) && this.alignment.hasActiveAlignmentGroup
+  }
+
+  checkIfHasActiveAlignmentGroup () {
+    if (this.hasActiveAlignmentGroup) {
+      console.error(L10nSingleton.getMsgS('ALIGNED_CONTROLLER_NOT_FINISHED_GROUP'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('ALIGNED_CONTROLLER_NOT_FINISHED_GROUP'),
+        type: NotificationSingleton.types.ERROR
+      })
+      return true
+    }
+    return false
   }
 
   /**
@@ -304,6 +337,10 @@ export default class AlignedGroupsController {
 
   getAmountOfSegments (segment) {
     return this.alignment.getAmountOfSegments(segment)
+  }
+
+  get hasOnlyOneSegment () {
+    return this.alignment.hasOnlyOneSegment
   }
 
   getOpositeTokenTargetIdForScroll (token) {

@@ -2,7 +2,7 @@
     <div class="alpheios-alignment-editor-metadata-item  alpheios-meta-single-item">
       <p class="alpheios-alignment-editor-metadata-item__input-value">
           <label class="alpheios-alignment-editor-metadata-item__label">{{ metadataTermLabel }}
-            <tooltip :tooltipText="metadataTermDescription" tooltipDirection="right">
+            <tooltip :tooltipText="metadataTermDescription" tooltipDirection="right" v-if="metadataTermDescription">
               <span class="alpheios-alignment-editor-metadata-item__label-help">?</span>
             </tooltip>
           </label>
@@ -14,7 +14,18 @@
               :id="itemId"
               @change = "changeMetadataItem('change')"
               @keyup.enter = "changeMetadataItem('enter')"
+              v-if="fieldType === 'string' || fieldType === 'URI' || fieldType === 'date'"
           >
+
+          <select
+              class="alpheios-alignment-select alpheios-alignment-editor-metadata-item__control"
+              v-model="value" :id="itemId"
+              @change = "changeMetadataItem('change')"
+              v-if="fieldType === 'list'"
+              >
+            <option v-for="item in listValues" :key="item.value" :value = "item.value">{{ item.label }}</option>
+          </select>
+
           <span :id="removeId" class="alpheios-alignment-editor-metadata-item__remove" v-show="showDeleteIcon" @click="clearValue">
             <delete-icon />
           </span>
@@ -65,10 +76,10 @@ export default {
       return L10nSingleton
     },
     itemId () {
-      return `alpheios-meta-${this.textType}-${this.textId}-${this.metadataTerm.property.label}-id`
+      return `alpheios-meta-${this.textType}-${this.textId}-${this.metadataTerm.property.id}-id`
     },
     removeId () {
-      return `alpheios-meta-remove-${this.textType}-${this.textId}-${this.metadataTerm.property.label}-id`
+      return `alpheios-meta-remove-${this.textType}-${this.textId}-${this.metadataTerm.property.id}-id`
     },
     docSource () {
       return this.$textC.getDocSource(this.textType, this.textId)
@@ -83,10 +94,23 @@ export default {
       return this.sourceMetaValues.filter(val => Boolean(val)).length > 0
     },
     metadataTermLabel () {
-      return this.metadataTerm.property.labell10n ? this.l10n.getMsgS(this.metadataTerm.property.labell10n) : this.metadataTerm.property.label
+      const prop = this.metadataTerm.property
+
+      if (prop.labell10n) {
+        return typeof (prop.labell10n) === 'object' ? 
+                this.l10n.getMsgS(prop.labell10n[this.textType]) : this.l10n.getMsgS(prop.labell10n)
+      }
+
+      return typeof (prop.label) === 'object' ? prop.label[this.textType] : prop.label
     },
     metadataTermDescription () {
       return this.metadataTerm.property.descriptionl10n ? this.l10n.getMsgS(this.metadataTerm.property.descriptionl10n) : this.metadataTerm.property.description
+    },
+    fieldType () {
+      return this.metadataTerm.property.fieldtype
+    },
+    listValues () {
+      return this.metadataTerm.property.fieldtype === 'list' ? this.metadataTerm.property.listValues : []
     }
   },
   methods: {
@@ -137,7 +161,7 @@ export default {
       }
     }
 
-    p > input.alpheios-alignment-editor-metadata-item__control {
+    p > .alpheios-alignment-editor-metadata-item__control {
       display: inline-block;
       width: 60%;
       vertical-align: top;

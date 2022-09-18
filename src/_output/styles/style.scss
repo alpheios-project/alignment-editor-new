@@ -1,7 +1,15 @@
-@import "fonts";
+@import "fonts/source-sans-pro";
+@import "fonts/source-serif-pro";
+@import "fonts/amiri";
+@import "fonts/noto-sans-syriac";
+@import "fonts/tinos";
+@import "fonts/noto-serif-tc";
+@import "fonts/noto-serif-korean";
+@import "fonts/noto-serif-japan";
 @import "input";
 @import "select";
 @import "modal";
+@import "button";
 
 @import "themes/themes-styles";
 
@@ -16,18 +24,70 @@ body, html {
     font-size: 16px;
     font-weight: normal;
     font-style: normal;
-    font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: "Source Sans Pro", Arial, sans-serif;
 }
 
 .alpheios-app-container {
-    min-width: 1000px;
+    min-width: 600px;
+    font-family: "Source Sans Pro", Arial, sans-serif;
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: "Source Serif Pro", Arial, serif;
+    }
 }
 
+.alpheios-app-container {
+    [lang=ara], [lang=per] {
+        font-family: Amiri, Verdana, Arial, Helvetica, serif;
+        font-variant-ligatures: normal;
+    }
+}
+.alpheios-app-container [lang=syr] {
+  font-family: "Noto Sans Syriac", Verdana, Arial, Helvetica, serif;
+  font-variant-ligatures: normal;
+}
+
+.alpheios-app-container {
+    [lang=rus], [lang=bel], [lang=ukr] {
+        font-family: "Times New Roman", Tinos, serif;
+        font-variant-ligatures: normal;
+    }
+}
+
+.alpheios-app-container {
+    [lang=heb] {
+        font-family: Tinos, serif;
+        font-variant-ligatures: normal;
+    }
+}
+
+.alpheios-app-container {
+    [lang=kor] {
+        font-family: "Noto Serif KR", serif;
+        font-variant-ligatures: normal;
+    }
+}
+
+.alpheios-app-container {
+    [lang=jpn] {
+        font-family: 'Noto Serif JP', serif;
+        font-variant-ligatures: normal;
+    }
+}
+
+.alpheios-app-container {
+    [lang=zho] {
+        font-family: 'Noto Serif TC', serif;
+        font-variant-ligatures: normal;
+    }
+}
+  
 .alpheios-header {
     overflow: hidden;
     background-color: #6e6e6e;
     color: #FFFFFF;
-    padding: 10px 10px 10px 25px;
+    // padding: 10px 10px 10px 45px;
+    padding: 10px;
 
     & > div {
         display: inline-block;
@@ -58,3 +118,55 @@ body, html {
 .alpheios-container-inner {
     padding: 0 10px;
 }
+
+.alpheios-alignment-app-menu {
+    .alpheios-alignment-header-line {
+        display: block;
+    }
+    .alpheios-alignment-app-menu__buttons {
+        &.alpheios-alignment-menu-only-filter {
+          padding-top: 20px;
+        }
+      }
+}
+
+.alpheios-alignment-editor-container {
+    .alpheios-alignment-header-line {
+        display: none;
+    }
+}
+
+.alpheios-header {
+    .alpheios-header-logo {
+        height: 25px;
+    }
+    button.alpheios-actions-menu-button.alpheios-actions-menu-button-with-icon {
+        margin: 0 5px;
+    }
+    
+}
+
+.alpheios-app-container .alpheios-alignment-app-menu-open-icon {
+    top: 65px;
+}
+
+@media screen and (min-width: 900px) {
+
+    .alpheios-alignment-editor-container {
+        .alpheios-alignment-header-line {
+            display: block;
+        }
+    }
+
+    .alpheios-alignment-app-menu {
+        .alpheios-alignment-header-line {
+            display: none;
+        }
+        .alpheios-alignment-app-menu__buttons {
+            &.alpheios-alignment-menu-only-filter {
+              padding-top: 60px;
+            }
+          }
+    }
+}
+

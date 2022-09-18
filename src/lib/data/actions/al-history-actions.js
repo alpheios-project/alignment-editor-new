@@ -33,6 +33,7 @@ export default class AlHistoryActions {
 
   applyAddStep (step) {
     this.activeAlignmentGroup[step.token.textType].push(step.token.idWord)
+    this.activeAlignmentGroup.words[step.token.idWord] = step.token.word
     return {
       result: true,
       data: { defineFirstStepToken: true }
@@ -42,7 +43,7 @@ export default class AlHistoryActions {
   removeAddStep (step) {
     const tokenIndex = this.activeAlignmentGroup[step.token.textType].findIndex(tokenId => tokenId === step.token.idWord)
     this.activeAlignmentGroup[step.token.textType].splice(tokenIndex, 1)
-
+    delete this.activeAlignmentGroup.words[step.token.idWord]
     return {
       result: true,
       data: { defineFirstStepToken: true }
@@ -52,6 +53,7 @@ export default class AlHistoryActions {
   applyRemoveStep (step) {
     const tokenIndex = this.activeAlignmentGroup[step.token.textType].findIndex(tokenId => tokenId === step.token.idWord)
     this.activeAlignmentGroup[step.token.textType].splice(tokenIndex, 1)
+    delete this.activeAlignmentGroup.words[step.token.idWord]
     return {
       result: true,
       data: { defineFirstStepToken: true }
@@ -60,6 +62,7 @@ export default class AlHistoryActions {
 
   removeRemoveStep (step) {
     this.activeAlignmentGroup[step.token.textType].push(step.token.idWord)
+    this.activeAlignmentGroup.words[step.token.idWord] = step.token.word
     return {
       result: true,
       data: { defineFirstStepToken: true }
@@ -83,7 +86,7 @@ export default class AlHistoryActions {
     return {
       result: true,
       data: {
-        insertGroups: true, dataGroup: dataGroup
+        insertGroups: true, dataGroup
       }
     }
   }
@@ -92,6 +95,11 @@ export default class AlHistoryActions {
     const tokensGroup = step.token
     this.activeAlignmentGroup.origin.push(...step.token.origin)
     this.activeAlignmentGroup.target.push(...step.token.target)
+
+    Object.keys(tokensGroup.words).forEach(idWord => {
+      this.activeAlignmentGroup.words[idWord] = tokensGroup.words[idWord]
+    })
+
     return {
       result: true,
       data: { removeGroup: true, tokensGroup }

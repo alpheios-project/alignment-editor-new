@@ -25,7 +25,7 @@ const availableMessages = {
 export default {
   en_US: localeEnUs,
   en_GB: localeEnGb,
-  availableMessages: availableMessages,
+  availableMessages,
 
   predefinedLocales: () => {
     const finalLocales = []

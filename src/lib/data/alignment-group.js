@@ -55,6 +55,35 @@ export default class AlignmentGroup {
     return this.alignmentGroupActions.segmentIndex
   }
 
+  get words () {
+    return this.alignmentGroupActions.words
+  }
+
+  get translationWords () {
+    return this.target.map(idWord => this.words[idWord])
+  }
+
+  get originWords () {
+    return this.origin.map(idWord => this.words[idWord])
+  }
+
+  translationWordForToken (originTokenIdWord) {
+    const translationWordsCnt = this.target.length
+
+    if (translationWordsCnt === 1) {
+      return this.words[this.target[0]]
+    }
+
+    const originWordsCnt = this.origin.length
+    const originIndex = this.origin.findIndex(idWord => idWord === originTokenIdWord)
+
+    if (translationWordsCnt <= originWordsCnt) {
+      return originIndex < translationWordsCnt ? this.words[this.target[originIndex]] : ''
+    }
+
+    return originIndex < (originWordsCnt - 1) ? this.words[this.target[originIndex]] : this.target.slice(originIndex).map(idWord => this.words[idWord]).join(' ')
+  }
+
   /**
    * Return ids from all tokens included to the group
    * @returns {Array[String]}
@@ -102,6 +131,10 @@ export default class AlignmentGroup {
 
   isFirstToken (token, targetId) {
     return this.firstStepToken && this.hasTheSameTargetId(targetId) && this.includesToken(token) && (this.firstStepToken.idWord === token.idWord)
+  }
+
+  isTextWithFirstToken (token, targetId) {
+    return this.firstStepToken && this.hasTheSameTargetId(targetId) && this.includesToken(token) && (this.firstStepToken.docSourceId === token.docSourceId)
   }
 
   /**
@@ -235,6 +268,7 @@ export default class AlignmentGroup {
     const alGroup = new AlignmentGroup(null, null, true, data.id)
 
     alGroup.alignmentGroupActions = AlignmentGroupActions.convertFromJSON(data.actions)
+
     return alGroup
   }
 

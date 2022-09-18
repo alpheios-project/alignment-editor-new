@@ -1,6 +1,13 @@
 <template>
   <div class="alpheios-alignment-option-item" v-if="!optionItem.hidden">
-    <label class="alpheios-alignment-option-item__label" v-show="showLabelText" v-html="labelText"></label>
+    <label class="alpheios-alignment-option-item__label-container" v-show="showLabelText" :class="{ 'alpheios-alignment-option-item__label-invisible': showLabelTextAsCheckboxLabel }">
+      <span class="alpheios-alignment-option-item__label-text" 
+            :class = "{ 'alpheios-alignment-option-item__label-hasinfo': optionInfo }"
+            v-html="labelText"></span>
+      <tooltip :tooltipText="l10n.getMsgS(optionInfo)" tooltipDirection="right" v-if="optionInfo" :additionalStyles="{ width: '200px' }">
+        <span class="alpheios-alignment-option-item__label-info">?</span>
+      </tooltip>
+    </label>
 
     <multiselect
         class="alpheios-alignment-option-item__control"
@@ -49,14 +56,15 @@
         @change = "changeOption"
     >
 
-    <div class="alpheios-alignment-checkbox-block alpheios-alignment-option-item__control" v-if="optionType === 'boolean'">
-      <input type="checkbox" v-model="selected" :id="itemId" @change = "changeOption">
+    <div class="alpheios-alignment-checkbox-block alpheios-alignment-option-item__control" v-if="optionType === 'boolean'"
+         :class = "{ 'alpheios-alignment-checkbox-block__disabled': disabled }">
+      <input type="checkbox" v-model="selected" :id="itemId" @change = "changeOption" :disabled="disabled">
       <label :for="itemId" >{{ checkboxLabel }}
         <span v-html="labelText" v-if="showCheckboxTitle"></span>
       </label>
     </div>
 
-    <p class = "alpheios-alignment-radio-block alpheios-alignment-option-item__control" v-if="optionType === 'radio'">
+    <p class = "alpheios-alignment-radio-block alpheios-alignment-option-item__control" v-if="optionType === 'radio'" :class = "radioClasses">
         <span v-for="item in values" :key="item.value">
             <input type="radio" :id="itemIdWithValue(item.value)" :value="item.value" v-model="selected"
                    @change="changeOption" :disabled="disabled" >
@@ -90,11 +98,13 @@
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import SettingsController from '@/lib/controllers/settings-controller'
 import Multiselect from 'vue-multiselect'
+import Tooltip from '@/vue/common/tooltip.vue'
 
 export default {
   name: 'OptionItemBlock',
   components: {
-    Multiselect
+    Multiselect,
+    Tooltip
   },
   props: {
     optionItem: {
@@ -125,6 +135,21 @@ export default {
       type: String,
       required: false,
       default: ''
+    },
+    inline: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
+    optionInfo: {
+      type: String,
+      required: false,
+      default: ''
+    },
+    showLabelTextAsCheckboxLabel: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data () {
@@ -142,6 +167,7 @@ export default {
     '$store.state.optionsUpdated' () {
       this.updateSelectedFromExternal()
     }
+
   },
   computed: {
     l10n () {
@@ -163,7 +189,7 @@ export default {
       return this.optionItem.labelText
     },
     checkboxLabel () {
-      return (this.showCheckboxTitle && this.$store.state.optionsUpdated && (this.optionItem && this.optionItem.boolean && Boolean(this.optionItem.values))) ? this.optionItem.textValues()[0] : null
+      return this.showLabelTextAsCheckboxLabel ? this.labelText : (this.showCheckboxTitle && this.$store.state.optionsUpdated && (this.optionItem && this.optionItem.boolean && Boolean(this.optionItem.values))) ? this.optionItem.textValues()[0] : null
     },
     optionType () {
       if (this.optionItem.multiValue) { return 'multiValue' }
@@ -201,10 +227,17 @@ export default {
     },
     selectedSI () {
       return this.selectedI ? this.selectedI : this.selectedS
+    },
+    radioClasses () {
+      return {
+        'alpheios-each-line-radio': !this.inline
+      }
     }
   },
   methods: {
     updateSelectedFromExternal () {
+      if (this.selected === this.optionItem.currentValue) { return }
+
       this.selected = this.optionItem.currentValue
 
       if (this.optionItem.multiValue) {
@@ -236,6 +269,7 @@ export default {
       } else if (this.optionItem.maxValue && (this.optionItem.maxValue < this.selected)) {
         this.selected = this.optionItem.maxValue
       }
+
       this.optionItem.setValue(this.selected)
       
       SettingsController.changeOption(this.optionItem)
@@ -266,6 +300,10 @@ export default {
     display: inline-block;
     vertical-align: top;
     padding-right: 10px;
+
+    &.alpheios-alignment-option-item__label-invisible {
+      visibility: hidden;
+    }
   }
   input.alpheios-alignment-input, 
   .alpheios-alignment-select, 
@@ -273,12 +311,21 @@ export default {
   .multiselect.alpheios-alignment-option-item__control {
     display: inline-block;
     width: 50%;
-    vertical-align: top;
+    vertical-align: middle;
   } 
 
   p.alpheios-alignment-radio-block {
     margin-top: 0;
     margin-bottom: 0;
+
+    & > span {
+      display: inline-block;
+    }
+    &.alpheios-each-line-radio {
+      & > span  {
+        display: block;
+      }
+    }
   }
 
   .alpheios-alignment-select-input__select-container,
@@ -301,5 +348,46 @@ export default {
     font-size: 90%;
     color: #888;
   }
+
+
+  .alpheios-alignment-option-item__label-text,
+  .alpheios-alignment-option-item__label-info {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .alpheios-alignment-option-item__label-text.alpheios-alignment-option-item__label-hasinfo {
+    max-width: 80%;
+  }
+
+
 }
+  .alpheios-alignment-option-item__label-info {
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    text-align: center;
+    line-height: 25px;
+    font-weight: bold;
+    border-radius: 20px;
+    vertical-align: middle;
+    margin-left: 10px;
+  }
+
+.alpheios-alignment-option-item__label-info { 
+  color: #fff;
+  background: #000;
+}
+
+
+.alpheios-alignment-option-item {
+  .alpheios-alignment-option-item__label-container,
+  .alpheios-alignment-checkbox-block.alpheios-alignment-option-item__control {
+    vertical-align: middle;
+  }
+  .alpheios-alignment-checkbox-block {
+    width: 48%;
+  }
+}
+
 </style>

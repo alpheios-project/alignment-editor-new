@@ -81,7 +81,7 @@ export default class TokenizeController {
       return
     }
 
-    let tokenizationOptions = { tokenizer: tokenizer }
+    let tokenizationOptions = { tokenizer }
 
     if (this.tokenizeMethods[tokenizer].hasOptions && definedLocalOptions) {
       tokenizationOptions = Object.assign(tokenizationOptions, definedLocalOptions.formatLabelValueList)
@@ -124,16 +124,24 @@ export default class TokenizeController {
     })
 
     if (adapterTokenizerRes.errors.length > 0) {
+      const errorInst = adapterTokenizerRes.errors[0]
+      console.error(errorInst.message)
+      NotificationSingleton.addNotification({
+        text: errorInst.message,
+        type: NotificationSingleton.types.ERROR
+      })
+      /*
       adapterTokenizerRes.errors.forEach(error => {
-        console.log(error)
+        console.error(error.message)
         NotificationSingleton.addNotification({
           text: error.message,
           type: NotificationSingleton.types.ERROR
         })
       })
+      */
     }
 
-    if (adapterTokenizerRes.result.text && adapterTokenizerRes.result.tei) {
+    if (adapterTokenizerRes.result && adapterTokenizerRes.result.text && adapterTokenizerRes.result.tei) {
       await Promise.all([adapterTokenizerRes.result.text.load(), adapterTokenizerRes.result.tei.load()])
       return adapterTokenizerRes.result
     }
@@ -188,7 +196,10 @@ export default class TokenizeController {
       [HistoryStep.types.REMOVE_LINE_BREAK]: 'rl',
       [HistoryStep.types.TO_NEXT_SEGMENT]: 'ns',
       [HistoryStep.types.TO_PREV_SEGMENT]: 'ps',
-      [HistoryStep.types.NEW]: 'n'
+      [HistoryStep.types.NEW]: 'n',
+      [HistoryStep.types.NEW_BEFORE]: 'nb',
+      [HistoryStep.types.NEW_AFTER]: 'na',
+      [HistoryStep.types.NEW_SOURCE]: 'nn'
 
     }
 

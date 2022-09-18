@@ -11,6 +11,7 @@ import SourceText from '@/lib/data/source-text'
 import Alignment from '@/lib/data/alignment'
 import VModal from 'vue-js-modal'
 import Vuex from "vuex"
+import SettingsController from '@/lib/controllers/settings-controller'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -79,7 +80,7 @@ describe('token-block.test.js', () => {
         token: token
       }
     })
-    expect(cmp.isVueInstance()).toBeTruthy()
+    expect(cmp.exists()).toBeTruthy()
   })
 
   it('2 TokenBlock - tokenClasses defines css classes by passed props', () => {
@@ -100,6 +101,7 @@ describe('token-block.test.js', () => {
       'alpheios-token-clicked': false,
       'alpheios-token-part-shadowed': false,
       'alpheios-token-clicked-first': false,
+      'alpheios-token-clicked-first-text': false,
       'alpheios-token-annotated': false,
       'alpheios-token-annotation-mode': false
     })
@@ -141,8 +143,11 @@ describe('token-block.test.js', () => {
     expect(cmp.emitted()['update-alignment-group']).toBeTruthy()
     expect(cmp.emitted()['update-alignment-group'][0]).toEqual([ token ])
 
-    await cmp.setProps({ annotationMode: true })
-    await cmp.trigger('click')
+    SettingsController.allOptions.app.items.enableAnnotations.currentValue = true
+    appC.store.commit('incrementOptionsUpdated')
+
+    await cmp.trigger('click', { shiftKey: true })
+    await Vue.nextTick()
     expect(cmp.emitted()['update-annotation']).toBeTruthy()
     expect(cmp.emitted()['update-annotation'][0]).toEqual([ token ])
   })
@@ -174,4 +179,5 @@ describe('token-block.test.js', () => {
     expect(cmp.emitted()['remove-hover-token']).toBeTruthy()
     expect(cmp.emitted()['remove-hover-token'][0]).toEqual([ token ])
   })
+
 })

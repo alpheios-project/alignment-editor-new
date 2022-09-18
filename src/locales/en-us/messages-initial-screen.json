@@ -1,8 +1,18 @@
 {
+    "TO_HOME": {
+      "message": "Home",
+      "description": "Button in Main Menu",
+      "component": "Main Menu"
+    },
     "INITIAL_NEW_ALIGNMENT": {
-      "message": "Start a new alignment",
+      "message": "Begin new alignment",
       "description": "Button on initial screen",
       "component": "InitialScreen"
+    },
+    "INITIAL_NEW_ALIGNMENT_TITLE": {
+      "message": "Please enter a short name for this alignment (preferably a single word)",
+      "description": "Popup Header",
+      "component": "CreateAlTitlePopup"
     },
     "INITIAL_RESUME_ALIGNMENT": {
       "message": "Resume previous alignment",
@@ -15,7 +25,7 @@
       "component": "InitialScreen"
     },
     "INITIAL_HAS_TOKENS": {
-      "message": "with tokens",
+      "message": "tokenized",
       "description": "Column in alignment's list",
       "component": "InitialScreen"
     },
@@ -23,5 +33,48 @@
       "message": "no tokens",
       "description": "Column in alignment's list",
       "component": "InitialScreen"
+    },
+    "INITIAL_CHOOSE_FROM_FILE": {
+      "message": "saved by you",
+      "description": "Button on initial screen",
+      "component": "InitialScreen"
+    },
+    "INITIAL_CHOOSE_FROM_DB": {
+      "message": "autosaved",
+      "description": "Button on initial screen",
+      "component": "InitialScreen"
+    },
+    "UPLOAD_WARN_POPUP_FILE_OK_BUTTON": {
+      "message": "Upload from file",
+      "description": "Button label",
+      "component": "UploadWarnPopup"
+    },
+    "UPLOAD_WARN_POPUP_INDEXEDDB_OK_BUTTON": {
+      "message": "Open auto-saved",
+      "description": "Button label",
+      "component": "UploadWarnPopup"
+    },
+    "UPLOAD_WARN_CANCEL_BUTTON": {
+      "message": "Cancel",
+      "description": "Button label",
+      "component": "UploadWarnPopup"
+    },
+    "UPLOAD_WARN_MESSAGE1": {
+      "message": "This alignment has a newer auto-saved version",
+      "description": "Message",
+      "component": "UploadWarnPopup",
+      "params": ["updatedDTInDB"]
+    },
+    "UPLOAD_WARN_MESSAGE2": {
+      "message": "(saved on {updatedDTInDB})",
+      "description": "Message",
+      "component": "UploadWarnPopup",
+      "params": ["updatedDTInDB"]
+    },
+    "UPLOAD_WARN_MESSAGE3": {
+      "message": "Are you sure you want to rewrite it with the version from JSON file?",
+      "description": "Message",
+      "component": "UploadWarnPopup",
+      "params": ["updatedDTInDB"]
     }
 }

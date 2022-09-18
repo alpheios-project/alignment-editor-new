@@ -1,6 +1,6 @@
 {
   "domain": "alpheios-alignment-editor-app",
-  "version": "1",
+  "version": "2",
   "items": {
     "theme": {
       "defaultValue": "v1-theme",
@@ -49,7 +49,7 @@
     },
     "maxCharactersPerText": {
       "defaultValue": 5000,
-      "labelText": "Max characters per text (recommended for performance)",
+      "labelText": "Max characters per text (for performance)",
       "number": true,
       "minValue": 1,
       "maxValue": 50000,
@@ -71,8 +71,8 @@
       ]
     },
     "showSummaryPopup": {
-      "defaultValue": true,
-      "labelText": "Show language check before text would be prepared",
+      "defaultValue": false,
+      "labelText": "Final check",
       "boolean": true,
       "values": [
         {
@@ -87,7 +87,7 @@
     },
     "maxCharactersPerPart": {
       "defaultValue": 1000,
-      "labelText": "Max characters per part (recommended for performance), to be used in Align Text",
+      "labelText": "Max characters per alignment window (for convenience)",
       "number": true,
       "minValue": 1,
       "maxValue": 50000,
@@ -95,7 +95,7 @@
     },
     "addIndexedDBSupport": {
       "defaultValue": true,
-      "labelText": "Add IndexedDB support",
+      "labelText": "IndexedDB support",
       "boolean": true,
       "values": [
         {
@@ -121,7 +121,7 @@
         },
         {
           "value": "LEMMAID",
-          "text": "lemmaID"
+          "text": "lemma-id"
         },
         {
           "value": "MORPHOLOGY",
@@ -136,6 +136,201 @@
       "minValue": 1,
       "maxValue": 5000,
       "values": []
+    },
+    "enableTokensEditor": {
+      "defaultValue": false,
+      "labelText": "Editing",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "Yes"
+        },
+        {
+          "value": false,
+          "text": "No"
+        }
+      ]
+    },
+    "enableDTSAPIUpload": {
+      "defaultValue": false,
+      "labelText": "Enable upload from DTS API",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "Yes"
+        },
+        {
+          "value": false,
+          "text": "No"
+        }
+      ]
+    },
+    "enableAnnotations": {
+      "defaultValue": true,
+      "labelText": "Annotating",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "Yes"
+        },
+        {
+          "value": false,
+          "text": "No"
+        }
+      ]
+    },
+    "enableAddDeleteNewLines": {
+      "defaultValue": true,
+      "labelText": "add and delete newlines",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "Yes"
+        },
+        {
+          "value": false,
+          "text": "No"
+        }
+      ]
+    },
+    "enableAddDeleteTokens": {
+      "defaultValue": true,
+      "labelText": "add and delete tokens",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "Yes"
+        },
+        {
+          "value": false,
+          "text": "No"
+        }
+      ]
+    },
+    "enableMergeSplitTokens": {
+      "defaultValue": true,
+      "labelText": "merge and split tokens",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "Yes"
+        },
+        {
+          "value": false,
+          "text": "No"
+        }
+      ]
+    },
+    "enableMoveTokensToSegment": {
+      "defaultValue": true,
+      "labelText": "move tokens to a different segment",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "Yes"
+        },
+        {
+          "value": false,
+          "text": "No"
+        }
+      ]
+    },
+    "enableEditTokens": {
+      "defaultValue": true,
+      "labelText": "edit tokens",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "Yes"
+        },
+        {
+          "value": false,
+          "text": "No"
+        }
+      ]
+    },
+    "enableAlpheiosReadingTools": {
+      "defaultValue": false,
+      "labelText": "Enable Alpheios Reading Tools Toolbar",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "Yes"
+        },
+        {
+          "value": false,
+          "text": "No"
+        }
+      ]
+    },
+    "enableTokenizationOptionsChoice": {
+      "defaultValue": false,
+      "labelText": "TEXT/XML modification",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "Yes"
+        },
+        {
+          "value": false,
+          "text": "No"
+        }
+      ]
+    },
+    "enableChangeLanguageIcon": {
+      "defaultValue": true,
+      "labelText": "Language icon",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "Yes"
+        },
+        {
+          "value": false,
+          "text": "No"
+        }
+      ]
+    },
+    "enableTEXTXMLIcon": {
+      "defaultValue": false,
+      "labelText": "Show text/xml icon",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "Yes"
+        },
+        {
+          "value": false,
+          "text": "No"
+        }
+      ]
+    },
+    "useModeStructure": {
+      "defaultValue": false,
+      "labelText": "Use switch mode (annotations)",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "Yes"
+        },
+        {
+          "value": false,
+          "text": "No"
+        }
+      ]
     }
   }
 }

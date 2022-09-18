@@ -1,6 +1,6 @@
 <template>
   <div id="alpheios-alignment-editor-app-container" class="alpheios-alignment-editor-app-container">
-      <span class="alpheios-alignment-app-menu-open-icon" @click = "menuShow++">
+      <span class="alpheios-alignment-app-menu-open-icon" @click = "menuShow++" v-show="!showInitialScreenBlock">
         <navbar-icon />
       </span>
       <main-menu 
@@ -10,7 +10,9 @@
         @redo-action = "redoAction"
         @undo-action = "undoAction"
         @add-target = "addTarget"
-        @clear-all = "startOver"
+        @clear-all = "clearAll"
+        @new-initial-alignment = "startNewInitialAlignment"
+        @upload-data-from-db = "uploadDataFromDB"
 
         @showOptions = "showOptions"
         @showSourceTextEditor = "showSourceTextEditor"
@@ -24,7 +26,8 @@
       <initial-screen v-show="showInitialScreenBlock"
         @upload-data-from-file = "uploadDataFromFile" @upload-data-from-db = "uploadDataFromDB" @delete-data-from-db = "deleteDataFromDB"
         @new-initial-alignment="startNewInitialAlignment" @clear-all-alignments="clearAllAlignmentsFromDB"/>
-      <text-editor v-show="showSourceTextEditorBlock" @add-translation="addTarget" @align-text="showSummaryPopup" @showAlignmentGroupsEditor = "showAlignmentGroupsEditor" @showTokensEditor = "showTokensEditor"
+      <text-editor v-show="showSourceTextEditorBlock" @add-translation="addTarget" @align-text="showSummaryPopup" 
+        @showAlignmentGroupsEditor = "showAlignmentGroupsEditor" @showTokensEditor = "showTokensEditor"
       />
       <align-editor v-show="showAlignmentGroupsEditorBlock" @showSourceTextEditor = "showSourceTextEditor" @showTokensEditor = "showTokensEditor"
       />
@@ -34,6 +37,11 @@
       <summary-popup @closeModal = "$modal.hide('summary')" @start-align = "alignTexts"
       />
       <waiting-popup @closeModal = "$modal.hide('waiting')" />
+
+      <upload-warn-popup @closeModal = "$modal.hide('upload-warn')" :updatedDTInDB = "updatedDTInDB" 
+        @continue-upload-from-file = "continueUploadFromFile"   @continue-upload-from-indexeddb ="continueUploadFromIndexedDB" />
+
+      <create-al-title-popup @create-alignment = "createANewAlignment" @closeModal = "$modal.hide('create-al-title')" />
   </div>
 </template>
 <script>
@@ -46,6 +54,8 @@ import MainMenu from '@/vue/main-menu.vue'
 import SummaryPopup from '@/vue/summary-popup.vue'
 
 import WaitingPopup from '@/vue/common/waiting-popup.vue'
+import UploadWarnPopup from '@/vue/common/upload-warn-popup.vue'
+import CreateAlTitlePopup from '@/vue/common/create-al-title-popup.vue'
 
 import NotificationBar from '@/vue/notification-bar.vue'
 import TextEditor from '@/vue/text-editor/text-editor.vue'
@@ -57,6 +67,7 @@ import OptionsBlock from '@/vue/options/options-block.vue'
 import NavbarIcon from '@/inline-icons/navbar.svg'
 
 import SettingsController from '@/lib/controllers/settings-controller.js'
+import DocumentUtility from '@/lib/utility/document-utility.js'
 
 export default {
   name: 'App',
@@ -70,8 +81,9 @@ export default {
     navbarIcon: NavbarIcon,
     initialScreen: InitialScreen,
     summaryPopup: SummaryPopup,
-    waitingPopup: WaitingPopup
-
+    waitingPopup: WaitingPopup,
+    uploadWarnPopup: UploadWarnPopup,
+    createAlTitlePopup: CreateAlTitlePopup
   },
   data () {
     return {     
@@ -80,11 +92,14 @@ export default {
       showSourceTextEditorBlock: false,
       showAlignmentGroupsEditorBlock: false,
       showTokensEditorBlock: false,
-
-      pageClasses: [ 'initial-page', 'options-page', 'text-editor-page', 'align-editor-page', 'tokens-editor-page' ],
       menuShow: 1,
       renderTokensEditor: 1,
-      updateCurrentPage: 'initial-screen'
+      updateCurrentPage: 'initial-screen',
+
+      fileData: null,
+      extension: null,
+      updatedDTInDB: null,
+      checkAlInDB: null
     }
   },
   watch: {
@@ -111,26 +126,63 @@ export default {
     /**
     * Starts upload workflow
     */
-    uploadDataFromFile (fileData, extension) {
+    async uploadDataFromFile (fileData, extension) {
       if (fileData) {
-        const alignment = this.$textC.uploadDataFromFile(fileData, SettingsController.tokenizerOptionValue, extension)
+        const shortAlData = this.$textC.extractIDandDateFromFile(fileData, extension)
+        const checkAlInDB = await this.$textC.checkShortAlInDB(shortAlData)
 
-        if (alignment instanceof Alignment) {
-          return this.startOver(alignment)
-        }
-      } 
-      
+        if (shortAlData && checkAlInDB) {
+          this.fileData = fileData
+          this.extension = extension
+          this.updatedDTInDB = checkAlInDB.updatedDT
+          this.checkAlInDB = checkAlInDB
+
+          this.$modal.show('upload-warn')
+        } else {
+          this.uploadDataFromFileFinal(fileData, extension)
+        }    
+      }
+    },
+
+
+    continueUploadFromFile () {
+      this.uploadDataFromFileFinal(this.fileData, this.extension)
+      this.clearUploadData()
+    },
+
+    continueUploadFromIndexedDB () {
+      this.uploadDataFromDB(this.checkAlInDB)
+      this.clearUploadData()
+    },
+
+    clearUploadData () {
+      this.fileData = null
+      this.extension = null
+      this.updatedDTInDB = null
+      this.checkAlInDB = null
+    },
+
+    uploadDataFromFileFinal (fileData, extension) {
+      const alignment = this.$textC.uploadDataFromFile(fileData, SettingsController.tokenizerOptionValue, extension)
+
+      if (alignment instanceof Alignment) {
+        return this.startOver(alignment)
+      }
       this.showSourceTextEditor()
     },
 
     async uploadDataFromDB (alData) {
       if (alData) {
+        this.$modal.show('waiting')
         const alignment = await this.$textC.uploadDataFromDB(alData)
+        this.$modal.hide('waiting')
         if (alignment instanceof Alignment) {
           return this.startOver(alignment)
+        } else {
+          console.error('Something went wrong with uploading data - ', alignment)
         }
       }
-      this.showSourceTextEditor()
+      // this.showSourceTextEditor()
     },
 
     async deleteDataFromDB (alData) {
@@ -189,8 +241,13 @@ export default {
     },
 
     startNewInitialAlignment () {
-      this.$textC.createAlignment()
+      this.$modal.show('create-al-title')
+    },
+
+    createANewAlignment (alTitle) {
+      this.$textC.createAlignment(alTitle)
       this.$historyAGC.startTracking(this.$textC.alignment)
+      this.$textC.store.commit('incrementAlignmentRestarted')
       this.showSourceTextEditor()
     },
 
@@ -204,8 +261,8 @@ export default {
       this.showTokensEditorBlock = false
       this.showInitialScreenBlock = false
 
-      this.setPageClassToBody('options-page')
-      this.updateCurrentPage = 'options-page'
+      DocumentUtility.setPageClassToBody('options')
+      this.updateCurrentPage = 'options'
     },
 
     showSourceTextEditor () {
@@ -215,8 +272,8 @@ export default {
       this.showTokensEditorBlock = false
       this.showInitialScreenBlock = false
 
-      this.setPageClassToBody('text-editor-page')
-      this.updateCurrentPage = 'text-editor-page'
+      DocumentUtility.setPageClassToBody('text-editor')
+      this.updateCurrentPage = 'text-editor'
     },
 
     showAlignmentGroupsEditor () {
@@ -226,8 +283,8 @@ export default {
       this.showTokensEditorBlock = false
       this.showInitialScreenBlock = false
 
-      this.setPageClassToBody('align-editor-page')
-      this.updateCurrentPage = 'align-editor-page'
+      DocumentUtility.setPageClassToBody('align-editor')
+      this.updateCurrentPage = 'align-editor'
     },
 
     showTokensEditor () {
@@ -237,8 +294,8 @@ export default {
       this.showTokensEditorBlock = true
       this.showInitialScreenBlock = false
 
-      this.setPageClassToBody('tokens-editor-page')
-      this.updateCurrentPage = 'tokens-editor-page'
+      DocumentUtility.setPageClassToBody('tokens-editor')
+      this.updateCurrentPage = 'tokens-editor'
 
       this.renderTokensEditor++
     },
@@ -250,17 +307,10 @@ export default {
       this.showTokensEditorBlock = false
       this.showInitialScreenBlock = true
 
-      this.setPageClassToBody('initial-page')
-      this.updateCurrentPage = 'initial-page'
+      DocumentUtility.setPageClassToBody('initial')
+      this.updateCurrentPage = 'initial'
     },
 
-    setPageClassToBody (currentPageClass) {
-      this.pageClasses.forEach(pageClass => {
-        document.body.classList.remove(`alpheios-${pageClass}`)
-      })
-
-      document.body.classList.add(`alpheios-${currentPageClass}`)
-    },
     /**
      * Clear and start alignment over
      */
@@ -289,6 +339,12 @@ export default {
       } else {
         this.showSourceTextEditor()
       }
+    },
+
+    clearAll () {
+      NotificationSingleton.clearNotifications()
+      this.$textC.store.commit('incrementReloadAlignmentsList')
+      this.showInitialScreen()
     }
   }
 }

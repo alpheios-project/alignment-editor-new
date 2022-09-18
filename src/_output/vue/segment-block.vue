@@ -5,7 +5,7 @@
           :dir = "dir" :lang = "lang"
       >
         <lang-name-bar :langName = "langName" v-show="showLangName" 
-                       :metadata = "metadata" @updateMetadataHeight = "updateMetadataHeight"
+                       :metadataShort = "metadataShort" @updateMetadataHeight = "updateMetadataHeight"
                        :showData = "showDataLangNameBar"
         />
 
@@ -15,6 +15,8 @@
                               :grouped = "groupedToken(token)"
                               @addHoverToken = "$emit('addHoverToken', token)"
                               @removeHoverToken = "$emit('removeHoverToken', token)"
+                              :interlinearly = "interlinearly"
+                              :shownTabs = "shownTabs"
               />
               <br v-if="token.hasLineBreak" />
           </template>
@@ -50,7 +52,7 @@ export default {
     // max-height for segment cell div
     maxHeight: {
       type: Number,
-      required: true
+      required: false
     },
     // direction - used for HTML markup
     dir: {
@@ -68,7 +70,7 @@ export default {
       required: true
     },
     // metadata in one string to show in lang bar
-    metadata: {
+    metadataShort: {
       type: String,
       required: false,
       defult: ''
@@ -113,6 +115,11 @@ export default {
       type: String,
       required: false,
       default: 'byTargetId'
+    },
+    interlinearly: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data () {
@@ -127,8 +134,11 @@ export default {
     },
     cssStyle () {
       const colors = this.changeColor === 'byTargetId' ? `background: ${this.colors[this.targetIdIndex]};` : `background: transparent;`
-      let styles = `order: ${this.segIndex}; ${colors} max-height: ${this.maxHeight}px;`
+      let styles = `order: ${this.segIndex}; ${colors}`
 
+      if (this.maxHeight) {
+        styles = `${styles} max-height: ${this.maxHeight}px;`
+      }
       if (this.paddingTop) {
         styles = `${styles} padding-top: ${this.paddingTop}px;`
       }
@@ -181,8 +191,8 @@ export default {
 <style lang="scss">
   .alpheios-al-editor-segment-cell-origin-row {
     position: relative;
-    padding: 10px;
-    overflow-y: scroll;
+    padding: 10px 5px;
+    overflow-y: auto;
 
     &.alpheios-align-text-segment-origin-0 {
       padding-top: 30px;

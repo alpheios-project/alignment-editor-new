@@ -1,6 +1,6 @@
 {
     "TOKENS_EDITOR_HEADING": {
-      "message": "Edit text",
+      "message": "TOKEN EDITOR",
       "description": "A heading for text editor",
       "component": "TokensEditor"
     },
@@ -20,37 +20,42 @@
       "component": "TokensEditor"
     },
     "ACTION_BUTTON_UPDATE_TOKEN": {
-      "message": "Update a token",
+      "message": "Edit token",
       "description": "A label for action menu buttons",
       "component": "ActionsMenuTokenEdit"
     },
-    "ACTION_BUTTON_MERGE_LEFT": {
-      "message": "Merge with a left token",
+    "ACTION_BUTTON_MERGE_PREV": {
+      "message": "Merge left",
       "description": "A label for action menu buttons",
       "component": "ActionsMenuTokenEdit"
     },
-    "ACTION_BUTTON_MERGE_RIGHT": {
-      "message": "Merge with a right token",
+    "ACTION_BUTTON_MERGE_NEXT": {
+      "message": "Merge right",
       "description": "A label for action menu buttons",
       "component": "ActionsMenuTokenEdit"
     },
     "ACTION_BUTTON_SPLIT_TOKEN": {
-      "message": "Split a token to 2 tokens by space",
+      "message": "Split",
       "description": "A label for action menu buttons",
       "component": "ActionsMenuTokenEdit"
     },
     "ACTION_BUTTON_ADD_LINEBREAK": {
-      "message": "Add line break after the token",
+      "message": "Add newline",
       "description": "A label for action menu buttons",
       "component": "ActionsMenuTokenEdit"
     },
     "ACTION_BUTTON_REMOVE_LINEBREAK": {
-      "message": "Remove line break after the token",
+      "message": "Delete newline",
       "description": "A label for action menu buttons",
       "component": "ActionsMenuTokenEdit"
     },
     "ACTION_BUTTON_DELETE": {
       "message": "Delete token",
+      "description": "A label for action menu buttons",
+      "component": "ActionsMenuTokenEdit"
+    },
+    "ACTION_BUTTON_INSERT": {
+      "message": "Add token(s)",
       "description": "A label for action menu buttons",
       "component": "ActionsMenuTokenEdit"
     },
@@ -118,6 +123,31 @@
       "message": "Add space between tokens. Click Enter to insert tokens to the end.",
       "description": "A description for insert tokens input",
       "component": "EmptyTokensInput"
+    },
+    "INSERT_TOKENS_BLOCK_HEADER": {
+      "message": "Insert tokens near { word }:",
+      "description": "A title for modal",
+      "component": "SegmentEditBlock",
+      "params": ["word"]
+    },
+    "INSERT_TOKENS_BLOCK_SAVE_BUTTON": {
+      "message": "Insert",
+      "description": "Save button in modal",
+      "component": "InsertTokensBlock"
+    },
+    "INSERT_TOKENS_BLOCK_CANCEL_BUTTON": {
+      "message": "Cancel",
+      "description": "Cancel button in modal",
+      "component": "InsertTokensBlock"
+    },
+    "INSERT_TOKENS_DIR_PREV": {
+      "message": "before token",
+      "description": "Radio buttons for insert tokens modal",
+      "component": "InsertTokensBlock"
+    },
+    "INSERT_TOKENS_DIR_NEXT": {
+      "message": "after token",
+      "description": "Radio buttons for insert tokens modal",
+      "component": "InsertTokensBlock"
     }
-
 }

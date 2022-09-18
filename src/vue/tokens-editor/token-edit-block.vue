@@ -19,6 +19,8 @@
               :disabled = "!isEditableToken"
               @keydown="checkKeyPres"
               :ref = "itemId"
+              :class="tokenClasses"
+              autocomplete="off"
           >
         </span>
       {{ token.afterWord }}
@@ -145,6 +147,14 @@ export default {
     }, 
     allowedUpdateTokenWord () {
       return this.$store.state.optionsUpdated && SettingsController.allowUpdateTokenWordOptionValue
+    },
+    tokenClasses () {
+      return { 
+        'alpheios-token-annotated': this.hasAnnotations
+      }
+    },
+    hasAnnotations () {
+      return this.$store.state.updateAnnotations && this.$textC.getAnnotations(this.token).length > 0
     }
   },
   methods: {
@@ -215,14 +225,20 @@ export default {
     vertical-align: baseline;
     position: relative;
     padding: 4px;
+    color: #000;
   }
 
-  .alpheios-alignment-editor-token-edit-input {
+  input.alpheios-alignment-editor-token-edit-input {
     position: absolute;
     width: 100%;
     top: 0;
     left: 0;
     z-index: 10;
+
+    &.alpheios-token-annotated {
+      border-width: 2px;
+      border-color: #ae0000;
+    }
   }
 
   .alpheios-alignment-editor-token-edit-span__activated {

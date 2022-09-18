@@ -44,7 +44,7 @@ describe('main-menu.test.js', () => {
       store: appC.store,
       localVue 
     })
-    expect(cmp.isVueInstance()).toBeTruthy()
+    expect(cmp.exists()).toBeTruthy()
   })
 
   it('2 App - should contain buttons - download, upload, align and hidden upload block', () => {

@@ -1,23 +1,35 @@
 <template>
   <div class="alpheios-alignment-editor-text-blocks-single" v-show="dataUpdated" :id="containerId">
-      <p class="alpheios-alignment-editor-text-blocks-single__title">
-        <span class="alpheios-alignment-editor-text-blocks-single__title-text">{{ indexData }}{{ textBlockTitle }}</span>
+      <p class="alpheios-alignment-editor-text-blocks-single__title" :class="{ 'alpheios-alignment-editor-text-blocks-single__title_less-margin': showAlignButton }">
+        <span class="alpheios-alignment-editor-text-blocks-single__title-text">{{ indexData }}{{ textTypeFormatted }}</span>
         <span id="alpheios-alignment-editor-add-translation" class="alpheios-alignment-editor-add-translation" v-show="showAddTranslation" @click="$emit('add-translation')">
           <plus-icon />
         </span>
-
+        <span class="alpheios-alignment-editor-text-blocks-single__align-button" v-show="showAlignButton">
+          <tooltip :tooltipText="l10n.getMsgS('ALIGN_TEXT_BUTTON_TOOLTIP')" tooltipDirection="top">
+            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button-align"  id="alpheios-actions-menu-button__align"
+                @click="$emit('align-text')" :disabled="!alignAvailable" >
+                {{ l10n.getMsgS('MAIN_MENU_ALIGN_TITLE') }}
+            </button>
+          </tooltip>
+        </span>
       </p>
-      <div v-show="showTypeUploadButtons" >
+      <div class="alpheios-alignment-editor-text-blocks-single__first-line" v-show="showTypeUploadButtons" >
         <span class="alpheios-alignment-editor-text-blocks-single__type-label">{{ l10n.getMsgS('TEXT_SINGLE_TYPE_LABEL') }}</span>
         <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  id="alpheios-actions-menu-button__uploadtext"
-            @click="selectUploadText">
+            @click="selectUploadText" v-show="enableDTSAPIUploadValue">
             {{ l10n.getMsgS('TEXT_SINGLE_UPLOAD_BUTTON') }}
         </button>
       </div>
       <div class="alpheios-alignment-editor-actions-menu__upload-block" v-show="showUploadMenu" >
-          <input type="file" @change="loadTextFromFile" ref="fileupload">
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__metadata"
-              @click="$modal.show(uploadDtsModalName)">
+          <input type="file" :id = "fileUploadRef" :ref="fileUploadRef" class="alpheios-fileupload" @change="loadTextFromFile">
+          <label :for="fileUploadRef" class="alpheios-fileupload-label alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-upload">
+              {{ l10n.getMsgS('INITIAL_CHOOSE_FILE') }} 
+          </label>
+          <span class="alpheios-fileupload-label-filename" v-if="uploadFile">{{ uploadFile }}</span>
+
+          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-fileupload-dtsapi" id="alpheios-actions-menu-button__metadata"
+              @click="$modal.show(uploadDtsModalName)" v-if="enableDTSAPIUploadValue">
               DTSAPI
           </button>
       </div>
@@ -25,7 +37,7 @@
 
       <metadata-block :text-type = "textType" :text-id = "textId" 
                       :mname = "metadataModalName"
-                      @closeModal = "$modal.hide(metadataModalName)"  />
+                      @closeModal = "$modal.hide(metadataModalName)"   />
       <language-block :text-type = "textType" :text-id = "textId" :localOptions = "updatedLocalOptions" 
                       :mname = "languageModalName"
                       @updateText = "updateText" @updateDirection = "updateDirection"
@@ -38,10 +50,13 @@
           <span class="alpheios-alignment-editor-text-blocks-single__characters" :class = "charactersClasses">{{ charactersText }}</span>
 
           <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" 
-                :class="sourceTypeIconClass" v-show="showTextProps" 
-                @click="clickSourceType"> {{ sourceType }} </span>
-          <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="showTextProps" @click="$modal.show(languageModalName)"> {{ language }} </span>
-          <span class="alpheios-alignment-editor-text-blocks-single__icons" v-show="showLangNotDetected">
+                :class="sourceTypeIconClass" v-show="enableTEXTXMLIconValue && showTextProps" 
+                @click="clickSourceType"> {{ formattedSourceType }} </span>
+          <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="enableChangeLanguageIconValue && showTextProps" 
+                @click="$modal.show(languageModalName)"> 
+                    {{ language }} 
+          </span>
+          <span class="alpheios-alignment-editor-text-blocks-single__icons" v-show="enableChangeLanguageIconValue && showLangNotDetected">
             <tooltip :tooltipText="l10n.getMsgS('NO_LANG_DETECTED_ICON')" tooltipDirection="top">
               <no-lang-detected-icon />
             </tooltip>
@@ -60,21 +75,10 @@
 
 
       <div class="alpheios-alignment-editor-text-blocks-single__describe-button" >
-        <tooltip :tooltipText="l10n.getMsgS('DESCRIBE_BUTTON_TOOLTIP')" tooltipDirection="top">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  :id="describeButtonId"
               @click="$modal.show(metadataModalName)" :disabled="!isMetadataAvailable" >
               {{ l10n.getMsgS('DESCRIBE_BUTTON_TITLE') }}
           </button>
-        </tooltip>
-      </div>
-
-      <div class="alpheios-alignment-editor-text-blocks-single__align-button" v-if="textType === 'origin'">
-        <tooltip :tooltipText="l10n.getMsgS('ALIGN_TEXT_BUTTON_TOOLTIP')" tooltipDirection="top">
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button-align"  id="alpheios-actions-menu-button__align"
-              @click="$emit('align-text')" :disabled="!alignAvailable" >
-              {{ l10n.getMsgS('MAIN_MENU_ALIGN_TITLE') }}
-          </button>
-        </tooltip>
       </div>
   </div>
 </template>
@@ -148,7 +152,8 @@ export default {
       showTextProps: false,
       showUploadMenu: false,
       
-      updatedLocalOptionsFlag: 1
+      updatedLocalOptionsFlag: 1,
+      uploadFile: ''
     }
   },
   /**
@@ -166,10 +171,16 @@ export default {
       if (!this.localTextEditorOptions.ready && SettingsController.tokenizerOptionsLoaded) {
         this.prepareDefaultTextEditorOptions()
       }
+      if (this.text.length === 0) {
+        this.initDataProps()
+      }
     },
     async '$store.state.uploadCheck' () {
       await this.updateFromExternal()
-      this.$refs.fileupload.value = ''
+      if (this.$refs.fileupload) {
+        this.$refs.fileupload.value = ''
+      }
+      this.uploadFile = ''
     },
     async '$store.state.docSourceLangDetected' () {
       this.updateLangData()
@@ -179,7 +190,6 @@ export default {
       this.restartTextEditor()
     },
     async '$store.state.resetOptions' () {
-      this.localTextEditorOptions = SettingsController.resetLocalTextEditorOptions(this.textType, this.textId)
       await this.updateText()
     },
     '$store.state.tokenizerUpdated' () {
@@ -197,7 +207,10 @@ export default {
     formattedTextId () {
       return this.textId ?? 'no-id'
     },
-
+    
+    fileUploadRef () {
+      return `fileupload-${this.textType}-${this.formattedTextId}`
+    },
     /**
      * It is executed after each alignment update, 
      * checks if  localOptions is not yet uploaded
@@ -289,26 +302,40 @@ export default {
     sourceType () {
       return this.$store.state.optionsUpdated && this.$store.state.docSourceUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.sourceType.currentValue
     },
+    formattedSourceType () {
+      return this.sourceType === 'tei' ? 'xml' : this.sourceType
+    },
     tokenization () {
       return TokenizeController.defineTextTokenizationOptions(SettingsController.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
     },
     charactersClasses () {
       return {
         'alpheios-alignment-editor-hidden' : (this.textCharactersAmount === 0),
-        'alpheios-alignment-editor-red' : this.sourceType === 'text' && (this.textCharactersAmount > this.maxCharactersForTheText)
+        'alpheios-alignment-editor-red' : this.sourceType === 'text' && this.checkTextCharactersAmount && (this.textCharactersAmount > this.maxCharactersForTheText)
       }
+    },
+    checkTextCharactersAmount () {
+      return !this.addIndexedDBSupportValue
     },
     textCharactersAmount () {
       return this.text ? this.text.length : 0
+    },
+    addIndexedDBSupportValue () {
+      return this.$store.state.optionsUpdated && SettingsController.addIndexedDBSupport
     },
     maxCharactersForTheText () {
       return this.$store.state.optionsUpdated && SettingsController.maxCharactersPerTextValue
     },
     charactersText () {
-      return `Characters count - ${this.textCharactersAmount} (max - ${this.maxCharactersForTheText})`
+      if (this.addIndexedDBSupportValue) {
+        return `Characters count - ${this.textCharactersAmount}`
+      } else {
+        return `Characters count - ${this.textCharactersAmount} (max - ${this.maxCharactersForTheText})`
+      }
     },
 
     updatedLocalOptions () {
+      
       return this.updatedLocalOptionsFlag && this.localTextEditorOptions
     },
     isMetadataAvailable () {
@@ -321,6 +348,9 @@ export default {
     },
     showAddTranslation () {
       return this.$store.state.docSourceUpdated && (this.textType === 'target') && (this.index === (this.$textC.allTargetTextsIds.length - 1)) && (this.text.length > 0)
+    },
+    showAlignButton () {
+      return this.showAddTranslation
     },
     showActionMenu () {
       return this.$store.state.docSourceUpdated && (this.showUploadMenu || this.showTextProps)
@@ -338,6 +368,16 @@ export default {
       return {
         'alpheios-alignment-editor-text-blocks-single__lang-icon_disabled': this.sourceTypeDisabled
       }
+    },
+
+    enableDTSAPIUploadValue () {
+      return this.$store.state.optionsUpdated && SettingsController.enableDTSAPIUpload
+    },
+    enableChangeLanguageIconValue () {
+      return this.$store.state.optionsUpdated && SettingsController.enableChangeLanguageIcon
+    },
+    enableTEXTXMLIconValue () {
+      return this.$store.state.optionsUpdated && SettingsController.enableTEXTXMLIcon
     }
   },
   methods: {
@@ -351,7 +391,7 @@ export default {
       this.showTypeUploadButtons = true
 
       this.showTextProps = false
-      this.showUploadMenu = false
+      this.showUploadMenu = !this.enableDTSAPIUploadValue
     },
 
     /**
@@ -359,12 +399,13 @@ export default {
      */
     async updateFromExternal () {
       const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
+
       if (sourceTextData && sourceTextData.text) {
         this.text = sourceTextData.text
         SettingsController.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
         await this.updateText()
-
         this.showTypeUploadButtons = false
+        this.showUploadMenu = false
       }
     },
 
@@ -373,12 +414,13 @@ export default {
      */
     async restartTextEditor () {
       this.text = ''
-      this.$refs.fileupload.value = ''
+      if (this.$refs[this.fileUploadRef]) {
+        this.$refs[this.fileUploadRef].value = ''
+      }
+      this.uploadFile = ''
       this.prepareDefaultTextEditorOptions()
 
-      this.showTypeUploadButtons = true
-      this.showTextProps = false
-      this.showUploadMenu = false
+      this.initDataProps()
       this.$textC.deleteText(this.textType, this.textId)
     },
 
@@ -403,11 +445,12 @@ export default {
         this.text = ''
       }
 
-      if (result.resultUpdate && this.showTypeUploadButtons && (this.text.length !== 0)) {
+      if (result.resultUpdate && (this.showTypeUploadButtons || this.showUploadMenu) && (this.text.length !== 0)) {
 
         setTimeout(() => {
           this.showTypeUploadButtons = false
           this.showTextProps = true
+          this.showUploadMenu = false
         }, 100)
         
       }
@@ -432,6 +475,7 @@ export default {
         if (this.$textC.checkDetectedProps(this.textType, this.textId) || (this.text && this.text.length > 0)) {
           this.showTypeUploadButtons = false
           this.showTextProps = true
+          this.showUploadMenu = false
         }
       }
     },
@@ -453,12 +497,13 @@ export default {
 
     async deleteText () {
       this.text = ''
-      this.$refs.fileupload.value = ''
+      this.$refs[this.fileUploadRef].value = ''
+      this.uploadFile = ''
       this.prepareDefaultTextEditorOptions()
       this.$textC.deleteText(this.textType, this.textId)
       setTimeout(() => {
         this.showTypeUploadButtons = true
-        this.showUploadMenu = false
+        this.showUploadMenu = false || !this.enableDTSAPIUploadValue
       }, 150)
     },
 
@@ -478,15 +523,14 @@ export default {
     async uploadSingle (fileData) {
       const result = await this.$textC.uploadDocSourceFromFileSingle(fileData, {
         textType: this.textType,
-        textId: this.textId,
-        tokenization: this.tokenization
+        textId: this.textId
       })
       if (result.resultUpdate) {
         this.showTypeTextBlock = true
       } else {
         this.showTypeUploadButtons = true
         this.showTextProps = false
-        this.showUploadMenu = false
+        this.showUploadMenu = false || !this.enableDTSAPIUploadValue
       }
     },
 
@@ -500,9 +544,11 @@ export default {
      * Creates FileReader and passes data from file to App component for parsing
      */
     loadTextFromFile(ev) {
-      const file = ev.target.files[0]     
+      const file = this.$refs[this.fileUploadRef].files[0]     
+      
       if (!file) { return }
-      const extension = file.name.split('.').pop()
+      this.uploadFile = file.name
+      const extension = file.name.indexOf('.') > -1 ? file.name.split('.').pop() : ''
 
       if (!this.$textC.checkUploadedFileByExtension(extension, false)) { return }
 
@@ -514,10 +560,12 @@ export default {
       }
       reader.readAsText(file)
 
-      this.$refs.fileupload.value = ''
+      this.$refs[this.fileUploadRef].value = ''
+      this.uploadFile = ''
     },
 
     uploadFromDTSAPI (filedata) {
+      this.localTextEditorOptions.sourceText.items.sourceType.setValue('tei')
       this.uploadSingle({ text: filedata.tei, lang: filedata.lang, extension: filedata.extension })
       this.showUploadMenu = false
     },
@@ -621,6 +669,10 @@ export default {
       position: relative;
       font-size: 20px;
       font-weight: bold;
+
+      &.alpheios-alignment-editor-text-blocks-single__title_less-margin {
+        margin-bottom: 7px;
+      }
     }
 
 
@@ -723,12 +775,29 @@ export default {
     }
 
   .alpheios-alignment-editor-text-blocks-single__align-button {
-    margin-top: 30px;
     text-align: right;
+    display: inline-block;
+    padding-left: 20px;
   }
 
   .alpheios-alignment-editor-text-blocks-single__describe-button {
     text-align: center;
     margin-top: 10px;
+  }
+
+  .alpheios-alignment-editor-text-blocks-single__first-line,
+  .alpheios-alignment-editor-actions-menu__upload-block {
+    display: inline-block;
+  }
+
+  .alpheios-alignment-editor-actions-menu__upload-block {
+    .alpheios-fileupload-label-filename {
+      padding: 0 20px;
+      color: #46788d;
+    }
+
+    .alpheios-fileupload-dtsapi {
+      margin-left: 20px;
+    }
   }
 </style>

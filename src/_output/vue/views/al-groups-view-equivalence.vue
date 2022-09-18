@@ -11,8 +11,8 @@
               <segment-block textType = "origin"
                 :segmentData = "segmentData.origin" :segIndex = "segIndex" :maxHeight = "maxHeight"
                 :dir = "fullData.getDir('origin')" :lang = "fullData.getLang('origin')" 
-                :langName = "fullData.getLangName('origin')" :metadata = "fullData.getMetadata('origin')"
-                :hoveredGroupsId = "hoveredOriginGroupsId" :shownTabs = "languageTargetIds"
+                :langName = "fullData.getLangName('origin')" :metadataShort = "fullData.getMetadataShort('origin')"
+                :hoveredGroupsId = "hoveredOriginGroupsId" :shownTabs = "shownTabs"
                 @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
               />
             </div>
@@ -34,8 +34,8 @@
                         </template>
                         <span class="alpheios-token" v-if="targetsRow.count > 1"> ({{ targetsRow.count }})</span>
                       </div>
-                      <p class="alpheios-al-editor-target-hovered-block__metadata" v-if="hoveredTargetsDataItem.metadata">
-                        {{ hoveredTargetsDataItem.metadata }}
+                      <p class="alpheios-al-editor-target-hovered-block__metadata" v-if="hoveredTargetsDataItem.metadataShort">
+                        {{ hoveredTargetsDataItem.metadataShort }}
                       </p>
                   </div>
                 </div>
@@ -62,7 +62,7 @@ export default {
       type: Object,
       required: true
     },
-    languageTargetIds: {
+    identList: {
       type: Array,
       required: true
     }
@@ -75,6 +75,10 @@ export default {
     }
   },
   computed: {
+    shownTabs () {
+      this.hoveredGroupsId = null
+      return this.identList.filter(langData => !langData.hidden).map(langData => langData.targetId)
+    },
     allOriginSegments () {
       return GroupUtility.allOriginSegments(this.fullData)
     },
@@ -82,19 +86,19 @@ export default {
       return GroupUtility.alignmentGroups(this.fullData, 'equivalence')
     },
     tokensEqGroups () {
-      return GroupUtility.tokensEquivalentGroups(this.fullData, this.allAlGroups, this.languageTargetIds)
+      return GroupUtility.tokensEquivalentGroups(this.fullData, this.allAlGroups, this.shownTabs)
     },
 
     containerHeight () {
       return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 150
     },
     maxHeight () {
-      const minHeight = 400
-      
+      const maxHeight = 400
+      const minHeight = 25
       if (this.allOriginSegments.length === 1) {
         return this.containerHeight
       } 
-      return Math.round(Math.min(minHeight, this.containerHeight/this.allOriginSegments.length))
+      return Math.max(minHeight, Math.round(Math.min(maxHeight, this.containerHeight/this.allOriginSegments.length)))
     }
   },
   methods: {
@@ -111,7 +115,7 @@ export default {
 
         if (hoveredTargetsDataObj) {
           const hoveredTargetsKeys = Object.keys(hoveredTargetsDataObj).sort((a, b) => {
-            return this.languageTargetIds.indexOf(a) - this.languageTargetIds.indexOf(b)
+            return this.shownTabs.indexOf(a) - this.shownTabs.indexOf(b)
           })
           const hoveredTargetsData = hoveredTargetsKeys.map(targetId => hoveredTargetsDataObj[targetId])
 

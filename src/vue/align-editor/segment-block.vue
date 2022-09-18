@@ -2,11 +2,12 @@
     <div class="alpheios-alignment-editor-align-text-segment" 
          :style="cssStyle"
          :class = "cssClass" 
+         v-if = "isShownSeg"
           >
           <p class="alpheios-alignment-editor-align-text-segment-row" v-if="isFirst">
             <span class="alpheios-alignment-editor-align-text-segment-row__langname" >{{ segment.langName }}</span>
 
-            <metadata-icons :text-type = "textType" :text-id = "segment.docSourceId" @showModalMetadata = "$modal.show(metadataModalName)" />
+            <metadata-icons :text-type = "textType" :text-id = "segment.docSourceId" @showModalMetadata = "$modal.show(metadataModalName)"/>
           </p>
 
           <p class="alpheios-alignment-editor-align-text-parts" v-if="allPartsKeys.length > 1">
@@ -21,7 +22,7 @@
 
           <div class="alpheios-alignment-editor-align-text-segment-tokens" :id = "cssId" :style="cssStyleSeg" :dir = "direction" :lang = "lang" >
             <p class="alpheios-alignment-editor-align-text-single-link" v-if="showPrev">
-              <span class="alpheios-alignment-editor-align-text-parts-link-text" @click="uploadPrevPart">prev</span>
+              <span class="alpheios-alignment-editor-align-text-parts-link-text" @click="uploadPrevPart">previous</span>
             </p>
 
             <template v-for = "(token, tokenIndex) in allTokens">
@@ -36,6 +37,7 @@
                 :grouped = "$store.state.alignmentUpdated && groupedToken(token)"
                 :inActiveGroup = "$store.state.alignmentUpdated && inActiveGroup(token)"
                 :firstInActiveGroup = "$store.state.alignmentUpdated && isFirstInActiveGroup(token)"
+                :firstTextInActiveGroup = "$store.state.alignmentUpdated && isFirstTextInActiveGroup(token)"
                 :annotationMode="annotationMode"
               />
               <br v-if="$store.state.tokenUpdated && token.hasLineBreak" />
@@ -61,6 +63,9 @@ import HasMetadataIcon from '@/inline-icons/has-metadata.svg'
 import Tooltip from '@/vue/common/tooltip.vue'
 import MetadataBlock from '@/vue/text-editor/metadata-block.vue'
 import MetadataIcons from '@/vue/common/metadata-icons.vue'
+
+import SettingsController from '@/lib/controllers/settings-controller.js'
+import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
 export default {
   name: 'SegmentBlock',
@@ -114,6 +119,10 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    shownTabs: {
+      type: Array,
+      required: true
     }
   },
   data () {
@@ -171,11 +180,14 @@ export default {
      * @returns {String}
      */
     backgroundStyle () {
+      /*
       if (this.textType === 'target') {
          return `background: ${this.colors[this.targetIdIndex]};`
       } else {
         return `background: ${this.originColor};`
       }
+      */
+      return `background: ${this.originColor};`
     },
     cssStyle () {
       let result 
@@ -265,9 +277,14 @@ export default {
 
     showNext () {
       return this.allPartsKeys.length > 0 && (Math.max(...this.currentPartIndexes) < this.allPartsKeys[this.allPartsKeys.length-1].partNum)
+    },
+
+    isShownSeg () {
+      return this.textType === 'origin' || this.shownTabs.includes(this.textId)
     }
   },
   methods: {
+
     partBlockStyle (len) {
       const percentLen = Math.floor(len*100/this.allPartKeysLen)
       return `width: ${percentLen}%;`
@@ -284,8 +301,15 @@ export default {
      * @param {Token}
      */
     updateAlignmentGroup (token) {
+
       if (this.alignmentGroupsWorkflowAvailable && this.currentTargetId) {
         this.$alignedGC.clickToken(token, this.currentTargetId)
+      } else if (!this.alignmentGroupsWorkflowAvailable) {
+        console.error(L10nSingleton.getMsgS('ALIGN_EDITOR_CLICK_TOKEN_UNAVAILABLE'))
+        NotificationSingleton.addNotification({
+          text: L10nSingleton.getMsgS('ALIGN_EDITOR_CLICK_TOKEN_UNAVAILABLE'),
+          type: NotificationSingleton.types.ERROR
+        })
       }
     },
     /**
@@ -294,7 +318,7 @@ export default {
      */
     addHoverToken (token) {
       this.$alignedGC.activateHoverOnAlignmentGroups(token, this.currentTargetId)
-      this.makeScroll(token)
+      // this.makeScroll(token)
     },
     makeScroll (token) {
       const scrollData = this.$alignedGC.getOpositeTokenTargetIdForScroll(token)
@@ -327,7 +351,7 @@ export default {
      * @param {Token}
      */
     groupedToken (token) {
-      return this.$alignedGC.tokenIsGrouped(token, this.currentTargetId)
+      return this.$alignedGC.tokenIsGrouped(token, this.shownTabs)
     },
     /**
      * Used for defining that token is in active alignmentGroup
@@ -342,6 +366,10 @@ export default {
      */
     isFirstInActiveGroup (token) {
       return this.$alignedGC.isFirstInActiveGroup(token, this.currentTargetId)
+    },
+
+    isFirstTextInActiveGroup (token) {
+      return this.$alignedGC.isFirstTextInActiveGroup(token, this.currentTargetId)
     },
 
     async uploadPrevPart () {
@@ -378,7 +406,7 @@ export default {
   .alpheios-alignment-editor-align-text-segment-tokens {
     padding: 10px;
     max-height: 400px;
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 }
 

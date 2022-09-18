@@ -174,7 +174,8 @@ export default class IndexedDBStructure {
       createdDT: data.createdDT,
       updatedDT: data.updatedDT,
       langsList: data.langsList,
-      hasTokens: data.hasTokens
+      hasTokens: data.hasTokens,
+      title: data.title
     }]
   }
 
@@ -212,7 +213,7 @@ export default class IndexedDBStructure {
     for (const dataItem of dataItems) {
       if (dataItem.metadata && dataItem.metadata.properties && dataItem.metadata.properties.length > 0) {
         for (const metadataItem of dataItem.metadata.properties) {
-          const uniqueID = `${data.userID}-${data.id}-${dataItem.textId}-${metadataItem.property.replace(' ', '-')}`
+          const uniqueID = `${data.userID}-${data.id}-${dataItem.textId}-${metadataItem.propertyId.replace(' ', '-')}`
 
           finalData.push({
             ID: uniqueID,
@@ -221,7 +222,8 @@ export default class IndexedDBStructure {
             alTextId: `${data.id}-${dataItem.textId}`,
             textId: dataItem.textId,
             property: metadataItem.property,
-            value: metadataItem.value
+            value: metadataItem.value,
+            propertyId: metadataItem.propertyId
           })
         }
       }
@@ -374,7 +376,8 @@ export default class IndexedDBStructure {
         segmentIndex: alGroupItem.actions.segmentIndex,
         targetId: alGroupItem.actions.targetId,
         origin: alGroupItem.actions.origin,
-        target: alGroupItem.actions.target
+        target: alGroupItem.actions.target,
+        words: alGroupItem.actions.words
       })
     }
 
@@ -448,15 +451,17 @@ export default class IndexedDBStructure {
   }
 
   static prepareAlignmentByAlIDQueryTemp (indexData, partNum) {
-    const tokensCondition = partNum ? {
-      indexName: 'alIDPartNum',
-      value: `${indexData.userID}-${indexData.alignmentID}-1`,
-      type: 'only'
-    } : {
-      indexName: 'alignmentID',
-      value: indexData.alignmentID,
-      type: 'only'
-    }
+    const tokensCondition = partNum
+      ? {
+          indexName: 'alIDPartNum',
+          value: `${indexData.userID}-${indexData.alignmentID}-1`,
+          type: 'only'
+        }
+      : {
+          indexName: 'alignmentID',
+          value: indexData.alignmentID,
+          type: 'only'
+        }
 
     return [
       {
@@ -606,9 +611,21 @@ export default class IndexedDBStructure {
       fullAlignmentByID: this.prepareDeleteFullAlignmentByID.bind(this),
       alignmentGroupByID: this.prepareDeleteAlignmentGroupByID.bind(this),
       allPartNum: this.prepareDeleteAllPartNum.bind(this),
-      annotationByID: this.prepareDeleteAnnotationByID.bind(this)
+      annotationByID: this.prepareDeleteAnnotationByID.bind(this),
+      allAnnotations: this.prepareDeleteAllAnnotations.bind(this)
     }
     return typeQueryList[typeQuery](indexData)
+  }
+
+  static prepareDeleteAllAnnotations (indexData) {
+    return [{
+      objectStoreName: this.allObjectStoreData.annotations.name,
+      condition: {
+        indexName: 'alignmentID',
+        value: indexData.alignmentID,
+        type: 'only'
+      }
+    }]
   }
 
   static prepareDeleteAnnotationByID (indexData) {

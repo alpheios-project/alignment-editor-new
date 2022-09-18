@@ -47,7 +47,7 @@ describe('direction-options-block.test.js', () => {
           localOptions: localTextEditorOptions
         }
       })
-    expect(cmp.isVueInstance()).toBeTruthy()
+    expect(cmp.exists()).toBeTruthy()
   })
 
   it('2 DirectionOptionsBlock - renders optionItem', () => {

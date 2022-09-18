@@ -49,7 +49,7 @@ describe('storage-controller.test.js', () => {
 
     const alignment = new Alignment()
     const originDocSource = new SourceText('origin', {
-      text: 'origin test text', sourceType: 'text', lang: 'grc', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'origin test text', sourceType: 'text', lang: 'grc', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
     alignment.updateOriginDocSource(originDocSource)
 
@@ -62,7 +62,7 @@ describe('storage-controller.test.js', () => {
     expect(alList[0].langsList).toEqual('grc')
 
     const targetDocSource = new SourceText('target', {
-      text: 'target test text', sourceType: 'text', lang: 'aha', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'target test text', sourceType: 'text', lang: 'aha', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
     alignment.updateTargetDocSource(targetDocSource)
 
@@ -93,10 +93,10 @@ describe('storage-controller.test.js', () => {
     StorageController.definedDBAdapter()
     const alignment = new Alignment()
     const originDocSource = new SourceText('origin', {
-      text: 'origin test text', sourceType: 'text', lang: 'grc', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'origin test text', sourceType: 'text', lang: 'grc', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
     const targetDocSource = new SourceText('target', {
-      text: 'target test text', sourceType: 'text', lang: 'aha', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'target test text', sourceType: 'text', lang: 'aha', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     alignment.updateOriginDocSource(originDocSource)
@@ -162,10 +162,10 @@ describe('storage-controller.test.js', () => {
     StorageController.definedDBAdapter()
     const alignment = new Alignment()
     const originDocSource = new SourceText('origin', {
-      text: 'origin test text', sourceType: 'text', lang: 'grc', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'origin test text', sourceType: 'text', lang: 'grc', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
     const targetDocSource = new SourceText('target', {
-      text: 'target test text', sourceType: 'text', lang: 'aha', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'target test text', sourceType: 'text', lang: 'aha', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     alignment.updateOriginDocSource(originDocSource)
@@ -187,7 +187,7 @@ describe('storage-controller.test.js', () => {
     })]))
 
     // update title property - single
-    alignment.changeMetadataTerm( alignment.origin.docSource.metadata.getProperty({ label: 'title' }), 'testOriginTitle2', 'origin', originDocSource.id)
+    alignment.changeMetadataTerm( alignment.origin.docSource.metadata.getProperty({ id: 'TITLE' }), 'testOriginTitle2', 'origin', originDocSource.id)
 
     await StorageController.update(alignment, false, false)
 
@@ -213,7 +213,7 @@ describe('storage-controller.test.js', () => {
     })]))
 
     // delete title term
-    alignment.changeMetadataTerm( alignment.origin.docSource.metadata.getProperty({ label: 'title' }), '', 'origin', originDocSource.id)
+    alignment.changeMetadataTerm( alignment.origin.docSource.metadata.getProperty({ id: 'TITLE' }), '', 'origin', originDocSource.id)
     await StorageController.update(alignment, true, false)
     
     alignmentDB = await StorageController.select({ userID, alignmentID: alignment.id }, 'alignmentByAlIDQuery') 
@@ -225,7 +225,7 @@ describe('storage-controller.test.js', () => {
     })]))
 
     // update creator term - multivalued
-    alignment.changeMetadataTerm( alignment.origin.docSource.metadata.getProperty({ label: 'creator' }), 'Original Creator 2', 'origin', originDocSource.id)
+    alignment.changeMetadataTerm( alignment.origin.docSource.metadata.getProperty({ id: 'CREATOR' }), 'Original Creator 2', 'origin', originDocSource.id)
 
     await StorageController.update(alignment, true, false)
 
@@ -238,8 +238,8 @@ describe('storage-controller.test.js', () => {
     })]))
     
     // delete all values creator
-    alignment.deleteValueByIndex(alignment.origin.docSource.metadata.getProperty({ label: 'creator' }), 0, 'origin')
-    alignment.deleteValueByIndex(alignment.origin.docSource.metadata.getProperty({ label: 'creator' }), 0, 'origin')
+    alignment.deleteValueByIndex(alignment.origin.docSource.metadata.getProperty({ id: 'CREATOR' }), 0, 'origin')
+    alignment.deleteValueByIndex(alignment.origin.docSource.metadata.getProperty({ id: 'CREATOR'}), 0, 'origin')
 
     await StorageController.update(alignment, true, false)
 
@@ -252,10 +252,10 @@ describe('storage-controller.test.js', () => {
     StorageController.definedDBAdapter()
     const alignment = new Alignment()
     const originDocSource = new SourceText('origin', {
-      text: 'origin test text', sourceType: 'text', lang: 'grc', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'origin test text', sourceType: 'text', lang: 'grc', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
     const targetDocSource = new SourceText('target', {
-      text: 'target test text', sourceType: 'text', lang: 'aha', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'target test text', sourceType: 'text', lang: 'aha', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     // origin and one target
@@ -276,7 +276,7 @@ describe('storage-controller.test.js', () => {
 
     // add the second target
     const targetDocSource2 = new SourceText('target', {
-      text: '2 target test text', sourceType: 'text', lang: 'kat', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: '2 target test text', sourceType: 'text', lang: 'kat', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     alignment.updateTargetDocSource(targetDocSource2)
@@ -306,10 +306,10 @@ describe('storage-controller.test.js', () => {
     StorageController.definedDBAdapter()
     const alignment = new Alignment()
     const originDocSource = new SourceText('origin', {
-      text: 'origin test text', sourceType: 'text', lang: 'grc', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'origin test text', sourceType: 'text', lang: 'grc', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
     const targetDocSource = new SourceText('target', {
-      text: 'target test text', sourceType: 'text', lang: 'aha', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'target test text', sourceType: 'text', lang: 'aha', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     alignment.updateOriginDocSource(originDocSource)
@@ -332,10 +332,10 @@ describe('storage-controller.test.js', () => {
     StorageController.definedDBAdapter()
     const alignment = new Alignment()
     const originDocSource = new SourceText('origin', {
-      text: 'origin test text', sourceType: 'text', lang: 'grc', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'origin test text', sourceType: 'text', lang: 'grc', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
     const targetDocSource = new SourceText('target', {
-      text: 'target test text', sourceType: 'text', lang: 'aha', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'target test text', sourceType: 'text', lang: 'aha', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     alignment.updateOriginDocSource(originDocSource)
@@ -410,14 +410,14 @@ describe('storage-controller.test.js', () => {
   })
 
 
-  it('7 StorageController - use case - edit tokens in IndexedDB', async () => {
+  it('7 StorageController - use case - edit tokens in IndexedDB - update', async () => {
     StorageController.definedDBAdapter()
     const alignment = new Alignment()
     const originDocSource = new SourceText('origin', {
-      text: 'origin test text', sourceType: 'text', lang: 'grc', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'origin test text', sourceType: 'text', lang: 'grc', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
     const targetDocSource = new SourceText('target', {
-      text: 'target test text', sourceType: 'text', lang: 'aha', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'target test text', sourceType: 'text', lang: 'aha', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     alignment.updateOriginDocSource(originDocSource)
@@ -441,6 +441,30 @@ describe('storage-controller.test.js', () => {
         textType: 'origin', word: 'not-origin'
       })]))
 
+    StorageController.clear()
+  })
+
+  it('8 StorageController - use case - move tokens to segment in IndexedDB - merge', async () => {
+    StorageController.definedDBAdapter()
+    const alignment = new Alignment()
+    const originDocSource = new SourceText('origin', {
+      text: 'origin test text', sourceType: 'text', lang: 'grc', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'target test text', sourceType: 'text', lang: 'aha', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
+    })
+
+    alignment.updateOriginDocSource(originDocSource)
+    alignment.updateTargetDocSource(targetDocSource)
+    await alignment.createAlignedTexts()
+
+    await StorageController.update(alignment, false, false)
+    let alignmentDB = await StorageController.select({ userID, alignmentID: alignment.id }, 'alignmentByAlIDQuery') 
+
+    expect(alignmentDB.tokens.length).toEqual(6)
+    const originTokens = alignment.origin.alignedText.segments[0].tokens
+    const targetTokens = Object.values(alignment.targets)[0].alignedText.segments[0].tokens
+
     // merge token
     alignment.mergeToken(originTokens[1], 'next')
 
@@ -452,12 +476,36 @@ describe('storage-controller.test.js', () => {
       textType: 'origin', word: 'test text'
     })]))
 
+    StorageController.clear()
+  })
+
+  it('9 StorageController - use case - move tokens to segment in IndexedDB - split', async () => {
+    StorageController.definedDBAdapter()
+    const alignment = new Alignment()
+    const originDocSource = new SourceText('origin', {
+      text: 'origin test text', sourceType: 'text', lang: 'grc', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'target test text', sourceType: 'text', lang: 'aha', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
+    })
+
+    alignment.updateOriginDocSource(originDocSource)
+    alignment.updateTargetDocSource(targetDocSource)
+    await alignment.createAlignedTexts()
+
+    await StorageController.update(alignment, false, false)
+    let alignmentDB = await StorageController.select({ userID, alignmentID: alignment.id }, 'alignmentByAlIDQuery') 
+
+    expect(alignmentDB.tokens.length).toEqual(6)
+    const originTokens = alignment.origin.alignedText.segments[0].tokens
+    const targetTokens = Object.values(alignment.targets)[0].alignedText.segments[0].tokens
+
     // splitToken token
     alignment.splitToken(targetTokens[0], 'tar get')
     await StorageController.update(alignment, true, false)
     alignmentDB = await StorageController.select({ userID, alignmentID: alignment.id }, 'alignmentByAlIDQuery') 
 
-    expect(alignmentDB.tokens.length).toEqual(6)
+    expect(alignmentDB.tokens.length).toEqual(7)
     expect(alignmentDB.tokens).toEqual(expect.arrayContaining([expect.objectContaining({
       textType: 'target', word: 'tar'
     })]))
@@ -465,29 +513,80 @@ describe('storage-controller.test.js', () => {
       textType: 'target', word: 'get'
     })]))
 
+    StorageController.clear()
+  })
+
+  it('10 StorageController - use case - move tokens to segment in IndexedDB - line break', async () => {
+    StorageController.definedDBAdapter()
+    const alignment = new Alignment()
+    const originDocSource = new SourceText('origin', {
+      text: 'origin test text', sourceType: 'text', lang: 'grc', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'target test text', sourceType: 'text', lang: 'aha', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
+    })
+
+    alignment.updateOriginDocSource(originDocSource)
+    alignment.updateTargetDocSource(targetDocSource)
+    await alignment.createAlignedTexts()
+
+    await StorageController.update(alignment, false, false)
+    let alignmentDB = await StorageController.select({ userID, alignmentID: alignment.id }, 'alignmentByAlIDQuery') 
+
+    expect(alignmentDB.tokens.length).toEqual(6)
+    const originTokens = alignment.origin.alignedText.segments[0].tokens
+    const targetTokens = Object.values(alignment.targets)[0].alignedText.segments[0].tokens
+
     // add line break
     alignment.addLineBreakAfterToken(targetTokens[1])
     await StorageController.update(alignment, true, false)
     alignmentDB = await StorageController.select({ userID, alignmentID: alignment.id }, 'alignmentByAlIDQuery') 
 
+    // console.info(alignmentDB.tokens.map(token => { return { textType: token.textType, idWord: token.idWord, word: token.word, hasLineBreak: token.hasLineBreak } }))
+
     expect(alignmentDB.tokens.length).toEqual(6)
     expect(alignmentDB.tokens).toEqual(expect.arrayContaining([expect.objectContaining({
-      textType: 'target', word: 'get', hasLineBreak: true
+      textType: 'target', word: 'test', hasLineBreak: true
     })]))
 
     // remove line break
     alignment.removeLineBreakAfterToken(targetTokens[1])
+    
     await StorageController.update(alignment, true, false)
     alignmentDB = await StorageController.select({ userID, alignmentID: alignment.id }, 'alignmentByAlIDQuery') 
 
     expect(alignmentDB.tokens.length).toEqual(6)
     expect(alignmentDB.tokens).toEqual(expect.arrayContaining([expect.objectContaining({
-      textType: 'target', word: 'get', hasLineBreak: false
+      textType: 'target', word: 'test', hasLineBreak: false
     })]))
+
+    StorageController.clear()
+  })
+
+  it('11 StorageController - use case - move tokens to segment in IndexedDB - insert/delete', async () => {
+    StorageController.definedDBAdapter()
+    const alignment = new Alignment()
+    const originDocSource = new SourceText('origin', {
+      text: 'origin test text', sourceType: 'text', lang: 'grc', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'target test text', sourceType: 'text', lang: 'aha', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
+    })
+
+    alignment.updateOriginDocSource(originDocSource)
+    alignment.updateTargetDocSource(targetDocSource)
+    await alignment.createAlignedTexts()
+
+    await StorageController.update(alignment, false, false)
+    let alignmentDB = await StorageController.select({ userID, alignmentID: alignment.id }, 'alignmentByAlIDQuery') 
+
+    expect(alignmentDB.tokens.length).toEqual(6)
+    const originTokens = alignment.origin.alignedText.segments[0].tokens
+    const targetTokens = Object.values(alignment.targets)[0].alignedText.segments[0].tokens
 
     // deleteToken
 
-    alignment.deleteToken(targetTokens[3])
+    alignment.deleteToken(targetTokens[2])
     await StorageController.update(alignment, true, false)
     alignmentDB = await StorageController.select({ userID, alignmentID: alignment.id }, 'alignmentByAlIDQuery') 
 
@@ -497,14 +596,18 @@ describe('storage-controller.test.js', () => {
     })]))
 
     // insertTokens
-    alignment.insertTokens('insert tokens', 'origin', originDocSource.id, 'end')
+    alignment.insertTokens('insert tokens', originTokens[1], 'next')
     await StorageController.update(alignment, true, false)
     alignmentDB = await StorageController.select({ userID, alignmentID: alignment.id }, 'alignmentByAlIDQuery') 
 
+    // console.info(alignmentDB.tokens.map(token => { return { textType: token.textType, idWord: token.idWord, word: token.word, hasLineBreak: token.hasLineBreak } }))
+
     expect(alignmentDB.tokens.length).toEqual(7)
+
     expect(alignmentDB.tokens).toEqual(expect.arrayContaining([expect.objectContaining({
       textType: 'origin', word: 'insert'
     })]))
+
     expect(alignmentDB.tokens).toEqual(expect.arrayContaining([expect.objectContaining({
       textType: 'origin', word: 'tokens'
     })]))
@@ -532,18 +635,17 @@ describe('storage-controller.test.js', () => {
     expect(alignmentDB.tokens).toEqual(expect.arrayContaining([expect.objectContaining({
       textType: 'origin', word: 'tokens'
     })]))
-
     StorageController.clear()
   })
 
-  it('7 StorageController - use case - move tokens to segment in IndexedDB', async () => {
+  it('12 StorageController - use case - move tokens to segment in IndexedDB', async () => {
     StorageController.definedDBAdapter()
     const alignment = new Alignment()
     const originDocSource = new SourceText('origin', {
-      text: 'origin test text\u2028second origin segment', sourceType: 'text', lang: 'grc', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'origin test text\u2028second origin segment', sourceType: 'text', lang: 'grc', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
     const targetDocSource = new SourceText('target', {
-      text: 'target test text\u2028second target segment', sourceType: 'text', lang: 'aha', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'target test text\u2028second target segment', sourceType: 'text', lang: 'aha', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
 
     alignment.updateOriginDocSource(originDocSource)

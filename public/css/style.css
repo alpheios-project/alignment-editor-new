@@ -23,6 +23,11 @@ body, html {
     /* padding: 0 10px 0 35px;*/
 }
 
+.header-logo {
+    cursor: pointer;
+}
+
+
 .header-logo img {
     display: block;
     height: 100%;

@@ -7,12 +7,12 @@
             {{ alData.updatedDT }}
           </td>
           <td class="alpheios-alignment-editor-alignments-table_link" @click="uploadAlignmentFromDB(alData)">
-            {{ alData.langsList }}
+            {{ alData.title || alData.langsList }}
           </td>
-          <td class="alpheios-alignment-editor-alignments-table_link" @click="uploadAlignmentFromDB(alData)">
+          <td class="alpheios-alignment-editor-alignments-table_link alpheios-alignment-editor-alignments-table_has_tokens" @click="uploadAlignmentFromDB(alData)">
             {{ formatHasTokens(alData.hasTokens) }}
           </td>
-          <td class="alpheios-alignment-editor-alignments-table_delete-icon">
+          <td class="alpheios-alignment-editor-alignments-table_delete-icon" v-if="!menuVersion">
             <span :id="removeId(alData)" class="alpheios-alignment-editor-alignments-table_delete-icon_span" @click="deleteAlignmentFromDB(alData)">
               <delete-icon />
             </span>
@@ -20,7 +20,7 @@
         </tr>
     </table>
 
-    <p class="alpheios-alignment-editor-alignments-clear-all" v-if="alignments.length > 0">
+    <p class="alpheios-alignment-editor-alignments-clear-all" v-if="!menuVersion && alignments.length > 0">
       <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click="clearAllAlignments">Clear Alignments</button>
     </p>
   </div>
@@ -35,6 +35,11 @@ export default {
     deleteIcon: DeleteIcon
   },
   props: {
+    menuVersion: {
+      type: Boolean,
+      required: false,
+      default: false
+    }
   },
   data () {
     return {
@@ -96,6 +101,10 @@ export default {
         &.alpheios-alignment-editor-alignments-table_dt {
             min-width: 144px;
             text-decoration: underline; 
+        }
+
+        &.alpheios-alignment-editor-alignments-table_has_tokens {
+            min-width: 80px;
         }
 
     }

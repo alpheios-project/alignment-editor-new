@@ -5,6 +5,18 @@ export default class Metadata {
     this.properties = {}
   }
 
+  static get groups () {
+    return {
+      alpheios: { key: 'alpheios', label: 'Alpheios', order: 1 },
+      dublin: { key: 'dublin', label: 'Dublin Core', order: 2 },
+      common: { key: 'common', label: 'Common', order: 0 }
+    }
+  }
+
+  static get commonGroupLabel () {
+    return 'common'
+  }
+
   get isEmpty () {
     return Object.values(MetadataTerm.property).every(property => !this.hasProperty(property))
   }
@@ -14,7 +26,7 @@ export default class Metadata {
   }
 
   hasProperty (property) {
-    return Boolean(this.properties[property.label])
+    return Boolean(this.properties[property.id])
   }
 
   addProperty (property, value, metaId) {
@@ -23,10 +35,10 @@ export default class Metadata {
     }
 
     if (!this.hasProperty(property) && value) {
-      this.properties[property.label] = new MetadataTerm(property, value, metaId)
+      this.properties[property.id] = new MetadataTerm(property, value, metaId)
       return true
     } else if (this.hasProperty(property)) {
-      if (value) { this.getProperty(property).saveValue(value) } else { delete this.properties[property.label] }
+      if (value) { this.getProperty(property).saveValue(value) } else { delete this.properties[property.id] }
       return true
     }
     return false
@@ -40,13 +52,13 @@ export default class Metadata {
     metadataItem.deleteValueByIndex(termValIndex)
 
     if (metadataItem.getValue().length === 0) {
-      delete this.properties[metadataItem.property.label]
+      delete this.properties[metadataItem.property.id]
     }
     return true
   }
 
   getProperty (property) {
-    return this.properties[property.label]
+    return this.properties[property.id]
   }
 
   getPropertyValue (property) {
@@ -56,18 +68,23 @@ export default class Metadata {
     return null
   }
 
-  get allAvailableMetadata () {
-    const allMeta = {}
+  allAvailableMetadata (textType) {
+    const allMeta = Object.assign({}, Metadata.groups)
+    Object.values(allMeta).forEach(metaGroupItem => { metaGroupItem.items = [] })
 
     Object.values(MetadataTerm.property).forEach(property => {
-      allMeta[property.label] = this.hasProperty(property) ? this.getProperty(property) : { template: true, property, value: (property.multivalued ? [null] : null) }
+      if (!property.limitedFor || (property.limitedFor === textType)) {
+        allMeta[property.group].items.push(this.hasProperty(property) ? this.getProperty(property) : { template: true, property, value: (property.multivalued ? [null] : null) })
+      }
     })
+
+    Object.values(allMeta).forEach(metaGroup => { metaGroup.items.sort((a, b) => a.property.order - b.property.order) })
     return allMeta
   }
 
-  convertToJSON () {
+  convertToJSON (textType) {
     return {
-      properties: Object.values(this.properties).map(prop => prop.convertToJSON())
+      properties: Object.values(this.properties).map(prop => prop.convertToJSON(textType))
     }
   }
 
@@ -76,7 +93,15 @@ export default class Metadata {
   }
 
   convertToShortJSONLine () {
-    const propsToShow = ['TITLE', 'CREATOR', 'DATE_COPYRIGHTED']
+    const propsToShow = ['TITLE', 'CREATOR', 'DATE_COPYRIGHTED', 'ALPH_AUTHOR', 'ALPH_TRANSLATOR']
+    const propsValues = propsToShow.map(prop => this.getPropertyValue(MetadataTerm.property[prop])).filter(value => value)
+
+    const result = propsValues.length > 0 ? propsValues.join('; ') : ''
+    return result || this.convertToFilterTitle()
+  }
+
+  convertToFilterTitle () {
+    const propsToShow = ['FILTER_BUTTON']
     const propsValues = propsToShow.map(prop => this.getPropertyValue(MetadataTerm.property[prop])).filter(value => value)
 
     return propsValues.length > 0 ? propsValues.join('; ') : ''
@@ -91,9 +116,9 @@ export default class Metadata {
     return metadata
   }
 
-  convertToIndexedDB () {
+  convertToIndexedDB (textType) {
     return {
-      properties: Object.values(this.properties).map(prop => prop.convertToIndexedDB())
+      properties: Object.values(this.properties).map(prop => prop.convertToIndexedDB(textType))
     }
   }
 

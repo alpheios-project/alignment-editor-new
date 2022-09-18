@@ -4,9 +4,9 @@
         <span class="alpheios-alignment-text-editor-block__part alpheios-alignment-text-editor-block__part-1">
           <span class="alpheios-alignment-text-editor-block__header-link" @click="$emit('showSourceTextEditor')">{{ l10n.getMsgS('TEXT_EDITOR_LINK') }}</span>
           <span class="alpheios-alignment-text-editor-block__header-label">{{ l10n.getMsgS('ALIGN_EDITOR_HEADING') }}</span>
-          <span class="alpheios-alignment-text-editor-block__header-link" @click="$emit('showTokensEditor')">{{ l10n.getMsgS('TOKENS_EDITOR_LINK') }}</span>
+          <span class="alpheios-alignment-text-editor-block__header-link" v-if="tokensEditAvailable" @click="$emit('showTokensEditor')">{{ l10n.getMsgS('TOKENS_EDITOR_LINK') }}</span>
           
-          <div class="alpheios-alignment-toggle-block alpheios-alignment-annotation-mode-check-container">
+          <div class="alpheios-alignment-toggle-block alpheios-alignment-annotation-mode-check-container" v-if="enableAnnotationsValue">
             <label class="alpheios-switch">
               <input type="checkbox" v-model="annotationMode" id="alpheios-alignment-annotation-mode-check">
               <span class="alpheios-slider alpheios-round"></span>
@@ -16,16 +16,26 @@
 
 
         </span>
-        <span class="alpheios-alignment-text-editor-block__part alpheios-alignment-text-editor-block__part-2">
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-help"
-              @click="$modal.show('help-align')">
-              {{ l10n.getMsgS("ALIGN_EDITOR_HELP") }}
-          </button>
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-options"
-              @click="$modal.show('options-align')" :disabled="true">
-              {{ l10n.getMsgS("ALIGN_EDITOR_OPTIONS") }}
-          </button>
+        
+        <span class="alpheios-alignment-text-editor-block-buttons__part alpheios-alignment-text-editor-block__part-2">
+          <tooltip :tooltipText = "l10n.getMsgS('TEXT_EDITOR_HEADER_HELP')" tooltipDirection = "top">
+            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-help"
+                @click="$modal.show('help-align')">
+                <span class="alpheios-alignment-button-icon">
+                  <question-icon />
+                </span>
+            </button>
+          </tooltip>
+          <tooltip :tooltipText = "l10n.getMsgS('TEXT_EDITOR_HEADER_OPTIONS')" tooltipDirection = "top">
+            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-options"
+                @click="$modal.show('options-align')" >
+                <span class="alpheios-alignment-button-icon">
+                  <gear-icon />
+                </span>
+            </button>
+          </tooltip>
         </span>
+
         <span class="alpheios-alignment-text-editor-block__part alpheios-alignment-text-editor-block__part-3">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-save"
               @click="$modal.show('save-align')">
@@ -47,8 +57,6 @@
   </div>
 </template>
 <script>
-import Vue from '@vue-runtime'
-
 import AlignEditorViewMode from '@/vue/align-editor/align-editor-view-mode.vue'
 
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
@@ -56,8 +64,13 @@ import HelpPopup from '@/vue/common/help-popup.vue'
 import SavePopup from '@/vue/common/save-popup.vue'
 import OptionsTextAlign from '@/vue/options/options-text-align.vue'
 import AnnotationBlockPopup from '@/vue/align-editor/annotation-block.vue'
+import SettingsController from '@/lib/controllers/settings-controller.js'
+import Tooltip from '@/vue/common/tooltip.vue'
 
 import HelpBlockAlign from '@/vue/help-blocks/eng/help-block-align.vue'
+
+import QuestionIcon from '@/inline-icons/question.svg'
+import GearIcon from '@/inline-icons/gear.svg'
 
 export default {
   name: 'AlignEditor',
@@ -67,7 +80,11 @@ export default {
     savePopup: SavePopup,
     helpBlockAlign: HelpBlockAlign,
     optionsTextAlignPopup: OptionsTextAlign,
-    annotationBlockPopup: AnnotationBlockPopup
+    annotationBlockPopup: AnnotationBlockPopup,
+    tooltip: Tooltip,
+
+    questionIcon: QuestionIcon,
+    gearIcon: GearIcon
   },
   props: {
   },
@@ -87,6 +104,19 @@ export default {
     renderAlignEditor ()  {
       this.annotationMode = false
       return this.$store.state.alignmentUpdated && this.$store.state.uploadCheck &&this.$alignedGC.alignmentGroupsWorkflowStarted
+    },
+    enableTokensEditorOptionItemValue () {
+      return this.$store.state.optionsUpdated && SettingsController.enableTokensEditor
+    },
+    useModeStructureValue () {
+      return this.$store.state.optionsUpdated && SettingsController.useModeStructure
+    },
+    tokensEditAvailable () {
+      return this.enableTokensEditorOptionItemValue
+    },
+    enableAnnotationsValue () {
+      if (!this.useModeStructureValue || !SettingsController.enableAnnotations) { this.annotationMode = false }
+      return this.$store.state.optionsUpdated && SettingsController.enableAnnotations && this.useModeStructureValue
     }
   },
   methods: {

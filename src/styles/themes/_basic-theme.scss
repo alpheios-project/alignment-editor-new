@@ -41,12 +41,14 @@
     .alpheios-menu-button,
     .alpheios-actions-menu-button,
     .alpheios-options-button,
-    .alpheios-align-text-segment-button {
+    .alpheios-align-text-segment-button,
+    .alpheios-alignment-option-item__label-info  {
         color: map.get($theme, 'main-menu-text-color');
         background: map.get($theme, 'main-menu-background-color');
         border-color: map.get($theme, 'main-menu-border-color');
+        font-family: "Source Serif Pro",serif;
 
-        &:hover {
+        &:hover, &.alpheios-active {
             color: map.get($theme, 'main-menu-text-color-hover');
             background: map.get($theme, 'main-menu-background-color-hover');
             border-color: map.get($theme, 'main-menu-border-color-hover');
@@ -175,6 +177,12 @@
             }
 
             &.alpheios-token-clicked-first {
+                color: map.get($theme, 'align-editor-text-color-first-active');
+                border-color: map.get($theme, 'align-editor-text-border-color-first-active');
+                background: map.get($theme, 'align-editor-text-background-color-first-active');
+            }
+
+            &.alpheios-token-clicked-first-text {
                 color: map.get($theme, 'align-editor-text-color-first-active');
                 border-color: map.get($theme, 'align-editor-text-border-color-first-active');
                 background: map.get($theme, 'align-editor-text-background-color-first-active');

@@ -20,6 +20,11 @@
         "description": "An error message for upload data from file.",
         "component": "TextsController"
     },
+    "TEXTS_CONTROLLER_INCORRECT_DB_DATA": {
+        "message": "This alignment data is corrupted in database and could not be uploaded.",
+        "description": "An error message for upload data from database.",
+        "component": "TextsController"
+    },
     "TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP": {
         "message": "You should start from defining original text first.",
         "description": "An error message creating alignment.",
@@ -32,6 +37,11 @@
     },
     "ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS": {
         "message": "The tokenization process was cancelled because original and translation texts don't have the same amount of segments.",
+        "description": "An error message creating alignment.",
+        "component": "AlignedGroupsController"
+    },
+    "ALIGNED_CONTROLLER_NOT_FINISHED_GROUP": {
+        "message": "You have an unfinished alignment group. You should finish it or undone first and then go to the next tab.",
         "description": "An error message creating alignment.",
         "component": "AlignedGroupsController"
     },
@@ -74,10 +84,15 @@
         "component": "TokenEditController"
     },
     "UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE": {
-        "message": "File extension {extension} is not supported. Use the following - {availableExtensions}.",
+        "message": "File extension {extension} is not supported. The only supported file extensions are .txt and .xml.",
         "description": "An error message for upload workflow",
-        "component": "TextsController",
-        "params": ["extension", "availableExtensions"]
+        "component": "UploadController",
+        "params": ["extension"]
+    },
+    "UPLOAD_CONTROLLER_INCORRECT_XML_DATA": {
+        "message": "This xml file does not have AlpheiosV1 format and could not be uploaded.",
+        "description": "An error message for upload data from xml file.",
+        "component": "UploadController"
     },
     "DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL": {
         "message": "Short to tsv",
@@ -85,7 +100,7 @@
         "component": "DownloadController"
     },
     "DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL": {
-        "message": "Full to json",
+        "message": "Json",
         "description": "Download type label",
         "component": "DownloadController"
     },
@@ -95,7 +110,7 @@
         "component": "DownloadController"
     },
     "DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP": {
-        "message": "download source texts, tokens and segments, alignment groups",
+        "message": "Download all data needed to resume editing",
         "description": "Download type tooltip",
         "component": "DownloadController"
     },
@@ -105,8 +120,28 @@
         "component": "DownloadController"
     },
     "DOWNLOAD_CONTROLLER_TYPE_HTML_TOOLTIP": {
-        "message": "download html with alignment result",
+        "message": "Download final result with multiple display options",
         "description": "Download type tooltip",
         "component": "DownloadController"
+    },
+    "DOWNLOAD_CONTROLLER_TYPE_CSV_LABEL": {
+        "message": "Csv",
+        "description": "Download type label",
+        "component": "DownloadController"
+    },
+    "DOWNLOAD_CONTROLLER_TYPE_CSV_TOOLTIP": {
+        "message": "Download just the alignment groups",
+        "description": "Download type tooltip",
+        "component": "DownloadController"
+    },
+    "APP_CONTROLLER_DOWNGRADE_TO_OFFLINE": {
+        "message": "Remote tokenizer is not available - Simple Local Tokenizer will be used instead",
+        "description": "Notification info",
+        "component": "AppController"
+    },
+    "APP_CONTROLLER_UPGRADE_TO_REMOTE": {
+        "message": "Remote tokenizer is available - let's turn on its support",
+        "description": "Notification info",
+        "component": "AppController"
     }
 }

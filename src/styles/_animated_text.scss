@@ -6,7 +6,9 @@
     text-shadow: 2px 2px 3px rgb(0 0 0 / 60%);
     font-family: "Source Serif Pro", serif;
     text-align: center;
-
+    @media screen and (max-width: 800px) {
+        display: none;
+    }
     span {
         display: inline-block;
     }

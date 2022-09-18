@@ -10,14 +10,22 @@ export default class AlignedText {
   constructor ({ docSource, tokenPrefix } = {}) {
     this.id = docSource.id
     this.textType = docSource.textType
-    this.direction = docSource.direction
+    this.direction = docSource.direction || this.defaultDirection
     this.lang = docSource.lang
 
     this.langName = this.defineLangName()
 
-    this.sourceType = docSource.sourceType
+    this.sourceType = docSource.sourceType || this.defaultSourceType
     this.tokenization = docSource.tokenization
     this.tokenPrefix = tokenPrefix || this.defaultTokenPrefix
+  }
+
+  get defaultDirection () {
+    return 'ltr'
+  }
+
+  get defaultSourceType () {
+    return 'text'
   }
 
   /**
@@ -71,6 +79,7 @@ export default class AlignedText {
 
       return true
     }
+    this.segments = []
     return false
   }
 
@@ -90,7 +99,7 @@ export default class AlignedText {
    * @param {Number} indexWord - used only for split = the order number of result tokens
    * @returns {String} - idWord
    */
-  getNewIdWord ({ segment, token, changeType, indexWord }) {
+  getNewIdWord ({ segment, token, changeType, indexWord } = {}) {
     const getNextIdWordMethod = TokenizeController.getNextTokenIdWordMethod(this.tokenization.tokenizer)
 
     return getNextIdWordMethod({
@@ -118,7 +127,7 @@ export default class AlignedText {
     const alignedText = new AlignedText({
       docSource: {
         id: data.textId,
-        textType: data.textType,
+        textType: data.textType || data.texttype,
         direction: data.direction,
         lang: data.lang,
         sourceType: data.sourceType,
@@ -176,6 +185,26 @@ export default class AlignedText {
     return alignedText
   }
 
+  static convertFromDataFromXML (xmlFormattedData) {
+    const alignedText = new AlignedText({
+      docSource: {
+        id: xmlFormattedData.docSourceId,
+        textType: xmlFormattedData.textType,
+        lang: xmlFormattedData.lang,
+        tokenization: {
+          tokenizer: 'alpheiosRemoteTokenizer',
+          segments: 'no segment'
+        }
+      }
+    })
+
+    alignedText.segments = [
+      Segment.convertFromDataFromXML(xmlFormattedData)
+    ]
+
+    return alignedText
+  }
+
   limitTokensToPartNum (partNum) {
     this.segments.forEach(segment => segment.limitTokensToPartNum(partNum))
   }
@@ -187,5 +216,24 @@ export default class AlignedText {
 
   get hasAllPartsUploaded () {
     return this.segments.every(segment => segment.hasAllPartsUploaded)
+  }
+
+  getSentenceFormattedByTokenIdWord (targetIdWords, segmentIndex) {
+    const firstIdWord = targetIdWords[0]
+
+    const segment = this.segments[segmentIndex - 1]
+    const token = segment.getTokenById(firstIdWord)
+
+    const sentenceIndex = token.sentenceIndex
+    const allTokensSentence = segment.getTokenFromSentenceByIndex(sentenceIndex).map(token => {
+      if ((targetIdWords.length === 1) && (firstIdWord === token.idWord)) {
+        return `[${token.word}]`
+      }
+      if (token.idWord === firstIdWord) { return `[${token.word}` }
+      if (token.idWord === targetIdWords[targetIdWords.length - 1]) { return `${token.word}]` }
+      return token.word
+    })
+
+    return allTokensSentence
   }
 }

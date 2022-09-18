@@ -11,8 +11,8 @@
               <segment-block textType = "origin"
                 :segmentData = "segmentData.origin" :segIndex = "segIndex" :maxHeight = "maxHeight"
                 :dir = "fullData.getDir('origin')" :lang = "fullData.getLang('origin')" 
-                :langName = "fullData.getLangName('origin')" :metadata = "fullData.getMetadata('origin')"
-                :hoveredGroupsId = "hoveredGroupsId" :shownTabs = "languageTargetIds"
+                :langName = "fullData.getLangName('origin')" :metadataShort = "fullData.getMetadataShort('origin')"
+                :hoveredGroupsId = "hoveredGroupsId" :shownTabs = "shownTabs"
                 @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
               />
             </div>
@@ -22,16 +22,16 @@
                 <div class="alpheios-al-editor-segment-block-text" v-if="hoveredTargetTokens" >
 
                   <div class="alpheios-al-editor-target-hovered-block"
-                    v-for = "(hoveredGroupData, hoveredGroupDataIndex) in hoveredTargetTokens" :key=" hoveredGroupDataIndex">
+                    v-for = "(hoveredGroupData, hoveredGroupDataIndex) in hoveredTargetTokens" :key="hoveredGroupDataIndex" :data-key="hoveredGroupDataIndex">
                       <span class="alpheios-al-editor-segment-block-text__langname">{{ targetLangName(hoveredGroupData) }}</span>
                       <div class="alpheios-al-editor-target-hovered-block_tokens">
                         <template v-for = "(token, tokenIndex) in hoveredGroupData.target">
-                            <token-block :key = "tokenIndex" :token="token" />
-                            <br v-if="token.hasLineBreak" />
+                            <token-block :key = "getIndex('target', tokenIndex, 'token')" :token="token" />
+                            <br v-if="token.hasLineBreak" :key = "getIndex('target', tokenIndex, 'br')" />
                         </template>
                       </div>
-                      <p class="alpheios-al-editor-target-hovered-block__metadata" v-if="hoveredGroupData.metadata">
-                        {{ hoveredGroupData.metadata }}
+                      <p class="alpheios-al-editor-target-hovered-block__metadata" v-if="hoveredGroupData.metadataShort">
+                        {{ hoveredGroupData.metadataShort }}
                       </p>
                   </div>
                 </div>
@@ -56,7 +56,7 @@ export default {
       type: Object,
       required: true
     },
-    languageTargetIds: {
+    identList: {
       type: Array,
       required: true
     }
@@ -68,6 +68,10 @@ export default {
     }
   },
   computed: {
+    shownTabs () {
+      this.hoveredGroupsId = null
+      return this.identList.filter(langData => !langData.hidden).map(langData => langData.targetId)
+    },
     allOriginSegments () {
       return GroupUtility.allOriginSegments(this.fullData)
     },
@@ -79,12 +83,13 @@ export default {
         const allHoveredTargetTokens = Object.keys(this.allAlGroups).filter(groupId => this.hoveredGroupsId.includes(groupId)).map(groupId => {
               return {
                 metadata: this.allAlGroups[groupId].metadata,
+                metadataShort: this.allAlGroups[groupId].metadataShort,
                 target: this.allAlGroups[groupId].target,
                 targetId: this.allAlGroups[groupId].targetId
               }
             })
-        return allHoveredTargetTokens.filter(groupData => this.languageTargetIds.includes(groupData.targetId)).sort((a, b) => {
-          return this.languageTargetIds.indexOf(a.targetId) - this.languageTargetIds.indexOf(b.targetId)
+        return allHoveredTargetTokens.filter(groupData => this.shownTabs.includes(groupData.targetId)).sort((a, b) => {
+          return this.shownTabs.indexOf(a.targetId) - this.shownTabs.indexOf(b.targetId)
         })
       }
 
@@ -95,12 +100,12 @@ export default {
       return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 150
     },
     maxHeight () {
-      const minHeight = 400
-      
+      const maxHeight = 400
+      const minHeight = 25
       if (this.allOriginSegments.length === 1) {
         return this.containerHeight
       } 
-      return Math.round(Math.min(minHeight, this.containerHeight/this.allOriginSegments.length))
+      return Math.max(minHeight, Math.round(Math.min(maxHeight, this.containerHeight/this.allOriginSegments.length)))
     }
   },
   methods: {
@@ -109,7 +114,7 @@ export default {
       return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
     },
     isShownTab (targetId) {
-      return this.languageTargetIds.includes(targetId)
+      return this.shownTabs.includes(targetId)
     },
     groupedToken (token) {
       return token.grouped && token.groupData.some(groupdataItem => this.isShownTab(groupdataItem.targetId))
@@ -213,3 +218,4 @@ export default {
     }
   }
 </style>
+

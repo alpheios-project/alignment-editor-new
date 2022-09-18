@@ -7,6 +7,7 @@
 @import "modal";
 @import "toggle-switch";
 @import "animated_text";
+@import "arrows";
 
 @import "themes/themes-styles";
 
@@ -15,13 +16,62 @@
         box-sizing: border-box;
     }
     font-family: 'Source Sans Pro', sans-serif;
-    // padding-bottom: 20px;
+    
+    textarea {
+        font-family: 'Source Sans Pro', sans-serif;
+    }
 }
 
+.alpheios-alignment-editor-app-container {
+    [lang=ara], [lang=per] {
+        font-family: Amiri, Verdana, Arial, Helvetica, serif;
+        font-variant-ligatures: normal;
+    }
+}
+.alpheios-alignment-editor-app-container [lang=syr] {
+  font-family: "Noto Sans Syriac", Verdana, Arial, Helvetica, serif;
+  font-variant-ligatures: normal;
+}
 
-body.alpheios-initial-page {
-    background-color: #bce5f0;
+.alpheios-alignment-editor-app-container {
+    [lang=rus], [lang=bel], [lang=ukr] {
+        font-family: "Times New Roman", Tinos, serif;
+        font-variant-ligatures: normal;
+    }
+}
 
+.alpheios-alignment-editor-app-container {
+    [lang=heb] {
+        font-family: Tinos, serif;
+        font-variant-ligatures: normal;
+    }
+}
+
+.alpheios-alignment-editor-app-container {
+    [lang=kor] {
+        font-family: "Noto Serif KR", serif;
+        font-variant-ligatures: normal;
+    }
+}
+
+.alpheios-alignment-editor-app-container {
+    [lang=jpn] {
+        font-family: 'Noto Serif JP', serif;
+        font-variant-ligatures: normal;
+    }
+}
+
+.alpheios-alignment-editor-app-container {
+    [lang=zho] {
+        font-family: 'Noto Serif TC', serif;
+        font-variant-ligatures: normal;
+    }
+}
+
+body.alpheios-initial-page,
+body.alpheios-quick-start-page,
+body.alpheios-whats-new-page,
+body.alpheios-video-tutorials-page {
     .header.alpheios-header {
         display: none;
     }
@@ -31,5 +81,9 @@ body.alpheios-initial-page {
             fill: #fff;
         }
     }
+}
+
+.alpehios-hide-readding-tools-toolbar .alpheios-toolbar {
+    display: none;
 }
 

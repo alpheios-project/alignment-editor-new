@@ -42,7 +42,7 @@ export default class DetectTextController {
 
     if (adapterDetectLangRes.errors.length > 0) {
       adapterDetectLangRes.errors.forEach(error => {
-        console.error(error)
+        console.error(error.message)
         NotificationSingleton.addNotification({
           text: error.message,
           type: NotificationSingleton.types.ERROR
@@ -64,8 +64,13 @@ export default class DetectTextController {
    * @returns {String} - tei/text
    */
   static checkXML (sourceText) {
-    const checkRegExp = new RegExp('</[ ]*tei[ ]*>', 'i')
-    return checkRegExp.test(sourceText.text) ? 'tei' : 'text'
+    const checkStartText = sourceText.text.substring(0, 20)
+    const checkRegExp1 = /^[ ]*</u
+
+    const checkEndText = sourceText.text.substring(sourceText.text.length - 20)
+    const checkRegExp2 = />[ ]*$/u
+
+    return checkRegExp1.test(checkStartText) && checkRegExp2.test(checkEndText) ? 'tei' : 'text'
   }
 
   /**

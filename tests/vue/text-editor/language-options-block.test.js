@@ -48,7 +48,7 @@ describe('language-options-block.test.js', () => {
           localOptions: localTextEditorOptions
         }
       })
-    expect(cmp.isVueInstance()).toBeTruthy()
+    expect(cmp.exists()).toBeTruthy()
   })
 
   it('2 LanguageOptionsBlock - renders optionItem', () => {

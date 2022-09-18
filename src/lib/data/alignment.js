@@ -22,7 +22,7 @@ import ConvertUtility from '@/lib/utility/convert-utility.js'
 export default class Alignment {
   /**
    */
-  constructor ({ id, createdDT, updatedDT, userID } = {}) {
+  constructor ({ id, createdDT, updatedDT, userID, title } = {}) {
     this.id = id || uuidv4()
     this.createdDT = createdDT || new Date()
 
@@ -49,10 +49,16 @@ export default class Alignment {
     this.tokensEditActions = new TokensEditActions({ origin: this.origin, targets: this.targets, tokensEditHistory: this.tokensEditHistory })
 
     this.tokensEditHistory.allStepActions = this.allStepActionsTokensEditor
+
+    this.title = title || `Project ${this.id}`
   }
 
   static get defaultUserID () {
     return 'defaultUserID'
+  }
+
+  updateAlignmentTitle (title) {
+    this.title = title
   }
 
   get langsList () {
@@ -85,8 +91,21 @@ export default class Alignment {
     return this.originDocSourceFullyDefined && this.targetDocSourceFullyDefined && !this.alignmentGroupsWorkflowAvailable
   }
 
+  /**
+   * Checks if the length of all source texts are not out of the limit, defined by the property
+   * @param {Number} maxCharactersPerTextValue
+   * @returns
+   */
   checkSize (maxCharactersPerTextValue) {
-    return this.origin.docSource && (Object.values(this.targets).length > 0) && this.origin.docSource.checkSize(maxCharactersPerTextValue) && Object.values(this.targets).every(target => target.docSource.checkSize(maxCharactersPerTextValue))
+    return this.checkSizeSourceId('origin', null, maxCharactersPerTextValue) && (Object.values(this.targets).length > 0) && Object.values(this.targets).every(target => this.checkSizeSourceId('target', target.docSource.id, maxCharactersPerTextValue))
+  }
+
+  checkSizeSourceId (textType, docSourceId, maxCharactersPerTextValue) {
+    if (textType === 'origin') {
+      return this.origin.docSource && this.origin.docSource.checkSize(maxCharactersPerTextValue)
+    } else {
+      return this.targets[docSourceId].docSource.checkSize(maxCharactersPerTextValue)
+    }
   }
 
   /**
@@ -120,7 +139,7 @@ export default class Alignment {
 
   createNewDocSource (textType, docSource, targetId = null, skipTextCheck = false) {
     if (skipTextCheck || (docSource.text && docSource.text.length > 0)) {
-      return new SourceText(textType, docSource, targetId)
+      return new SourceText(textType, docSource, targetId, docSource instanceof SourceText)
     }
     return false
   }
@@ -149,6 +168,7 @@ export default class Alignment {
 
     if (!this.originDocSourceDefined) {
       const docResult = this.createNewDocSource('origin', docSource)
+
       if (!docResult) { return false }
       this.origin.docSource = docResult
     } else {
@@ -187,7 +207,7 @@ export default class Alignment {
       docSource = this.createNewDocSource('target', docSource, targetId)
       if (!docSource) { return false }
 
-      this.targets[docSource.id] = { docSource: docSource }
+      this.targets[docSource.id] = { docSource }
     } else {
       this.targets[docSource.id].docSource.update(docSource)
     }
@@ -234,6 +254,9 @@ export default class Alignment {
     return this.origin.docSource ? this.origin.docSource : null
   }
 
+  /**
+   * @returns {Boolean} - true if origin has text bigger then 0
+   */
   get originDocSourceHasText () {
     return this.originDocSource && Boolean(this.originDocSource.text)
   }
@@ -376,6 +399,9 @@ export default class Alignment {
     return Object.keys(this.targets)
   }
 
+  /**
+   * @returns {Array[Object{ targetId: String, targetIndex: Number }]} - reverse order of targetsId with original index
+   */
   get allTargetTextsIdsNumbered () {
     return Object.keys(this.targets).map((targetId, targetIndex) => { return { targetId, targetIndex } }).reverse()
   }
@@ -586,7 +612,11 @@ export default class Alignment {
    * @returns {Boolean} yes - if token is in saved algnment groups, false - is not
    */
   tokenIsGrouped (token, limitByTargetId = null) {
-    return this.alignmentGroups.some(alGroup => alGroup.hasTheSameTargetId(limitByTargetId) && alGroup.includesToken(token))
+    if (Array.isArray(limitByTargetId)) {
+      return this.alignmentGroups.some(alGroup => limitByTargetId.some(targetId => alGroup.hasTheSameTargetId(targetId)) && alGroup.includesToken(token))
+    } else {
+      return this.alignmentGroups.some(alGroup => alGroup.hasTheSameTargetId(limitByTargetId) && alGroup.includesToken(token))
+    }
   }
 
   /**
@@ -609,6 +639,10 @@ export default class Alignment {
    */
   isFirstInActiveGroup (token, limitByTargetId) {
     return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.isFirstToken(token, limitByTargetId)
+  }
+
+  isFirstTextInActiveGroup (token, limitByTargetId) {
+    return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.isTextWithFirstToken(token, limitByTargetId)
   }
 
   /**
@@ -807,11 +841,17 @@ export default class Alignment {
   getTargetDataForTabs (targetIds) {
     const dataForTabs = {}
     targetIds.forEach(targetId => {
-      dataForTabs[targetId] = this.targets[targetId].alignedText.langName
+      const shortName = this.targets[targetId].docSource.metadata.convertToFilterTitle()
+      const langName = this.targets[targetId].alignedText.langName
+      const shortMeta = this.targets[targetId].docSource.metadata.convertToShortJSONLine()
 
-      const metadata = this.targets[targetId].docSource.metadata.convertToShortJSONLine()
-      if (metadata) {
-        dataForTabs[targetId] = `${dataForTabs[targetId]} - ${metadata}`
+      if (shortName) {
+        dataForTabs[targetId] = shortName
+      } else if (langName) {
+        dataForTabs[targetId] = langName
+        if (shortMeta) {
+          dataForTabs[targetId] = `${dataForTabs[targetId]} - ${shortMeta}`
+        }
       }
     })
     return dataForTabs
@@ -869,7 +909,8 @@ export default class Alignment {
     }
 
     const result = this.tokensEditActions.mergeToken(token, direction, this.annotations)
-    this.updateAnnotationLinksSingle(result.token, result.wasIdWord)
+    this.deleteAnnotations(result.wasIdWord[0])
+    this.deleteAnnotations(result.wasIdWord[1])
     this.setUpdated()
     return result
   }
@@ -880,9 +921,10 @@ export default class Alignment {
    * @returns {Boolean}
    */
   splitToken (token, tokenWord) {
-    const result = this.tokensEditActions.splitToken(token, tokenWord)
+    const result = this.tokensEditActions.splitToken(token, tokenWord, this.annotations[token.idWord])
 
-    this.updateAnnotationLinksSingle(result.token, [result.wasIdWord])
+    // delete this.annotations[result.wasIdWord]
+    this.deleteAnnotations(result.wasIdWord)
     this.setUpdated()
     return result
   }
@@ -931,8 +973,9 @@ export default class Alignment {
    * @param {String} textId - docSourceId
    * @param {String} insertType - start (insert to the start of the first segment), end (insert to the end of the last segment)
    */
-  insertTokens (tokensText, textType, textId, insertType) {
-    const result = this.tokensEditActions.insertTokens(tokensText, textType, textId, insertType)
+  insertTokens (tokensText, token, direction) {
+    const result = this.tokensEditActions.insertTokens(tokensText, token, direction)
+    this.updateAnnotationLinksSingle(token, [result.wasIdWord])
     this.setUpdated()
     return result
   }
@@ -944,7 +987,8 @@ export default class Alignment {
    */
   deleteToken (token) {
     const result = this.tokensEditActions.deleteToken(token, this.annotations[token.idWord])
-    delete this.annotations[token.idWord]
+    this.deleteAnnotations(token.idWord)
+    // delete this.annotations[token.idWord]
     this.setUpdated()
     return result
   }
@@ -955,7 +999,12 @@ export default class Alignment {
    * @returns {Boolean}
    */
   allowedMergePrev (token) {
-    return this.tokensEditActions.allowedMergePrev(token)
+    const result = this.tokensEditActions.getNextPrevToken(token, 'prev')
+    if (!result) {
+      return false
+    }
+
+    return this.isEditableToken(result.tokenResult) && this.tokensEditActions.allowedMergePrev(token)
   }
 
   /**
@@ -964,7 +1013,12 @@ export default class Alignment {
    * @returns {Boolean}
    */
   allowedMergeNext (token) {
-    return this.tokensEditActions.allowedMergeNext(token)
+    const result = this.tokensEditActions.getNextPrevToken(token, 'prev')
+    if (!result) {
+      return false
+    }
+
+    return this.isEditableToken(result.tokenResult) && this.tokensEditActions.allowedMergeNext(token)
   }
 
   /**
@@ -1033,11 +1087,24 @@ export default class Alignment {
 
   undoTokensEditStep () {
     const result = this.tokensEditHistory.undo()
+
+    if (result.data && result.data[0]) {
+      this.removeNewAnnotations(result.data[0].idWordNewAnnotations)
+    }
+
     if (result.data && result.data[0] && result.data[0].updateAnnotations) {
       if (result.data[0].type === 'multiple') {
         this.updateAnnotationLinksMultiple(result.data[0].newIdWord, { token: result.data[0].mergedToken, annotations: result.data[0].mergedAnnotations }, result.data[0].wasToken)
       } else if (result.data[0].type === 'local') {
-        this.updateAnnotationLinksLocal(result.data[0].token, result.data[0].annotations)
+        if (result.data[0].token) {
+          this.updateAnnotationLinksLocal(result.data[0].token, result.data[0].annotations)
+        }
+        if (result.data[0].mergedToken) {
+          this.updateAnnotationLinksLocal(result.data[0].mergedToken, result.data[0].annotations)
+        }
+        if (result.data[0].wasToken) {
+          this.updateAnnotationLinksLocal(result.data[0].wasToken, result.data[0].annotations)
+        }
       } else {
         this.updateAnnotationLinksSingle(result.data[0].token, result.data[0].wasIdWord)
       }
@@ -1047,16 +1114,52 @@ export default class Alignment {
 
   redoTokensEditStep () {
     const result = this.tokensEditHistory.redo()
+
     if (result.data && result.data[0] && result.data[0].updateAnnotations) {
       if (result.data[0].type === 'multiple') {
         this.updateAnnotationLinksMultiple(result.data[0].newIdWord, { token: result.data[0].mergedToken, annotations: result.data[0].mergedAnnotations }, result.data[0].wasToken)
       } if (result.data[0].type === 'delete') {
-        this.deleteAnnotations(result.data[0].token)
+        if (result.data[0].wasIdWord) {
+          result.data[0].wasIdWord.forEach(idWord => this.deleteAnnotations(idWord))
+        } else {
+          this.deleteAnnotations(result.data[0].token.idWord)
+        }
       } else {
         this.updateAnnotationLinksSingle(result.data[0].token, result.data[0].wasIdWord)
       }
     }
+
+    if (result.data && result.data[0]) {
+      const idWords = Array.isArray(result.data[0].idWordNewAnnotations) ? result.data[0].idWordNewAnnotations : [result.data[0].idWordNewAnnotations]
+      idWords.forEach(idWord => this.uploadNewAnnotations(idWord, result.data[0].newAnnotations))
+    }
     return result
+  }
+
+  removeNewAnnotations (idWords) {
+    if (!Array.isArray(idWords)) { idWords = [idWords] }
+
+    for (let i = 0; i < idWords.length; i++) {
+      const idWord = idWords[i]
+
+      if (!this.annotations[idWord]) { continue }
+
+      this.tokensEditHistory.updateLastStepWithAnnotations(this.annotations, idWord)
+      this.annotations[idWord] = this.annotations[idWord].filter(annot => annot.tokenIdWordCreated !== idWord)
+      if (this.annotations[idWord].length === 0) {
+        delete this.annotations[idWord]
+      }
+    }
+  }
+
+  uploadNewAnnotations (idWord, annotations) {
+    if (!annotations || !annotations[idWord]) { return }
+
+    if (!this.annotations[idWord]) {
+      this.annotations[idWord] = []
+    }
+
+    this.annotations[idWord].push(...annotations[idWord])
   }
 
   /**
@@ -1113,6 +1216,9 @@ export default class Alignment {
     }
   }
 
+  /**
+   * Convert existed alignment to JSON format for download
+   */
   convertToJSON () {
     const origin = {
       docSource: this.origin.docSource.convertToJSON(),
@@ -1137,6 +1243,7 @@ export default class Alignment {
       createdDT: ConvertUtility.convertDateToString(this.createdDT),
       updatedDT: ConvertUtility.convertDateToString(this.updatedDT),
       userID: this.userID,
+      title: this.title,
       origin,
       targets,
       alignmentGroups,
@@ -1144,11 +1251,15 @@ export default class Alignment {
     }
   }
 
+  /*
+  * Convert from our JSON format to an alignment object
+  */
   static convertFromJSON (data) {
+    if (!data.origin) { return }
     const createdDT = ConvertUtility.convertStringToDate(data.createdDT)
     const updatedDT = ConvertUtility.convertStringToDate(data.updatedDT)
     const alignment = new Alignment({
-      id: data.id, createdDT, updatedDT, userID: data.userID
+      id: data.id, createdDT, updatedDT, userID: data.userID, title: data.title
     })
 
     alignment.origin.docSource = SourceText.convertFromJSON('origin', data.origin.docSource)
@@ -1185,6 +1296,124 @@ export default class Alignment {
     return alignment
   }
 
+  static extractShortFromJSON (data) {
+    if (!data.origin) { return }
+    const updatedDT = Date.parse(data.updatedDT)
+    return {
+      id: data.id, updatedDT
+    }
+  }
+
+  /*
+  * Convert from Ugarit (Alpheios v1 format) to Alignment object
+  */
+  static convertFromXML (xmlDoc) {
+    const alignment = new Alignment()
+    const docLangs = xmlDoc.getElementsByTagName('language')
+
+    if (docLangs.length > 1) {
+      const texts = { origin: [], targets: {} }
+      const segmentsData = { origin: {}, target: {} }
+      const ids = { origin: '', targets: [] }
+      const groups = {}
+
+      alignment.origin.docSource = SourceText.convertFromXML(xmlDoc, 0)
+
+      ids.origin = alignment.origin.docSource.id
+      for (let i = 1; i < docLangs.length; i++) {
+        const targetSourceDoc = SourceText.convertFromXML(xmlDoc, i)
+        alignment.targets[targetSourceDoc.id] = { docSource: targetSourceDoc }
+
+        texts.targets[targetSourceDoc.id] = ''
+        ids.targets.push(targetSourceDoc.id)
+      }
+
+      const sentences = xmlDoc.getElementsByTagName('sentence')
+      for (let i = 0; i < sentences.length; i++) {
+        const curSentence = sentences[i]
+
+        const docsSent = curSentence.getElementsByTagName('wds')
+        const numSent = parseInt(curSentence.getAttribute('n'))
+
+        for (let j = 0; j < docsSent.length; j++) {
+          const curId = docsSent[j].getAttribute('lnum')
+          const textType = (curId === ids.origin) ? 'origin' : 'target'
+          const lang = (textType === 'origin') ? alignment.origin.docSource.lang : alignment.targets[curId].docSource.lang
+
+          if (!segmentsData[textType][curId]) {
+            segmentsData[textType][curId] = { index: numSent, textType, lang, docSourceId: curId, tokens: [] }
+          }
+
+          const segmentItem = segmentsData[textType][curId]
+
+          const words = docsSent[j].getElementsByTagName('w')
+          for (let k = 0; k < words.length; k++) {
+            const idWord = words[k].getAttribute('n')
+            let word = words[k].getElementsByTagName('text')[0].textContent
+            if (word === '###') {
+              word = '\n'
+              segmentItem.tokens[segmentItem.tokens.length - 1].hasLineBreak = true
+            } else {
+              segmentItem.tokens.push({
+                textType, idWord, word, segmentIndex: numSent, docSourceId: curId
+              })
+            }
+
+            if (textType === 'origin') {
+              texts.origin.push(word)
+
+              const refs = words[k].getElementsByTagName('refs')[0].getAttribute('nrefs').trim()
+
+              if (refs.length > 0) {
+                const textsRefs = refs.split('|')
+                const textsRefsItems = textsRefs.map(itemsString => itemsString.trim().split(' '))
+
+                textsRefs.forEach((refTextString, index) => {
+                  const title = refTextString.trim()
+                  if (title.length > 0) {
+                    if (!groups[title]) {
+                      groups[title] = {
+                        actions: {
+                          origin: [],
+                          target: textsRefsItems[index],
+                          targetId: ids.targets[index],
+                          segmentIndex: numSent
+                        }
+                      }
+                    }
+                    groups[title].actions.origin.push(idWord)
+                  }
+                })
+              }
+            } else {
+              if (!texts.targets[curId]) { texts.targets[curId] = [] }
+              texts.targets[curId].push(word)
+            }
+          }
+        }
+      }
+
+      alignment.origin.docSource.update({ text: texts.origin.join(' ') })
+      Object.keys(texts.targets).forEach(docId => alignment.targets[docId].docSource.update({ text: texts.targets[docId].join(' ') }))
+
+      alignment.origin.alignedText = AlignedText.convertFromDataFromXML(segmentsData.origin[ids.origin])
+
+      ids.targets.forEach(idTarget => {
+        alignment.targets[idTarget].alignedText = AlignedText.convertFromDataFromXML(segmentsData.target[idTarget])
+      })
+
+      if (Object.keys(groups).length > 0) {
+        Object.values(groups).forEach(alGroup => alignment.alignmentGroups.push(AlignmentGroup.convertFromJSON(alGroup)))
+      }
+    }
+
+    return alignment
+  }
+
+  /*
+  * Convert Alignment object to IndexedDB format
+  */
+
   convertToIndexedDB ({ textAsBlob } = {}) {
     const origin = {
       docSource: this.origin.docSource.convertToIndexedDB(textAsBlob)
@@ -1219,6 +1448,7 @@ export default class Alignment {
       updatedDT: ConvertUtility.convertDateToString(this.updatedDT),
       userID: this.userID,
       langsList: this.langsList,
+      title: this.title,
       hasTokens,
       origin,
       targets,
@@ -1230,8 +1460,9 @@ export default class Alignment {
   static async convertFromIndexedDB (dbData) {
     const createdDT = ConvertUtility.convertStringToDate(dbData.createdDT)
     const updatedDT = ConvertUtility.convertStringToDate(dbData.updatedDT)
+
     const alignment = new Alignment({
-      id: dbData.alignmentID, createdDT, updatedDT, userID: dbData.userID
+      id: dbData.alignmentID, createdDT, updatedDT, userID: dbData.userID, title: dbData.title
     })
 
     if (dbData.docSource) {
@@ -1261,18 +1492,20 @@ export default class Alignment {
 
     if (dbData.annotations) {
       dbData.annotations.forEach(annotData => {
-        if (annotData.tokenData) {
-          if (!alignment.annotations[annotData.tokenData.idWord]) {
-            alignment.annotations[annotData.tokenData.idWord] = []
-          }
+        if (annotData.tokenData && annotData.tokenData.idWord) {
           const token = alignment.findTokenByTokenShortJSON(annotData.tokenData)
+          if (token) {
+            if (!alignment.annotations[annotData.tokenData.idWord]) {
+              alignment.annotations[annotData.tokenData.idWord] = []
+            }
 
-          alignment.annotations[annotData.tokenData.idWord].push(Annotation.convertFromJSON(annotData, token))
+            alignment.annotations[annotData.tokenData.idWord].push(Annotation.convertFromJSON(annotData, token))
+          }
         }
       })
     }
 
-    if (alignment.origin.alignedText) {
+    if (alignment.origin && alignment.origin.alignedText) {
       document.dispatchEvent(new Event('AlpheiosAlignmentGroupsWorkflowStarted'))
     }
     return alignment
@@ -1285,23 +1518,31 @@ export default class Alignment {
 
       targets[targetId].metadata = this.targets[targetId].docSource.metadata.convertToJSONLine()
       targets[targetId].metadataShort = this.targets[targetId].docSource.metadata.convertToShortJSONLine()
+      targets[targetId].filterButtonTitle = this.targets[targetId].docSource.convertToFilterTitle()
     })
 
     let origin = this.origin.alignedText.convertToHTML() // eslint-disable-line prefer-const
     origin.metadata = this.origin.docSource.metadata.convertToJSONLine()
     origin.metadataShort = this.origin.docSource.metadata.convertToShortJSONLine()
+    origin.filterButtonTitle = this.origin.docSource.convertToFilterTitle()
 
     const collectGroupData = (token) => {
       token.grouped = this.tokenIsGrouped(token)
       if (token.grouped) {
         const tokenGroups = this.findAllAlignmentGroups(token)
+
         if (!token.groupData) { token.groupData = [] }
         tokenGroups.forEach(tokenGroup => {
-          token.groupData.push({
+          const groupDataItem = {
             groupId: tokenGroup.id,
             targetId: tokenGroup.targetId
-          })
+          }
+          token.groupData.push(groupDataItem)
         })
+
+        if (!token.groupDataTrans && (token.textType === 'origin')) {
+          token.groupDataTrans = this.collectGroupedTranslationWordsToken(token, tokenGroups)
+        }
       }
     }
 
@@ -1329,6 +1570,117 @@ export default class Alignment {
     })
 
     return JSON.stringify({ origin, targets })
+  }
+
+  convertToCSV () {
+    const exportFields = ['col1', 'col2']
+
+    const fields = []
+    fields.push({ col1: this.title })
+    fields.push({ col1: this.origin.docSource.convertToFilterTitle() })
+
+    const formattedGroupData = this.prepareAlGroupsData()
+
+    this.allTargetTextsIds.slice(0, 1).forEach(targetId => {
+      fields.push({ col1: this.targets[targetId].docSource.convertToFilterTitle() })
+
+      fields.push({ col1: 'T1 Short matches:' })
+      formattedGroupData[targetId].short.forEach(groupData => {
+        fields.push({ col1: groupData.origin, col2: groupData.target })
+      })
+      fields.push({ col1: '\n' })
+
+      fields.push({ col1: 'T1 Equivalents:' })
+      Object.values(formattedGroupData[targetId].equivalents).forEach(groupData => {
+        fields.push({
+          col1: groupData.origin,
+          col2: Object.values(groupData.targetKeys).map(targetKeyData => `${targetKeyData.target}${targetKeyData.cnt > 1 ? '(' + targetKeyData.cnt + ')' : ''}`).join(' ')
+        })
+      })
+
+      fields.push({ col1: '\n' })
+
+      fields.push({ col1: 'T1 Sentences:' })
+      formattedGroupData[targetId].sentences.forEach(groupData => {
+        fields.push({ col1: groupData.origin, col2: groupData.target })
+      })
+      fields.push({ col1: '\n' })
+    })
+
+    return { exportFields, fields }
+  }
+
+  prepareAlGroupsData () {
+    const groups = {}
+
+    this.alignmentGroups.forEach(alGroup => {
+      const alGroupOrigin = alGroup.originWords.join(' ')
+      const alGroupTarget = alGroup.translationWords.length > 1 ? `{${alGroup.translationWords.join(' ')}}` : alGroup.translationWords[0]
+
+      if (!groups[alGroup.targetId]) {
+        groups[alGroup.targetId] = { short: [], equivalents: {}, sentences: [] }
+      }
+
+      // short
+      groups[alGroup.targetId].short.push({
+        origin: alGroupOrigin,
+        target: alGroupTarget
+      })
+
+      // equivalents
+      if (!groups[alGroup.targetId].equivalents[alGroupOrigin]) {
+        groups[alGroup.targetId].equivalents[alGroupOrigin] = { origin: alGroupOrigin, target: [], targetKeys: {} }
+      }
+
+      groups[alGroup.targetId].equivalents[alGroupOrigin].target.push(alGroupTarget)
+
+      if (!groups[alGroup.targetId].equivalents[alGroupOrigin].targetKeys[alGroupTarget]) {
+        groups[alGroup.targetId].equivalents[alGroupOrigin].targetKeys[alGroupTarget] = { cnt: 0, target: alGroupTarget }
+      }
+
+      groups[alGroup.targetId].equivalents[alGroupOrigin].targetKeys[alGroupTarget].cnt++
+
+      // sentences
+      const allTokensSentence = this.targets[alGroup.targetId].alignedText.getSentenceFormattedByTokenIdWord(alGroup.target, alGroup.segmentIndex)
+      groups[alGroup.targetId].sentences.push({ origin: alGroupOrigin, target: allTokensSentence.join(' ') })
+    })
+    return groups
+  }
+
+  collectGroupedTranslationWordsToken (originToken, allTokenGroups) {
+    const groupData = []
+    allTokenGroups.forEach(tokenGroup => {
+      const groupDataItem = {
+        groupId: tokenGroup.id,
+        targetId: tokenGroup.targetId
+      }
+      groupDataItem.targetLang = this.targets[tokenGroup.targetId].docSource.lang
+      groupDataItem.word = tokenGroup.translationWordForToken(originToken.idWord)
+      groupData.push(groupDataItem)
+    })
+
+    const allTragetIds = this.allGroupedTargetIds
+    const groupTargetIds = groupData.map(groupDataItem => groupDataItem.targetId)
+
+    if (allTragetIds.length > groupTargetIds.length) {
+      allTragetIds.forEach(targetId => {
+        if (!groupTargetIds.includes(targetId)) {
+          groupData.push({
+            targetId,
+            targetLang: this.targets[targetId].docSource.lang
+          })
+        }
+      })
+    }
+
+    const allTargetTextsIdsForSorting = this.allTargetTextsIds
+    groupData.sort((a, b) => allTargetTextsIdsForSorting.indexOf(a.targetId) - allTargetTextsIdsForSorting.indexOf(b.targetId))
+    return groupData
+  }
+
+  get allGroupedTargetIds () {
+    const groupedTargetIds = this.alignmentGroups.map(alGroup => alGroup.targetId)
+    return groupedTargetIds.filter((item, pos) => groupedTargetIds.indexOf(item) === pos)
   }
 
   findTokenByTokenShortJSON ({ textType, idWord, segmentIndex, docSourceId }) {
@@ -1416,7 +1768,8 @@ export default class Alignment {
     for (let i = 0; i < fromIdWord.length; i++) {
       if (this.annotations[fromIdWord[i]]) {
         annotations.push(...this.annotations[fromIdWord[i]])
-        delete this.annotations[fromIdWord[i]]
+        // delete this.annotations[fromIdWord[i]]
+        this.deleteAnnotations(fromIdWord[i])
       }
     }
     this.annotations[token.idWord] = annotations
@@ -1437,21 +1790,30 @@ export default class Alignment {
         this.annotations[token2.idWord] = annotationsForToken2
         this.annotations[token2.idWord].forEach(annot => { annot.token = token2 })
       }
-      delete this.annotations[fromIdWord]
+      // delete this.annotations[fromIdWord]
+      this.deleteAnnotations(fromIdWord)
     }
   }
 
   updateAnnotationLinksLocal (token, annotations) {
-    if (annotations) {
-      this.annotations[token.idWord] = annotations
+    if (annotations && annotations[token.idWord]) {
+      this.annotations[token.idWord] = annotations[token.idWord]
       this.annotations[token.idWord].forEach(annot => { annot.token = token })
     }
   }
 
-  deleteAnnotations (token) {
-    delete this.annotations[token.idWord]
+  deleteAnnotations (idWord) {
+    delete this.annotations[idWord]
   }
 
+  /**
+   * Creates an annotation, defines index and saves to annotations
+   * @param {String} id - is passed when we upload existed token from JSON for example
+   * @param {Token} token
+   * @param {Annotation.types} type
+   * @param {String} text
+   * @returns {Boolean}
+   */
   addAnnotation ({ id, token, type, text } = {}) {
     if (token && type && text) {
       const existedAnnotation = this.existedAnnotation(token, id)
@@ -1466,19 +1828,37 @@ export default class Alignment {
         this.annotations[token.idWord] = []
       }
 
-      let lastTypeIndex = 0
-      this.annotations[token.idWord].forEach(annot => {
-        if ((annot.type === type) && (lastTypeIndex < annot.index)) {
-          lastTypeIndex = annot.index
-        }
-      })
-
-      const annotation = new Annotation({ token, type, text, index: lastTypeIndex + 1 })
+      const newTypeIndex = this.defineNewIndex(token, type)
+      const annotation = new Annotation({ token, type, text, index: newTypeIndex })
 
       this.annotations[token.idWord].push(annotation)
       return true
     }
     return false
+  }
+
+  /**
+   * Finds a max index for the given type and token.idWord and defines next
+   * @param {Token} token
+   * @param {Annotation.types} type
+   */
+  defineNewIndex (token, type) {
+    let lastTypeIndex = null
+    this.annotations[token.idWord].forEach(annot => {
+      const annotCurData = Annotation.parseIndex(annot.index)
+      if ((annot.type === type) && (annotCurData.idWord === token.idWord)) {
+        if (!lastTypeIndex) {
+          lastTypeIndex = annot.index
+        } else {
+          const lastTypeIndexData = Annotation.parseIndex(lastTypeIndex)
+          if (lastTypeIndexData.index < annotCurData.index) {
+            lastTypeIndex = annot.index
+          }
+        }
+      }
+    })
+
+    return Annotation.getNewIndex(token, lastTypeIndex)
   }
 
   get hasAnnotations () {
@@ -1490,7 +1870,16 @@ export default class Alignment {
   }
 
   getAnnotations (token) {
-    return this.annotations[token.idWord] ? this.annotations[token.idWord] : []
+    if (!this.annotations[token.idWord]) {
+      return []
+    }
+    return this.annotations[token.idWord].sort((a, b) => {
+      if (a.type === b.type) {
+        return a.index < b.index ? -1 : 1
+      } else {
+        return a.type < b.type ? -1 : 1
+      }
+    })
   }
 
   equalAnnotation ({ token, type, text }) {
@@ -1510,7 +1899,8 @@ export default class Alignment {
     if (annotationIndex >= 0) {
       this.annotations[token.idWord].splice(annotationIndex, 1)
       if (this.annotations[token.idWord].length === 0) {
-        delete this.annotations[token.idWord]
+        // delete this.annotations[token.idWord]
+        this.deleteAnnotations(token.idWord)
       }
       return true
     }
@@ -1525,6 +1915,10 @@ export default class Alignment {
     return this.alignmentGroups.length > 0
   }
 
+  get hasOnlyOneSegment () {
+    return this.origin.alignedText.segments.length === 1
+  }
+
   get undoAvailableAlGroups () {
     return this.alignmentHistory.undoAvailable
   }
@@ -1537,6 +1931,7 @@ export default class Alignment {
     this.alHistoryActions.activeAlignmentGroup = this.activeAlignmentGroup
 
     const result = this.alignmentHistory.undo()
+
     if (result.data[0]) {
       if (result.data[0].defineFirstStepToken && this.hasActiveAlignmentGroup) {
         this.activeAlignmentGroup.defineFirstStepToken(this.alignmentHistory, true)
@@ -1582,5 +1977,13 @@ export default class Alignment {
       }
     }
     return true
+  }
+
+  clearTokensEditHistory () {
+    return this.tokensEditHistory.clearHistory()
+  }
+
+  tokenWasEdited (token) {
+    return this.tokensEditHistory.tokenWasEdited(token)
   }
 }

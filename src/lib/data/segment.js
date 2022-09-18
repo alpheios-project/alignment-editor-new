@@ -4,6 +4,7 @@ import Token from '@/lib/data/token'
 import Langs from '@/lib/data/langs/langs'
 import SettingsController from '@/lib/controllers/settings-controller'
 import StorageController from '@/lib/controllers/storage-controller.js'
+import TokenizeController from '@/lib/controllers/tokenize-controller'
 
 export default class Segment {
   constructor ({ id, index, textType, lang, direction, tokens, docSourceId, allPartNums } = {}) {
@@ -12,7 +13,7 @@ export default class Segment {
     this.textType = textType
     this.lang = lang
     this.langName = this.defineLangName()
-    this.direction = direction
+    this.direction = direction || this.defaultDirection
     this.docSourceId = docSourceId
 
     if (tokens) {
@@ -25,6 +26,10 @@ export default class Segment {
     } else {
       this.defineAllPartNums()
     }
+  }
+
+  get defaultDirection () {
+    return 'ltr'
   }
 
   /**
@@ -188,7 +193,7 @@ export default class Segment {
     const newToken = new Token({
       textType: this.textType,
       idWord: newIdWord,
-      word: word,
+      word,
       partNum: 1
     }, this.index, this.docSourceId)
 
@@ -244,12 +249,25 @@ export default class Segment {
   static convertFromJSON (data) {
     return new Segment({
       index: data.index,
-      textType: data.textType,
+      textType: data.textType || data.texttype,
       lang: data.lang,
       direction: data.direction,
       docSourceId: data.docSourceId,
       tokens: data.tokens.map(token => Token.convertFromJSON(token)).sort((a, b) => a.tokenIndex - b.tokenIndex)
     })
+  }
+
+  static convertFromDataFromXML (xmlFormattedData) {
+    const seg = new Segment({
+      index: parseInt(xmlFormattedData.index),
+      textType: xmlFormattedData.textType,
+      lang: xmlFormattedData.lang,
+      docSourceId: xmlFormattedData.docSourceId,
+      tokens: xmlFormattedData.tokens.map((tokenData, tokenIndex) => Token.convertFromDataFromXML(tokenData, tokenIndex))
+    })
+
+    TokenizeController.reIndexSentences(seg)
+    return seg
   }
 
   convertToIndexedDB () {
@@ -260,10 +278,12 @@ export default class Segment {
       direction: this.direction,
       docSourceId: this.docSourceId,
       tokens: this.tokens.map((token, tokenIndex) => token.convertToIndexedDB(tokenIndex)),
-      partNums: this.allPartNums ? this.allPartNums.map(partData => {
-        partData.segmentIndex = this.index
-        return partData
-      }) : []
+      partNums: this.allPartNums
+        ? this.allPartNums.map(partData => {
+          partData.segmentIndex = this.index
+          return partData
+        })
+        : []
     }
   }
 
@@ -318,5 +338,9 @@ export default class Segment {
   get hasAllPartsUploaded () {
     return this.allPartNums.length === this.currentPartNums.length &&
            this.allPartNums.every(partData => this.currentPartNums.includes(partData.partNum))
+  }
+
+  getTokenFromSentenceByIndex (sentenceIndex) {
+    return this.tokens.filter(token => token.sentenceIndex === sentenceIndex).sort((a, b) => a.tokenIndex - b.tokenIndex)
   }
 }

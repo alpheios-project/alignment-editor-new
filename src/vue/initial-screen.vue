@@ -1,6 +1,6 @@
 <template>
   <div class="alpheios-alignment-editor-initial-screen">
-      <div class="alpheios-alignment-editor-initial-screen__intro" style="background-image: url('images/books.svg')">
+      <div class="alpheios-alignment-editor-initial-screen__intro">
         <div class="alpheios-header-logo">
           <img src="images/alpheios-logo-black-2.png" class="alpheios-logo">
         </div>
@@ -20,12 +20,25 @@
             </div>
 
             <div class="alpheios-alignment-editor-initial-screen__button">
-                <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-main-button"  id="alpheios-resume"
+                <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-main-button"  
                     @click="resumePrevAlignment" >
                     {{ l10n.getMsgS('INITIAL_RESUME_ALIGNMENT') }}
                 </button>
 
-                <div class="alpheios-alignment-app-menu__upload-block" id="alpheios-main-menu-upload-block-page" v-show="showUploadBlock" >
+                <div class="alpheios-alignment-app-menu__upload-block-choice" v-show="showUploadBlock" >
+                  <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-main-button" 
+                    :class="{ 'alpheios-active': showUploadFromFile }" 
+                    @click="updateShowBlock('fromFile')" >
+                    {{ l10n.getMsgS('INITIAL_CHOOSE_FROM_FILE') }}
+                  </button>
+                  <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-main-button"  
+                    :class="{ 'alpheios-active': showUploadFromDB }" 
+                    @click="updateShowBlock('fromDB')" >
+                    {{ l10n.getMsgS('INITIAL_CHOOSE_FROM_DB') }}
+                  </button>
+                </div>
+
+                <div class="alpheios-alignment-app-menu__upload-block" id="alpheios-main-menu-upload-block-page" v-show="showUploadFromFile" >
                     <span class="alpheios-main-menu-upload-block_item">
                         <input type="file" id = "alpheiosfileuploadpage" ref="alpheiosfileuploadpage" class="alpheios-fileupload" @change="loadTextFromFile">
                         <label for="alpheiosfileuploadpage" class="alpheios-fileupload-label alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-upload">
@@ -34,8 +47,8 @@
                     </span>
                 </div>
 
-                <div class="alpheios-alignment-editor-initial-screen__alignments-container" v-show="showUploadBlock" v-if="indexedDBAvailable">
-                    <alignments-list v-show="showUploadBlock" 
+                <div class="alpheios-alignment-editor-initial-screen__alignments-container" v-show="showUploadFromDB" v-if="indexedDBAvailable">
+                    <alignments-list 
                         @upload-data-from-db="uploadDataFromDB" @delete-data-from-db="deleteDataFromDB"
                         @clear-all-alignments="$emit('clear-all-alignments')"
                     />
@@ -44,33 +57,29 @@
             
         </div>
 
-        <div class="alpheios-alignment-editor-initial-screen__video" v-show="showVideo">
-            <video-embed css="embed-responsive-21by9" src="https://youtu.be/WaLMw7XYhtc"></video-embed>
-        </div>
+        <page-links />
       </div>
   </div>
 </template>
 <script>
-import Vue from "vue"
-import Embed from "v-video-embed"
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 import AlignmentsList from '@/vue/alignments-list.vue'
-
-// global register
-Vue.use(Embed)
+import PageLinks from '@/vue/page-links.vue'
 
 export default {
   name: 'InitialScreen',
   components: {
-    alignmentsList: AlignmentsList
+    alignmentsList: AlignmentsList,
+    pageLinks: PageLinks
   },
   data () {
     return {
       showUploadBlock: false,
-      uploadFileName: null,
       showVideo: false,
-      alignments: []
+      alignments: [],
+      showUploadFromFile: false,
+      showUploadFromDB: false
     }
   },
   mounted () {
@@ -92,6 +101,8 @@ export default {
   methods: {
     startNewAlignment () {
       this.$emit("new-initial-alignment")
+      this.showUploadBlock = false
+      this.showUploadFromDB = false
     },
     resumePrevAlignment () {
       this.showUploadBlock = true
@@ -100,7 +111,7 @@ export default {
       const file = this.$refs.alpheiosfileuploadpage.files[0]
 
       if (!file) { return }
-      const extension = file.name.split('.').pop()
+      const extension = file.name.indexOf('.') > -1 ? file.name.split('.').pop() : ''
 
       if (!this.$textC.checkUploadedFileByExtension(extension)) { 
         this.$refs.alpheiosfileuploadpage.value = ''
@@ -112,6 +123,7 @@ export default {
       reader.onload = e => {
         this.$emit("upload-data-from-file", e.target.result, extension)
         this.showUploadBlock = false
+        this.$refs.alpheiosfileuploadpage.value = ''
       }
       reader.readAsText(file)
     },
@@ -119,10 +131,21 @@ export default {
     uploadDataFromDB (alData) {
       this.$emit('upload-data-from-db', alData)
       this.showUploadBlock = false
+      this.showUploadFromDB = false
     },
 
     deleteDataFromDB (alData) {
       this.$emit('delete-data-from-db', alData)
+    },
+
+    updateShowBlock (typeUpload) {
+      if (typeUpload === 'fromFile') {
+        this.showUploadFromFile = true
+        this.showUploadFromDB = false
+      } else {
+        this.showUploadFromFile = false
+        this.showUploadFromDB = true
+      }
     }
   }
 }
@@ -135,6 +158,7 @@ export default {
     background-size: 20% auto;
     // overflow: hidden;
     min-height: 100vh;
+    background-color: #bce5f0;
 }
 
 .alpheios-alignment-editor-initial-screen__heading {
@@ -147,23 +171,18 @@ export default {
     text-shadow: 2px 2px 3px rgb(0 0 0 / 60%);
     font-family: "Source Serif Pro", serif;
     text-align: center;
-}
 
-.alpheios-alignment-editor-initial-screen__video {
-
-    text-align: center;
-    iframe {
-        margin: 0;
-        border: 0; 
-        width: 800px;
-        height: 500px;
+    @media screen and (max-width: 800px) {
+      font-size: 32px;
+      display: block;
     }
 }
 
+
 .alpheios-header-logo {
     text-align: center;
-    padding-top: 80px;
-    height: 60px;
+    padding-top: 20px;
+    height: auto;
 
     .alpheios-logo {
         display: inline-block;
@@ -173,8 +192,9 @@ export default {
 
 .alpheios-alignment-editor-initial-screen__buttons {
 
-    width: 1000px;
-    margin: 0 auto 50px;
+    max-width: 1000px;
+    width: 90%;
+    margin: 0 auto;
     text-align: center;
 
     .alpheios-alignment-editor-initial-screen__button {
@@ -182,11 +202,23 @@ export default {
         display: inline-block;
         vertical-align: top;
         
+     
+        @media screen and (max-width: 800px) {
+          margin-bottom: 20px;
+          width: 100%;
+         
+        }
 
         .alpheios-actions-menu-main-button {
             font-weight: normal;
             font-size: 22px;
-            min-width: 315px;
+            text-align: center;
+            white-space: normal;
+            min-width: 330px;
+
+            @media screen and (max-width: 800px) {
+               min-width: auto;
+            }
         }
 
         .alpheios-alignment-app-menu__upload-block {
@@ -205,8 +237,21 @@ export default {
                 font-weight: normal;
             }
         }
+
+        .alpheios-alignment-app-menu__upload-block-choice {
+          text-align: center;
+          padding: 10px 0;
+          
+          .alpheios-actions-menu-button {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 95%;
+            min-width: auto;
+          }
+        }
     }
 }
 
 
 </style>
+

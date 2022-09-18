@@ -1,14 +1,21 @@
 <template>
     <span class = "alpheios-token" :class="tokenClasses"
           :id = "elementId" :ref = "elementId"
-          @mouseenter = "$emit('addHoverToken', token)"
-          @mouseleave = "$emit('removeHoverToken', token)"
+          @mouseenter = "addHoverToken"
+          @mouseleave = "removeHoverToken"
           @click = "checkAnnotations"
     >
-        {{ token.beforeWord }}{{ token.word }}{{ token.afterWord }}
+        <span class = "alpheios-token-inner"> {{ token.beforeWord }}{{ token.word }}{{ token.afterWord }} </span>
+        <span class = "alpheios-token-translation" 
+              v-for = "(groupDataItem, groupDataIndex) in filteredGroupData" :key = "groupDataIndex"
+              :lang = groupDataItem.targetLang
+              v-html = "translationWord(groupDataItem)"
+        >
+        </span>
     </span>
 </template>
 <script>
+
 export default {
   name: 'TokenBlock',
   props: {
@@ -25,6 +32,16 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    interlinearly: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    shownTabs: {
+      type: Array,
+      required: false,
+      default: () => { return [] }
     }
   },
   computed: {
@@ -37,6 +54,10 @@ export default {
     },
     elementId () {
       return `token-${this.token.idWord}`
+    },
+    filteredGroupData () {
+      return this.interlinearly && this.grouped && this.shownTabs && this.token.groupDataTrans ? 
+        this.token.groupDataTrans.filter(groupDataItem => this.shownTabs.includes(groupDataItem.targetId) ).sort((a, b) => this.shownTabs.indexOf(a.targetId) - this.shownTabs.indexOf(b.targetId)) : null
     }
   },
   methods: {
@@ -44,6 +65,19 @@ export default {
       if (this.token.annotated) {
         this.$modal.show('annotations', { token: this.token })
       }
+    },
+    addHoverToken () {
+      if (!this.interlinearly) {
+        this.$emit('addHoverToken', this.token)
+      }
+    },
+    removeHoverToken () {
+      if (!this.interlinearly) {
+        this.$emit('removeHoverToken', this.token)
+      }
+    },
+    translationWord (groupDataItem) {
+      return groupDataItem.word ? groupDataItem.word : '&nbsp;'
     }
   }
 }
@@ -54,12 +88,27 @@ export default {
           cursor: pointer;
           padding: 2px 2px 0 2px;
           margin-bottom: 2px;
-          border: 1px solid transparent;
           display: inline-block;
           vertical-align: top;
 
-          &.alpheios-token-annotated {
+          .alpheios-token-inner {
+            border: 1px solid transparent;
+            display: inline-block;
+            text-align: left;
+          }
+
+          &.alpheios-token-annotated .alpheios-token-inner {
             border-bottom: 1px solid;
+          }
+
+          .alpheios-token-translation {
+            display: block;
+            text-align: left;
+          }
+
+          .alpheios-token-translation {
+            color: #9a9a9a;
+            font-size: 95%;
           }
       }
   }

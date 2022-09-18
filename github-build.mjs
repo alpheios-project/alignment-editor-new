@@ -44,6 +44,17 @@ import * as core from '@actions/core'
     })
     await builder.importConfig('config.mjs', 'build')
     await builder.runModules()
+
+    builder = new Builder({
+      module: 'all',
+      mode: 'all',
+      preset: 'vue',
+      codeAnalysis: false,
+      outputLevel: Builder.outputLevels.MIN,
+      buildTime: buildDT
+    })
+    await builder.importConfig('config-pages.mjs', 'build')
+    await builder.runModules()
   } catch (error) {
     console.error('Build process failed:', error)
     process.exit(3)

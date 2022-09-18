@@ -86,7 +86,7 @@ describe('text-editor-single-block.test.js', () => {
           textId: 'targetId'
         }
       })
-    expect(cmp.isVueInstance()).toBeTruthy()
+    expect(cmp.exists()).toBeTruthy()
   })
 
   it('2 TextEditorSingleBlock - textareaId, removeId has textType and textId in value', () => {

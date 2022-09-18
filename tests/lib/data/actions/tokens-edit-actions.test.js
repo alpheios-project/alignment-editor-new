@@ -16,7 +16,7 @@ describe('tokens-edit-actions.test.js', () => {
 
   const prepareParams = async () => {
     const sourceText1 = new SourceText('origin', {
-      text: 'vir femina a\u2028vir\u2028femina vir', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'vir femina a\u2028vir\u2028femina vir', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
     
     const alignedText1 = new AlignedText({
@@ -27,7 +27,7 @@ describe('tokens-edit-actions.test.js', () => {
     await alignedText1.tokenize(sourceText1)
   
     const sourceText2 = new SourceText('target', {
-      text: 'male female\u2028male female\u2028male female', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'male female\u2028male female\u2028male female', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
      
     const alignedText2 = new AlignedText({
@@ -38,7 +38,7 @@ describe('tokens-edit-actions.test.js', () => {
     await alignedText2.tokenize(sourceText2)
   
     const sourceText3 = new SourceText('target', {
-      text: 'macho femenino\u2028macho femenino\u2028macho femenino', direction: 'ltr', lang: 'spa', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'macho femenino\u2028macho femenino\u2028macho femenino', direction: 'ltr', lang: 'spa', sourceType: 'text', tokenization: { tokenizer: 'simpleLocalTokenizer', divideToSegments: true }
     })
         
     const alignedText3 = new AlignedText({
@@ -310,31 +310,45 @@ describe('tokens-edit-actions.test.js', () => {
     expect(tokensEditActions.tokensEditHistory.steps[1].type).toEqual(HistoryStep.types.TO_PREV_SEGMENT)
   })
 
-  it('11 TokensEditActions - insertTokens - inserts tokens to the start/end', async () => {
+  it('11 TokensEditActions - insertTokens - inserts tokens to any place in the segment', async () => {
     const params = await prepareParams()
 
     const tokensEditActions = new TokensEditActions(params)
 
     // insert to start
     const firstSegment = Object.values(params.targets)[0].alignedText.segments[0] 
-    const lastSegment = Object.values(params.targets)[0].alignedText.segments[2] 
+    const secondSegment = Object.values(params.targets)[0].alignedText.segments[1] 
+    const thirdSegment = Object.values(params.targets)[0].alignedText.segments[2] 
 
-    tokensEditActions.insertTokens('Test start', 'target', Object.keys(params.targets)[0], 'start')
-
-    expect(firstSegment.tokens.map(token => token.word)).toEqual(['Test', 'start', 'male', 'female'])
-
-    expect(firstSegment.tokens[0].idWord).toEqual('2-0-0-n-2')
-    expect(firstSegment.tokens[1].idWord).toEqual('2-0-0-n-1')
+    tokensEditActions.insertTokens('Some text', firstSegment.tokens[0], 'prev')
+    expect(firstSegment.tokens.map(token => token.word)).toEqual(['Some', 'text', 'male', 'female'])
+    expect(firstSegment.tokens.map(token => token.idWord)).toEqual(['2-0-0-nb-2', '2-0-0-nb-1', '2-0-0-nn-1', '2-0-1'])
 
     // insert to end
 
-    tokensEditActions.insertTokens('End test', 'target', Object.keys(params.targets)[0], 'end')
+    const numTokens = secondSegment.tokens.length
+    tokensEditActions.insertTokens('End text', secondSegment.tokens[numTokens-1], 'next')
 
-    expect(lastSegment.tokens.map(token => token.word)).toEqual(['male', 'female', 'End', 'test'])
+    // console.info('1 - ', secondSegment.tokens.map(token => token.word))
+    // console.info('2 - ', secondSegment.tokens.map(token => token.idWord))
+    expect(secondSegment.tokens.map(token => token.word)).toEqual(['male', 'female', 'End', 'text'])
+    expect(secondSegment.tokens.map(token => token.idWord)).toEqual(['2-1-0', '2-1-1-nn-1', '2-1-1-na-1', '2-1-1-na-2'])
 
-    expect(lastSegment.tokens[2].idWord).toEqual('2-2-1-n-1')
-    expect(lastSegment.tokens[3].idWord).toEqual('2-2-1-n-2')
+    // insert to middle
 
+    tokensEditActions.insertTokens('Middle text before', thirdSegment.tokens[1], 'prev')
+    tokensEditActions.insertTokens('Middle text after', thirdSegment.tokens[4], 'next')
+
+    // console.info('1 - ', thirdSegment.tokens.map(token => token.word))
+    // console.info('2 - ', thirdSegment.tokens.map(token => token.idWord))
+
+    expect(thirdSegment.tokens.map(token => token.word)).toEqual(['male', 'Middle', 'text', 'before', 'female', 'Middle', 'text', 'after'])
+    expect(thirdSegment.tokens.map(token => token.idWord)).toEqual(['2-2-0', '2-2-1-nb-3', '2-2-1-nb-2', '2-2-1-nb-1', '2-2-1-nn-2', '2-2-1-nn-1-na-1', '2-2-1-nn-1-na-2', '2-2-1-nn-1-na-3'])
+
+    tokensEditActions.insertTokens('One more', thirdSegment.tokens[4], 'next')
+
+    expect(thirdSegment.tokens.map(token => token.word)).toEqual(['male', 'Middle', 'text', 'before', 'female', 'One', 'more', 'Middle', 'text', 'after'])
+    expect(thirdSegment.tokens.map(token => token.idWord)).toEqual(['2-2-0', '2-2-1-nb-3', '2-2-1-nb-2', '2-2-1-nb-1', '2-2-1-nn-3', '2-2-1-nn-2-na-1', '2-2-1-nn-2-na-2', '2-2-1-nn-1-na-1', '2-2-1-nn-1-na-2', '2-2-1-nn-1-na-3'])
   })
 
   it('12 TokensEditActions - allowedMergePrev - true - if there is a left token, otherwise - false', async () => {
@@ -478,19 +492,18 @@ describe('tokens-edit-actions.test.js', () => {
     const tokenNN1 = nextNextSegment.tokens[1] 
 
     expect(tokensEditActions.allowedDelete(tokenC0)).toBeTruthy()
-    expect(tokensEditActions.allowedDelete(tokenC1)).toBeFalsy()
-    expect(tokensEditActions.allowedDelete(tokenC2)).toBeFalsy()
-
-    expect(tokensEditActions.allowedDelete(tokenN0)).toBeFalsy()
-    
-    expect(tokensEditActions.allowedDelete(tokenNN0)).toBeFalsy()
-    expect(tokensEditActions.allowedDelete(tokenNN1)).toBeTruthy()
-
-    tokensEditActions.deleteToken(tokenC0)
-
     expect(tokensEditActions.allowedDelete(tokenC1)).toBeTruthy()
-    tokensEditActions.deleteToken(tokenC1)
+    expect(tokensEditActions.allowedDelete(tokenC2)).toBeTruthy()
 
-    expect(tokensEditActions.allowedDelete(tokenC2)).toBeFalsy() // it is the last token in the first segment
+    expect(currentSegment.tokens.length).toEqual(3)
+
+    tokensEditActions.deleteToken(currentSegment.tokens[0])
+    expect(currentSegment.tokens.length).toEqual(2)
+
+    tokensEditActions.deleteToken(currentSegment.tokens[1])
+    expect(currentSegment.tokens.length).toEqual(1)
+
+    expect(tokensEditActions.allowedDelete(currentSegment.tokens[0])).toBeFalsy() // it is not allowed to delete the only token in a segment
   })
+
 })

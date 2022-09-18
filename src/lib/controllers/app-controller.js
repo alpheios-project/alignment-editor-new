@@ -1,6 +1,6 @@
 import App from '@/vue/app.vue'
-import Vue from '@vue-runtime'
 
+import Vue from '@vue-runtime'
 import Vuex from 'vuex'
 
 import TextsController from '@/lib/controllers/texts-controller.js'
@@ -50,6 +50,8 @@ export default class AppController {
     if (this.pageSettings && this.pageSettings.appId) {
       this.attachVueComponents()
     }
+
+    this.defineClassReadingTools({ value: SettingsController.enableAlpheiosReadingTools })
   }
 
   /**
@@ -65,6 +67,17 @@ export default class AppController {
 
     document.documentElement.classList.add(`alpheios-${theme}`)
     document.body.classList.add(`alpheios-${theme}`)
+  }
+
+  defineClassReadingTools ({ value }) {
+    const hideClassName = 'alpehios-hide-readding-tools-toolbar'
+    if (!value) {
+      document.documentElement.classList.add(hideClassName)
+      document.body.classList.add(hideClassName)
+    } else {
+      document.documentElement.classList.remove(hideClassName)
+      document.body.classList.remove(hideClassName)
+    }
   }
 
   /**
@@ -87,7 +100,8 @@ export default class AppController {
     const AppComponent = Vue.extend(App)
 
     this._viAppComp = new AppComponent({
-      parent: rootVi
+      parent: rootVi,
+      router: this.router
     })
 
     this._viAppComp.$mount(appContainerEl)
@@ -97,6 +111,7 @@ export default class AppController {
 
   defineEvents () {
     SettingsController.evt.SETTINGS_CONTROLLER_THEME_UPDATED.sub(this.defineColorTheme.bind(this))
+    SettingsController.evt.SETTINGS_CONTROLLER_READING_TOOLS_CLASS_UPDATED.sub(this.defineClassReadingTools.bind(this))
   }
 
   /**
@@ -113,7 +128,26 @@ export default class AppController {
   async defineSettingsController () {
     await SettingsController.init(this.store)
 
-    SettingsController.uploadRemoteSettings()
+    const uploaded = await SettingsController.uploadRemoteSettings()
+    if (!uploaded) {
+      const result = SettingsController.downgradeToOffline()
+
+      if (result) {
+        NotificationSingleton.addNotification({
+          text: L10nSingleton.getMsgS('APP_CONTROLLER_DOWNGRADE_TO_OFFLINE'),
+          type: NotificationSingleton.types.INFO
+        })
+      }
+    } else {
+      const result = SettingsController.upgradeToRemote()
+
+      if (result) {
+        NotificationSingleton.addNotification({
+          text: L10nSingleton.getMsgS('APP_CONTROLLER_UPGRADE_TO_REMOTE'),
+          type: NotificationSingleton.types.INFO
+        })
+      }
+    }
   }
 
   /**

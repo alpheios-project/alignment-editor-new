@@ -15,6 +15,7 @@
         <div class="alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-origin">
           <segment-block 
               :currentTargetId = "currentTargetId" :amountOfShownTabs = "amountOfShownTabs" :isFirst = "segmentData.isFirst"
+              :shownTabs = "shownTabs"
               :segmentIndex = "segmentData.origin.index" textType = "origin" :textId = "segmentData.origin.docSourceId"
               @update-annotation = "updateAnnotation" :annotationMode="annotationMode" 
           />
@@ -23,6 +24,7 @@
         <div class="alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-target">
           <segment-block v-for="(segmentTarget, targetId) in segmentData.targets" :key="getIndex('target',segmentData.index, targetId)"
                   :isFirst = "segmentData.isFirst"
+                  :shownTabs = "shownTabs"
                   :segmentIndex = "segmentTarget.index" textType = "target" :textId = "segmentTarget.docSourceId"
                   :isLast = "lastTargetId && (targetId === lastTargetId)" :currentTargetId = "currentTargetId" :amountOfShownTabs = "amountOfShownTabs"
                   @update-annotation = "updateAnnotation" :annotationMode="annotationMode"

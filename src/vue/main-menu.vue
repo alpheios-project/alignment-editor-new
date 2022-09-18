@@ -5,21 +5,15 @@
         <x-close-icon />
       </span>
       <div class="alpheios-alignment-app-menu__buttons">
-        <div class="alpheios-alignment-app-menu__buttons-blocks">
-          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-source-editor" :class="{ 'alpheios-app-menu-link-current': currentPage === 'text-editor-page' }"
-                  @click="showSourceTextEditor" >
-                  {{ l10n.getMsgS('MAIN_MENU_TEXT_ENTER_LINK') }}
-          </button>
-          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-alignment-groups-editor" :class="{ 'alpheios-app-menu-link-current': currentPage === 'align-editor-page' }"
-                  @click="showAlignmentGroupsEditor" :disabled="!alignEditAvailable">
-                  {{ l10n.getMsgS('MAIN_MENU_TEXT_ALIGN_LINK') }}
-          </button>
-          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-tokens-editor" :class="{ 'alpheios-app-menu-link-current': currentPage === 'tokens-editor-page' }"
-                  @click="showTokensEditor" :disabled="!alignEditAvailable">
-                  {{ l10n.getMsgS('MAIN_MENU_TEXT_EDIT_LINK') }}
-          </button>
-        </div>
         <div class="alpheios-alignment-app-menu__buttons-actions">
+          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-clear-all" 
+                  @click="reloadPage">
+                  {{ l10n.getMsgS('TO_HOME') }}
+          </button>
+          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-clear-all" 
+                  @click="newInitialAlignment">
+                  {{ l10n.getMsgS('INITIAL_NEW_ALIGNMENT') }}
+          </button>
 
           <button class="alpheios-app-menu-link" id ="alpheios-main-menu-upload" 
                   @click="uploadTexts"  >
@@ -33,12 +27,15 @@
                 {{ l10n.getMsgS('MAIN_MENU_CHOOSE_FILE') }}                
               </label>
             </span>
+            <span> OR upload autosaved</span>
           </div>
-          
-          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-clear-all" 
-                  @click="clearAll">
-                  {{ l10n.getMsgS('MAIN_MENU_CLEAR_TEXT') }}
-          </button>
+        
+          <div class="alpheios-alignment-editor-initial-screen__alignments-container" v-show="showUploadBlock" v-if="indexedDBAvailable">
+              <alignments-list 
+                  :menuVersion = "true"
+                  @upload-data-from-db="uploadDataFromDB"
+              />
+          </div>
         </div>
       </div>
     </div> <!--alpheios-alignment-app-menu-->
@@ -48,11 +45,14 @@
 <script>
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import DownloadController from '@/lib/controllers/download-controller.js'
+import SettingsController from '@/lib/controllers/settings-controller.js'
 
 import DownloadIcon from '@/inline-icons/download.svg'
 import UploadIcon from '@/inline-icons/upload.svg'
 import XCloseIcon from '@/inline-icons/x-close.svg'
 import Tooltip from '@/vue/common/tooltip.vue'
+
+import AlignmentsList from '@/vue/alignments-list.vue'
 
 export default {
   name: 'MainMenu',
@@ -60,7 +60,8 @@ export default {
     downloadIcon: DownloadIcon,
     uploadIcon: UploadIcon,
     xCloseIcon: XCloseIcon,
-    tooltip: Tooltip
+    tooltip: Tooltip, 
+    alignmentsList: AlignmentsList
   },
   props: {
     menuShow: {
@@ -122,6 +123,15 @@ export default {
     downloadTypes () {
       return Boolean(this.$store.state.alignmentUpdated) && 
              Object.values(DownloadController.downloadMethods).filter(method => method.allTexts && (!method.alignmentStarted || this.$alignedGC.alignmentGroupsWorkflowAvailable))
+    },
+    enableTokensEditorOptionItemValue () {
+      return this.$store.state.optionsUpdated && SettingsController.enableTokensEditor
+    },
+    tokensEditAvailable () {
+      return this.alignEditAvailable && this.enableTokensEditorOptionItemValue
+    },
+    indexedDBAvailable () {
+      return this.$textC.indexedDBAvailable
     }
   },
   methods: {
@@ -145,7 +155,7 @@ export default {
       const file = this.$refs.alpheiosfileupload.files[0]
 
       if (!file) { return }
-      const extension = file.name.split('.').pop()
+      const extension = file.name.indexOf('.') > -1 ? file.name.split('.').pop() : ''
 
       if (!this.$textC.checkUploadedFileByExtension(extension)) { 
         this.closeMenu()
@@ -167,15 +177,25 @@ export default {
       return `alpheios-main-menu-download-block__radio_${dTypeName}`
     },
 
+    newInitialAlignment () {
+      this.clearAll()
+      this.$emit("new-initial-alignment")
+    },
+
     clearAll () {
       this.$refs.alpheiosfileupload.value = ''
       this.showUploadBlock = false
       this.showDownloadBlock = false
       this.$emit('clear-all')
+
       this.currentPage = 'initial-page'
       this.closeMenu()
+      
     },
     
+    reloadPage () {
+      location.reload(true)
+    },
     closeMenu () {
       this.menuShown = false
     },
@@ -235,6 +255,12 @@ export default {
       this.$emit('showTokensEditor')
       this.currentPage = 'tokens-editor-page'
       this.closeMenu()
+    },
+
+    uploadDataFromDB (alData) {
+      this.$emit('upload-data-from-db', alData)
+      this.showUploadBlock = false
+      this.closeMenu()
     }
   }
 }
@@ -242,11 +268,11 @@ export default {
 <style lang="scss">
   .alpheios-alignment-app-menu {
       height: 100%; 
-      width: 250px; 
+      width: 400px; 
       position: fixed; 
       z-index: 10000;
       top: 0; 
-      left: -250px;
+      left: -400px;
       background-color: #e0e0e0; 
       overflow-x: hidden; 
        
@@ -288,7 +314,7 @@ export default {
 
     padding: 10px 0;
     border-top: 2px solid #ddd;
-    border-bottom: 2px solid #ddd;
+    // border-bottom: 2px solid #ddd;
   }
 
   .alpheios-main-menu-upload-block-radio-block_item,
@@ -297,6 +323,8 @@ export default {
   }
 
   .alpheios-main-menu-upload-block_item {
+    text-align: center;
+
     &.alpheios-token-edit-actions-button {
       width: 30px;
       height: 30px;

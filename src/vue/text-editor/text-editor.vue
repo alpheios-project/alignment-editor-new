@@ -4,19 +4,27 @@
         <span class="alpheios-alignment-text-editor-block__part">
           <span class="alpheios-alignment-text-editor-block__header-label">{{ l10n.getMsgS('TEXT_EDITOR_HEADING') }}</span>
           <span class="alpheios-alignment-text-editor-block__header-link" v-if="alignEditAvailable" @click="$emit('showAlignmentGroupsEditor')">{{ l10n.getMsgS('ALIGN_EDITOR_LINK') }}</span>
-          <span class="alpheios-alignment-text-editor-block__header-link" v-if="alignEditAvailable" @click="$emit('showTokensEditor')">{{ l10n.getMsgS('TOKENS_EDITOR_LINK') }}</span>
+          <span class="alpheios-alignment-text-editor-block__header-link" v-if="tokensEditAvailable" @click="$emit('showTokensEditor')">{{ l10n.getMsgS('TOKENS_EDITOR_LINK') }}</span>
         </span>
-        <span class="alpheios-alignment-text-editor-block__part">
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-help"
-              @click="$modal.show('help-enter')">
-              {{ l10n.getMsgS('TEXT_EDITOR_HEADER_HELP') }}
-          </button>
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-options"
-              @click="$modal.show('options-enter')">
-              {{ l10n.getMsgS('TEXT_EDITOR_HEADER_OPTIONS') }}
-          </button>
+        <span class="alpheios-alignment-text-editor-block-buttons__part">
+          <tooltip :tooltipText = "l10n.getMsgS('TEXT_EDITOR_HEADER_HELP')" tooltipDirection = "top">
+            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-help"
+                @click="$modal.show('help-enter')">
+                <span class="alpheios-alignment-button-icon">
+                  <question-icon />
+                </span>
+            </button>
+          </tooltip>
+          <tooltip :tooltipText = "l10n.getMsgS('TEXT_EDITOR_HEADER_OPTIONS')" tooltipDirection = "top">
+            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-with-icon" id="alpheios-actions-menu-button__enter-options"
+                @click="$modal.show('options-enter')">
+                <span class="alpheios-alignment-button-icon">
+                  <gear-icon />
+                </span>
+            </button>
+          </tooltip>
         </span>
-        <span class="alpheios-alignment-text-editor-block__part">
+        <span class="alpheios-alignment-text-editor-block__part alpheios-alignment-text-editor-block__part-right">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-save"
               @click="$modal.show('save-enter')" :disabled="!downloadAvailable">
               {{ l10n.getMsgS('TEXT_EDITOR_HEADER_SAVE') }}
@@ -31,7 +39,6 @@
             <text-editor-single-block 
                 text-type="origin" 
                 :text-id = "originId"
-                @align-text = "$emit('align-text')"
             />
           </div>
 
@@ -42,6 +49,7 @@
                 :text-id = "targetTextId && targetTextId.targetId"
                 :index = "targetTextId && targetTextId.targetIndex"
                 @add-translation="$emit('add-translation')"
+                @align-text = "$emit('align-text')"
             />
           </div>
 
@@ -58,14 +66,19 @@
 </template>
 <script>
 import TextEditorSingleBlock from '@/vue/text-editor/text-editor-single-block.vue'
+
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import Tooltip from '@/vue/common/tooltip.vue'
 import HelpPopup from '@/vue/common/help-popup.vue'
 import SavePopup from '@/vue/common/save-popup.vue'
+import SettingsController from '@/lib/controllers/settings-controller.js'
 
 import OptionsTextEnter from '@/vue/options/options-text-enter.vue'
 
 import HelpBlockEnter from '@/vue/help-blocks/eng/help-block-enter.vue'
+
+import QuestionIcon from '@/inline-icons/question.svg'
+import GearIcon from '@/inline-icons/gear.svg'
 
 export default {
   name: 'TextEditor',
@@ -75,7 +88,10 @@ export default {
     helpPopup: HelpPopup,
     savePopup: SavePopup,
     helpBlockEnter: HelpBlockEnter,
-    optionsTextEnterPopup: OptionsTextEnter
+    optionsTextEnterPopup: OptionsTextEnter,
+
+    questionIcon: QuestionIcon,
+    gearIcon: GearIcon
   },
   props: {  
   },
@@ -84,17 +100,8 @@ export default {
       showModalOptions: false,
     }
   },
-  watch: {
+  async mounted () {
   },
-  /**
-   * I placed an empty alignment here for now, because it is the first point where it should be existed.
-   * Later when we define workflow for creation alignment depending on user authentication,
-   * it could be moved out here
-   */
-  created () {
-
-  },
-
   computed: {
     originId () {
       return this.$store.state.docSourceUpdated && this.$textC.originDocSource ? this.$textC.originDocSource.id : null
@@ -111,6 +118,12 @@ export default {
     alignEditAvailable () {
       return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
     },
+    enableTokensEditorOptionItemValue () {
+      return this.$store.state.optionsUpdated && SettingsController.enableTokensEditor
+    },
+    tokensEditAvailable () {
+      return this.alignEditAvailable && this.enableTokensEditorOptionItemValue
+    },
     downloadAvailable () {
       return Boolean(this.$store.state.docSourceUpdated) && this.$textC.originDocSourceHasText
     }
@@ -125,10 +138,14 @@ export default {
     display: flex;
     justify-content: space-between;
 
-    .alpheios-alignment-text-editor-block__part {
+    .alpheios-alignment-text-editor-block__part{
       button {
         text-transform: uppercase;
       }
+    }
+
+    .alpheios-alignment-text-editor-block__part-right {
+      text-align: right;
     }
 
     .alpheios-alignment-text-editor-block__header-label {
@@ -187,5 +204,22 @@ export default {
       font-size: 90%;
       text-decoration: underline;
       color: #185F6D;
+    }
+    
+    button.alpheios-actions-menu-button.alpheios-actions-menu-button-with-icon {
+      padding: 5px;
+      margin: 0 5px;
+      .alpheios-alignment-button-icon {
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+
+          svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+            fill: #fff;
+          }
+      }
     }
 </style>

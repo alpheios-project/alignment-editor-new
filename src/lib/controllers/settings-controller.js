@@ -4,9 +4,10 @@ import DefaultAppSettings from '@/settings/default-app-settings.json'
 import DefaultSourceTextSettings from '@/settings/default-source-text-settings.json'
 
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
+import StorageController from '@/lib/controllers/storage-controller'
+// import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
 import Langs from '@/lib/data/langs/langs.js'
-import StorageController from './storage-controller'
 
 let _instance
 export default class SettingsController {
@@ -43,11 +44,14 @@ export default class SettingsController {
    */
   static async init (store) {
     if (!_instance) { this.create(store) }
-    const optionsPromises = Object.values(_instance.options).map(options => options.load())
+    const optionsPromises = Object.values(_instance.options).map(options => options instanceof Options ? options.load() : options)
 
     await Promise.all(optionsPromises)
+
     Object.values(_instance.options.app.items).forEach(optionItem => this.changeOption(optionItem))
+
     this.submitEventUpdateTheme()
+    this.submitEventUpdateAlpheiosReadingToolsToolbar()
   }
 
   static getStorageAdapter () {
@@ -63,6 +67,10 @@ export default class SettingsController {
    */
   static get themeOptionValue () {
     return _instance.options.app && _instance.options.app.items.theme ? _instance.options.app.items.theme.currentValue : ''
+  }
+
+  static get allTokenizationOptions () {
+    return _instance.options.app && _instance.options.app.items.tokenizer ? _instance.options.tokenize[this.tokenizerOptionValue] : {}
   }
 
   /**
@@ -88,8 +96,60 @@ export default class SettingsController {
     return _instance.options.app && _instance.options.app.items.maxCharactersPerPart ? _instance.options.app.items.maxCharactersPerPart.currentValue : 1000
   }
 
+  static get enableTokensEditor () {
+    return _instance.options.app && _instance.options.app.items.enableTokensEditor ? _instance.options.app.items.enableTokensEditor.currentValue : false
+  }
+
+  static get enableDTSAPIUpload () {
+    return _instance.options.app && _instance.options.app.items.enableDTSAPIUpload ? _instance.options.app.items.enableDTSAPIUpload.currentValue : false
+  }
+
+  static get enableAnnotations () {
+    return _instance.options.app && _instance.options.app.items.enableAnnotations ? _instance.options.app.items.enableAnnotations.currentValue : false
+  }
+
   static get addIndexedDBSupport () {
-    return _instance.options.app && _instance.options.app.items.addIndexedDBSupport ? _instance.options.app.items.addIndexedDBSupport.currentValue : 1000
+    return _instance.options.app && _instance.options.app.items.addIndexedDBSupport ? _instance.options.app.items.addIndexedDBSupport.currentValue : false
+  }
+
+  static get enableAddDeleteNewLines () {
+    return _instance.options.app && _instance.options.app.items.enableAddDeleteNewLines ? _instance.options.app.items.enableAddDeleteNewLines.currentValue : false
+  }
+
+  static get enableAddDeleteTokens () {
+    return _instance.options.app && _instance.options.app.items.enableAddDeleteTokens ? _instance.options.app.items.enableAddDeleteTokens.currentValue : false
+  }
+
+  static get enableMergeSplitTokens () {
+    return _instance.options.app && _instance.options.app.items.enableMergeSplitTokens ? _instance.options.app.items.enableMergeSplitTokens.currentValue : false
+  }
+
+  static get enableMoveTokensToSegment () {
+    return _instance.options.app && _instance.options.app.items.enableMoveTokensToSegment ? _instance.options.app.items.enableMoveTokensToSegment.currentValue : false
+  }
+
+  static get enableEditTokens () {
+    return _instance.options.app && _instance.options.app.items.enableEditTokens ? _instance.options.app.items.enableEditTokens.currentValue : false
+  }
+
+  static get enableAlpheiosReadingTools () {
+    return _instance.options.app && _instance.options.app.items.enableAlpheiosReadingTools ? _instance.options.app.items.enableAlpheiosReadingTools.currentValue : false
+  }
+
+  static get enableTokenizationOptionsChoice () {
+    return _instance.options.app && _instance.options.app.items.enableTokenizationOptionsChoice ? _instance.options.app.items.enableTokenizationOptionsChoice.currentValue : false
+  }
+
+  static get enableChangeLanguageIcon () {
+    return _instance.options.app && _instance.options.app.items.enableChangeLanguageIcon ? _instance.options.app.items.enableChangeLanguageIcon.currentValue : false
+  }
+
+  static get enableTEXTXMLIcon () {
+    return _instance.options.app && _instance.options.app.items.enableTEXTXMLIcon ? _instance.options.app.items.enableTEXTXMLIcon.currentValue : false
+  }
+
+  static get useModeStructure () {
+    return _instance.options.app && _instance.options.app.items.useModeStructure ? _instance.options.app.items.useModeStructure.currentValue : false
   }
 
   /**
@@ -140,6 +200,7 @@ export default class SettingsController {
       optionsGroup.checkAndUploadValuesFromArray(_instance.valuesClassesList)
     })
     this.submitEventUpdateTheme()
+    this.submitEventUpdateAlpheiosReadingToolsToolbar()
   }
 
   /**
@@ -153,11 +214,23 @@ export default class SettingsController {
   }
 
   /**
+   * Publish event for change css class to show/hide Alpheios Reading Tools Toolbar - event subscribers are defined in AppContoller
+   */
+  static submitEventUpdateAlpheiosReadingToolsToolbar () {
+    SettingsController.evt.SETTINGS_CONTROLLER_READING_TOOLS_CLASS_UPDATED.pub({
+      value: this.enableAlpheiosReadingTools
+    })
+  }
+
+  /**
    * Starts upload options for tokenization process,
    * we could need to upload from a remote source
    */
   static async uploadRemoteSettings () {
     _instance.options.tokenize = await TokenizeController.uploadOptions(_instance.storageAdapter)
+
+    const noValues = Object.values(_instance.options.tokenize).every(value => !value)
+    if (noValues) { return false }
 
     if (_instance.options.tokenize && _instance.options.tokenize.alpheiosRemoteTokenizer && _instance.options.tokenize.alpheiosRemoteTokenizer.text) {
       delete _instance.options.tokenize.alpheiosRemoteTokenizer.text.items.tbsegstart
@@ -168,6 +241,7 @@ export default class SettingsController {
       delete _instance.options.tokenize.alpheiosRemoteTokenizer.tei.defaults.items.tbsegstart // it is deleted because treebank support would be developed later
     }
     _instance.store.commit('incrementOptionsUpdated')
+    return true
   }
 
   /**
@@ -186,6 +260,8 @@ export default class SettingsController {
       StorageController.changeIndexedDBSupport(optionItem.currentValue)
     } else if (optionNameParts[2] === 'tokenizer') {
       _instance.store.commit('incrementTokenizerUpdated')
+    } else if (optionNameParts[2] === 'enableAlpheiosReadingTools') {
+      this.submitEventUpdateAlpheiosReadingToolsToolbar()
     }
     _instance.store.commit('incrementOptionsUpdated')
   }
@@ -213,6 +289,7 @@ export default class SettingsController {
         clonedOpts[sourceType] = _instance.options.tokenize[this.tokenizerOptionValue][sourceType].clone(`${typeText}-${indexText}`, _instance.textPropsStorageAdapter)
       })
     }
+
     return clonedOpts
   }
 
@@ -259,10 +336,21 @@ export default class SettingsController {
 
   /**
    * Resets global options
+   * added a check and execute changeOption only in the case when value is changed to reduce updates
    */
   static async resetAllOptions () {
+    const prevValues = {}
+    Object.keys(_instance.options.app.items).forEach(optName => {
+      prevValues[optName] = _instance.options.app.items[optName].currentValue
+    })
+
     await _instance.options.app.reset()
-    Object.values(_instance.options.app.items).forEach(optionItem => this.changeOption(optionItem))
+    Object.keys(_instance.options.app.items).forEach(optName => {
+      const optionItem = _instance.options.app.items[optName]
+      if (prevValues[optName] !== optionItem.currentValue) {
+        this.changeOption(optionItem)
+      }
+    })
 
     await _instance.options.sourceText.reset()
     _instance.options.sourceText.checkAndUploadValuesFromArray(_instance.valuesClassesList)
@@ -270,11 +358,39 @@ export default class SettingsController {
 
     _instance.store.commit('incrementResetOptions')
   }
+
+  static downgradeToOffline () {
+    try {
+      if (SettingsController.tokenizerOptionValue !== 'simpleLocalTokenizer') {
+        SettingsController.allOptions.app.items.tokenizer.setValue('simpleLocalTokenizer')
+        this.changeOption(SettingsController.allOptions.app.items.tokenizer)
+        return true
+      }
+    } catch (error) {
+      console.error(error.message)
+    }
+    return false
+  }
+
+  static upgradeToRemote () {
+    try {
+      if (SettingsController.tokenizerOptionValue !== 'alpheiosRemoteTokenizer') {
+        SettingsController.allOptions.app.items.tokenizer.setValue('alpheiosRemoteTokenizer')
+        this.changeOption(SettingsController.allOptions.app.items.tokenizer)
+        return true
+      }
+    } catch (error) {
+      console.error(error.message)
+    }
+    return false
+  }
 }
 
 /**
  * This is a description of a SettingsController event interface.
  */
 SettingsController.evt = {
-  SETTINGS_CONTROLLER_THEME_UPDATED: new PsEvent('Theme Option is updated', SettingsController)
+  SETTINGS_CONTROLLER_THEME_UPDATED: new PsEvent('Theme Option is updated', SettingsController),
+
+  SETTINGS_CONTROLLER_READING_TOOLS_CLASS_UPDATED: new PsEvent('EnableAlpheiosReadingTools Option is updated', SettingsController)
 }

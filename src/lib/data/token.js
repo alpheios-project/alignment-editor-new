@@ -125,7 +125,7 @@ export default class Token {
    */
   static convertFromJSON (data) {
     return new Token({
-      textType: data.textType,
+      textType: data.textType || data.texttype,
       idWord: data.idWord,
       word: data.word,
       beforeWord: data.beforeWord,
@@ -134,6 +134,16 @@ export default class Token {
       sentenceIndex: data.sentenceIndex,
       tokenIndex: data.tokenIndex
     }, data.segmentIndex, data.docSourceId)
+  }
+
+  static convertFromDataFromXML (tokenData, tokenIndex) {
+    return new Token({
+      textType: tokenData.textType,
+      idWord: tokenData.idWord,
+      word: tokenData.word,
+      hasLineBreak: tokenData.hasLineBreak || false,
+      tokenIndex
+    }, parseInt(tokenData.segmentIndex), tokenData.docSourceId)
   }
 
   convertToHTML () {

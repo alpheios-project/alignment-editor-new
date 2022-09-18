@@ -1,5 +1,5 @@
 <template>
-    <modal :classes="classes" :name="mname"  :draggable="true" height="auto" :clickToClose="false">
+    <modal :classes="classes" :name="mname"  :draggable="true" height="auto" :clickToClose="!showWaiting">
       <div class="alpheios-modal-header" >
           <span class="alpheios-alignment-modal-close-icon" @click = "$emit('closeModal')">
               <x-close-icon />
@@ -53,7 +53,7 @@
 
       <div class="alpheios-modal-footer">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click = "getDocument" :disabled="uploadButtonDisabled">Upload</button>
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click="closeModal">Cancel</button>
+          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click="closeModal" :disabled="showWaiting">Cancel</button>
       </div>
     </modal>
 </template>

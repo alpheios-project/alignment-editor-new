@@ -84,5 +84,215 @@
       "message": "<p>There are two types of metadata - single valued and multivalued.</p><p><b>Single valued metadata</b> - simply type/edit/delete the value in the input field.</p><p><b>Multivalued metadata (Creator, Contributor)</b>:</p><ul><li>to add a new value - type value to the input field and press Enter; the value will be saved and visible under the input;</li><li>to delete a saved value - click the value and click trash icon;</li><li>to update a saved value - click the value, edit it in the input field and press Enter;</li></ul>",
       "description": "Metadata update instructions",
       "component": "MetadataBlock"
+    },
+    "METADATA_TERM_LABEL_TRANSLATOR": {
+      "message": "Translator",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_AUTHOR": {
+      "message": "Author",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_TRANSLATOR": {
+      "message": "A translator of the text.",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_AUTHOR": {
+      "message": "An author of the text.",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_FILTER_BUTTON": {
+      "message": "Short name",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_FILTER_BUTTON": {
+      "message": "Short name for the text, used in filter button title in HTML Output and for tooltips on Align Text Screen.",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_ALPH_AUTHOR": {
+      "message": "Author",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_ALPH_AUTHOR": {
+      "message": "e.g. Homer, Ford Maddox Ford",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_ALPH_YEAR_WRITTEN": {
+      "message": "Year written",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_ALPH_YEAR_WRITTEN": {
+      "message": "e.g. 1240, 1240-1245",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_ALPH_YEAR_FIRST_PUBLISHED": {
+      "message": "Year first published",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_ALPH_YEAR_FIRST_PUBLISHED": {
+      "message": "e.g. 1240, 1240-1245",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_ALPH_ORIGIN_LANGUAGE": {
+      "message": "original language",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_ALPH_TARGET_LANGUAGE": {
+      "message": "translation language",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_ALPH_EDITION_YEAR": {
+      "message": "edition year",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_ALPH_EDITION_YEAR": {
+      "message": "e.g. 1919",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_ALPH_EDITOR": {
+      "message": "editor",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_ALPH_EDITOR": {
+      "message": "e.g. Allen",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_ALPH_DESCRIPTION": {
+      "message": "description",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_ALPH_DESCRIPTION": {
+      "message": "P.R.N.",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_ALPH_GENRE": {
+      "message": "genre",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_ALPH_YEAR_TRANSLATED": {
+      "message": "Year translated",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_ALPH_YEAR_TRANSLATED": {
+      "message": "e.g. 1240, 1240-1245",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_ALPH_YEAR_PUBLISHED": {
+      "message": "Year published",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_ALPH_YEAR_PUBLISHED": {
+      "message": "e.g. 1240, 1240-1245",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_ALPH_EDITION_USED": {
+      "message": "Edition used",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_ALPH_EDITION_USED": {
+      "message": "e.g. Allen, 1919",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_ALPH_PUBLISHER": {
+      "message": "Publisher",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_DUBLIN_COVERAGE": {
+      "message": "Coverage",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_DUBLIN_COVERAGE": {
+      "message": "The spatial or temporal topic of the resource, spatial applicability of the resource, or jurisdiction under which the resource is relevant.",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_DUBLIN_FORMAT": {
+      "message": "Format",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_DUBLIN_FORMAT": {
+      "message": "The file format, physical medium, or dimensions of the resource.",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_DUBLIN_LANGUAGE": {
+      "message": "Language",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_DUBLIN_LANGUAGE": {
+      "message": "A language of the resource.",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_DUBLIN_RELATION": {
+      "message": "Relation",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_DUBLIN_RELATION": {
+      "message": "A related resource.",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_DUBLIN_RIGHTS": {
+      "message": "Rights",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_DUBLIN_RIGHTS": {
+      "message": "Information about rights held in and over the resource.",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_DUBLIN_SUBJECT": {
+      "message": "Subject",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_DUBLIN_SUBJECT": {
+      "message": "The topic of the resource.",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_DUBLIN_TYPE": {
+      "message": "Type",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_DUBLIN_TYPE": {
+      "message": "The nature or genre of the resource.",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
     }
 }

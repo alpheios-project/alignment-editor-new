@@ -17,11 +17,18 @@ export default class GroupUtility {
    *                {String} - langName - language name
    *                {Boolean} - hidden - visibility flag
    */
-  static allLanguagesTargets (fullData) {
-    return this.allTargetTextsIds(fullData).map(targetId => {
-      return {
-        targetId, lang: fullData.getLang('target', targetId), langName: fullData.getLangName('target', targetId), hidden: false
+  static allIdentificationTargets (fullData, viewType) {
+    return this.allTargetTextsIds(fullData).map((targetId, targetIndex) => {
+      const item = {
+        targetId, ident: fullData.getFilterButtonTitle('target', targetId), identName: fullData.getFilterButtonTitle('target', targetId), hidden: false
       }
+
+      if ((viewType === 'viewFull') || (viewType === 'viewInterlinearly')) {
+        item.hidden = targetIndex > 0
+      } else if (viewType === 'view3Columns') {
+        item.hidden = targetIndex > 1
+      }
+      return item
     })
   }
 
@@ -192,6 +199,7 @@ export default class GroupUtility {
     this.allTargetTextsIds(fullData).forEach(targetId => {
       const langName = fullData.targets[targetId].langName
       const metadata = fullData.targets[targetId].metadata
+      const metadataShort = fullData.targets[targetId].metadataShort
 
       const targetSegments = fullData.getSegments('target', targetId)
       if (targetSegments) {
@@ -200,6 +208,7 @@ export default class GroupUtility {
             if (token.grouped) {
               token.groupData.forEach(groupDataItem => {
                 if (!allG[groupDataItem.groupId].metadata) { allG[groupDataItem.groupId].metadata = metadata }
+                if (!allG[groupDataItem.groupId].metadataShort) { allG[groupDataItem.groupId].metadataShort = metadataShort }
                 if (!allG[groupDataItem.groupId].langName) { allG[groupDataItem.groupId].langName = langName }
 
                 const tokenData = (view === 'full') ? token.idWord : token
@@ -364,6 +373,7 @@ export default class GroupUtility {
                 tokensEq[token.word].targets[groupDataItem.targetId] = {
                   langName: allGroups[groupDataItem.groupId].langName,
                   metadata: allGroups[groupDataItem.groupId].metadata,
+                  metadataShort: allGroups[groupDataItem.groupId].metadataShort,
                   targets: []
                 }
               }

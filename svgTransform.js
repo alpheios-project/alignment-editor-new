@@ -8,6 +8,9 @@ module.exports = {
         functional: false
       }
     })
-    return `module.exports = { render: ${render} }`
+    // return `module.exports = { render: ${render} }`
+    return {
+      code: `module.exports = { render: ${render} };`,
+    };
   }
 }
