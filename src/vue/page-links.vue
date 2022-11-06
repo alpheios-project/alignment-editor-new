@@ -13,7 +13,7 @@
                 <div class="alpheios-alignment-editor-video-block">
                   <!--  <lazy-youtube src="https://youtu.be/uPuN2hWkZIQ" :showTitle="false" /> -->
                   <YouTube 
-                    src="https://youtu.be/uPuN2hWkZIQ" width="100%" height = "100%" 
+                    src="https://youtu.be/AJwd_JXLL5Q" width="100%" height = "100%" 
                     ref="youtube" />
                 </div>
                 <p class="alpheios-alignment-router-link-title">Overview</p>
