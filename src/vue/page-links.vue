@@ -11,7 +11,7 @@
             </div>
             <div class="alpheios-alignment-editor-link-block">
                 <div class="alpheios-alignment-editor-video-block">
-                    <lazy-youtube src="https://youtu.be/uPuN2hWkZIQ" :showTitle="false" />
+                    <lazy-youtube src="https://youtu.be/AJwd_JXLL5Q" :showTitle="false" />
                 </div>
                 <p class="alpheios-alignment-router-link-title">Overview</p>
             </div>
