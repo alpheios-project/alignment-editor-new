@@ -31,7 +31,7 @@
                            :key = "targetsRowIndex"
                       >
                         <template v-for = "(token, tokenIndex) in targetsRow.target" :key = "tokenIndex" >
-                            <token-block :token="token" />
+                            <token-block :token="token" :selected = "true"/>
                         </template>
                         <span class="alpheios-token" v-if="targetsRow.count > 1"> ({{ targetsRow.count }})</span>
                       </div>
