@@ -26,7 +26,7 @@
                       <span class="alpheios-al-editor-segment-block-text__langname">{{ targetLangName(hoveredGroupData) }}</span>
                       <div class="alpheios-al-editor-target-hovered-block_tokens">
                         <template v-for = "(token, tokenIndex) in hoveredGroupData.target">
-                            <token-block :key = "getIndex('target', tokenIndex, 'token')" :token="token" />
+                            <token-block :key = "getIndex('target', tokenIndex, 'token')" :token="token" :selected="true"/>
                             <br v-if="token.hasLineBreak" :key = "getIndex('target', tokenIndex, 'br')" />
                         </template>
                       </div>
