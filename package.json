@@ -5,7 +5,7 @@
   "description": "The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.",
   "main": "src/index.js",
   "scripts": {
-    "dev": "npx webpack serve --config build/core.config.js",
+    "dev": "npx webpack serve --config build/core/dev.config.js",
     "build": "npm run build-output && npm run build-core-prod && npm run build-pages",
     "build-dev": "npm run build-output && npm run build-core-dev && npm run build-pages",
     "build-core-prod": "npx webpack --config build/core/prod.config.js",
