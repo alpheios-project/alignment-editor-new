@@ -1428,7 +1428,6 @@ export default class Alignment {
       }
     }
 
-    console.log('alignment - ', alignment)
     return alignment
   }
 
