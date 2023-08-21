@@ -1308,6 +1308,7 @@ export default class Alignment {
   * Convert from Ugarit (Alpheios v1 format) to Alignment object
   */
   static convertFromXML (xmlDoc) {
+    console.log('xmlDoc - ', xmlDoc)
     const alignment = new Alignment()
     const docLangs = xmlDoc.getElementsByTagName('language')
 
@@ -1347,6 +1348,7 @@ export default class Alignment {
           const segmentItem = segmentsData[textType][curId]
 
           const words = docsSent[j].getElementsByTagName('w')
+          console.log('words - ', words)
           for (let k = 0; k < words.length; k++) {
             const idWord = words[k].getAttribute('n')
             let word = words[k].getElementsByTagName('text')[0].textContent
@@ -1361,11 +1363,11 @@ export default class Alignment {
 
             if (textType === 'origin') {
               texts.origin.push(word)
-
-              const refs = words[k].getElementsByTagName('refs')[0].getAttribute('nrefs').trim()
-
+              const refs = words[k].getElementsByTagName('refs')
+              
               if (refs.length > 0) {
-                const textsRefs = refs.split('|')
+                const nrefs = refs[0].getAttribute('nrefs').trim()
+                const textsRefs = nrefs.split('|')
                 const textsRefsItems = textsRefs.map(itemsString => itemsString.trim().split(' '))
 
                 textsRefs.forEach((refTextString, index) => {
@@ -1377,12 +1379,16 @@ export default class Alignment {
                           origin: [],
                           target: textsRefsItems[index],
                           targetId: ids.targets[index],
-                          segmentIndex: numSent
+                          segmentIndex: numSent,
+                          words: { [idWord]: word }
+                          //this.words[token.idWord] = token.word
                         }
                       }
                     }
                     groups[title].actions.origin.push(idWord)
                   }
+
+                  console.log('actionGroup - ', textsRefsItems[index], ids.targets[index], idWord, word)
                 })
               }
             } else {
@@ -1512,6 +1518,7 @@ export default class Alignment {
   }
 
   convertToHTML () {
+    console.log('convertToHTML - ', this)
     let targets = {} // eslint-disable-line prefer-const
     this.allTargetTextsIds.forEach(targetId => {
       targets[targetId] = this.targets[targetId].alignedText.convertToHTML()

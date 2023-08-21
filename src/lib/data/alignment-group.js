@@ -68,9 +68,12 @@ export default class AlignmentGroup {
   }
 
   translationWordForToken (originTokenIdWord) {
+    console.log('translationWordForToken - ', originTokenIdWord, this)
     const translationWordsCnt = this.target.length
 
+    console.log('translationWordForToken - translationWordsCnt', this.target)
     if (translationWordsCnt === 1) {
+      console.log('translationWordForToken - this.words', this.words)
       return this.words[this.target[0]]
     }
 
