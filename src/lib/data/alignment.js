@@ -1335,11 +1335,18 @@ export default class Alignment {
         const docsSent = curSentence.getElementsByTagName('wds')
         const numSent = parseInt(curSentence.getAttribute('n'))
 
+        const targetDict = {}
+
         for (let j = 0; j < docsSent.length; j++) {
           const curId = docsSent[j].getAttribute('lnum')
+
           const textType = (curId === ids.origin) ? 'origin' : 'target'
+          if (textType === 'target') {
+            targetDict[curId] = {}
+          }
           const lang = (textType === 'origin') ? alignment.origin.docSource.lang : alignment.targets[curId].docSource.lang
 
+          const prefix = (textType === 'target') ? 't' : 'o'
           if (!segmentsData[textType][curId]) {
             segmentsData[textType][curId] = { index: numSent, textType, lang, docSourceId: curId, tokens: [] }
           }
@@ -1347,8 +1354,9 @@ export default class Alignment {
           const segmentItem = segmentsData[textType][curId]
 
           const words = docsSent[j].getElementsByTagName('w')
+
           for (let k = 0; k < words.length; k++) {
-            const idWord = words[k].getAttribute('n')
+            const idWord = `${prefix}-${words[k].getAttribute('n')}`
             let word = words[k].getElementsByTagName('text')[0].textContent
             if (word === '###') {
               word = '\n'
@@ -1361,11 +1369,11 @@ export default class Alignment {
 
             if (textType === 'origin') {
               texts.origin.push(word)
-
-              const refs = words[k].getElementsByTagName('refs')[0].getAttribute('nrefs').trim()
+              const refs = words[k].getElementsByTagName('refs')
 
               if (refs.length > 0) {
-                const textsRefs = refs.split('|')
+                const nrefs = refs[0].getAttribute('nrefs').trim()
+                const textsRefs = nrefs.split('|').map(item => `t-${item}`)
                 const textsRefsItems = textsRefs.map(itemsString => itemsString.trim().split(' '))
 
                 textsRefs.forEach((refTextString, index) => {
@@ -1377,20 +1385,32 @@ export default class Alignment {
                           origin: [],
                           target: textsRefsItems[index],
                           targetId: ids.targets[index],
-                          segmentIndex: numSent
+                          segmentIndex: numSent,
+                          words: { }
                         }
                       }
                     }
                     groups[title].actions.origin.push(idWord)
+                    groups[title].actions.words[idWord] = word
                   }
                 })
               }
             } else {
               if (!texts.targets[curId]) { texts.targets[curId] = [] }
               texts.targets[curId].push(word)
+              targetDict[curId][idWord] = word
             }
           }
         }
+
+        Object.values(groups).forEach(group => {
+          const targetId = group.actions.targetId
+          const targets = group.actions.target
+
+          targets.forEach(targetWordId => {
+            group.actions.words[targetWordId] = targetDict[targetId][targetWordId]
+          })
+        })
       }
 
       alignment.origin.docSource.update({ text: texts.origin.join(' ') })
