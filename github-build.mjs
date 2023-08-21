@@ -28,7 +28,6 @@ import * as core from '@actions/core'
   }
 
   try {
-    console.info(core)
     core.default.setOutput('buildName',buildInfo.name)
     core.default.setOutput('npmTag',npmTag)
   } catch (error) {
