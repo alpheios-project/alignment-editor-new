@@ -571,7 +571,10 @@ export default class TextsController {
   }
 
   getSegment (textType, textId, segmentIndex) {
-    return this.alignment.getSegment(textType, textId, segmentIndex)
+    console.log('getSegment - ', textType, textId, segmentIndex)
+    const result = this.alignment.getSegment(textType, textId, segmentIndex)
+    console.log('this.getSegment - ', result)
+    return result
   }
 
   // IndexedDB
