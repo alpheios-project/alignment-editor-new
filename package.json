@@ -1,6 +1,6 @@
 {
   "name": "alpheios-alignment-editor",
-  "version": "2.0.0",
+  "version": "2.0.0-alpheios-xml-upload.20230821375",
   "libName": "Alpheios Translation Alignment editor - Vue3",
   "description": "The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.",
   "main": "src/index.js",
