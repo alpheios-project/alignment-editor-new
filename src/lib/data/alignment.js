@@ -1333,7 +1333,7 @@ export default class Alignment {
         const curSentence = sentences[i]
 
         const docsSent = curSentence.getElementsByTagName('wds')
-        const numSent = parseInt(curSentence.getAttribute('n'))
+        const numSent = 1 // parseInt(curSentence.getAttribute('n'))
 
         const targetDict = {}
 
