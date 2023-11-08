@@ -15,6 +15,7 @@
                 class="alpheios-alignment-select alpheios-alignment-select__sentence-count"
                 v-model="state.sentenceCount" id="alpheios-alignment-select__sentence-count"
                 @change="changeViewType"
+                v-show="showSentenceChoice"
                 >
               <option v-for="item in state.sentenceChoice" :key="item.value" :value = "item.value">{{ item.label }}</option>
             </select>
@@ -61,6 +62,10 @@ onMounted(async () => {
 
   await nextTick()
   itemRefs[0].click()
+})
+
+const showSentenceChoice = computed(() =>  {
+  return state.viewType === 'viewSentence'
 })
 
 const itemIdWithValue = (value) => {
