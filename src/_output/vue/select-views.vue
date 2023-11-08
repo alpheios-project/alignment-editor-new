@@ -58,7 +58,7 @@ export default {
   },
   computed: {
     showSentenceChoice () {
-      return state.viewType === 'viewSentence'
+      return this.viewType === 'viewSentence'
     }
   },
   methods: {
